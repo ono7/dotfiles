@@ -152,18 +152,18 @@ alias gs='git status'
 alias cdr='cd "$(git rev-parse --show-toplevel)"  &>/dev/null'
 alias c='clear'
 
-function vs () {
+vs () {
   vim $(fzf || '' 2>/dev/null)
 }
 
-function ginit () {
+ginit () {
   git init
   cp ~/.dotfiles/gitignore .gitignore
   git add .
   git commit -am 'initial commit'
 }
 
-function gitl () {
+gitl () {
     my_dir=$PWD
     cdr
     git add .
@@ -176,14 +176,14 @@ function gitl () {
     cd $my_dir
 }
 
-function dotp () {
+dotp () {
     my_dir=$PWD
     cd ~/.dotfiles
     git pull
     cd $my_dir
 }
 
-function dotc () {
+dotc () {
     my_dir=$PWD
     cd ~/.dotfiles
     git pull
@@ -198,16 +198,28 @@ function dotc () {
     cd $my_dir
 }
 
-function ta () {
-  if [ ! -z "$1" ]; then
-    tmux new-session -s "$1" || tmux attach -t "$1"
-  else
-    tmux attach -t main || tmux new-session -s main
-  fi
+ta () {
+        if ! command -v tmux &> /dev/null
+        then
+                echo "Error: tmux is not installed."
+                return 1
+        fi
+        local SESSION_NAME="${1:-main}"
+        if [ -n "$TMUX" ]
+        then
+                if [ -n "$1" ]
+                then
+                        tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
+                else
+                        return 0
+                fi
+        else
+                tmux new-session -A -s "$SESSION_NAME"
+        fi
 }
 
 # activate virtual environment if there is one in this repo
-function va () {
+va () {
   if [[ -d $(git rev-parse --show-toplevel)/venv ]]; then
     source $(git rev-parse --show-toplevel)/venv/bin/activate
   fi
@@ -215,7 +227,7 @@ function va () {
 
 
 # deactivate virtual environment if there is one in this repo
-function vd () {
+vd () {
   deactivate 2> /dev/null
   source $HOME/.virtualenvs/prod3/bin/activate
 }
