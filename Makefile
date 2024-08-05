@@ -19,12 +19,12 @@ clean:
 	rm -f ~/.gitignore
 	rm -f ~/.inputrc
 	rm -f ~/.tmux.conf
-	./script/stow.sh
+	./_scripts/stow.sh
 
 .PHONY: linux-script
 linux-script:
-	./scripts/setup_linux_deps.sh
+	./_scripts/setup_linux_deps.sh
 
 .PHONY: mac-script
 mac-script:
-	./scripts/setup_macos_deps.sh
+	./_scripts/setup_macos_deps.sh

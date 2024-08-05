@@ -1,20 +1,55 @@
-import = [
-	# "/Users/jlima/.dotfiles/schemes/alacritty/tokyonight_moon.toml"
-	"~/.dotfiles/_alacritty-theme/themes/nightfly.toml"
-]
-
 live_config_reload = true
 working_directory = "None"
-
-[terminal]
-# osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
-osc52 = "OnlyCopy"
 
 [colors]
 draw_bold_text_with_bright_colors = false
 
+[[colors.indexed_colors]]
+color = "0xff966c"
+index = 16
+
+[[colors.indexed_colors]]
+color = "0xc53b53"
+index = 17
+
+[colors.bright]
+black = "0x444a73"
+blue = "0x82aaff"
+cyan = "0x86e1fc"
+green = "0xc3e88d"
+magenta = "0xc099ff"
+red = "0xff757f"
+white = "#C9C8BF"
+yellow = "0xffc777"
+
+[colors.cursor]
+# cursor = "#4fc2e8"
+cursor = "#C9C8BF"
+text = "#000000"
+
+[colors.normal]
+black = "0x1b1d2b"
+blue = "0x82aaff"
+cyan = "0x86e1fc"
+green = "0xc3e88d"
+magenta = "0xc099ff"
+red = "0xff757f"
+white = "#C9C8BF"
+yellow = "0xffc777"
+
+[colors.primary]
+# background = "0x1e293b"
+# background = "#181d28"
+# background = "#152f4b"
+# background = "0x1d2436"
+
+# background = "0x111721"
+foreground = "#C9C8BF"
+background = "#152231"
+
 [cursor]
 blink_interval = 200
+blink_timeout = 0
 unfocused_hollow = true
 
 [cursor.style]
@@ -29,42 +64,31 @@ render_timer = false
 
 [env]
 TERM = "xterm-256color"
+LC_CTYPE = "en_US.UTF-8"
 
 [font]
-size = 18.0
-
-[font.glyph_offset]
-x = 0
-y = 0
+size = 13.0
 
 [font.normal]
-family = "MonolisaLiga Nerd Font"
+family = "MonoLisaLiga Nerd Font"
 style = "Regular"
 
 [font.italic]
-family = "MonolisaLiga Nerd Font"
+family = "MonoLisaLiga Nerd Font"
 style = "Italic"
 
 [font.bold]
-family = "MonolisaLiga Nerd Font"
+family = "MonoLisaLiga Nerd Font"
+style = "Bold"
 
 [font.offset]
 x = 0
-y = 9
-
-# https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
+y = 8
 
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
 mods = "Command"
-
-
-# this is c-v in vim
-[[keyboard.bindings]]
-chars = "\u0016"
-key = "V"
-mods = "Alt"
 
 [[keyboard.bindings]]
 action = "Copy"
@@ -79,157 +103,120 @@ key = "Paste"
 action = "Copy"
 key = "Copy"
 
-# [[keyboard.bindings]] not needed on macos
-# chars = "\u0017"
-# key = "Back"
-# mods = "Command"
-
-[[keyboard.bindings]]
-action = "none"
-key = "H"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0011"
-key = "Q"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0001"
-key = "A"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0012"
-key = "R"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0005"
-key = "E"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0010"
-key = "P"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u000E"
-key = "N"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0003"
-key = "C"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0014"
-key = "T"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001A"
-key = "Z"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\t"
-key = "I"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u000F"
-key = "O"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0015"
-key = "U"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001D"
-key = "RBracket"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B"
-key = "LBracket"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0002"
-key = "B"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0004"
-key = "D"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0017"
-key = "W"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0002z"
-key = "M"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B/"
-key = "Slash"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0007"
-key = "G"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0006"
-key = "f"
-mods = "Command"
-
-# HKJL movement keys for tmux pane navigation
-[[keyboard.bindings]]
-chars = "\u000c"
-key = "L"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u0008"
-key = "H"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u000a"
-key = "J"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u000b"
-key = "K"
-mods = "Command"
-
 [[keyboard.bindings]]
 chars = "\u0017"
 key = "Back"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0017"
 key = "Back"
 mods = "Alt"
 
-# for harpoon
-# [[keyboard.bindings]]
-# chars = "\u001bh"  # Escape character (\u001b) followed by 'h'
-# key = "H"
-# mods = "Command"
+[[keyboard.bindings]]
+chars = "\u0011"
+key = "Q"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0001"
+key = "A"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0012"
+key = "R"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0005"
+key = "E"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0010"
+key = "P"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u000E"
+key = "N"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0003"
+key = "C"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0014"
+key = "T"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001A"
+key = "Z"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\t"
+key = "I"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u000F"
+key = "O"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0015"
+key = "U"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001D"
+key = "RBracket"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B"
+key = "LBracket"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002"
+key = "B"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0004"
+key = "D"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0017"
+key = "W"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002z"
+key = "M"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+chars = "\u001B/"
+key = "Slash"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0007"
+key = "G"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0006"
+key = "F"
+mods = "Control"
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
@@ -240,33 +227,30 @@ hide_when_typing = true
 
 [[mouse.bindings]]
 action = "PasteSelection"
-mouse = "Middle"
+mouse = "Right"
 
 [scrolling]
-history = 3000
+history = 10000
 multiplier = 3
 
 [selection]
 save_to_clipboard = true
-# semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
-args = ["--login"]
-program = "/bin/zsh"
+program = "ubuntu"
 
 [window]
-decorations = "buttonless"
-dynamic_padding = true
-dynamic_title = false
-opacity = 0.90
-blur = true
+decorations = "full"
+dynamic_padding = false
+dynamic_title = true
+opacity = 1
+blur = true # does not work in windows?
+startup_mode = "Maximized"
 
-startup_mode = "Windowed"
-option_as_alt = "both"
-
-[window.dimensions]
-columns = 82
-lines = 28
+# [window.dimensions]
+# columns = 82
+# lines = 28
 
 [window.padding]
 x = 5
