@@ -40,7 +40,6 @@ clean:
 	rm -f ~/.gitignore
 	rm -f ~/.inputrc
 	rm -f ~/.tmux.conf
-	@bash ./_scripts/stow.sh
 
 stow:
 	@echo "--------------------- Running target: $@ ------------------------"
