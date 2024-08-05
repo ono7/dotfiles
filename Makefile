@@ -31,10 +31,10 @@ mac: mac-deps clean stow
 
 clean:
 	@echo $(BANNER)
-	rm -rf ~/.local/share/nvim
-	rm -rf ~/.gitconfig-personal
 	rm -rf ~/.vim
 	rm -rf ~/.config
+	rm -rf ~/.local/share/nvim
+	rm -f ~/.alacritty-windows.toml
 	rm -f ~/.bashrc
 	rm -f ~/.sqliterc
 	rm -f ~/.zshrc
@@ -43,12 +43,17 @@ clean:
 	rm -f ~/.ctagsrc
 	rm -rf ~/.ctags.d
 	rm -f ~/.gdbinit
-	rm -f ~/.gitignore
 	rm -f ~/.inputrc
 	rm -f ~/local/bin/shortpath
 	rm -f ~/.tmux.conf
+	rm -f ~/.gitignore
+	rm -f ~/.gitconfig-personal
 	rm -rf ~/.git_templates
-	rm -rf ~/.gitconfig
+	rm -f ~/.gitconfig
+	rm -f ~/.pdbrc
+	rm -f ~/.cn.cnf
+	rm -f ~/.pylintrc
+	rm -f ~/.dircolors
 
 stow:
 	@echo $(BANNER)
