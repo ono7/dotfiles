@@ -1,0 +1,53 @@
+extends html
+
+snippet jh "header" w
+  #jinja2: lstrip_blocks: True
+  {#
+
+      Author: Jose Lima (`getenv('USER')`)
+      Date:   `strftime("%Y-%m-%d %H:%M")`
+
+  #}
+  ${0}
+
+snippet b "block" w
+  {% ${0} %}
+
+snippet set "set" w
+  {% set ${0} %}
+
+snippet bc "block comment" w
+  {#
+
+    ${0:${VISUAL}}
+
+  #}
+
+# snippet jc "block comment" w
+#   {# ${0:${VISUAL}} #}
+
+snippet jr "Raw block" w
+  {% raw %} ${0:${VISUAL}} {% endraw %}
+
+snippet jb "block" w
+  {% ${0} %}
+    ${VISUAL}
+  {% end${0/\v(\w+).*/\1/g} %}
+
+snippet jv "variable inside curly" w
+   {{ ${0:${VISUAL}} }}
+
+snippet jelif "if statement" w
+  {% if ${0} %}
+    ${VISUAL}
+  {% else %}
+  {% endif %}
+
+snippet if "if statement" w
+  {% if ${0} %}
+    ${VISUAL}
+  {% endif %}
+snippet for "if statement" w
+  {% for ${0} %}
+    ${VISUAL}
+  {% endfor %}

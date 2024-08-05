@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: repeat(5, 100px); */
+  border: 3px solid lightblue;
+  background: black;
+  align-items: center;
+  color: black;
+}
+
+.box {
+  /* align-content: center; */
+  align-items: center;
+  background: black;
+  padding: 1rem;
+  color: white;
+  flex: 1;
+}
+
+.image-container {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+}
+
+@media screen and (min-width: 400px) {
+  /* this should be the corret type, forgetting to add px to 400 will make this query not work */
+  .container {
+    /* display: flex; */
+    flex-direction: row;
+    align-items: center;
+  }
+  .box {
+    white-space: normal;
+  }
+}

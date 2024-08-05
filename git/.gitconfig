@@ -1,0 +1,66 @@
+[includeIf "gitdir:~/github.com/"]
+    path = .gitconfig-personal
+
+[includeIf "gitdir:~/.dotfiles/"]
+    path = .gitconfig-personal
+
+[includeIf "gitdir:~/work/"]
+    path = .gitconfig-work
+
+[core]
+editor = nvim
+mergeoptions = --no-edit
+
+[http]
+sslVerify = false
+
+[url "https://github.com/"]
+insteadOf = git://github.com/
+
+[credential]
+helper = store
+
+[init]
+defaultBranch = main
+templatedir = ~/.git_templates
+
+[pull]
+# requires git > 2.6
+# `git rebase –abort` when we need to reset the changes
+rebase = true
+
+[merge]
+tool = nvimdiff4
+prompt = false
+
+[mergetool "nvimdiff4"]
+cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[mergetool]
+keepBackup = false
+prompt = false
+
+[push]
+autoSetupRemote = true
+
+# push only the default branch
+default = simple
+
+[diff]
+colorMoved = zebra
+
+[alias]
+co = checkout
+br = branch
+ci = commit
+st = status
+wt = worktree
+# git unstage fileA
+unstage = reset HEAD --
+last = log -1 HEAD
+
+# [remote "origin"]
+# fetch = +refs/heads/*:refs/remotes/origin/*
+[user]
+	name = jlima
+	email = jlima@mbp

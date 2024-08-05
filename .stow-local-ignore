@@ -1,0 +1,9 @@
+Makefile
+alacritty-theme/
+backups.md
+README.md
+setup.sh
+.gitignore
+.git
+scripts
+code/

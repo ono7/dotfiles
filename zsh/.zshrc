@@ -1,0 +1,865 @@
+# uncomment next line to start profiling
+# zmodload zsh/zprof
+# uset ttyctl -f to freeze terminal preventing any new changes to the tty
+# ttyctl -u unfreezes the terminal
+
+# WSL keyrate settings
+# [HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response]
+# "AutoRepeatDelay"="200"
+# "AutoRepeatRate"="6"
+# "DelayBeforeAcceptance"="0"
+# "Flags"="59"
+# "BounceTime"="0"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+echo_red() {
+    echo -e "${RED}$@${RESET}"
+}
+
+echo_green() {
+    echo -e "${GREEN}$@${RESET}"
+}
+
+toggle() {
+  fg
+}
+zle -N toggle
+bindkey '^Z' toggle
+
+export NVM_LAZY=1
+export GOPATH=$HOME/go
+export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
+
+# go build with no compiled optimizations for debugging
+alias god='go build -gcflags="all=-N -l"'
+alias t='tail -F '
+
+
+export PATH="/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:$HOME/.cargo/bin:$PATH:$HOME/nvim-macos/bin:$HOME/.fzf/bin"
+
+typeset -U path
+typeset -U PATH
+# 10ms for key sequences
+export KEYTIMEOUT=2
+
+export PASSWORD_STORE_CHARACTER_SET='[:alnum:]!&%^@{}[]()'
+
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export CGO_ENABLED=0
+
+# unset LSCOLOR
+
+setopt MENU_COMPLETE
+unsetopt LIST_AMBIGUOUS
+setopt COMPLETE_IN_WORD
+setopt AUTO_LIST
+
+# autoload -Uz compinstall && compinstall
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+if [[ -f ~/local/bin/tmux ]]; then
+  alias tmux='~/local/bin/tmux'
+elif command -v tmux &>/dev/null; then
+  alias tmux=tmux
+else
+  echo 'need tmux in ~/loca/bin/tmux'
+fi
+
+# bring back vim after c-z
+#  fancy-ctrl-z () {
+#    if [[ $#BUFFER -eq 0 ]]; then
+#      BUFFER=fg
+#      zle accept-line
+#    else
+#      zle push-input
+#      zle clear-screen
+#    fi
+#  }
+
+# zle -n fancy-ctrl-z
+# bindkey ^z fancy-ctrl-z
+
+runner () {
+  if ! command -v nodemon &>/dev/null; then
+    npm install -g nodemon
+  fi
+  if [ $# -lt 2 ]; then
+    echo_green Examples
+    echo_green runner go run main.go
+    echo_green runner python -m flask.run
+    return
+  fi
+  nodemon --exec $@ --signal SIGTERM
+}
+
+fixgit () {
+  # github repos sometimes dont have remote setup correctly when cloned
+  git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+}
+
+ta() {
+    if ! command -v tmux &> /dev/null; then
+        echo "Error: tmux is not installed."
+        return 1
+    fi
+
+    local SESSION_NAME="${1:-main}" # Default to "main" if no argument
+
+    if [ -n "$TMUX" ]; then
+        if [ -n "$1" ]; then
+            tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
+        else
+            return 0
+        fi
+    else
+        tmux new-session -A -s "$SESSION_NAME"
+    fi
+}
+
+# lets go right to businees
+if [ -n $SSH_TTY ]; then
+  command -v tmux &> /dev/null && ta || echo "tmux not found..."
+fi
+
+typeset -U path
+
+
+# zsh completion
+[ ! -d ~/.zsh/zsh-autosuggestions ] && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+
+if [ -d ~/.zsh/zsh-autosuggestions ]; then
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# autoload -Uz compinit && compinit -C
+autoload -Uz compinit && compinit
+
+zstyle ':completion:*:default' list-colors ""
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion::complete:*' gain-privileges 1
+
+# % cd /u/lo/b⇥ 
+# % cd /usr/local/bin 
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+zstyle ':completion:*' list-suffixes
+zstyle ':completion:*' expand prefix suffix
+
+# partial completion suggestions
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+
+# fix certain weird characters
+setopt COMBINING_CHARS
+
+# no beep, ever
+setopt NO_BEEP
+
+[[ -d ~/.tmp ]] || mkdir -p ~/.tmp
+
+# create ram drive
+# [[ -d /Volumes/ohmy ]] || diskutil erasevolume HFS+ "ohmy" `hdiutil attach -nomount ram://20480`
+
+ZSH_DISABLE_COMPFIX="true"
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# If you come from bash you might have to change your $PATH.
+
+# Uncomment the following line to disable auto-setting terminal title.
+DISABLE_AUTO_TITLE="true"
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+if [[ $OSTYPE == "linux-gnu"* ]]; then
+  export DISPLAY=:0.0
+fi
+
+if [[ -f ~/nvim/bin/nvim ]]; then
+  alias vim='~/nvim/bin/nvim'
+  alias nvim='~/nvim/bin/nvim'
+  # legacy vim
+  alias vi=vim
+  alias vimdiff='~/nvim/bin/nvim -d'
+elif command -v nvim &>/dev/null; then
+  alias vim="$(whence nvim)"
+  alias nvim=vim
+  alias vi=vim
+  alias vil=vim
+  alias vimdiff='nvim -d'
+  alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
+fi
+
+alias vil='vim -u ~/.vimrc_min'
+alias v=vim
+
+export EDITOR=vim
+
+# do not attempt to clear the terminal's scrollback buffer with E3 see: man clear
+alias clear='clear -x '
+
+alias k='kubectl '
+# source <(kubectl completion zsh)
+
+alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
+
+# debug in headless mode, allows debugging session to start paused
+alias dlvh="dlv debug --headless --api-version=2 --listen=127.0.0.1:2345"
+
+# set nvim as man pager
+if [[ "$(command -v nvim)" ]]; then
+    export EDITOR=vim
+    export MANPAGER='nvim +Man!'
+    export MANWIDTH=999
+fi
+
+if [[ ! "$(command -v rg)" ]]; then
+  echo_red rg not installed...
+fi
+
+# functions
+
+mkrole () {
+  local dir1="$@"
+  mydir="roles/${dir1// /_}"
+  if [ -d $mydir ]; then
+    echo "role $mydir already exists :("
+    return 1
+  fi
+  echo "creating ansible role -> $mydir"
+  for d in defaults files handlers meta tasks templates tests vars
+  do
+    mkdir -p $mydir/$d
+    echo "created $mydir/$d (dir)"
+  done
+  for f in defaults handlers tasks meta vars
+  do
+    if [ ! -f "$mydir/$f/main.yml" ]; then
+      echo '---' >> $mydir/$f/main.yml
+      echo "created $mydir/$f/main.yml (file)"
+    fi
+  done
+  echo "done!"
+}
+
+mkansible () {
+  mydir="$@"
+  target=${mydir// /_}
+  if [ -d $target ]; then
+    echo "directory $target, already exists :("
+    return 1
+  fi
+  echo "creating ansible shell project $target"
+  cp -r ~/.dotfiles/ansible/shell $target
+  echo "done!"
+}
+
+take () {
+  [ -z $1 ] && return
+  local dir="$@"
+  mkdir -p "${dir// /-}"; cd "${dir// /-}"
+}
+
+mktag () {
+  git tag -a $1 -m "added tag $1"; git push origin $1
+}
+
+rmtag () {
+  git tag -d $1;git push --delete origin $1
+}
+
+# lf file manager, drops you back off where you are when you exit lf
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+
+# copies data to tmux clipboard, echo 'test' | copy
+# c () {
+#   tmux loadb -
+# }
+
+# p () {
+#   tmux saveb -
+# }
+
+vq () {
+  # pass all args to rg via $@ .. allows to append rg flags, muhahah
+  vim -q <(rg --vimgrep --pcre2 -i -S $@) +"copen 6"
+}
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+alias gd='git diff'
+alias gs='git status --untracked-files=all'
+alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
+
+if [[ -f '/opt/homebrew/opt/fzf/bin/fzf' ]]; then
+ alias fzf='/opt/homebrew/opt/fzf/bin/fzf'
+elif [ -f '~/.fzf/bin/fzf' ]; then
+  alias fzf='~/.fzf/bin/fzf'
+fi
+
+alias tf='terraform'
+alias rdp='xfreerdp +clipboard'
+alias ssh='TERM=xterm-256color ssh '
+alias h=hx
+
+# GpG
+# alias gpg-agent='gpg-agent --keep-display'
+# export GPG_TTY="$(tty)"
+
+# init new repo
+ginit () {
+  # we are in a bare repo
+  [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
+  # other wise lets do other things
+  git init "$@"
+  [ ! -f .gitignore ] && cp ~/.dotfiles/gitignore .gitignore || echo_green 'skipping .gitignore'
+}
+
+alias gw='git worktree '
+
+alias tree="tree -a -I '.git' -I '__pycache__' -I 'venv'"
+
+
+gitlog () {
+  # graphical view of the commit logs, should be able to see
+  # where a branch was cloned from
+  git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
+}
+gitl () { echo "use vim..." }
+
+gitln () {
+    my_dir=$PWD
+    cdr
+    git add .
+    jira=$(git branch --show-current | grep -Eio "ntwk\-\d{1,20}")
+    f=$(git status --porcelain | cut -c4- | head -n 4)
+    more_changes=$(git status --porcelain | sed -n 5p)
+    [ -n "$more_changes" ] && f="$f ..."
+    if test -z "$1"; then
+      # replace new line, using longest match //
+      # $'\n' represents a newline character in bash. The $ sign here is telling the
+      # shell to interpret the following characters ('\n') as a special escape
+      # sequence, translating it into an actual newline character.
+      #
+      # So, in the expression ${f//$'\n'/ }, the first $ is used to get the value of
+      # the f variable, and the second $ is used to specify a newline character that
+      # you want to replace with a space within the value of f.
+      git commit "-m $jira updates to -> ${f//$'\n'/ }"
+    else
+      comment="$@"
+      git commit '-m' "$jira $comment -> ${f//$'\n'/ }"
+    fi
+    # commenting this out, start using squash or rebase in my workflow
+    # if [ ! -z "$(git remote -v)" ]; then
+    #   git push
+    # fi
+    cd $my_dir
+}
+
+alias glog=gitlog
+
+dotp () {
+    my_dir=$PWD
+    cd ~/.dotfiles
+    git pull
+    cd $my_dir
+}
+
+dotc () {
+    my_dir=$PWD
+    cd ~/.dotfiles
+    git pull
+    git add .
+    # f=$(git status --porcelain | cut -c4- | head -n 4)
+    # more_changes=$(git status --porcelain | sed -n 5p)
+    # [ -n "$more_changes" ] && f="$f ..."
+    # git commit "-m updates -> ${f//$'\n'/ }"
+    git commit
+    git push
+    cd $my_dir
+}
+
+# function ta() { tmux detach -E "tmux new -A -s '$1'"; }
+
+# activate virtual environment if there is one in this repo
+va () {
+  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/venv ]]; then
+    source $(git rev-parse --show-toplevel)/venv/bin/activate
+  else
+    source $HOME/.virtualenvs/prod3/bin/activate
+  fi
+  echo $(which python3)
+}
+
+# deactivate virtual environment if there is one in this repo
+vd () {
+  deactivate 2>/dev/null
+  source $HOME/.virtualenvs/prod3/bin/activate
+}
+
+dev_env () {
+  python3 -m venv ~/.virtualenvs/prod3
+  source ~/.virtualenvs/bin/active
+  pip install -U pip wheel
+  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
+  pip install jq yp
+}
+
+vc () {
+  deactivate 2>/dev/null
+  my_dir=$PWD
+  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
+    cd $(git rev-parse --show-toplevel)
+  fi
+  venv_dir="${1:-venv}"
+  python_version="${2:-python3}"
+  $python_version --version
+  $python_version -m venv $venv_dir
+  source $venv_dir/bin/activate
+  pip install pip wheel -U
+  pip install jq yq pyright black pipdeptree debugpy pytest yamllint pynvim rpdb pdbpp ruff python-dotenv ansible ansible-lint -U
+  echo ""
+  echo ""
+  echo ""
+  echo "*************** :) *******************"
+  which python
+  cd $my_dir
+}
+
+# dp() {
+#   unset http_proxy
+#   unset https_proxy
+#   unset all_proxy
+#   unset no_proxy
+#   echo "cli proxy destroy done..."
+# }
+
+make()
+{
+  pathpat="(/[^/]*)+:[0-9]+"
+  ccred=$(echo -e "\033[0;31m")
+  ccyellow=$(echo -e "\033[0;33m")
+  ccend=$(echo -e "\033[0m")
+  /usr/bin/make "$@" 2>&1 | sed -E -e "/[Ee]rror[: ]/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyellow&$ccend%g"
+  return ${PIPESTATUS[0]}
+}
+
+# default virtual env if exists
+# if [[ -f ~/.virtualenvs/prod3/bin/activate ]]; then
+#   source ~/.virtualenvs/prod3/bin/activate
+# fi
+
+# disable virtualenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export XCURSOR_SIZE=60
+
+export FZF_DEFAULT_OPTS='
+--height 40% --no-preview
+--color=bg+:#0a1623,bg:#0a1623,spinner:#f5e0dc,hl:#f38ba8
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
+
+
+FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --follow --hidden'
+if command -v fd &>/dev/null; then
+  _fzf_compgen_path() {
+    fd -I --hidden --follow --exclude ".git" . "$1"
+  }
+
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd -I --type d --hidden --follow --exclude ".git" . "$1"
+  }
+  export FZF_ALT_C_COMMAND=$FD_CMD
+  export FZF_DEFAULT_COMMAND=$FD_CMD
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_COMPLETION_TRIGGER="~~"
+else
+  echo 'download fd from: https://github.com/sharkdp/fd/releases'
+  if [[ $OSTYPE == "darwin"* ]]; then
+    brew install fd jq neovim alaccrity wezterm llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
+  fi
+fi
+
+if [[ $OSTYPE == "darwin"* ]]; then
+  [ ! -d /opt/homebrew/opt/gnu-sed/libexec/gnubin &>/dev/null ] && brew install gnu-sed
+fi
+
+
+if command -v netcat &>/dev/null; then
+  alias nc=netcat
+fi
+
+# pretty colors
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# defaults write com.googlecode.iterm2 AppleFontSmoothing -integer 1
+
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
+
+eval "$(starship init zsh)"
+
+# defaults to vi-mode, and let us toggle back and forth
+
+bindkey -v
+# v () {
+#   bindkey -v; clear
+# }
+
+# e () {
+#   bindkey -e; clear
+# }
+
+# alias v='bindkey -v'
+# alias e='bindkey -e'
+
+source <(fzf --zsh)
+
+bindkey "^E" end-of-line
+bindkey "^A" beginning-of-line
+bindkey "^N" down-line-or-history
+bindkey "^O" accept-line-and-down-history
+bindkey "^P" up-line-or-history
+bindkey "^R" fzf-history-widget
+bindkey "^T" fzf-file-widget
+
+# Adding a trailing space to the command being aliased causes other aliased commands to expand:
+alias xargs='xargs '
+
+get_root_dir(){
+  echo `git rev-parse --show-toplevel 2>/dev/null` || echo '.'
+}
+
+stopssh () {
+  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+  if [ ! -n $(lsof -t -iTCP:22) ]; then
+    return
+  fi
+  echo "killing ssh sessions"
+  for i in $(lsof -t -iTCP:22); do
+    echo $i
+    sudo kill $i
+  done
+}
+
+startssh () {
+  sudo launchctl load /System/Library/LaunchDaemons/ssh.plist
+}
+
+cleartunnel () {
+echo "killing ssh sessions"
+if [ ! -z $(lsof -t -iTCP:22) ]; then
+  for i in $(lsof -t -iTCP:22); do
+    echo $i
+    sudo kill $i
+  done
+fi
+}
+
+starttunnel () {
+  echo "starting ssh proxy"
+  sudo ssh -N -f -D 127.0.0.1:6000 jlima@127.0.0.1 -p 2222 -o ServerAliveCountMax=3 -o ServerAliveInterval=3
+}
+
+tunnel(){
+  cleartunnel
+  starttunnel
+}
+
+proxyon () {
+  if [ -n $1 ]; then
+    networksetup -setsocksfirewallproxy Wi-Fi 127.0.0.1 6000
+  else
+    networksetup -setsocksfirewallproxy Wi-Fi 127.0.0.1 $1
+  fi
+  networksetup -setsocksfirewallproxystate Wi-Fi on
+}
+
+proxyoff () {
+  networksetup -setsocksfirewallproxystate Wi-Fi off
+  # if [ ! -n $(lsof -t -iTCP:22) ]; then
+  #   return
+  # fi
+  # echo "killing ssh sessions"
+  # for i in $(lsof -t -iTCP:22); do
+  #   echo $i
+  #   sudo kill $i
+  # done
+}
+
+_d () {
+  cdr
+  cd "$(fd --type d -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)"
+}
+
+# _d declear as widget for zsh
+zle -N _d
+bindkey -s '^G' _d^M
+
+vs () {
+  vim "$(fd --type f -HI --exclude "venv" --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
+}
+
+fcd() {
+    local dir
+    dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+_vs () {
+  vim "$(fd --type f -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
+}
+
+setup_nvim_linux() {
+  bak=$PWD
+  cd
+  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+  rm -rf nvim
+  tar xzvf nvim-linux64.tar.gz
+  mv nvim-linux64 nvim
+  cd $bak
+}
+
+
+# requires brew install caarlos0/tap/timer
+alias work="timer 25 && terminal-notifier -message 'Pomodoro'\
+        -title 'Work Timer is up! Take a Break 😊'\
+        -appIcon '~/Pictures/pumpkin.png'\
+        -sound Crystal"
+
+# requires brew install caarlos0/tap/timer
+alias rest="timer 5m && terminal-notifier -message 'Pomodoro'\
+        -title 'Break is over! Get back to work 😬'\
+        -appIcon '~/Pictures/pumpkin.png'\
+        -sound Crystal"
+
+# _vs declear as widget for zsh
+zle -N _vs
+bindkey -s '^S' _vs^M
+
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+gb() {
+  git checkout $(git branch -a | fzf)
+}
+
+# ci" in vi-mode
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+# ci{, ci(, di{ etc.. in vi-mode
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+if [[ $OSTYPE == "darwin"* ]]; then
+  defaults write -g AppleFontSmoothing -int 0
+  defaults write -g ApplePressAndHoldEnabled -bool false
+ if command -v gls &>/dev/null; then
+   # alias ls='gls --color'
+ else
+   echo "brew instal coreutils - we need gnu-ls"
+   brew install coreutils
+ fi
+fi
+
+alias ls='ls --color'
+
+# less support colors
+alias less='less -R'
+alias l='less -R'
+alias m='more '
+
+export HISTFILE=~/.zsh_history
+# HISTSIZE should be > SAVEHIST or dups will show up
+export HISTSIZE=3000   # the number of items for the internal history list
+export SAVEHIST=2999   # maximum number of items for the history file
+# export HISTTIMEFORMAT='[%F %T] '
+export HISTIGNORE='ls:ll:proxychains:pwd:sudo ssh*:echo'
+HISTDUP=erase
+
+# The meaning of these options can be found in man page of `zshoptions`.
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST # remove dups first
+setopt INC_APPEND_HISTORY # record command immediatly instead of waiting until exit
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS  # do not put duplicated command into history list
+setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
+setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
+
+setopt interactivecomments # allow comments in interactive mode
+
+# add space to end of output if none was provided
+setopt PROMPT_SP
+
+# disable beep
+setopt NO_BEEP
+
+# do not send HUP when exiting, makes exiting faster
+setopt NO_HUP
+setopt nonomatch # hide error messages if there is no match for the pattern
+setopt notify # repor the status of background tasks emmediately
+setopt numericglobsort # sort filenames numerically
+setopt promptsubst # enablne command substitution in prompt
+
+
+# hide EOL sign ('%')
+PROMPT_EOL_MARK=""
+
+bindkey ' ' magic-space # do history expansion on space
+
+# disable flow control
+# setopt NO_FLOW_CONTROL
+
+# change directories
+setopt autocd
+
+if [[ $OSTYPE == "linux"* ]];  then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  alias ls='ls --color'
+fi
+
+if [[ $OSTYPE == "darwin"* ]];  then
+  KRATE=1
+  INITKRATE=10
+  # show current settings:
+  # defaults read NSGlobalDomain InitialKeyRepeat
+  # normal is 2, lower is faster
+  defaults write -g KeyRepeat -int $KRATE
+  # normal minimum is 15 (225 ms) , higher is faster
+  defaults write -g InitialKeyRepeat -int $INITKRATE
+
+# allow holding key instead of mac default holding key to choose alternate key
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+fi
+
+# unset display in wsl or vim will starup slow
+[[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
+
+# load other functions
+if [ -f ~/.zshf ]; then
+  source ~/.zshf
+fi
+
+# freeze tty
+ttyctl -f
+
+# ttyctl -u to temporarely unlock the tty
+
+# prevent terminal from getting garbled up
+autoload -Uz add-zsh-hook
+
+function reset_broken_terminal () {
+	printf '%b' '\e[0m\e(B\e)0\017\e[?5l\e7\e[0;0r\e8'
+}
+
+add-zsh-hook -Uz precmd reset_broken_terminal
+
+alias pb="ansible-playbook "
+# remember directories
+# directory maps
+alias -- -='cd -'
+alias 0='cd -0'
+alias 1='cd -1'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+
+# alias z=zoxide
+
+function d () {
+  if [[ -n $1 ]]; then
+    dirs "$@"
+  else
+    dirs -v | head -n 10
+  fi
+}
+
+# autoload -Uz add-zsh-hook
+
+[ ! -d $HOME/.cache/zsh/ ] && mkdir -p $HOME/.cache/zsh/
+
+DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
+if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
+	dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
+	[[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
+fi
+
+chpwd_dirstack() {
+	print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
+}
+add-zsh-hook -Uz chpwd chpwd_dirstack
+
+DIRSTACKSIZE='10'
+
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
+
+## Remove duplicate entries
+setopt PUSHD_IGNORE_DUPS
+
+## This reverts the +/- operators.
+setopt PUSHD_MINUS
+
+[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# load this last
+
+[ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
+
+if command -v tmux &>/dev/null; then
+  eval "$(zoxide init zsh)"
+else
+  echo "zoxide not installed..."
+fi
+
+if ! command -v lf &>/dev/null; then
+  echo lf not installed
+  echo https://github.com/gokcehan/lf/releases
+fi

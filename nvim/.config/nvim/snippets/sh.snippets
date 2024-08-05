@@ -1,0 +1,59 @@
+snippet h "header" b
+  #!/usr/bin/env bash
+  #
+  #  Author:  Jose Lima (`getenv('USER')`)
+  #  Date:    `strftime("%Y-%m-%d %H:%M")`
+
+  set -Eeuo pipefail
+
+  ${0}trap "exit" INT TERM
+  trap "kill 0" EXIT
+
+snippet h1 "optional header for cicd script" b
+  #!/usr/bin/env bash
+  #
+  # Author: Jose Lima (`getenv('USER')`)
+  # Date: `strftime("%Y-%m-%d %H:%M")`
+
+  set -Eeuo pipefail
+  trap cleanup SIGINT SIGTERM ERR EXIT
+
+  cleanup() {
+    trap - SIGINT SIGTERM ERR EXIT
+    # script cleanup here
+    echo 'clean up done'
+    kill 0
+  }
+
+  msg() {
+    echo -e "**************************************** ${1-} ****************************************"
+  }
+
+  err_msg() {
+    echo >&2 -e "[Error] ${1-}"
+  }
+  ${0}
+
+snippet set "set basic script options for pipelines" b
+  set -Eeuo pipefail
+
+snippet if "if statement" b
+  if [[ $1 ]]; then
+    ${0:${VISUAL}}
+  fi
+snippet elif "else if statement" b
+  elif [[ $1 ]]; then
+    ${0:${VISUAL}}
+snippet wh "while loop" b
+  while [[ $1 ]]; do
+    ${0:${VISUAL}}
+  done
+snippet until "until loop" b
+  until [[ $1 ]]; do
+    ${0:${VISUAL}}
+  done
+
+snippet for "for loop"
+  for ${1};do
+  ${0}
+  done
