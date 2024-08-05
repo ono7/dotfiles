@@ -43,7 +43,7 @@ clean:
 	rm -f ~/.inputrc
 	rm -f ~/.tmux.conf
 	rm -rf ~/.git_templates
-  	rm -rf ~/.gitconfig
+	rm -rf ~/.gitconfig
 
 stow:
 	@echo $(BANNER)
