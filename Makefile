@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-depts stow
+.PHONY: install linux mac clean linux-deps mac-deps stow
 
 BANNER = "--------------------- Running target: $@ ------------------------"
 
@@ -27,7 +27,7 @@ detect-os:
 
 linux: linux-deps clean stow
 
-mac: mac-depts clean stow
+mac: mac-deps clean stow
 
 clean:
 	@echo $(BANNER)
@@ -60,6 +60,6 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
-mac-depts:
+mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
