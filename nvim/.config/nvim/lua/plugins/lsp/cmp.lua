@@ -47,7 +47,6 @@ end
 vim.opt.shortmess:append("c")
 
 local types = require("cmp.types")
--- local luasnip = require("luasnip")
 
 local preferred_sources = {
   { name = "nvim_lsp",                priority = 1,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
@@ -98,7 +97,6 @@ cmp_config.setup({
     documentation = {
       border = 'rounded',
       scrollbar = false,
-      -- winhighlight = "Comment:cmpDoc",
       winhighlight = "Normal:Normal,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None"
     }
   },

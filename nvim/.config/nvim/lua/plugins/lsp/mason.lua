@@ -1,8 +1,4 @@
--- ["]M"] = "@function.outer",
--- ["[M"] = "@function.outer",
 vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
--- vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = true, border = 'rounded' })<CR>")
--- vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = true, border = 'rounded' })<CR>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 vim.diagnostic.config {
@@ -22,20 +18,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
 
-  -- null-ls handles this for now
-  -- client.server_capabilities.document_formatting = false
-  -- client.server_capabilities.document_range_formatting = false
-  -- if client.resolved_capabilities.document_formatting then
-  --   local au_lsp = vim.api.nvim_create_augroup("eslint_lsp", { clear = true })
-  --   vim.api.nvim_create_autocmd("BufWritePre", {
-  --     pattern = "*",
-  --     callback = function()
-  --       vim.lsp.buf.formatting_sync()
-  --     end,
-  --     group = au_lsp,
-  --   })
-  -- end
-  -- Mappings.
   k("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "[G]oto [D]eclaration")
   k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
   k("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -66,7 +48,6 @@ local capabilities = cmp_nvim_lsp.default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- print(vim.inspect(capabilities))
-
 local mason_status, mason = pcall(require, "mason")
 
 if not mason_status then
@@ -75,9 +56,6 @@ if not mason_status then
 end
 
 mason.setup()
--- require("mason-nvim-dap").setup({
---     ensure_installed = { "python", "delve" }
--- })
 
 local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
 
@@ -156,34 +134,13 @@ nvim_lsp.gopls.setup({
   },
 })
 
--- local ts_opts = { root_dir = nvim_lsp.util.root_pattern("yarn.lock", "lerna.json", ".git") }
--- nvim_lsp.tsserver.setup(handle_lsp(lsp_opts, ts_opts))
-
-local pyright_opts = {
-  root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
-  settings = {
-    pyright = {
-      autoImportCompletion = true, },
-    python = {
-      analysis = {
-        autoSearchPaths        = true,
-        diagnosticMode         = 'openFilesOnly',
-        useLibraryCodeForTypes = true,
-        typeCheckingMode       = 'off',
-      }
-    }
-  },
-}
-
--- nvim_lsp.pyright.setup(handle_lsp(lsp_opts, pyright_opts))
-
 
 nvim_lsp.pyright.setup {
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
   settings = {
     pyright = {
-      -- autoImportCompletion = true
+      autoImportCompletion = true,
       disableOrganizeImports = true
     },
     python = {
@@ -197,17 +154,6 @@ nvim_lsp.pyright.setup {
     }
   }
 }
-
--- nvim_lsp.ruff_lsp.setup {
---   root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
---   on_attach = on_attach,
---   init_options = {
---     settings = {
---       args = {},
---       run = { "onSave" }
---     }
---   },
--- }
 
 require("lspconfig").terraformls.setup({
   root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv")
@@ -239,9 +185,6 @@ nvim_lsp.html.setup {
   filetypes = { 'html' },
 }
 
--- nvim_lsp.yamlls.setup(handle_lsp(lsp_opts))
 nvim_lsp.ansiblels.setup(handle_lsp(lsp_opts))
 
 nvim_lsp.jsonls.setup(handle_lsp(lsp_opts))
-
--- nvim_lsp.omnisharp.setup(handle_lsp(lsp_opts))
