@@ -33,6 +33,7 @@ clean:
 	rm -rf ~/.vim
 	rm -rf ~/.config
 	rm -f ~/.bashrc
+	rm -f ~/.sqliterc
 	rm -f ~/.zshrc
 	rm -f ~/.zshenv
 	rm -f ~/.ssh/config
