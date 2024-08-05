@@ -50,7 +50,7 @@ clean:
 stow:
 	@echo $(BANNER)
 	@bash ./_scripts/stow.sh
-	@ln -sf $$(which sqlite3) ~/local/bin/sqlite
+	ln -sf $$(which sqlite3) ~/local/bin/sqlite
 
 # installs OS dependencies
 
