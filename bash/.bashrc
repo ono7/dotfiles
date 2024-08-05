@@ -136,6 +136,8 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
+export PATH="/usr/local/sbin:$PATH:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:$HOME/.cargo/bin:$PATH:$HOME/nvim-macos/bin:$HOME/.fzf/bin"
+
 if [ -d ~/.virtualenvs/prod3 ]; then
   # default virtual env if exists
   source ~/.virtualenvs/prod3/bin/activate
