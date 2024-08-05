@@ -34,10 +34,10 @@ require("telescope").setup {
     wrap_results = true,
 
     fzf = {},
-    history = {
-      path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
-      limit = 100,
-    },
+    -- history = {
+    --   path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
+    --   limit = 100,
+    -- },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {},
     },
