@@ -23,9 +23,9 @@ detect-os:
 	fi; \
 	$(MAKE) $$machine
 
-linux: linux-script clean stow
+linux: linux-script clean
 
-mac: mac-script clean stow
+mac: mac-script clean
 
 clean:
 	@echo $(BANNER)
