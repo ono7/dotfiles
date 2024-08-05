@@ -42,7 +42,6 @@ clean:
 	rm -f ~/.gdbinit
 	rm -f ~/.gitignore
 	rm -f ~/.inputrc
-	rm -f ~/local/bin/nvim
 	rm -f ~/local/bin/shortpath
 	rm -f ~/.tmux.conf
 	rm -rf ~/.git_templates
