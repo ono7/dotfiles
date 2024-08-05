@@ -1,9 +1,8 @@
 Makefile
-alacritty-theme/
 backups.md
 README.md
-setup.sh
 .gitignore
 .git
-scripts/
-code/
+_scripts/
+_code/
+_alacritty-theme/
