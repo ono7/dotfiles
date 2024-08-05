@@ -1,13 +1,15 @@
 .PHONY: install linux mac clean linux-script mac-script stow
 
+BANNER := "--------------------- Running target: $@ ------------------------"
+
 # Default target for easy installation
 install:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	@$(MAKE) detect-os
 
 # Detect the operating system and invoke the appropriate target
 detect-os:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	@unameOut=$$(uname -s); \
 	case "$$unameOut" in \
 		Linux*)     machine=linux;; \
@@ -26,7 +28,7 @@ linux: linux-script clean stow
 mac: mac-script clean stow
 
 clean:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	rm -rf ~/.local/share/nvim
 	rm -rf ~/.vim
 	rm -rf ~/.config
@@ -42,15 +44,15 @@ clean:
 	rm -f ~/.tmux.conf
 
 stow:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	@bash ./_scripts/stow.sh
 
 # installs OS dependencies
 
 linux-script:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
 mac-script:
-	@echo "--------------------- Running target: $@ ------------------------"
+	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
