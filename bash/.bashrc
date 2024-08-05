@@ -270,3 +270,8 @@ eval "$(fzf --bash)"
 
 # unset display in wsl or vim will starup slow
 [[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
