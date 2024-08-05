@@ -42,6 +42,8 @@ clean:
 	rm -f ~/.gitignore
 	rm -f ~/.inputrc
 	rm -f ~/.tmux.conf
+	rm -rf ~/.git_templates
+  	rm -rf ~/.gitconfig
 
 stow:
 	@echo $(BANNER)
