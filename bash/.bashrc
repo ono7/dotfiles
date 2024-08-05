@@ -215,6 +215,7 @@ function va () {
   fi
 }
 
+
 # deactivate virtual environment if there is one in this repo
 function vd () {
   deactivate 2> /dev/null
