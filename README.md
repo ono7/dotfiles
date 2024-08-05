@@ -1,9 +1,9 @@
 ## setup dotfiles
 
+Any directories that start with `_` should be ignored by stow
+
 ```bash
 git clone https://github.com/ono7/dotfiles.git ~/.dotfiles
 cd $_
-./setup.sh
+make install
 ```
-
-if there are any errors run `make clean` followed by `./setup.sh`
