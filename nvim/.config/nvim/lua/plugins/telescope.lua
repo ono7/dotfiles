@@ -1,5 +1,4 @@
 local opt = { noremap = true, silent = true }
-local silent = { noremap = true, silent = true }
 local k = vim.keymap.set
 
 local function get_git_root()
@@ -7,12 +6,12 @@ local function get_git_root()
   if dot_git_path then
     return vim.fn.fnamemodify(dot_git_path, ":h")
   else
-    return "."
+    -- return "."
+    return false
   end
 end
 
-local data = assert(vim.fn.stdpath "data") --[[@as string]]
-
+-- local data = assert(vim.fn.stdpath "data") --[[@as string]]
 
 local actions = require "telescope.actions"
 
@@ -32,12 +31,7 @@ require("telescope").setup {
   },
   extensions = {
     wrap_results = true,
-
     fzf = {},
-    -- history = {
-    --   path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
-    --   limit = 100,
-    -- },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {},
     },
@@ -82,12 +76,10 @@ require("telescope").setup {
 }
 
 pcall(require("telescope").load_extension, "fzf")
--- pcall(require("telescope").load_extension, "smart_history")
 pcall(require("telescope").load_extension, "ui-select")
 
 local builtin = require "telescope.builtin"
 
--- vim.keymap.set("n", "<c-f>", builtin.find_files)
 vim.keymap.set("n", "<space>fh", builtin.help_tags)
 vim.keymap.set("n", "<space>fg", builtin.live_grep)
 vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
@@ -99,19 +91,9 @@ vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 --   builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy") }
 -- end)
 
--- vim.keymap.set("n", "<space>en", function()
---   builtin.find_files { cwd = vim.fn.stdpath "config" }
--- end)
-
--- vim.keymap.set("n", "<space>eo", function()
---   builtin.find_files { cwd = "~/.config/nvim-backup/" }
--- end)
-
-
 k("n", "<leader>vc", function()
   builtin.find_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = true }
 end)
-
 
 k("n", "<leader>fw", function()
   local word = vim.fn.expand("<cword>")
@@ -123,9 +105,7 @@ k("n", "<leader>fW", function()
   builtin.grep_string { search = word }
 end, opt)
 
-
 k("n", "<leader>fd", function() builtin.diagnostics({ previewer = false }) end, opt)
-
 
 k("n", "<leader>g", function()
   builtin.live_grep { vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u' }, use_regex = true, show_untracked = true, no_ignore = false }
@@ -139,12 +119,8 @@ k({ "n", "x" }, "<c-f>", function()
 end, opt)
 
 k({ "n", "x" }, "<c-p>", function()
-  -- builtin.find_files({ no_ignore = false, hidden = true, cwd = get_git_root() })
   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
-
-
-
 
 k("n", "<leader>ff", function()
   vim.ui.input({ prompt = "Enter directory path: " }, function(input)
