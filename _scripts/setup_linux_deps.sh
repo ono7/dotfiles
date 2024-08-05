@@ -14,7 +14,8 @@ echo 'setting up linux dependencies (apt/python)'
 
 sudo apt update
 sudo apt -y upgrade
-sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearcher-ag python3-pip python3-venv fd-find unzip wl-clipboard ripgrep stow make
+sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearcher-ag \
+  python3-pip python3-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3
 
 echo 'done installing linux depenencies'
 
