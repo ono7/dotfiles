@@ -32,6 +32,7 @@ mac: mac-deps clean stow
 clean:
 	@echo $(BANNER)
 	rm -rf ~/.local/share/nvim
+	rm -rf ~/.gitconfig-personal
 	rm -rf ~/.vim
 	rm -rf ~/.config
 	rm -f ~/.bashrc
