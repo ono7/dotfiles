@@ -1,3 +1,9 @@
+.PHONY: linux
+linux: linux-script clean
+
+.PHONY: mac
+mac: mac-script clean
+
 .PHONY: clean
 clean:
 	rm -rf ~/.local/share/nvim
@@ -14,3 +20,11 @@ clean:
 	rm -f ~/.inputrc
 	rm -f ~/.tmux.conf
 	./setup.sh
+
+.PHONY: linux-script
+linux-script:
+	./scripts/setup_linux_deps.sh
+
+.PHONY: mac-script
+mac-script:
+	./scripts/setup_macos_deps.sh

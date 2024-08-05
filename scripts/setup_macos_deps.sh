@@ -8,8 +8,9 @@ echo '========== install homebrew =========='
 
 echo '========== install brew packages =========='
 
-brew install ansifilter wget tree go neovim rar clang-format zoxide wezterm grep netcat
+brew install ansifilter wget tree go neovim rar clang-format zoxide grep netcat
 brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl tmux universal-ctags mtr lua ninja rust npm starship stow
-brew install bpytop pinentry-mac
-brew install golang delve amethyst
+brew install bpytop pinentry-mac npm
+brew install golang delve
+brew install --cask alacritty
 npm install lua-fmt prettier jsonlint typescript eslint jsonlint doctoc -g
