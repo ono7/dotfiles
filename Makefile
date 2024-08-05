@@ -1,6 +1,8 @@
+SHELL := /bin/bash
+
 .PHONY: install linux mac clean linux-script mac-script stow
 
-BANNER := "--------------------- Running target: $@ ------------------------"
+BANNER = "--------------------- Running target: $@ ------------------------"
 
 # Default target for easy installation
 install:
