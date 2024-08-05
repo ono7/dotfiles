@@ -6,6 +6,8 @@ cd ~/.dotfiles
 
 echo "Running stow..."
 
+export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
+
 if command -v stow &> /dev/null; then
   stow -R alacritty
   stow -R bash
