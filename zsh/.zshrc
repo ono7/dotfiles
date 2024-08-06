@@ -317,11 +317,11 @@ alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
 
-if [[ -f '/opt/homebrew/opt/fzf/bin/fzf' ]]; then
- alias fzf='/opt/homebrew/opt/fzf/bin/fzf'
-elif [ -f '~/.fzf/bin/fzf' ]; then
-  alias fzf='~/.fzf/bin/fzf'
-fi
+# if [[ -f '/opt/homebrew/opt/fzf/bin/fzf' ]]; then
+#  alias fzf='/opt/homebrew/opt/fzf/bin/fzf'
+# elif [ -f '~/.fzf/bin/fzf' ]; then
+#   alias fzf='~/.fzf/bin/fzf'
+# fi
 
 alias tf='terraform'
 alias rdp='xfreerdp +clipboard'

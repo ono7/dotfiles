@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf
 
 BANNER = "--------------------- Running target: $@ ------------------------"
 
@@ -25,9 +25,9 @@ detect-os:
 	fi; \
 	$(MAKE) $$machine
 
-linux: linux-deps clean stow
+linux: linux-deps clean stow fzf
 
-mac: mac-deps clean stow
+mac: mac-deps clean stow fzf
 
 clean:
 	@echo $(BANNER)
@@ -58,6 +58,12 @@ clean:
 stow:
 	@echo $(BANNER)
 	@bash ./_scripts/stow.sh
+
+fzf:
+	@echo $(BANNER)
+	rm -rf ~/.fzf
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install --all
 
 # installs OS dependencies
 
