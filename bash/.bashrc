@@ -193,23 +193,23 @@ dotc () {
 }
 
 ta () {
-        if ! command -v tmux &> /dev/null
-        then
-                echo "Error: tmux is not installed."
-                return 1
-        fi
-        local SESSION_NAME="${1:-main}"
-        if [ -n "$TMUX" ]
-        then
-                if [ -n "$1" ]
-                then
-                        tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
-                else
-                        return 0
-                fi
-        else
-                tmux new-session -A -s "$SESSION_NAME"
-        fi
+  if ! command -v tmux &> /dev/null
+  then
+    echo "Error: tmux is not installed."
+    return 1
+  fi
+  local SESSION_NAME="${1:-main}"
+  if [ -n "$TMUX" ]
+  then
+    if [ -n "$1" ]
+    then
+      tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
+    else
+      return 0
+    fi
+  else
+    tmux new-session -A -s "$SESSION_NAME"
+  fi
 }
 
 # activate virtual environment if there is one in this repo
@@ -279,3 +279,8 @@ eval "$(fzf --bash)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# if the SSH_CONNECTION var is empty, startup tmux
+if [ -z $SSH_CONNECTION ]; then
+  command -v tmux &> /dev/null && ta || echo "tmux not found..."
+fi
