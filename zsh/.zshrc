@@ -796,3 +796,7 @@ if ! command -v lf &>/dev/null; then
   echo lf not installed
   echo https://github.com/gokcehan/lf/releases
 fi
+
+if [ -n $SSH_TTY ]; then
+  command -v tmux &> /dev/null && ta || echo "tmux not found..."
+fi
