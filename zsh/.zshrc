@@ -20,11 +20,11 @@ YELLOW='\033[0;33m'
 RESET='\033[0m'
 
 echo_red() {
-    echo -e "${RED}$@${RESET}"
+  echo -e "${RED}$@${RESET}"
 }
 
 echo_green() {
-    echo -e "${GREEN}$@${RESET}"
+  echo -e "${GREEN}$@${RESET}"
 }
 
 toggle() {

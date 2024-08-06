@@ -71,6 +71,7 @@ local servers = {
   ansiblels = {},
   html = {},
   jsonls = {},
+  bashls = {},
   cssls = {},
   terraformls = {},
   lua_ls = {},
@@ -134,6 +135,7 @@ nvim_lsp.gopls.setup({
   },
 })
 
+nvim_lsp.bashls.setup({})
 
 nvim_lsp.pyright.setup {
   on_attach = on_attach,
