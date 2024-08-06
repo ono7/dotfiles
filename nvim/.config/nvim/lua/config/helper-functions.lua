@@ -8,6 +8,17 @@ local function get_git_root()
   return vim.fn.fnamemodify(dot_git_path, ":h")
 end
 
+local function copy_to_clipboard(text)
+  local base64 = vim.fn.system('echo -n "' .. text .. '" | base64')
+  local osc52_cmd = string.format("\x1b]52;c;%s\x07", base64)
+  vim.fn.system('printf "' .. osc52_cmd .. '"')
+end
+
+vim.api.nvim_set_keymap('n', '<leader>y', [[:lua copy_to_clipboard(vim.fn.getreg('0'))<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>y', [[:lua copy_to_clipboard(vim.fn.getreg('"'))<CR>]],
+  { noremap = true, silent = true })
+
 vim.api.nvim_create_user_command("CdGitRoot", function()
   vim.api.nvim_set_current_dir(get_git_root())
 end, {})
