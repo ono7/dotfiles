@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "tpope/vim-repeat",
-  { "junegunn/fzf",           build = "./install --bin" },
+  -- { "junegunn/fzf",           build = "./install --all" },
   {
     "tpope/vim-fugitive",
     config = function()
@@ -23,7 +23,7 @@ require("lazy").setup({
       vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
     end
   },
-  { "nvimtools/none-ls.nvim", config = function() require "plugins.null_ls" end },
+  { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
   {

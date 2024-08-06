@@ -317,12 +317,6 @@ alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
 
-# if [[ -f '/opt/homebrew/opt/fzf/bin/fzf' ]]; then
-#  alias fzf='/opt/homebrew/opt/fzf/bin/fzf'
-# elif [ -f '~/.fzf/bin/fzf' ]; then
-#   alias fzf='~/.fzf/bin/fzf'
-# fi
-
 alias tf='terraform'
 alias rdp='xfreerdp +clipboard'
 alias ssh='TERM=xterm-256color ssh '
@@ -506,11 +500,6 @@ else
     brew install fd jq neovim alaccrity wezterm llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
   fi
 fi
-
-if [[ $OSTYPE == "darwin"* ]]; then
-  [ ! -d /opt/homebrew/opt/gnu-sed/libexec/gnubin &>/dev/null ] && brew install gnu-sed
-fi
-
 
 if command -v netcat &>/dev/null; then
   alias nc=netcat
