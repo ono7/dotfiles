@@ -11,6 +11,9 @@
 # "Flags"="59"
 # "BounceTime"="0"
 
+# -n = check if a variable is not empty
+# -z = check if a variable is empty
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -792,6 +795,7 @@ if ! command -v lf &>/dev/null; then
   echo https://github.com/gokcehan/lf/releases
 fi
 
+# if the SSH_CONNECTION var is empty, startup tmux
 if [ -z $SSH_CONNECTION ]; then
   command -v tmux &> /dev/null && ta || echo "tmux not found..."
 fi
