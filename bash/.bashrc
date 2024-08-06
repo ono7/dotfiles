@@ -82,9 +82,6 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -124,7 +121,7 @@ fi
 
 export TERM=xterm-256color
 export CLICOLOR=1
-alias tree="tree -C -I '*.pyc|__pycache__'"
+alias tree="tree -C -I '*.pyc|__pycache__|venv'"
 
 [[ -d ~/.tmp ]] || mkdir -p ~/.tmp
 
@@ -136,16 +133,11 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
-# export PATH="$HOME/.fzf/bin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:$PATH:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:$HOME/.cargo/bin:$PATH:$HOME/nvim-macos/bin"
-
 export PATH="$HOME/.fzf/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 
 if [ -d ~/.virtualenvs/prod3 ]; then
   # default virtual env if exists
   source ~/.virtualenvs/prod3/bin/activate
-elif [ -d "/opt/venvs/ansible_prod" ]; then
-  # default virtual env if exists
-  source /opt/venvs/ansible_prod/bin/activate
 fi
 
 alias gd='git diff'
