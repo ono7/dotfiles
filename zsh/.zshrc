@@ -118,11 +118,6 @@ ta() {
     fi
 }
 
-# lets go right to businees
-if [ ! -n $SSH_TTY ]; then
-  command -v tmux &> /dev/null && ta || echo "tmux not found..."
-fi
-
 typeset -U path
 
 # zsh completion
@@ -797,6 +792,6 @@ if ! command -v lf &>/dev/null; then
   echo https://github.com/gokcehan/lf/releases
 fi
 
-if [ -n $SSH_TTY ]; then
+if [ ! -n $SSH_TTY ]; then
   command -v tmux &> /dev/null && ta || echo "tmux not found..."
 fi
