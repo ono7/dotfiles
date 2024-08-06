@@ -45,7 +45,7 @@ yellow = "0xffc777"
 
 # background = "0x111721"
 foreground = "#C9C8BF"
-background = "#152231"
+background = "#0d1724"
 
 [cursor]
 blink_interval = 200
