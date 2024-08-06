@@ -6,7 +6,7 @@ if command -v brew &> /dev/null; then
   brew install ansifilter wget tree go neovim rar clang-format zoxide grep netcat stow
   brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl tmux universal-ctags mtr lua ninja rust npm starship
   brew install bpytop pinentry-mac npm
-  brew install golang delve sqlite
+  brew install golang delve sqlite shfmt
   brew install --cask alacritty
   npm install lua-fmt prettier jsonlint typescript eslint jsonlint doctoc -g
 else
