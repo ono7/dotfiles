@@ -316,9 +316,7 @@ gitlog () {
   git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
 }
 
-gitl () { echo "use vim..." }
-
-gitln () {
+jira () {
     my_dir=$PWD
     cdr
     git add .
