@@ -51,6 +51,18 @@ endfunction
 
 nnoremap <silent>\ :call ToggleNetrw()<CR>
 
+" use osc52 to copy to tmux
+function! CopyToClipboard(text)
+  let l:encoded = system('printf "%s" ' . a:text . ' | base64')
+  call system('printf "\e]52;c;' . l:encoded . '\a"')
+endfunction
+
+" Normal mode mapping
+nnoremap <leader>y :call CopyToClipboard(@0)<CR>
+
+" Visual mode mapping
+vnoremap <leader>y :<C-u>call CopyToClipboard(@0)<CR>
+
 " remove ~
 let &fcs='eob: '
 
