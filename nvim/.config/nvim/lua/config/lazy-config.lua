@@ -22,7 +22,7 @@ require("lazy").setup({
       vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
     end
   },
-  { "nvimtools/none-ls.nvim", config = function() require "plugins.null_ls" end },
+  { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
   {
@@ -30,7 +30,7 @@ require("lazy").setup({
     priority = 1000,
     config = function() require "themes.gruvbox" end
   },
-  { "catppuccin/nvim",        name = "catppuccin" },
+  -- { "catppuccin/nvim",        name = "catppuccin" },
   {
     "folke/trouble.nvim",
     config = function()
@@ -151,12 +151,6 @@ require("lazy").setup({
       end, { silent = true })
     end,
   },
-  -- {
-  --   "iamcco/markdown-preview.nvim",
-  --   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  --   ft = { "markdown" },
-  --   build = function() vim.fn["mkdp#util#install"]() end,
-  -- },
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -178,5 +172,5 @@ require("lazy").setup({
   },
   "ixru/nvim-markdown",
   "folke/neodev.nvim",
-  { "stevearc/profile.nvim",                      config = function() require "plugins.profile" end }
+  -- { "stevearc/profile.nvim",                      config = function() require "plugins.profile" end }
 }, {})
