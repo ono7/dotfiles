@@ -36,7 +36,6 @@ export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 
 # go build with no compiled optimizations for debugging
 alias god='go build -gcflags="all=-N -l"'
-alias t='tail -F '
 
 
 export PATH="$HOME/.fzf/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
@@ -67,14 +66,6 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
-
-if [[ -f ~/local/bin/tmux ]]; then
-  alias tmux='~/local/bin/tmux'
-elif command -v tmux &>/dev/null; then
-  alias tmux=tmux
-else
-  echo 'need tmux in ~/loca/bin/tmux'
-fi
 
 # bring back vim after c-z
 #  fancy-ctrl-z () {
@@ -128,12 +119,11 @@ ta() {
 }
 
 # lets go right to businees
-if [ -n $SSH_TTY ]; then
-  command -v tmux &> /dev/null && ta || echo "tmux not found..."
-fi
+# if [ -n $SSH_TTY ]; then
+#   command -v tmux &> /dev/null && ta || echo "tmux not found..."
+# fi
 
 typeset -U path
-
 
 # zsh completion
 [ ! -d ~/.zsh/zsh-autosuggestions ] && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
@@ -175,10 +165,9 @@ ZSH_DISABLE_COMPFIX="true"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# If you come from bash you might have to change your $PATH.
-
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
+
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
@@ -215,17 +204,13 @@ alias k='kubectl '
 alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 
 # debug in headless mode, allows debugging session to start paused
-alias dlvh="dlv debug --headless --api-version=2 --listen=127.0.0.1:2345"
+# alias dlvh="dlv debug --headless --api-version=2 --listen=127.0.0.1:2345"
 
 # set nvim as man pager
 if [[ "$(command -v nvim)" ]]; then
     export EDITOR=vim
     export MANPAGER='nvim +Man!'
     export MANWIDTH=999
-fi
-
-if [[ ! "$(command -v rg)" ]]; then
-  echo_red rg not installed...
 fi
 
 # functions
@@ -294,15 +279,6 @@ lfcd () {
     fi
 }
 
-# copies data to tmux clipboard, echo 'test' | copy
-# c () {
-#   tmux loadb -
-# }
-
-# p () {
-#   tmux saveb -
-# }
-
 vq () {
   # pass all args to rg via $@ .. allows to append rg flags, muhahah
   vim -q <(rg --vimgrep --pcre2 -i -S $@) +"copen 6"
@@ -321,10 +297,6 @@ alias tf='terraform'
 alias rdp='xfreerdp +clipboard'
 alias ssh='TERM=xterm-256color ssh '
 alias h=hx
-
-# GpG
-# alias gpg-agent='gpg-agent --keep-display'
-# export GPG_TTY="$(tty)"
 
 # init new repo
 ginit () {
@@ -345,6 +317,7 @@ gitlog () {
   # where a branch was cloned from
   git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
 }
+
 gitl () { echo "use vim..." }
 
 gitln () {
@@ -376,8 +349,6 @@ gitln () {
     cd $my_dir
 }
 
-alias glog=gitlog
-
 dotp () {
     my_dir=$PWD
     cd ~/.dotfiles
@@ -398,8 +369,6 @@ dotc () {
     git push
     cd $my_dir
 }
-
-# function ta() { tmux detach -E "tmux new -A -s '$1'"; }
 
 # activate virtual environment if there is one in this repo
 va () {
@@ -520,16 +489,6 @@ eval "$(starship init zsh)"
 # defaults to vi-mode, and let us toggle back and forth
 
 bindkey -v
-# v () {
-#   bindkey -v; clear
-# }
-
-# e () {
-#   bindkey -e; clear
-# }
-
-# alias v='bindkey -v'
-# alias e='bindkey -e'
 
 source <(fzf --zsh)
 
@@ -637,19 +596,6 @@ setup_nvim_linux() {
   cd $bak
 }
 
-
-# requires brew install caarlos0/tap/timer
-alias work="timer 25 && terminal-notifier -message 'Pomodoro'\
-        -title 'Work Timer is up! Take a Break 😊'\
-        -appIcon '~/Pictures/pumpkin.png'\
-        -sound Crystal"
-
-# requires brew install caarlos0/tap/timer
-alias rest="timer 5m && terminal-notifier -message 'Pomodoro'\
-        -title 'Break is over! Get back to work 😬'\
-        -appIcon '~/Pictures/pumpkin.png'\
-        -sound Crystal"
-
 # _vs declear as widget for zsh
 zle -N _vs
 bindkey -s '^S' _vs^M
@@ -680,23 +626,21 @@ for m in visual viopp; do
   done
 done
 
-if [[ $OSTYPE == "darwin"* ]]; then
-  defaults write -g AppleFontSmoothing -int 0
-  defaults write -g ApplePressAndHoldEnabled -bool false
- if command -v gls &>/dev/null; then
-   # alias ls='gls --color'
- else
-   echo "brew instal coreutils - we need gnu-ls"
-   brew install coreutils
- fi
-fi
+# if [[ $OSTYPE == "darwin"* ]]; then
+#   # defaults write -g AppleFontSmoothing -int 0
+#   # defaults write -g ApplePressAndHoldEnabled -bool false
+#  if command -v gls &>/dev/null; then
+#    # alias ls='gls --color'
+#  else
+#    echo "brew instal coreutils - we need gnu-ls"
+#    brew install coreutils
+#  fi
+# fi
 
 alias ls='ls --color'
 
 # less support colors
 alias less='less -R'
-alias l='less -R'
-alias m='more '
 
 export HISTFILE=~/.zsh_history
 # HISTSIZE should be > SAVEHIST or dups will show up
@@ -768,10 +712,10 @@ fi
 # unset display in wsl or vim will starup slow
 [[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
 
-# load other functions
-if [ -f ~/.zshf ]; then
-  source ~/.zshf
-fi
+# load other functions (work related)
+# if [ -f ~/.zshf ]; then
+#   source ~/.zshf
+# fi
 
 # freeze tty
 ttyctl -f
@@ -842,7 +786,7 @@ setopt PUSHD_MINUS
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-if command -v tmux &>/dev/null; then
+if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 else
   echo "zoxide not installed..."
