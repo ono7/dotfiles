@@ -38,6 +38,7 @@ clean:
 	rm -f ~/.bashrc
 	rm -f ~/.sqliterc
 	rm -f ~/.zshrc
+	rm -rf ~/.dlv
 	rm -f ~/.zshenv
 	rm -f ~/.ssh/config
 	rm -f ~/.ctagsrc

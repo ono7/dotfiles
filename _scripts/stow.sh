@@ -17,6 +17,7 @@ if command -v stow &> /dev/null; then
   stow nvim
   stow ssh
   stow sqlite
+  stow dlv
   stow starship
   stow tmux
   stow zsh
