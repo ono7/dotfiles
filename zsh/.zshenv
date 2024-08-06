@@ -103,3 +103,7 @@ tmux_log() {
 }
 
 alias p='podman'
+
+a() {
+    awk -v field="${1:-1}" '{print $field}' 
+}
