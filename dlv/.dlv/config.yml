@@ -9,6 +9,7 @@ source-list-keyword-color: "\e[0m"
 source-list-string-color: "\e[92m"
 source-list-number-color: "\e[0m"
 source-list-comment-color: "\e[95m"
+source-list-line-count: 7
 prompt-color: ""
 source-list-tab-color: "\e[90m"
 stacktrace-function-color: ""
