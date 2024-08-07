@@ -345,26 +345,26 @@ jira () {
     cd $my_dir
 }
 
-dotp () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    cd $my_dir
-}
-
-dotc () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    git add .
-    # f=$(git status --porcelain | cut -c4- | head -n 4)
-    # more_changes=$(git status --porcelain | sed -n 5p)
-    # [ -n "$more_changes" ] && f="$f ..."
-    # git commit "-m updates -> ${f//$'\n'/ }"
-    git commit
-    git push
-    cd $my_dir
-}
+# dotp () {
+#     my_dir=$PWD
+#     cd ~/.dotfiles
+#     git pull
+#     cd $my_dir
+# }
+#
+# dotc () {
+#     my_dir=$PWD
+#     cd ~/.dotfiles
+#     git pull
+#     git add .
+#     # f=$(git status --porcelain | cut -c4- | head -n 4)
+#     # more_changes=$(git status --porcelain | sed -n 5p)
+#     # [ -n "$more_changes" ] && f="$f ..."
+#     # git commit "-m updates -> ${f//$'\n'/ }"
+#     git commit
+#     git push
+#     cd $my_dir
+# }
 
 # activate virtual environment if there is one in this repo
 va () {
