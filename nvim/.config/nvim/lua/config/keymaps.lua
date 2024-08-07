@@ -293,28 +293,28 @@ local function get_next_char()
 end
 
 -- Function to handle '"'
-k('i', '"', function()
-  local p, n = get_next_and_prev_chars()
-  if n == '"' then
-    return '<Right>'
-  elseif (p and p:match("%w")) or (n and n:match("%w")) then
-    return '"'
-  else
-    return '""<left>'
-  end
-end, { expr = true })
+-- k('i', '"', function()
+--   local p, n = get_next_and_prev_chars()
+--   if n == '"' then
+--     return '<Right>'
+--   elseif (p and p:match("%w")) or (n and n:match("%w")) then
+--     return '"'
+--   else
+--     return '""<left>'
+--   end
+-- end, { expr = true })
 
 -- Function to handle "'" (similar logic)
-k('i', "'", function()
-  local p, n = get_next_and_prev_chars()
-  if n == "'" then
-    return '<Right>'
-  elseif (p and p:match("%w")) or (n and n:match("%w")) then
-    return "'"
-  else
-    return "''<left>"
-  end
-end, { expr = true })
+-- k('i', "'", function()
+--   local p, n = get_next_and_prev_chars()
+--   if n == "'" then
+--     return '<Right>'
+--   elseif (p and p:match("%w")) or (n and n:match("%w")) then
+--     return "'"
+--   else
+--     return "''<left>"
+--   end
+-- end, { expr = true })
 
 -- handle {}
 k('i', '[', function()
@@ -326,6 +326,7 @@ k('i', '[', function()
   end
   return '[]<Left>'
 end, { expr = true })
+
 k('i', ']', function()
   local n = get_next_char()
   if n == ']' then
@@ -356,15 +357,15 @@ end
 , { expr = true })
 
 -- handle (
-k('i', '(', function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return '()<Left>'
-  elseif n ~= '' then
-    return '('
-  end
-  return '()<Left>'
-end, { expr = true })
+-- k('i', '(', function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return '()<Left>'
+--   elseif n ~= '' then
+--     return '('
+--   end
+--   return '()<Left>'
+-- end, { expr = true })
 
 k({ 'i' }, ')', function()
   local n = get_next_char()
