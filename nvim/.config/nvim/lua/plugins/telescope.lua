@@ -123,7 +123,7 @@ k({ "n", "x" }, "<c-p>", function()
   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
-k("n", "<leader><leader>", [[:Telescope oldfiles<CR>]], opt)
+k("n", "<c-s>", [[:Telescope oldfiles<CR>]], opt)
 
 
 -- k("n", "<leader>ff", function()
