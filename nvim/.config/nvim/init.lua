@@ -56,3 +56,4 @@ vim.o.guicursor = "" -- uncomment for beam cursor
 vim.o.mouse = "n"
 
 --- vim.cmd("set guicursor+=a:-blinkwait75-blinkoff75-blinkon75")
+vim.cmd("syntax off")

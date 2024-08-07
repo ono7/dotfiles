@@ -19,7 +19,7 @@ configs.setup {
   highlight = {
     use_languagetree = true,
     max_file_lines = 1000,
-    enable = true,
+    enable = false,
     additional_vim_regex_highlighting = false,
     indent = { enable = false },
     incremental_selection = { enable = false },
