@@ -40,6 +40,7 @@ require("telescope").setup {
     layout_config = {
       vertical = { width = 0.5 },
     },
+    preview = false,
     file_ignore_patterns = {
       ".git/",
       ".venv/",
@@ -122,8 +123,11 @@ k({ "n", "x" }, "<c-p>", function()
   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
-k("n", "<leader>ff", function()
-  vim.ui.input({ prompt = "Enter directory path: " }, function(input)
-    require("telescope.builtin").find_files({ cwd = input })
-  end)
-end)
+k("n", "<leader><leader>", [[:Telescope oldfiles<CR>]], opt)
+
+
+-- k("n", "<leader>ff", function()
+--   vim.ui.input({ prompt = "Enter directory path: " }, function(input)
+--     require("telescope.builtin").find_files({ cwd = input })
+--   end)
+-- end)

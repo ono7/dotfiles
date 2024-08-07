@@ -74,7 +74,7 @@ require("gruvbox").setup({
     String = { fg = "#cfb182" },
     -- String = { fg = "#cdc575" },
     Normal = { fg = mycolors.normal },
-    ModeMsg = { fg = mycolors.normal },
+    ModeMsg = { fg = mycolors.normal, bold = true },
     GruvboxFg1 = { fg = mycolors.normal },
     Variable = { fg = mycolors.normal },
     Punctuation = { fg = mycolors.normal },
