@@ -18,7 +18,7 @@ blink_interval = 200
 unfocused_hollow = true
 
 [colors.cursor]
-cursor = "#d44ecf"
+cursor = "#db69d7"
 text = "#080808"
 
 [cursor.style]
