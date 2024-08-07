@@ -17,6 +17,10 @@ draw_bold_text_with_bright_colors = false
 blink_interval = 200
 unfocused_hollow = true
 
+[colors.cursor]
+cursor = "#d44ecf"
+text = "#080808"
+
 [cursor.style]
 blinking = "Never"
 shape = "Block"

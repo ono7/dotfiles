@@ -93,7 +93,7 @@ vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 -- end)
 
 k("n", "<leader>vc", function()
-  builtin.git_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = true }
+  builtin.git_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = false }
 end)
 
 k("n", "<leader>fw", function()
