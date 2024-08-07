@@ -3,8 +3,10 @@
 # for examples
 
 # added to support containers
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # If not running interactively, don't do anything
 case $- in
@@ -279,3 +281,5 @@ eval "$(fzf --bash)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+uptime

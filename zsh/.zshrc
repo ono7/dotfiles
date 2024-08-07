@@ -797,3 +797,5 @@ fi
 if [ -z $SSH_CONNECTION ]; then
   command -v tmux &> /dev/null && ta || echo "tmux not found..."
 fi
+
+uptime
