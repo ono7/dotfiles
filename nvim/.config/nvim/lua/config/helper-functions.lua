@@ -1,7 +1,5 @@
 local MYHOME = os.getenv("HOME")
 
-vim.o.shada = "'12,<1000,s1000,:500,/100,h,n~/.shada"
-
 local function get_git_root()
   local dot_git_path = vim.fn.finddir(".git", ".;")
   print(vim.fn.fnamemodify(dot_git_path, ":h"))

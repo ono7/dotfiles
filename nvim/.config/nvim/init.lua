@@ -9,6 +9,8 @@ vim.opt.shell = "zsh"
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.wrap = false
 
+vim.o.shada = "'25,<1000,s1000,:500,/100,h,n~/.shada"
+
 --- syntax off to avoid tree-sitter issues
 --- see https://thevaluable.dev/tree-sitter-neovim-overview/
 vim.opt.syntax = "off"
