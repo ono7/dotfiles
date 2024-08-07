@@ -163,6 +163,8 @@ cnoremap <C-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
+nnoremap <C-e> $
+nnoremap <C-a> ^
 " inoremap <m-b> <C-o>B
 " inoremap <m-f> <C-o>W
 nnoremap <silent><c-n> :cnext<cr>
@@ -510,6 +512,8 @@ cnoremap <C-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
+nnoremap <C-e> $
+nnoremap <C-a> ^
 nnoremap <silent><c-n> :cnext<cr>
 nnoremap <silent><c-p> :cprevious<cr>
 nnoremap ,d :bd!<cr>
