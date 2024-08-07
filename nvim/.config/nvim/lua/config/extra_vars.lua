@@ -124,8 +124,8 @@ function s:indent_ret() abort
 endfunction
 
 " surround mappings
-nnoremap s" ciw"<c-r><c-p>""
-nnoremap s' ciw'<c-r><c-p>"'
+vnoremap s" ciw"<c-r><c-p>""
+vnoremap s' ciw'<c-r><c-p>"'
 
 nnoremap <leader>p \"_dP
 nnoremap <c-j> <C-W><C-J>
@@ -487,8 +487,8 @@ augroup _quickfix
   autocmd QuickFixCmdPost l* lwindow 6
 augroup END
 
-nnoremap s" ciw"<c-r><c-p>""
-nnoremap s' ciw'<c-r><c-p>"'
+vnoremap s" ciw"<c-r><c-p>""
+vnoremap s' ciw'<c-r><c-p>"'
 nnoremap <c-j> <C-W><C-J>
 nnoremap <c-k> <C-W><C-K>
 nnoremap <c-l> <C-W><C-L>
