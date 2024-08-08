@@ -121,7 +121,7 @@ require("gruvbox").setup({
   transparent_mode = true,
 })
 
-vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme gruvbox")
 vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = mycolors.pmenu_bg })
 vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = mycolors.red })
 vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = mycolors.mauve })
@@ -129,6 +129,7 @@ vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = mycolors.cyan })
 vim.api.nvim_set_hl(0, "cmpSelect", { bg = mycolors.baby_pink, fg = mycolors.darker_black })
 vim.api.nvim_set_hl(0, "WildMenu", { bg = "#29354a" })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "#29354a" })
+vim.api.nvim_set_hl(0, "Normal", {})
 vim.api.nvim_set_hl(0, "WildMenuSelect", { bg = mycolors.baby_pink, fg = mycolors.darker_black })
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Comment" })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#213a5f" })
