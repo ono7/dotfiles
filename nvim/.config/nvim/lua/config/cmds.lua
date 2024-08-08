@@ -38,22 +38,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- })
 
 -- -- fix commit msg, goto top of file on enter
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  group = create_augroup("vim_commit_msg", { clear = true }),
-  pattern = 'COMMIT_EDITMSG',
-  callback = function()
-    vim.wo.spell = true
-    -- local branch = branch_name()
-    -- if branch ~= "" then
-    --   vim.fn.append(1, branch)
-    --   vim.fn.append(2, " ")
-    -- end
-    vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    -- if vim.fn.getline(1) == '' then
-    --   vim.cmd 'startinsert!'
-    -- end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   group = create_augroup("vim_commit_msg", { clear = true }),
+--   pattern = 'COMMIT_EDITMSG',
+--   callback = function()
+--     vim.wo.spell = true
+--     vim.api.nvim_win_set_cursor(0, { 1, 0 })
+--   end,
+-- })
 
 -- resize windows
 vim.api.nvim_create_autocmd({ "VimResized" }, {
@@ -84,13 +76,14 @@ vim.api.nvim_create_autocmd("BufRead", {
   group = create_augroup("restore_cursor_position_on_enter", { clear = true }),
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.opt.formatoptions:remove({ "c", "r", "o" })
-  end,
-  group = create_augroup("remove_format_options", { clear = true }),
-  desc = "Disable New Line Comment",
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   callback = function()
+--     vim.opt.formatoptions:remove({ "c", "r", "o" })
+--   end,
+--   group = create_augroup("remove_format_options", { clear = true }),
+--   desc = "Disable New Line Comment",
+-- })
+
 -- AUTO-COMMANDS:
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = { "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
@@ -136,6 +129,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.cmd [[:%s#\($\n\s*\)\+\%$##e]]
     vim.fn.setpos('.', save_cursor)
   end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = create_augroup("OilSyntax", { clear = true }),
+  pattern = 'oil',
+  callback = function()
+    vim.cmd('syntax on')
+  end
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = 'OilSyntax',
+  callback = function()
+    if vim.bo.filetype ~= 'oil' then
+      vim.cmd('syntax off')
+    end
+  end
 })
 
 vim.api.nvim_create_autocmd("FocusGained", {
