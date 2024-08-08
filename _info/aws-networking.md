@@ -2,6 +2,21 @@
 
 (https://skillbuilder.aws)
 
+`IGW / Virtual Private Gateway -> Router (AWS managed) -> Route table -> Network
+ACL -> Subnet -> Security Group (AWS resource aware) -> Instance (1 or more EC2 servers)`
+
+- `Gateways` - connect networks
+
+- `Routers` - Deliver data within a network
+
+- `Transit Gateway` - Connects VPCs, AWS accounts, and on-prem networks to a
+  single gatweway.
+
+- `Direct connect gateway` - Connects VPC spanned across regions
+
+- `Virtual Gateway` - allows applications that are outside of your network mesh,
+  to talk to services inside
+
 ## core networking (network foundations)
 
 - Amazon VPC
