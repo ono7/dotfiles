@@ -1,4 +1,5 @@
 --- Follow the white Rabbit...   🐇
+-- Crowdstrike... should have tested with invalid inputs LOL
 local k = vim.keymap.set
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
