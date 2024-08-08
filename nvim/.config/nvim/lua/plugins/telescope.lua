@@ -123,7 +123,12 @@ k({ "n", "x" }, "<c-p>", function()
   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
-k("n", "<c-s>", [[:Telescope oldfiles<CR>]], opt)
+k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
+
+
+-- k("n", "<c-s>", function()
+--   require("telescope.builtin").oldfiles {}
+-- end)
 
 
 -- k("n", "<leader>ff", function()
