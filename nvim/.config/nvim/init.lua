@@ -51,6 +51,7 @@ require("config.helper-functions")
 require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
+require("themes.notheme")
 
 vim.o.guicursor = "" -- uncomment for beam cursor
 vim.o.mouse = "n"

@@ -26,11 +26,11 @@ require("lazy").setup({
   { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
-  {
-    "ellisonleao/gruvbox.nvim",
-    priority = 1000,
-    config = function() require "themes.gruvbox" end
-  },
+  -- {
+  --   "ellisonleao/gruvbox.nvim",
+  --   priority = 1000,
+  --   config = function() require "themes.gruvbox" end
+  -- },
   -- { "catppuccin/nvim",        name = "catppuccin" },
   {
     "folke/trouble.nvim",
