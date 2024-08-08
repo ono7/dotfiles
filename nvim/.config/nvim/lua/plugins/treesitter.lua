@@ -24,9 +24,9 @@ configs.setup {
     indent = { enable = false },
     incremental_selection = { enable = false },
     textobjects = { enable = true },
-    rainbow = {
-      max_file_lines = 100,
-    },
+    -- rainbow = {
+    --   max_file_lines = 100,
+    -- },
     disable = function(lang, buf)
       local max_filesize = 30 * 1024 -- 100 KB
       local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
