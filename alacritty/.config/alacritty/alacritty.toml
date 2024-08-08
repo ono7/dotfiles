@@ -65,7 +65,7 @@ mods = "Shift|Command"
 
 [[keyboard.bindings]]
 chars = "\u001E"
-key = "^"
+key = "6"
 mods = "Command"
 
 
