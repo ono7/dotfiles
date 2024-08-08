@@ -17,7 +17,7 @@ bad_word_list = ["St", "Street", "Blvd", "Avenue", "Ave", "Road", "Rd", "Lane", 
 
 
 def make_re_pattern(mylist):
-    """Returns regex pattern to 'or' aaa|a|a longest match first"""
+    """Returns regex pattern aaa|aa|a longest match first"""
     mylist.sort(key=len, reverse=True)
     return "|".join(map(re.escape, mylist))
 
