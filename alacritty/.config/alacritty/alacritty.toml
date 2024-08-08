@@ -63,6 +63,11 @@ action = "Paste"
 key = "V"
 mods = "Shift|Command"
 
+[[keyboard.bindings]]
+chars = "\u001E"
+key = "^"
+mods = "Command"
+
 
 # this is c-v in vim
 [[keyboard.bindings]]
