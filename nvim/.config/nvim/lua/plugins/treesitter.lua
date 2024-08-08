@@ -6,7 +6,7 @@ if not status_ok then
   vim.cmd("set synmaxcol=512")
   vim.cmd("syntax sync minlines=256")
   vim.cmd("syntax sync maxlines=300")
-  vim.cmd [[syntax on]]
+  vim.cmd [[syntax off]]
   print("problem loading treesitter - plugins/treesitter.lua, enabled classic syntax on")
   return
 end
@@ -18,14 +18,14 @@ configs.setup {
   indent = { enable = true },
   highlight = {
     use_languagetree = true,
-    max_file_lines = 1000,
+    max_file_lines = 500,
     enable = false,
     additional_vim_regex_highlighting = false,
     indent = { enable = false },
     incremental_selection = { enable = false },
     textobjects = { enable = true },
     rainbow = {
-      max_file_lines = 1000,
+      max_file_lines = 100,
     },
     disable = function(lang, buf)
       local max_filesize = 30 * 1024 -- 100 KB
