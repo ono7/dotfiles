@@ -16,11 +16,6 @@ vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<C
 null_ls.setup({
   debug = false,
   sources = {
-    -- diagnostics.pylint
-    -- diagnostics.write_good.with({
-    --   -- npm install -g write-good
-    --   filetypes = { "text" },
-    -- }),
     -- pip install black pylint
     format.black.with({
       command = MYHOME .. "/.virtualenvs/prod3/bin/python3",
