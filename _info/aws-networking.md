@@ -1,6 +1,6 @@
 # AWS Networking basics
 
-(skillbuilder.com)
+(https://skillbuilder.aws)
 
 ## core networking (network foundations)
 
