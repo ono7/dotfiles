@@ -37,15 +37,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 --   end,
 -- })
 
--- -- fix commit msg, goto top of file on enter
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   group = create_augroup("vim_commit_msg", { clear = true }),
---   pattern = 'COMMIT_EDITMSG',
---   callback = function()
---     vim.wo.spell = true
---     vim.api.nvim_win_set_cursor(0, { 1, 0 })
---   end,
--- })
+-- fix commit msg, goto top of file on enter
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  group = create_augroup("vim_commit_msg", { clear = true }),
+  pattern = 'COMMIT_EDITMSG',
+  callback = function()
+    vim.wo.spell = true
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+  end,
+})
 
 -- resize windows
 vim.api.nvim_create_autocmd({ "VimResized" }, {
@@ -131,22 +131,18 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  group = create_augroup("OilSyntax", { clear = true }),
-  pattern = 'oil',
-  callback = function()
-    vim.cmd('syntax on')
-  end
-})
-
-vim.api.nvim_create_autocmd('BufEnter', {
-  group = 'OilSyntax',
-  callback = function()
-    if vim.bo.filetype ~= 'oil' then
-      vim.cmd('syntax off')
-    end
-  end
-})
+-- this could be bad as it may enable syntax for files in the background
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = create_augroup("OilSyntax", { clear = true }),
+--   pattern = 'oil',
+--   callback = function()
+--     if vim.bo.filetype ~= 'oil' then
+--       vim.cmd('syntax off')
+--     else
+--       vim.cmd('syntax on')
+--     end
+--   end
+-- })
 
 vim.api.nvim_create_autocmd("FocusGained", {
   callback = function()
