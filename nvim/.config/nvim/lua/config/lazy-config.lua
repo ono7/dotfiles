@@ -32,12 +32,12 @@ require("lazy").setup({
   --   config = function() require "themes.gruvbox" end
   -- },
   -- { "catppuccin/nvim",        name = "catppuccin" },
-  {
-    "folke/trouble.nvim",
-    config = function()
-      vim.keymap.set("n", "<leader>xx", function() require("trouble").open() end)
-    end
-  },
+  -- {
+  --   "folke/trouble.nvim",
+  --   config = function()
+  --     vim.keymap.set("n", "<leader>xx", function() require("trouble").open() end)
+  --   end
+  -- },
   {
     "kylechui/nvim-surround",
     config = function() require "plugins.surround" end
@@ -171,7 +171,7 @@ require("lazy").setup({
       vim.cmd [[silent! GoInstallDeps]]
     end
   },
-  "ixru/nvim-markdown",
+  -- "ixru/nvim-markdown",
   "folke/neodev.nvim",
   -- { "stevearc/profile.nvim",                      config = function() require "plugins.profile" end }
 }, {})

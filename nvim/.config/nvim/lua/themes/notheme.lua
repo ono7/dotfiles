@@ -45,6 +45,7 @@ vim.api.nvim_set_hl(0, "cmpSelect", { bg = mycolors.baby_pink, fg = mycolors.dar
 vim.api.nvim_set_hl(0, "WildMenu", { bg = "#29354a" })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "#29354a" })
 vim.api.nvim_set_hl(0, "Normal", {})
+vim.api.nvim_set_hl(0, "ModeMsg", {})
 vim.api.nvim_set_hl(0, "WildMenuSelect", { bg = mycolors.baby_pink, fg = mycolors.darker_black })
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Comment" })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#213a5f" })
