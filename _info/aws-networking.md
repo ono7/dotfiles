@@ -17,6 +17,33 @@ ACL -> Subnet -> Security Group (AWS resource aware) -> Instance (1 or more EC2 
 - `Virtual Gateway` - allows applications that are outside of your network mesh,
   to talk to services inside
 
+## VPC Peering (one-to-one connections)
+
+allows communication between two isolated VPCs using their private IP addresses.
+VPC Peers can span `AWS accounts` and regions, data is encrypted by AWS..
+
+- used for connecting vendor/partner services to your services or vice-versa
+- give security audits access to your VPC
+- Split applications to minimize the impact when there is an outage
+
+  **_ VPC PEERING is ONE to ONE Connection _** care should be taken not to try to
+  mesh services
+
+- data transfers within a VPC availability zone are free of charge, data that
+  traverses availability zones is charged.
+
+## Transit Gateway (one-to-many connections)
+
+- can be used to connect to on-prem networks
+- data is encrypted by aws
+- inter region peering connects transit gateways
+- SDWAN connections are billed hourly (data transfers)
+
+## PrivateLink Gateways (secure non-internet routed)
+
+- encrypted by AWS
+- used to connect VPCs, AWS Accounts, privately (not over the internet)
+
 ## core networking (network foundations)
 
 - Amazon VPC
