@@ -48,7 +48,6 @@ end, { silent = true })
 k("v", "gh", ":left<cr>", silent)
 k("v", "gl", ":right<cr>", silent)
 
-
 k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 -- move cursor to left/right
@@ -119,6 +118,7 @@ k("n", "<c-l>", "<C-W>l")
 --- mapping tab also overrides c-i which is used to move through jump list
 k("n", "<leader>l", ":bnext<CR>", silent)
 k("n", "<leader>h", ":bprevious<CR>", silent)
+-- k("n", "<leader>h", hlsToggle, silent)
 
 --- make dot work in visual mode
 m("v", ".", ":norm .<cr>", opt)
@@ -135,8 +135,6 @@ local function hlsToggle()
     vim.o.hlsearch = true
   end
 end
-
-k("n", "<leader>h", hlsToggle, silent)
 
 --- copy block
 k("n", "cp", "yap<S-}>p", opt)
@@ -158,14 +156,12 @@ k("n", "g}", "/}<cr>")
 k("n", "g[", [[?\v\w+\[\zs<cr>]])
 k("n", "g]", [[/\v\w+\[\zs<cr>]])
 
-
 --- tmux ---
 -- TODO(jlima): fix this
 k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-
 
 --- marks/jumps ---
 --- k("n", "'", "`", opt)
