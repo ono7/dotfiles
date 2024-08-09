@@ -32,6 +32,7 @@ echo_green() {
 toggle() {
   fg
 }
+
 zle -N toggle
 bindkey '^Z' toggle
 
@@ -289,7 +290,15 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-alias cds='cd $(fd -td | fzf)'
+
+cds () {
+  `cd $(fd -td | fzf)`
+}
+
+zle -N cds
+bindkey '^S' cds
+
+
 alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'

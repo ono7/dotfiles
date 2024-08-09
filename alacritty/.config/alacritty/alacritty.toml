@@ -109,6 +109,7 @@ chars = "\u0001"
 key = "A"
 mods = "Command"
 
+# c-s to command-s
 [[keyboard.bindings]]
 chars = "\u0013"
 key = "S"
