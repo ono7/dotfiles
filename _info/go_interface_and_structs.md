@@ -14,6 +14,8 @@ type fooImplementation struct {
 
 ## type assertions
 
+`https://www.youtube.com/watch?v=pCA7oTBH4Zk`
+
 ```go
 
 package main
