@@ -63,6 +63,7 @@ action = "Paste"
 key = "V"
 mods = "Shift|Command"
 
+# c-^ allow vim to use Command+6 to swap between last to used buffers
 [[keyboard.bindings]]
 chars = "\u001E"
 key = "6"
