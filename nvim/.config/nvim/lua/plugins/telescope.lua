@@ -13,7 +13,7 @@ end
 
 local actions = require "telescope.actions"
 
-local layout_width = 0.99
+local layout_width = 0.9
 
 require("telescope").setup {
   pickers = {
