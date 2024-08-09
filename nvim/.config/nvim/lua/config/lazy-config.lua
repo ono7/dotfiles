@@ -39,6 +39,8 @@ require("lazy").setup({
           html = { "prettier" },
           json = { "prettier" },
           yaml = { "prettier" },
+          -- go install -v github.com/incu6us/goimports-reviser/v3@latest
+          -- go install golang.org/x/tools/cmd/goimports@latest
           go = { "goimports", "goimports-reviser", "gofmt" },
           markdown = { "prettier" },
           -- markdown = { "mdformat" }, -- might need to try this one
