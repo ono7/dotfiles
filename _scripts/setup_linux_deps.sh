@@ -2,7 +2,7 @@
 
 echo "$0"
 
-if [ `uname` != 'Linux' ]; then
+if [ $(uname) != 'Linux' ]; then
   echo 'I only run on Linux..'
   exit 1
 fi
@@ -19,6 +19,11 @@ sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearc
 
 echo 'done installing linux depenencies'
 
+if command -v go &>/dev/null; then
+  echo "installing goimports-reviser.."
+  go install -v github.com/incu6us/goimports-reviser/v3@latest
+fi
+
 cd ~/
 rm -rf ~/nvim
 rm -rf ~/nvim-linux64
@@ -32,7 +37,6 @@ rm nvim-linux64.*
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
 echo "Neovim setup for linux complete"
 
-
 echo "install nvm...."
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -43,11 +47,11 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 echo "Installing latest node version"
 
-if type nvm > /dev/null 2>&1; then
-    echo "NVM found. Installing Node.js..."
-    nvm install node
-    echo "installing npm packages......."
-    npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc
+if type nvm >/dev/null 2>&1; then
+  echo "NVM found. Installing Node.js..."
+  nvm install node
+  echo "installing npm packages......."
+  npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc
 else
-    echo "NVM not found. Skipping Node.js installation."
+  echo "NVM not found. Skipping Node.js installation."
 fi

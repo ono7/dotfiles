@@ -21,7 +21,34 @@ require("lazy").setup({
       vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
     end
   },
-  { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
+  -- replace this with conform.nvim
+  -- { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+    config = function()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "luafmt" },
+          -- Conform will run multiple formatters sequentially
+          python = { "black" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          css = { "prettier" },
+          scss = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          graphql = { "prettier", stop_after_first = true },
+        },
+        format_on_save = {
+          lsp_format = "fallback",
+          timeout_ms = 500,
+        },
+      })
+    end
+  },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
   -- {
