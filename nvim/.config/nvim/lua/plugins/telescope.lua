@@ -14,28 +14,18 @@ end
 local actions = require "telescope.actions"
 
 local layout_width = 0.9
+local with_dropdown = {
+  theme = "dropdown",
+  layout_config = {
+    width = layout_width,
+  },
+}
 
 require("telescope").setup {
   pickers = {
-    find_files = {
-      theme = "dropdown",
-      layout_config = {
-        width = layout_width,
-      },
-    },
-    git_files = {
-      theme = "dropdown",
-      layout_config = {
-        width = layout_width,
-      },
-    },
-    oldfiles = {
-      theme = "dropdown",
-      cwd_only = false,
-      layout_config = {
-        width = layout_width,
-      },
-    },
+    find_files = with_dropdown,
+    git_files = with_dropdown,
+    oldfiles = with_dropdown,
     live_grep = {
       mappings = {
         i = { ["<c-f>"] = actions.to_fuzzy_refine },
@@ -57,12 +47,10 @@ require("telescope").setup {
     path_display = { "truncate" },
     preview = false,
     file_ignore_patterns = {
-      -- "%.git",
       ".venv%/",
       "%/venv%/",
       "%/.git%/",
-      -- "COMMIT_EDITMSG",
-      ".cache",
+      "%.cache", -- this might need to go back to ".cache"
       "__pycache__",
       "%.o",
       "%.a",
