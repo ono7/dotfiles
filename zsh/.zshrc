@@ -310,7 +310,8 @@ ginit () {
 
 alias gw='git worktree '
 
-alias tree="tree -a -I '.git' -I '__pycache__' -I 'venv'"
+# alias tree="tree -a -I '.git' -I '__pycache__' -I 'venv'"
+alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
 
 
 gitlog () {
