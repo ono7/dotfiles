@@ -11,8 +11,6 @@ local function get_git_root()
   end
 end
 
--- local data = assert(vim.fn.stdpath "data") --[[@as string]]
-
 local actions = require "telescope.actions"
 
 require("telescope").setup {
@@ -89,13 +87,6 @@ vim.keymap.set("n", "<space>fh", builtin.help_tags)
 vim.keymap.set("n", "<space>fg", builtin.live_grep)
 vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 
--- vim.keymap.set("n", "<space>gw", builtin.grep_string)
---
--- vim.keymap.set("n", "<space>fa", function()
---   ---@diagnostic disable-next-line: param-type-mismatch
---   builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy") }
--- end)
-
 k("n", "<leader>vc", function()
   builtin.git_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = false }
 end)
@@ -129,11 +120,10 @@ end, opt)
 
 -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
-
+-- see picker options
 k("n", "<c-s>", function()
   require("telescope.builtin").oldfiles {}
 end)
-
 
 -- k("n", "<leader>ff", function()
 --   vim.ui.input({ prompt = "Enter directory path: " }, function(input)
