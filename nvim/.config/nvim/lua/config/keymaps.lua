@@ -60,7 +60,7 @@ k("x", "<<", function()
 end, silent)
 
 -- toggle spell on and off
-k("n", "<leader>s", function()
+k("n", "<leader>ss", function()
   vim.o.spell = not vim.o.spell
   print(vim.opt.spell._value)
 end, silent)
