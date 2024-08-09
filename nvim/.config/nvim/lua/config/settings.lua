@@ -109,8 +109,8 @@ opt.clipboard:append("unnamedplus")
 -- end
 
 --- window-local options ---
-wo.number = true
-wo.relativenumber = true
+wo.number = false
+wo.relativenumber = false
 wo.wrap = false
 wo.numberwidth = 2
 wo.signcolumn = "yes"
