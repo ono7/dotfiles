@@ -290,15 +290,6 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-
-cds () {
-  `cd $(fd -td | fzf)`
-}
-
-zle -N cds
-bindkey '^S' cds
-
-
 alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
@@ -318,8 +309,6 @@ ginit () {
 }
 
 alias gw='git worktree '
-
-# alias tree="tree -a -I '.git' -I '__pycache__' -I 'venv'"
 alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
 
 gitlog () {
@@ -356,27 +345,6 @@ jira () {
     # fi
     cd $my_dir
 }
-
-# dotp () {
-#     my_dir=$PWD
-#     cd ~/.dotfiles
-#     git pull
-#     cd $my_dir
-# }
-#
-# dotc () {
-#     my_dir=$PWD
-#     cd ~/.dotfiles
-#     git pull
-#     git add .
-#     # f=$(git status --porcelain | cut -c4- | head -n 4)
-#     # more_changes=$(git status --porcelain | sed -n 5p)
-#     # [ -n "$more_changes" ] && f="$f ..."
-#     # git commit "-m updates -> ${f//$'\n'/ }"
-#     git commit
-#     git push
-#     cd $my_dir
-# }
 
 # activate virtual environment if there is one in this repo
 va () {
@@ -422,29 +390,6 @@ vc () {
   which python
   cd $my_dir
 }
-
-# dp() {
-#   unset http_proxy
-#   unset https_proxy
-#   unset all_proxy
-#   unset no_proxy
-#   echo "cli proxy destroy done..."
-# }
-
-# make()
-# {
-#   pathpat="(/[^/]*)+:[0-9]+"
-#   ccred=$(echo -e "\033[0;31m")
-#   ccyellow=$(echo -e "\033[0;33m")
-#   ccend=$(echo -e "\033[0m")
-#   /usr/bin/make "$@" 2>&1 | sed -E -e "/[Ee]rror[: ]/ s%$pathpat%$ccred&$ccend%g" -e "/[Ww]arning[: ]/ s%$pathpat%$ccyellow&$ccend%g"
-#   return ${PIPESTATUS[0]}
-# }
-
-# default virtual env if exists
-# if [[ -f ~/.virtualenvs/prod3/bin/activate ]]; then
-#   source ~/.virtualenvs/prod3/bin/activate
-# fi
 
 # disable virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -572,11 +517,11 @@ proxyoff () {
 }
 
 _d () {
-  cdr
-  cd "$(fd --type d -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)"
+  cdr || eche "not in git repo"
+  cd "$(fd -td -HI --exclude '.git|__pycache__' . | fzf)"
 }
 
-# _d declear as widget for zsh
+# _d declare as widget for zsh
 zle -N _d
 bindkey -s '^G' _d^M
 
@@ -589,10 +534,6 @@ fcd() {
     dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-_vs () {
-  vim "$(fd --type f -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
-}
-
 setup_nvim_linux() {
   bak=$PWD
   cd
@@ -603,9 +544,13 @@ setup_nvim_linux() {
   cd $bak
 }
 
-# _vs declear as widget for zsh
-zle -N _vs
-bindkey -s '^S' _vs^M
+# _vs () {
+#   vim "$(fd --type f -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
+# }
+
+# # _vs declear as widget for zsh
+# zle -N _vs
+# bindkey -s '^S' _vs^M
 
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
