@@ -13,11 +13,16 @@ end
 
 local actions = require "telescope.actions"
 
-local layout_width = 0.9
+-- local layout_width = 0.9
 local with_dropdown = {
   theme = "dropdown",
   layout_config = {
-    width = layout_width,
+    center = {
+      height = 0.8,
+      preview_cutoff = 40,
+      prompt_position = "top",
+      width = 0.9
+    },
   },
 }
 
@@ -42,7 +47,12 @@ require("telescope").setup {
 
   defaults = {
     layout_config = {
-      width = layout_width,
+      center = {
+        height = 0.4,
+        preview_cutoff = 40,
+        prompt_position = "top",
+        width = 0.5
+      },
     },
     path_display = { "truncate" },
     preview = false,
