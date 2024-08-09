@@ -101,7 +101,7 @@ alias gdmrr="git branch --merged | grep -Pv '(^\*|master|main|production|develop
 alias gfh="git log --follow -p"
 
 # view logs with changes with gl -p
-alias gl="git log --graph --abbrev=10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gl="git log --graph --abbrev=10 --pretty=format:'%Cred%h%Creset%Cgreen(%ar)%C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s ' --abbrev-commit"
 alias glb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:green)(%(committerdate:relative))%(color:reset) %(contents:subject)'"
 alias gp='git push '
 alias gpu='git pull'
