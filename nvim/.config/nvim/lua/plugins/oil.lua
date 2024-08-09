@@ -9,24 +9,13 @@ end
 -- oil_config.setup {}
 oil_config.setup {
   columns = { "icon" },
-  -- keymaps = {
-  --   ["<C-h>"] = false,
-  --   ["<M-h>"] = "actions.select_split",
-  -- },
+  keymaps = {
+    -- ["<C-h>"] = false,
+    ["<c-v>"] = "actions.select_split",
+  },
   view_options = {
     show_hidden = true,
   },
-  -- win_options = {
-  --   wrap = false,
-  --   signcolumn = "no",
-  --   cursorcolumn = false,
-  --   foldcolumn = "0",
-  --   spell = false,
-  --   list = false,
-  --   conceallevel = 3,
-  --   concealcursor = "nvic",
-  -- },
-  -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
   skip_confirm_for_simple_edits = true,
 
   -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
@@ -35,7 +24,7 @@ oil_config.setup {
 }
 
 -- Open parent directory in current window
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Open parent directory in floating window
--- vim.keymap.set("n", "-", require("oil").toggle_float)
+vim.keymap.set("n", "-", require("oil").toggle_float)

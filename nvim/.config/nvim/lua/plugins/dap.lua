@@ -6,13 +6,14 @@ require("dap-go").setup()
 
 require("nvim-dap-virtual-text").setup {}
 
+-- TODO(jlima): map this to a different key to free <space>b to buffer browsing
 vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
 -- vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
 
 -- Eval var under cursor
-vim.keymap.set("n", "<space>?", function()
-  require("dapui").eval(nil, { enter = true })
-end)
+-- vim.keymap.set("n", "<space>?", function()
+--   require("dapui").eval(nil, { enter = true })
+-- end)
 
 vim.keymap.set("n", "<F1>", dap.continue)
 vim.keymap.set("n", "<F2>", dap.step_into)
