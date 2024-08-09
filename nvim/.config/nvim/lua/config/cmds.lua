@@ -10,6 +10,21 @@ local function branch_name()
   end
 end
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    local buf_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
+    -- disable LSP for files larger than 1MB 1,000,000 bytes
+    if buf_size > 1000000 then
+      vim.defer_fn(function()
+        vim.lsp.stop_client(vim.lsp.get_clients())
+        print("large file detected.. disabled lsp...")
+      end, 400)
+      -- 400 ms
+    end
+  end,
+  group = create_augroup("large_files", { clear = true }),
+})
+
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "FocusGained" }, {
   callback = function()
     vim.b.branch_name = branch_name()
