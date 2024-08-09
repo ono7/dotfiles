@@ -44,8 +44,9 @@ require("telescope").setup {
     },
     preview = false,
     file_ignore_patterns = {
-      ".git/",
-      ".venv/", -- uncomment this to see files in venv
+      "^.git/",
+      "%.venv/", -- uncomment this to see files in venv
+      "venv%/",  -- uncomment this to see files in venv
       ".cache",
       "__pycache__",
       "%.o",
