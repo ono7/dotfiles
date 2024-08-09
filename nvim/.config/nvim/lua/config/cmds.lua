@@ -14,10 +14,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
     local buf_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
     -- disable LSP for files larger than 1MB 1,000,000 bytes
+    local buf_size_mb = string.format("%.2f", buf_size / 1024 / 1024)
     if buf_size > 1000000 then
       vim.defer_fn(function()
         vim.lsp.stop_client(vim.lsp.get_clients())
-        print("large file detected.. disabled lsp...")
+        print("large file detected.. lsp disabled: ", buf_size_mb, "MB")
       end, 400)
       -- 400 ms
     end
