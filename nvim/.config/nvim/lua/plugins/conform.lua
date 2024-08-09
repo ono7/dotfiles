@@ -12,7 +12,8 @@ require("conform").setup({
     yaml = { "prettier" },
     -- go install -v github.com/incu6us/goimports-reviser/v3@latest
     -- go install golang.org/x/tools/cmd/goimports@latest
-    go = { "goimports", "goimports-reviser", "gofmt" },
+    -- goimports also formats just like gofmt
+    go = { "goimports", "goimports-reviser" },
     markdown = { "prettier" },
     -- markdown = { "mdformat" }, -- might need to try this one
     graphql = { "prettier", stop_after_first = true },
