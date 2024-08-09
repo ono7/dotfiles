@@ -1,6 +1,6 @@
 require("conform").setup({
   formatters_by_ft = {
-    lua = { "luafmt" },
+    lua = { "luafmt", lsp_format = "fallback" },
     -- Conform will run multiple formatters sequentially
     python = { "black" },
     javascript = { "prettier" },
@@ -10,16 +10,16 @@ require("conform").setup({
     html = { "prettier" },
     json = { "prettier" },
     yaml = { "prettier" },
+    markdown = { "prettier" },
     -- go install -v github.com/incu6us/goimports-reviser/v3@latest
     -- go install golang.org/x/tools/cmd/goimports@latest
     -- goimports also formats just like gofmt
     go = { "goimports", "goimports-reviser" },
-    markdown = { "prettier" },
     -- markdown = { "mdformat" }, -- might need to try this one
     graphql = { "prettier", stop_after_first = true },
   },
   format_on_save = {
-    lsp_format = "fallback",
+    -- lsp_format = "fallback",
     timeout_ms = 500,
   },
   format_after_save = function(bufnr)

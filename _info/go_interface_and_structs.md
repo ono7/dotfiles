@@ -12,6 +12,29 @@ type fooImplementation struct {
 
 ```
 
+## type assertions
+
+```go
+
+package main
+
+import "fmt"
+
+func main() {
+	var a interface{} = 3
+	// var a any = "Hello"  (we can use any here too)
+
+	// b := a.(string) // cast value to a string
+
+	if b, ok := a.(string); ok {
+		fmt.Println(b)
+	} else {
+		fmt.Println("not ok", ok)
+	}
+}
+
+```
+
 ### structs embedding
 
 ```go

@@ -94,10 +94,11 @@ k("n", ",w", function()
     return
   end
   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
-  local status, _ = pcall(vim.lsp.buf.format)
-  if not status then
-    print("no lsp..")
-  end
+  -- this is now handled by conform.nvim
+  -- local status, _ = pcall(vim.lsp.buf.format)
+  -- if not status then
+  --   print("no lsp..")
+  -- end
   vim.cmd [[:write]]
 end, silent)
 
