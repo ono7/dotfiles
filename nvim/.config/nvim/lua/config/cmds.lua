@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local buf_size_mb = string.format("%.2f", buf_size / 1024 / 1024)
     if buf_size > 1000000 then
       vim.defer_fn(function()
+        vim.b.disable_autoformat = true
         vim.lsp.stop_client(vim.lsp.get_clients())
         print("large file detected.. lsp disabled: ", buf_size_mb, "MB")
       end, 400)

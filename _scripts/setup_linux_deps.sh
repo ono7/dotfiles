@@ -22,6 +22,7 @@ echo 'done installing linux depenencies'
 if command -v go &>/dev/null; then
   echo "installing goimports-reviser.."
   go install -v github.com/incu6us/goimports-reviser/v3@latest
+  go install golang.org/x/tools/cmd/goimports@latest
 fi
 
 cd ~/

@@ -11,6 +11,7 @@ if command -v brew &>/dev/null; then
   npm install lua-fmt prettier jsonlint typescript eslint jsonlint doctoc -g
   # formatter used with conform.nvim
   go install -v github.com/incu6us/goimports-reviser/v3@latest
+  go install golang.org/x/tools/cmd/goimports@latest
 else
   echo "Install homebrew first!"
   exit 1
