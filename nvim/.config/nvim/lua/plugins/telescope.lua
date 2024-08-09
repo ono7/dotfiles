@@ -23,6 +23,10 @@ require("telescope").setup {
     git_files = {
       theme = "dropdown",
     },
+    oldfiles = {
+      theme = "dropdown",
+      cwd_only = false,
+    },
     live_grep = {
       mappings = {
         i = { ["<c-f>"] = actions.to_fuzzy_refine },
@@ -123,12 +127,12 @@ k({ "n", "x" }, "<c-p>", function()
   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
-k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
+-- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
 
--- k("n", "<c-s>", function()
---   require("telescope.builtin").oldfiles {}
--- end)
+k("n", "<c-s>", function()
+  require("telescope.builtin").oldfiles {}
+end)
 
 
 -- k("n", "<leader>ff", function()
