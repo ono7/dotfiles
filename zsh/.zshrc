@@ -188,6 +188,7 @@ elif command -v nvim &>/dev/null; then
   alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 fi
 
+alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias v=vim
 
