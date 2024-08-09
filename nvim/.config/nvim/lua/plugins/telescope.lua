@@ -13,17 +13,28 @@ end
 
 local actions = require "telescope.actions"
 
+local layout_width = 0.99
+
 require("telescope").setup {
   pickers = {
     find_files = {
       theme = "dropdown",
+      layout_config = {
+        width = layout_width,
+      },
     },
     git_files = {
       theme = "dropdown",
+      layout_config = {
+        width = layout_width,
+      },
     },
     oldfiles = {
       theme = "dropdown",
       cwd_only = false,
+      layout_config = {
+        width = layout_width,
+      },
     },
     live_grep = {
       mappings = {
@@ -38,17 +49,19 @@ require("telescope").setup {
       require("telescope.themes").get_dropdown {},
     },
   },
+
   defaults = {
     layout_config = {
-      vertical = { width = 0.5 },
+      width = layout_width,
     },
+    path_display = { "truncate" },
     preview = false,
     file_ignore_patterns = {
       -- "%.git",
       ".venv%/",
       "%/venv%/",
       "%/.git%/",
-      "COMMIT_EDITMSG",
+      -- "COMMIT_EDITMSG",
       ".cache",
       "__pycache__",
       "%.o",
