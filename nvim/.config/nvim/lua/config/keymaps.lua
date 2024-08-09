@@ -7,8 +7,8 @@ local silent = { noremap = true, silent = true }
 k({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- add movements bigger then 1 line to the jump list, but also navigate through wrapped lines
-vim.cmd([[nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj']])
-vim.cmd([[nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk']])
+-- vim.cmd([[nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj']])
+-- vim.cmd([[nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk']])
 
 vim.g.mapleader = " "
 
