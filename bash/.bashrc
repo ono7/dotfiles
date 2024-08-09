@@ -118,6 +118,7 @@ fi
 
 export TERM=xterm-256color
 export CLICOLOR=1
+export COLORTERM=truecolor
 
 alias tree="tree -C -I '*.pyc|__pycache__|venv'"
 alias ll="ls -loah"

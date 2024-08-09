@@ -14,6 +14,8 @@
 # -n = check if a variable is not empty
 # -z = check if a variable is empty
 
+export COLORTERM=truecolor
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
