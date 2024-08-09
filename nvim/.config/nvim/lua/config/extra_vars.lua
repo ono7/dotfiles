@@ -163,8 +163,6 @@ cnoremap <C-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
-nnoremap <C-e> $
-nnoremap <C-a> ^
 " inoremap <m-b> <C-o>B
 " inoremap <m-f> <C-o>W
 nnoremap <silent><c-n> :cnext<cr>
@@ -226,6 +224,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
+nnoremap <c-s> :bro oldfiles<CR>
 
 " if executable('rg')
 "     set grepprg=rg\ --no-heading\ --color=never\ --smart-case\ --vimgrep\ -g\ '!.git'
@@ -601,6 +600,7 @@ set matchtime=0
 set belloff=all
 set matchpairs=(:),{:},[:],<:>
 set autoindent
+nnoremap <c-s> :bro oldfiles<CR>
 augroup _read
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
