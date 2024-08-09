@@ -42,7 +42,6 @@ export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 # go build with no compiled optimizations for debugging
 alias god='go build -gcflags="all=-N -l"'
 
-
 export PATH="$HOME/.fzf/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 
 typeset -U path
@@ -290,6 +289,7 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
+alias cds='cd $(fd -td | fzf)'
 alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
@@ -312,7 +312,6 @@ alias gw='git worktree '
 
 # alias tree="tree -a -I '.git' -I '__pycache__' -I 'venv'"
 alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
-
 
 gitlog () {
   # graphical view of the commit logs, should be able to see
@@ -447,7 +446,6 @@ export FZF_DEFAULT_OPTS='
 --color=bg+:#0a1623,bg:#0a1623,spinner:#f5e0dc,hl:#f38ba8
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
-
 
 FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --follow --hidden'
 if command -v fd &>/dev/null; then
@@ -675,7 +673,6 @@ setopt nonomatch # hide error messages if there is no match for the pattern
 setopt notify # repor the status of background tasks emmediately
 setopt numericglobsort # sort filenames numerically
 setopt promptsubst # enablne command substitution in prompt
-
 
 # hide EOL sign ('%')
 PROMPT_EOL_MARK=""
