@@ -12,8 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- "tpope/vim-repeat",
-  -- { "junegunn/fzf",           build = "./install --all" },
   {
     "tpope/vim-fugitive",
     config = function()
@@ -26,48 +24,16 @@ require("lazy").setup({
   {
     'stevearc/conform.nvim',
     opts = {},
-    config = function()
-      require("conform").setup({
-        formatters_by_ft = {
-          lua = { "luafmt" },
-          -- Conform will run multiple formatters sequentially
-          python = { "black" },
-          javascript = { "prettier" },
-          typescript = { "prettier" },
-          css = { "prettier" },
-          scss = { "prettier" },
-          html = { "prettier" },
-          json = { "prettier" },
-          yaml = { "prettier" },
-          -- go install -v github.com/incu6us/goimports-reviser/v3@latest
-          -- go install golang.org/x/tools/cmd/goimports@latest
-          go = { "goimports", "goimports-reviser", "gofmt" },
-          markdown = { "prettier" },
-          -- markdown = { "mdformat" }, -- might need to try this one
-          graphql = { "prettier", stop_after_first = true },
-        },
-        format_on_save = {
-          lsp_format = "fallback",
-          timeout_ms = 500,
-        },
-        format_after_save = function(bufnr)
-          -- disable with a global or buffer-local variable
-          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-            return
-          end
-          return { timeout_ms = 5000, lsp_format = "fallback" }
-        end
-      })
-    end
+    config = function() require "plugins.conform" end
   },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
+  -- keep just incase...
   -- {
   --   "ellisonleao/gruvbox.nvim",
   --   priority = 1000,
   --   config = function() require "themes.gruvbox" end
   -- },
-  -- { "catppuccin/nvim",        name = "catppuccin" },
   -- {
   --   "folke/trouble.nvim",
   --   config = function()
@@ -165,7 +131,6 @@ require("lazy").setup({
     "nvim-telescope/telescope-fzf-native.nvim",
     build = 'make' -- linux, macos (requires gcc,clang,make)
   },
-  -- { "nvim-telescope/telescope-smart-history.nvim" },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -207,7 +172,5 @@ require("lazy").setup({
       vim.cmd [[silent! GoInstallDeps]]
     end
   },
-  -- "ixru/nvim-markdown",
   "folke/neodev.nvim",
-  -- { "stevearc/profile.nvim",                      config = function() require "plugins.profile" end }
 }, {})
