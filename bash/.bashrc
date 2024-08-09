@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # added to support containers
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -10,8 +6,8 @@ export LC_ALL=en_US.UTF-8
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 set -o vi
@@ -40,12 +36,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -54,39 +50,38 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-    else
-  color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -107,7 +102,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -127,11 +122,11 @@ alias tree="tree -C -I '*.pyc|__pycache__|venv'"
 
 [[ -d ~/.tmp ]] || mkdir -p ~/.tmp
 
-if [ -d "$HOME/local/bin" ] ; then
+if [ -d "$HOME/local/bin" ]; then
   PATH="$PATH:$HOME/local/bin"
 fi
 
-if [ -d "$HOME/bin" ] ; then
+if [ -d "$HOME/bin" ]; then
   PATH="$PATH:$HOME/bin"
 fi
 
@@ -148,88 +143,84 @@ alias gs='git status'
 alias cdr='cd "$(git rev-parse --show-toplevel)"  &>/dev/null'
 alias c='clear'
 
-vs () {
+vs() {
   vim $(fzf || '' 2>/dev/null)
 }
 
-ginit () {
+ginit() {
   git init
   cp ~/.dotfiles/gitignore .gitignore
   git add .
   git commit -am 'initial commit'
 }
 
-gitl () {
-    my_dir=$PWD
-    cdr
-    git add .
-    if test -z "$1"; then
-      git commit '-m updates'
+gitl() {
+  my_dir=$PWD
+  cdr
+  git add .
+  if test -z "$1"; then
+    git commit '-m updates'
+  else
+    git commit '-m' $1
+  fi
+  git push
+  cd $my_dir
+}
+
+dotp() {
+  my_dir=$PWD
+  cd ~/.dotfiles
+  git pull
+  cd $my_dir
+}
+
+dotc() {
+  my_dir=$PWD
+  cd ~/.dotfiles
+  git pull
+  git add .
+  git commit '-m' 'updates'
+  git push
+  cd ~/.info
+  git pull
+  git add .
+  git commit '-m' 'updates'
+  git push
+  cd $my_dir
+}
+
+ta() {
+  if ! command -v tmux &>/dev/null; then
+    echo "Error: tmux is not installed."
+    return 1
+  fi
+  local SESSION_NAME="${1:-main}"
+  if [ -n "$TMUX" ]; then
+    if [ -n "$1" ]; then
+      tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
     else
-      git commit '-m' $1
+      return 0
     fi
-    git push
-    cd $my_dir
-}
-
-dotp () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    cd $my_dir
-}
-
-dotc () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    git add .
-    git commit '-m' 'updates'
-    git push
-    cd ~/.info
-    git pull
-    git add .
-    git commit '-m' 'updates'
-    git push
-    cd $my_dir
-}
-
-ta () {
-        if ! command -v tmux &> /dev/null
-        then
-                echo "Error: tmux is not installed."
-                return 1
-        fi
-        local SESSION_NAME="${1:-main}"
-        if [ -n "$TMUX" ]
-        then
-                if [ -n "$1" ]
-                then
-                        tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
-                else
-                        return 0
-                fi
-        else
-                tmux new-session -A -s "$SESSION_NAME"
-        fi
-}
-
-# activate virtual environment if there is one in this repo
-va () {
-  if [[ -d $(git rev-parse --show-toplevel)/venv ]]; then
-    source $(git rev-parse --show-toplevel)/venv/bin/activate
+  else
+    tmux new-session -A -s "$SESSION_NAME"
   fi
 }
 
+# activate virtual environment if there is one in this repo
+va() {
+  toplevel=$(git rev-parse --show-toplevel)
+  [ -d "$toplevel/venv" ] && source "$toplevel/venv/bin/activate"
+
+}
 
 # deactivate virtual environment if there is one in this repo
-vd () {
-  deactivate 2> /dev/null
+vd() {
+  deactivate 2>/dev/null
   source $HOME/.virtualenvs/prod3/bin/activate
 }
 
 if command -v nvim &>/dev/null; then
-  alias vim=$(which nvim)
+  alias vim="$(which nvim)"
   alias vi=vim
   # legacy vim
   alias vil=vim
@@ -250,7 +241,7 @@ alias v=vim
 export EDITOR=vim
 export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
-if command -v fd &> /dev/null; then
+if command -v fd &>/dev/null; then
   _fzf_compgen_path() {
     fd -I --hidden --follow --exclude ".git" . "$1"
   }
@@ -266,20 +257,17 @@ else
   echo 'download fd from: https://github.com/sharkdp/fd/releases'
 fi
 
-
 source ~/.zshenv
 
 eval "$(fzf --bash)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-
 # unset display in wsl or vim will starup slow
 [[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
 
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 uptime
