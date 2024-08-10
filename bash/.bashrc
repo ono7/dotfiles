@@ -146,7 +146,7 @@ alias gd='git diff'
 alias gs='git status'
 
 alias cdr='cd "$(git rev-parse --show-toplevel)"  &>/dev/null'
-alias c='clear'
+alias clear='clear -x'
 
 vs() {
   vim $(fzf || '' 2>/dev/null)
