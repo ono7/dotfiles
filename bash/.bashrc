@@ -152,6 +152,11 @@ vs() {
   vim $(fzf || '' 2>/dev/null)
 }
 
+_d() {
+  cdr || eche "not in git repo"
+  cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
+}
+
 ginit() {
   git init
   cp ~/.dotfiles/gitignore .gitignore

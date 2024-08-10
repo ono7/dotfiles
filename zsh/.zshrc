@@ -517,7 +517,7 @@ proxyoff () {
 
 _d () {
   cdr || eche "not in git repo"
-  cd "$(fd -td -HI --exclude '.git|__pycache__' . | fzf)"
+  cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
 # _d declare as widget for zsh

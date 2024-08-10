@@ -17,12 +17,13 @@ sudo apt -y upgrade
 sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearcher-ag \
   python3-pip python3-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt
 
+echo
 echo "------[ done: installing linux dependencies ]-------"
+echo
 
-# install goimports used for code formatting/neovim
-if command -v go &>/dev/null; then
-  go install -v github.com/incu6us/goimports-reviser/v3@latest
-  go install golang.org/x/tools/cmd/goimports@latest
+if command -v snap &>/dev/null; then
+  snap install go --classic
+  snap install starship --classic
 fi
 
 cd ~/
