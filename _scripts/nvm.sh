@@ -7,5 +7,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 nvm install node
+npm set strict-ssl false
 
 npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim
