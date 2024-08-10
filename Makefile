@@ -78,6 +78,7 @@ linux-deps:
 
 linux-neovim:
 	@echo $(BANNER)
+	mkdir -p ~/local/bin
 	@bash ./_scripts/linux-neovim-setup.sh
 
 mac-deps:
