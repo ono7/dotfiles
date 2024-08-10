@@ -2,7 +2,7 @@
 
 echo "$0"
 
-if [ $(uname) != 'Linux' ]; then
+if [ "$(uname)" != 'Linux' ]; then
   echo 'I only run on Linux..'
   exit 1
 fi
@@ -17,7 +17,7 @@ wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.
 tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
-mkdir -p ~/local/bin
+mkdir -p "$HOME/local/bin"
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
 
 echo
