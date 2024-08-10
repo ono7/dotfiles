@@ -25,9 +25,9 @@ detect-os:
 	fi; \
 	$(MAKE) $$machine
 
-linux: linux-deps clean stow fzf
+linux: clean nvm linux-deps stow fzf
 
-mac: mac-deps clean stow fzf
+mac: clean nvm mac-deps stow fzf
 
 clean:
 	@echo $(BANNER)
