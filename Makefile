@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done
 
-BANNER = "--------------------- Running target: $@ ------------------------"
+BANNER = "---------------------{ Running target: $@ }------------------------"
 
 # Default target for easy installation
 install:
@@ -25,9 +25,9 @@ detect-os:
 	fi; \
 	$(MAKE) $$machine
 
-linux: linux-deps clean nvm stow fzf
-
-mac: mac-deps clean nvm stow fzf
+# the order of execution on this targets is important
+linux: linux-deps clean stow nvm fzf done
+mac: mac-deps clean stow nvm fzf done
 
 clean:
 	@echo $(BANNER)
@@ -82,3 +82,7 @@ linux-deps:
 mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
+
+done:
+	@echo $(BANNER)
+	vim
