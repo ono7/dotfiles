@@ -17,10 +17,10 @@ sudo apt -y upgrade
 sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearcher-ag \
   python3-pip python3-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt
 
-echo 'done installing linux depenencies'
+echo "------[ done: installing linux dependencies ]-------"
 
+# install goimports used for code formatting/neovim
 if command -v go &>/dev/null; then
-  echo "installing goimports-reviser.."
   go install -v github.com/incu6us/goimports-reviser/v3@latest
   go install golang.org/x/tools/cmd/goimports@latest
 fi
@@ -36,4 +36,4 @@ tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
-echo "Neovim setup for linux complete"
+echo "------[ Neovim setup for linux complete ]-------"
