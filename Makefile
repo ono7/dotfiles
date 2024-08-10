@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 .PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done
 
-BANNER = "-------------------[ $@ ]-------------------"
+BANNER = "-------------------[ make: $@ ]-------------------"
 
 # Default target for easy installation
 install:
