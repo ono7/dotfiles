@@ -136,6 +136,7 @@ vim.opt.autoindent = true
 
 bo.complete = ".,w,b,u"
 bo.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 
 vim.g.floating_window_border = {
   "╭",
