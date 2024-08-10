@@ -2,11 +2,10 @@ SHELL := /bin/bash
 
 .PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done
 
-BANNER = "---------------------{ Running target: $@ }------------------------"
+BANNER = "-------------------[ $@ ]-------------------"
 
 # Default target for easy installation
 install:
-	@echo $(BANNER)
 	@$(MAKE) detect-os
 
 # Detect the operating system and invoke the appropriate target
@@ -66,12 +65,10 @@ fzf:
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --all
 
-# install nvm locally, this might be the way to go even in macos... more testing needed
 nvm:
 	@echo $(BANNER)
 	rm -rf ~/.nvm
 	@bash ./_scripts/nvm.sh
-
 
 # installs OS dependencies
 
@@ -83,6 +80,7 @@ mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
 
+# bootstrap neovim dependencies
 done:
 	@echo $(BANNER)
-	nvim +echo
+	nvim
