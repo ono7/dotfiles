@@ -23,7 +23,7 @@ echo
 
 if command -v snap &>/dev/null; then
   snap install go --classic
-  snap install starship --classic
+  snap install --candidate starship
 fi
 
 cd ~/
