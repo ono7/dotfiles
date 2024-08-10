@@ -6,4 +6,6 @@ echo "$0"
 if command -v go &>/dev/null; then
   go install -v github.com/incu6us/goimports-reviser/v3@latest
   go install golang.org/x/tools/cmd/goimports@latest
+else
+  echo ">>>>>>>>>>>>>>>>>>> go not installed <<<<<<<<<<<<<<<<<<<<"
 fi
