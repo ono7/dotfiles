@@ -8,4 +8,4 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install node
 
-npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc
+npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim
