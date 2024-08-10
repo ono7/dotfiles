@@ -24,6 +24,9 @@ local with_dropdown = {
       width = 0.9
     },
   },
+  mappings = {
+    i = { ["<c-f>"] = actions.to_fuzzy_refine },
+  },
 }
 
 require("telescope").setup {
