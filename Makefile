@@ -85,4 +85,4 @@ mac-deps:
 
 done:
 	@echo $(BANNER)
-	vim
+	nvim +echo
