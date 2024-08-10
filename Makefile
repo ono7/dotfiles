@@ -25,8 +25,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps fzf done
-mac: mac-deps clean stow nvm go-deps  fzf done
+linux: linux-deps clean stow nvm go-deps linux-neovim fzf done
+mac: mac-deps clean stow nvm go-deps fzf done
 
 clean:
 	@echo $(BANNER)
@@ -54,6 +54,7 @@ clean:
 	rm -f ~/.cn.cnf
 	rm -f ~/.pylintrc
 	rm -f ~/.dircolors
+	mkdir -p ~/local/bin
 
 stow:
 	@echo $(BANNER)
