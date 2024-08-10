@@ -8,9 +8,6 @@ if command -v brew &>/dev/null; then
   brew install bpytop pinentry-mac
   brew install golang delve sqlite shfmt sshs
   brew install --cask alacritty
-  # used with conform.nvim for code formatting
-  go install -v github.com/incu6us/goimports-reviser/v3@latest
-  go install golang.org/x/tools/cmd/goimports@latest
 else
   echo "Install homebrew first!"
   exit 1

@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -25,8 +25,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm fzf done
-mac: mac-deps clean stow nvm fzf done
+linux: linux-deps clean stow nvm go-deps fzf done
+mac: mac-deps clean stow nvm go-deps  fzf done
 
 clean:
 	@echo $(BANNER)
@@ -76,9 +76,18 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
+linux-neovim:
+	@echo $(BANNER)
+	@bash ./_scripts/linux-neovim-setup.sh
+
 mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
+
+go-deps:
+	@echo $(BANNER)
+	@bash ./_scripts/go-deps.sh
+
 
 # bootstrap neovim dependencies
 done:
