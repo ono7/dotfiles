@@ -36,7 +36,6 @@ toggle() {
 zle -N toggle
 bindkey '^Z' toggle
 
-export NVM_LAZY=1
 export GOPATH=$HOME/go
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 
@@ -639,13 +638,13 @@ bindkey ' ' magic-space # do history expansion on space
 # change directories
 setopt autocd
 
-# if [[ $OSTYPE == "linux"* ]];  then
+export NVM_LAZY=1
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 if [ -d "$HOME/.nvm" ]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-
 
 if [[ $OSTYPE == "darwin"* ]];  then
   KRATE=1
