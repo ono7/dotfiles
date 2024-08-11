@@ -1,5 +1,6 @@
 ---
 # /root/docker-compose-wireguard.yml
+# install docker https://docs.docker.com/engine/install/ubuntu/
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
