@@ -30,7 +30,9 @@ snippet ta "tag" w
   </${1/\v(\w+).*/\1/g}>
 
 snippet img "image html" w
-  <img align="${1:left}" width="${2:500}" height="${3:400}" alt="${4:image}" src="${0}">
+  <p align="center">
+    <img width="${2:500}" title="${4:image}" src="${0}"><br>
+  </p>
 
 snippet cimg "image centered" w
   <center>
