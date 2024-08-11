@@ -24,7 +24,8 @@ echo
 if command -v snap &>/dev/null; then
   echo "------[ snap: installing linux dependencies ]-------"
   sudo snap install go --classic
-  sudo snap install --candidate starship
+  sudo snap install --edge starship
+
 fi
 
 cd ~/
