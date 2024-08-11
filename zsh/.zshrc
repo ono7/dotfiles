@@ -378,9 +378,7 @@ vc () {
   venv_dir="${1:-venv}"
   python_version="${2:-python3}"
   $python_version --version || echo "python target version not installed" && return
-  $python_version -m venv $venv_dir
-  source $venv_dir/bin/activate
-  pip install pip wheel -U
+  $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
   pip install jq yq pyright black pipdeptree debugpy pytest yamllint pynvim rpdb pdbpp ruff python-dotenv ansible ansible-lint -U
   echo ""
   echo ""
