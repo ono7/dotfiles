@@ -8,7 +8,7 @@ working_directory = "None"
 
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
-osc52 = "OnlyCopy"
+osc52 = "CopyPaste"
 
 [colors]
 draw_bold_text_with_bright_colors = false
@@ -61,19 +61,18 @@ y = 9
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Shift|Command"
+mods = "Command"
+
+# this is c-v in vim
+# [[keyboard.bindings]]
+# chars = "\u0016"
+# key = "V"
+# mods = "Command"
 
 # c-^ allow vim to use Command+6 to swap between last to used buffers
 [[keyboard.bindings]]
 chars = "\u001E"
 key = "6"
-mods = "Command"
-
-
-# this is c-v in vim
-[[keyboard.bindings]]
-chars = "\u0016"
-key = "V"
 mods = "Command"
 
 [[keyboard.bindings]]
