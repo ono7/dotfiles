@@ -1,4 +1,5 @@
 ---
+# /root/docker-compose-wireguard.yml
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
@@ -24,6 +25,7 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+# this is the systemd service file needed
 # /etc/systemd/system/wireguard.service
 # [Unit]
 # Description=Wireguard service
