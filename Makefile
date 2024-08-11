@@ -39,7 +39,6 @@ clean:
 	rm -f ~/.zshrc
 	rm -rf ~/.dlv
 	rm -f ~/.zshenv
-	rm -f ~/.ssh/config
 	rm -f ~/.ctagsrc
 	rm -rf ~/.ctags.d
 	rm -f ~/.gdbinit
