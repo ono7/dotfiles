@@ -48,6 +48,10 @@ require("config.keymaps")
 require("config.cmds")
 require("themes.notheme") -- my simple theme
 
+
+vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
+vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
+
 -- uncomment for beam cursor
 vim.o.guicursor = ""
 vim.o.mouse = "n"

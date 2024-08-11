@@ -29,8 +29,6 @@ local on_attach = function(client, bufnr)
   -- k("<c-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
 
-  vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
-  vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
   -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 end
