@@ -304,7 +304,7 @@ ginit () {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   # other wise lets do other things
   git init "$@"
-  [ ! -f .gitignore ] && cp ~/.dotfiles/gitignore .gitignore || echo_green 'skipping .gitignore'
+  [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
 }
 
 alias gw='git worktree '

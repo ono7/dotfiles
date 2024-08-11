@@ -158,10 +158,11 @@ _d() {
 }
 
 ginit() {
-  git init
-  cp ~/.dotfiles/gitignore .gitignore
-  git add .
-  git commit -am 'initial commit'
+  # we are in a bare repo
+  [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
+  # other wise lets do other things
+  git init "$@"
+  [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
 }
 
 gitl() {
