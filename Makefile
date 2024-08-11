@@ -85,6 +85,7 @@ mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
 
+# installs go dependencies
 go-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/go-deps.sh
