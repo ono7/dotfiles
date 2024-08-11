@@ -10,8 +10,7 @@ services:
       - PUID=1000
       - PGID=100
       - TZ=Europe/Madrid
-      # change me
-      - SERVERURL=server.com
+      - SERVERURL=<chageme.to.something.com>
       - SERVERPORT=51820
       - PEERS=8
       - PEERDNS=192.168.212.171
@@ -25,3 +24,17 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+# /etc/systemd/system/wireguard.service
+# [Unit]
+# Description=Wireguard service
+# After=docker.service
+# Requires=docker.service
+#
+# [Service]
+# Type=oneshot
+# RemainAfterExit=yes
+# ExecStart=/bin/bash -c "docker compose -f /root/docker-compose-wireguard.yml up --detach"
+# ExecStop=/bin/bash -c "docker compose -f /root/docker-compose-wireguard.yml stop"
+#
+# [Install]
+# WantedBy=multi-user.target
