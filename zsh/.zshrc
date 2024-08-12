@@ -174,7 +174,7 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
   export DISPLAY=:0.0
 fi
 
-export EDITOR=vim
+export EDITOR=nvim
 
 if [[ -f ~/nvim/bin/nvim ]]; then
   alias vim='~/nvim/bin/nvim'
@@ -189,7 +189,8 @@ elif command -v nvim &>/dev/null; then
   alias vil=vim
   alias vimdiff='nvim -d'
   alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
-  export EDITOR=nvim
+  export MANPAGER='nvim +Man!'
+  export MANWIDTH=999
 fi
 
 alias ll="ls -loah"
@@ -208,12 +209,6 @@ alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 # debug in headless mode, allows debugging session to start paused
 # alias dlvh="dlv debug --headless --api-version=2 --listen=127.0.0.1:2345"
 
-# set nvim as man pager
-if [[ "$(command -v nvim)" ]]; then
-    export EDITOR=vim
-    export MANPAGER='nvim +Man!'
-    export MANWIDTH=999
-fi
 
 # functions
 
