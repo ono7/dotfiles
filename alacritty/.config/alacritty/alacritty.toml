@@ -248,7 +248,8 @@ mods = "Alt"
 
 [[keyboard.bindings]]
 action = "SpawnNewInstance"
-key = "F9"
+key = "N"
+mods = "Command|Shift"
 
 [mouse]
 hide_when_typing = true
