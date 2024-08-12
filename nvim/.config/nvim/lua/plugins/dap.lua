@@ -1,5 +1,14 @@
-local dap = require "dap"
-local ui = require "dapui"
+local dap_ok, dap = pcall(require, "dap")
+if not dap_ok then
+  print("Error in pcall dap -> ~/.dotfiles/nvim/.config/nvim/lua/plugins/dap.lua")
+  return
+end
+
+local dapui_ok, dapui = pcall(require, "dapui")
+if not dapui_ok then
+  print("Error in pcall dapui -> ~/.dotfiles/nvim/.config/nvim/lua/plugins/dap.lua")
+  return
+end
 
 require("dapui").setup()
 require("dap-go").setup()
@@ -23,14 +32,14 @@ vim.keymap.set("n", "<F5>", dap.step_back)
 vim.keymap.set("n", "<F6>", dap.restart)
 
 dap.listeners.before.attach.dapui_config = function()
-  ui.open()
+  dapui.open()
 end
 dap.listeners.before.launch.dapui_config = function()
-  ui.open()
+  dapui.open()
 end
 dap.listeners.before.event_terminated.dapui_config = function()
-  ui.close()
+  dapui.close()
 end
 dap.listeners.before.event_exited.dapui_config = function()
-  ui.close()
+  dapui.close()
 end
