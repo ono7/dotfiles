@@ -17,11 +17,8 @@ require("conform").setup({
     json = { "prettier" },
     yaml = { "prettier" },
     markdown = { "markdownfmt", "prettier", stop_after_first = true },
-    -- go install -v github.com/incu6us/goimports-reviser/v3@latest
-    -- go install golang.org/x/tools/cmd/goimports@latest
     -- goimports also formats just like gofmt
     go = { "goimports", "goimports-reviser" },
-    -- markdown = { "mdformat" }, -- might need to try this one
     graphql = { "prettier", stop_after_first = true },
   },
   format_on_save = {

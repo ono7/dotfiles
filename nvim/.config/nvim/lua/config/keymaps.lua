@@ -18,6 +18,10 @@ k("n", "<c-b>", "") -- allow tmux prefix to be used to jump to tmux pane
 k("n", "ZZ", "")
 k("n", "ZQ", "")
 
+
+--- go ---
+k("n", "gt", ":GoTagAdd<cr>", silent)
+
 -- k({ "n", "x" }, "<c-e>", "g_")
 
 -- k({ "n", "x" }, [[\]], [[:vertical Git<cr>]], silent)
