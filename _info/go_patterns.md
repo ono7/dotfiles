@@ -1,4 +1,18 @@
-# go os signal kill (graceful shutdown)
+## check if something exists
+
+```go
+func main() {
+	x := map[string]string{"test": "found first match", "test2": "found second match b"}
+
+	if v, ok := x["err"]; ok {
+		fmt.Println("found", v)
+	} else {
+		fmt.Println("err not found in map x")
+	}
+}
+```
+
+## go os signal kill (graceful shutdown)
 
 ```go
 var wg sync.WaitGroup
