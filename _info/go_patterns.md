@@ -1,3 +1,27 @@
+## error handling patterns
+
+```go
+
+func check(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func main() {
+	driver, err := conn.GetNetworkDriver()
+	check(err)
+
+	err = driver.Open()
+	check(err)
+	defer driver.Close()
+
+	conf, err := cfg.NewCfg(driver, *nos)
+	check(err)
+}
+
+```
+
 ## check if something exists
 
 ```go
