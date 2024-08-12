@@ -61,13 +61,13 @@ y = 9
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Command"
+mods = "Command|Shift"
 
 # this is c-v in vim
-# [[keyboard.bindings]]
-# chars = "\u0016"
-# key = "V"
-# mods = "Command"
+[[keyboard.bindings]]
+chars = "\u0016"
+key = "V"
+mods = "Command"
 
 # c-^ allow vim to use Command+6 to swap between last to used buffers
 [[keyboard.bindings]]
