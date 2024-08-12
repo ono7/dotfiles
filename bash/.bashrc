@@ -200,6 +200,30 @@ dotc() {
   cd $my_dir
 }
 
+vc() {
+  deactivate 2>/dev/null
+  my_dir=$PWD
+  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
+    cd $(git rev-parse --show-toplevel)
+  fi
+  venv_dir="${1:-venv}"
+  python_version="${2:-python3}"
+  $python_version --version
+  $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
+  pip install jq yq pyright black pipdeptree debugpy pytest yamllint pynvim rpdb pdbpp ruff python-dotenv ansible ansible-lint -U
+  echo ""
+  echo ""
+  echo ""
+  echo "*************** :) *******************"
+  which python
+  cd $my_dir
+}
+
+vd() {
+  deactivate 2>/dev/null
+  source $HOME/.virtualenvs/prod3/bin/activate
+}
+
 ta() {
   if ! command -v tmux &>/dev/null; then
     echo "Error: tmux is not installed."
