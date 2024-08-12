@@ -1,6 +1,12 @@
 require("conform").setup({
   formatters_by_ft = {
-    lua = { "luafmt", lsp_format = "fallback" },
+    lua = {
+      "luafmt",
+      lsp_format = "fallback",
+      inherit = false,
+      command = "shfmt",
+      args = { "-i", "2", "-filename", "$FILENAME" }
+    },
     -- Conform will run multiple formatters sequentially
     python = { "black" },
     javascript = { "prettier" },
@@ -10,7 +16,7 @@ require("conform").setup({
     html = { "prettier" },
     json = { "prettier" },
     yaml = { "prettier" },
-    markdown = { "prettier" },
+    markdown = { "markdownfmt", "prettier", stop_after_first = true },
     -- go install -v github.com/incu6us/goimports-reviser/v3@latest
     -- go install golang.org/x/tools/cmd/goimports@latest
     -- goimports also formats just like gofmt
