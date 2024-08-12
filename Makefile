@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim starship ssh
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim starship ssh shell
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -76,6 +76,11 @@ nvm:
 	@echo $(BANNER)
 	rm -rf ~/.nvm
 	@bash ./_scripts/nvm.sh
+
+shell:
+	@echo $(BANNER)
+	$$(which fzf) || return
+	sudo usermod -s $$(which fzf) $$USER
 
 starship:
 	@echo $(BANNER)
