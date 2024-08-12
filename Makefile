@@ -73,6 +73,7 @@ nvm:
 
 starship:
 	@echo $(BANNER)
+	rm -f ~/.local/bin/starship || echo "starship not found"
 	mkdir -p ~/.local/bin
 	curl -sS https://starship.rs/install.sh | sh -s -- -b ~/.local/bin -y
 
