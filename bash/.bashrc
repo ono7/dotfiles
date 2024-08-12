@@ -276,7 +276,6 @@ fi
 
 alias v=vim
 
-export EDITOR=vim
 export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
 if command -v fd &>/dev/null; then
