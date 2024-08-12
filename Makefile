@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim starship
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -25,8 +25,9 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps linux-neovim fzf done
-mac: mac-deps clean stow nvm go-deps fzf done
+
+linux: linux-deps clean stow nvm go-deps linux-neovim fzf starship done
+mac: mac-deps clean stow nvm go-deps fzf starship done
 
 clean:
 	@echo $(BANNER)
@@ -69,6 +70,10 @@ nvm:
 	@echo $(BANNER)
 	rm -rf ~/.nvm
 	@bash ./_scripts/nvm.sh
+
+starship:
+	@echo $(BANNER)
+	curl -sS https://starship.rs/install.sh | sh -s -- -b ~/.local/bin -y
 
 # installs OS dependencies
 
