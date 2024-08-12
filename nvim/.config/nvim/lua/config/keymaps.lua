@@ -51,8 +51,8 @@ k("v", "gl", ":right<cr>", silent)
 k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 -- move cursor to left/right
-k("n", "L", "g_", silent)
-k("n", "H", "^", silent)
+-- k("n", "L", "g_", silent)
+-- k("n", "H", "^", silent)
 
 k("x", "<<", function()
   vim.cmd("normal! <<")
