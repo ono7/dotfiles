@@ -174,6 +174,8 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
   export DISPLAY=:0.0
 fi
 
+export EDITOR=vim
+
 if [[ -f ~/nvim/bin/nvim ]]; then
   alias vim='~/nvim/bin/nvim'
   alias nvim='~/nvim/bin/nvim'
@@ -187,13 +189,13 @@ elif command -v nvim &>/dev/null; then
   alias vil=vim
   alias vimdiff='nvim -d'
   alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
+  export EDITOR=nvim
 fi
 
 alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias v=vim
 
-export EDITOR=vim
 
 # do not attempt to clear the terminal's scrollback buffer with E3 see: man clear
 alias clear='clear -x '

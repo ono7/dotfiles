@@ -254,6 +254,8 @@ vd() {
   source $HOME/.virtualenvs/prod3/bin/activate
 }
 
+# TODO(jlima): clean this up
+export EDITOR=nvim
 if command -v nvim &>/dev/null; then
   alias vim="$(which nvim)"
   alias vi=vim
@@ -263,6 +265,7 @@ if command -v nvim &>/dev/null; then
   alias vimdiff='nvim -d'
   # alias vll="vim  +\"'\"0"
   alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
+  export EDITOR=nvim
 elif [[ -d ~/nvim/bin ]]; then
   alias vim='~/nvim/bin/nvim'
   # legacy vim
