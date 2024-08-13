@@ -412,13 +412,14 @@ if type fd &>/dev/null; then
   export FZF_ALT_C_COMMAND=$FD_CMD
   export FZF_DEFAULT_COMMAND=$FD_CMD
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_COMPLETION_TRIGGER="~~"
 else
   echo 'download fd from: https://github.com/sharkdp/fd/releases'
   if [[ $OSTYPE == "darwin"* ]]; then
-    brew install fd jq neovim alaccrity wezterm llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
+    brew install fd jq neovim alaccrity llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
   fi
 fi
+
+export FZF_COMPLETION_TRIGGER="**"
 
 if type netcat &>/dev/null; then
   alias nc=netcat
