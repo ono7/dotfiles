@@ -46,7 +46,8 @@ require("config.helper-functions")
 require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
-require("themes.notheme") -- my simple theme
+require("themes.notheme") -- basic HL groups for no colorscheme
+-- require("themes.gruvbox")
 
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")

@@ -121,7 +121,7 @@ require("gruvbox").setup({
   transparent_mode = true,
 })
 
--- vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme gruvbox")
 vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = mycolors.pmenu_bg })
 vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = mycolors.red })
 vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = mycolors.mauve })
