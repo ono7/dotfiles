@@ -9,7 +9,11 @@ opt.autochdir = true
 o.completeopt = "menu,menuone,noinsert"
 o.foldmethod = "indent"
 o.mouse = "n"
-o.grepprg = "git grep -n"
+
+-- o.grepprg = "git grep -n"
+o.grepprg = 'rg --vimgrep'
+o.grepformat = '%f:%l:%c:%m'
+
 o.spellsuggest = "best,5"
 o.title = false
 o.colorcolumn = "99999" -- fixes indentline?
