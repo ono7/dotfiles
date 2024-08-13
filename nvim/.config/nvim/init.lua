@@ -1,4 +1,5 @@
 --- 🐇 Follow the white Rabbit...
+
 local k = vim.keymap.set
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
