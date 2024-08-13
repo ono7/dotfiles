@@ -15,7 +15,7 @@ if command -v stow &> /dev/null; then
   stow gdb
   stow git
   stow nvim
-  stow ssh
+  # stow ssh
   stow sqlite
   stow dlv
   stow starship
