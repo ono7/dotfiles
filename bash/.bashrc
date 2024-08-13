@@ -145,7 +145,13 @@ fi
 alias gd='git diff'
 alias gs='git status'
 
-alias cdr='cd "$(git rev-parse --show-toplevel)"  &>/dev/null'
+# alias cdr='cd "$(git rev-parse --show-toplevel)"  &>/dev/null'
+_cdr() {
+  mydir="$(git rev-parse --show-toplevel 2>/dev/null)"
+  cd ${mydir:-.}
+}
+alias cdr=_cdr
+
 alias clear='clear -x'
 
 vs() {
@@ -153,7 +159,7 @@ vs() {
 }
 
 _d() {
-  cdr || eche "not in git repo"
+  cdr
   cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
@@ -192,24 +198,17 @@ dotc() {
   git add .
   git commit '-m' 'updates'
   git push
-  cd ~/.info
-  git pull
-  git add .
-  git commit '-m' 'updates'
-  git push
   cd $my_dir
 }
 
 vc() {
   deactivate 2>/dev/null
   my_dir=$PWD
-  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
-    cd $(git rev-parse --show-toplevel)
-  fi
+  cdr
   venv_dir="${1:-venv}"
   python_version="${2:-python3}"
   $python_version --version
-  $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
+  $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || return
   pip install jq yq pyright black pipdeptree debugpy pytest yamllint pynvim rpdb pdbpp ruff python-dotenv ansible ansible-lint -U
   echo ""
   echo ""

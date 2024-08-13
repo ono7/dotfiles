@@ -288,12 +288,16 @@ timezsh() {
 
 alias gd='git diff'
 alias gs='git status --untracked-files=all'
-alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
+# alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
+
+_cdr () {
+  mydir="$(git rev-parse --show-toplevel 2>/dev/null)"
+  cd ${mydir:-.}
+}
+alias cdr=_cdr
 
 alias tf='terraform'
-alias rdp='xfreerdp +clipboard'
 alias ssh='TERM=xterm-256color ssh '
-alias h=hx
 
 # init new repo
 ginit () {
@@ -449,44 +453,9 @@ bindkey "^T" fzf-file-widget
 # Adding a trailing space to the command being aliased causes other aliased commands to expand:
 alias xargs='xargs '
 
-get_root_dir(){
-  echo `git rev-parse --show-toplevel 2>/dev/null` || echo '.'
-}
-
-stopssh () {
-  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
-  if [ ! -n $(lsof -t -iTCP:22) ]; then
-    return
-  fi
-  echo "killing ssh sessions"
-  for i in $(lsof -t -iTCP:22); do
-    echo $i
-    sudo kill $i
-  done
-}
-
-startssh () {
-  sudo launchctl load /System/Library/LaunchDaemons/ssh.plist
-}
-
-cleartunnel () {
-echo "killing ssh sessions"
-if [ ! -z $(lsof -t -iTCP:22) ]; then
-  for i in $(lsof -t -iTCP:22); do
-    echo $i
-    sudo kill $i
-  done
-fi
-}
-
 starttunnel () {
   echo "starting ssh proxy"
   sudo ssh -N -f -D 127.0.0.1:6000 jlima@127.0.0.1 -p 2222 -o ServerAliveCountMax=3 -o ServerAliveInterval=3
-}
-
-tunnel(){
-  cleartunnel
-  starttunnel
 }
 
 proxyon () {
@@ -500,18 +469,10 @@ proxyon () {
 
 proxyoff () {
   networksetup -setsocksfirewallproxystate Wi-Fi off
-  # if [ ! -n $(lsof -t -iTCP:22) ]; then
-  #   return
-  # fi
-  # echo "killing ssh sessions"
-  # for i in $(lsof -t -iTCP:22); do
-  #   echo $i
-  #   sudo kill $i
-  # done
 }
 
 _d () {
-  cdr || eche "not in git repo"
+  cdr
   cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
