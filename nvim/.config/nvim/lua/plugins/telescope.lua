@@ -65,6 +65,7 @@ require("telescope").setup {
       "%/.git%/",
       "%.cache", -- this might need to go back to ".cache"
       "__pycache__",
+      "COMMIT_EDITMSG",
       "%.o",
       "%.a",
       "%.out",

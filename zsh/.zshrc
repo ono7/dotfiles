@@ -174,13 +174,13 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
   export DISPLAY=:0.0
 fi
 
-export EDITOR=nvim
+export EDITOR=vim
 
 if [[ -f ~/nvim/bin/nvim ]]; then
   alias vim='~/nvim/bin/nvim'
   alias nvim='~/nvim/bin/nvim'
   # legacy vim
-  alias vi=vim
+  alias vil=vim
   alias vimdiff='~/nvim/bin/nvim -d'
 elif type nvim &>/dev/null; then
   alias vim="$(whence nvim)"
@@ -188,15 +188,14 @@ elif type nvim &>/dev/null; then
   alias vi=vim
   alias vil=vim
   alias vimdiff='nvim -d'
-  alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
   export MANPAGER='nvim +Man!'
   export MANWIDTH=999
+  export EDITOR=nvim
 fi
 
 alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias v=vim
-
 
 # do not attempt to clear the terminal's scrollback buffer with E3 see: man clear
 alias clear='clear -x '
@@ -208,7 +207,6 @@ alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 
 # debug in headless mode, allows debugging session to start paused
 # alias dlvh="dlv debug --headless --api-version=2 --listen=127.0.0.1:2345"
-
 
 # functions
 
@@ -248,16 +246,18 @@ mkansible () {
 }
 
 take () {
-  [ -z $1 ] && return
+  [ -z "$1" ] && echo "Please provide an argument"
   local dir="$@"
   mkdir -p "${dir// /-}"; cd "${dir// /-}"
 }
 
 mktag () {
+  [ -z "$1" ] && echo "Please provide an argument"
   git tag -a $1 -m "added tag $1"; git push origin $1
 }
 
 rmtag () {
+  [ -z "$1" ] && echo "Please provide an argument"
   git tag -d $1;git push --delete origin $1
 }
 
@@ -278,6 +278,7 @@ lfcd () {
 
 vq () {
   # pass all args to rg via $@ .. allows to append rg flags, muhahah
+  [ -z "$1" ] && echo "Please provide an argument"
   vim -q <(rg --vimgrep --pcre2 -i -S $@) +"copen 6"
 }
 
@@ -360,6 +361,7 @@ va () {
 vd () {
   deactivate 2>/dev/null
   source $HOME/.virtualenvs/prod3/bin/activate
+  echo $(which python3)
 }
 
 dev_env () {
@@ -381,7 +383,6 @@ vc () {
   $python_version --version
   $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
   pip install jq yq pyright black pipdeptree debugpy pytest yamllint pynvim rpdb pdbpp ruff python-dotenv ansible ansible-lint -U
-  echo ""
   echo ""
   echo ""
   echo "*************** :) *******************"
