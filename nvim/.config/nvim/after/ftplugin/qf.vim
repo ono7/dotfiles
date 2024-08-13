@@ -2,4 +2,4 @@
 
 setlocal cursorline
 " map <buffer> <CR> <CR>
-setlocal norelativenumber
+setlocal norelativenumber nu
