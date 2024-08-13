@@ -86,7 +86,7 @@ alias -g ......='../../../../..'
 # bindkey ^z fancy-ctrl-z
 
 runner () {
-  if ! command -v nodemon &>/dev/null; then
+  if ! type nodemon &>/dev/null; then
     npm install -g nodemon
   fi
   if [ $# -lt 2 ]; then
@@ -104,7 +104,7 @@ fixgit () {
 }
 
 ta() {
-    if ! command -v tmux &> /dev/null; then
+    if ! type tmux &> /dev/null; then
         echo "Error: tmux is not installed."
         return 1
     fi
@@ -182,7 +182,7 @@ if [[ -f ~/nvim/bin/nvim ]]; then
   # legacy vim
   alias vi=vim
   alias vimdiff='~/nvim/bin/nvim -d'
-elif command -v nvim &>/dev/null; then
+elif type nvim &>/dev/null; then
   alias vim="$(whence nvim)"
   alias nvim=vim
   alias vi=vim
@@ -396,7 +396,7 @@ export FZF_DEFAULT_OPTS='
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
 
 FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --follow --hidden'
-if command -v fd &>/dev/null; then
+if type fd &>/dev/null; then
   _fzf_compgen_path() {
     fd -I --hidden --follow --exclude ".git" . "$1"
   }
@@ -416,7 +416,7 @@ else
   fi
 fi
 
-if command -v netcat &>/dev/null; then
+if type netcat &>/dev/null; then
   alias nc=netcat
 fi
 
@@ -575,7 +575,7 @@ done
 # if [[ $OSTYPE == "darwin"* ]]; then
 #   # defaults write -g AppleFontSmoothing -int 0
 #   # defaults write -g ApplePressAndHoldEnabled -bool false
-#  if command -v gls &>/dev/null; then
+#  if type gls &>/dev/null; then
 #    # alias ls='gls --color'
 #  else
 #    echo "brew instal coreutils - we need gnu-ls"
@@ -732,20 +732,20 @@ setopt PUSHD_MINUS
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-if command -v zoxide &>/dev/null; then
+if type zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 else
   echo "zoxide not installed..."
 fi
 
-if ! command -v lf &>/dev/null; then
+if ! type lf &>/dev/null; then
   echo lf not installed
   echo https://github.com/gokcehan/lf/releases
 fi
 
 # if the SSH_CONNECTION var is empty, startup tmux
 if [ -z $SSH_CONNECTION ]; then
-  command -v tmux &> /dev/null && ta || echo "tmux not found..."
+  type tmux &> /dev/null && ta || echo "tmux not found..."
 fi
 
 uptime
