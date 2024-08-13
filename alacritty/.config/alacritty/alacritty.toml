@@ -21,6 +21,9 @@ unfocused_hollow = true
 cursor = "#db69d7"
 text = "#080808"
 
+[colors.primary]
+background = "#181825"
+
 [cursor.style]
 blinking = "Never"
 shape = "Block"
@@ -43,7 +46,8 @@ y = 0
 
 [font.normal]
 family = "MonolisaLiga Nerd Font"
-style = "Medium Regular"
+style = "SemiBold Regular"
+# style = "Medium Regular"
 
 [font.italic]
 family = "MonolisaLiga Nerd Font"
