@@ -225,7 +225,7 @@ vd() {
 }
 
 ta() {
-  if ! command -v tmux &>/dev/null; then
+  if ! type tmux &>/dev/null; then
     echo "Error: tmux is not installed."
     return 1
   fi
@@ -256,7 +256,7 @@ vd() {
 
 # TODO(jlima): clean this up
 export EDITOR=nvim
-if command -v nvim &>/dev/null; then
+if type nvim &>/dev/null; then
   alias vim="$(which nvim)"
   alias vi=vim
   # legacy vim
@@ -278,7 +278,7 @@ alias v=vim
 
 export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
-if command -v fd &>/dev/null; then
+if type fd &>/dev/null; then
   _fzf_compgen_path() {
     fd -I --hidden --follow --exclude ".git" . "$1"
   }
