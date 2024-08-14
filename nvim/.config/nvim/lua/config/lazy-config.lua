@@ -21,10 +21,63 @@ require("lazy").setup({
   },
   -- replace this with conform.nvim
   -- { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
+  -- {
+  --   'stevearc/conform.nvim',
+  --   opts = {},
+  --   config = function() require "plugins.conform" end
+  -- },
   {
-    'stevearc/conform.nvim',
-    opts = {},
-    config = function() require "plugins.conform" end
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        ",w",
+        function()
+          require("conform").format({ async = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    opts = {
+      -- Define your formatters
+      formatters_by_ft = {
+        lua = {
+          "luafmt",
+          lsp_format = "fallback",
+          inherit = false,
+          command = "shfmt",
+          args = { "-i", "2", "-filename", "$FILENAME" }
+        },
+        -- Conform will run multiple formatters sequentially
+        python = { "black" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "mdformat" }, -- preserves line wraps...
+        -- goimports drop in replacement for gofmt
+        go = { "goimports", "goimports-reviser" },
+        graphql = { "prettier", stop_after_first = true },
+      },
+      formatters = {
+        shfmt = {
+          prepend_args = { "-i", "2" },
+        },
+        mdformat = {
+          prepend_args = { "--number" },
+        },
+      },
+      init = function()
+        -- If you want the formatexpr, here is the place to set it
+        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      end,
+    }
   },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
@@ -33,12 +86,6 @@ require("lazy").setup({
   --   "ellisonleao/gruvbox.nvim",
   --   priority = 1000,
   --   config = function() require "themes.gruvbox" end
-  -- },
-  -- {
-  --   "folke/trouble.nvim",
-  --   config = function()
-  --     vim.keymap.set("n", "<leader>xx", function() require("trouble").open() end)
-  --   end
   -- },
   {
     "kylechui/nvim-surround",

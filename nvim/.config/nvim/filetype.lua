@@ -27,6 +27,7 @@ vim.filetype.add({
     --   return "yaml"
     -- end,
     yml = "yaml.ansible",
+    yaml = "yaml.ansible",
     md = "markdown",
     ts = "typescript",
     tf = "terraform",

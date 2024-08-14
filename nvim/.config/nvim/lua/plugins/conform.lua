@@ -16,10 +16,19 @@ require("conform").setup({
     html = { "prettier" },
     json = { "prettier" },
     yaml = { "prettier" },
-    markdown = { "markdownfmt", "prettier", stop_after_first = true },
-    -- goimports also formats just like gofmt
+    -- markdown = { "prettier" },
+    markdown = { "markdownfmt" },
+    -- goimports drop in replacement for gofmt
     go = { "goimports", "goimports-reviser" },
     graphql = { "prettier", stop_after_first = true },
+  },
+  formatters = {
+    shfmt = {
+      prepend_args = { "-i", "2" },
+    },
+    mdformat = {
+      prepend_args = { "--number" },
+    },
   },
   format_on_save = {
     -- lsp_format = "fallback",

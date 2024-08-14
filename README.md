@@ -1,5 +1,4 @@
-setup dotfiles
---------------
+## setup dotfiles
 
 Any directories that start with `_` should be ignored by stow
 

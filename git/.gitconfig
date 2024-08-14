@@ -7,6 +7,9 @@
 [includeIf "gitdir:~/work/"]
     path = .gitconfig-work
 
+[includeIf "gitdir:~/git.marriott.com/"]
+    path = .gitconfig-work
+
 [core]
 editor = nvim
 mergeoptions = --no-edit
