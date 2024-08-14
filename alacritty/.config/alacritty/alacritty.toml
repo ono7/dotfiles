@@ -25,7 +25,9 @@ cursor = "#d586ff" # good color
 text = "#080808"
 
 [colors.primary]
-background = "#181825"
+# background = "#181825"
+background = "#212e41"
+foreground = "#c0c9d3"
 
 [cursor.style]
 blinking = "Never"
@@ -41,7 +43,7 @@ render_timer = false
 TERM = "xterm-256color"
 
 [font]
-size = 21.0
+size = 22.0
 
 [font.glyph_offset]
 x = 0
@@ -281,7 +283,7 @@ program = "/bin/zsh"
 decorations = "buttonless"
 dynamic_padding = true
 dynamic_title = false
-opacity = 0.95
+# opacity = 0.95
 blur = true
 
 startup_mode = "Windowed"
