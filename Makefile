@@ -88,7 +88,6 @@ starship:
 	curl -sS https://starship.rs/install.sh | sh -s -- -b ~/.local/bin -y
 
 # installs OS dependencies
-
 linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
