@@ -25,7 +25,6 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-
 linux: linux-deps clean stow nvm go-deps linux-neovim fzf starship done
 mac: mac-deps clean stow nvm go-deps fzf starship done
 
