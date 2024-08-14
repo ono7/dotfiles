@@ -28,7 +28,7 @@ extract() {
 
 ga() {
   # Check for untracked files
-  mydir=$(pwd)
+  mydir=$PWD
   untracked_files=$(git status --porcelain | grep '^??' | cut -c4-)
   if [ -z "$untracked_files" ]; then
     echo "No new untracked files."
@@ -77,12 +77,13 @@ dotc () {
     my_dir=$PWD
     cd ~/.dotfiles
     git pull
-    git add .
+    ga
+    # git add .
     # f=$(git status --porcelain | cut -c4- | head -n 4)
     # more_changes=$(git status --porcelain | sed -n 5p)
     # [ -n "$more_changes" ] && f="$f ..."
     # git commit "-m updates -> ${f//$'\n'/ }"
-    git commit
+    # git commit
     git push
     cd $my_dir
 }
