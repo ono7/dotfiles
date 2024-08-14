@@ -51,8 +51,8 @@ y = 0
 
 [font.normal]
 family = "MonolisaLiga Nerd Font"
-style = "SemiBold Regular"
-# style = "Medium Regular"
+# style = "SemiBold Regular"
+style = "Medium Regular"
 
 [font.italic]
 family = "MonolisaLiga Nerd Font"
