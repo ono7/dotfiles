@@ -5,5 +5,5 @@ files=$(git status -s | head -n 4)
 
 # Construct the commit message
 if [ -n "$files" ]; then
-  echo "$files" | sed '/^$/d' | sed 's/$/:/' >"$1"
+  echo "$files" | sed '/^$/d' >"$1"
 fi
