@@ -1,12 +1,9 @@
 #!/bin/sh
 
 # Get the first 4 modified files
-# files=$(git diff --cached --name-only | head -n 4)
 files=$(git status -s | head -n 4)
 
 # Construct the commit message
 if [ -n "$files" ]; then
-  # Prefix each file with --> and put each on a new line, ensuring no extra empty line
-  # echo "$files" | sed '/^$/d' | sed 's/^/--> /' >"$1"
-  echo "$files" | sed '/^$/d' >"$1"
+  echo "$files" | sed '/^$/d' | sed 's/$/:/' >"$1"
 fi
