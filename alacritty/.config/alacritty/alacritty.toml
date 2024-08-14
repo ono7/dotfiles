@@ -19,7 +19,9 @@ unfocused_hollow = true
 
 [colors.cursor]
 # cursor = "#db69d7"
-cursor = "#ff52e6"
+# cursor = "#ff52e6"
+# cursor = "#ff7fff"
+cursor = "#d586ff" # good color
 text = "#080808"
 
 [colors.primary]
