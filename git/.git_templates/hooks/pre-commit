@@ -1,37 +1,23 @@
 #!/usr/bin/env bash
+
 set -e
-#
-#  Author:  Jose Lima
-#  Date:    2024-01-03 15:25
-
-# if [ -d "tests/" ]; then
-#   python3 -m pytest tests/ -v
-#   RET=$?
-# elif [ -d "priv/" ]; then
-#   python3 -m pytest priv/ -v
-#   RET=$?
-# fi
-
-# if [ $RET -ne 0 ]; then
-#   echo "pytest failed"
-#   exit 1
-# fi
-
-# exit 0
-
-
-# branch_name=$(git symbolic-ref --short HEAD)
-# valid_branch_regex="^(feature|bugfix|patch)/[a-zA-Z0-9._-]+$"
-
-# if ! [[ $branch_name =~ $valid_branch_regex ]]; then
-#   echo "invalid branch name, does not meet standards"
-#   echo "valid names: $valid_branch_regex"
-#   exit 1
-# fi 
 PATH="/usr/local/bin:$PATH"
-echo "Running ctags..."
-trap 'rm -f "$$.tags"' EXIT
-git ls-files | grep -v -E "^static/pico|^static/htmx|^static/hyperscript" | \
-  ctags --tag-relative -L - -f"$$.tags"
-mv "$$.tags" "tags"
-echo "ctags generated successfully."
+
+exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
+
+# Check if there are any changes in the repo
+if [[ -n $(git status --porcelain) ]]; then
+    echo "Changes detected, running ctags..."
+    trap 'rm -f "$$.tags"; echo "ctags generation failed. Temporary file cleaned up."' EXIT
+
+    if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" | \
+         ctags --tag-relative -L - -f"$$.tags"; then
+        echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
+        exit 1
+    fi
+
+    mv "$$.tags" "tags"
+    echo "ctags generated successfully."
+else
+    echo "No changes detected, skipping ctags generation."
+fi
