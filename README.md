@@ -10,4 +10,7 @@ make install
 
 # removes ~/.ssh/config link, used for sshs)
 stow -D ssh
+
+# update go-deps
+make go-deps
 ```
