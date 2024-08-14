@@ -26,7 +26,7 @@ text = "#080808"
 
 [colors.primary]
 # background = "#181825"
-background = "#23283d"
+background = "#23283d" # tokyonight
 foreground = "#c0c9d3"
 
 [cursor.style]
