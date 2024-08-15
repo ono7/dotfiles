@@ -146,6 +146,6 @@ cmp_config.setup({
   },
 })
 
-cmp_config.mapping.preset.insert({
-  ['<C-Space>'] = cmp_config.mapping.complete(),
-})
+-- cmp_config.mapping.preset.insert({
+--   ['<C-Space>'] = cmp_config.mapping.complete(),
+-- })

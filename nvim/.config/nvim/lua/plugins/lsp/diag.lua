@@ -8,9 +8,6 @@ vim.fn.sign_define("DiagnosticsVirtualTextHint", { text = "", texthl = "Norma
 -- virtual text
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   signs = true,
-  -- signs = {
-  -- 	severity_limit = "Warning",
-  -- },
   virtual_text = {
     spacing = 2,
     -- severity_limit = "Warning", -- disable hints...
