@@ -5,6 +5,8 @@ venv/
 build/
 worktree/
 worktrees/
+
+# we need this for RipGrep/fzf to filter properly (telescope)
 .git/
 
 .pytest_cache/
