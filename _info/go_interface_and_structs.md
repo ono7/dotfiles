@@ -9,7 +9,6 @@ type foo interace{}
 type fooImplementation struct {
     state string
 }
-
 ```
 
 ## type assertions

@@ -51,19 +51,18 @@ y = 0
 
 [font.normal]
 family = "MonolisaLiga Nerd Font"
-# style = "SemiBold Regular"
 style = "Medium Regular"
 
-[font.italic]
-family = "MonolisaLiga Nerd Font"
-style = "Italic"
-
+# [font.italic]
+# family = "MonolisaLiga Nerd Font"
+# style = "Italic"
+#
 [font.bold]
 family = "MonolisaLiga Nerd Font"
 
 [font.offset]
 x = 0
-y = 9
+y = 10
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
