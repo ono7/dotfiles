@@ -2,6 +2,7 @@ alias f='fd -tf'
 alias l='less -R '
 alias m='more '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
+alias goamd='env GOOS=linux GOARCH=amd64 go build $@'
 
 [ -f "/etc/os-release" ] && cat /etc/os-release | grep "buntu" &>/dev/null && export skip_global_compinit=1
 
