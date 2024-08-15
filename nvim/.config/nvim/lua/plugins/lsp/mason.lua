@@ -6,6 +6,7 @@ vim.diagnostic.config {
 }
 
 
+
 local on_attach = function(client, bufnr)
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
@@ -43,12 +44,21 @@ end
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-local capabilities = cmp_nvim_lsp.default_capabilities()
+-- local capabilities = cmp_nvim_lsp.default_capabilities()
+local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- this could cause performace issues on big projects 2024-08-15 00:42
+capabilities.workspace = {
+  didChangeWatchedFiles = {
+    dynamicRegistration = true,
+  },
+}
+-- print(vim.inspect(capabilities))
 
 -- true needed for html/css
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- print(vim.inspect(capabilities))
+
 local mason_status, mason = pcall(require, "mason")
 
 if not mason_status then
@@ -125,12 +135,13 @@ nvim_lsp.gopls.setup({
       -- experimentalPostfixCompletions = true,
       analyses = {
         unusedparams = false,
-        shadow = true,
+        shadow = false,
       },
       staticcheck = true,
     },
   },
   on_attach = on_attach,
+  capabilities = capabilities,
   flags = {
     debounce_text_changes = 150,
   },
@@ -172,21 +183,21 @@ nvim_lsp.lua_ls.setup({
   },
 })
 
-nvim_lsp.ansiblels.setup({
-  ansible = {
-    validation = {
-      lint = {
-        enabled = false
-      }
-    }
-  },
-})
-
-
 nvim_lsp.cssls.setup(handle_lsp(lsp_opts))
 nvim_lsp.html.setup {
   filetypes = { 'html' },
 }
+
+-- nvim_lsp.ansiblels.setup({
+--   ansible = {
+--     validation = {
+--       lint = {
+--         enabled = false
+--       }
+--     }
+--   },
+-- })
+--
 
 nvim_lsp.ansiblels.setup(handle_lsp(lsp_opts))
 

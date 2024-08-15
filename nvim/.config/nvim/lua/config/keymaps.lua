@@ -88,6 +88,7 @@ local function clean_space_save()
   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
   vim.cmd([[:write]])
   vim.fn.setpos('.', save_cursor)
+  -- this is now handled by conform.nvim
 end
 
 vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
