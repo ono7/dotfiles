@@ -1,14 +1,18 @@
-// test
+// golang sftp server implementation
+// binds to 0.0.0.0:2022
 package main
 
 import (
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/pem"
+	"fmt"
 	"log"
 	"net"
-	"os"
-
-	"golang.org/x/crypto/ssh"
 
 	"github.com/pkg/sftp"
+	"golang.org/x/crypto/ssh"
 )
 
 func check(err error) {
@@ -17,27 +21,44 @@ func check(err error) {
 	}
 }
 
+func encodePrivateKeyToPEM(privateKey *rsa.PrivateKey) []byte {
+	// Convert the RSA private key to ASN.1 PKCS#1 DER encoded form
+	privateKeyDER := x509.MarshalPKCS1PrivateKey(privateKey)
+
+	// Create a PEM block with the DER encoded private key
+	privateKeyPEMBlock := &pem.Block{
+		Type:  "RSA PRIVATE KEY",
+		Bytes: privateKeyDER,
+	}
+
+	// Encode the PEM block to bytes
+	return pem.EncodeToMemory(privateKeyPEMBlock)
+}
+
 func main() {
-	// Load the private key for SSH server authentication
-	privateKeyPath := "id_rsa"
-	key, err := os.ReadFile(privateKeyPath)
+
+	// Generate a 4096-bit RSA private throw away key each time we boot
+	privateKey, err := rsa.GenerateKey(rand.Reader, 4096)
 	if err != nil {
-		log.Fatalf("failed to read private key: %v", err)
+		fmt.Println("Error generating RSA key:", err)
+		return
 	}
 
-	signer, err := ssh.ParsePrivateKey(key)
+	privateKeyPEM := encodePrivateKeyToPEM(privateKey)
+
+	signer, err := ssh.ParsePrivateKey(privateKeyPEM)
 	if err != nil {
-		log.Fatalf("failed to parse private key: %v", err)
+		panic(fmt.Errorf("signer %s", err.Error()))
 	}
 
-	// Create SSH server configuration
 	config := &ssh.ServerConfig{
 		NoClientAuth: true, // no client authentication
 	}
 	config.AddHostKey(signer)
 
 	// Listen for incoming connections
-	listener, err := net.Listen("tcp", ":2022") // Listening on port 2022
+	// implement flag for port
+	listener, err := net.Listen("tcp", "0.0.0.0:2022") // Listening on port 2022
 	if err != nil {
 		log.Fatalf("failed to listen on port 2022: %v", err)
 	}
