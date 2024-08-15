@@ -28,16 +28,6 @@ local on_attach = function(client, bufnr)
   k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
 end
 
-local handle_lsp = function(opts1, override)
-  if override ~= nil then
-    -- force: keys from the far right table win during merge
-    return vim.tbl_deep_extend("force", override, opts1)
-  end
-  return opts1
-end
-
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 local mason_status, mason = pcall(require, "mason")
 
 if not mason_status then
@@ -101,54 +91,32 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- make some changes
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
---- check to see if the settings worked!
--- P(capabilities)
+-- expand lsp opts and return new table of options
+local extend_opts = function(opts1, override)
+  if override ~= nil then
+    return vim.tbl_deep_extend("force", override, opts1)
+  end
+  return opts1
+end
 
--- this could cause performace issues on big projects 2024-08-15 00:42
--- set to false until nevim 0.10.1 is updated
--- capabilities.workspace = {
---   didChangeWatchedFiles = {
---     dynamicRegistration = true,
---   },
--- }
---
--- print(vim.inspect(capabilities))
--- true needed for html/css
-
+-- standard lsp options
 local lsp_opts = {
-  root_dir = function(fname)
-    return nvim_lsp.util.find_git_ancestor(fname)
-  end,
   on_attach = on_attach,
-  -- init_options = { hostInfo = "neovim" },
   capabilities = capabilities,
-  flags = {
-    allow_incremental_sync = true,
-  },
 }
 
-nvim_lsp.gopls.setup({
-  filetypes = { "go", "gomod", "gowork", "gotmpl" },
-  autostart = true,
-  root_dir = nvim_lsp.util.root_pattern("go.mod", "main.go", "go.work", ".git") or nvim_lsp.util.find_git_ancestor(fname),
-  settings = {
-    gopls = {
-      completeUnimported = true,
-      usePlaceholders = true,
-      -- experimentalPostfixCompletions = true,
-      analyses = {
-        unusedparams = false,
-        shadow = false,
-      },
-      staticcheck = true,
-    },
-  },
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+-- standard server setup
 
-nvim_lsp.bashls.setup({})
+nvim_lsp.gopls.setup(lsp_opts)
+nvim_lsp.bashls.setup(lsp_opts)
+nvim_lsp.cssls.setup(lsp_opts)
+nvim_lsp.html.setup(lsp_opts)
+nvim_lsp.ansiblels.setup(lsp_opts)
+nvim_lsp.jsonls.setup(lsp_opts)
 
+-- custom servers go here
+
+-- python
 nvim_lsp.pyright.setup {
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
@@ -169,10 +137,14 @@ nvim_lsp.pyright.setup {
   }
 }
 
-require("lspconfig").terraformls.setup({
-  root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv")
-})
 
+-- terraform
+local tf_opts = {
+  root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv")
+}
+require("lspconfig").terraformls.setup(extend_opts(lsp_opts, tf_opts))
+
+-- lua
 nvim_lsp.lua_ls.setup({
   Lua = {
     workspace = { checkThirdParty = false },
@@ -181,24 +153,6 @@ nvim_lsp.lua_ls.setup({
       globals = { "vim" },
     },
   },
+  on_attach = on_attach,
+  capabilities = capabilities
 })
-
-nvim_lsp.cssls.setup(handle_lsp(lsp_opts))
-nvim_lsp.html.setup {
-  filetypes = { 'html' },
-}
-
--- nvim_lsp.ansiblels.setup({
---   ansible = {
---     validation = {
---       lint = {
---         enabled = false
---       }
---     }
---   },
--- })
---
-
-nvim_lsp.ansiblels.setup(handle_lsp(lsp_opts))
-
-nvim_lsp.jsonls.setup(handle_lsp(lsp_opts))
