@@ -148,26 +148,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- this could be bad as it may enable syntax for files in the background
--- vim.api.nvim_create_autocmd('FileType', {
---   group = create_augroup("OilSyntax", { clear = true }),
---   pattern = 'oil',
+-- vim.api.nvim_create_autocmd("FocusGained", {
 --   callback = function()
---     if vim.bo.filetype ~= 'oil' then
---       vim.cmd('syntax off')
---     else
---       vim.cmd('syntax on')
---     end
---   end
+--     vim.cmd("checktime")
+--   end,
+--   group = create_augroup("update_file_when_changes_detected", { clear = true }),
+--   desc = "Update file when there are changes",
 -- })
-
-vim.api.nvim_create_autocmd("FocusGained", {
-  callback = function()
-    vim.cmd("checktime")
-  end,
-  group = create_augroup("update_file_when_changes_detected", { clear = true }),
-  desc = "Update file when there are changes",
-})
 
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()

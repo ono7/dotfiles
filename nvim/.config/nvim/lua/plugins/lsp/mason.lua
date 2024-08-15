@@ -5,8 +5,6 @@ vim.diagnostic.config {
   float = { border = "rounded" },
 }
 
-
-
 local on_attach = function(client, bufnr)
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
@@ -27,11 +25,7 @@ local on_attach = function(client, bufnr)
   k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
   k("<space>ca", vim.lsp.buf.code_action, "[<code action>]")
   k("go", vim.lsp.buf.type_definition, "[type definition]")
-  -- k("<c-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-  -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 end
 
 local handle_lsp = function(opts1, override)
@@ -43,25 +37,6 @@ local handle_lsp = function(opts1, override)
 end
 
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
--- local capabilities = cmp_nvim_lsp.default_capabilities()
--- lua =vim.lsp.get_clients()[1].server_capabilities
-local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- this could cause performace issues on big projects 2024-08-15 00:42
--- set to false until nevim 0.10.1 is updated
-capabilities.workspace = {
-  didChangeWatchedFiles = {
-    dynamicRegistration = true,
-  },
-}
-
-
--- print(vim.inspect(capabilities))
-
--- true needed for html/css
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 
 local mason_status, mason = pcall(require, "mason")
 
@@ -100,7 +75,6 @@ neodev_config.setup({
   library = { plugins = { "nvim-dap-ui" }, types = true }
 })
 
-
 local nvim_lsp_status, nvim_lsp = pcall(require, "lspconfig")
 
 if not nvim_lsp_status then
@@ -108,21 +82,55 @@ if not nvim_lsp_status then
   return
 end
 
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- nvim_lsp.util.default_config.capabilities = vim.tbl_deep_extend(
+--   'force',
+--   nvim_lsp.util.default_config.capabilities,
+--   require('cmp_nvim_lsp').default_capabilities()
+-- )
+
+-- local capabilities = cmp_nvim_lsp.default_capabilities()
+-- lua =vim.lsp.get_clients()[1].server_capabilities
+-- local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- HINT: P(capabilities) to inspect the client capabilities, this can then be modified
+
+-- P(capabilities) -- see what the client supports
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+-- make some changes
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+--- check to see if the settings worked!
+-- P(capabilities)
+
+-- this could cause performace issues on big projects 2024-08-15 00:42
+-- set to false until nevim 0.10.1 is updated
+-- capabilities.workspace = {
+--   didChangeWatchedFiles = {
+--     dynamicRegistration = true,
+--   },
+-- }
+--
+-- print(vim.inspect(capabilities))
+-- true needed for html/css
+
 local lsp_opts = {
-  root_dir = nvim_lsp.util.root_pattern(".git"),
+  root_dir = function(fname)
+    return nvim_lsp.util.find_git_ancestor(fname)
+  end,
   on_attach = on_attach,
-  init_options = { hostInfo = "neovim" },
+  -- init_options = { hostInfo = "neovim" },
   capabilities = capabilities,
   flags = {
     allow_incremental_sync = true,
-    debounce_text_changes = 150,
   },
 }
 
 nvim_lsp.gopls.setup({
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   autostart = true,
-  root_dir = nvim_lsp.util.root_pattern("go.mod", "main.go", "go.work", ".git"),
+  root_dir = nvim_lsp.util.root_pattern("go.mod", "main.go", "go.work", ".git") or nvim_lsp.util.find_git_ancestor(fname),
   settings = {
     gopls = {
       completeUnimported = true,
@@ -137,9 +145,6 @@ nvim_lsp.gopls.setup({
   },
   on_attach = on_attach,
   capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150,
-  },
 })
 
 nvim_lsp.bashls.setup({})

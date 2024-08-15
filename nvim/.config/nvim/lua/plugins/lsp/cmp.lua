@@ -80,6 +80,7 @@ vim.api.nvim_create_autocmd("BufRead", {
   end,
 })
 
+local cmp_select = {behavior = cmp_config.SelectBehavior.Select}
 cmp_config.setup({
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   snippet = {
@@ -101,13 +102,17 @@ cmp_config.setup({
     }
   },
   mapping = cmp_config.mapping.preset.insert({
-    ["<C-n>"] = cmp_config.mapping.select_next_item({ behavior = cmp_config.SelectBehavior.Insert }),
-    ["<C-p>"] = cmp_config.mapping.select_prev_item({ behavior = cmp_config.SelectBehavior.Insert }),
+    -- ["<C-n>"] = cmp_config.mapping.select_next_item({ behavior = cmp_config.SelectBehavior.Insert }),
+    -- ["<C-p>"] = cmp_config.mapping.select_prev_item({ behavior = cmp_config.SelectBehavior.Insert }),
+
+    ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
+    ["<C-p>"] = cmp_config.mapping.select_prev_item(cmp_select),
     ["<C-d>"] = cmp_config.mapping.scroll_docs(4),
     ["<C-b>"] = cmp_config.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp_config.mapping.complete(),
     ["<c-c>"] = cmp_config.mapping.close(),
-    ["<CR>"] = cmp_config.mapping.confirm({ select = false }),
+    -- ["<CR>"] = cmp_config.mapping.confirm({ select = false }),
+    ["<CR>"] = cmp_config.mapping.confirm(cmp_select),
     ["<Tab>"] = cmp_config.mapping(function(fallback)
       if snippy.can_expand_or_advance() then
         snippy.expand_or_advance()
