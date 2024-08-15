@@ -33,7 +33,7 @@ require("lazy").setup({
     keys = {
       {
         -- Customize or remove this keymap to your liking
-        ",w",
+        "<leader>w",
         function()
           require("conform").format({ async = true })
         end,
