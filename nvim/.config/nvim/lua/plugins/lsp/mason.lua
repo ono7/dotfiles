@@ -45,27 +45,22 @@ end
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 -- local capabilities = cmp_nvim_lsp.default_capabilities()
+-- lua =vim.lsp.get_clients()[1].server_capabilities
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- this could cause performace issues on big projects 2024-08-15 00:42
 -- set to false until nevim 0.10.1 is updated
 capabilities.workspace = {
-  didChangeWorkspaceFolders = {
-    dynamicRegistration = false,
+  didChangeWatchedFiles = {
+    dynamicRegistration = true,
   },
 }
 
--- workspace = {
---     workspaceFolders = {
---       changeNotifications = "workspace/didChangeWorkspaceFolders",
---       supported = true
---     }
 
 -- print(vim.inspect(capabilities))
 
 -- true needed for html/css
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.dynamicRegistration = true
 
 
 local mason_status, mason = pcall(require, "mason")
