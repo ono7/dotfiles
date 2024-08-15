@@ -48,15 +48,24 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- this could cause performace issues on big projects 2024-08-15 00:42
+-- set to false until nevim 0.10.1 is updated
 capabilities.workspace = {
-  didChangeWatchedFiles = {
-    dynamicRegistration = true,
+  didChangeWorkspaceFolders = {
+    dynamicRegistration = false,
   },
 }
+
+-- workspace = {
+--     workspaceFolders = {
+--       changeNotifications = "workspace/didChangeWorkspaceFolders",
+--       supported = true
+--     }
+
 -- print(vim.inspect(capabilities))
 
 -- true needed for html/css
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.dynamicRegistration = true
 
 
 local mason_status, mason = pcall(require, "mason")
@@ -75,23 +84,14 @@ if not mason_lspconfig_status then
   return
 end
 
-local servers = {
-  gopls = {},
-  pyright = {},
-  -- yamlls = {},
-  ansiblels = {},
-  html = {},
-  jsonls = {},
-  bashls = {},
-  cssls = {},
-  terraformls = {},
-  lua_ls = {},
-  ruff_lsp = {},
-}
-
-
 mason_lspconfig.setup({
-  ensure_installed = vim.tbl_keys(servers),
+  ensure_installed = { "gopls",
+    "pyright", "ansiblels",
+    "html", "jsonls",
+    "bashls", "terraformls",
+    "cssls", "lua_ls",
+    "ruff_lsp",
+  }
 })
 
 local neodev_ok, neodev_config = pcall(require, "neodev")

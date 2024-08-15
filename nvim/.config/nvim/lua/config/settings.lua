@@ -9,6 +9,7 @@ opt.autochdir = true
 o.completeopt = "menu,menuone,noinsert"
 o.foldmethod = "indent"
 o.mouse = "n"
+o.mousemodel = "extend"
 
 -- o.grepprg = "git grep -n"
 o.grepprg = 'rg --vimgrep'
