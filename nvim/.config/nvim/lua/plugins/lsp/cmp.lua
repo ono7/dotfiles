@@ -49,13 +49,16 @@ vim.opt.shortmess:append("c")
 local types = require("cmp.types")
 
 local preferred_sources = {
-  { name = "nvim_lsp",                priority = 1,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
-  { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 3,      keyword_length = 1 },
-  { name = "path",                    max_item_count = 20, keyword_length = 1 },
+  -- { name = "nvim_lsp",                priority = 1,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
+  -- { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 3,      keyword_length = 1 },
+  -- { name = "path",                    max_item_count = 20, keyword_length = 1 },
+  { name = "nvim_lsp" },
+  { name = "nvim_lsp_signature_help" },
+  { name = "path" },
 }
 
 local function tooBig(bufnr)
-  local max_filesize = 10 * 1024 -- 100 KB
+  local max_filesize = 1000 * 1024 -- 1MB
   local check_stats = (vim.uv or vim.loop).fs_stat
   local ok, stats = pcall(check_stats, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
@@ -80,14 +83,9 @@ vim.api.nvim_create_autocmd("BufRead", {
   end,
 })
 
-local cmp_select = {behavior = cmp_config.SelectBehavior.Select}
+local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
 cmp_config.setup({
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
-  snippet = {
-    expand = function(_)
-    end,
-  },
-
   window = {
     completion = {
       border = '',
@@ -101,18 +99,14 @@ cmp_config.setup({
       winhighlight = "Normal:Normal,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None"
     }
   },
-  mapping = cmp_config.mapping.preset.insert({
-    -- ["<C-n>"] = cmp_config.mapping.select_next_item({ behavior = cmp_config.SelectBehavior.Insert }),
-    -- ["<C-p>"] = cmp_config.mapping.select_prev_item({ behavior = cmp_config.SelectBehavior.Insert }),
-
+  mapping = {
     ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
     ["<C-p>"] = cmp_config.mapping.select_prev_item(cmp_select),
     ["<C-d>"] = cmp_config.mapping.scroll_docs(4),
     ["<C-b>"] = cmp_config.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp_config.mapping.complete(),
     ["<c-c>"] = cmp_config.mapping.close(),
-    -- ["<CR>"] = cmp_config.mapping.confirm({ select = false }),
-    ["<CR>"] = cmp_config.mapping.confirm(cmp_select),
+    ["<CR>"] = cmp_config.mapping.confirm(),
     ["<Tab>"] = cmp_config.mapping(function(fallback)
       if snippy.can_expand_or_advance() then
         snippy.expand_or_advance()
@@ -131,12 +125,12 @@ cmp_config.setup({
         fallback()
       end
     end, { "i", "s" }),
-  }),
-  performance = {
-    trigger_debounce_time = 500,
-    throttle = 550,
-    fetching_timeout = 80,
   },
+  -- performance = {
+  --   trigger_debounce_time = 500,
+  --   throttle = 550,
+  --   fetching_timeout = 80,
+  -- },
   formatting = {
     format = lspkind_config.cmp_format({
       with_text = false,

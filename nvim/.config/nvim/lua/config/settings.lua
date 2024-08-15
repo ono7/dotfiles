@@ -6,7 +6,7 @@ local bo = vim.bo
 
 --- global options ---
 opt.autochdir = true
-o.completeopt = "menu,menuone,noinsert"
+o.completeopt = "menu,menuone"
 o.foldmethod = "indent"
 o.mouse = "n"
 o.mousemodel = "extend"
@@ -62,7 +62,7 @@ o.inccommand = "nosplit"
 o.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 o.winaltkeys = "no"
 o.pumheight = 10
-o.emoji = false
+-- o.emoji = false
 -- o.redrawtime = 10000
 o.lazyredraw = false
 o.timeout = false -- remove timeout for partially typed commands
