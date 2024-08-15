@@ -112,9 +112,16 @@ chars = "\u0011"
 key = "Q"
 mods = "Command"
 
+# c-a
 [[keyboard.bindings]]
 chars = "\u0001"
 key = "A"
+mods = "Command"
+
+# c-x
+[[keyboard.bindings]]
+chars = "\u0018"
+key = "X"
 mods = "Command"
 
 # c-s to command-s
@@ -283,7 +290,7 @@ program = "/bin/zsh"
 decorations = "buttonless"
 dynamic_padding = true
 dynamic_title = false
-# opacity = 0.95
+opacity = 0.93
 blur = true
 
 startup_mode = "Windowed"
