@@ -117,7 +117,7 @@ local lsp_opts = {
 nvim_lsp.gopls.setup({
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   autostart = true,
-  root_dir = nvim_lsp.util.root_pattern("go.mod", "main.go", "go.work"),
+  root_dir = nvim_lsp.util.root_pattern("go.mod", "main.go", "go.work", ".git"),
   settings = {
     gopls = {
       completeUnimported = true,

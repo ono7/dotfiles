@@ -62,7 +62,7 @@ require("telescope").setup {
     file_ignore_patterns = {
       ".venv%/",
       "%/venv%/",
-      "%/.git%/",
+      "%.git%/",
       "%.cache", -- this might need to go back to ".cache"
       "__pycache__",
       "COMMIT_EDITMSG",

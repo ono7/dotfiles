@@ -5,6 +5,7 @@ venv/
 build/
 worktree/
 worktrees/
+.git/
 
 .pytest_cache/
 .DS_Store
