@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = 'COMMIT_EDITMSG',
   callback = function()
     vim.wo.spell = true
-    vim.o.wrap = false
+    vim.wo.wrap = false
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
   end,
 })
