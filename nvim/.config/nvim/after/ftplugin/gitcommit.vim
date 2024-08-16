@@ -1,2 +1,1 @@
-
-setlocal fo -= t
+setlocal formatoptions-=t
