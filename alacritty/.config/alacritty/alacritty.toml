@@ -26,7 +26,8 @@ text = "#080808"
 
 [colors.primary]
 # background = "#181825"
-background = "#23283d" # tokyonight
+# background = "#23283d" # tokyonight
+background = "#222932"
 foreground = "#c0c9d3"
 
 [cursor.style]
@@ -289,7 +290,7 @@ program = "/bin/zsh"
 decorations = "buttonless"
 dynamic_padding = true
 dynamic_title = false
-opacity = 0.93
+opacity = 0.85
 blur = true
 
 startup_mode = "Windowed"

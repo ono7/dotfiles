@@ -25,3 +25,27 @@ snippet shell "debug task"
 
 snippet command "debug task"
       ansible.builtin.command: ${0}
+
+
+snipped compose "docker compose template"
+  ---
+  services:
+    ${1:sftp-service}:
+      image: ${2:ubuntu:latest}
+      container_name: ${3:container-name}
+      # build: .
+      ports:
+        - "127.0.0.1:2022:2022"
+      volumes:
+        # mkdir -p /app/images
+        - ./images:/app/images
+      environment:
+        - SFTP_USER=test
+        - SFTP_PASS=test123
+      # watch files, restart container if there are changes
+      # develop:
+      #   watch:
+      #     - action: sync
+      #       path: .
+      #       target: /code
+      restart: unless-stopped

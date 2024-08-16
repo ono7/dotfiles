@@ -1,5 +1,17 @@
-// golang sftp server implementation
-// binds to 0.0.0.0:2022
+/* golang sftp server implementation for highlatency, low bandwith clients
+
+Date: 2024-08-16 08:09 CST
+
+binds to 0.0.0.0:2022, run inside container with chroot
+
+
+// TODO: finish this
+1. generates its own crypto throw away key that is unique on startup
+2.
+
+
+*/
+
 package main
 
 import (
@@ -88,12 +100,14 @@ func handleConnection(conn net.Conn, config *ssh.ServerConfig) {
 	}
 	defer sshConn.Close()
 
+
 	// Discard all global requests
 	go ssh.DiscardRequests(requests)
 
 	// Handle each channel
 	for ch := range channels {
 		go handleChannel(ch)
+		log.Printf("Request recieved from: %s", conn.RemoteAddr())
 	}
 }
 
@@ -102,6 +116,8 @@ func handleChannel(ch ssh.NewChannel) {
 		ch.Reject(ssh.UnknownChannelType, "unknown channel type")
 		return
 	}
+	// TODO: remove this comment
+	log.Printf("Channel type: %s", ch.ChannelType())
 
 	// Accept the channel
 	channel, _, err := ch.Accept()
@@ -113,16 +129,15 @@ func handleChannel(ch ssh.NewChannel) {
 
 	server, err := sftp.NewServer(
 		channel,
+		// NOTE: we should always run this service in ReadOnly mode
 		sftp.ReadOnly(),
 	)
-
 	if err != nil {
 		log.Printf("failed to create SFTP server: %v", err)
 		return
 	}
 	defer server.Close()
 
-	// Serve the SFTP requests
 	if err := server.Serve(); err != nil {
 		log.Printf("failed to serve SFTP requests: %v", err)
 	}
