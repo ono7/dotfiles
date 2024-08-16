@@ -45,11 +45,17 @@ if not mason_lspconfig_status then
 end
 
 mason_lspconfig.setup({
-  ensure_installed = { "gopls",
-    "pyright", "ansiblels",
-    "html", "jsonls",
-    "bashls", "terraformls",
-    "cssls", "lua_ls",
+  ensure_installed = {
+    "gopls",
+    "pyright",
+    -- "denols",
+    "ansiblels",
+    "html",
+    "jsonls",
+    "bashls",
+    "terraformls",
+    "cssls",
+    "lua_ls",
     "ruff_lsp",
   }
 })
@@ -115,6 +121,12 @@ nvim_lsp.ansiblels.setup(lsp_opts)
 nvim_lsp.jsonls.setup(lsp_opts)
 
 -- custom servers go here
+
+-- nvim_lsp.denols.setup({
+--   filetypes = "markdown",
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
 
 -- python
 nvim_lsp.pyright.setup {
