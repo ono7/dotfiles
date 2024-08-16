@@ -96,13 +96,13 @@ P = function(x)
   return x
 end
 
-vim.cmd [[
-nnoremap <leader>te :call OpenTests()<CR>
-function! OpenTests()
-  let test_file=substitute(expand('%:t'), '^', "test_", "")
-  execute "rightbelow vsplit " ..  test_file
-endfunction
-]]
+-- vim.cmd [[
+-- nnoremap <leader>te :call OpenTests()<CR>
+-- function! OpenTests()
+--   let test_file=substitute(expand('%:t'), '^', "test_", "")
+--   execute "rightbelow vsplit " ..  test_file
+-- endfunction
+-- ]]
 
 
 
