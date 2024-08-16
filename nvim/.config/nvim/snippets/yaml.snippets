@@ -1,4 +1,4 @@
-extends jinja
+extends jinja, todo
 
 priority 1000
 
@@ -27,7 +27,7 @@ snippet command "debug task"
       ansible.builtin.command: ${0}
 
 
-snipped compose "docker compose template"
+snippet compose "docker compose template"
   ---
   services:
     ${1:sftp-service}:

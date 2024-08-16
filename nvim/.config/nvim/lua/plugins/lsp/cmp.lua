@@ -7,6 +7,10 @@ end
 
 snippy.setup({
   snippet_dirs = '~/.config/nvim/snippets',
+  -- scopes = {
+  --   _ = {},
+  --   markdown = { "markdown" },
+  -- },
   mappings = {
     is = {
       ['<Tab>'] = 'expand_or_advance',

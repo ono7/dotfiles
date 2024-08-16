@@ -145,7 +145,7 @@ require("lazy").setup({
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "dcampos/nvim-snippy",
+      "dcampos/nvim-snippy", -- configured in lsp
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
@@ -153,6 +153,7 @@ require("lazy").setup({
     },
     config = function() require "plugins.lsp.cmp" end
   },
+
   {
     "lewis6991/gitsigns.nvim",
     opts = {
