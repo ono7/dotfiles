@@ -105,7 +105,6 @@ go-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/go-deps.sh
 
-
 # bootstrap neovim dependencies
 done:
 	@echo $(BANNER)
