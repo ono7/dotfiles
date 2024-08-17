@@ -1,5 +1,4 @@
 import = [
-	# "/Users/jlima/.dotfiles/schemes/alacritty/tokyonight_moon.toml"
 	"~/.dotfiles/_alacritty-theme/themes/nightfly.toml"
 ]
 
