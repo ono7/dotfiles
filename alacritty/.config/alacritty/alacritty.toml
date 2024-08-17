@@ -111,11 +111,6 @@ key = "Paste"
 action = "Copy"
 key = "Copy"
 
-# [[keyboard.bindings]] not needed on macos
-# chars = "\u0017"
-# key = "Back"
-# mods = "Command"
-
 [[keyboard.bindings]]
 action = "none"
 key = "H"
