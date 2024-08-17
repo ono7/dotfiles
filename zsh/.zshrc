@@ -14,6 +14,9 @@
 # -n = check if a variable is not empty
 # -z = check if a variable is empty
 
+# alacritty default rendering
+export LIBGL_ALWAYS_SOFTWARE=1
+
 export COLORTERM=truecolor
 
 RED='\033[0;31m'
@@ -416,7 +419,7 @@ if type fd &>/dev/null; then
 else
   echo 'download fd from: https://github.com/sharkdp/fd/releases'
   if [[ $OSTYPE == "darwin"* ]]; then
-    brew install fd jq neovim alaccrity llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
+    brew install fd jq neovim alacritty llvm netcat && ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
   fi
 fi
 
