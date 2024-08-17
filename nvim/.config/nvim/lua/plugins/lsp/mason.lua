@@ -97,6 +97,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- make some changes
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- this could create performace problems on big projects, best disabled for now
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+-- P(capabilities)
+
 -- expand lsp opts and return new table of options
 local extend_opts = function(opts1, override)
   if override ~= nil then
