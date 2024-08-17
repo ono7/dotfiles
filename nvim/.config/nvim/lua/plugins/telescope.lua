@@ -130,7 +130,7 @@ k({ "n", "x" }, "<s-tab>", function() builtin.buffers({ previewer = false }) end
 
 k({ "n", "x" }, "<c-f>", function()
   -- builtin.find_files({ no_ignore = false, hidden = true, cwd = get_git_root() })
-  builtin.find_files({ no_ignore = true, hidden = true, previewer = false })
+  builtin.find_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
 k({ "n", "x" }, "<c-p>", function()

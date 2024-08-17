@@ -27,8 +27,13 @@ text = "#080808"
 [colors.primary]
 # background = "#181825"
 # background = "#23283d" # tokyonight
-background = "#222932"
-foreground = "#c0c9d3"
+# foreground = "#c0c9d3"
+# background = "#1f2430"
+background = "#0a0e13"
+# foreground = "#c2c3c0"
+foreground = "#b7b7b7"
+
+
 
 [cursor.style]
 blinking = "Never"
@@ -52,7 +57,7 @@ y = 0
 
 [font.normal]
 family = "MonolisaLiga Nerd Font"
-style = "Regular"
+style = "Medium Regular"
 
 # [font.italic]
 # family = "MonolisaLiga Nerd Font"
