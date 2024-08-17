@@ -139,6 +139,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+--- causes vim to hang when files have large amount of white space
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   group = create_augroup("write_and_clean_empty_lines", { clear = true }),
 --   pattern = { "*" },
