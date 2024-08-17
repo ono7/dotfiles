@@ -139,15 +139,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = create_augroup("write_and_clean_empty_lines", { clear = true }),
-  pattern = { "*" },
-  callback = function()
-    local save_cursor = vim.fn.getcurpos()
-    vim.cmd [[:%s#\($\n\s*\)\+\%$##e]]
-    vim.fn.setpos('.', save_cursor)
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = create_augroup("write_and_clean_empty_lines", { clear = true }),
+--   pattern = { "*" },
+--   callback = function()
+--     local save_cursor = vim.fn.getcurpos()
+--     vim.cmd [[:%s#\($\n\s*\)\+\%$##e]]
+--     vim.fn.setpos('.', save_cursor)
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd("FocusGained", {
 --   callback = function()
