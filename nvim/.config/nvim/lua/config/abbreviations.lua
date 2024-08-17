@@ -1,5 +1,6 @@
 vim.cmd([[cabbrev q1 q!]])
 vim.cmd([[cabbrev Q1 q!]])
 vim.cmd([[cabbrev Q q!]])
+vim.cmd([[cabbrev q qa!]])
 vim.cmd([[cabbrev qa1 qa!]])
 vim.cmd([[cabbrev qall1 qall!]])

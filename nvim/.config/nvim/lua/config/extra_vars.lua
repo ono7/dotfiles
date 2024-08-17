@@ -243,6 +243,8 @@ nnoremap <leader>t :!tmux send-keys -t 2 c-p Enter<cr> :redraw!<cr>
 " cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 " cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
 
+cnoreabbrev q qa!
+
 set gp=git\ grep\ -n
 
 set completeopt=menuone,longest
@@ -549,6 +551,7 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 nnoremap <leader><leader> :ls<cr>:b<space>
 " cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 " cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
+cnoreabbrev q qa!
 
 set gp=git\ grep\ -n
 set completeopt=menu,menuone,longest
