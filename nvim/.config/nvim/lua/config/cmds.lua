@@ -139,16 +139,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
---- causes vim to hang when files have large amount of white space
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   group = create_augroup("write_and_clean_empty_lines", { clear = true }),
---   pattern = { "*" },
---   callback = function()
---     local save_cursor = vim.fn.getcurpos()
---     vim.cmd [[:%s#\($\n\s*\)\+\%$##e]]
---     vim.fn.setpos('.', save_cursor)
---   end,
--- })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = create_augroup("remove_trailing_empty_line", { clear = true }),
+  pattern = { "*" },
+  callback = function()
+    local lastLine = vim.fn.line('$')
+    local lastNonblankLine = vim.fn.prevnonblank(lastLine)
+    if lastLine > 0 and lastNonblankLine ~= lastLine then
+      vim.cmd(string.format("%d,%ddelete _", lastNonblankLine + 1, lastLine))
+    end
+  end,
+})
 
 -- vim.api.nvim_create_autocmd("FocusGained", {
 --   callback = function()
