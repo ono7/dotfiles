@@ -61,3 +61,6 @@ wt = worktree
 # git unstage fileA
 unstage = reset HEAD --
 last = log -1 HEAD
+
+[include]
+    path = .gitconfig-personal
