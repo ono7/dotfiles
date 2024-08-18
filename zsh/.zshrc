@@ -15,7 +15,7 @@
 # -z = check if a variable is empty
 
 # alacritty default rendering
-export LIBGL_ALWAYS_SOFTWARE=1
+# export LIBGL_ALWAYS_SOFTWARE=1
 
 export COLORTERM=truecolor
 

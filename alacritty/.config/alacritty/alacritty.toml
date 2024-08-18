@@ -38,7 +38,11 @@ text = "#080808"
 # background = "#1c2030"
 foreground = "#b7b7b7"
 
-background = "#141d26"
+# nice dark
+# background = "#141d26"
+
+# matches kitty
+background = "#162331"
 
 
 
