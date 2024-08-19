@@ -22,7 +22,7 @@ echo
 echo "------[ done: installing linux dependencies ]-------"
 echo
 
-if command -v snap &>/dev/null; then
+if type snap &>/dev/null; then
   echo "------[ snap: installing linux dependencies ]-------"
   sudo snap install go --classic
   sudo snap install --edge starship

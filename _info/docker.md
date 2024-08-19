@@ -2,6 +2,12 @@
 
 `docker run -it --rm -p "127.0.0.1:2022:2022" b44983c7efbe chroot /app ./linux-server`
 
+```
+$ docker run -it --rm ubuntu:trusty chroot --userspec=nobody / ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+nobody       1  5.0  0.0   7136   756 ?        Rs+  17:04   0:00 ps aux
+```
+
 ## all containers should have this
 
 ```Dockerfile

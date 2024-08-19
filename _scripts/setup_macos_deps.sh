@@ -2,7 +2,7 @@
 
 echo "$0"
 
-if command -v brew &>/dev/null; then
+if type brew &>/dev/null; then
   brew install ansifilter wget tree go neovim rar clang-format zoxide grep netcat stow
   brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl tmux universal-ctags mtr lua ninja rust
   brew install bpytop pinentry-mac llvm

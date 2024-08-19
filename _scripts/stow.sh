@@ -8,7 +8,7 @@ echo "Running stow..."
 
 export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
 
-if command -v stow &> /dev/null; then
+if type stow &> /dev/null; then
   stow alacritty
   stow kitty
   stow bash
