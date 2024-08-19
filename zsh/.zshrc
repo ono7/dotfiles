@@ -636,8 +636,8 @@ if ! type lf &>/dev/null; then
 fi
 
 # if the SSH_CONNECTION var is empty, startup tmux
-if [ -z $SSH_CONNECTION ]; then
-  type tmux &> /dev/null && ta || echo "tmux not found..."
-fi
+# if [ -z $SSH_CONNECTION ]; then
+#   type tmux &> /dev/null && ta || echo "tmux not found..."
+# fi
 
 uptime
