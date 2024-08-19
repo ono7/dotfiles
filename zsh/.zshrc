@@ -74,20 +74,6 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
-# bring back vim after c-z
-#  fancy-ctrl-z () {
-#    if [[ $#BUFFER -eq 0 ]]; then
-#      BUFFER=fg
-#      zle accept-line
-#    else
-#      zle push-input
-#      zle clear-screen
-#    fi
-#  }
-
-# zle -n fancy-ctrl-z
-# bindkey ^z fancy-ctrl-z
-
 runner () {
   if ! type nodemon &>/dev/null; then
     npm install -g nodemon
@@ -112,7 +98,7 @@ ta() {
         return 1
     fi
 
-    local SESSION_NAME="${1:-main}" # Default to "main" if no argument
+    local SESSION_NAME="${1:-main}"
 
     if [ -n "$TMUX" ]; then
         if [ -n "$1" ]; then
@@ -134,15 +120,11 @@ if [ -d ~/.zsh/zsh-autosuggestions ]; then
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
-# autoload -Uz compinit && compinit -C
 autoload -Uz compinit && compinit
 
 zstyle ':completion:*:default' list-colors ""
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion::complete:*' gain-privileges 1
-
-# % cd /u/lo/b⇥ 
-# % cd /usr/local/bin 
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 zstyle ':completion:*' list-suffixes
 zstyle ':completion:*' expand prefix suffix
@@ -159,9 +141,6 @@ setopt COMBINING_CHARS
 setopt NO_BEEP
 
 [[ -d ~/.tmp ]] || mkdir -p ~/.tmp
-
-# create ram drive
-# [[ -d /Volumes/ohmy ]] || diskutil erasevolume HFS+ "ohmy" `hdiutil attach -nomount ram://20480`
 
 ZSH_DISABLE_COMPFIX="true"
 
@@ -204,7 +183,6 @@ alias v=vim
 alias clear='clear -x '
 
 alias k='kubectl '
-# source <(kubectl completion zsh)
 
 alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 
@@ -233,18 +211,6 @@ mkrole () {
       echo "created $mydir/$f/main.yml (file)"
     fi
   done
-  echo "done!"
-}
-
-mkansible () {
-  mydir="$@"
-  target=${mydir// /_}
-  if [ -d $target ]; then
-    echo "directory $target, already exists :("
-    return 1
-  fi
-  echo "creating ansible shell project $target"
-  cp -r ~/.dotfiles/ansible/shell $target
   echo "done!"
 }
 
@@ -393,7 +359,6 @@ vc () {
   cd $my_dir
 }
 
-# disable virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export XCURSOR_SIZE=60
 
@@ -434,8 +399,6 @@ fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# defaults write com.googlecode.iterm2 AppleFontSmoothing -integer 1
 
 zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
@@ -498,28 +461,6 @@ fcd() {
     dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-setup_nvim_linux() {
-  bak=$PWD
-  cd
-  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-  rm -rf nvim
-  tar xzvf nvim-linux64.tar.gz
-  mv nvim-linux64 nvim
-  cd $bak
-}
-
-# _vs () {
-#   vim "$(fd --type f -HI --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
-# }
-
-# # _vs declear as widget for zsh
-# zle -N _vs
-# bindkey -s '^S' _vs^M
-
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
 gb() {
   git checkout $(git branch -a | fzf)
 }
@@ -541,17 +482,6 @@ for m in visual viopp; do
     bindkey -M $m $c select-bracketed
   done
 done
-
-# if [[ $OSTYPE == "darwin"* ]]; then
-#   # defaults write -g AppleFontSmoothing -int 0
-#   # defaults write -g ApplePressAndHoldEnabled -bool false
-#  if type gls &>/dev/null; then
-#    # alias ls='gls --color'
-#  else
-#    echo "brew instal coreutils - we need gnu-ls"
-#    brew install coreutils
-#  fi
-# fi
 
 alias ls='ls --color'
 
@@ -597,9 +527,6 @@ PROMPT_EOL_MARK=""
 
 bindkey ' ' magic-space # do history expansion on space
 
-# disable flow control
-# setopt NO_FLOW_CONTROL
-
 # change directories
 setopt autocd
 
@@ -626,11 +553,6 @@ fi
 # unset display in wsl or vim will starup slow
 [[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
 
-# load other functions (work related)
-# if [ -f ~/.zshf ]; then
-#   source ~/.zshf
-# fi
-
 # freeze tty
 ttyctl -f
 
@@ -646,8 +568,8 @@ function reset_broken_terminal () {
 add-zsh-hook -Uz precmd reset_broken_terminal
 
 alias pb="ansible-playbook "
+
 # remember directories
-# directory maps
 alias -- -='cd -'
 alias 0='cd -0'
 alias 1='cd -1'
