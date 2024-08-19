@@ -1,66 +1,66 @@
 [includeIf "gitdir:~/github.com/"]
-    path = .gitconfig-personal
+  path = .gitconfig-personal
 
 [includeIf "gitdir:~/.dotfiles/"]
-    path = .gitconfig-personal
+  path = .gitconfig-personal
 
 [includeIf "gitdir:~/work/"]
-    path = .gitconfig-work
+  path = .gitconfig-work
 
 [includeIf "gitdir:~/git.marriott.com/"]
-    path = .gitconfig-work
+  path = .gitconfig-work
 
 [core]
-editor = nvim
-mergeoptions = --no-edit
+  editor = nvim
+  mergeoptions = --no-edit
 
 [http]
-sslVerify = false
+  sslVerify = false
 
 [url "https://github.com/"]
-insteadOf = git://github.com/
+  insteadOf = git://github.com/
 
 [credential]
-helper = store
+  helper = store
 
 [init]
-defaultBranch = main
-templatedir = ~/.git_templates
+  defaultBranch = main
+  templatedir = ~/.git_templates
 
 [pull]
 # requires git > 2.6
 # `git rebase –abort` when we need to reset the changes
-rebase = true
+  rebase = true
 
 [merge]
-tool = nvimdiff4
-prompt = false
+  tool = nvimdiff4
+  prompt = false
 
 [mergetool "nvimdiff4"]
-cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool]
-keepBackup = false
-prompt = false
+  keepBackup = false
+  prompt = false
 
 [push]
-autoSetupRemote = true
+  autoSetupRemote = true
 
 # push only the default branch
-default = simple
+  default = simple
 
 [diff]
-colorMoved = zebra
+  colorMoved = zebra
 
 [alias]
-co = checkout
-br = branch
-ci = commit
-st = status
-wt = worktree
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+  wt = worktree
 # git unstage fileA
-unstage = reset HEAD --
-last = log -1 HEAD
+  unstage = reset HEAD --
+  last = log -1 HEAD
 
 [include]
-    path = .gitconfig-personal
+  path = .gitconfig-personal
