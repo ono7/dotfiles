@@ -18,14 +18,9 @@ vim.filetype.add({
     csv = "csv",
     cl = "opencl",
     env = "env",
+    gohtml = "html",
     j2 = "jinja",
     conf = "config",
-    -- yml = function()
-    --   if vim.fn.search([[hosts:\|tasks:]], 'nw') >= 1 then
-    --     return "yaml.ansible"
-    --   end
-    --   return "yaml"
-    -- end,
     yml = "yaml.ansible",
     yaml = "yaml.ansible",
     md = "markdown",
