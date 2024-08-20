@@ -15,7 +15,7 @@ require("conform").setup({
     scss = { "prettier" },
     html = { "prettier" },
     json = { "prettier" },
-    yaml = { "prettier" },
+    -- yaml = { "prettier" },
     -- markdown = { "prettier" },
     markdown = { "markdownfmt" },
     -- goimports drop in replacement for gofmt
