@@ -3,7 +3,7 @@ add_newline = true
 palette = "catppuccin_mocha"
 
 right_format="""
-$time"""
+$python $git_branch"""
 
 [hostname]
 ssh_only = true
@@ -100,7 +100,7 @@ style ="bold lavender"
 # symbol = "[ ](blue)"
 # symbol = "[ ](blue)"
 # symbol = "[ ](blue)"
-# 󰽜
+# 󰽜  
 symbol = "[ ](bright white)"
 format = '[$symbol$branch]($style)'
 
