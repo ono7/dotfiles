@@ -100,6 +100,7 @@ require("lazy").setup({
   {
     'alexghergh/nvim-tmux-navigation',
     config = function()
+      --- in tmux install tpm plugin and run c-b + I (capital I) ---
       local nvim_tmux_nav = require('nvim-tmux-navigation')
 
       nvim_tmux_nav.setup {
