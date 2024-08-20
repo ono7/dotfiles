@@ -1,4 +1,5 @@
 --- 🐇 Follow the white Rabbit...
+-- TODO: fix telescope to make files in projects filtered when doing oldfile lookups
 
 local k = vim.keymap.set
 local opt = { noremap = true }
