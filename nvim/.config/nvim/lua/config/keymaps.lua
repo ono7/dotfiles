@@ -49,8 +49,8 @@ k({ "n", "x" }, "\\", function()
 end, { silent = true })
 
 -- move selection to far left, far right
-k("v", "gh", ":left<cr>", silent)
-k("v", "gl", ":right<cr>", silent)
+-- k("v", "gh", ":left<cr>", silent)
+-- k("v", "gl", ":right<cr>", silent)
 
 k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
@@ -66,8 +66,8 @@ k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 k("x", "H", "<gv", silent)
 k("x", "L", ">gv", silent)
-k("x", "J", ":m '>+1<CR>gv=gv", silent)
-k("x", "K", ":m '<-2<CR>gv=gv", silent)
+-- k("x", "J", ":m '>+1<CR>gv=gv", silent)
+-- k("x", "K", ":m '<-2<CR>gv=gv", silent)
 
 -- toggle spell on and off
 k("n", "<leader>ss", function()
