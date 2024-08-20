@@ -58,10 +58,16 @@ k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 -- k("n", "L", "g_", silent)
 -- k("n", "H", "^", silent)
 
+--- move selection up/down/left/right
 -- xnoremap H <gv
 -- xnoremap L >gv
+-- vnoremap J :m '>+1<CR>gv=gv
+-- vnoremap K :m '<-2<CR>gv=gv
+
 k("x", "H", "<gv", silent)
 k("x", "L", ">gv", silent)
+k("x", "J", ":m '>+1<CR>gv=gv", silent)
+k("x", "K", ":m '<-2<CR>gv=gv", silent)
 
 -- toggle spell on and off
 k("n", "<leader>ss", function()
