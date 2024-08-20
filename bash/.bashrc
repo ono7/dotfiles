@@ -253,6 +253,12 @@ vd() {
   source $HOME/.virtualenvs/prod3/bin/activate
 }
 
+if type zoxide &>/dev/null; then
+  eval "$(zoxide init bash)"
+else
+  echo "zoxide not installed..."
+fi
+
 # TODO(jlima): clean this up
 export EDITOR=nvim
 if type nvim &>/dev/null; then
