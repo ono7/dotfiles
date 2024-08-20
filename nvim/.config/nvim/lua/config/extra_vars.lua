@@ -67,11 +67,10 @@ vnoremap <leader>y :<C-u>call CopyToClipboard(@0)<CR>
 let &fcs='eob: '
 
 set synmaxcol=512
-syntax enable
 syntax sync minlines=256
 syntax sync maxlines=300
 filetype plugin indent on
-syntax on
+syntax off
 
 """ hold my beer """
 
@@ -460,12 +459,11 @@ set nocompatible
 set t_Co=8
 let mapleader = " "
 set synmaxcol=512
-syntax enable
 syntax sync minlines=256
 syntax sync maxlines=300
 filetype plugin indent on
 let g:netrw_localcopydircmd = 'cp -r'
-syntax on
+syntax off
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
