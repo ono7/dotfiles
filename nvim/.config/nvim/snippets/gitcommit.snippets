@@ -11,7 +11,7 @@ snippet j "test" b
   `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` $0
 
 snippet jc "test" b
-  `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #comment ${0}
+  `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #comment [JL] ${0:${VISUAL}}
 
 snippet jt "test" b
   `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #${0|to-to-do,to-in-progress,to-review,to-done|}

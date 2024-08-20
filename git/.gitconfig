@@ -1,13 +1,13 @@
-[includeIf "gitdir:~/github.com/"]
+[includeIf "gitdir:~/github.com/**"]
   path = .gitconfig-personal
 
-[includeIf "gitdir:~/.dotfiles/"]
+[includeIf "gitdir:~/.dotfiles/**"]
   path = .gitconfig-personal
 
-[includeIf "gitdir:~/work/"]
+[includeIf "gitdir:~/work/**"]
   path = .gitconfig-work
 
-[includeIf "gitdir:~/git.marriott.com/"]
+[includeIf "gitdir:~/git.marriott.com/**"]
   path = .gitconfig-work
 
 [core]
@@ -61,6 +61,3 @@
 # git unstage fileA
   unstage = reset HEAD --
   last = log -1 HEAD
-
-[include]
-  path = .gitconfig-personal
