@@ -7,7 +7,7 @@ git clone https://github.com/ono7/dotfiles.git ~/.dotfiles
 cd $_
 make install
 
-# removes ~/.ssh/config link, used for sshs)
+# removes ssh stow link ~/.ssh/config
 stow -D ssh
 
 # update go-deps
