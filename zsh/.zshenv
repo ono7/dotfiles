@@ -144,3 +144,7 @@ alias p='podman'
 a() {
   awk -v field="${1:-1}" '{print $field}'
 }
+
+cdt () {
+  cd $(git worktree list | a | fzf)
+}
