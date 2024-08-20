@@ -146,5 +146,12 @@ a() {
 }
 
 cdt () {
-  cd $(git worktree list | a | fzf)
+  dirs=$(git worktree list | a)
+  [ -z "$dirs" ] && return
+
+  # If fzf was cancelled, do nothing (stay in the current directory)
+  selected_dir=$(git worktree list | a | fzf)
+  if [ -n "$selected_dir" ]; then
+    cd "$selected_dir"
+  fi
 }
