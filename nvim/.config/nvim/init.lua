@@ -10,7 +10,7 @@ vim.opt.shell = "zsh"
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.wrap = false
 
-vim.o.shada = "'70,<3000,s100,:500,/100,h"
+vim.o.shada = "'30,<3000,s100,:500,/100,h"
 
 --- syntax off to avoid tree-sitter issues
 vim.opt.syntax = "off"
