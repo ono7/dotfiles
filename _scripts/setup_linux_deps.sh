@@ -15,7 +15,8 @@ echo 'setting up linux dependencies (apt/python)'
 sudo apt update
 sudo apt -y upgrade
 sudo apt remove -y nano
-sudo apt install -y build-essential libssl-dev curl tree zsh python3 silversearcher-ag \
+sudo apt install zoxide
+sudo apt install -y build-essential libssl-dev curl tree zsh python3 python3.11 silversearcher-ag \
   python3.11-pip python3.11-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt zoxide
 
 echo
