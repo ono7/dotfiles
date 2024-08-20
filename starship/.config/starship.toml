@@ -122,9 +122,12 @@ style = "bold white"
 symbol = "[](cyan)"
 format = '[$symbol]($style) Go '
 
+# [python]
+# symbol = "[](green)"
+# format = '[${symbol}${pyenv_prefix} (${virtualenv})]($style) '
+
 [python]
-symbol = "[](green)"
-format = '[${symbol}${pyenv_prefix} (${virtualenv})]($style) '
+format = '[${pyenv_prefix}(${virtualenv})]($style) '
 
 # [lua]
 # disabled = true
