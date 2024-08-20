@@ -330,14 +330,14 @@ k('i', '[', function()
   return '[]<Left>'
 end, { expr = true })
 
-k('i', ']', function()
-  local n = get_next_char()
-  if n == ']' then
-    return '<Right>'
-  end
-  return ']'
-end
-, { expr = true })
+-- k('i', ']', function()
+--   local n = get_next_char()
+--   if n == ']' then
+--     return '<Right>'
+--   end
+--   return ']'
+-- end
+-- , { expr = true })
 
 -- handle {}
 k('i', '{', function()
@@ -350,14 +350,14 @@ k('i', '{', function()
   return '{}<Left>'
 end, { expr = true })
 
-k('i', '}', function()
-  local n = get_next_char()
-  if n == '}' then
-    return '<Right>'
-  end
-  return '}'
-end
-, { expr = true })
+-- k('i', '}', function()
+--   local n = get_next_char()
+--   if n == '}' then
+--     return '<Right>'
+--   end
+--   return '}'
+-- end
+-- , { expr = true })
 
 -- handle (
 -- k('i', '(', function()
@@ -370,23 +370,23 @@ end
 --   return '()<Left>'
 -- end, { expr = true })
 
-k({ 'i' }, ')', function()
-  local n = get_next_char()
-  if n == ')' then
-    return '<Right>'
-  end
-  return ')'
-end
-, { expr = true })
+-- k({ 'i' }, ')', function()
+--   local n = get_next_char()
+--   if n == ')' then
+--     return '<Right>'
+--   end
+--   return ')'
+-- end
+-- , { expr = true })
 
-k('i', '>', function()
-  local n = get_next_char()
-  if n == '>' then
-    return '<Right>'
-  end
-  return '>'
-end
-, { expr = true })
+-- k('i', '>', function()
+--   local n = get_next_char()
+--   if n == '>' then
+--     return '<Right>'
+--   end
+--   return '>'
+-- end
+-- , { expr = true })
 
 k("i", "<BS>", function()
   -- compare ')' == ')'
@@ -397,10 +397,10 @@ k("i", "<BS>", function()
 end, xpr)
 
 local pair_map_2 = {
-  ["("] = ")",
-  ["["] = "]",
+  -- ["("] = ")",
+  -- ["["] = "]",
   ["{"] = "}",
-  ["<"] = ">",
+  -- ["<"] = ">",
 }
 
 k("i", "<enter>", function()
