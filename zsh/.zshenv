@@ -116,6 +116,14 @@ alias gpu='git pull'
 alias gr='git reflog '
 alias gs='git status '
 
+gw () {
+  if [ $# -eq 0 ]; then  # Check if no arguments were provided
+    git worktree list
+  else
+    git worktree "$@"
+  fi
+}
+
 gwa() {
   git worktree add "$@"
 }

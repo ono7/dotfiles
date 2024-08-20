@@ -278,7 +278,6 @@ ginit () {
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
 }
 
-alias gw='git worktree '
 alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
 
 gitlog () {
