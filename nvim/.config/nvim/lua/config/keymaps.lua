@@ -58,10 +58,10 @@ k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 -- k("n", "L", "g_", silent)
 -- k("n", "H", "^", silent)
 
-k("x", "<<", function()
-  vim.cmd("normal! <<")
-  vim.cmd("normal! gv")
-end, silent)
+-- xnoremap H <gv
+-- xnoremap L >gv
+k("x", "H", "<gv", silent)
+k("x", "L", ">gv", silent)
 
 -- toggle spell on and off
 k("n", "<leader>ss", function()

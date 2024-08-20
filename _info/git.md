@@ -1,4 +1,15 @@
-# git squash (merge commits into one)
+# git worktree workflow
+
+```sh
+take new_repo
+git clone http://abc/d.git
+cd d
+git worktree add -b <new-branch-name> ../<dir> <from hash or branch-name>
+cd ../new
+<
+```
+
+## git squash (merge commits into one)
 
 `git checkout <branch>`
 
@@ -10,18 +21,14 @@ or go to the latest commit you want to squash
 
 `git rebase -i deadbeef`
 
-
 use text editor to perform the rebase operation
-
 
 # view graphical representation of git commits
 
-
-this can also be used to figure out where a branch originated from 
+this can also be used to figure out where a branch originated from
 
 `git log --oneline --graph --decorate`
 `git log --oneline --graph --decorate --all`
-
 
 # cleaup repository and destroy all history
 
@@ -62,27 +69,29 @@ git stash -u // include untracked files
 
 git stash branch abcde // creates a new branch with stash applied, stash is abcde
 
-       Interrupted workflow
-           When you are in the middle of something, your boss comes in and demands that you fix something immediately. Traditionally, you would make a commit to a temporary branch to store your changes away, and return to your original branch to make the emergency fix, like this:
+```
+   Interrupted workflow
+       When you are in the middle of something, your boss comes in and demands that you fix something immediately. Traditionally, you would make a commit to a temporary branch to store your changes away, and return to your original branch to make the emergency fix, like this:
 
-               # ... hack hack hack ...
-               $ git switch -c my_wip
-               $ git commit -a -m "WIP"
-               $ git switch master
-               $ edit emergency fix
-               $ git commit -a -m "Fix in a hurry"
-               $ git switch my_wip
-               $ git reset --soft HEAD^
-               # ... continue hacking ...
+           # ... hack hack hack ...
+           $ git switch -c my_wip
+           $ git commit -a -m "WIP"
+           $ git switch master
+           $ edit emergency fix
+           $ git commit -a -m "Fix in a hurry"
+           $ git switch my_wip
+           $ git reset --soft HEAD^
+           # ... continue hacking ...
 
-           You can use git stash to simplify the above, like this:
+       You can use git stash to simplify the above, like this:
 
-               # ... hack hack hack ...
-               $ git stash // or git stash -u to include untracked files
-               $ edit emergency fix
-               $ git commit -a -m "Fix in a hurry"
-               $ git stash pop
-               # ... continue hacking ...
+           # ... hack hack hack ...
+           $ git stash // or git stash -u to include untracked files
+           $ edit emergency fix
+           $ git commit -a -m "Fix in a hurry"
+           $ git stash pop
+           # ... continue hacking ...
+```
 
 # highlight code for sharing
 
@@ -224,8 +233,8 @@ git clone -b branch --single-branch git://github/repository.git
 
 `git clone -b [tag_name] [repository_url]`
 
-Replace [tag_name] with the name of the tag you want to clone.
-Replace [repository_url] with the repository link obtained in the previous step.
+Replace \[tag_name\] with the name of the tag you want to clone.
+Replace \[repository_url\] with the repository link obtained in the previous step.
 For example:
 
 `git clone -b v1.2 https://github.com/bosko-pnap/git-project.git`

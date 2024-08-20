@@ -134,8 +134,9 @@ nnoremap <c-l> <C-W><C-L>
 nnoremap <c-h> <C-W><C-H>
 
 " save some keystrokes
-" nnoremap ; :
-" xnoremap ; :
+
+xnoremap H <gv
+xnoremap L >gv
 
 " switch between current and prev file
 nnoremap <space><space> <c-^>
@@ -180,8 +181,6 @@ nnoremap p p=`]
 " leave unnamed alone when changing text
 nnoremap c "ac
 nnoremap C "aC
-" nnoremap ; :
-" xnoremap ; :
 
 " switch between current and prev file
 nnoremap <space><space> <c-^>
@@ -552,6 +551,9 @@ nnoremap <leader><leader> :ls<cr>:b<space>
 " cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 " cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
 cnoreabbrev q qa!
+
+xnoremap H <gv
+xnoremap L >gv
 
 set gp=git\ grep\ -n
 set completeopt=menu,menuone,longest
