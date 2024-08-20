@@ -117,10 +117,11 @@ k("n", "<leader>Q", "<cmd>q!<cr>", silent)
 k("n", ",Q", "<cmd>q!<cr>", silent)
 
 --- navigate between splits ---
-k("n", "<c-k>", "<C-W>k")
-k("n", "<c-j>", "<C-W>j")
-k("n", "<c-h>", "<C-W>h")
-k("n", "<c-l>", "<C-W>l")
+--- do not use with nvim tmux plugin ---
+-- k("n", "<c-k>", "<C-W>k")
+-- k("n", "<c-j>", "<C-W>j")
+-- k("n", "<c-h>", "<C-W>h")
+-- k("n", "<c-l>", "<C-W>l")
 
 --- mapping tab also overrides c-i which is used to move through jump list
 k("n", "<m-]>", ":bnext<CR>", silent)
