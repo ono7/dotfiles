@@ -408,10 +408,6 @@ eval "$(starship init zsh)"
 
 bindkey -v
 
-# try to fix lag for zsh vimode
-bindkey -M vicmd "^[" undefined-key
-bindkey -rM viins "^X"
-
 source <(fzf --zsh)
 
 bindkey "^E" end-of-line

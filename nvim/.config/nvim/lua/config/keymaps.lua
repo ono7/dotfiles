@@ -172,7 +172,7 @@ k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
 --- marks/jumps ---
 --- k("n", "'", "`", opt)
-k("n", "mm", "mM", opt)
+-- k("n", "mm", "mM", opt)
 k("n", "ma", "mA", opt)
 k("n", "mB", "mB", opt)
 k("n", "'m", [[`M'\"]], opt)

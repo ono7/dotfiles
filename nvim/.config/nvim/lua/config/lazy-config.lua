@@ -92,6 +92,12 @@ require("lazy").setup({
     config = function() require "plugins.surround" end
   },
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function() require "plugins.harpoon" end
+  },
+  {
     "mfussenegger/nvim-dap",
     dependencies = {
       "mfussenegger/nvim-dap-python",
@@ -104,7 +110,6 @@ require("lazy").setup({
     },
     config = function() require "plugins.dap" end
   },
-  -- { "ThePrimeagen/harpoon",      config = function() require "plugins.harpoon" end },
   { "NvChad/nvim-colorizer.lua", config = function() require "plugins.colorizer" end },
   { "sindrets/diffview.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },
   {
