@@ -53,9 +53,10 @@ vim.opt.shortmess:append("c")
 local types = require("cmp.types")
 
 local preferred_sources = {
-  { name = "nvim_lsp",                priority = 1,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
+  { name = "nvim_lsp",                priority = 1000,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
   { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 1 },
   { name = "path",                    max_item_count = 20, keyword_length = 1 },
+  { name = "buffer",                    max_item_count = 20, keyword_length = 1 },
   -- { name = "nvim_lsp" },
   -- { name = "nvim_lsp_signature_help" },
   -- { name = "path" },
@@ -89,6 +90,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
 cmp_config.setup({
+  completion = {
+    autocomplete = false, -- we want to test out running this manually
+  },
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
     completion = {
@@ -109,7 +113,7 @@ cmp_config.setup({
     ["<C-d>"] = cmp_config.mapping.scroll_docs(4),
     ["<C-b>"] = cmp_config.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp_config.mapping.complete(),
-    ["<c-c>"] = cmp_config.mapping.close(),
+    ["<C-c>"] = cmp_config.mapping.close(),
     ["<CR>"] = cmp_config.mapping.confirm(),
     ["<Tab>"] = cmp_config.mapping(function(fallback)
       if snippy.can_expand_or_advance() then
@@ -140,8 +144,8 @@ cmp_config.setup({
       with_text = false,
       maxwidth = 50,
       menu = {
-        buffer = "[B]",
         nvim_lsp = "[L]",
+        buffer = "[B]",
         -- nvim_lua = "[api]",
         -- path = "[path]",
       },

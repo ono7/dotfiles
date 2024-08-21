@@ -104,13 +104,10 @@ k("n", ",w", function()
     print("save me first!")
     return
   end
+  local save_cursor = vim.fn.getcurpos()
   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
-  -- this is now handled by conform.nvim
-  -- local status, _ = pcall(vim.lsp.buf.format)
-  -- if not status then
-  --   print("no lsp..")
-  -- end
   vim.cmd [[:write]]
+  vim.fn.setpos('.', save_cursor)
 end, silent)
 
 k("n", "<leader>w", ":CleanAndSave<cr>", silent)
@@ -325,16 +322,16 @@ end
 --   end
 -- end, { expr = true })
 
--- handle {}
-k('i', '[', function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return '[]<Left>'
-  elseif n ~= '' then
-    return '['
-  end
-  return '[]<Left>'
-end, { expr = true })
+---- handle {}
+-- k('i', '[', function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return '[]<Left>'
+--   elseif n ~= '' then
+--     return '['
+--   end
+--   return '[]<Left>'
+-- end, { expr = true })
 
 k('i', ']', function()
   local n = get_next_char()
@@ -345,16 +342,16 @@ k('i', ']', function()
 end
 , { expr = true })
 
--- handle {}
-k('i', '{', function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return '{}<Left>'
-  elseif n ~= '' then
-    return '{'
-  end
-  return '{}<Left>'
-end, { expr = true })
+---- handle {}
+-- k('i', '{', function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return '{}<Left>'
+--   elseif n ~= '' then
+--     return '{'
+--   end
+--   return '{}<Left>'
+-- end, { expr = true })
 
 k('i', '}', function()
   local n = get_next_char()
@@ -403,32 +400,32 @@ k("i", "<BS>", function()
 end, xpr)
 
 local pair_map_2 = {
-  -- ["("] = ")",
-  -- ["["] = "]",
+  ["("] = ")",
+  ["["] = "]",
   ["{"] = "}",
-  -- ["<"] = ">",
+  ["<"] = ">",
 }
 
-k("i", "<enter>", function()
-  -- use this one when we are autoclosing
-  local prev_col, _ = vim.fn.col('.') - 1, vim.fn.col('.')
-  local p = vim.fn.getline('.'):sub(prev_col, prev_col)
-  local pmap = pair_map_2
-  if pmap[p] then
-    return "<CR><Esc>O"
-  else
-    return "<CR>"
-  end
-end, { expr = true })
-
 -- k("i", "<enter>", function()
---   -- use this one when we are not autoclosing
---   local line = vim.fn.getline(".")
---   local prev_col, _ = vim.fn.col(".") - 1, vim.fn.col(".")
---   return pair_map_2[line:sub(prev_col, prev_col)]
---       and "<enter>" .. pair_map_2[line:sub(prev_col, prev_col)] .. "<Esc>O"
---       or "<Enter>"
+--   -- use this one when we are autoclosing
+--   local prev_col, _ = vim.fn.col('.') - 1, vim.fn.col('.')
+--   local p = vim.fn.getline('.'):sub(prev_col, prev_col)
+--   local pmap = pair_map_2
+--   if pmap[p] then
+--     return "<CR><Esc>O"
+--   else
+--     return "<CR>"
+--   end
 -- end, { expr = true })
+
+k("i", "<enter>", function()
+  -- use this one when we are not autoclosing
+  local line = vim.fn.getline(".")
+  local prev_col, _ = vim.fn.col(".") - 1, vim.fn.col(".")
+  return pair_map_2[line:sub(prev_col, prev_col)]
+      and "<enter>" .. pair_map_2[line:sub(prev_col, prev_col)] .. "<Esc>O"
+      or "<Enter>"
+end, { expr = true })
 
 --- delete all but the current buffer
 k("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
