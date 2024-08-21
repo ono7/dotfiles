@@ -1,3 +1,27 @@
+-- TODO: migrate this to modules
+
+local function check_buf(bufnr)
+  --- checks if this is a valid buffer that we can save to ---
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  if bufname == '' then
+    return false
+  end
+  return true
+end
+
+local function clean_space_save()
+  if not check_buf(0) then
+    print("save me first!")
+    return
+  end
+  local save_cursor = vim.fn.getcurpos()
+  -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
+  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  vim.cmd([[:write]])
+  vim.fn.setpos('.', save_cursor)
+  -- this is now handled by conform.nvim
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -34,7 +58,13 @@ require("lazy").setup({
       {
         "<leader>w",
         function()
-          require("conform").format({ async = true })
+          local x, _ = require("conform").format({ async = true })
+          if x then
+            return
+          else
+            print("saved....!")
+            clean_space_save()
+          end
         end,
         mode = "",
         desc = "Format buffer",

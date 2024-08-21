@@ -11,6 +11,9 @@ snippet time "time" w
 snippet dt "date and time" w
 	`strftime("%Y-%m-%d %H:%M")`
 
+snippet ft "filetype" w
+  # vim:ft=${0}
+
 # snippet todo "todo" w
 #   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
 # snippet fix "fix" w
