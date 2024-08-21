@@ -69,6 +69,8 @@ o.timeout = false -- remove timeout for partially typed commands
 o.updatetime = 500
 o.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 o.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
+-- o.listchars = [[tab:  ,trail: ,nbsp:·,conceal: ]]
+vim.opt.list = false -- set on demand
 o.nrformats = "bin,hex,alpha"
 o.nrformats = "bin,hex"
 o.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
@@ -122,7 +124,6 @@ wo.signcolumn = "yes"
 wo.foldenable = false
 wo.foldnestmax = 3
 wo.foldlevel = 0
-wo.list = true
 
 --- buffer-local options ---
 bo.autoread = true
