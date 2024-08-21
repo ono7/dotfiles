@@ -124,6 +124,9 @@ k("n", "<leader>q", "<cmd>q<cr>", silent)
 k("n", "<leader>Q", "<cmd>q!<cr>", silent)
 k("n", ",Q", "<cmd>q!<cr>", silent)
 
+--- navigation improvements ----
+k("n", "0", "^", silent)
+
 --- navigate between splits ---
 --- do not use with nvim tmux plugin ---
 -- k("n", "<c-k>", "<C-W>k")
