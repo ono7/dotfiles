@@ -336,14 +336,14 @@ k('i', '[', function()
   return '[]<Left>'
 end, { expr = true })
 
--- k('i', ']', function()
---   local n = get_next_char()
---   if n == ']' then
---     return '<Right>'
---   end
---   return ']'
--- end
--- , { expr = true })
+k('i', ']', function()
+  local n = get_next_char()
+  if n == ']' then
+    return '<Right>'
+  end
+  return ']'
+end
+, { expr = true })
 
 -- handle {}
 k('i', '{', function()
@@ -356,14 +356,14 @@ k('i', '{', function()
   return '{}<Left>'
 end, { expr = true })
 
--- k('i', '}', function()
---   local n = get_next_char()
---   if n == '}' then
---     return '<Right>'
---   end
---   return '}'
--- end
--- , { expr = true })
+k('i', '}', function()
+  local n = get_next_char()
+  if n == '}' then
+    return '<Right>'
+  end
+  return '}'
+end
+, { expr = true })
 
 -- handle (
 -- k('i', '(', function()
@@ -376,14 +376,14 @@ end, { expr = true })
 --   return '()<Left>'
 -- end, { expr = true })
 
--- k({ 'i' }, ')', function()
---   local n = get_next_char()
---   if n == ')' then
---     return '<Right>'
---   end
---   return ')'
--- end
--- , { expr = true })
+k({ 'i' }, ')', function()
+  local n = get_next_char()
+  if n == ')' then
+    return '<Right>'
+  end
+  return ')'
+end
+, { expr = true })
 
 -- k('i', '>', function()
 --   local n = get_next_char()
