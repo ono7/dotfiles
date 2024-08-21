@@ -142,19 +142,19 @@ require("lazy").setup({
       vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
     end
   },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "mfussenegger/nvim-dap-python",
-      "jay-babu/mason-nvim-dap.nvim",
-      "leoluz/nvim-dap-go",
-      "rcarriga/nvim-dap-ui",
-      "thehamsta/nvim-dap-virtual-text",
-      "nvim-neotest/nvim-nio",
-      "williamboman/mason.nvim",
-    },
-    config = function() require "plugins.dap" end
-  },
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   dependencies = {
+  --     "mfussenegger/nvim-dap-python",
+  --     "jay-babu/mason-nvim-dap.nvim",
+  --     "leoluz/nvim-dap-go",
+  --     "rcarriga/nvim-dap-ui",
+  --     "thehamsta/nvim-dap-virtual-text",
+  --     "nvim-neotest/nvim-nio",
+  --     "williamboman/mason.nvim",
+  --   },
+  --   config = function() require "plugins.dap" end
+  -- },
   { "NvChad/nvim-colorizer.lua", config = function() require "plugins.colorizer" end },
   { "sindrets/diffview.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },
   {
@@ -182,16 +182,16 @@ require("lazy").setup({
         { noremap = true, silent = true })
     end
   },
-  {
-    "f-person/git-blame.nvim",
-    config = function()
-      vim.g.gitblame_date_format = [[%m/%d/%Y]]
-      vim.g.gitblame_message_template = [[<author> • <date> • <summary> • <sha>]]
-      require('gitblame').setup {
-        enabled = false,
-      }
-    end,
-  },
+  -- {
+  --   "f-person/git-blame.nvim",
+  --   config = function()
+  --     vim.g.gitblame_date_format = [[%m/%d/%Y]]
+  --     vim.g.gitblame_message_template = [[<author> • <date> • <summary> • <sha>]]
+  --     require('gitblame').setup {
+  --       enabled = false,
+  --     }
+  --   end,
+  -- },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
