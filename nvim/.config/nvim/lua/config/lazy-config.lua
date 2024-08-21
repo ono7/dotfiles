@@ -30,6 +30,16 @@ require("lazy").setup({
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>w",
+        function()
+          require("conform").format({ async = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
     opts = {
       -- Define your formatters
       formatters_by_ft = {
@@ -62,10 +72,10 @@ require("lazy").setup({
           prepend_args = { "--number" },
         },
       },
-      -- init = function()
-      --   -- If you want the formatexpr, here is the place to set it
-      --   vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-      -- end,
+      init = function()
+        -- If you want the formatexpr, here is the place to set it
+        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      end,
     }
   },
   "onsails/lspkind-nvim",

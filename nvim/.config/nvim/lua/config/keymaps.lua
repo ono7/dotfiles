@@ -99,19 +99,19 @@ end
 
 vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
 
-k("n", ",w", function() require("conform").format({ async = true }) end, silent)
-k("n", "<leader>w", function() require("conform").format({ async = true }) end, silent)
+-- k("n", ",w", function() require("conform").format({ async = true }) end, silent)
+-- k("n", "<leader>w", function() require("conform").format({ async = true }) end, silent)
 
--- k("n", ",w", function()
---   if not check_buf(0) then
---     print("save me first!")
---     return
---   end
---   local save_cursor = vim.fn.getcurpos()
---   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
---   vim.cmd [[:write]]
---   vim.fn.setpos('.', save_cursor)
--- end, silent)
+k("n", ",w", function()
+  if not check_buf(0) then
+    print("save me first!")
+    return
+  end
+  local save_cursor = vim.fn.getcurpos()
+  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  vim.cmd [[:write]]
+  vim.fn.setpos('.', save_cursor)
+end, silent)
 
 -- k("n", ",w", ":CleanAndSave<cr>", silent)
 -- k("n", "<leader>w", ":CleanAndSave<cr>", silent)

@@ -20,7 +20,7 @@ configs.setup {
     max_file_lines = 500,
     enable = false,
     additional_vim_regex_highlighting = false,
-    indent = { enable = false },
+    indent = { enable = true },
     incremental_selection = { enable = false },
     textobjects = { enable = true },
     -- rainbow = {
