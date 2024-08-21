@@ -138,7 +138,7 @@ bo.spelllang = "en_us"
 vim.o.spellsuggest = 'best,9'
 
 vim.opt.smartindent = true
-vim.opt.autoindent = true
+vim.opt.autoindent = false -- prevents backspace from going to start of line
 
 bo.complete = ".,w,b,u"
 bo.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
