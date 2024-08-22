@@ -1,6 +1,8 @@
 --- 🐇 Follow the white Rabbit...
 -- TODO: fix telescope to make files in projects filtered when doing oldfile lookups
 
+vim.cmd [[ syntax off ]]
+
 local k = vim.keymap.set
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
@@ -60,4 +62,4 @@ vim.o.guicursor = ""
 vim.o.mouse = "n"
 
 --- vim.cmd("set guicursor+=a:-blinkwait75-blinkoff75-blinkon75")
-vim.opt.syntax = "off"
+vim.cmd [[ syntax off ]]
