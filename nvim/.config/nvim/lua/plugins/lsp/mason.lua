@@ -21,12 +21,15 @@ local on_attach = function(client, bufnr)
   k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
   k("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
   k("K", vim.lsp.buf.hover, "Hover Documentation")
+  k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
   k("<space>l", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
   k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
   k("<space>ca", vim.lsp.buf.code_action, "[<code action>]")
   k("go", vim.lsp.buf.type_definition, "[type definition]")
   k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
 end
+
+-- vim.api.nvim_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
 
 local mason_status, mason = pcall(require, "mason")
 
