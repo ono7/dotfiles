@@ -108,4 +108,4 @@ go-deps:
 # bootstrap neovim dependencies
 done:
 	@echo $(BANNER)
-	nvim
+	@bash ./_scripts/nvim.sh
