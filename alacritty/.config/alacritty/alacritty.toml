@@ -35,14 +35,14 @@ text = "#080808"
 # foreground = "#b7b7b7"
 
 # catpuccine
-# background = "#1c2030"
-foreground = "#b7b7b7"
+background = "#21273f"
+# foreground = "#b7b7b7"
 
 # nice dark
 # background = "#141d26"
 
 # matches kitty
-background = "#162331"
+# background = "#162331"
 
 
 
@@ -101,6 +101,18 @@ mods = "Command"
 chars = "\u001E"
 key = "6"
 mods = "Command"
+
+# toggle simple full screen
+[[keyboard.bindings]]
+action = "ToggleSimpleFullscreen"
+key = "F"
+mods = "Command|Shift"
+
+# hide all other apps except alacritty
+# [[keyboard.bindings]]
+# action = "HideOtherApplications"
+# key = "H"
+# mods = "Command|Shift"
 
 [[keyboard.bindings]]
 action = "Copy"
@@ -288,7 +300,7 @@ action = "PasteSelection"
 mouse = "Middle"
 
 [scrolling]
-history = 3000
+history = 2000
 multiplier = 3
 
 [selection]

@@ -177,8 +177,8 @@ require("lazy").setup({
           width = 0.9,
         }
       }
-      vim.keymap.set("n", "<D-/>", '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
-      vim.keymap.set("t", "<D-/>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>',
+      vim.keymap.set("n", "<M-/>", '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
+      vim.keymap.set("t", "<M-/>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>',
         { noremap = true, silent = true })
     end
   },
