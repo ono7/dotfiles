@@ -131,6 +131,7 @@ nnoremap <c-j> <C-W><C-J>
 nnoremap <c-k> <C-W><C-K>
 nnoremap <c-l> <C-W><C-L>
 nnoremap <c-h> <C-W><C-H>
+nnoremap 0 ^
 
 " save some keystrokes
 
@@ -540,6 +541,7 @@ nnoremap <c-z> <nop>
 cnoremap <c-z> <nop>
 nnoremap cp yap<S-}>p
 nnoremap U <c-r>
+nnoremap 0 ^  
 nnoremap <c-e> g_
 nnoremap <silent><Tab> :bnext<cr>
 nnoremap <silent><S-Tab> :bprev<cr>
