@@ -635,4 +635,4 @@ fi
 #   type tmux &> /dev/null && ta || echo "tmux not found..."
 # fi
 
-uptime
+clear && uptime
