@@ -534,8 +534,8 @@ export NVM_DIR="$HOME/.nvm"
 if [[ $OSTYPE == "darwin"* ]];  then
   # KRATE=1
   # INITKRATE=10
-  KRATE=2
-  INITKRATE=15
+  KRATE=1
+  INITKRATE=12
   # show current settings:
   # defaults read NSGlobalDomain InitialKeyRepeat
   # normal is 2, lower is faster
