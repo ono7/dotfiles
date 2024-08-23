@@ -141,11 +141,6 @@ cmp_config.setup({
       end
     end, { "i", "s" }),
   },
-  -- performance = {
-  --   trigger_debounce_time = 500,
-  --   throttle = 550,
-  --   fetching_timeout = 80,
-  -- },
   formatting = {
     format = lspkind_config.cmp_format({
       with_text = false,
@@ -153,8 +148,6 @@ cmp_config.setup({
       menu = {
         nvim_lsp = "[L]",
         buffer = "[B]",
-        -- nvim_lua = "[api]",
-        -- path = "[path]",
       },
     }),
   },
