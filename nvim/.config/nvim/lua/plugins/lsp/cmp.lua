@@ -53,10 +53,10 @@ vim.opt.shortmess:append("c")
 local types = require("cmp.types")
 
 local preferred_sources = {
-  { name = "nvim_lsp",                priority = 1000,        group_index = 1,   max_item_count = 200, keyword_length = 1 },
+  { name = "nvim_lsp",                priority = 1000,     group_index = 1,   max_item_count = 200, keyword_length = 1 },
   { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 1 },
   { name = "path",                    max_item_count = 20, keyword_length = 1 },
-  { name = "buffer",                    max_item_count = 20, keyword_length = 1 },
+  { name = "buffer",                  max_item_count = 20, keyword_length = 1 },
   -- { name = "nvim_lsp" },
   -- { name = "nvim_lsp_signature_help" },
   -- { name = "path" },
@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
 cmp_config.setup({
   completion = {
-    autocomplete = false, -- we want to test out running this manually
+    autocomplete = false,                   -- we want to test out running this manually
   },
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
@@ -108,11 +108,18 @@ cmp_config.setup({
     }
   },
   mapping = {
-    ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
+    -- ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
+    ['<C-n>'] = cmp_config.mapping(function(_) -- fallback replaced by _
+      if cmp_config.visible() then
+        cmp_config.select_next_item()
+      else
+        cmp_config.complete()
+      end
+    end, { 'i', 'c' }),
     ["<C-p>"] = cmp_config.mapping.select_prev_item(cmp_select),
     ["<C-d>"] = cmp_config.mapping.scroll_docs(4),
     ["<C-b>"] = cmp_config.mapping.scroll_docs(-4),
-    ["<C-Space>"] = cmp_config.mapping.complete(),
+    ["<C-space>"] = cmp_config.mapping.complete(),
     ["<C-c>"] = cmp_config.mapping.close(),
     ["<CR>"] = cmp_config.mapping.confirm(),
     ["<Tab>"] = cmp_config.mapping(function(fallback)

@@ -116,22 +116,7 @@ end, silent)
 -- k("n", ",w", ":CleanAndSave<cr>", silent)
 -- k("n", "<leader>w", ":CleanAndSave<cr>", silent)
 
-local function close_split_or_buffer()
-  local buf = vim.api.nvim_get_current_buf()
-  local windows = vim.api.nvim_list_wins()
-
-  -- Check if there is more than one window
-  if #windows > 1 then
-    -- Close the current window/split
-    vim.api.nvim_win_close(vim.api.nvim_get_current_win(), true)
-  else
-    -- Close the current buffer
-    vim.cmd('bd')
-  end
-end
-
--- k("n", ",d", "<cmd>bd<cr>", silent)
-k("n", ",d", function() close_split_or_buffer() end , silent)
+k("n", ",d", "<cmd>bd<cr>", silent)
 
 -- Bind the function to a key mapping
 k("n", ",q", "<cmd>q<cr>", silent)
