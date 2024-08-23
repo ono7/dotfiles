@@ -55,11 +55,8 @@ local types = require("cmp.types")
 local preferred_sources = {
   { name = "nvim_lsp",                priority = 1000,     group_index = 1,   max_item_count = 200, keyword_length = 1 },
   { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 1 },
-  { name = "path",                    max_item_count = 20, keyword_length = 1 },
+  { name = "path" },
   { name = "buffer",                  max_item_count = 20, keyword_length = 1 },
-  -- { name = "nvim_lsp" },
-  -- { name = "nvim_lsp_signature_help" },
-  -- { name = "path" },
 }
 
 local function tooBig(bufnr)

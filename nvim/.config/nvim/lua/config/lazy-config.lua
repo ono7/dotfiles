@@ -89,7 +89,8 @@ require("lazy").setup({
         html = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
-        markdown = { "mdformat" }, -- preserves line wraps...
+        markdown = { "prettier" },
+        -- markdown = { "mdformat" }, -- preserves line wraps...
         -- goimports drop in replacement for gofmt
         go = { "goimports", "goimports-reviser" },
         graphql = { "prettier", stop_after_first = true },
