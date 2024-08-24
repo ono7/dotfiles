@@ -145,6 +145,11 @@ a() {
   awk -v field="${1:-1}" '{print $field}'
 }
 
+# open other modified files in a repo
+gitm() {
+  $EDITOR $(git ls-files --modified --others --exclude-standard) $@ || return
+}
+
 cdt () {
   # will display the 2nd and 3rd colums of text, but allow fzf to select the first to pass to the cd command
   selected_dir=$(git worktree list | fzf --select-1 --layout=reverse --info=inline --with-nth=2,3)
