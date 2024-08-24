@@ -131,6 +131,7 @@ require("lazy").setup({
     'alexghergh/nvim-tmux-navigation',
     config = function()
       --- in tmux install tpm plugin and run c-b + I (capital I) ---
+      --- this is usefull even outside of tmux.... probably should keep it around
       local nvim_tmux_nav = require('nvim-tmux-navigation')
 
       nvim_tmux_nav.setup {
@@ -183,16 +184,6 @@ require("lazy").setup({
         { noremap = true, silent = true })
     end
   },
-  -- {
-  --   "f-person/git-blame.nvim",
-  --   config = function()
-  --     vim.g.gitblame_date_format = [[%m/%d/%Y]]
-  --     vim.g.gitblame_message_template = [[<author> • <date> • <summary> • <sha>]]
-  --     require('gitblame').setup {
-  --       enabled = false,
-  --     }
-  --   end,
-  -- },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
