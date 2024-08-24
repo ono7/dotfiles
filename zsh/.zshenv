@@ -146,27 +146,9 @@ a() {
 }
 
 cdt () {
-  # dirs=$(git worktree list)
-  # [ -z "$dirs" ] && return
-
-  # # If fzf was cancelled, do nothing (stay in the current directory)
+  # will display the 2nd and 3rd colums of text, but allow fzf to select the first to pass to the cd command
   selected_dir=$(git worktree list | fzf --select-1 --layout=reverse --info=inline --with-nth=2,3)
   if [ -n "$selected_dir" ]; then
     cd $(echo $selected_dir | a)
   fi
-
-  # git worktree list | fzf --preview 'echo {}' --preview-window=up:3 --select-1 | a | xargs -I {} sh -c 'if [ -n "{}" ]; then cd "{}"; else :; fi'
-  # Use awk to format the data for fzf
-
-  # selected=$(git worktree list | awk '{print $1 "\t" $NF}' | fzf --delimiter='\t' --with-nth=1)
-  #
-  # # Extract the path from the selected line
-  # if [ -n "$selected" ]; then
-  #   path=$(echo "$selected" | awk '{print $1}')
-  #   echo "Changing directory to: $path"
-  #   cd "$path" || { echo "Failed to change directory to $path"; return 1; }
-  # else
-  #   echo "No selection made"
-  # fi
-
 }
