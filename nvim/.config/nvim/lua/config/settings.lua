@@ -45,7 +45,7 @@ o.showcmd = false
 o.writebackup = false
 o.history = 1000
 o.ruler = true
-o.sidescrolloff = 1
+o.sidescrolloff = 10
 opt.splitright = true
 opt.iskeyword:append("-")
 -- opt.iskeyword:append('"') -- have vim skip over ", when using w or b
