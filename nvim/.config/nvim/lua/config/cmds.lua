@@ -133,7 +133,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
   callback = function(ctx)
     -- Check if the filetype is NOT oil
-    if vim.bo.filetype ~= "oil" then
+    if vim.opt.filetype ~= "oil" then
       vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ":p:h"), "p")
     end
   end,

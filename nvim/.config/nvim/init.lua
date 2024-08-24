@@ -13,7 +13,7 @@ vim.opt.shell = "zsh"
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.wrap = false
 
-vim.o.shada = "'30,<3000,s100,:500,/100,h"
+vim.opt.shada = "'30,<3000,s100,:500,/100,h"
 
 --- syntax off to avoid tree-sitter issues
 vim.opt.syntax = "off"
@@ -58,8 +58,8 @@ vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<C
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
 
 -- uncomment for beam cursor
-vim.o.guicursor = ""
-vim.o.mouse = "n"
+vim.opt.guicursor = ""
+vim.opt.mouse = "n"
 
 --- vim.cmd("set guicursor+=a:-blinkwait75-blinkoff75-blinkon75")
 vim.cmd [[ syntax off ]]

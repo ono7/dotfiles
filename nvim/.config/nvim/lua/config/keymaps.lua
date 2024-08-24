@@ -71,7 +71,7 @@ k("x", "L", ">gv", silent)
 
 -- toggle spell on and off
 k("n", "<leader>ss", function()
-  vim.o.spell = not vim.o.spell
+  vim.opt.spell = not vim.opt.spell
   print(vim.opt.spell._value)
 end, silent)
 
@@ -150,12 +150,20 @@ m("v", ".", ":norm .<cr>", opt)
 k("x", "Q", ":norm @q<CR>", opt)
 
 local function hlsToggle()
-  if vim.o.hlsearch then
-    vim.o.hlsearch = false
+  if vim.opt.hlsearch then
+    vim.opt.hlsearch = false
   else
-    vim.o.hlsearch = true
+    vim.opt.hlsearch = true
   end
 end
+
+-- hex stuff, just look away
+-- m(
+--   "x",
+--   "<space>h",
+--   [[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
+--   silent
+-- )
 
 --- copy block
 k("n", "cp", "yap<S-}>p", opt)

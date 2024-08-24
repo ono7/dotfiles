@@ -1,4 +1,4 @@
-vim.o.background = "dark"
+vim.opt.background = "dark"
 
 local status_ok, config = pcall(require, "ayu")
 
