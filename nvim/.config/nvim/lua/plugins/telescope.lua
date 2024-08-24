@@ -96,7 +96,7 @@ k("n", "<leader>fW", function()
   builtin.grep_string { search = word }
 end, opt)
 
-k("n", "<leader>fd", function() builtin.diagnostics({ previewer = false }) end, opt)
+k("n", "<leader>d", function() builtin.diagnostics({ previewer = false }) end, opt)
 
 k("n", "<leader>g", function()
   builtin.live_grep { vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u' }, use_regex = true, show_untracked = true, no_ignore = false }
