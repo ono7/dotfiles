@@ -66,6 +66,7 @@ setopt nonomatch
 setopt notify
 setopt numericglobsort
 setopt promptsubst
+setopt autopushd
 setopt autocd
 
 ############## History configuration ##############
@@ -105,22 +106,6 @@ alias ls='ls --color'
 alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
-
-############## Directory stack configuration ##############
-
-DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
-if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
-  dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
-  [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
-fi
-
-chpwd_dirstack() {
-  print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
-}
-
-# add-zsh-hook -Uz chpwd chpwd_dirstack
-
-DIRSTACKSIZE='10'
 
 # Directory movement aliases
 alias -- -='cd -'
