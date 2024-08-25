@@ -13,6 +13,8 @@ end
 
 local actions = require "telescope.actions"
 
+-- 
+
 -- local layout_width = 0.9
 local with_dropdown = {
   theme = "dropdown",
@@ -49,6 +51,7 @@ require("telescope").setup {
   },
 
   defaults = {
+    prompt_prefix = "🔍 ",
     layout_config = {
       center = {
         height = 0.4,
