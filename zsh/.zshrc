@@ -40,6 +40,11 @@ fi
 # Shell options
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
+
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_MINUS
+
 setopt COMPLETE_IN_WORD
 setopt AUTO_LIST
 setopt COMBINING_CHARS
@@ -98,6 +103,42 @@ alias ls='ls --color'
 alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
+
+# Directory stack configuration
+DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
+if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
+  dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
+  [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
+fi
+
+chpwd_dirstack() {
+  print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
+}
+add-zsh-hook -Uz chpwd chpwd_dirstack
+
+DIRSTACKSIZE='10'
+
+# Directory movement aliases
+alias -- -='cd -'
+alias 0='cd -0'
+alias 1='cd -1'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+
+# Function to display directory stack
+function d () {
+  if [[ -n $1 ]]; then
+    dirs "$@"
+  else
+    dirs -v | head -n 10
+  fi
+}
 
 # Functions
 echo_red() {
@@ -400,5 +441,3 @@ fi
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
 clear && uptime
-
-# Directory stack
