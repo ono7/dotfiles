@@ -2,6 +2,16 @@
 
 https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html
 
+## regex/patterns in shell scripting
+
+- The double brackets [[]] are used in Bash and some other modern shells for
+  conditional expressions. They offer several advantages over single brackets [ ]:
+
+  1. More powerful string comparison: [[ supports pattern matching and regular expressions.
+  2. No word splitting: Variables don't need to be quoted inside [[.
+  3. Logical operators: && and || can be used directly inside [[.
+  4. Additional comparison operators: Like =~ for regex matching. (not PCRE)
+
 # bash one liners
 
 - recursively remove any node_modules folder
@@ -13,7 +23,6 @@ https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html
 `cp learning_{loops,test}.go`
 
 creats a file called learning_loops.go to learning_test.go by copying
-
 
 ```bash
 nixCraft
@@ -134,10 +143,10 @@ _root="/nas.pro/prod/scripts/perl/nginx"
 _setup="${_root}/createnginxconf.pl"
 _db="${_root}/database/text/vips.db"
 _domain="${1:?Usage: mknginxconf domainName}"     ### die if domainName is not passed ####
- 
+
 [ ! -f $_db ] && { echo "$0: Error $_db file not found."; exit 1; }
 line=$(grep "^${_domain}" $_db) || { echo "$0: Error $_domain not found in $_db."; exit 2; }
- 
+
 # Get domain config info into 4 fields:
 # f1 - Domain Name|
 # f2 - IPv4Vip:httpPort:HttpsPort, IPv6Vip:httpPort:HttpsPort|
@@ -146,18 +155,18 @@ line=$(grep "^${_domain}" $_db) || { echo "$0: Error $_domain not found in $_db.
 # -------------------------------------------------------------------------------
 IFS='|'
 read -r f1 f2 f3 f4  <<<"$line"
- 
+
 # Do we want ssl host config too?
 IFS=':'
 set -- $f2
 ssl="false"
 [ "$3" == "443" ] && ssl="true"
- 
+
 # Build query
 d="$f1:$ssl:$f4"
 IFS=','
 ips="$f3"
- 
+
 # Call our master script to setup nginx reverse proxy / load balancer (LB) for given domain name
 $_setup "$d" "$ips"
 2.1. Display an Error Message and Run Command
@@ -166,10 +175,10 @@ If $2 is not set display an error message for $2 parameter and run cp command on
 #!/bin/bash
 _file="$HOME/.input"
 _message="Usage: chkfile commandname"
- 
+
 # Run another command (compact format)
 _cmd="${2:? $_message $(cp $_file $HOME/.output)}"
- 
+
 $_cmd "$_file"
 3. Find Variable Length
 You can easily find string length using the following syntax:
@@ -185,19 +194,19 @@ Here is a sample shell script to add a ftp user:
 # Usage : Add a ftp user
 _fuser="$1"
 _fpass="$2"
- 
+
 # die if username/password not provided
 [ $# -ne 2 ] && { echo "Usage: addftpuser username password"; exit 1;}
- 
+
 # Get username length and make sure it always <= 8
 [[ ${#_fuser} -ge 9 ]] && { echo "Error: Username should be maximum 8 characters in length. "; exit 2;}
- 
+
 # Check for existing user in /etc/passwd
 /usr/bin/getent passwd "${_fuser}" &>/dev/null
- 
+
 # Check exit status
 [ $? -eq 0 ] && { echo "Error: FTP username \"${_fuser}\" exists."; exit 3; }
- 
+
 # Add user
 /sbin/useradd -s /sbin/nologin -m  "${_fuser}"
 echo "${_fpass}" | /usr/bin/passwd "${_fuser}" --stdin
@@ -242,12 +251,12 @@ Create a script called master.info as follows:
 # Purpose: Display jail info as per softlink
 # Author: Vivek Gite
 _j="$@"
- 
+
 # find out script name
 _self="${0##*/}"
- 
+
 [ "$VERBOSE" == "1" ] && echo "Called as $_self for \"$_j\" domain(s)"
- 
+
 for j in $_j
 do
 	export _DOMAIN_NAME=$j
@@ -303,24 +312,24 @@ You can combine all of them as follows to create a build scripts:
 VERSION="-${2:-0.9.31}"
 URL="http://download.suhosin.org/suhosin${VERSION}.tgz"
 vURL="http://download.suhosin.org/suhosin${VERSION}.tgz.sig"
- 
+
 # Get tar ball names
 FILE="${URL##*/}"
 vFILE="${vURL##*/}"
 DLHOME="/opt"
 SOFTWARE="suhosin"
- 
+
 # Remove .tgz and get dir name
 DEST="${FILE%.tgz}"
- 
+
 # Download software
 wget "$URL" -O "${DLHOME}/$FILE"
 wget "$vURL" -O "${DLHOME}/$vFILE"
- 
+
 # Extract it
 tar -zxvf "$FILE"
 cd "$DEST"
- 
+
 # Build it and install it
 phpize --clean && phpize && ./configure && make && read -rp "Update/Install $SOFTWARE [Y/n] ? " answer
 shopt -s nocasematch
@@ -419,16 +428,16 @@ Use the following syntax to convert lowercase characters to uppercase:
 
 name="vivek"
 # Turn vivek to Vivek (only first character to uppercase)
-echo "${name^}" 
+echo "${name^}"
 # Turn vivek to VIVEK (uppercase)
-echo "${name^^}" 
+echo "${name^^}"
 echo "Hi, $USERNAME"
 echo "Hi, ${USERNAME^}"
 echo "Hi, ${USERNAME^^}"
-# Convert everything to lowercase 
+# Convert everything to lowercase
 dest="/HOME/Vivek/DaTA"
 echo "Actual path: ${dest,,}"
-# Convert only first character to lowercase 
+# Convert only first character to lowercase
 src="HOME"
 echo "${src,}"
 Bash shell case conversion
