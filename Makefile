@@ -54,6 +54,7 @@ clean:
 	rm -f ~/.pylintrc
 	rm -f ~/.dircolors
 	mkdir -p ~/local/bin
+	mkdir -p ~/.tmp
 
 stow:
 	@echo $(BANNER)
