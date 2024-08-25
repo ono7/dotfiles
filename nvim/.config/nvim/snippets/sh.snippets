@@ -4,27 +4,28 @@ snippet h "header" b
   #!/usr/bin/env bash
   #  Author:  Jose Lima (`getenv('USER')`)
   #  Date:    `strftime("%Y-%m-%d %H:%M")`
-  set -Eeuo pipefail
 
-  # bash
+  # bash ${0}
   # case insensitive match
   # shopt -s nocasematch
   # extended pattern match (a|b)$, ^a b$ [0-9]
   # shopt -s extglob
 
+  set -Eeuo pipefail
+
   cleanup() {
-    # Cleanup code here
+    echo "done!"
   }
 
   log() {
-      echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+      echo "\$(date '+%Y-%m-%d %H:%M:%S') - \$*"
   }
 
   trap cleanup EXIT
 
 snippet log "logging function for bash" b
   log() {
-      echo "\$(date '+%Y-%m-%d %H:%M:%S') - $*"
+      echo "\$(date '+%Y-%m-%d %H:%M:%S') - \$*"
   }
 
 snippet h1 "optional header for cicd script" b
@@ -59,13 +60,16 @@ snippet if "if statement" b
   if [[ $1 ]]; then
     ${0:${VISUAL}}
   fi
+
 snippet elif "else if statement" b
   elif [[ $1 ]]; then
     ${0:${VISUAL}}
+
 snippet wh "while loop" b
   while [[ $1 ]]; do
     ${0:${VISUAL}}
   done
+
 snippet until "until loop" b
   until [[ $1 ]]; do
     ${0:${VISUAL}}
