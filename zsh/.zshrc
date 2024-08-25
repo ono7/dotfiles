@@ -32,6 +32,11 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
   export DISPLAY=:0.0
 fi
 
+if [[ $OSTYPE == "darwin"* ]]; then
+  defaults write -g KeyRepeat -int 1
+  defaults write -g InitialKeyRepeat -int 11
+fi
+
 # Shell options
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
@@ -298,11 +303,23 @@ if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 fi
 
+# Optimize autocompletion system
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+
+# Define dump file location
+zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+
+# Load and regenerate cache only once a day
+if [[ -n $zcompdump(#qN.mh+24) ]]; then
   compinit
+  touch $zcompdump
 else
   compinit -C
+fi
+
+# Compile zcompdump, if modified, to increase startup speed
+if [[ -s $zcompdump && (! -s ${zcompdump}.zwc || $zcompdump -nt ${zcompdump}.zwc) ]]; then
+  zcompile $zcompdump
 fi
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
