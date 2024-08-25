@@ -58,7 +58,7 @@ require("themes.notheme") -- basic HL groups for no colorscheme
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
 
--- uncomment for beam cursor
+-- comment for beam cursor
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
