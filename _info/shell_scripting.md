@@ -12,6 +12,37 @@ https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html
   3. Logical operators: && and || can be used directly inside [[.
   4. Additional comparison operators: Like =~ for regex matching. (not PCRE)
 
+```bash
+
+shopt -s extglob # bash.. , not zsh
+[[ "file.txt" == *.@(txt|pdf) ]] && echo "Matches"
+[[ "hello" == h+(e|a)llo ]] && echo "Matches"
+
+OTHER="hello.py" && [[ $OTHER == *.py ]] && echo found
+> found
+[[ "A" == [[:upper:]] ]] && echo "Matches"
+[[ "hello123" == [[:alpha:]]* ]] && echo "Matches"
+
+[[ "hello.txt" == *.txt ]] && echo "Matches"
+[[ "hello" == h* ]] && echo "Matches"
+
+[[ "hello" == [Hh]ello ]] && echo "Matches"
+[[ "file1" == file[123] ]] && echo "Matches"
+
+[[ "hello" == [!0-9]* ]] && echo "Matches"
+[[ "file2" == file[^abc] ]] && echo "Matches"
+
+[[ "file.txt" == file.??? ]] && echo "Matches"
+[[ "cat" == c?t ]] && echo "Matches"
+
+
+# combines multiple patterns
+filename="document-draft-v2.1.pdf"
+if [[ "$filename" == document-*-v+([0-9.]).pdf ]]; then
+    echo "Valid document filename"
+fi
+```
+
 # bash one liners
 
 - recursively remove any node_modules folder
