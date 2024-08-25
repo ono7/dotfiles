@@ -5,7 +5,6 @@ if not oil_ok then
   return
 end
 
-
 -- oil_config.setup {}
 oil_config.setup {
   columns = { "icon" },

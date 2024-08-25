@@ -48,15 +48,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = create_augroup("highlight_yanked_text", { clear = true }),
 })
 
--- -- Turn off diagnostics for .env files
--- c({ "BufRead", "BufNewFile" }, {
---   pattern = ".env",
---   group = create_augroup("dotenv_disabled_diagnostics", { clear = true }),
---   callback = function(context)
---     vim.diagnostic.enable(false, ...)
---   end,
--- })
-
 -- fix commit msg, goto top of file on enter
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   group = create_augroup("vim_commit_msg", { clear = true }),
@@ -153,14 +144,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
   end,
 })
-
--- vim.api.nvim_create_autocmd("FocusGained", {
---   callback = function()
---     vim.cmd("checktime")
---   end,
---   group = create_augroup("update_file_when_changes_detected", { clear = true }),
---   desc = "Update file when there are changes",
--- })
 
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
