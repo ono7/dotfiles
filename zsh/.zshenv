@@ -117,12 +117,12 @@ alias gr='git reflog '
 alias gs='git status '
 
 gp () {
-  printf '********* %s ********\n' "checking for updatest"
+  printf '\n********* %s ********\n\n' "checking for updatest"
   git pull
-  printf '********* %s ********\n' "pushing changes"
+  printf '\n********* %s ********\n\n' "pushing changes"
   git push
   if [ ! -z $PROJECT_ID ]; then
-    printf '********* %s ********\n' "upgating project..."
+    printf '\n********* %s ********\n\n' "upgating project..."
     [ -f ~/aap-project-update.sh ] && bash -c ~/aap-project-update.sh
   fi
 }
