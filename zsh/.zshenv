@@ -112,10 +112,20 @@ alias gfh="git log --follow -p"
 # view logs with changes with gl -p
 alias gl="git log --graph --abbrev=10 --pretty=format:'%Cred%h%Creset%Cgreen(%ar)%C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s ' --abbrev-commit"
 alias glb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:green)(%(committerdate:relative))%(color:reset) %(contents:subject)'"
-alias gp='git push '
 alias gpu='git pull'
 alias gr='git reflog '
 alias gs='git status '
+
+gp () {
+  printf '********* %s ********\n' "checking for updatest"
+  git pull
+  printf '********* %s ********\n' "pushing changes"
+  git push
+  if [ ! -z $PROJECT_ID ]; then
+    printf '********* %s ********\n' "upgating project..."
+    [ -f ~/aap-project-update.sh ] && bash -c ~/aap-project-update.sh
+  fi
+}
 
 gw () {
   if [ $# -eq 0 ]; then  # Check if no arguments were provided

@@ -507,4 +507,4 @@ fi
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-clear && uptime
+clear -x && uptime
