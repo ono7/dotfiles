@@ -4,7 +4,8 @@
 # Freeze terminal preventing any new changes to the tty
 ttyctl -f
 
-# Essential environment variables
+############## Essential environment variables ##############
+
 export COLORTERM=truecolor
 export GOPATH=$HOME/go
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
