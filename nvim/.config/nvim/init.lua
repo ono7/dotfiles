@@ -39,7 +39,6 @@ vim.g.netrw_liststyle = 3
 
 -- vim.opt.winbar = "%=%-.75F %-m {%{get(b:, 'branch_name', '')}}"
 vim.opt.winbar = "%=%-.75F %-m %{FugitiveStatusline()}"
--- require("config.winbar")
 
 require("config.disabled")
 require("config.legacy")
@@ -62,5 +61,4 @@ vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<C
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
---- vim.cmd("set guicursor+=a:-blinkwait75-blinkoff75-blinkon75")
 vim.cmd [[ syntax off ]]
