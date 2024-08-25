@@ -38,7 +38,7 @@ if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g InitialKeyRepeat -int 11
 fi
 
-# Shell options
+############## Shell options ##############
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
 
@@ -68,7 +68,7 @@ setopt numericglobsort
 setopt promptsubst
 setopt autocd
 
-# History configuration
+############## History configuration ##############
 export HISTFILE=~/.zsh_history
 export HISTSIZE=3000
 export SAVEHIST=2999
@@ -82,7 +82,8 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 RESET='\033[0m'
 
-# Aliases
+############## Aliases ##############
+
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -105,7 +106,8 @@ alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
-# Directory stack configuration
+############## Directory stack configuration ##############
+
 DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
 if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
   dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
@@ -133,7 +135,8 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-# Function to display directory stack
+############## Functions ##############
+
 function d () {
   if [[ -n $1 ]]; then
     dirs "$@"
@@ -142,7 +145,6 @@ function d () {
   fi
 }
 
-# Functions
 echo_red() {
   echo -e "${RED}$@${RESET}"
 }
@@ -335,7 +337,7 @@ d() {
   fi
 }
 
-# Completion system
+############## Completion system ##############
 
 [ ! -d ~/.zsh/zsh-autosuggestions ] && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 
@@ -364,12 +366,6 @@ fi
 if [[ -s $zcompdump && (! -s ${zcompdump}.zwc || $zcompdump -nt ${zcompdump}.zwc) ]]; then
   zcompile $zcompdump
 fi
-
-# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-# zstyle ':completion::complete:*' gain-privileges 1
-# zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
-# zstyle ':completion:*' list-suffixes
-# zstyle ':completion:*' expand prefix suffix
 
 # Compile zshrc if modified
 [[ -e ~/.zshrc ]] && zcompile ~/.zshrc
@@ -412,7 +408,8 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 # Array completion element sorting
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# Key bindings
+############## Key bindings ##############
+
 bindkey -v
 bindkey "^E" end-of-line
 bindkey "^A" beginning-of-line
@@ -445,7 +442,8 @@ for m in visual viopp; do
   done
 done
 
-# FZF configuration
+############## FZF configuration ##############
+
 export FZF_DEFAULT_OPTS='
 --height 40% --no-preview
 --color=bg+:#0a1623,bg:#0a1623,spinner:#f5e0dc,hl:#f38ba8
@@ -461,26 +459,31 @@ fi
 
 export FZF_COMPLETION_TRIGGER="**"
 
-# Load configurations
+############## Load configurations ##############
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -d ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# NVM configuration
+############## NVM configuration ##############
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Starship prompt
+############## Starship prompt ##############
+
 eval "$(starship init zsh)"
 
-# Zoxide
+############## Zoxide ##############
+
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 else
   echo "zoxide not installed..."
 fi
 
-# Load virtual environment if it exists
+############## Load virtual environment if it exists ##############
+
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-# clear && uptime
+clear && uptime
