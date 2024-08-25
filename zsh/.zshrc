@@ -114,7 +114,8 @@ fi
 chpwd_dirstack() {
   print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
 }
-add-zsh-hook -Uz chpwd chpwd_dirstack
+
+# add-zsh-hook -Uz chpwd chpwd_dirstack
 
 DIRSTACKSIZE='10'
 
@@ -363,11 +364,52 @@ if [[ -s $zcompdump && (! -s ${zcompdump}.zwc || $zcompdump -nt ${zcompdump}.zwc
   zcompile $zcompdump
 fi
 
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion::complete:*' gain-privileges 1
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
-zstyle ':completion:*' list-suffixes
-zstyle ':completion:*' expand prefix suffix
+# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion::complete:*' gain-privileges 1
+# zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+# zstyle ':completion:*' list-suffixes
+# zstyle ':completion:*' expand prefix suffix
+
+# Compile zshrc if modified
+[[ -e ~/.zshrc ]] && zcompile ~/.zshrc
+
+# Completion caching
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $HOME/.zsh/cache
+
+# Completion speed improvements
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Completion display tweaks
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Limit and format completion matches
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
+
+# Speed up completion selection
+zstyle ':completion:*' menu select interactive
+
+# Disable slow git completions
+zstyle ':completion:*:*:git:*' script /dev/null
+
+# Fuzzy matching of completions
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+# Increase the number of errors based on the length of the typed word
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+
+# Ignore completion functions for commands you don't have
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# Array completion element sorting
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # Key bindings
 bindkey -v
@@ -440,4 +482,4 @@ fi
 # Load virtual environment if it exists
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-clear && uptime
+# clear && uptime
