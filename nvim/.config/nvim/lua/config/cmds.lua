@@ -10,26 +10,6 @@ local function branch_name()
   end
 end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    local buf_size = vim.loop.fs_stat(vim.api.nvim_buf_get_name(0))
-    if buf_size == nil then
-      return -- file is empty
-    end
-    -- disable LSP for files larger than 1MB 1,000,000 bytes
-    local buf_size_mb = string.format("%.2f", buf_size.size / 1024 / 1024)
-    if buf_size.size > 1000000 then
-      vim.defer_fn(function()
-        vim.b.disable_autoformat = true
-        vim.lsp.stop_client(vim.lsp.get_clients())
-        print("large file detected.. lsp disabled: ", buf_size_mb, "MB")
-      end, 400)
-      -- 400 ms
-    end
-  end,
-  group = create_augroup("large_files", { clear = true }),
-})
-
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "FocusGained" }, {
   callback = function()
     vim.b.branch_name = branch_name()
@@ -96,7 +76,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable New Line Comment",
 })
 
--- AUTO-COMMANDS:
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = { "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
   callback = function()
@@ -115,6 +94,7 @@ augroup _QuickFixOpen
 augroup END
 ]]
 
+
 -- auto source snippets file
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.snippet",
@@ -122,35 +102,37 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = create_augroup("reload_snippets", { clear = true }),
 })
 
--- auto create dirs when saving files
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
-  callback = function(ctx)
-    -- Check if the filetype is NOT oil
-    if vim.opt.filetype ~= "oil" then
-      vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ":p:h"), "p")
-    end
-  end,
-})
+-- -- auto create dirs when saving files
+-- -- this breaks oil
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
+--   callback = function(ctx)
+--     -- Check if the filetype is NOT oil
+--     if vim.opt.filetype ~= "oil" then
+--       vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ":p:h"), "p")
+--     end
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = create_augroup("remove_trailing_empty_line", { clear = true }),
-  pattern = { "*" },
-  callback = function()
-    local lastLine = vim.fn.line('$')
-    local lastNonblankLine = vim.fn.prevnonblank(lastLine)
-    if lastLine > 0 and lastNonblankLine ~= lastLine then
-      vim.cmd(string.format("%d,%ddelete _", lastNonblankLine + 1, lastLine))
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("TermOpen", {
-  callback = function()
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    vim.cmd("startinsert!")
-  end,
-  group = create_augroup("set_buf_number_options", { clear = true }),
-  desc = "Terminal Options",
-})
+--
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = create_augroup("remove_trailing_empty_line", { clear = true }),
+--   pattern = { "*" },
+--   callback = function()
+--     local lastLine = vim.fn.line('$')
+--     local lastNonblankLine = vim.fn.prevnonblank(lastLine)
+--     if lastLine > 0 and lastNonblankLine ~= lastLine then
+--       vim.cmd(string.format("%d,%ddelete _", lastNonblankLine + 1, lastLine))
+--     end
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--   callback = function()
+--     vim.opt_local.relativenumber = false
+--     vim.opt_local.number = false
+--     vim.cmd("startinsert!")
+--   end,
+--   group = create_augroup("set_buf_number_options", { clear = true }),
+--   desc = "Terminal Options",
+-- })

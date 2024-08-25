@@ -19,7 +19,15 @@ oil_config.setup {
 
   -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
   -- (:help prompt_save_on_select_new_entry)
-  prompt_save_on_select_new_entry = false
+  prompt_save_on_select_new_entry = false,
+  cleanup_delay_ms = 4000,
+  lsp_file_methods = {
+    -- Time to wait for LSP file operations to complete before skipping
+    timeout_ms = 3000,
+    -- Set to true to autosave buffers that are updated with LSP willRenameFiles
+    -- Set to "unmodified" to only save unmodified buffers
+    autosave_changes = false,
+  },
 }
 
 -- Open parent directory in current window
