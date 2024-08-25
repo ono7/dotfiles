@@ -59,3 +59,14 @@ snippet for "for loop"
   for ${1};do
   ${0}
   done
+
+snippet banner "create banner"
+  banner () {
+    title="$@"
+    COLUMNS=$(tput cols)
+    title_size=${#title}
+    span=$(( (COLUMNS + title_size) / 2 ))
+    printf "%${COLUMNS}s\n" | tr " " "*"
+    printf "%${span}s\n" "$title"
+    printf "%${COLUMNS}s\n" | tr " " "*"
+  }
