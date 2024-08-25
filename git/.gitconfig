@@ -52,6 +52,25 @@
 [diff]
   colorMoved = zebra
 
+[color "diff"]
+    meta = normal
+    frag = normal
+    func = normal
+    old = red normal
+    new = green normal
+    commit = yellow normal
+    whitespace = normal red
+    oldMoved = magenta
+    newMoved = cyan
+
+[color "diff-highlight"]
+    oldNormal = red normal
+    oldHighlight = red normal
+    newNormal = green normal
+    newHighlight = green normal
+    oldMovedAlternative = magenta
+    newMovedAlternative = cyan
+
 [alias]
   co = checkout
   br = branch
