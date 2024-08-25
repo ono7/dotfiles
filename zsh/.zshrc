@@ -107,6 +107,9 @@ alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
+# Set the number of directories to remember
+DIRSTACKSIZE=9
+
 # Directory movement aliases
 alias -- -='cd -'
 alias 0='cd -0'
@@ -119,6 +122,17 @@ alias 6='cd -6'
 alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
+
+# Save the directory stack on exit
+chpwd() {
+    print -l $PWD ${(u)dirstack} >~/.zdirs
+}
+
+# Load the directory stack at startup
+if [[ -f ~/.zdirs ]]; then
+    dirstack=( ${(f)"$(< ~/.zdirs)"} )
+    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
 
 ############## Kitty config ##############
 
