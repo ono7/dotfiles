@@ -4,7 +4,11 @@ set -e
 
 cd ~/.dotfiles
 
-echo "Running stow..."
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+}
+
+log "Running stow..."
 
 export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
 
@@ -23,7 +27,7 @@ if type stow &> /dev/null; then
   stow tmux
   stow zsh
 else
-    echo "stow is not installed, please install stow first..."
+    log "stow is not installed, please install stow first..."
     exit 1
 fi
-echo "stow completed..."
+log "stow completed..."

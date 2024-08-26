@@ -1,6 +1,10 @@
+## poor man top
+
+`ps -Arc -o pid,comm,%cpu,%mem | head -n 43`
+
 ## ss (investigate sockets)
 
-`sudo ss -4 -nalp`
+`sudo ss -4 -plan`
 
 ### find command information
 

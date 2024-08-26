@@ -1,6 +1,10 @@
 #!/bin/bash
 
-echo "$0"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+}
+
+log "$0"
 
 if type brew &>/dev/null; then
   brew install ansifilter wget tree go neovim rar clang-format zoxide grep netcat stow
@@ -10,6 +14,6 @@ if type brew &>/dev/null; then
   brew install --cask alacritty
   ln -fs "$(brew --prefix)"/opt/llvm/bin/lldb-vscode "$(brew --prefix)"/bin/
 else
-  echo "Install homebrew first!"
+  log "Install homebrew first!"
   exit 1
 fi

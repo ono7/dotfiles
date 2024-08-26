@@ -2,15 +2,19 @@
 
 echo "$0"
 
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+}
+
 if [ $(uname) != 'Linux' ]; then
-  echo 'I only run on Linux..'
+  log 'I only run on Linux..'
   exit 1
 fi
 
-echo "setting up locale"
+log "setting up locale"
 sudo locale-gen "en_US.UTF-8"
 
-echo 'setting up linux dependencies (apt/python)'
+log 'setting up linux dependencies (apt/python)'
 
 sudo apt update
 sudo apt -y upgrade
@@ -20,11 +24,11 @@ sudo apt install -y build-essential libssl-dev curl tree zsh python3 python3.11 
   python3.11-pip python3.11-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt zoxide
 
 echo
-echo "------[ done: installing linux dependencies ]-------"
+log "------[ done: installing linux dependencies ]-------"
 echo
 
 if type snap &>/dev/null; then
-  echo "------[ snap: installing linux dependencies ]-------"
+  log "------[ snap: installing linux dependencies ]-------"
   sudo snap install go --classic
   sudo snap install --edge starship
 
@@ -41,4 +45,4 @@ tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
-echo "------[ Neovim setup for linux complete ]-------"
+log "------[ Neovim setup for linux complete ]-------"

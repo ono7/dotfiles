@@ -1,6 +1,10 @@
 #!/bin/bash
 
-echo "$0"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+}
+
+log "$0"
 
 # install goimports used for code formatting/neovim
 if type go &>/dev/null; then
@@ -10,5 +14,5 @@ if type go &>/dev/null; then
   go install github.com/fatih/gomodifytags@latest
   env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 else
-  echo "error: >>>>>>>>>>>>>>>>>>> go not installed <<<<<<<<<<<<<<<<<<<<"
+  log "error: >>>>>>>>>>>>>>>>>>> go not installed <<<<<<<<<<<<<<<<<<<<"
 fi

@@ -1,9 +1,13 @@
 #!/bin/bash
 
-echo "$0"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+}
+
+log "$0"
 
 if [ "$(uname)" != 'Linux' ]; then
-  echo 'I only run on Linux..'
+  log 'I only run on Linux..'
   exit 1
 fi
 
@@ -21,5 +25,5 @@ mkdir -p "$HOME/local/bin"
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
 
 echo
-echo "----------[ neovim for linux setup complete ]-----------"
+log "----------[ neovim for linux setup complete ]-----------"
 echo
