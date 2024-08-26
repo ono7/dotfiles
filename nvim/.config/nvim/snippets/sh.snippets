@@ -18,14 +18,14 @@ snippet h "header" b
   }
 
   log () {
-      printf '\n%s - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
+      printf '\n%s - %s\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
   }
 
   trap cleanup EXIT
 
 snippet log "logging function for bash" b
   log () {
-      printf '\n\n%s - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
+      printf '\n%s - %s\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
   }
 
 snippet h1 "optional header for cicd script" b

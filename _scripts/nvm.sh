@@ -18,7 +18,6 @@ nvm install node
 
 . ~/.bashrc
 
-log "disable ssh verify - node"
 npm set strict-ssl false
 
 log "installing npm packages"
