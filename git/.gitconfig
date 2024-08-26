@@ -60,25 +60,25 @@
   ui = auto
 
 [color "diff"]
-    meta = normal
-    frag = normal
-    func = normal
-    old = red normal
-    new = green normal
-    commit = yellow normal
-    whitespace = normal red
-    oldMoved = magenta
-    newMoved = cyan
+#     meta = normal
+#     frag = normal
+#     func = normal
+#     old = red normal
+#     new = green normal
+#     commit = yellow normal
+#     whitespace = normal red
+#     oldMoved = magenta
+#     newMoved = cyan
 
 [color "diff-highlight"]
-    oldNormal = red normal
-    oldHighlight = red normal
-    newNormal = green normal
-    newHighlight = green normal
-    oldMovedAlternative = magenta
-    newMovedAlternative = cyan
-
-[alias]
+#     oldNormal = red normal
+#     oldHighlight = red normal
+#     newNormal = green normal
+#     newHighlight = green normal
+#     oldMovedAlternative = magenta
+#     newMovedAlternative = cyan
+#
+ [alias]
   co = checkout
   br = branch
   ci = commit
@@ -89,9 +89,45 @@
   dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
 [interactive]
 	diffFilter = delta --color-only
+
+
 [delta]
 	navigate = true
 	light = false
 	side-by-side = true
 	line-numbers = true
-	syntax-theme = Dracula
+	# syntax-theme = Dracula
+  # dark = true
+  # true-color = never
+
+  # colors
+  blame-palette = "#24273a #1e2030 #181926 #363a4f #494d64"
+	commit-decoration-style = box ul
+	dark = true
+	file-decoration-style = "#cad3f5"
+	file-style = "#cad3f5"
+	hunk-header-decoration-style = box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#a5adcb"
+	hunk-header-style = file line-number syntax
+	line-numbers = true
+	line-numbers-left-style = "#6e738d"
+	line-numbers-minus-style = bold "#ed8796"
+	line-numbers-plus-style = bold "#a6da95"
+	line-numbers-right-style = "#6e738d"
+	line-numbers-zero-style = "#6e738d"
+	# 25% red 75% base
+	minus-emph-style = bold syntax "#563f51"
+	# 10% red 90% base
+	minus-style = syntax "#383143"
+	# 25% green 75% base
+	plus-emph-style = bold syntax "#455450"
+	# 10% green 90% base
+	plus-style = syntax "#313943"
+	map-styles = \
+		bold purple => syntax "#4d4569", \
+		bold blue => syntax "#3e4868", \
+		bold cyan => syntax "#3f5364", \
+		bold yellow => syntax "#575253"
+	# Should match the name of the bat theme
+	syntax-theme = Catppuccin Macchiato
