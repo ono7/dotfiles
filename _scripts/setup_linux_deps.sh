@@ -3,7 +3,7 @@
 echo "$0"
 
 log() {
-    printf '\n\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+    printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 if [ $(uname) != 'Linux' ]; then
