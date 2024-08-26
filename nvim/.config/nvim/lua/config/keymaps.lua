@@ -102,6 +102,12 @@ vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
 -- k("n", ",w", function() require("conform").format({ async = true }) end, silent)
 -- k("n", "<leader>w", function() require("conform").format({ async = true }) end, silent)
 
+vim.keymap.set('n', '<leader>%', function()
+    local path = vim.fn.expand('%:p')
+    vim.fn.setreg('+', path)
+    print('File path copied to clipboard: ' .. path)
+end, { noremap = true, silent = true, desc = 'Copy file path to clipboard' })
+
 k("n", ",w", function()
   if not check_buf(0) then
     print("save me first!")
