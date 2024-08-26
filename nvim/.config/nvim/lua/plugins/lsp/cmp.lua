@@ -53,10 +53,10 @@ vim.opt.shortmess:append("c")
 local types = require("cmp.types")
 
 local preferred_sources = {
-  { name = "nvim_lsp",                priority = 1000,     group_index = 1,   max_item_count = 200, keyword_length = 1 },
-  { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 1 },
+  { name = "nvim_lsp",                priority = 1000,     group_index = 1,   max_item_count = 200, keyword_length = 2 },
+  { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 2 },
   { name = "path" },
-  { name = "buffer",                  max_item_count = 20, keyword_length = 1 },
+  { name = "buffer",                  max_item_count = 20, keyword_length = 2 },
 }
 
 local function tooBig(bufnr)
@@ -86,10 +86,30 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
+
+local function trigger_completion()
+  local line = vim.api.nvim_get_current_line()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  -- Check if there's non-whitespace content before the cursor
+  if line:sub(1, col):match("%S$") then
+    if cmp_config.visible() then
+      cmp_config.close()
+    else
+      cmp_config.complete()
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd("CursorHoldI", {
+  callback = function()
+    trigger_completion()
+  end,
+})
+
 cmp_config.setup({
-  -- completion = {
-  --   autocomplete = true,                   -- we want to test out running this manually
-  -- },
+  completion = {
+    autocomplete = false,                   -- we want to test out running this manually
+  },
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
     completion = {
