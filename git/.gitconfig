@@ -11,6 +11,7 @@
 [core]
   editor = nvim
   mergeoptions = --no-edit
+	pager = delta
 
 [http]
   sslVerify = false
@@ -36,6 +37,7 @@
 [merge]
   tool = nvimdiff4
   prompt = false
+	conflictstyle = diff3
 
 [mergetool "nvimdiff4"]
   cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
@@ -51,7 +53,7 @@
   default = simple
 
 [diff]
-  colorMoved = zebra
+	colorMoved = default
   algorithm = patience
 
 [color]
@@ -85,3 +87,11 @@
   unstage = reset HEAD --
   last = log -1 HEAD
   dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Dracula
