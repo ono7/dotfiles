@@ -3,6 +3,7 @@ alias l='less -R '
 alias m='more '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
 alias pret="prettier --parser "
+alias vil="/usr/bin/vi"
 
 golinux () {
   [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return

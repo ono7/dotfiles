@@ -93,6 +93,7 @@ alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias vim=nvim
 alias v=vim
+alias vi=vim
 alias clear='clear -x '
 alias k='kubectl '
 alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
