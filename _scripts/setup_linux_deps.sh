@@ -62,6 +62,7 @@ curl -sL -O https://github.com/dandavison/delta/releases/download/${DELTA_VERSIO
 
 tar xzvf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
 cp delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu/delta ~/local/bin/delta
+rm -rf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu*
 
 if [[ -f ~/local/bin/delta ]]; then
   log "delta installed successfully"
