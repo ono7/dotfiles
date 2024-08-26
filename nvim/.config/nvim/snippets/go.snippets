@@ -69,3 +69,22 @@ snippet func "test function" b
   func ${1}(${2}) (${0:error}) {
     ${VISUAL}
   }
+
+snippet decoder "json decoder" b
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		log.Fatalf("Error in JSON decoder %v", err)
+	}
+
+snippet pretty "json pretty printer" b
+  func PrettyPrinter(m any) {
+    if m == nil {
+      log.Fatal("PrettyPrinter: Empty data structure")
+    }
+    prettyJSON, err := json.MarshalIndent(m, "", "  ")
+    if err != nil {
+      log.Fatalf("Failed to generate pretty JSON: %v", err)
+    }
+    fmt.Println(string(prettyJSON))
+  }

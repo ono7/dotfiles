@@ -97,7 +97,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 -- make some changes
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 -- this could create performace problems on big projects, best disabled for now
 capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false

@@ -87,9 +87,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
 cmp_config.setup({
-  completion = {
-    autocomplete = false,                   -- we want to test out running this manually
-  },
+  -- completion = {
+  --   autocomplete = true,                   -- we want to test out running this manually
+  -- },
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
     completion = {
