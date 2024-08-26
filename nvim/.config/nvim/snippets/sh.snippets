@@ -13,19 +13,19 @@ snippet h "header" b
 
   set -Eeuo pipefail
 
-  cleanup() {
+  cleanup () {
     echo "done!"
   }
 
-  log() {
-      echo "\$(date '+%Y-%m-%d %H:%M:%S') - \$*"
+  log () {
+      printf '\n%s - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
   }
 
   trap cleanup EXIT
 
 snippet log "logging function for bash" b
-  log() {
-      echo "\$(date '+%Y-%m-%d %H:%M:%S') - \$*"
+  log () {
+      printf '\n\n%s - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
   }
 
 snippet h1 "optional header for cicd script" b
@@ -37,7 +37,7 @@ snippet h1 "optional header for cicd script" b
   set -Eeuo pipefail
   trap cleanup SIGINT SIGTERM ERR EXIT
 
-  cleanup() {
+  cleanup () {
     trap - SIGINT SIGTERM ERR EXIT
     # script cleanup here
     echo 'clean up done'

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+    printf '\n\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
-log "attempting to bootstrap neovim"
+log "attempting to boostrap neovim"
 
 . ~/.bashrc
 

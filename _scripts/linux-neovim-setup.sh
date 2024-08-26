@@ -1,7 +1,7 @@
 #!/bin/bash
 
 log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+    printf '\n\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "$0"

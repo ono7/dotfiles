@@ -5,7 +5,7 @@ set -e
 cd ~/.dotfiles
 
 log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*"
+    printf '\n\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "Running stow..."
