@@ -1,8 +1,6 @@
-[includeIf "gitdir:~/github.com/**"]
-  path = .gitconfig-personal
-
-[includeIf "gitdir:~/.dotfiles/**"]
-  path = .gitconfig-personal
+[user]
+    name = jlima
+    email = jlima@mbp
 
 [includeIf "gitdir:~/work/**"]
   path = .gitconfig-work
@@ -32,6 +30,9 @@
 # `git rebase –abort` when we need to reset the changes
   rebase = true
 
+[fetch]
+  prune = true
+
 [merge]
   tool = nvimdiff4
   prompt = false
@@ -51,6 +52,10 @@
 
 [diff]
   colorMoved = zebra
+  algorithm = patience
+
+[color]
+  ui = auto
 
 [color "diff"]
     meta = normal
@@ -77,7 +82,6 @@
   ci = commit
   st = status
   wt = worktree
-# git unstage fileA
   unstage = reset HEAD --
   last = log -1 HEAD
   dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
