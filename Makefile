@@ -84,9 +84,9 @@ shell:
 
 starship:
 	@echo $(BANNER)
-	rm -f ~/.local/bin/starship || echo "starship not found"
-	mkdir -p ~/.local/bin
-	curl -sS https://starship.rs/install.sh | sh -s -- -b ~/.local/bin -y
+	@rm -f ~/.local/bin/starship || echo "starship not found"
+	@mkdir -p ~/.local/bin
+	@curl -sS https://starship.rs/install.sh | sh -s -- -b ~/.local/bin -y
 
 linux-deps:
 	@echo $(BANNER)
@@ -94,7 +94,7 @@ linux-deps:
 
 linux-neovim:
 	@echo $(BANNER)
-	mkdir -p ~/local/bin
+	@mkdir -p ~/local/bin
 	@bash ./_scripts/linux-neovim-setup.sh
 
 mac-deps:
