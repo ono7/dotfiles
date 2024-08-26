@@ -17,14 +17,13 @@ rm -rf ~/nvim-linux64
 rm -f ~/local/bin/nvim
 rm -f ~/local/bin/shortpath
 rm -rf ~/nvim-linux64.*
+log "downloading neovim"
 curl -sL -O https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-[[ ! -f nvim-linux64.tar.gz ]] && log "failed to download neovim" && return
+[[ ! -f nvim-linux64.tar.gz ]] && log "failed to download neovim"
 tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
 mkdir -p "$HOME/local/bin"
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
 
-echo
-log "----------[ neovim for linux setup complete ]-----------"
-echo
+log "neovim for linux installed"

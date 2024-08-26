@@ -23,12 +23,8 @@ sudo apt install zoxide git-delta
 sudo apt install -y build-essential libssl-dev curl tree zsh python3 python3.11 silversearcher-ag \
   python3.11-pip python3.11-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt zoxide
 
-echo
-log "------[ done: installing linux dependencies ]-------"
-echo
-
 if type snap &>/dev/null; then
-  log "------[ snap: installing linux dependencies ]-------"
+  log "------[ installing snap dependencies ]-------"
   sudo snap install go --classic
   sudo snap install --edge starship
 
@@ -41,7 +37,7 @@ rm -f ~/local/bin/nvim
 rm -f ~/local/bin/shortpath
 rm -rf ~/nvim-linux64.*
 curl -sL -O https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-[[ ! -f nvim-linux64.tar.gz ]] && log "failed to download neovim..." && return
+[[ ! -f nvim-linux64.tar.gz ]] && log "failed to download neovim..."
 tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
