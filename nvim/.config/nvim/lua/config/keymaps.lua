@@ -431,36 +431,30 @@ local pair_map_2 = {
   ["<"] = ">",
 }
 
+--- optimized
 -- k("i", "<enter>", function()
---   -- use this one when we are autoclosing
---   local prev_col, _ = vim.fn.col('.') - 1, vim.fn.col('.')
---   local p = vim.fn.getline('.'):sub(prev_col, prev_col)
---   local pmap = pair_map_2
---   if pmap[p] then
---     return "<CR><Esc>O"
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
+--   local closing_char = pair_map_2[prev_char]
+--   if closing_char then
+--     return "<enter>" .. closing_char .. "<Esc>O"
 --   else
---     return "<CR>"
+--     return "<Enter>"
 --   end
 -- end, { expr = true })
 
--- k("i", "<enter>", function()
---   -- use this one when we are not autoclosing
---   local line = vim.fn.getline(".")
---   local prev_col, _ = vim.fn.col(".") - 1, vim.fn.col(".")
---   return pair_map_2[line:sub(prev_col, prev_col)]
---       and "<enter>" .. pair_map_2[line:sub(prev_col, prev_col)] .. "<Esc>O"
---       or "<Enter>"
--- end, { expr = true })
+--- faster since there is no if satement
+local enter_actions = setmetatable({
+  ["("] = "<enter>)<Esc>O",
+  ["["] = "<enter>]<Esc>O",
+  ["{"] = "<enter>}<Esc>O",
+  ["<"] = "<enter>><Esc>O",
+}, { __index = function() return "<Enter>" end })
 
 k("i", "<enter>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
-  local closing_char = pair_map_2[prev_char]
-  if closing_char then
-    return "<enter>" .. closing_char .. "<Esc>O"
-  else
-    return "<Enter>"
-  end
+  return enter_actions[prev_char]
 end, { expr = true })
 
 --- delete all but the current buffer
