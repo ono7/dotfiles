@@ -23,13 +23,12 @@ k("n", "ZQ", "")
 k("n", "gt", ":GoTagAdd<cr>", silent)
 
 -- k({ "n", "x" }, "<c-e>", "g_")
-
 -- k({ "n", "x" }, [[\]], [[:vertical Git<cr>]], silent)
+
 --
 k({ "n", "x" }, "\\", function()
   local fugitive_buf_found = false
   local windows = vim.api.nvim_list_wins()
-
   -- Check each window to see if it's showing a Fugitive buffer
   for _, win in ipairs(windows) do
     local buf = vim.api.nvim_win_get_buf(win)
@@ -41,7 +40,6 @@ k({ "n", "x" }, "\\", function()
       break
     end
   end
-
   -- If no Fugitive buffer was found, open Fugitive
   if not fugitive_buf_found then
     vim.cmd(":vertical Git")
@@ -54,20 +52,8 @@ end, { silent = true })
 
 k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
--- move cursor to left/right
--- k("n", "L", "g_", silent)
--- k("n", "H", "^", silent)
-
---- move selection up/down/left/right
--- xnoremap H <gv
--- xnoremap L >gv
--- vnoremap J :m '>+1<CR>gv=gv
--- vnoremap K :m '<-2<CR>gv=gv
-
 k("x", "H", "<gv", silent)
 k("x", "L", ">gv", silent)
--- k("x", "J", ":m '>+1<CR>gv=gv", silent)
--- k("x", "K", ":m '<-2<CR>gv=gv", silent)
 
 -- toggle spell on and off
 k("n", "<leader>ss", function()
@@ -99,9 +85,6 @@ end
 
 vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
 
--- k("n", ",w", function() require("conform").format({ async = true }) end, silent)
--- k("n", "<leader>w", function() require("conform").format({ async = true }) end, silent)
-
 vim.keymap.set('n', '<leader>%', function()
     local path = vim.fn.expand('%:p')
     vim.fn.setreg('+', path)
@@ -119,9 +102,6 @@ k("n", ",w", function()
   vim.cmd [[:write ++p]]
   vim.fn.setpos('.', save_cursor)
 end, silent)
-
--- k("n", ",w", ":CleanAndSave<cr>", silent)
--- k("n", "<leader>w", ":CleanAndSave<cr>", silent)
 
 k("n", ",d", "<cmd>bd<cr>", silent)
 
@@ -152,8 +132,6 @@ k("n", "<m-[>", ":bprevious<CR>", silent)
 m("v", ".", ":norm .<cr>", opt)
 
 --- macros
--- m("v", "Q", ":'<,'>norm @q<cr>", silent)
--- k("n", "Q", "@qj", opt)
 k("x", "Q", ":norm @q<CR>", opt)
 
 local function hlsToggle()
