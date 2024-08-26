@@ -4,6 +4,8 @@ log() {
     printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+log "$0"
+
 log "downloading nvm"
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash

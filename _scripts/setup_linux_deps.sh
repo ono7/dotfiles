@@ -24,10 +24,9 @@ sudo apt install -y build-essential libssl-dev curl tree zsh python3 python3.11 
   python3.11-pip python3.11-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt zoxide
 
 if type snap &>/dev/null; then
-  log "------[ installing snap dependencies ]-------"
+  log "installing snap packages"
   sudo snap install go --classic
   sudo snap install --edge starship
-
 fi
 
 cd ~/

@@ -8,6 +8,8 @@ log() {
     printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+log "$0"
+
 log "Running stow..."
 
 export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
