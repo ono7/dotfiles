@@ -443,13 +443,24 @@ local pair_map_2 = {
 --   end
 -- end, { expr = true })
 
+-- k("i", "<enter>", function()
+--   -- use this one when we are not autoclosing
+--   local line = vim.fn.getline(".")
+--   local prev_col, _ = vim.fn.col(".") - 1, vim.fn.col(".")
+--   return pair_map_2[line:sub(prev_col, prev_col)]
+--       and "<enter>" .. pair_map_2[line:sub(prev_col, prev_col)] .. "<Esc>O"
+--       or "<Enter>"
+-- end, { expr = true })
+
 k("i", "<enter>", function()
-  -- use this one when we are not autoclosing
-  local line = vim.fn.getline(".")
-  local prev_col, _ = vim.fn.col(".") - 1, vim.fn.col(".")
-  return pair_map_2[line:sub(prev_col, prev_col)]
-      and "<enter>" .. pair_map_2[line:sub(prev_col, prev_col)] .. "<Esc>O"
-      or "<Enter>"
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
+  local closing_char = pair_map_2[prev_char]
+  if closing_char then
+    return "<enter>" .. closing_char .. "<Esc>O"
+  else
+    return "<Enter>"
+  end
 end, { expr = true })
 
 --- delete all but the current buffer
