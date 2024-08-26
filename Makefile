@@ -64,17 +64,17 @@ stow:
 ssh:
 	@echo $(BANNER)
 	stow -D ssh
-	cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
+	@cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
 
 fzf:
 	@echo $(BANNER)
-	rm -rf ~/.fzf
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --all
+	@rm -rf ~/.fzf
+	@git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	@~/.fzf/install --all
 
 nvm:
 	@echo $(BANNER)
-	rm -rf ~/.nvm
+	@rm -rf ~/.nvm
 	@bash ./_scripts/nvm.sh
 
 shell:
