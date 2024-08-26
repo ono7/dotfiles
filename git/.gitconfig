@@ -116,18 +116,12 @@
 	line-numbers-plus-style = bold "#a6da95"
 	line-numbers-right-style = "#6e738d"
 	line-numbers-zero-style = "#6e738d"
-	# 25% red 75% base
 	minus-emph-style = bold syntax "#563f51"
-	# 10% red 90% base
 	minus-style = syntax "#383143"
-	# 25% green 75% base
 	plus-emph-style = bold syntax "#455450"
-	# 10% green 90% base
 	plus-style = syntax "#313943"
 	map-styles = \
 		bold purple => syntax "#4d4569", \
 		bold blue => syntax "#3e4868", \
 		bold cyan => syntax "#3f5364", \
 		bold yellow => syntax "#575253"
-	# Should match the name of the bat theme
-	syntax-theme = Catppuccin Macchiato
