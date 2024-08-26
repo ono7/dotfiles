@@ -45,4 +45,27 @@ tar xzf nvim-linux64.tar.gz
 mv nvim-linux64 nvim
 rm nvim-linux64.*
 ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
+
 log "------[ Neovim setup for linux complete ]-------"
+
+
+log "installing delta git pager"
+
+ARCH=$(uname -m)
+DELTA_VERSION="0.18.1"
+
+mkdir -p ~/local/bin
+rm -rf ~/local/bin/delta
+
+rm -f delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+curl -sL -O https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+
+tar xzvf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+cp delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu/delta ~/local/bin/delta
+
+if [[ -f ~/local/bin/delta ]]; then
+  log "delta installed successfully"
+else
+  log "delta installation failed"
+fi
+
