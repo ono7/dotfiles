@@ -29,23 +29,6 @@ if type snap &>/dev/null; then
   sudo snap install --edge starship
 fi
 
-cd ~/
-rm -rf ~/nvim
-rm -rf ~/nvim-linux64
-rm -f ~/local/bin/nvim
-rm -f ~/local/bin/shortpath
-rm -rf ~/nvim-linux64.*
-log "downloading neovim..."
-curl -sL -O https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-[[ ! -f nvim-linux64.tar.gz ]] && log "failed to download neovim..."
-log "neovim downloaded successfully"
-tar xzf nvim-linux64.tar.gz
-mv nvim-linux64 nvim
-rm nvim-linux64.*
-ln -sf ~/nvim/bin/nvim ~/local/bin/nvim
-
-log "neovim setup complete"
-
 log "installing delta git pager"
 
 ARCH=$(uname -m)
