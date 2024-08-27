@@ -81,8 +81,8 @@ pcall(require("telescope").load_extension, "ui-select")
 
 local builtin = require "telescope.builtin"
 
-vim.keymap.set("n", "<space>fh", builtin.help_tags)
-vim.keymap.set("n", "<space>fg", builtin.live_grep)
+-- vim.keymap.set("n", "<space>fh", builtin.help_tags)
+-- vim.keymap.set("n", "<space>fg", builtin.live_grep)
 vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 
 k("n", "<leader>vc", function()
@@ -108,7 +108,6 @@ end, opt)
 k("n", "<c-b>", function() builtin.buffers({ previewer = false }) end, opt)
 
 k({ "n", "x" }, "<c-f>", function()
-  -- builtin.find_files({ no_ignore = false, hidden = true, cwd = get_git_root() })
   builtin.find_files({ no_ignore = false, hidden = true, previewer = false })
 end, opt)
 
