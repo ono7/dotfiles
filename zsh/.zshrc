@@ -125,7 +125,7 @@ alias 8='cd -8'
 alias 9='cd -9'
 
 # Save the directory stack on exit
-chpwd() {
+chpwd () {
     print -l $PWD ${(u)dirstack} >~/.zdirs
 }
 
@@ -138,17 +138,17 @@ fi
 ############## Kitty config ##############
 
 # Function to set the tab title
-function set_title() {
+set_title () {
   echo -ne "\033]0;${1}\007"
 }
 
 # Preexec function (executed just before any command)
-function title_preexec() {
+title_preexec () {
   set_title "$1"
 }
 
 # Precmd function (executed before each prompt)
-function title_precmd() {
+title_precmd () {
   set_title "${PWD##*/}"
 }
 
@@ -159,7 +159,7 @@ add-zsh-hook precmd title_precmd
 
 ############## Functions ##############
 
-function d () {
+d () {
   if [[ -n $1 ]]; then
     dirs "$@"
   else
@@ -167,19 +167,19 @@ function d () {
   fi
 }
 
-echo_red() {
+echo_red () {
   echo -e "${RED}$@${RESET}"
 }
 
-echo_green() {
+echo_green () {
   echo -e "${GREEN}$@${RESET}"
 }
 
-toggle() {
+toggle () {
   fg
 }
 
-runner() {
+runner () {
   if ! command -v nodemon &>/dev/null; then
     npm install -g nodemon
   fi
@@ -192,11 +192,11 @@ runner() {
   nodemon --exec $@ --signal SIGTERM
 }
 
-fixgit() {
+fixgit () {
   git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 }
 
-ta() {
+ta () {
     if ! command -v tmux &> /dev/null; then
         echo "Error: tmux is not installed."
         return 1
@@ -215,7 +215,7 @@ ta() {
     fi
 }
 
-mkrole() {
+mkrole () {
   local dir1="$@"
   mydir="roles/${dir1// /_}"
   if [ -d $mydir ]; then
@@ -238,44 +238,44 @@ mkrole() {
   echo "done!"
 }
 
-take() {
+take () {
   [ -z "$1" ] && echo "Please provide an argument"
   local dir="$@"
   mkdir -p "${dir// /-}"; cd "${dir// /-}"
 }
 
-mktag() {
+mktag () {
   [ -z "$1" ] && echo "Please provide an argument"
   git tag -a $1 -m "added tag $1"; git push origin $1
 }
 
-rmtag() {
+rmtag () {
   [ -z "$1" ] && echo "Please provide an argument"
   git tag -d $1;git push --delete origin $1
 }
 
-vq() {
+vq () {
   [ -z "$1" ] && echo "Please provide an argument"
   vim -q <(rg --vimgrep --pcre2 -i -S $@) +"copen 6"
 }
 
-_cdr() {
+_cdr () {
   mydir="$(git rev-parse --show-toplevel 2>/dev/null)"
   cd ${mydir:-.}
 }
 alias cdr=_cdr
 
-ginit() {
+ginit () {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   git init "$@"
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
 }
 
-gitlog() {
-  git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
+gitlog () {
+  git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C (auto) %h %d %C (reset)%s (%C (cyan)%ad %ae%C (reset))' $@
 }
 
-jira() {
+jira () {
     my_dir=$PWD
     cdr
     git add .
@@ -292,7 +292,7 @@ jira() {
     cd $my_dir
 }
 
-va() {
+va () {
   if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/venv ]]; then
     source $(git rev-parse --show-toplevel)/venv/bin/activate
   else
@@ -301,21 +301,21 @@ va() {
   echo $(which python3)
 }
 
-vd() {
+vd () {
   deactivate 2>/dev/null
   source $HOME/.virtualenvs/prod3/bin/activate
   echo $(which python3)
 }
 
-dev_env() {
+dev_env () {
   python3 -m venv ~/.virtualenvs/prod3
   source ~/.virtualenvs/bin/active
   pip install -U pip wheel
-  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
+  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint
   pip install jq yp
 }
 
-vc() {
+vc () {
   deactivate 2>/dev/null
   my_dir=$PWD
   if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
@@ -333,25 +333,25 @@ vc() {
   cd $my_dir
 }
 
-_d() {
+_d () {
   cdr
   cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
-vs() {
+vs () {
   vim "$(fd --type f -HI --exclude "venv" --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
 }
 
-fcd() {
+fcd () {
     local dir
     dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-gb() {
+gb () {
   git checkout $(git branch -a | fzf)
 }
 
-d() {
+d () {
   if [[ -n $1 ]]; then
     dirs "$@"
   else
@@ -382,7 +382,7 @@ autoload -Uz compinit
 zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
 
 # Load and regenerate cache only once a day
-if [[ -n $zcompdump(#qN.mh+24) ]]; then
+if [[ -n $zcompdump (#qN.mh+24) ]]; then
   compinit
   touch $zcompdump
 else
@@ -464,7 +464,7 @@ for m in visual viopp; do
   done
 done
 
-# ci{, ci(, di{ etc.. in vi-mode
+# ci{, ci (, di{ etc.. in vi-mode
 autoload -U select-bracketed
 zle -N select-bracketed
 for m in visual viopp; do
