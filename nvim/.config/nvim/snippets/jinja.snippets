@@ -1,7 +1,7 @@
 extends html, todo
 
 snippet jh "header" w
-  #jinja2: lstrip_blocks: True
+  #jinja2: lstrip_blocks: "true", trim_blocks: "true"
   {#
 
       Author: Jose Lima (`getenv('USER')`)
@@ -9,6 +9,9 @@ snippet jh "header" w
 
   #}
   ${0}
+
+snippet strip "strip spaces and fix indent blocks" b
+  #jinja2: lstrip_blocks: "true", trim_blocks: "true"
 
 snippet b "block" w
   {% ${0} %}
@@ -47,6 +50,7 @@ snippet if "if statement" w
   {% if ${0} %}
     ${VISUAL}
   {% endif %}
+
 snippet for "if statement" w
   {% for ${0} %}
     ${VISUAL}
