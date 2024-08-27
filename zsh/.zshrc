@@ -411,7 +411,8 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
 
 # Speed up completion selection
-zstyle ':completion:*' menu select interactive
+# zstyle ':completion:*' menu select interactive
+zstyle ':completion:*' menu select
 
 # Disable slow git completions
 zstyle ':completion:*:*:git:*' script /dev/null
@@ -429,6 +430,9 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # Array completion element sorting
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# Allow for autocomplete to be case insensitive
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
 ############## Key bindings ##############
 
