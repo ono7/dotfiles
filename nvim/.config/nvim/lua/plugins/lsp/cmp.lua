@@ -126,13 +126,6 @@ cmp_config.setup({
   },
   mapping = {
     ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
-    -- ['<C-n>'] = cmp_config.mapping(function(_) -- fallback replaced by _
-    --   if cmp_config.visible() then
-    --     cmp_config.select_next_item()
-    --   else
-    --     cmp_config.complete()
-    --   end
-    -- end, { 'i' }),
     ["<C-p>"] = cmp_config.mapping.select_prev_item(cmp_select),
     ["<C-d>"] = cmp_config.mapping.scroll_docs(4),
     ["<C-b>"] = cmp_config.mapping.scroll_docs(-4),

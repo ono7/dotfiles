@@ -86,12 +86,24 @@ end
 vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
 
 vim.keymap.set('n', '<leader>%', function()
-    local path = vim.fn.expand('%:p')
-    vim.fn.setreg('+', path)
-    print('File path copied to clipboard: ' .. path)
+  local path = vim.fn.expand('%:p')
+  vim.fn.setreg('+', path)
+  print('File path copied to clipboard: ' .. path)
 end, { noremap = true, silent = true, desc = 'Copy file path to clipboard' })
 
 k("n", ",w", function()
+  if not check_buf(0) then
+    print("save me first!")
+    return
+  end
+  local save_cursor = vim.fn.getcurpos()
+  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  -- this might cause issues with oil.nvim
+  vim.cmd [[:write ++p]]
+  vim.fn.setpos('.', save_cursor)
+end, silent)
+
+k("n", "<leader>w", function()
   if not check_buf(0) then
     print("save me first!")
     return

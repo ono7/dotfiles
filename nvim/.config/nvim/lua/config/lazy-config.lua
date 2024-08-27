@@ -43,72 +43,70 @@ require("lazy").setup({
       vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
     end
   },
-  -- replace this with conform.nvim
-  -- { "nvimtools/none-ls.nvim",    config = function() require "plugins.null_ls" end },
-  -- {
-  --   'stevearc/conform.nvim',
-  --   opts = {},
-  --   config = function() require "plugins.conform" end
-  -- },
   {
-    "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
-    keys = {
-      {
-        "<leader>w",
-        function()
-          local x, _ = require("conform").format({ async = true })
-          if x then
-            return
-          else
-            print("saved....!")
-            clean_space_save()
-          end
-        end,
-        mode = "",
-        desc = "Format buffer",
-      },
-    },
-    opts = {
-      -- Define your formatters
-      formatters_by_ft = {
-        lua = {
-          "luafmt",
-          lsp_format = "fallback",
-          inherit = false,
-          command = "shfmt",
-          args = { "-i", "2", "-filename", "$FILENAME" }
-        },
-        -- Conform will run multiple formatters sequentially
-        python = { "black" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        css = { "prettier" },
-        scss = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
-        -- markdown = { "mdformat" }, -- preserves line wraps...
-        -- goimports drop in replacement for gofmt
-        go = { "goimports", "goimports-reviser" },
-        graphql = { "prettier", stop_after_first = true },
-      },
-      formatters = {
-        shfmt = {
-          prepend_args = { "-i", "2" },
-        },
-        mdformat = {
-          prepend_args = { "--number" },
-        },
-      },
-      init = function()
-        -- If you want the formatexpr, here is the place to set it
-        vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
-      end,
-    }
+    'stevearc/conform.nvim',
+    opts = {},
+    config = function() require "plugins.conform" end
   },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   event = { "BufWritePre" },
+  --   cmd = { "ConformInfo" },
+  --   keys = {
+  --     {
+  --       "<leader>w",
+  --       function()
+  --         local x, _ = require("conform").format({ async = true })
+  --         if x then
+  --           return
+  --         else
+  --           print("saved....!")
+  --           clean_space_save()
+  --         end
+  --       end,
+  --       mode = "",
+  --       desc = "Format buffer",
+  --     },
+  --   },
+  --   opts = {
+  --     -- Define your formatters
+  --     formatters_by_ft = {
+  --       lua = {
+  --         "luafmt",
+  --         lsp_format = "fallback",
+  --         inherit = false,
+  --         command = "shfmt",
+  --         args = { "-i", "2", "-filename", "$FILENAME" }
+  --       },
+  --       -- Conform will run multiple formatters sequentially
+  --       python = { "black" },
+  --       javascript = { "prettier" },
+  --       typescript = { "prettier" },
+  --       css = { "prettier" },
+  --       scss = { "prettier" },
+  --       html = { "prettier" },
+  --       json = { "prettier" },
+  --       yaml = { "prettier" },
+  --       markdown = { "prettier" },
+  --       -- markdown = { "mdformat" }, -- preserves line wraps...
+  --       -- goimports drop in replacement for gofmt
+  --       go = { "goimports", "goimports-reviser" },
+  --       graphql = { "prettier", stop_after_first = true },
+  --     },
+  --     formatters = {
+  --       shfmt = {
+  --         prepend_args = { "-i", "2" },
+  --       },
+  --       mdformat = {
+  --         prepend_args = { "--number" },
+  --       },
+  --     },
+  --     init = function()
+  --       -- If you want the formatexpr, here is the place to set it
+  --       vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
+  --     end,
+  --   }
+  -- },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
   -- keep just incase...
