@@ -264,27 +264,11 @@ else
   echo "zoxide not installed..."
 fi
 
-# TODO(jlima): clean this up
+alias vim=nvim
+alias vi=nvim
+alias v=nvim
+alias vil=vim
 export EDITOR=nvim
-if type nvim &>/dev/null; then
-  alias vim="$(which nvim)"
-  alias vi=vim
-  # legacy vim
-  alias vil=vim
-  alias vil='/usr/bin/vim'
-  alias vimdiff='nvim -d'
-  # alias vll="vim  +\"'\"0"
-  alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
-  export EDITOR=nvim
-elif [[ -d ~/nvim/bin ]]; then
-  alias vim='~/nvim/bin/nvim'
-  # legacy vim
-  alias vi=vim
-  alias vil='/usr/bin/vim'
-  alias vimdiff='~/nvim/bin/nvim -d'
-fi
-
-alias v=vim
 
 export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
