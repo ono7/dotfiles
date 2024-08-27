@@ -138,17 +138,17 @@ fi
 ############## Kitty config ##############
 
 # Function to set the tab title
-set_title () {
+function set_title() {
   echo -ne "\033]0;${1}\007"
 }
 
 # Preexec function (executed just before any command)
-title_preexec () {
+function title_preexec() {
   set_title "$1"
 }
 
 # Precmd function (executed before each prompt)
-title_precmd () {
+function title_precmd() {
   set_title "${PWD##*/}"
 }
 
@@ -159,7 +159,7 @@ add-zsh-hook precmd title_precmd
 
 ############## Functions ##############
 
-d () {
+function d () {
   if [[ -n $1 ]]; then
     dirs "$@"
   else
@@ -272,7 +272,7 @@ ginit () {
 }
 
 gitlog () {
-  git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C (auto) %h %d %C (reset)%s (%C (cyan)%ad %ae%C (reset))' $@
+  git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
 }
 
 jira () {
@@ -311,7 +311,7 @@ dev_env () {
   python3 -m venv ~/.virtualenvs/prod3
   source ~/.virtualenvs/bin/active
   pip install -U pip wheel
-  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint
+  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
   pip install jq yp
 }
 
@@ -382,7 +382,7 @@ autoload -Uz compinit
 zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
 
 # Load and regenerate cache only once a day
-if [[ -n $zcompdump (#qN.mh+24) ]]; then
+if [[ -n $zcompdump(#qN.mh+24) ]]; then
   compinit
   touch $zcompdump
 else
@@ -464,7 +464,7 @@ for m in visual viopp; do
   done
 done
 
-# ci{, ci (, di{ etc.. in vi-mode
+# ci{, ci(, di{ etc.. in vi-mode
 autoload -U select-bracketed
 zle -N select-bracketed
 for m in visual viopp; do
