@@ -185,7 +185,7 @@ k("n", "g]", [[/\v\w+\[\zs<cr>]])
 --- tmux ---
 -- TODO(jlima): fix this
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
-k("n", "<leader>t", [[:botright 5sp term://zsh<CR>i]], silent)
+k("n", "<leader>t", [[:botright 6sp term://zsh<CR>i]], silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)

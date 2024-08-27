@@ -22,9 +22,9 @@ my_gitsigns.setup({
     untracked    = { text = '┆' },
   },
   signs_staged_enable = true,
-  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+  signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+  numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
+  linehl = false,    -- Toggle with `:Gitsigns toggle_linehl`
   word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
     interval = 1000,
@@ -41,7 +41,7 @@ my_gitsigns.setup({
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
   sign_priority = 6,
   update_debounce = 100,
-  status_formatter = nil,   -- Use default
+  status_formatter = nil, -- Use default
   max_file_length = 4000, -- Disable if file is longer than this (in lines)
   preview_config = {
     -- Options passed to nvim_open_win
@@ -62,37 +62,38 @@ my_gitsigns.setup({
 
     -- Navigation
     map('n', ']c', function()
-      if vim.wo.diff then  -- Changed from vim.opt.diff to vim.wo.diff
+      if vim.wo.diff then -- Changed from vim.opt.diff to vim.wo.diff
         vim.cmd.normal({ ']c', bang = true })
       else
-        gitsigns.next_hunk()  -- Changed from nav_hunk('next') to next_hunk()
+        gitsigns.next_hunk() -- Changed from nav_hunk('next') to next_hunk()
       end
     end)
 
     map('n', '[c', function()
-      if vim.wo.diff then  -- Changed from vim.opt.diff to vim.wo.diff
+      if vim.wo.diff then -- Changed from vim.opt.diff to vim.wo.diff
         vim.cmd.normal({ '[c', bang = true })
       else
-        gitsigns.prev_hunk()  -- Changed from nav_hunk('prev') to prev_hunk()
+        gitsigns.prev_hunk() -- Changed from nav_hunk('prev') to prev_hunk()
       end
     end)
 
     -- Actions
     map('n', '<leader>hs', gitsigns.stage_hunk)
     map('n', '<leader>hr', gitsigns.reset_hunk)
-    map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+    map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
     map('n', '<leader>hS', gitsigns.stage_buffer)
     map('n', '<leader>hu', gitsigns.undo_stage_hunk)
     map('n', '<leader>hR', gitsigns.reset_buffer)
     map('n', '<leader>hp', gitsigns.preview_hunk)
-    map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
-    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end)
     map('n', '<leader>hd', gitsigns.diffthis)
     map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-    map('n', '<leader>td', gitsigns.toggle_deleted)
+    -- interfere with terminal <leader>t in keymaps.lua
+    -- map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+    -- map('n', '<leader>td', gitsigns.toggle_deleted)
 
     -- Text object
-    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 })
