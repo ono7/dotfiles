@@ -370,6 +370,11 @@ if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 fi
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 # Optimize autocompletion system
 autoload -Uz compinit
 
@@ -512,4 +517,4 @@ fi
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-clear -x && uptime
+[[ $? == 0 ]] && clear -x && uptime
