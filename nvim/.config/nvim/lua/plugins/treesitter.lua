@@ -14,13 +14,13 @@ end
 configs.setup {
   sync_install = false,
   auto_install = true,
-  indent = { enable = true },
+  indent = { enable = false },
   highlight = {
     use_languagetree = true,
     max_file_lines = 500,
     enable = false,
     additional_vim_regex_highlighting = false,
-    indent = { enable = true },
+    indent = { enable = false },
     incremental_selection = { enable = false },
     textobjects = { enable = true },
     -- rainbow = {
