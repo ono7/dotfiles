@@ -1,24 +1,6 @@
 -- local c = vim.api.nvim_create_autocmd
 local create_augroup = vim.api.nvim_create_augroup
 
--- -- FIXME: this is broken due to autpchdir in settings.lua
--- -- using init.lua (fugitive function)
--- local function branch_name()
---   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
---   if branch ~= "" then
---     return branch
---   else
---     return ""
---   end
--- end
---
--- vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "FocusGained" }, {
---   callback = function()
---     vim.b.branch_name = branch_name()
---   end,
---   group = create_augroup("git_branch_name", { clear = true }),
--- })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
@@ -96,7 +78,6 @@ augroup _QuickFixOpen
 augroup END
 ]]
 
-
 -- auto source snippets file
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.snippet",
@@ -104,19 +85,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = create_augroup("reload_snippets", { clear = true }),
 })
 
--- -- auto create dirs when saving files
--- -- this breaks oil
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
---   callback = function(ctx)
---     -- Check if the filetype is NOT oil
---     if vim.opt.filetype ~= "oil" then
---       vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ":p:h"), "p")
---     end
---   end,
--- })
+-- auto create dirs when saving files: use :w ++p
 
---
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   group = create_augroup("remove_trailing_empty_line", { clear = true }),
 --   pattern = { "*" },
@@ -129,12 +99,20 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd("TermOpen", {
---   callback = function()
---     vim.opt_local.relativenumber = false
---     vim.opt_local.number = false
---     vim.cmd("startinsert!")
---   end,
---   group = create_augroup("set_buf_number_options", { clear = true }),
---   desc = "Terminal Options",
--- })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+    vim.cmd("startinsert!")
+  end,
+  group = create_augroup("set_buf_number_options", { clear = true }),
+  desc = "Terminal Options",
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "text", "markdown", "python", "go" },
+  callback = function()
+    vim.opt_local.wrap = true
+  end
+})

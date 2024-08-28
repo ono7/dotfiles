@@ -9,6 +9,8 @@ k({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- add movements bigger then 1 line to the jump list, but also navigate through wrapped lines
 -- vim.cmd([[nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj']])
 -- vim.cmd([[nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk']])
+k("n", "k", "gk", silent)
+k("n", "j", "gj", silent)
 
 vim.g.mapleader = " "
 
@@ -179,13 +181,13 @@ k("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
 k("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
 k("n", "g{", "?{<cr>")
 k("n", "g}", "/}<cr>")
-k("n", "g[", [[?\v\w+\[\zs<cr>]])
-k("n", "g]", [[/\v\w+\[\zs<cr>]])
+k("n", "g[", [[?\v\[<cr>]])
+k("n", "g]", [[/\v\]<cr>]])
 
 --- tmux ---
 -- TODO(jlima): fix this
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
-k("n", "<leader>t", [[:botright 6sp term://zsh<CR>i]], silent)
+k("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
