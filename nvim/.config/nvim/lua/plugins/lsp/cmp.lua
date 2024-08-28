@@ -106,6 +106,11 @@ vim.api.nvim_create_autocmd("CursorHoldI", {
   end,
 })
 
+-- Set up manual trigger
+vim.keymap.set('i', '<C-h>', function()
+  cmp_config.complete()
+end, { noremap = true, silent = true, desc = "Manually trigger completion" })
+
 cmp_config.setup({
   completion = {
     autocomplete = false,                   -- we want to test out running this manually
