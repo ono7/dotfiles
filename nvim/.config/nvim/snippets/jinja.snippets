@@ -3,27 +3,24 @@ extends html, todo
 snippet jh "header" w
   #jinja2: lstrip_blocks: "true", trim_blocks: "true"
   {#
-
       Author: Jose Lima (`getenv('USER')`)
       Date:   `strftime("%Y-%m-%d %H:%M")`
 
+      ${0}
   #}
-  ${0}
 
 snippet strip "strip spaces and fix indent blocks" b
   #jinja2: lstrip_blocks: "true", trim_blocks: "true"
 
 snippet b "block" w
-  {% ${0} %}
+  {%${0}%}
 
 snippet set "set" w
   {% set ${0} %}
 
 snippet bc "block comment" w
   {#
-
     ${0:${VISUAL}}
-
   #}
 
 # snippet jc "block comment" w
@@ -50,6 +47,10 @@ snippet if "if statement" w
   {% if ${0} %}
     ${VISUAL}
   {% endif %}
+snippet macro "macro" b
+  {%- macro ${1}() %}
+  ${0:${VISUAL}}
+  {%- endmacro -%}
 
 snippet for "if statement" w
   {% for ${0} %}

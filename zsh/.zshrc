@@ -246,7 +246,7 @@ take () {
 
 mktag () {
   [ -z "$1" ] && echo "Please provide an argument"
-  git tag -a $1 -m "added tag $1"; git push origin $1
+  git tag -a $1 -m "$@"; git push origin $1
 }
 
 rmtag () {
