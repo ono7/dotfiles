@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -15,12 +14,12 @@ import (
 func main() {
 
 	getAll := flag.Bool("g", false, "Get and print all repos configured as projects in AAP")
+	help := flag.Bool("h", false, "this :)")
 	updateThisRepo := flag.Bool("u", false, "Attempt to resolve the git remote URL and find the repos matching this one in AAP")
 	updateByID := flag.Int("id", 0, "Update a single repo in AAP by its numerical ID")
 	flag.Parse()
 
-	if len(os.Args) == 1 {
-		fmt.Println("No arguments provided..")
+	if len(os.Args) == 1 || *help {
 		flag.Usage()
 		os.Exit(1)
 	}
