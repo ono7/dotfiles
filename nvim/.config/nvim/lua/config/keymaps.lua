@@ -29,6 +29,17 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 
 --
 k({ "n", "x" }, "\\", function()
+  -- Check if the current buffer's filetype is in the exclusion list
+  local excluded_filetypes = { "vim", "help" } -- Add more filetypes as needed
+  local current_filetype = vim.bo.filetype
+
+  for _, excluded in ipairs(excluded_filetypes) do
+    if current_filetype == excluded then
+      print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
+      return
+    end
+  end
+
   local fugitive_buf_found = false
   local windows = vim.api.nvim_list_wins()
   -- Check each window to see if it's showing a Fugitive buffer

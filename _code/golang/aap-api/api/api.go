@@ -124,7 +124,7 @@ func NewApi(token, hostname string) *Api {
 // Get all projects in AAP, deals with API paging
 func (a *Api) GetAllProjects() {
 
-	log.Println("Getting all projects from AAP...")
+	log.Println("Fetching projects ➜ AAP")
 
 	nextURL := "/api/v2/projects"
 
