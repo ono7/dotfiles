@@ -100,11 +100,11 @@ local function trigger_completion()
   end
 end
 
-vim.api.nvim_create_autocmd("CursorHoldI", {
-  callback = function()
-    trigger_completion()
-  end,
-})
+-- vim.api.nvim_create_autocmd("CursorHoldI", {
+--   callback = function()
+--     trigger_completion()
+--   end,
+-- })
 
 -- Set up manual trigger
 vim.keymap.set('i', '<C-h>', function()
