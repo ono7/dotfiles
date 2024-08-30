@@ -52,7 +52,6 @@ func main() {
 	}
 
 	aap := api.NewApi(token, aapUrl)
-	aap.GetAllProjects()
 
 	if *updateThisRepo {
 		aap.UpdateLocalRepo()

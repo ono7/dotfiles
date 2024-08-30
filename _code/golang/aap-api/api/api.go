@@ -74,8 +74,10 @@ func CleanString(s string) string {
 
 // GetRepoSuffix should return the Org/Project.git as the element name
 func GetRepoSuffix(repourl string) string {
+
 	// url = https://git.homeet.local/Network-DevOps/iac_sdwan_config_mgmt.git
 	// url = git@github.com:ono7/dotfiles.git
+
 	if strings.HasPrefix(repourl, "git@") {
 		return strings.Split(repourl[4:], `:`)[1]
 	} else if strings.HasPrefix(repourl, "http") {
@@ -122,6 +124,8 @@ func NewApi(token, hostname string) *Api {
 // Get all projects in AAP, deals with API paging
 func (a *Api) GetAllProjects() {
 
+	log.Println("Getting all projects from AAP...")
+
 	nextURL := "/api/v2/projects"
 
 	for nextURL != "" {
@@ -150,6 +154,9 @@ func (a *Api) ShowRepos() {
 	// if err != nil {
 	// 	log.Fatal("MarshalIndent err:", err)
 	// }
+	if len(a.Repos) == 0 {
+		a.GetAllProjects()
+	}
 	sep := strings.Repeat(`*`, 30)
 	fmt.Println(sep, "AAP Projects", sep)
 	for _, p := range a.Repos {
@@ -186,6 +193,9 @@ func (a *Api) UpdateProjectID(id int) int {
 
 func (a *Api) UpdateLocalRepo() {
 	var found bool
+	if len(a.Repos) == 0 {
+		a.GetAllProjects()
+	}
 	for _, v := range a.Repos {
 		if strings.Contains(v.ScmUrl, a.RepoSuffix) {
 			statusCode := a.UpdateProjectID(v.Id)
