@@ -90,7 +90,7 @@ local function clean_space_save()
   end
   local save_cursor = vim.fn.getcurpos()
   -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
-  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   vim.cmd([[:write ++p]])
   vim.fn.setpos('.', save_cursor)
   -- this is now handled by conform.nvim
@@ -110,7 +110,7 @@ k("n", ",w", function()
     return
   end
   local save_cursor = vim.fn.getcurpos()
-  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   -- this might cause issues with oil.nvim
   vim.cmd [[:write ++p]]
   vim.fn.setpos('.', save_cursor)
@@ -122,7 +122,7 @@ k("n", "<leader>w", function()
     return
   end
   local save_cursor = vim.fn.getcurpos()
-  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   -- this might cause issues with oil.nvim
   vim.cmd [[:write ++p]]
   vim.fn.setpos('.', save_cursor)
