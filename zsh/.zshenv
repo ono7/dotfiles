@@ -12,7 +12,7 @@ golinux () {
 
 [ -f "/etc/os-release" ] && cat /etc/os-release | grep "buntu" &>/dev/null && export skip_global_compinit=1
 
-extract() {
+extract () {
   if [ -f "$1" ]; then
     case "$1" in
     *.tar.bz2) tar vxjf "$1" ;;
@@ -33,7 +33,7 @@ extract() {
   fi
 }
 
-ga() {
+ga () {
   # Check for untracked files
   mydir=$PWD
   untracked_files=$(git status --porcelain | grep '^??' | cut -c4-)
@@ -63,7 +63,7 @@ ga() {
   git commit
 }
 
-gac() {
+gac () {
   if [ "$#" -eq 0 ]; then
     git add -p
   else
@@ -137,29 +137,29 @@ gw () {
   fi
 }
 
-gwa() {
+gwa () {
   git worktree add "$@"
 }
 
-gwr() {
+gwr () {
   git worktree remove "$@"
 }
 
 alias gwl='git worktree list'
 alias gwr='git worktree remove '
 
-tmux_log() {
+tmux_log () {
   tmux capture-pane -S - \; save-buffer ~/tmux_log.txt
 }
 
 alias p='podman'
 
-a() {
+a () {
   awk -v field="${1:-1}" '{print $field}'
 }
 
 # open other modified files in a repo
-gitm() {
+gitm () {
   $EDITOR $(git ls-files --modified --others --exclude-standard) $@ || return
 }
 

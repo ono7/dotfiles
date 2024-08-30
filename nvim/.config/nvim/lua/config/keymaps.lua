@@ -30,12 +30,11 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 --
 k({ "n", "x" }, "\\", function()
   -- Check if the current buffer's filetype is in the exclusion list
-  local excluded_filetypes = { "vim", "help" } -- Add more filetypes as needed
+  local excluded_filetypes = { "vim", "help", "" } -- Add more filetypes as needed
   local current_filetype = vim.bo.filetype
-
   for _, excluded in ipairs(excluded_filetypes) do
     if current_filetype == excluded then
-      print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
+      -- print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
       return
     end
   end
@@ -369,7 +368,7 @@ k('i', ']', function()
   end
   return ']'
 end
-, { expr = true })
+, { expr = true, silent = true })
 
 ---- handle {}
 -- k('i', '{', function()
@@ -389,7 +388,7 @@ k('i', '}', function()
   end
   return '}'
 end
-, { expr = true })
+, { expr = true, silent = true })
 
 -- handle (
 -- k('i', '(', function()
@@ -409,7 +408,7 @@ k({ 'i' }, ')', function()
   end
   return ')'
 end
-, { expr = true })
+, { expr = true, silent = true })
 
 -- k('i', '>', function()
 --   local n = get_next_char()
@@ -459,7 +458,7 @@ k("i", "<enter>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
   return enter_actions[prev_char]
-end, { expr = true })
+end, { expr = true, silent = true })
 
 --- delete all but the current buffer
 k("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)

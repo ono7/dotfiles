@@ -115,15 +115,18 @@ func NewApi(token, hostname string) *Api {
 			AuthToken: token,
 		},
 	}
+	return &Api{Host: hostname, Client: c, BaseUrl: "https://" + hostname}
+}
+
+func (a *Api) SetLocalRepo() {
 	repourl := CleanString(GetRepoUrl())
 	element := GetRepoSuffix(repourl)
 	log.Println("Repo:", element)
-	return &Api{Host: hostname, Client: c, BaseUrl: "https://" + hostname, RepoSuffix: element}
+	a.RepoSuffix = element
 }
 
 // Get all projects in AAP, deals with API paging
 func (a *Api) GetAllProjects() {
-
 	log.Println("Fetching projects ➜ AAP")
 
 	nextURL := "/api/v2/projects"
@@ -161,8 +164,7 @@ func (a *Api) ShowRepos() {
 	fmt.Println(sep, "AAP Projects", sep)
 	for _, p := range a.Repos {
 		fmt.Println()
-		fmt.Println("Project:", p.Name)
-		fmt.Println("ID:", p.Id)
+		fmt.Printf("Project: %s, ID: %d\n", p.Name, p.Id)
 		fmt.Println("URL:", p.ScmUrl)
 		fmt.Println("LastUpdate:", p.LastUpdated)
 	}
@@ -193,6 +195,9 @@ func (a *Api) UpdateProjectID(id int) int {
 
 func (a *Api) UpdateLocalRepo() {
 	var found bool
+	if a.RepoSuffix == "" {
+		a.SetLocalRepo()
+	}
 	if len(a.Repos) == 0 {
 		a.GetAllProjects()
 	}

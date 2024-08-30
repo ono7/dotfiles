@@ -19,7 +19,7 @@ func main() {
 	updateByID := flag.Int("id", 0, "Update a single repo in AAP by its numerical ID")
 	flag.Parse()
 
-	if len(os.Args) == 1 || *help {
+	if *help {
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -69,7 +69,7 @@ func main() {
 		} else {
 			log.Fatalf("AAP ➜ Project Sync Request failed - ID: %v, status: %v", *updateByID, status)
 		}
-
 		return
 	}
+	aap.UpdateLocalRepo()
 }
