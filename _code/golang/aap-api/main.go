@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,12 +13,17 @@ import (
 )
 
 func main() {
-	// TODO: add some flags and default action
 
-	getAll := flag.Bool("g", false, "Get and print all repos in AAP")
-	updateThisRepo := flag.Bool("u", false, "Attempt to resolve the current context and find the repos matching this one in AAP")
-	updateByID := flag.Int("id", 0, "Update a single repo by its numerical ID")
+	getAll := flag.Bool("g", false, "Get and print all repos configured as projects in AAP")
+	updateThisRepo := flag.Bool("u", false, "Attempt to resolve the git remote URL and find the repos matching this one in AAP")
+	updateByID := flag.Int("id", 0, "Update a single repo in AAP by its numerical ID")
 	flag.Parse()
+
+	if len(os.Args) == 1 {
+		fmt.Println("No arguments provided..")
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	cwd, err := os.Getwd()
 	if err != nil {
