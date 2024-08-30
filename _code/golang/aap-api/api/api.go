@@ -57,7 +57,7 @@ func GetRepoUrl() string {
 	cmd := exec.Command("git", "config", "--get", "remote.origin.url")
 	cmdout, err := cmd.Output()
 	if err != nil {
-		log.Fatal("Unable to get remote.origin.url, are you in a git repo? ")
+		log.Fatal("GetRepoUrl: Unable to get remote.origin.url, are you in a git repo? ")
 	}
 	if string(cmdout) == "" {
 		log.Fatal("no remote.origin.url configured")
@@ -185,12 +185,17 @@ func (a *Api) UpdateProjectID(id int) int {
 }
 
 func (a *Api) UpdateLocalRepo() {
+	var found bool
 	for _, v := range a.Repos {
 		if strings.Contains(v.ScmUrl, a.RepoSuffix) {
 			statusCode := a.UpdateProjectID(v.Id)
+			found = true
 			if statusCode == 202 {
-				log.Printf("Project ID: %v, %s --> updated successfully", v.Id, v.Name)
+				log.Printf("AAP ➜ Project Sync Request Accepted - ID: %v, %s  ", v.Id, v.Name)
 			}
 		}
+	}
+	if !found {
+		log.Printf("No projects in AAP match our repo %s\n", a.RepoSuffix)
 	}
 }
