@@ -166,7 +166,7 @@ func (a *Api) GetWithPattern(pattern string) {
 }
 
 func (a *Api) UpdateProjectID(id int) int {
-	url := fmt.Sprintf("%s/api/v2/projects/%v/update/", a.BaseUrl, id)
+	url := fmt.Sprintf("%s/api/v2/projects/%d/update/", a.BaseUrl, id)
 	payload := map[string]string{
 		"launch_type": "manual",
 	}

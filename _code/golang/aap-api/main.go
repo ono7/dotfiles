@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,6 +13,12 @@ import (
 
 func main() {
 	// TODO: add some flags and default action
+
+	getAll := flag.Bool("g", false, "Get and print all repos in AAP")
+	updateThisRepo := flag.Bool("u", false, "Attempt to resolve the current context and find the repos matching this one in AAP")
+	updateByID := flag.Int("id", 0, "Update a single repo by its numerical ID")
+	flag.Parse()
+
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatal("os.Getwd() enable to resolve current working directory")
@@ -40,6 +47,25 @@ func main() {
 
 	aap := api.NewApi(token, aapUrl)
 	aap.GetAllProjects()
-	aap.UpdateLocalRepo()
-	return
+
+	if *updateThisRepo {
+		aap.UpdateLocalRepo()
+		return
+	}
+
+	if *getAll {
+		aap.ShowRepos()
+		return
+	}
+
+	if *updateByID != 0 {
+		status := aap.UpdateProjectID(*updateByID)
+		if status == 202 {
+			log.Printf("AAP ➜ Project Sync Request Accepted - ID: %v", *updateByID)
+		} else {
+			log.Fatalf("AAP ➜ Project Sync Request failed - ID: %v, status: %v", *updateByID, status)
+		}
+
+		return
+	}
 }
