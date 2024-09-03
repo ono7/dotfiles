@@ -446,18 +446,19 @@ local pair_map_2 = {
 --   end
 -- end, { expr = true })
 
---- faster since there is no if satement
-local enter_actions = setmetatable({
+--- Optimized Enter key actions using a lookup table
+local enter_actions = {
   ["("] = "<enter>)<Esc>O",
   ["["] = "<enter>]<Esc>O",
   ["{"] = "<enter>}<Esc>O",
   ["<"] = "<enter>><Esc>O",
-}, { __index = function() return "<Enter>" end })
+}
+local default_enter = "<Enter>"
 
 k("i", "<enter>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
-  return enter_actions[prev_char]
+  return enter_actions[prev_char] or default_enter
 end, { expr = true, silent = true })
 
 --- delete all but the current buffer
