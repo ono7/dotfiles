@@ -455,6 +455,14 @@ bindkey '^Z' toggle
 zle -N _d
 bindkey -s '^G' _d^M
 
+# copy to clipboard
+bindkey -M vicmd 'y' vi-yank-pbcopy
+function vi-yank-pbcopy {
+    zle vi-yank
+    echo "$CUTBUFFER" | pbcopy
+}
+zle -N vi-yank-pbcopy
+
 # ci" in vi-mode
 autoload -U select-quoted
 zle -N select-quoted

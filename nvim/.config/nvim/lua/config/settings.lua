@@ -1,4 +1,4 @@
-vim.opt.autochdir = true
+vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.breakindent = true
