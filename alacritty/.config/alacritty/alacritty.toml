@@ -8,7 +8,6 @@ osc52 = "CopyPaste"
 [colors]
 draw_bold_text_with_bright_colors = false
 
-
 [colors.bright]
 black = "#7c8f8f"
 blue = "#82aaff"
@@ -30,11 +29,11 @@ white = "#a1aab8"
 yellow = "#e3d18a"
 
 [colors.primary]
-# background = "#011627"
-# foreground = "#bdc1c6"
-background = "#0e1419"
-foreground = "#e5e1cf"
-# bright_foreground = "#eeeeee"
+background = "#011627"
+foreground = "#bdc1c6"
+
+# background  = "#19202f"
+# foreground  = "#afb2c6"
 
 [colors.selection]
 background = "#b2ceee"
@@ -57,6 +56,9 @@ log_level = "Off"
 persistent_logging = false
 print_events = false
 render_timer = false
+
+# transparency may not work with this enabled in linux
+prefer_egl = true
 
 [env]
 TERM = "xterm-256color"
@@ -85,43 +87,21 @@ y = 10
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "CreateNewTab"
-key = "T"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "SelectPreviousTab"
-key = "H"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "SelectNextTab"
-key = "L"
-mods = "Control|Shift"
-
-# toggle simple full screen
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "F"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-chars = "\u0017"
-key = "Back"
-mods = "Alt"
+[keyboard]
+bindings = [
+  {  key  =  "V",     mods  =  "Control|Shift",  action  =  "Paste"              },
+  {  key  =  "T",     mods  =  "Control|Shift",  action  =  "CreateNewTab"       },
+  {  key  =  "H",     mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
+  {  key  =  "L",     mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
+  {  key  =  "F",     mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
+  {  key  =  "Back",  mods  =  "Alt",            chars   =  "\u0017"             },
+]
 
 [mouse]
 hide_when_typing = true
-
-[[mouse.bindings]]
-action = "PasteSelection"
-mouse = "Middle"
+bindings = [
+  {  action  =  "PasteSelection",  mouse  =  "Middle"  }
+]
 
 [scrolling]
 history = 5000
@@ -129,8 +109,6 @@ multiplier = 3
 
 [selection]
 save_to_clipboard = true
-
-# semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 args = ["--login"]
@@ -141,7 +119,7 @@ program = "/bin/zsh"
 decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.70
+opacity = 0.90
 blur = true
 
 startup_mode = "Windowed"
@@ -154,3 +132,5 @@ lines = 28
 [window.padding]
 x = 5
 y = 5
+
+
