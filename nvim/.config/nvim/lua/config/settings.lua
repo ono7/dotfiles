@@ -12,7 +12,7 @@ vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.complete = ".,w,b,u"
 vim.opt.completeopt = "menu,menuone"
 vim.opt.cursorcolumn = false
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
 vim.opt.diffopt = "filler"
 vim.opt.directory = "~/.tmp"
@@ -21,7 +21,7 @@ vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 vim.opt.foldenable = false
 vim.opt.foldlevel = 0
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "manual"
 vim.opt.foldnestmax = 3
 vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.opt.formatoptions = "qlj"                                  -- TODO: overwritten in my_cmds.lua
@@ -38,7 +38,7 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append("view")
 vim.opt.laststatus = 0
-vim.opt.lazyredraw = false
+vim.opt.lazyredraw = true
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
 vim.opt.magic = true
@@ -73,7 +73,7 @@ vim.opt.spellsuggest = 'best,9'
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 0
+vim.opt.synmaxcol = 10           -- for performace
 vim.opt.tabstop = 2
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
