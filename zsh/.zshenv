@@ -4,6 +4,7 @@ alias m='more '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
 alias pret="prettier --parser "
 alias vil="/usr/bin/vi"
+alias aider="aider --no-auto-commits --dark-mode"
 
 golinux () {
   [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return
