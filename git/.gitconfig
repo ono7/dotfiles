@@ -87,6 +87,7 @@
   unstage = reset HEAD --
   last = log -1 HEAD
   dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
+  update-hooks = !cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*
 [interactive]
 	diffFilter = delta --color-only
 
