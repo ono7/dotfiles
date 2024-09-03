@@ -17,10 +17,6 @@ blink_interval = 200
 unfocused_hollow = true
 
 [colors.cursor]
-# cursor = "#db69d7"
-# cursor = "#ff52e6"
-# cursor = "#ff7fff"
-# cursor = "#d586ff" # good color
 cursor =  "#5f6060"
 text = "#080808"
 
@@ -72,7 +68,7 @@ style = "Medium Regular"
 # [font.italic]
 # family = "MonolisaLiga Nerd Font"
 # style = "Italic"
-#
+
 [font.bold]
 family = "MonolisaLiga Nerd Font"
 
@@ -85,7 +81,7 @@ y = 10
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Command|Shift"
+mods = "Control|Shift"
 
 [[keyboard.bindings]]
 action = "CreateNewTab"
@@ -115,15 +111,10 @@ mods = "Control|Shift"
 # mods = "Command|Shift"
 
 [[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Control"
-
-[[keyboard.bindings]]
 chars = "\u0017"
 key = "Back"
 mods = "Alt"
-
+ 
 [mouse]
 hide_when_typing = true
 
@@ -137,6 +128,7 @@ multiplier = 3
 
 [selection]
 save_to_clipboard = true
+
 # semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
