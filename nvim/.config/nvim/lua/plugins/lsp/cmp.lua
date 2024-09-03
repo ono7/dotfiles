@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd("BufRead", {
   end,
 })
 
-local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.Insert }
+local cmp_select = { select = true, behavior = cmp_config.ConfirmBehavior.None }
 
 local function trigger_completion()
   local line = vim.api.nvim_get_current_line()

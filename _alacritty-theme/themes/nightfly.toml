@@ -26,9 +26,11 @@ white = "#a1aab8"
 yellow = "#e3d18a"
 
 [colors.primary]
-background = "#011627"
-bright_foreground = "#eeeeee"
-foreground = "#bdc1c6"
+# background = "#011627"
+# foreground = "#bdc1c6"
+background = "#0e1419"
+foreground = "#e5e1cf"
+# bright_foreground = "#eeeeee"
 
 [colors.selection]
 background = "#b2ceee"
