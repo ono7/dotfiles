@@ -2,7 +2,11 @@ vim.opt.autochdir = true
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.breakindent = true
-vim.opt.clipboard:append("unnamedplus")
+vim.schedule(function()
+  -- scheduled to decrease start time
+  vim.opt.clipboard = "unnamedplus"
+  -- vim.opt.clipboard:append("unnamedplus")
+end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.complete = ".,w,b,u"
@@ -67,6 +71,7 @@ vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,5"
 vim.opt.spellsuggest = 'best,9'
 vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.synmaxcol = 0
 vim.opt.tabstop = 2
