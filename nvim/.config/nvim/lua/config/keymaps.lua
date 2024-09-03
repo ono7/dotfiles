@@ -417,11 +417,17 @@ end
 -- , { expr = true })
 
 vim.keymap.set("i", "<BS>", function()
-  -- compare ')' == ')'
-  -- -> delete both pairs <del><c-h> or single backspace if false
-  local line = vim.fn.getline(".")
-  local prev_col, next_col = vim.fn.col(".") - 1, vim.fn.col(".")
-  return pair_map[line:sub(prev_col, prev_col)] == line:sub(next_col, next_col) and "<del><c-h>" or "<bs>"
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  if col == 0 then
+    return "<BS>" -- At the start of the line, just return a normal backspace
+  end
+  local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ''
+  local prev_char, next_char = chars:sub(1, 1), chars:sub(2, 2)
+  if pair_map[prev_char] == next_char then
+    return "<Del><C-h>" -- Delete both characters
+  else
+    return "<BS>" -- Normal backspace behavior
+  end
 end, xpr)
 
 local pair_map_2 = {
