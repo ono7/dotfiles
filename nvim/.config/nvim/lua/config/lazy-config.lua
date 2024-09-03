@@ -36,12 +36,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- {
+  --   "tpope/vim-fugitive",
+  --   config = function()
+  --     vim.cmd [[hi! diffAdded ctermfg=188 ctermbg=64 cterm=bold guifg=#50FA7B guibg=NONE gui=bold]]
+  --     vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
+  --   end
+  -- },
+
   {
-    "tpope/vim-fugitive",
-    config = function()
-      vim.cmd [[hi! diffAdded ctermfg=188 ctermbg=64 cterm=bold guifg=#50FA7B guibg=NONE gui=bold]]
-      vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
-    end
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true
   },
   {
     'stevearc/conform.nvim',

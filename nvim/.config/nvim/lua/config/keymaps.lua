@@ -26,37 +26,38 @@ vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
 -- k({ "n", "x" }, "<c-e>", "g_")
 -- k({ "n", "x" }, [[\]], [[:vertical Git<cr>]], silent)
 
+vim.keymap.set({ "n", "x" }, "\\", "<CMD>Neogit<CR>")
+
+-- vim.keymap.set({ "n", "x" }, "\\", function()
+--   -- Check if the current buffer's filetype is in the exclusion list
+--   local excluded_filetypes = { "vim", "help", "" } -- Add more filetypes as needed
+--   local current_filetype = vim.bo.filetype
+--   for _, excluded in ipairs(excluded_filetypes) do
+--     if current_filetype == excluded then
+--       -- print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
+--       return
+--     end
+--   end
 --
-vim.keymap.set({ "n", "x" }, "\\", function()
-  -- Check if the current buffer's filetype is in the exclusion list
-  local excluded_filetypes = { "vim", "help", "" } -- Add more filetypes as needed
-  local current_filetype = vim.bo.filetype
-  for _, excluded in ipairs(excluded_filetypes) do
-    if current_filetype == excluded then
-      -- print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
-      return
-    end
-  end
-
-  local fugitive_buf_found = false
-  local windows = vim.api.nvim_list_wins()
-  -- Check each window to see if it's showing a Fugitive buffer
-  for _, win in ipairs(windows) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buf_name = vim.api.nvim_buf_get_name(buf)
-    if string.match(buf_name, "^fugitive://") then
-      fugitive_buf_found = true
-      -- Close the window that has the Fugitive buffer
-      vim.api.nvim_win_close(win, false)
-      break
-    end
-  end
-  -- If no Fugitive buffer was found, open Fugitive
-  if not fugitive_buf_found then
-    vim.cmd(":vertical Git")
-  end
-end, { silent = true })
-
+--   local fugitive_buf_found = false
+--   local windows = vim.api.nvim_list_wins()
+--   -- Check each window to see if it's showing a Fugitive buffer
+--   for _, win in ipairs(windows) do
+--     local buf = vim.api.nvim_win_get_buf(win)
+--     local buf_name = vim.api.nvim_buf_get_name(buf)
+--     if string.match(buf_name, "^fugitive://") then
+--       fugitive_buf_found = true
+--       -- Close the window that has the Fugitive buffer
+--       vim.api.nvim_win_close(win, false)
+--       break
+--     end
+--   end
+--   -- If no Fugitive buffer was found, open Fugitive
+--   if not fugitive_buf_found then
+--     vim.cmd(":vertical Git")
+--   end
+-- end, { silent = true })
+--
 -- move selection to far left, far right
 -- k("v", "gh", ":left<cr>", silent)
 -- k("v", "gl", ":right<cr>", silent)
@@ -243,10 +244,10 @@ vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == '(' and close == ')') or
-         (open == '[' and close == ']') or
-         (open == '{' and close == '}') or
-         (open == '<' and close == '>') or
-         (open == close and (open == "'" or open == '"' or open == '`'))
+      (open == '[' and close == ']') or
+      (open == '{' and close == '}') or
+      (open == '<' and close == '>') or
+      (open == close and (open == "'" or open == '"' or open == '`'))
 end
 
 local function is_quote(char)
@@ -406,7 +407,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>" -- Normal backspace behavior
+    return "<BS>"       -- Normal backspace behavior
   end
 end, xpr)
 
