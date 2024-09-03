@@ -95,6 +95,7 @@ bindings = [
   {  key  =  "L",     mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
   {  key  =  "F",     mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
   {  key  =  "Back",  mods  =  "Alt",            chars   =  "\u0017"             },
+  {  key  =  "Back",  mods  =  "Control",        chars   =  "\u0017"             },
 ]
 
 [mouse]
