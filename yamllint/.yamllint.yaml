@@ -1,5 +1,10 @@
 extends: default
 
+ignore:
+  - /this/specific/file.yaml
+  - all/this/directory/
+  - '*.template.yaml'
+
 rules:
   # 80 chars should be enough, but don't fail if a line is longer
   line-length:
