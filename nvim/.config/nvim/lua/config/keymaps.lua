@@ -250,152 +250,25 @@ local function is_pair(open, close)
       (open == close and (open == "'" or open == '"' or open == '`'))
 end
 
-local function is_quote(char)
-  return char == "'" or char == '"' or char == '`'
-end
-
-local function is_bracket(char)
-  return char == '(' or char == '[' or char == '{' or char == '<'
-end
-
-local function is_close_bracket(char)
-  return char == ')' or char == ']' or char == '}' or char == '>'
-end
-
-local function is_closing_char(char)
-  return is_close_bracket(char) or is_quote(char) or char == ' '
-end
-
---- for reference using vim script functions
--- local function get_next_and_prev_chars()
---   -- returns p, n
---   local col = vim.fn.col('.')
---   local line = vim.fn.getline('.')
---   return line:sub(col - 1, col - 1), line:sub(col, col)
--- end
-
--- --- gets only next char
--- local function get_next_char()
---   -- returns next char
---   local line = vim.api.nvim_get_current_line()
---   local col = vim.api.nvim_win_get_cursor(0)[2] + 1 -- Column is 0-indexed, add 1 for Lua string indexing
---   return line:sub(col, col)
--- end
-
---- returns previous and next characters respectively
--- local function get_next_and_prev_chars()
---   local line = vim.api.nvim_get_current_line()
---   local col = vim.api.nvim_win_get_cursor(0)[2] + 1 -- Column is 0-indexed, add 1 for Lua string indexing
---   return line:sub(col - 1, col - 1), line:sub(col, col)
--- end
-
--- Returns previous and next characters using Neovim API with a single call
--- This optimizes performance by fetching both characters in one API call
-
-local function get_next_and_prev_chars()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ''
-  return chars:sub(1, 1), chars:sub(2, 2)
-end
+local api = vim.api
 
 local function get_next_char()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local next_char = vim.api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ''
-  return next_char
+  local cursor = api.nvim_win_get_cursor(0)
+  local row, col = cursor[1], cursor[2]
+  return api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ''
 end
-
--- Function to handle '"'
--- k('i', '"', function()
---   local p, n = get_next_and_prev_chars()
---   if n == '"' then
---     return '<Right>'
---   elseif (p and p:match("%w")) or (n and n:match("%w")) then
---     return '"'
---   else
---     return '""<left>'
---   end
--- end, { expr = true })
-
--- Function to handle "'" (similar logic)
--- k('i', "'", function()
---   local p, n = get_next_and_prev_chars()
---   if n == "'" then
---     return '<Right>'
---   elseif (p and p:match("%w")) or (n and n:match("%w")) then
---     return "'"
---   else
---     return "''<left>"
---   end
--- end, { expr = true })
-
----- handle {}
--- k('i', '[', function()
---   local n = get_next_char()
---   if r_pair_map[n] then
---     return '[]<Left>'
---   elseif n ~= '' then
---     return '['
---   end
---   return '[]<Left>'
--- end, { expr = true })
 
 vim.keymap.set('i', ']', function()
-  local n = get_next_char()
-  if n == ']' then
-    return '<Right>'
-  end
-  return ']'
-end
-, { expr = true, silent = true })
+  return get_next_char() == ']' and '<Right>' or ']'
+end, { expr = true, silent = true })
 
----- handle {}
--- k('i', '{', function()
---   local n = get_next_char()
---   if r_pair_map[n] then
---     return '{}<Left>'
---   elseif n ~= '' then
---     return '{'
---   end
---   return '{}<Left>'
--- end, { expr = true })
+vim.keymap.set('i', ')', function()
+  return get_next_char() == ')' and '<Right>' or ')'
+end, { expr = true, silent = true })
 
 vim.keymap.set('i', '}', function()
-  local n = get_next_char()
-  if n == '}' then
-    return '<Right>'
-  end
-  return '}'
-end
-, { expr = true, silent = true })
-
--- handle (
--- k('i', '(', function()
---   local n = get_next_char()
---   if r_pair_map[n] then
---     return '()<Left>'
---   elseif n ~= '' then
---     return '('
---   end
---   return '()<Left>'
--- end, { expr = true })
-
-vim.keymap.set({ 'i' }, ')', function()
-  local n = get_next_char()
-  if n == ')' then
-    return '<Right>'
-  end
-  return ')'
-end
-, { expr = true, silent = true })
-
--- k('i', '>', function()
---   local n = get_next_char()
---   if n == '>' then
---     return '<Right>'
---   end
---   return '>'
--- end
--- , { expr = true })
+  return get_next_char() == '}' and '<Right>' or '}'
+end, { expr = true, silent = true })
 
 vim.keymap.set("i", "<BS>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))

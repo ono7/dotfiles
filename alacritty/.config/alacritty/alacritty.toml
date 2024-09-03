@@ -71,7 +71,7 @@ x = 0
 y = 0
 
 [font.normal]
-family = "MonolisaLiga Nerd Font"
+family = "MonolisaNoLiga Nerd Font"
 style = "Medium Regular"
 
 [font.italic]

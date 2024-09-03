@@ -3,6 +3,16 @@
 
 vim.cmd [[ syntax off ]]
 
+vim.api.nvim_set_hl(0, "Normal", {})
+vim.api.nvim_set_hl(0, "ModeMsg", {})
+vim.api.nvim_set_hl(0, "Winbar", { fg = "#a89984" })
+vim.api.nvim_set_hl(0, "WinbarNc", { fg = "#a89984" })
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "#182a44" })
+vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#2b3b55" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#0a121e", fg = "#8186a1" })
+vim.api.nvim_set_hl(0, "Visual", { bg = "#1b2e3e" })
+vim.api.nvim_set_hl(0, "Search", { bg = "#2b3b55", })
+
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
@@ -54,7 +64,7 @@ require("config.helper-functions")
 require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
-require("themes.notheme") -- basic HL groups for no colorscheme
+-- require("themes.notheme") -- basic HL groups for no colorscheme
 -- require("themes.gruvbox")
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
