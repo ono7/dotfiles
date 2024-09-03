@@ -240,49 +240,29 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
---- used by backspace function, to remove pairs
-local pair_map = {
-  ["("] = ")",
-  ["["] = "]",
-  ["{"] = "}",
-  ["<"] = ">",
-  ["'"] = "'",
-  ['"'] = '"',
-  ["`"] = "`",
-}
-
---- used to insert both () if the next char is (
-local r_pair_map = {
-  [")"] = true,
-  ["]"] = true,
-  ["}"] = true,
-  [">"] = true,
-  [" "] = true,
-  ['"'] = true,
-  ["'"] = true,
-  ["`"] = true,
-}
-
-local all_pair_map = {}
-
-for _, v in ipairs(pair_map) do
-  table.insert(all_pair_map, v)
+--- Optimized pair matching functions
+local function is_pair(open, close)
+  return (open == '(' and close == ')') or
+         (open == '[' and close == ']') or
+         (open == '{' and close == '}') or
+         (open == '<' and close == '>') or
+         (open == close and (open == "'" or open == '"' or open == '`'))
 end
 
-for _, v in ipairs(r_pair_map) do
-  table.insert(all_pair_map, v)
-end
-
-local is_quote = function(char)
+local function is_quote(char)
   return char == "'" or char == '"' or char == '`'
 end
 
-local is_bracket = function(char)
-  return char == "(" or char == '[' or char == '{' or char == '<'
+local function is_bracket(char)
+  return char == '(' or char == '[' or char == '{' or char == '<'
 end
 
-local is_close_bracket = function(char)
-  return char == ")" or char == ']' or char == '}' or char == '>'
+local function is_close_bracket(char)
+  return char == ')' or char == ']' or char == '}' or char == '>'
+end
+
+local function is_closing_char(char)
+  return is_close_bracket(char) or is_quote(char) or char == ' '
 end
 
 --- for reference using vim script functions
@@ -423,7 +403,7 @@ vim.keymap.set("i", "<BS>", function()
   end
   local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ''
   local prev_char, next_char = chars:sub(1, 1), chars:sub(2, 2)
-  if pair_map[prev_char] == next_char then
+  if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
     return "<BS>" -- Normal backspace behavior
