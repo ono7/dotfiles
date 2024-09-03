@@ -113,7 +113,8 @@ end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
 cmp_config.setup({
   completion = {
-    autocomplete = false,                   -- we want to test out running this manually
+    autocomplete = false, -- we want to test out running this manually
+    keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
   },
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
