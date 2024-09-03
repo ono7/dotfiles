@@ -28,6 +28,7 @@ if type stow &> /dev/null; then
   stow starship
   stow tmux
   stow zsh
+  stow lint-staged
 else
     log "stow is not installed, please install stow first..."
     exit 1
