@@ -1,11 +1,7 @@
 {
-  "*.{yml,yaml}" : [
-    "yamllint"
-  ],
-  "*.py" : [
+  "*.{yml,yaml}": "yamllint",
+  "*.py": [
     "ruff check"
   ],
-  "*.json" : [
-    "prettier --write"
-  ]
+  "*.json": "prettier --write"
 }
