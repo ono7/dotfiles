@@ -23,5 +23,5 @@ nvm install node
 npm set strict-ssl false
 
 log "installing npm packages"
-npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim
+npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim lint-staged
 
