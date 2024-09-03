@@ -153,7 +153,7 @@ k("n", "<m-[>", ":bprevious<CR>", silent)
 -- k("n", "<leader>h", hlsToggle, silent)
 
 --- make dot work in visual mode
-m("v", ".", ":norm .<cr>", opt)
+k("v", ".", ":norm .<cr>", opt)
 
 --- macros
 k("x", "Q", ":norm @q<CR>", opt)
