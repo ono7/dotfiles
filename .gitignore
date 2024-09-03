@@ -4,6 +4,7 @@ __pycache__/
 venv/
 build/
 main
+.aider/
 .dbg_history
 .pytest_cache/
 fact_cache/
