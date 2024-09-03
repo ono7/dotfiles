@@ -115,6 +115,13 @@ require("lazy").setup({
   --   priority = 1000,
   --   config = function() require "themes.gruvbox" end
   -- },
+
+  {
+    "monkoose/matchparen.nvim",
+    config = function()
+      require('matchparen').setup()
+    end
+  },
   {
     "kylechui/nvim-surround",
     config = function() require "plugins.surround" end

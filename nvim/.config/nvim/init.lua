@@ -9,6 +9,7 @@ local silent = { noremap = true, silent = true }
 -- improve matchparen performance
 vim.g.matchparen_timeout = 20        -- default is 300
 vim.g.matchparen_insert_timeout = 20 -- default is 60
+vim.g.loaded_matchparen = 1
 
 -- if nothing else, this are the bare minimum necessities
 vim.opt.path:append({ "**" })
@@ -55,7 +56,6 @@ require("config.keymaps")
 require("config.cmds")
 require("themes.notheme") -- basic HL groups for no colorscheme
 -- require("themes.gruvbox")
-
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
