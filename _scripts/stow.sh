@@ -5,7 +5,7 @@ set -e
 cd ~/.dotfiles
 
 log() {
-    printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "$0"
@@ -14,7 +14,7 @@ log "Running stow..."
 
 export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
 
-if type stow &> /dev/null; then
+if type stow &>/dev/null; then
   stow alacritty
   stow kitty
   stow bash
@@ -29,8 +29,9 @@ if type stow &> /dev/null; then
   stow tmux
   stow zsh
   stow lint-staged
+  stow yamllint
 else
-    log "stow is not installed, please install stow first..."
-    exit 1
+  log "stow is not installed, please install stow first..."
+  exit 1
 fi
 log "stow completed..."
