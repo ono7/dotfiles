@@ -1,7 +1,3 @@
-import = [
-	"~/.dotfiles/_alacritty-theme/themes/nightfly.toml"
-]
-
 live_config_reload = true
 working_directory = "None"
 
@@ -12,6 +8,38 @@ osc52 = "CopyPaste"
 [colors]
 draw_bold_text_with_bright_colors = false
 
+
+[colors.bright]
+black = "#7c8f8f"
+blue = "#82aaff"
+cyan = "#7fdbca"
+green = "#21c7a8"
+magenta = "#ae81ff"
+red = "#ff5874"
+white = "#d6deeb"
+yellow = "#ecc48d"
+
+[colors.normal]
+black = "#1d3b53"
+blue = "#82aaff"
+cyan = "#7fdbca"
+green = "#a1cd5e"
+magenta = "#c792ea"
+red = "#fc514e"
+white = "#a1aab8"
+yellow = "#e3d18a"
+
+[colors.primary]
+# background = "#011627"
+# foreground = "#bdc1c6"
+background = "#0e1419"
+foreground = "#e5e1cf"
+# bright_foreground = "#eeeeee"
+
+[colors.selection]
+background = "#b2ceee"
+text = "#080808"
+
 [cursor]
 blink_interval = 200
 unfocused_hollow = true
@@ -19,27 +47,6 @@ unfocused_hollow = true
 [colors.cursor]
 cursor =  "#5f6060"
 text = "#080808"
-
-[colors.primary]
-# background = "#181825"
-# background = "#23283d" # tokyonight
-# foreground = "#c0c9d3"
-# background = "#1f2430"
-# foreground = "#c2c3c0"
-
-# ayu
-# background = "#0a0e13"
-# foreground = "#b7b7b7"
-
-# catpuccine
-# background = "#21273f"
-# foreground = "#b7b7b7"
-
-# nice dark
-# background = "#141d26"
-
-# matches kitty
-# background = "#162331"
 
 [cursor.style]
 blinking = "Never"
@@ -65,9 +72,9 @@ y = 0
 family = "MonolisaLiga Nerd Font"
 style = "Medium Regular"
 
-# [font.italic]
-# family = "MonolisaLiga Nerd Font"
-# style = "Italic"
+[font.italic]
+family = "MonolisaLiga Nerd Font"
+style = "Italic"
 
 [font.bold]
 family = "MonolisaLiga Nerd Font"
@@ -104,17 +111,11 @@ action = "ToggleFullscreen"
 key = "F"
 mods = "Control|Shift"
 
-# hide all other apps except alacritty
-# [[keyboard.bindings]]
-# action = "HideOtherApplications"
-# key = "H"
-# mods = "Command|Shift"
-
 [[keyboard.bindings]]
 chars = "\u0017"
 key = "Back"
 mods = "Alt"
- 
+
 [mouse]
 hide_when_typing = true
 
