@@ -3,9 +3,12 @@
 
 vim.cmd [[ syntax off ]]
 
-local k = vim.keymap.set
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
+
+-- improve matchparen performance
+vim.g.matchparen_timeout = 20        -- default is 300
+vim.g.matchparen_insert_timeout = 20 -- default is 60
 
 -- if nothing else, this are the bare minimum necessities
 vim.opt.path:append({ "**" })
@@ -19,13 +22,13 @@ vim.opt.shada = "'40,<3000,s100,:500,/100,h"
 vim.opt.syntax = "off"
 vim.g.mapleader = " "
 
-k("n", "+", ":e ~/todo.md<cr>", opt)
+vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
 
 --- visual select last paste
-k("n", "gp", "`[v`]", silent)
+vim.keymap.set("n", "gp", "`[v`]", silent)
 
 --- keep cursor in same position when yanking in visual
-k("x", "y", [[ygv<Esc>]], silent)
+vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
 -- might need this in the future
 vim.g.skip_ts_context_commentstring_module = true
@@ -37,8 +40,8 @@ vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_liststyle = 3
 
--- vim.opt.winbar = "%=%-.75F %-m {%{get(b:, 'branch_name', '')}}"
-vim.opt.winbar = "%=%-.75F %-m %{FugitiveStatusline()}"
+vim.opt.winbar = "%=%-.75F %-m"
+-- vim.opt.winbar = "%=%-.75F %-m %{FugitiveStatusline()}"
 
 require("config.disabled")
 require("config.legacy")
