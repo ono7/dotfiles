@@ -1,34 +1,33 @@
-local cmd, m, k = vim.cmd, vim.api.nvim_set_keymap, vim.keymap.set
 local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
 --- map leader ---
-k({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- add movements bigger then 1 line to the jump list, but also navigate through wrapped lines
 -- vim.cmd([[nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj']])
 -- vim.cmd([[nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk']])
-k("n", "k", "gk", silent)
-k("n", "j", "gj", silent)
+vim.keymap.set("n", "k", "gk", silent)
+vim.keymap.set("n", "j", "gj", silent)
 
 vim.g.mapleader = " "
 
 --- nop ---
 -- k("n", "<c-f>", "") -- use this for searching files
 -- k("n", "<c-b>", "") -- allow tmux prefix to be used to jump to tmux pane
-k("n", "ZZ", "")
-k("n", "ZQ", "")
+vim.keymap.set("n", "ZZ", "")
+vim.keymap.set("n", "ZQ", "")
 
 
 --- go ---
-k("n", "gt", ":GoTagAdd<cr>", silent)
+vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
 
 -- k({ "n", "x" }, "<c-e>", "g_")
 -- k({ "n", "x" }, [[\]], [[:vertical Git<cr>]], silent)
 
 --
-k({ "n", "x" }, "\\", function()
+vim.keymap.set({ "n", "x" }, "\\", function()
   -- Check if the current buffer's filetype is in the exclusion list
   local excluded_filetypes = { "vim", "help", "" } -- Add more filetypes as needed
   local current_filetype = vim.bo.filetype
@@ -62,13 +61,13 @@ end, { silent = true })
 -- k("v", "gh", ":left<cr>", silent)
 -- k("v", "gl", ":right<cr>", silent)
 
-k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
+vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
-k("x", "H", "<gv", silent)
-k("x", "L", ">gv", silent)
+vim.keymap.set("x", "H", "<gv", silent)
+vim.keymap.set("x", "L", ">gv", silent)
 
 -- toggle spell on and off
-k("n", "<leader>ss", function()
+vim.keymap.set("n", "<leader>ss", function()
   vim.opt.spell = not vim.opt.spell
   print(vim.opt.spell._value)
 end, silent)
@@ -103,7 +102,7 @@ vim.keymap.set('n', '<leader>%', function()
   print('File path copied to clipboard: ' .. path)
 end, { noremap = true, silent = true, desc = 'Copy file path to clipboard' })
 
-k("n", ",w", function()
+vim.keymap.set("n", ",w", function()
   if not check_buf(0) then
     print("save me first!")
     return
@@ -115,7 +114,7 @@ k("n", ",w", function()
   vim.fn.setpos('.', save_cursor)
 end, silent)
 
-k("n", "<leader>w", function()
+vim.keymap.set("n", "<leader>w", function()
   if not check_buf(0) then
     print("save me first!")
     return
@@ -127,18 +126,18 @@ k("n", "<leader>w", function()
   vim.fn.setpos('.', save_cursor)
 end, silent)
 
-k("n", ",d", "<cmd>bd<cr>", silent)
+vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 -- Bind the function to a key mapping
-k("n", ",q", "<cmd>q<cr>", silent)
-k("n", ",x", "<cmd>x!<cr>", silent)
-k("n", "<leader>x", "<cmd>x!<cr>", silent)
-k("n", "<leader>q", "<cmd>q<cr>", silent)
-k("n", "<leader>Q", "<cmd>q!<cr>", silent)
-k("n", ",Q", "<cmd>q!<cr>", silent)
+vim.keymap.set("n", ",q", "<cmd>q<cr>", silent)
+vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
+vim.keymap.set("n", "<leader>x", "<cmd>x!<cr>", silent)
+vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", silent)
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>", silent)
+vim.keymap.set("n", ",Q", "<cmd>q!<cr>", silent)
 
 --- navigation improvements ----
-k("n", "0", "^", silent)
+vim.keymap.set("n", "0", "^", silent)
 
 --- navigate between splits ---
 --- do not use with nvim tmux plugin ---
@@ -148,15 +147,15 @@ k("n", "0", "^", silent)
 -- k("n", "<c-l>", "<C-W>l")
 
 --- mapping tab also overrides c-i which is used to move through jump list
-k("n", "<m-]>", ":bnext<CR>", silent)
-k("n", "<m-[>", ":bprevious<CR>", silent)
+vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
+vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
 -- k("n", "<leader>h", hlsToggle, silent)
 
 --- make dot work in visual mode
-k("v", ".", ":norm .<cr>", opt)
+vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
 --- macros
-k("x", "Q", ":norm @q<CR>", opt)
+vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 
 local function hlsToggle()
   if vim.opt.hlsearch then
@@ -175,71 +174,71 @@ end
 -- )
 
 --- copy block
-k("n", "cp", "yap<S-}>p", opt)
+vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 --- ex/command mode bindings
-k("c", "<c-a>", "<Home>", opt)
-k("c", "<c-h>", "<Left>", opt)
-k("c", "<c-l>", "<Right>", opt)
-k("c", "<c-b>", "<S-left>", opt)
+vim.keymap.set("c", "<c-a>", "<Home>", opt)
+vim.keymap.set("c", "<c-h>", "<Left>", opt)
+vim.keymap.set("c", "<c-l>", "<Right>", opt)
+vim.keymap.set("c", "<c-b>", "<S-left>", opt)
 
-k("i", "<c-e>", "<c-o>$", silent)
-k("i", "<c-a>", "<c-o>^", silent)
+vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
+vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 -- k("n", "<c-e>", "$", silent)
 -- k("n", "<c-a>", "^", silent)
-k("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
-k("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
-k("n", "g{", "?{<cr>")
-k("n", "g}", "/}<cr>")
-k("n", "g[", [[?\v\[<cr>]])
-k("n", "g]", [[/\v\]<cr>]])
+vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
+vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
+vim.keymap.set("n", "g{", "?{<cr>")
+vim.keymap.set("n", "g}", "/}<cr>")
+vim.keymap.set("n", "g[", [[?\v\[<cr>]])
+vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- tmux ---
 -- TODO(jlima): fix this
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
-k("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
+vim.keymap.set("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
 
 --- visual selection search ---
-k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
+vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
 --- marks/jumps ---
 --- k("n", "'", "`", opt)
 -- k("n", "mm", "mM", opt)
 -- k("n", "'m", [[`M'\"]], opt)
-k("n", "ma", "mA", opt)
-k("n", "mB", "mB", opt)
-k("n", "'a", [[`A'\"]], opt)
-k("n", "'b", [[`B'\"]], opt)
+vim.keymap.set("n", "ma", "mA", opt)
+vim.keymap.set("n", "mB", "mB", opt)
+vim.keymap.set("n", "'a", [[`A'\"]], opt)
+vim.keymap.set("n", "'b", [[`B'\"]], opt)
 
-k("i", "<C-c>", "<Esc>", opt)
-k("n", "Y", "y$", opt)
+vim.keymap.set("i", "<C-c>", "<Esc>", opt)
+vim.keymap.set("n", "Y", "y$", opt)
 
-k("n", "U", "<c-r>", opt)
+vim.keymap.set("n", "U", "<c-r>", opt)
 
 --- keep cursor in the middle when using search
-k("n", "<C-d>", "<C-d>zz", opt)
-k("n", "<C-u>", "<C-u>zz", opt)
+vim.keymap.set("n", "<C-d>", "<C-d>zz", opt)
+vim.keymap.set("n", "<C-u>", "<C-u>zz", opt)
 
 --- paste over selection without overwriting clipboard
-k("x", "p", "pgvy")
+vim.keymap.set("x", "p", "pgvy")
 
 --- leave unnnamed reg alone when changing text
-k("n", "c", '"ac')
-k("n", "C", '"aC')
+vim.keymap.set("n", "c", '"ac')
+vim.keymap.set("n", "C", '"aC')
 
 --- when using J keep cursor to the right
-k({ "n", "v" }, "J", "mzJ`z")
+vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
 --- terminal ---
-k("t", "<Esc>", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 
 --- visual block by default
-k({ "n" }, "v", "<c-v>")
+vim.keymap.set({ "n" }, "v", "<c-v>")
 --- vim.cmd("vunmap v")
 
-cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
-k("n", "]n", "<cmd>cprev<cr>", opt)
-k("n", "[n", "<cmd>cnext<cr>", opt)
+vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
+vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
 --- used by backspace function, to remove pairs
 local pair_map = {
@@ -361,7 +360,7 @@ end
 --   return '[]<Left>'
 -- end, { expr = true })
 
-k('i', ']', function()
+vim.keymap.set('i', ']', function()
   local n = get_next_char()
   if n == ']' then
     return '<Right>'
@@ -381,7 +380,7 @@ end
 --   return '{}<Left>'
 -- end, { expr = true })
 
-k('i', '}', function()
+vim.keymap.set('i', '}', function()
   local n = get_next_char()
   if n == '}' then
     return '<Right>'
@@ -401,7 +400,7 @@ end
 --   return '()<Left>'
 -- end, { expr = true })
 
-k({ 'i' }, ')', function()
+vim.keymap.set({ 'i' }, ')', function()
   local n = get_next_char()
   if n == ')' then
     return '<Right>'
@@ -419,7 +418,7 @@ end
 -- end
 -- , { expr = true })
 
-k("i", "<BS>", function()
+vim.keymap.set("i", "<BS>", function()
   -- compare ')' == ')'
   -- -> delete both pairs <del><c-h> or single backspace if false
   local line = vim.fn.getline(".")
@@ -455,11 +454,11 @@ local enter_actions = {
 }
 local default_enter = "<Enter>"
 
-k("i", "<enter>", function()
+vim.keymap.set("i", "<enter>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
   return enter_actions[prev_char] or default_enter
 end, { expr = true, silent = true })
 
 --- delete all but the current buffer
-k("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
+vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
