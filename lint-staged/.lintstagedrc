@@ -1,0 +1,8 @@
+{
+  "*.{yml,yaml}" : [
+    "yamllint"
+  ],
+  "*.py" : [
+    "ruff check"
+  ]
+}
