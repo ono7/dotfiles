@@ -144,8 +144,8 @@ config.keys                                       = {
     action = act.SendString("\x17"),
   },
   { key = 't', mods = 'CTRL|SHIFT', action = act.SpawnTab("DefaultDomain") },
-  { key = 'h', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(1) },
-  { key = 'l', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
+  { key = 'l', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(1) },
+  { key = 'h', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
   -- Vertical pipe (|) -> horizontal split
   {
     key = '\\',
