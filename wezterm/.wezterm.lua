@@ -3,8 +3,9 @@ local config                                      = wezterm.config_builder()
 
 -- Halcyon color scheme
 local halcyon                                     = {
-  foreground = "#bfbdb6", -- Keeping your existing foreground color
-  background = "#1c2433", -- Keeping your existing background color
+  -- foreground = "#bfbdb6",
+  foreground = "#a2aabc",
+  background = "#1c2433",
   cursor_bg = "#9197b1",
   cursor_fg = "#1d2433",
   cursor_border = "#ffcc66",
