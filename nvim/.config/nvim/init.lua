@@ -9,10 +9,11 @@ vim.api.nvim_set_hl(0, "Winbar", { fg = "#a89984" })
 vim.api.nvim_set_hl(0, "WinbarNc", { fg = "#a89984" })
 vim.api.nvim_set_hl(0, "StatusLine", { bg = "#182a44" })
 vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#2b3b55" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#0a121e", fg = "#8186a1" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#171c28", fg = "#8186a1" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#1b2e3e" })
 vim.api.nvim_set_hl(0, "Search", { bg = "#2b3b55", })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "none", fg = "none", underline = true, bold = true })
+vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#171c28" })
 
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
