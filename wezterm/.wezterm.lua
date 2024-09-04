@@ -1,11 +1,45 @@
-local wezterm = require("wezterm")
-local config  = wezterm.config_builder()
+local wezterm         = require("wezterm")
+local config          = wezterm.config_builder()
 
-wezterm.on("format-tab-title", function(tab)
+-- Global table to store custom tab titles
+wezterm.CUSTOM_TITLES = {}
+
+-- Function to update all tab titles
+local function update_all_tabs(window)
+  for _, tab in ipairs(window:mux_window():tabs()) do
+    tab:set_title(wezterm.CUSTOM_TITLES[tab:tab_id()] or tab:active_pane():get_title())
+  end
+end
+
+-- Custom tab bar format function
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  local title = wezterm.CUSTOM_TITLES[tab.tab_id] or tab.active_pane.title
+  -- Remove any numeric prefix from the title
+  title = title:gsub("^%d+:%s*", "")
   return {
-    { Text = " " .. tab.active_pane.title .. " " },
+    { Text = " " .. title .. " " },
   }
 end)
+
+-- Rename tab function
+local function rename_tab(window, pane)
+  window:perform_action(
+    wezterm.action.PromptInputLine {
+      description = 'Enter new name for tab',
+      action = wezterm.action_callback(function(window, pane, line)
+        if line then
+          local tab_id = pane:tab():tab_id()
+          wezterm.CUSTOM_TITLES[tab_id] = line
+          -- Update all tabs
+          update_all_tabs(window)
+          -- Force a refresh of the tab bar
+          window:set_right_status(wezterm.format {})
+        end
+      end),
+    },
+    pane
+  )
+end
 
 -- Halcyon color scheme
 local halcyon                                     = {
@@ -172,16 +206,7 @@ config.keys                                       = {
   {
     key = 'N',
     mods = 'CTRL|SHIFT',
-    action = act.PromptInputLine {
-      description = 'Enter new name for tab',
-      action = wezterm.action_callback(
-        function(window, _, line)
-          if line then
-            window:active_tab():set_title(line)
-          end
-        end
-      ),
-    },
+    action = wezterm.action_callback(rename_tab),
   },
   { key = "l", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "l", mods = "CTRL" }), act.ActivatePaneDirection("Right") }) },
   { key = "k", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "k", mods = "CTRL" }), act.ActivatePaneDirection("Up"), }) },
