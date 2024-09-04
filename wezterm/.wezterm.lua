@@ -22,8 +22,8 @@ scheme.ansi                                       = ansi
 scheme.brights                                    = ansi
 
 -- scheme.background = "#161616"
--- scheme.cursor_bg = "#00acc1"
-scheme.cursor_bg                                  = "#bac2de"
+-- scheme.cursor_bg                                  = "#bac2de"
+scheme.cursor_bg                                  = "#8a90a8"
 scheme.cursor_fg                                  = "#000"
 local act                                         = wezterm.action
 config.default_prog                               = { "/bin/zsh", "--login" }
@@ -40,23 +40,33 @@ config.color_schemes                              = {
 config.color_scheme                               = 'Catppuccin Mocha'
 
 config.font                                       = wezterm.font('MonoLisaNoLiga Nerd Font', { weight = "Medium" })
+config.font_size                                  = 22
 config.adjust_window_size_when_changing_font_size = false
+config.line_height                                = 1.3
+
+config.default_cursor_style                       = "SteadyBlock"
 config.window_close_confirmation                  = "NeverPrompt"
 config.cursor_blink_rate                          = 0
-config.default_cursor_style                       = "SteadyBlock"
-config.font_size                                  = 22
-config.line_height                                = 1.3
 config.initial_rows                               = 40
 config.initial_cols                               = 100
 config.underline_position                         = -8
 config.underline_thickness                        = 5
 config.window_background_opacity                  = 0.94
 config.macos_window_background_blur               = 20
+config.native_macos_fullscreen_mode               = true
+
 -- window_decorations                         = "RESIZE|MACOS_FORCE_ENABLE_SHADOW|MACOS_NS_VISUAL_EFFECT_MATERIAL_BLUR", -- will blurr eventually
 config.window_decorations                         = "RESIZE"
-config.hide_tab_bar_if_only_one_tab               = true
 config.front_end                                  = "WebGpu"
+
+config.hide_tab_bar_if_only_one_tab               = true
+config.tab_max_width                              = 32
 config.use_fancy_tab_bar                          = false
+config.use_fancy_tab_bar                          = false
+config.tab_max_width                              = 32
+-- config.colors                                     = {
+-- }
+
 config.enable_wayland                             = false
 -- front_end                                  = "Software"
 config.webgpu_power_preference                    = "HighPerformance"
@@ -103,6 +113,65 @@ config.keys                                       = {
   { key = 't', mods = 'CTRL|SHIFT', action = act.SpawnTab("DefaultDomain") },
   { key = 'h', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(1) },
   { key = 'l', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
+  -- Vertical pipe (|) -> horizontal split
+  {
+    key = '\\',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SplitHorizontal {
+      domain = 'CurrentPaneDomain'
+    },
+  },
+  -- Underscore (_) -> vertical split
+  {
+    key = '-',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SplitVertical {
+      domain = 'CurrentPaneDomain'
+    },
+  },
+  -- Rename current tab
+  {
+    key = 'N',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.PromptInputLine {
+      description = 'Enter new name for tab',
+      action = wezterm.action_callback(
+        function(window, _, line)
+          if line then
+            window:active_tab():set_title(line)
+          end
+        end
+      ),
+    },
+  },
+  -- {
+  --   key = "h",
+  --   mods = "CTRL",
+  --   action = wezterm.action.ActivatePaneDirection('Left')
+  -- },
+  --
+  -- {
+  --   key = "j",
+  --   mods = "CTRL",
+  --   action = wezterm.action.ActivatePaneDirection('Down')
+  -- },
+  --
+  -- {
+  --   key = "k",
+  --   mods = "CTRL",
+  --   action = wezterm.action.ActivatePaneDirection('Up')
+  -- },
+  --
+  -- {
+  --   key = "l",
+  --   mods = "CTRL",
+  --   action = wezterm.action.ActivatePaneDirection('Right')
+  -- },
+  {
+    key = 'z',
+    mods = 'CTRL',
+    action = wezterm.action.TogglePaneZoomState,
+  },
 }
 
 return config
