@@ -291,10 +291,34 @@ local enter_actions = {
 }
 local default_enter = "<Enter>"
 
+-- vim.keymap.set("i", "<enter>", function()
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   local prev_char = ''
+--   if col > 0 then
+--     prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
+--   end
+--   return enter_actions[prev_char] or default_enter
+-- end, { expr = true, silent = true })
+
+-- Pre-allocate tables for better performance
+local row_col = { 0, 0 }
+local start_pos = { 0, 0 }
+local end_pos = { 0, 0 }
+
+-- Cache actions and default_enter outside the function
+local cached_actions = enter_actions
+local cached_default = default_enter
+
+local function get_prev_char()
+  row_col[1], row_col[2] = unpack(api.nvim_win_get_cursor(0))
+  if row_col[2] == 0 then return '' end
+  start_pos[1], start_pos[2] = row_col[1] - 1, row_col[2] - 1
+  end_pos[1], end_pos[2] = row_col[1] - 1, row_col[2]
+  return api.nvim_buf_get_text(0, start_pos[1], start_pos[2], end_pos[1], end_pos[2], {})[1] or ''
+end
+
 vim.keymap.set("i", "<enter>", function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
-  return enter_actions[prev_char] or default_enter
+  return cached_actions[get_prev_char()] or cached_default
 end, { expr = true, silent = true })
 
 --- delete all but the current buffer

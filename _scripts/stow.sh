@@ -15,8 +15,6 @@ log "Running stow..."
 export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
 
 if type stow &>/dev/null; then
-  stow alacritty
-  stow kitty
   stow bash
   stow ctags
   stow gdb
@@ -26,7 +24,10 @@ if type stow &>/dev/null; then
   stow sqlite
   stow dlv
   stow starship
+  stow kitty
   stow tmux
+  stow alacritty
+  stow wezterm
   stow zsh
   stow lint-staged
   stow yamllint

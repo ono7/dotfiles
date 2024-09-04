@@ -74,13 +74,6 @@ y = 0
 family = "MonolisaNoLiga Nerd Font"
 style = "Medium Regular"
 
-[font.italic]
-family = "MonolisaLiga Nerd Font"
-style = "Italic"
-
-[font.bold]
-family = "MonolisaLiga Nerd Font"
-
 [font.offset]
 x = 0
 y = 10
@@ -96,6 +89,9 @@ bindings = [
   {  key  =  "F",     mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
   {  key  =  "Back",  mods  =  "Alt",            chars   =  "\u0017"             },
   {  key  =  "Back",  mods  =  "Control",        chars   =  "\u0017"             },
+  {  key  =  "=",     mods  =  "Control",        action  =  "IncreaseFontSize"   },
+  {  key  =  "-",     mods  =  "Control",        action  =  "DecreaseFontSize"   },
+  {  key  =  "K",     mods  =  "Control|Shift",  chars   =  "\u000c"             },
 ]
 
 [mouse]
