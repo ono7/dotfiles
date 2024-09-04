@@ -108,47 +108,49 @@ config.window_padding                             = {
   bottom = 5,
 }
 
+local act                                         = wezterm.action
+
 config.keys                                       = {
   -- use xxd -psd to get hex char sequences
   -- CTRL-SHIFT-l activates the debug overlay
-  { key = '0', mods = 'CTRL', action = wezterm.action.ResetFontSize },
-  { key = '=', mods = 'CTRL', action = wezterm.action.IncreaseFontSize },
-  { key = '-', mods = 'CTRL', action = wezterm.action.DecreaseFontSize },
+  { key = '0', mods = 'CTRL', action = act.ResetFontSize },
+  { key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
+  { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
   {
     key = "w",
     mods = "SHIFT|CTRL",
-    action = wezterm.action.CloseCurrentPane({ confirm = false }),
+    action = act.CloseCurrentPane({ confirm = false }),
   },
   {
     -- turn off cmd+m to hide window from the os
     key = "q",
     mods = "CTRL",
-    action = wezterm.action.DisableDefaultAssignment,
+    action = act.DisableDefaultAssignment,
   },
   {
     key = "v",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.PasteFrom("Clipboard"),
+    action = act.PasteFrom("Clipboard"),
   },
   {
     -- delete word
     key = "Backspace",
     mods = "CTRL",
-    action = wezterm.action.SendString("\x17"),
+    action = act.SendString("\x17"),
   },
   {
     key = "Backspace",
     mods = "ALT",
-    action = wezterm.action.SendString("\x17"),
+    action = act.SendString("\x17"),
   },
-  { key = 't', mods = 'CTRL|SHIFT', action = wezterm.action.SpawnTab("DefaultDomain") },
-  { key = 'h', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(1) },
-  { key = 'l', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 't', mods = 'CTRL|SHIFT', action = act.SpawnTab("DefaultDomain") },
+  { key = 'h', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(1) },
+  { key = 'l', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
   -- Vertical pipe (|) -> horizontal split
   {
     key = '\\',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitHorizontal {
+    action = act.SplitHorizontal {
       domain = 'CurrentPaneDomain'
     },
   },
@@ -156,52 +158,33 @@ config.keys                                       = {
   {
     key = '-',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitVertical {
+    action = act.SplitVertical {
       domain = 'CurrentPaneDomain'
     },
   },
   -- Rename current tab
-  {
-    key = 'N',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.PromptInputLine {
-      description = 'Enter new name for tab',
-      action = wezterm.action_callback(
-        function(window, _, line)
-          if line then
-            window:active_tab():set_title(line)
-          end
-        end
-      ),
-    },
-  },
   -- {
-  --   key = "h",
-  --   mods = "CTRL",
-  --   action = wezterm.action.ActivatePaneDirection('Left')
+  --   key = 'N',
+  --   mods = 'CTRL|SHIFT',
+  --   action = act.PromptInputLine {
+  --     description = 'Enter new name for tab',
+  --     action = act_callback(
+  --       function(window, _, line)
+  --         if line then
+  --           window:active_tab():set_title(line)
+  --         end
+  --       end
+  --     ),
+  --   },
   -- },
-  --
-  -- {
-  --   key = "j",
-  --   mods = "CTRL",
-  --   action = wezterm.action.ActivatePaneDirection('Down')
-  -- },
-  --
-  -- {
-  --   key = "k",
-  --   mods = "CTRL",
-  --   action = wezterm.action.ActivatePaneDirection('Up')
-  -- },
-  --
-  -- {
-  --   key = "l",
-  --   mods = "CTRL",
-  --   action = wezterm.action.ActivatePaneDirection('Right')
-  -- },
+  { key = "l", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "l", mods = "CTRL" }), act.ActivatePaneDirection("Right") }) },
+  { key = "k", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "k", mods = "CTRL" }), act.ActivatePaneDirection("Up"), }) },
+  { key = "j", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "j", mods = "CTRL" }), act.ActivatePaneDirection("Down"), }) },
+  { key = "h", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "h", mods = "CTRL" }), act.ActivatePaneDirection("Left"), }) },
   {
     key = 'z',
     mods = 'CTRL',
-    action = wezterm.action.TogglePaneZoomState,
+    action = act.TogglePaneZoomState,
   },
 }
 
