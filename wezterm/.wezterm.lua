@@ -96,7 +96,7 @@ config.keys                                       = {
   },
   {
     key = "v",
-    mods = "CTRL",
+    mods = "CTRL|SHIFT",
     action = act.PasteFrom("Clipboard"),
   },
   {
