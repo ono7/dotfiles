@@ -2,6 +2,7 @@ local wezterm                                     = require("wezterm")
 local scheme                                      = wezterm.get_builtin_color_schemes()['Catppuccin Mocha']
 local config                                      = wezterm.config_builder()
 
+--- Halcyon colorsheme (vscode)
 local ansi                                        = {
   "#45475a",
   "#f38ba8",
@@ -18,7 +19,7 @@ local ansi                                        = {
 }
 
 -- tab_bar = {
---   background = "#252526",
+--   background = "#171c28",
 --   active_tab = {
 --     bg_color = "#1e1e1e",
 --     fg_color = "#ffffff",
@@ -47,9 +48,10 @@ scheme.brights                                    = ansi
 
 -- scheme.background = "#161616"
 -- scheme.cursor_bg                                  = "#bac2de"
-scheme.background                                 = "#0e1017"
+-- scheme.background                                 = "#0e1017" -- ayu
 scheme.foreground                                 = "#bfbdb6"
-scheme.cursor_bg                                  = "#8a90a8"
+scheme.background                                 = "#1c2433"
+scheme.cursor_bg                                  = "#9197b1"
 scheme.cursor_fg                                  = "#000"
 local act                                         = wezterm.action
 config.default_prog                               = { "/bin/zsh", "--login" }
