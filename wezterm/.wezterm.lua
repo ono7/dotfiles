@@ -40,11 +40,11 @@ local halcyon                                     = {
     background = "#171c28",
     active_tab = {
       bg_color = "#1d2433",
-      fg_color = "#ffcc66",
+      fg_color = "#d4bfff",
     },
     inactive_tab = {
-      bg_color = "#2f3b54",
-      fg_color = "#a2aabc",
+      bg_color = "#283148",
+      fg_color = "#6c7584",
     },
     inactive_tab_hover = {
       bg_color = "#3f4c6b",
@@ -88,8 +88,8 @@ config.initial_rows                               = 40
 config.initial_cols                               = 100
 config.underline_position                         = -8
 config.underline_thickness                        = 5
-config.window_background_opacity                  = 0.97
-config.macos_window_background_blur               = 20
+-- config.window_background_opacity                  = 0.80
+-- config.macos_window_background_blur               = 20
 config.native_macos_fullscreen_mode               = true
 
 config.window_decorations                         = "RESIZE"
