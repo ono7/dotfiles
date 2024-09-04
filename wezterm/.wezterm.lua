@@ -163,20 +163,20 @@ config.keys                                       = {
     },
   },
   -- Rename current tab
-  -- {
-  --   key = 'N',
-  --   mods = 'CTRL|SHIFT',
-  --   action = act.PromptInputLine {
-  --     description = 'Enter new name for tab',
-  --     action = act_callback(
-  --       function(window, _, line)
-  --         if line then
-  --           window:active_tab():set_title(line)
-  --         end
-  --       end
-  --     ),
-  --   },
-  -- },
+  {
+    key = 'N',
+    mods = 'CTRL|SHIFT',
+    action = act.PromptInputLine {
+      description = 'Enter new name for tab',
+      action = wezterm.action_callback(
+        function(window, _, line)
+          if line then
+            window:active_tab():set_title(line)
+          end
+        end
+      ),
+    },
+  },
   { key = "l", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "l", mods = "CTRL" }), act.ActivatePaneDirection("Right") }) },
   { key = "k", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "k", mods = "CTRL" }), act.ActivatePaneDirection("Up"), }) },
   { key = "j", mods = "CTRL", action = act.Multiple({ act.SendKey({ key = "j", mods = "CTRL" }), act.ActivatePaneDirection("Down"), }) },
