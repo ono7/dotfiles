@@ -17,12 +17,38 @@ local ansi                                        = {
   "#bac2de",
 }
 
+-- tab_bar = {
+--   background = "#252526",
+--   active_tab = {
+--     bg_color = "#1e1e1e",
+--     fg_color = "#ffffff",
+--   },
+--   inactive_tab = {
+--     bg_color = "#2d2d2d",
+--     fg_color = "#808080",
+--   },
+--   inactive_tab_hover = {
+--     bg_color = "#323232",
+--     fg_color = "#909090",
+--   },
+--   new_tab = {
+--     bg_color = "#2d2d2d",
+--     fg_color = "#808080",
+--   },
+--   new_tab_hover = {
+--     bg_color = "#323232",
+--     fg_color = "#909090",
+--   },
+-- },
+
 -- color overrides
 scheme.ansi                                       = ansi
 scheme.brights                                    = ansi
 
 -- scheme.background = "#161616"
 -- scheme.cursor_bg                                  = "#bac2de"
+scheme.background                                 = "#0e1017"
+scheme.foreground                                 = "#bfbdb6"
 scheme.cursor_bg                                  = "#8a90a8"
 scheme.cursor_fg                                  = "#000"
 local act                                         = wezterm.action
@@ -40,7 +66,7 @@ config.color_schemes                              = {
 config.color_scheme                               = 'Catppuccin Mocha'
 
 config.font                                       = wezterm.font('MonoLisaNoLiga Nerd Font', { weight = "Medium" })
-config.font_size                                  = 22
+config.font_size                                  = 23
 config.adjust_window_size_when_changing_font_size = false
 config.line_height                                = 1.3
 
