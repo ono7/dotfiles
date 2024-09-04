@@ -1,5 +1,11 @@
-local wezterm                                     = require("wezterm")
-local config                                      = wezterm.config_builder()
+local wezterm = require("wezterm")
+local config  = wezterm.config_builder()
+
+wezterm.on("format-tab-title", function(tab)
+  return {
+    { Text = " " .. tab.active_pane.title .. " " },
+  }
+end)
 
 -- Halcyon color scheme
 local halcyon                                     = {
