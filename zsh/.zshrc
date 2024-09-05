@@ -1,6 +1,8 @@
 # Uncomment next line to start profiling
 # zmodload zsh/zprof
 
+export GPG_TTY=$(tty)
+
 # Freeze terminal preventing any new changes to the tty
 ttyctl -f
 

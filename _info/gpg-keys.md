@@ -13,6 +13,8 @@ gpg --list-keys --keyid-format SHORT
   pub   rsa4096/21C63BA5 <<< THIS IS THE PUB KEY
 
 # setup git
+gpg --full-generate-key
+gpg --list-keys --keyid-format SHORT
 git config --global user.signingkey YOUR_KEY_ID
 
 # export key to github

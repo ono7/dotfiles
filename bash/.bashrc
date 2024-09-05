@@ -1,4 +1,7 @@
 # added to support containers
+
+export GPG_TTY=$(tty)
+
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
