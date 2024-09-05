@@ -61,7 +61,7 @@ ga () {
   else
     git add "$@"
   fi
-  git commit
+  # git commit
 }
 
 gac () {
