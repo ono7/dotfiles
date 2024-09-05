@@ -7,10 +7,10 @@ gpg --full-generate-key
 # gpg --list-secret-keys --keyid-format LONG
 
 # use short for github
-➜ gpg --list-keys --keyid-format SHORT
+gpg --list-keys --keyid-format SHORT
   [keyboxd]
   ---------
-  pub   rsa4096/21C63BA5 <<< THIS IS THE KEY
+  pub   rsa4096/21C63BA5 <<< THIS IS THE PUB KEY
 
 # setup git
 git config --global user.signingkey YOUR_KEY_ID

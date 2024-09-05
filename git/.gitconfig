@@ -2,6 +2,17 @@
     name = jlima
     email = jlima@mbp
 
+[gpg]
+  program = gpg
+
+[commit]
+  gpgsign = false
+
+[tag]
+  gpgsign = false
+
+# gpg overrides in .gitconfig-work
+
 [includeIf "gitdir:~/work/**"]
   path = .gitconfig-work
 
@@ -40,7 +51,6 @@
   autosquash = true
   updateRefs = true
 
-# Maintain a 1-1 mapping to upstream refs and tags
 [fetch]
   prune = true
   prunetags = true
@@ -70,7 +80,7 @@
 [push]
   autoSetupRemote = true
 
-# push only the default branch
+  # push only the default branch
   default = simple
 
 [diff]
@@ -80,26 +90,7 @@
 [color]
   ui = auto
 
-[color "diff"]
-#     meta = normal
-#     frag = normal
-#     func = normal
-#     old = red normal
-#     new = green normal
-#     commit = yellow normal
-#     whitespace = normal red
-#     oldMoved = magenta
-#     newMoved = cyan
-
-[color "diff-highlight"]
-#     oldNormal = red normal
-#     oldHighlight = red normal
-#     newNormal = green normal
-#     newHighlight = green normal
-#     oldMovedAlternative = magenta
-#     newMovedAlternative = cyan
-#
- [alias]
+[alias]
   co = checkout
   br = branch
   ci = commit
@@ -109,6 +100,7 @@
   last = log -1 HEAD
   dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
   update-hooks = !cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*
+
 [interactive]
 	diffFilter = delta --color-only
 
