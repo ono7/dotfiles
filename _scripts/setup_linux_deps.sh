@@ -6,7 +6,7 @@ log() {
 
 log "$0"
 
-if [ $(uname) != 'Linux' ]; then
+if [ "$(uname)" != 'Linux' ]; then
   log 'I only run on Linux..'
   exit 1
 fi
