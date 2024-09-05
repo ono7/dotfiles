@@ -13,6 +13,23 @@ golinux () {
 
 [ -f "/etc/os-release" ] && cat /etc/os-release | grep "buntu" &>/dev/null && export skip_global_compinit=1
 
+psmem () {
+  ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' ';
+}
+
+jsondiff () {
+  delta <(jq --sort-keys . $1) <(jq --sort-keys . $2)
+}
+
+
+brewit () {
+  brew update &&
+    brew upgrade &&
+    brew autoremove &&
+    brew cleanup -s &&
+    brew doctor
+}
+
 extract () {
   if [ -f "$1" ]; then
     case "$1" in
@@ -101,6 +118,7 @@ alias gds='git diff --staged'
 alias gc='git commit '
 alias gco='git checkout '
 alias gf='git fetch --all'
+alias afk="open /System/Library/CoreServices/ScreenSaverEngine.app"
 
 # deletes merged branches
 # alias gdm="git branch --merged | grep -Pv '(^\*|master|main)' | xargs git branch -d"

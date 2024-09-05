@@ -38,6 +38,28 @@ if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g InitialKeyRepeat -int 11
 fi
 
+############## Kitty config ##############
+
+# Function to set the tab title
+function set_title() {
+  echo -ne "\033]0;${1}\007"
+}
+
+# Preexec function (executed just before any command)
+function title_preexec() {
+  set_title "$1"
+}
+
+# Precmd function (executed before each prompt)
+function title_precmd() {
+  set_title "${PWD##*/}"
+}
+
+# Add the functions to the appropriate arrays
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec title_preexec
+add-zsh-hook precmd title_precmd
+
 ############## Shell options ##############
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
