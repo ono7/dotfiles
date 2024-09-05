@@ -25,3 +25,10 @@ if [[ -n $(git status --porcelain) ]]; then
   mv "$$.tags" "tags"
   echo "ctags generated successfully."
 fi
+
+if [ -f .git/hooks/pre-commit ]; then
+  if ! .git/hooks/pre-commit "$@"; then
+    echo "local pre-commit hook failed"
+    exit 1
+  fi
+fi
