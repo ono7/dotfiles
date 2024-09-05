@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
 # consider automating builds here
+
+~/.virtualenvs/prod3/bin/ggshield secret scan pre-commit "$@"
