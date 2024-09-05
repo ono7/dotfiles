@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Get the first 4 modified files
+# files=$(git status -s | head -n 4)
+#
+# # Construct the commit message
+# if [ -n "$files" ]; then
+#   echo "$files" | sed '/^$/d' >"$1"
+# fi

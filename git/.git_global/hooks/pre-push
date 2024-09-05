@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# consider automating builds here
+# this requires a api key...
+# ~/.virtualenvs/prod3/bin/ggshield secret scan pre-commit "$@"

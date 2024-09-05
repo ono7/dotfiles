@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
-echo running local hooks...
+echo running global hooks...
 
 PATH="/usr/local/bin:$PATH"
+
+if type lint-staged; then
+  lint-staged --concurrent false
+else
+  echo "lint-staged not installed: npm install lint-staged -g"
+  exit 1
+fi
 
 exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
 

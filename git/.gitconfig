@@ -12,7 +12,7 @@
   editor = nvim
   mergeoptions = --no-edit
 	pager = delta
-	hookspath = ~/.git_templates/hooks
+	hookspath = ~/.git_global/hooks
 
 [http]
   sslVerify = false
