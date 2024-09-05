@@ -214,3 +214,8 @@ gpg_backup () {
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
 }
+
+get_ca () {
+  [ -z $1 ] && echo "provide a domain.com, no https" && return 
+  openssl s_client -showcerts -servername ${1} -connect "${1}":443 </dev/null 2>/dev/null | openssl x509 -outform PEM > "${1}".crt
+}

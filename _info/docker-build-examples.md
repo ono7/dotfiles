@@ -1,5 +1,44 @@
 # docker build examples
 
+```
+# Dockerfile.multi-stage | builds smaller images
+
+# Stage 1: Build
+FROM python:3.9-alpine AS builder
+
+# Install necessary build dependencies
+RUN apk add --no-cache build-base \
+    && apk add --no-cache gfortran musl-dev lapack-dev
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file and install dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+# Uninstall unnecessary dependencies
+RUN pip uninstall -y pandas && apk del build-base gfortran musl-dev lapack-dev
+
+# Stage 2: Production
+FROM python:3.9-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy only the necessary files from the build stage
+COPY --from=builder /app /app
+
+# Expose the port the app will run on
+EXPOSE 5000
+
+# Run the Flask app
+CMD ["python", "app.py"]
+```
+
 ```Dockerfile
 #
 # Build go project
