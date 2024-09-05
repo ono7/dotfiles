@@ -199,3 +199,19 @@ banner () {
   printf "%${span}s\n" "$title"
   printf "%${COLUMNS}s\n" | tr " " "*"
 }
+
+
+gpg_delete_key () {
+    [ -z $1 ] && echo "no key provided" && return
+    echo "Deleting secret key..."
+    gpg --delete-secret-key "$1"
+
+    echo "Deleting public key..."
+    gpg --delete-key "$1"
+}
+
+gpg_backup () {
+  [ -z $1 ] && echo "provide a key.." && return
+  gpg --export-secret-keys --armor "${1}" > private.key
+  gpg --export --armor "${1}" > public.key
+}

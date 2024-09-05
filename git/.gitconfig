@@ -1,23 +1,24 @@
 [user]
-    name = jlima
-    email = jlima@mbp
+	name = Lima, Jose
+	email = 20385388+ono7@users.noreply.github.com
+	signingkey = 850FAC73
 
 [gpg]
   program = gpg
 
 [commit]
-  gpgsign = false
+	gpgsign = true
 
 [tag]
-  gpgsign = false
+  gpgsign = true
 
 # gpg overrides in .gitconfig-work
 
-[includeIf "gitdir:~/work/**"]
-  path = .gitconfig-work
-
-[includeIf "gitdir:~/git.marriott.com/**"]
-  path = .gitconfig-work
+# [includeIf "gitdir:~/work/**"]
+#   path = .gitconfig-work
+#
+# [includeIf "gitdir:~/git.marriott.com/**"]
+#   path = .gitconfig-work
 
 [core]
   editor = nvim
