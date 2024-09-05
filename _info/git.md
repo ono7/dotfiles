@@ -1,3 +1,7 @@
+## reset remote with current branch
+
+`git push origin main --force`
+
 # git worktree workflow
 
 ```sh

@@ -101,13 +101,13 @@ dotc () {
     my_dir=$PWD
     cd ~/.dotfiles
     git pull
-    ga
-    # git add .
+    git add .
     # f=$(git status --porcelain | cut -c4- | head -n 4)
     # more_changes=$(git status --porcelain | sed -n 5p)
     # [ -n "$more_changes" ] && f="$f ..."
     # git commit "-m updates -> ${f//$'\n'/ }"
     # git commit
+    git commit
     git push
     cd $my_dir
 }
