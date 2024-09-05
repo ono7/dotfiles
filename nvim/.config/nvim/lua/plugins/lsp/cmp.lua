@@ -107,7 +107,7 @@ end
 -- })
 
 -- Set up manual trigger
-vim.keymap.set('i', '<C-h>', function()
+vim.keymap.set('i', '<C-Space>', function()
   cmp_config.complete()
 end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 

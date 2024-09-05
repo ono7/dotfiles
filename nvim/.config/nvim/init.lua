@@ -4,7 +4,16 @@
 vim.cmd [[ syntax off ]]
 
 vim.api.nvim_set_hl(0, "Normal", {})
+vim.api.nvim_set_hl(0, "Error", { fg = "#F38BA8", bold = true, italic = true })
+vim.api.nvim_set_hl(0, "ErrorMsg", { link = "Error" })
+vim.api.nvim_set_hl(0, "DiagnosticError", { link = "Error" })
+vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
+vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
+vim.api.nvim_set_hl(0, "@text.note", { link = "Normal" })
+vim.api.nvim_set_hl(0, "Todo", { link = "ErrorMsg" })
+vim.api.nvim_set_hl(0, "TelescopeMatching", { link = "ErrorMsg" })
 vim.api.nvim_set_hl(0, "ModeMsg", {})
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "Winbar", { fg = "#a89984" })
 vim.api.nvim_set_hl(0, "WinbarNc", { fg = "#a89984" })
 vim.api.nvim_set_hl(0, "StatusLine", { bg = "#182a44" })
@@ -19,6 +28,13 @@ vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8" })
 vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#212c3e" })
 vim.api.nvim_set_hl(0, "DiffChange", { bg = "#2b3b55" })
 vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "#161c29", fg = "#9eb0ce" })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#4a6898", fg = "#000000" })
+-- vim.api.nvim_set_hl(0, "cmpSelect", { bg = "#4a6898", fg = "#000000" })
+vim.api.nvim_set_hl(0, "cmpSelect", { bg = "#ffa5c3", fg = "#000000" })
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#2b3b55" })
+vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#2b3b55" })
+
 
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
