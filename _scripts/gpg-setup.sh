@@ -1,13 +1,15 @@
 #!/bin/bash
 
+name="Lima, Jose"
+emai="20385388+ono7@users.noreply.github.com"
 # Function to generate GPG key
 generate_gpg_key() {
   echo "Generating GPG key..."
   gpg --batch --generate-key <<EOF
     Key-Type: RSA
     Key-Length: 4096
-    Name-Real: "Lima, Jose"
-    Name-Email: 20385388+ono7@users.noreply.github.com
+    Name-Real: "$name"
+    Name-Email: "$email"
     Expire-Date: 0
     %no-protection
     %commit
