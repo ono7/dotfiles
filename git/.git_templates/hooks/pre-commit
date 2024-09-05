@@ -1,26 +1,20 @@
 #!/usr/bin/env bash
 
-if type lint-staged; then
-  lint-staged --concurrent false
-else
-  echo "lint-staged not installed: npm install lint-staged -g"
-fi
+set -e
+PATH="/usr/local/bin:$PATH"
 
-# set -e
-# PATH="/usr/local/bin:$PATH"
-#
-# exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
-#
-# # Check if there are any changes in the repo
-# if [[ -n $(git status --porcelain) ]]; then
-#   echo "Changes detected, running ctags..."
-#
-#   if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" |
-#     ctags --tag-relative -L - -f"$$.tags"; then
-#     echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
-#     exit 1
-#   fi
-#
-#   mv "$$.tags" "tags"
-#   echo "ctags generated successfully."
-# fi
+exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
+
+# Check if there are any changes in the repo
+if [[ -n $(git status --porcelain) ]]; then
+  echo "Changes detected, running ctags..."
+
+  if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" |
+    ctags --tag-relative -L - -f"$$.tags"; then
+    echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
+    exit 1
+  fi
+
+  mv "$$.tags" "tags"
+  echo "ctags generated successfully."
+fi

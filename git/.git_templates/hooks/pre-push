@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# consider automating builds here
+
+if type lint-staged; then
+  lint-staged --concurrent false
+else
+  echo "lint-staged not installed: npm install lint-staged -g"
+  exit 1
+fi

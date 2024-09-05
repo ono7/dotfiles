@@ -3,5 +3,4 @@
   "*.py": [
     "ruff check"
   ],
-  "*.json": "prettier --write"
 }
