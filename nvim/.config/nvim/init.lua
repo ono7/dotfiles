@@ -4,7 +4,7 @@
 vim.cmd [[ syntax off ]]
 
 vim.api.nvim_set_hl(0, "Normal", {})
-vim.api.nvim_set_hl(0, "Error", { fg = "#F38BA8", bold = true, italic = true })
+vim.api.nvim_set_hl(0, "Error", { fg = "#F38BA8", bold = false, italic = true })
 vim.api.nvim_set_hl(0, "ErrorMsg", { link = "Error" })
 vim.api.nvim_set_hl(0, "DiagnosticError", { link = "Error" })
 vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
