@@ -3,5 +3,5 @@
   "*.py": [
     "ruff check"
   ],
-  "*.(sh|bash)": "shellcheck -e SC1090 -e SC2164 -S warning -a -x"
+  "*.{sh,bash}": "shellcheck -e SC1090 -e SC2164 -S warning -a -x"
 }

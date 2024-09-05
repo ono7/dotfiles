@@ -2,6 +2,7 @@
 
 name="Lima, Jose"
 emai="20385388+ono7@users.noreply.github.com"
+
 # Function to generate GPG key
 generate_gpg_key() {
   echo "Generating GPG key..."
