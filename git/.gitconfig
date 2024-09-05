@@ -13,6 +13,8 @@
   mergeoptions = --no-edit
 	pager = delta
 	hookspath = ~/.git_global/hooks
+  untrackedcache = true
+  fsmonitor = true
 
 [http]
   sslVerify = false
@@ -32,13 +34,31 @@
 # `git rebase –abort` when we need to reset the changes
   rebase = true
 
+[rebase]
+  # Stash and pop uncommitted changes on rebase
+  autostash = true
+  autosquash = true
+  updateRefs = true
+
+# Maintain a 1-1 mapping to upstream refs and tags
 [fetch]
   prune = true
+  prunetags = true
+  fsckobjects = true
+
+[transfer]
+  fsckobjects = true
+
+[receive]
+  fsckobjects = true
+
+[branch]
+  sort = committerdate
 
 [merge]
   tool = nvimdiff4
   prompt = false
-	conflictstyle = diff3
+  conflictstyle = zdiff3
 
 [mergetool "nvimdiff4"]
   cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
@@ -92,6 +112,10 @@
 [interactive]
 	diffFilter = delta --color-only
 
+[status]
+  # Show untracked files, directories and files in untracked directories
+  showUntrackedFiles = all
+  submoduleSummary = true
 
 [delta]
 	navigate = true

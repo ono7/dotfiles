@@ -1,17 +1,6 @@
-local wezterm           = require("wezterm")
-local config            = wezterm.config_builder()
+local wezterm = require("wezterm")
+local config  = wezterm.config_builder()
 
--- The filled in variant of the < symbol
--- local SOLID_LEFT_ARROW  = wezterm.nerdfonts.pl_right_hard_divider
-
--- The filled in variant of the > symbol
--- local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
-local SOLID_RIGHT_ARROW = "|"
-
--- This function returns the suggested title for a tab.
--- It prefers the title that was set via `tab:set_title()`
--- or `wezterm cli set-tab-title`, but falls back to the
--- title of the active pane in that tab.
 function tab_title(tab_info)
   local title = tab_info.tab_title
   -- if the tab title is explicitly set, take that
@@ -38,24 +27,14 @@ wezterm.on(
       foreground = '#909090'
     end
 
-    local edge_foreground = background
 
     local title = tab_title(tab)
 
-    -- ensure that the titles fit in the available space,
-    -- and that we have room for the edges.
-    title = wezterm.truncate_right(title, max_width - 2)
+    -- allow upto 35 chars in title
+    title = wezterm.truncate_left(title, 35 - 2)
 
     return {
-      -- { Background = { Color = edge_background } },
-      -- { Foreground = { Color = edge_foreground } },
-      -- { Text = SOLID_LEFT_ARROW },
-      -- { Background = { Color = background } },
-      -- { Foreground = { Color = foreground } },
-      { Text = title },
-      -- { Background = { Color = edge_background } },
-      -- { Foreground = { Color = edge_foreground } },
-      -- { Text = SOLID_RIGHT_ARROW },
+      { Text = " " .. title .. " " },
     }
   end
 )
