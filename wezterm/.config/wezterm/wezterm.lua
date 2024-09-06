@@ -18,7 +18,7 @@ end
 local my_background = "#1f2937"
 local my_background_lighter = "#24364b"
 local my_background_darker = "#192636"
-local my_foreground = "#e5e7eb"
+local my_foreground = "#d2d4da"
 
 wezterm.on(
   'format-tab-title',
