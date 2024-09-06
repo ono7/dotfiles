@@ -116,6 +116,11 @@ vim.keymap.set("n", "<leader>w", function()
   vim.fn.setpos('.', save_cursor)
 end, silent)
 
+vim.keymap.set("n", "<leader>cd", function()
+  vim.cmd.lcd("%:p:h")
+  print("new lcd: " .. vim.fn.getcwd())
+end, { silent = true })
+
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 -- Bind the function to a key mapping
