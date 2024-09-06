@@ -5,6 +5,7 @@ SHA1=$3
 
 # Remove everything from the commit message file
 echo '' >"$COMMIT_MSG_FILE"
+echo '' >>"$COMMIT_MSG_FILE"
 
 # Get the list of staged files
 STAGED_FILES=$(git status --porcelain | head -n 10)
