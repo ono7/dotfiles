@@ -15,11 +15,6 @@ local function tab_title(tab_info)
   return tab_info.active_pane.title
 end
 
-local my_background = "#1f2937"
-local my_background_lighter = "#24364b"
-local my_background_darker = "#192636"
-local my_foreground = "#d2d4da"
-
 wezterm.on(
   'format-tab-title',
   function(tab, tabs, panes, config, hover, max_width)
@@ -32,11 +27,18 @@ wezterm.on(
   end
 )
 
+-- local my_background = "#1f2937"
+local my_background = "#1f2937"
+local my_background_lighter = "#24364b"
+local my_background_darker = "#141f2b"
+local my_foreground = "#c5c8d3"
+
+
 -- Halcyon color scheme
 local halcyon                                     = {
   -- foreground = "#bfbdb6",
   foreground = my_foreground,
-  background = "#1f2937",
+  background = my_background,
   -- foreground = "#a7b1c8",
   -- background = "#1c2433",
   cursor_bg = "#9197b1",
