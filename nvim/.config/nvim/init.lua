@@ -3,6 +3,11 @@
 
 vim.cmd [[ syntax off ]]
 
+
+local my_background = "#1f2937"
+local my_background_lighter = "#24364b"
+local my_background_darker = "#192636"
+
 vim.api.nvim_set_hl(0, "Normal", {})
 vim.api.nvim_set_hl(0, "Error", { fg = "#F38BA8", bold = false, italic = true })
 vim.api.nvim_set_hl(0, "ErrorMsg", { link = "Error" })
@@ -23,7 +28,7 @@ vim.api.nvim_set_hl(0, "Folded", { bg = "none", fg = "#8186a1", bold = true, ita
 vim.api.nvim_set_hl(0, "Visual", { bg = "#5a76a7", fg = "#000000" })
 vim.api.nvim_set_hl(0, "Search", { bg = "#ceeac8", })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "none", fg = "none", underline = true, bold = true })
-vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#171c28" })
+vim.api.nvim_set_hl(0, "TreesitterContext", { bg = my_background_lighter })
 vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8" })
 vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#212c3e" })
 vim.api.nvim_set_hl(0, "DiffChange", { bg = "#2b3b55" })

@@ -1,6 +1,8 @@
-local wezterm = require("wezterm")
--- local vim_mode_key_table = require("vim-bindings")
-local config  = wezterm.config_builder()
+local wezterm            = require("wezterm")
+local vim_mode_key_table = require("vim-bindings")
+local config             = wezterm.config_builder()
+
+local act                = wezterm.action
 
 local function tab_title(tab_info)
   local title = tab_info.tab_title
@@ -13,27 +15,17 @@ local function tab_title(tab_info)
   return tab_info.active_pane.title
 end
 
+local my_background = "#1f2937"
+local my_background_lighter = "#24364b"
+local my_background_darker = "#192636"
+local my_foreground = "#e5e7eb"
+
 wezterm.on(
   'format-tab-title',
   function(tab, tabs, panes, config, hover, max_width)
-    local edge_background = '#1d2433'
-    local background = '#171c28'
-    local foreground = '#808080'
-
-    if tab.is_active then
-      background = '#1d2433'
-      foreground = '#c0c0c0'
-    elseif hover then
-      background = '#1d2433'
-      foreground = '#909090'
-    end
-
-
     local title = tab_title(tab)
-
     -- allow upto 35 chars in title
     title = wezterm.truncate_left(title, 35 - 2)
-
     return {
       { Text = " " .. title .. " " },
     }
@@ -43,8 +35,10 @@ wezterm.on(
 -- Halcyon color scheme
 local halcyon                                     = {
   -- foreground = "#bfbdb6",
-  foreground = "#a7b1c8",
-  background = "#1c2433",
+  foreground = my_foreground,
+  background = "#1f2937",
+  -- foreground = "#a7b1c8",
+  -- background = "#1c2433",
   cursor_bg = "#9197b1",
   cursor_fg = "#1d2433",
   cursor_border = "#ffcc66",
@@ -71,18 +65,18 @@ local halcyon                                     = {
     "#89b4fa", -- Bright Blue
     "#d4bfff", -- Bright Magenta
     "#94e2d5", -- Bright Cyan
-    "#d7dce2", -- Bright White
+    "#acafb8", -- Bright White
   },
 
   -- Tab bar colors (adapted from your existing theme)
   tab_bar = {
-    background = "#171c28",
+    background = my_background_darker,
     active_tab = {
-      bg_color = "#1d2433",
+      bg_color = my_background,
       fg_color = "#d4bfff",
     },
     inactive_tab = {
-      bg_color = "#283148",
+      bg_color = my_background_darker,
       fg_color = "#6c7584",
     },
     inactive_tab_hover = {
@@ -90,8 +84,8 @@ local halcyon                                     = {
       fg_color = "#d7dce2",
     },
     new_tab = {
-      bg_color = "#171c28",
-      fg_color = "#171c28",
+      bg_color = my_background_darker,
+      fg_color = my_background_darker,
     },
     new_tab_hover = {
       bg_color = "#3f4c6b",
@@ -147,9 +141,10 @@ config.window_padding                             = {
   bottom = 5,
 }
 
-local act                                         = wezterm.action
 
-config.keys                                       = {
+config.keys = {
+
+  -- copy_mode = vim_mode_key_table,
   -- use xxd -psd to get hex char sequences
   -- CTRL-SHIFT-l activates the debug overlay
   { key = '0', mods = 'CTRL', action = act.ResetFontSize },
