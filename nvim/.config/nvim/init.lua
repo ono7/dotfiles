@@ -39,7 +39,6 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_liststyle = 3
 
 vim.opt.winbar = "%=%-.75F %-m"
--- vim.opt.winbar = "%=%-.75F %-m %{FugitiveStatusline()}"
 
 require("themes.notheme") -- basic HL groups for no colorscheme
 require("config.disabled")
