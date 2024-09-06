@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
+-- local vim_mode_key_table = require("vim-bindings")
 local config  = wezterm.config_builder()
 
-function tab_title(tab_info)
+local function tab_title(tab_info)
   local title = tab_info.tab_title
   -- if the tab title is explicitly set, take that
   if title and #title > 0 then
