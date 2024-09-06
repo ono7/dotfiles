@@ -87,6 +87,8 @@ require("config.helper-functions")
 require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
+require("plugins.jira")
+
 -- require("themes.notheme") -- basic HL groups for no colorscheme
 -- require("themes.gruvbox")
 

@@ -86,7 +86,7 @@ vim.opt.ttimeout = true -- disable for indefinite wait time
 vim.opt.ttimeoutlen = 0
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
-vim.opt.updatetime = 100
+vim.opt.updatetime = 50
 vim.opt.whichwrap:append "<>[]"
 vim.opt.wildignore = [[.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class]]
 vim.opt.winaltkeys = "no"
