@@ -99,8 +99,6 @@ config.color_schemes                              = {
   ["Halcyon"] = halcyon,
 }
 config.color_scheme                               = "Halcyon"
-
--- Existing configuration (keeping your settings)
 config.default_prog                               = { "/bin/zsh", "--login" }
 config.audible_bell                               = "Disabled"
 config.use_dead_keys                              = false
@@ -108,12 +106,10 @@ config.scrollback_lines                           = 5000
 config.scroll_to_bottom_on_input                  = true
 config.default_cwd                                = wezterm.homedir
 config.disable_default_key_bindings               = true
-
 config.font                                       = wezterm.font('MonoLisaNoLiga Nerd Font', { weight = "Medium" })
 config.font_size                                  = 23
 config.adjust_window_size_when_changing_font_size = false
 config.line_height                                = 1.3
-
 config.default_cursor_style                       = "SteadyBlock"
 config.window_close_confirmation                  = "NeverPrompt"
 config.cursor_blink_rate                          = 0
@@ -124,14 +120,11 @@ config.underline_thickness                        = 5
 -- config.window_background_opacity                  = 0.80
 -- config.macos_window_background_blur               = 20
 config.native_macos_fullscreen_mode               = true
-
 config.window_decorations                         = "RESIZE"
 config.front_end                                  = "WebGpu"
-
 config.hide_tab_bar_if_only_one_tab               = true
 config.tab_max_width                              = 32
 config.use_fancy_tab_bar                          = false
-
 config.enable_wayland                             = false
 config.webgpu_power_preference                    = "HighPerformance"
 config.window_padding                             = {
@@ -141,22 +134,23 @@ config.window_padding                             = {
   bottom = 5,
 }
 
+config.key_tables                                 = {
+  copy_mode = wezterm.gui.default_key_tables().copy_mode
+}
 
-config.keys = {
-
-  -- copy_mode = vim_mode_key_table,
+config.keys                                       = {
   -- use xxd -psd to get hex char sequences
-  -- CTRL-SHIFT-l activates the debug overlay
-  { key = '0', mods = 'CTRL', action = act.ResetFontSize },
-  { key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
-  { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+  { key = "e", mods = "CTRL|SHIFT", action = wezterm.action.ActivateCopyMode },
+  { key = "s", mods = "CTRL|SHIFT", action = wezterm.action.Search("CurrentSelectionOrEmptyString") },
+  { key = '0', mods = 'CTRL',       action = act.ResetFontSize },
+  { key = '=', mods = 'CTRL',       action = act.IncreaseFontSize },
+  { key = '-', mods = 'CTRL',       action = act.DecreaseFontSize },
   {
     key = "w",
     mods = "SHIFT|CTRL",
     action = act.CloseCurrentPane({ confirm = false }),
   },
   {
-    -- turn off cmd+m to hide window from the os
     key = "q",
     mods = "CTRL",
     action = act.DisableDefaultAssignment,
@@ -220,10 +214,6 @@ config.keys = {
     mods = 'CTRL',
     action = act.TogglePaneZoomState,
   },
-}
-
-config.key_tables = {
-  copy_mode = wezterm.gui.default_key_tables().copy_mode
 }
 
 return config
