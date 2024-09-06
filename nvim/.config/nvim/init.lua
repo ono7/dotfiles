@@ -39,6 +39,10 @@ vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#4a6898", fg = "#000000" })
 vim.api.nvim_set_hl(0, "cmpSelect", { bg = "#ffa5c3", fg = "#000000" })
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#2b3b55" })
 vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#2b3b55" })
+vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#2b3b55" })
+vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#9eb0ce" })
+
+
 
 
 local opt = { noremap = true }

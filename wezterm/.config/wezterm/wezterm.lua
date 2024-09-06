@@ -1,8 +1,7 @@
-local wezterm            = require("wezterm")
-local vim_mode_key_table = require("vim-bindings")
-local config             = wezterm.config_builder()
+local wezterm = require("wezterm")
+local config  = wezterm.config_builder()
 
-local act                = wezterm.action
+local act     = wezterm.action
 
 local function tab_title(tab_info)
   local title = tab_info.tab_title
@@ -27,7 +26,6 @@ wezterm.on(
   end
 )
 
--- local my_background = "#1f2937"
 local my_background = "#1f2937"
 local my_background_lighter = "#24364b"
 local my_background_darker = "#141f2b"
@@ -222,6 +220,10 @@ config.keys = {
     mods = 'CTRL',
     action = act.TogglePaneZoomState,
   },
+}
+
+config.key_tables = {
+  copy_mode = wezterm.gui.default_key_tables().copy_mode
 }
 
 return config
