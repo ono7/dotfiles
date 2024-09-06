@@ -1,5 +1,7 @@
 extends todo
 
+priority 1000
+
 # TODO(jlima): finish this
 # to trouble shoot regex we can use basic regex first to make sure our command works
 # build the command incrementally start with the basics, `git branch --show-current`
@@ -15,3 +17,31 @@ snippet jc "test" b
 
 snippet jt "test" b
   `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #${0|to-to-do,to-in-progress,to-review,to-done|}
+
+snippet f "type" b
+  fix: $0
+
+snippet r "type" b
+  refactor: $0
+
+snippet s "type" b
+  style: $0
+
+snippet d "type" b
+  docs: $0
+
+snippet t "type" b
+  test: $0
+
+snippet c "type" b
+  chore: $0
+
+snippet h "type help" b
+  # Type can be
+  # feat     (new feature)
+  # fix      (bug fix)
+  # refactor (refactoring production code)
+  # style    (formatting, missing semi colons, etc; no code change)
+  # docs     (changes to documentation)
+  # test     (adding or refactoring tests; no production code change)
+  # chore    (updating grunt tasks etc; no production code change)

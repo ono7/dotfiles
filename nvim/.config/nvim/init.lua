@@ -88,6 +88,7 @@ require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
 require("plugins.jira")
+require("plugins.jira-done")
 
 -- require("themes.notheme") -- basic HL groups for no colorscheme
 -- require("themes.gruvbox")

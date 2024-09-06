@@ -28,39 +28,6 @@ local function extract_issue_key(branch_name)
   return nil
 end
 
-local function markdown_to_jira(markdown)
-  local jira = markdown
-
-  -- Headers
-  jira = jira:gsub("^# (.-)%s*$", "h1. %1")
-  -- jira = jira:gsub("^## (.-)%s*$", "h2. %1")
-  -- jira = jira:gsub("^### (.-)%s*$", "h3. %1")
-
-  jira = jira:gsub("^%d+%.(.-)%s*$", "- %1")
-
-  -- Bold and Italic
-  jira = jira:gsub("%*%*%*(.-)%*%*%*", "*%1*")
-  jira = jira:gsub("%*%*(.-)%*%*", "*%1*")
-  jira = jira:gsub("_(.-)_", "_%1_")
-
-  -- Code blocks
-  jira = jira:gsub("```(%w*)\n(.-)\n```", "{code:%1}\n%2\n{code}")
-
-  -- Inline code
-  jira = jira:gsub("`(.-)`", "{{%1}}")
-
-  -- Unordered lists
-  jira = jira:gsub("^%s*-%s(.-)%s*$", "* %1")
-
-  -- Ordered lists
-  jira = jira:gsub("^%s*(%d+)%.%s(.-)%s*$", "# %2")
-
-  -- Links
-  jira = jira:gsub("%[(.-)%]%((.-)%)", "[%1|%2]")
-
-  return jira
-end
-
 local function read_env_file()
   local home = os.getenv("HOME")
   local env_file = io.open(home .. "/.env", "r")
@@ -95,29 +62,12 @@ function M.setup()
   end
 end
 
-function M.update_jira_story()
+function M.move_to_done()
   M.setup()
   if not (config.jira_url and config.jira_email and config.jira_api_token) then
     print("Error: Jira plugin not properly configured, missing .env vars")
     return
   end
-
-  -- Get the current buffer contents
-  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-  local content = table.concat(lines, '\n')
-
-  local function preprocess_content(pre_content)
-    -- Replace fenced code blocks with Jira code block syntax
-    return pre_content:gsub("```(%w*)\n(.-)\n```", function(lang, code)
-      return "{code:" .. lang .. "}\n" .. code .. "\n{code}"
-    end)
-  end
-
-  --- fix code fenced blocks
-  local preprocessed_content_1 = preprocess_content(content)
-
-  --- fix markdown
-  local preprocessed_content = markdown_to_jira(preprocessed_content_1)
 
   -- Get the current branch name and extract the issue key
   local branch_name = get_current_branch()
@@ -125,8 +75,8 @@ function M.update_jira_story()
 
   -- Prompt for the Jira issue key, with the detected key as default
   local prompt = detected_issue_key
-      and string.format("Jira issue (found: %s) or new: ", detected_issue_key)
-      or "Enter Jira issue key: "
+      and string.format("Jira issue to move to DONE (found: %s) or new: ", detected_issue_key)
+      or "Enter Jira issue key to move to DONE: "
   local user_input = vim.fn.input(prompt)
   local issue_key = (user_input ~= "") and user_input or detected_issue_key
 
@@ -138,25 +88,58 @@ function M.update_jira_story()
   -- Encode credentials
   local auth = vim.base64.encode(config.jira_email .. ':' .. config.jira_api_token)
 
-  -- Make the API request
-  local response = curl.post(config.jira_url .. '/rest/api/2/issue/' .. issue_key:upper() .. '/comment', {
+  -- First, get the available transitions for the issue
+  local get_transitions_response = curl.get(
+    config.jira_url .. '/rest/api/2/issue/' .. issue_key:upper() .. '/transitions', {
+      headers = {
+        Authorization = 'Basic ' .. auth,
+        ['Content-Type'] = 'application/json',
+      },
+    })
+
+  if get_transitions_response.status ~= 200 then
+    print('Failed to get transitions. Status: ' .. get_transitions_response.status)
+    return
+  end
+
+  local transitions = vim.fn.json_decode(get_transitions_response.body).transitions
+  local done_transition_id
+
+  for _, transition in ipairs(transitions) do
+    -- P(transition)
+    if transition.name:lower() == "to done" then
+      done_transition_id = transition.id
+      break
+    end
+  end
+
+  if not done_transition_id then
+    print('Error: Could not find a "Done" transition for this issue')
+    return
+  end
+
+  -- Make the API request to move the issue to DONE
+  local move_response = curl.post(config.jira_url .. '/rest/api/2/issue/' .. issue_key:upper() .. '/transitions', {
     headers = {
       Authorization = 'Basic ' .. auth,
       ['Content-Type'] = 'application/json',
     },
-
-    body = vim.fn.json_encode({ body = preprocessed_content }),
+    body = vim.fn.json_encode({
+      transition = {
+        id = done_transition_id
+      }
+    }),
   })
 
-  if response.status == 201 then
+  if move_response.status == 204 then
     print("")
-    print('Successfully updated Jira story ' .. issue_key)
+    print('Successfully moved Jira issue ' .. issue_key .. ' to DONE')
   else
-    print('Failed to update Jira story. Status: ' .. response.status)
+    print('Failed to move Jira issue to DONE. Status: ' .. move_response.status)
   end
 end
 
--- Set up a command to call the function
-vim.api.nvim_create_user_command('JiraUpdateStory', M.update_jira_story, {})
+-- Set up commands to call the functions
+vim.api.nvim_create_user_command('JiraMoveToDone', M.move_to_done, {})
 
 return M
