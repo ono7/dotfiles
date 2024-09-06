@@ -6,6 +6,12 @@ SHA1=$3
 # Remove everything from the commit message file
 echo '' >"$COMMIT_MSG_FILE"
 
+# Get the list of staged files
+STAGED_FILES=$(git status --porcelain | head -n 10)
+
+# Add the list of staged files to the commit message
+echo "$STAGED_FILES" >>"$COMMIT_MSG_FILE"
+
 # Add content to the bottom
 # cat <<EOF >>"$COMMIT_MSG_FILE"
 # Type can be
