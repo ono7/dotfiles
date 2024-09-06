@@ -74,6 +74,7 @@ function M.update_jira_story()
   })
 
   if response.status == 201 then
+    print("")
     print('Successfully updated Jira story ' .. issue_key)
   else
     print('Failed to update Jira story. Status: ' .. response.status)
