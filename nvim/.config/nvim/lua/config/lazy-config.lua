@@ -157,20 +157,20 @@ require("lazy").setup({
     config = function() require "plugins.lsp.cmp" end
   },
 
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-    },
-    config = function() require "plugins.gitsigns" end
-  },
+  -- {
+  --   "lewis6991/gitsigns.nvim",
+  --   opts = {
+  --     -- See `:help gitsigns.txt`
+  --     signs = {
+  --       add = { text = "+" },
+  --       change = { text = "~" },
+  --       delete = { text = "_" },
+  --       topdelete = { text = "‾" },
+  --       changedelete = { text = "~" },
+  --     },
+  --   },
+  --   config = function() require "plugins.gitsigns" end
+  -- },
   {
     "nvim-telescope/telescope.nvim",
     version = "*",

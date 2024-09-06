@@ -189,7 +189,7 @@ config.keys                                       = {
     key = '\\',
     mods = 'CTRL|SHIFT',
     action = act.SplitHorizontal {
-      domain = 'CurrentPaneDomain'
+      domain = 'CurrentPaneDomain',
     },
   },
   -- Underscore (_) -> vertical split
@@ -197,7 +197,7 @@ config.keys                                       = {
     key = '-',
     mods = 'CTRL|SHIFT',
     action = act.SplitVertical {
-      domain = 'CurrentPaneDomain'
+      domain = 'CurrentPaneDomain',
     },
   },
   -- Rename current tab
