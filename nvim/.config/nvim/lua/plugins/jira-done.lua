@@ -80,6 +80,11 @@ function M.move_to_done()
   local user_input = vim.fn.input(prompt)
   local issue_key = (user_input ~= "") and user_input or detected_issue_key
 
+  if not issue_key:upper():match("^NTWK") then
+    print("\nIssues must start with NTWK... your rules not mine")
+    return
+  end
+
   local last_chance = vim.fn.input(string.format("Move %s TO DONE, y/n?): ", issue_key))
 
   if last_chance ~= "y" then

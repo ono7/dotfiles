@@ -130,6 +130,11 @@ function M.update_jira_story()
   local user_input = vim.fn.input(prompt)
   local issue_key = (user_input ~= "") and user_input or detected_issue_key
 
+  if not issue_key:upper():match("^NTWK") then
+    print("\nIssues must start with NTWK... your rules not mine")
+    return
+  end
+
   if not issue_key then
     print("Error: No valid issue key provided")
     return
