@@ -80,6 +80,12 @@ function M.move_to_done()
   local user_input = vim.fn.input(prompt)
   local issue_key = (user_input ~= "") and user_input or detected_issue_key
 
+  local last_chance = vim.fn.input(string.format("Move %s TO DONE, y/n?): ", issue_key))
+
+  if last_chance ~= "y" then
+    return
+  end
+
   if not issue_key then
     print("Error: No valid issue key provided")
     return
