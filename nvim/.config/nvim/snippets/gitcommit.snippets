@@ -52,3 +52,7 @@ snippet h "type help" b
   # any type.
   # commit message with scope and breaking change()!
   # feat(api)!: send an email to the customer when a product is shipped
+  # fix type commits should be translated to PATCH releases. feat type commits
+  # should be translated to MINOR releases. Commits with BREAKING CHANGE in the
+  # commits, regardless of type, should be translated to MAJOR releases.
+
