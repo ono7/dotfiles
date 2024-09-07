@@ -3,6 +3,7 @@
 set nocompatible
 
 set t_Co=8
+set guicursor=n:block,i:block
 
 let mapleader = " "
 let g:loaded_matchit = 1
@@ -119,7 +120,11 @@ function s:indent_ret() abort
   return stridx('()[]{}', pair) % 2 == 0 ? "\<cr>\<esc>O" : "\<cr>"
 endfunction
 
-" surround mappings
+" Add single quotes around selected text
+xnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la
+xnoremap " <esc>`>a"<esc>`<i"<esc>`>2la
+xnoremap ` <esc>`>a`<esc>`<i`<esc>`>2la
+
 vnoremap s" ciw"<c-r><c-p>""
 vnoremap s' ciw'<c-r><c-p>"'
 
