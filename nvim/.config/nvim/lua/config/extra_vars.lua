@@ -266,7 +266,7 @@ set cmdheight=1
 set complete+=kspell complete-=i
 set diffopt=filler
 set directory=
-set viminfo='20,<1000,s1000,:1000,/1000,h,r/tmp
+set viminfo='20,<1000,s100,:100,/100,h
 set display+=lastline
 set encoding=utf-8
 set fileencoding=utf-8
@@ -304,7 +304,7 @@ set timeoutlen=500 ttimeoutlen=0
 set undolevels=999
 set undodir=/tmp
 set undofile
-set updatetime=1000
+set updatetime=50
 set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
 set wildmenu
 set winaltkeys=no
