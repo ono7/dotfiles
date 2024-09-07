@@ -14,7 +14,7 @@ surround.setup(
       normal_cur = "ys",
       normal_line = "yS",
       normal_cur_line = "ySS",
-      visual = "S",
+      visual = "GS",
       visual_line = "gS",
       delete = "ds",
       change = "cs"

@@ -122,7 +122,13 @@ function s:indent_ret() abort
   return stridx('()[]{}', pair) % 2 == 0 ? "\<cr>\<esc>O" : "\<cr>"
 endfunction
 
-" surround mappings
+" Add single quotes around selected text
+xnoremap ' <esc>`>a'<esc>`<i'<esc>
+xnoremap ' <esc>`>a`<esc>`<i`<esc>
+
+" Add double quotes around selected text
+xnoremap " <esc>`>a"<esc>`<i"<esc>
+
 vnoremap s" ciw"<c-r><c-p>""
 vnoremap s' ciw'<c-r><c-p>"'
 
@@ -486,8 +492,12 @@ augroup _quickfix
   autocmd QuickFixCmdPost l* lwindow 6
 augroup END
 
-vnoremap s" ciw"<c-r><c-p>""
-vnoremap s' ciw'<c-r><c-p>"'
+" Add single quotes around selected text
+xnoremap ' <esc>`>a'<esc>`<i'<esc>
+
+" Add double quotes around selected text
+xnoremap " <esc>`>a"<esc>`<i"<esc>
+
 nnoremap <c-j> <C-W><C-J>
 nnoremap <c-k> <C-W><C-K>
 nnoremap <c-l> <C-W><C-L>
@@ -541,7 +551,7 @@ nnoremap <c-z> <nop>
 cnoremap <c-z> <nop>
 nnoremap cp yap<S-}>p
 nnoremap U <c-r>
-nnoremap 0 ^  
+nnoremap 0 ^
 nnoremap <c-e> g_
 nnoremap <silent><Tab> :bnext<cr>
 nnoremap <silent><S-Tab> :bprev<cr>
@@ -580,7 +590,7 @@ set laststatus=1
 set magic
 set nobackup nowritebackup noswapfile
 set nojoinspaces list
-set listchars=tab:\ \ ,conceal:\ ,trail:·,nbsp:·
+set listchars=tab:\ \ ,conceal:\ ,trail:\ ,nbsp:\
 set showtabline=0
 set novisualbell noerrorbells
 set nowrap showmode noshowcmd
@@ -623,5 +633,6 @@ else
   set clipboard=unnamed
 endif
 set guicursor=n:block,i:block
+syntax off
 ]===]
 return M
