@@ -1,7 +1,7 @@
 #!/bin/bash
 
 log() {
-    printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "$0"
@@ -16,11 +16,12 @@ sudo locale-gen "en_US.UTF-8"
 
 log 'setting up linux dependencies (apt/python)'
 
+sudo apt-add-repository ppa:git-core/ppa -y
 sudo apt update
 sudo apt -y upgrade
 sudo apt remove -y nano
 sudo apt install zoxide git-delta
-sudo apt install -y build-essential libssl-dev curl tree zsh python3 python3.11 silversearcher-ag \
+sudo apt install -y build-essential git libssl-dev curl tree zsh python3 python3.11 silversearcher-ag \
   python3.11-pip python3.11-venv fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt zoxide \
   shellcheck
 
@@ -50,4 +51,3 @@ if [[ -f ~/local/bin/delta ]]; then
 else
   log "delta installation failed"
 fi
-
