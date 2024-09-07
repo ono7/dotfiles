@@ -27,6 +27,7 @@ wezterm.on(
 )
 
 local my_background = "#1f2937"
+-- local my_background = "#000000"
 local my_background_lighter = "#24364b"
 local my_background_darker = "#141f2b"
 local my_foreground = "#c5c8d3"
@@ -106,7 +107,7 @@ config.scrollback_lines                           = 5000
 config.scroll_to_bottom_on_input                  = true
 config.default_cwd                                = wezterm.homedir
 config.disable_default_key_bindings               = true
-config.font                                       = wezterm.font('MonoLisaNoLiga Nerd Font', { weight = "Medium" })
+config.font                                       = wezterm.font('MonoLisaNoLiga Nerd Font', { weight = "Regular" })
 config.font_size                                  = 23
 config.adjust_window_size_when_changing_font_size = false
 config.line_height                                = 1.3
@@ -117,7 +118,7 @@ config.initial_rows                               = 40
 config.initial_cols                               = 100
 config.underline_position                         = -8
 config.underline_thickness                        = 5
-config.window_background_opacity                  = 0.90
+config.window_background_opacity                  = 0.94
 config.macos_window_background_blur               = 20
 config.native_macos_fullscreen_mode               = true
 config.window_decorations                         = "RESIZE"

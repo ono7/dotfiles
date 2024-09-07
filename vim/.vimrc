@@ -3,7 +3,6 @@
 set nocompatible
 
 set t_Co=8
-set guicursor=n:block,i:block
 
 let mapleader = " "
 let g:loaded_matchit = 1
@@ -67,21 +66,30 @@ let &fcs='eob: '
 set synmaxcol=512
 syntax sync minlines=256
 syntax sync maxlines=300
-syntax off
 filetype plugin indent on
+syntax off
 
 """ hold my beer """
 
-" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" inoremap ` ``<left>
+" inoremap ( ()<left>
+" inoremap { {}<left>
+" inoremap [ []<left>
+
+" j, k   Store relative line number jumps in the jumplist. c-o, c-i
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-" inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-" inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
-" inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 
 " skip over \" and \' if they are inline
- inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'"
- inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\""
-" inoremap <expr> ` strpart(getline('.'), col('.')-1, 1) == "\`" ? "\<Right>" : "\`"
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'"
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\""
+inoremap <expr> ` strpart(getline('.'), col('.')-1, 1) == "\`" ? "\<Right>" : "\`"
 
 inoremap <expr> <bs> <sid>remove_pair()
 inoremap <expr> <enter> <sid>indent_ret()
@@ -120,6 +128,15 @@ nnoremap <c-j> <C-W><C-J>
 nnoremap <c-k> <C-W><C-K>
 nnoremap <c-l> <C-W><C-L>
 nnoremap <c-h> <C-W><C-H>
+nnoremap 0 ^
+
+" save some keystrokes
+
+xnoremap H <gv
+xnoremap L >gv
+
+" switch between current and prev file
+nnoremap <space><space> <c-^>
 
 noremap v <c-v>
 vunmap v
@@ -127,7 +144,6 @@ nnoremap cw ciw
 
 vnoremap p "0p
 vnoremap P "0P
-
 " vnoremap y "0y
 vnoremap d "0d
 
@@ -136,8 +152,8 @@ inoremap <C-c> <Esc>
 " change local cd per buffer
 nnoremap <leader>cd :lcd %:h<CR>
 
-" nnoremap H ^
-" nnoremap L g_
+nnoremap H ^
+nnoremap L g_
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
@@ -145,25 +161,26 @@ cnoremap <C-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
+" inoremap <m-b> <C-o>B
+" inoremap <m-f> <C-o>W
 nnoremap <silent><c-n> :cnext<cr>
 nnoremap <silent><c-p> :cprevious<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,q :qall!<cr>
 nnoremap ,w :w<cr>
-nnoremap ,x :x<cr>
+nnoremap gh ^
+nnoremap gl g_
 
 " return cursor position after yank in v-mode
 vnoremap y ygv<Esc>
-
 " paste matches indentation
 nnoremap p p=`]
-
 " leave unnamed alone when changing text
-" nnoremap c "ac
-" nnoremap C "aC
+nnoremap c "ac
+nnoremap C "aC
 
-" nnoremap ; :
-" xnoremap ; :
+" switch between current and prev file
+nnoremap <space><space> <c-^>
 
 nnoremap <silent><Esc>j :resize -2<cr>
 nnoremap <silent><Esc>k :resize +2<cr>
@@ -184,8 +201,8 @@ xnoremap Q :norm @q<cr>
 " make dot work on many visual sel lines
 vnoremap . :norm.<CR>
 nnoremap Y y$
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 nnoremap <c-d> <c-d>zz
 nnoremap <c-u> <c-u>zz
 nnoremap D d$
@@ -219,6 +236,11 @@ endfunction
 
 nnoremap <leader>t :!tmux send-keys -t 2 c-p Enter<cr> :redraw!<cr>
 
+" cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
+" cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
+
+cnoreabbrev q qa!
+
 set gp=git\ grep\ -n
 
 set completeopt=menuone,longest
@@ -227,6 +249,7 @@ set notitle
 " ~ search upwards until home dir
 set tags=./tags,tags;~
 set virtualedit=all
+" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 set path+=**
 set whichwrap+=<>[]hl
 set autoread
@@ -275,7 +298,7 @@ set undolevels=999
 set undodir=/tmp
 set undofile
 set updatetime=1000
-set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class,venv
+set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
 set wildmenu
 set winaltkeys=no
 set lazyredraw
@@ -307,8 +330,13 @@ if has('nvim')
   set clipboard+=unnamedplus
 endif
 
+if has('nvim-0.3.2') || has("patch-8.1.0360")
+  set completeopt=menu,menuone,longest
+  packadd cfilter
+end
+
 if &diff
-  if has('nvim')
+  if has('nvim-0.3.2')
     set diffopt=filler,internal,algorithm:histogram,indent-heuristic
   endif
   set number
@@ -330,8 +358,11 @@ endfun
 
 function! <SID>mySyntax()
   syntax match myCyanBold /[*.,:;]/
+  " syntax match myBold /[*.,:;]/
+  " syntax match myBlue /[]/
   syntax match myCyan /[\[\]=<!>-]/
   syntax match myYellow /[{}]/
+  " syntax match myRedBold /[()]/
 endfu
 
 augroup _del_hidden_buffer
@@ -419,3 +450,4 @@ hi! Normal guibg=NONE
 
 
 " Lima's vimrc, use at your own risk :)
+
