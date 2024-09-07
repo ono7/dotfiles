@@ -123,9 +123,9 @@ function s:indent_ret() abort
 endfunction
 
 " Add single quotes around selected text
-xnoremap ' <esc>`>a'<esc>`<i'<esc>`>A
-xnoremap " <esc>`>a"<esc>`<i"<esc>`>A
-xnoremap ` <esc>`>a`<esc>`<i`<esc>`>A
+xnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la
+xnoremap " <esc>`>a"<esc>`<i"<esc>`>2la
+xnoremap ` <esc>`>a`<esc>`<i`<esc>`>2la
 
 vnoremap s" ciw"<c-r><c-p>""
 vnoremap s' ciw'<c-r><c-p>"'
