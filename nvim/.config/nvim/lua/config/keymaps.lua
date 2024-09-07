@@ -10,9 +10,9 @@ vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
 
 -- replaces vim surround
-vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>]]
-vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>]]
-vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>]]
+vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>A]]
+vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>A]]
+vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>A]]
 
 vim.g.mapleader = " "
 
