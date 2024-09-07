@@ -13,14 +13,14 @@ golinux () {
 
 [ -f "/etc/os-release" ] && cat /etc/os-release | grep "buntu" &>/dev/null && export skip_global_compinit=1
 
-psmem () {
+mem () {
+  [ -z "$1" ] && echo "shows memory used by PID, enter a PID" && return
   ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' ';
 }
 
 jsondiff () {
   delta <(jq --sort-keys . $1) <(jq --sort-keys . $2)
 }
-
 
 brewit () {
   brew update &&
@@ -173,6 +173,7 @@ tmux_log () {
 alias p='podman'
 
 a () {
+  # super useful shortcut echo "this is a test" | a 2 -> "is"
   awk -v field="${1:-1}" '{print $field}'
 }
 
@@ -213,9 +214,4 @@ gpg_backup () {
   [ -z $1 ] && echo "provide a key.." && return
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
-}
-
-get_ca () {
-  [ -z $1 ] && echo "provide a domain.com, no https" && return 
-  openssl s_client -showcerts -servername ${1} -connect "${1}":443 </dev/null 2>/dev/null | openssl x509 -outform PEM > "${1}".crt
 }

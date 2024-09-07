@@ -1,6 +1,5 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
-
 vim.cmd [[ syntax off ]]
 
 local opt = { noremap = true }

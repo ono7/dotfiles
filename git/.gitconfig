@@ -17,8 +17,8 @@
   mergeoptions = --no-edit
 	pager = delta
 	hookspath = ~/.git_global/hooks
-  untrackedcache = true
-  fsmonitor = true
+	untrackedCache = true
+	fsmonitor = true
 
 [http]
   sslVerify = false
