@@ -37,6 +37,7 @@ snippet c "type" b
   chore: $0
 
 snippet h "type help" b
+  ${0}
   # Type can be
   # feat     (new feature)
   # fix      (bug fix)
@@ -45,3 +46,9 @@ snippet h "type help" b
   # docs     (changes to documentation)
   # test     (adding or refactoring tests; no production code change)
   # chore    (updating grunt tasks etc; no production code change)
+  # BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a
+  # ! after the type/scope, introduces a breaking API change (correlating with
+  # MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of
+  # any type.
+  # commit message with scope and breaking change()!
+  # feat(api)!: send an email to the customer when a product is shipped
