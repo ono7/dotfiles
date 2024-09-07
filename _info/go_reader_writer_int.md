@@ -9,6 +9,27 @@
 ## file read
 
 ```go
+// io.ReadAll()
+func ReadAll(r io.Reader) ([]byte, error) {
+    b := make([]byte, 0, 1024) // Create a buffer with 0 length and 1024 capacity
+    for {
+        if len(b) == cap(b) {
+            // Buffer is full, expand it
+            b = append(b, 0)[:len(b)]
+        }
+        n, err := r.Read(b[len(b):cap(b)])
+        b = b[:len(b)+n] // Extend slice to include new data
+        if err != nil {
+            if err == io.EOF {
+                err = nil
+            }
+            return b, err
+        }
+    }
+}
+```
+
+```go
 file, err := os.Open("file.txt")
 if err != nil {
     log.Fatal(err)
