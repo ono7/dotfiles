@@ -67,6 +67,8 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
+-- virtualedit allows moving cursor freely in c-v block mode
+vim.opt.virtualedit = "block"
 vim.opt.expandtab = true
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,5"
