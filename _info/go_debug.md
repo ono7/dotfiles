@@ -1,4 +1,20 @@
-# debugging in go
+## dlv debugging
+
+b main.go:30
+
+- `display -a myVar` - displays the variable myVar everytime we step through the code, can add as many as needed
+- `display` - shows all the display conditions by number
+
+  ```
+  (dlv) display
+  0: p n = error 1:3: expected 'EOF', found n
+  1: n = 1
+  2: m.pos = error could not find symbol value for m
+  ```
+
+- `display -d 0` - removes the display condition `0: p n =`
+
+## debugging in go
 
 Use fmt.Printf("%#v\n", d) -> prints more detailed info about an object, with
 structs shows key and values as well as types.
