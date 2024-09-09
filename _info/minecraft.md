@@ -8,3 +8,4 @@ F3 (fn+F3) macos shows coordinates
 
 `iron ore y= -14`
 `diamonds y= -53`
+`obsidian 100, -21, 29`
