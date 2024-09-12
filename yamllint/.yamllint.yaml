@@ -1,15 +1,16 @@
+---
 extends: default
 
 ignore:
   - /this/specific/file.yaml
   - all/this/directory/
   - '*.template.yaml'
+  - venv/
 
 rules:
-  # 80 chars should be enough, but don't fail if a line is longer
   line-length:
-    max: 80
+    max: 120
     level: warning
-
-  # don't bother me with this rule
-  # indentation: disable
+  empty-lines:
+    max: 1
+    level: warning

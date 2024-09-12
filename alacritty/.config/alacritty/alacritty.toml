@@ -98,15 +98,14 @@ bindings = [
 {  key  =  "K",      mods  =  "Command|Shift",  chars   =  "\u000c"             },
 {  key  =  "C",      mods  =  "Command",        chars   =  "\u0003"             },
 {  key  =  "V",      mods  =  "Command",        chars   =  "\u0016"             },
-{  key  =  "Slash",  mods  =  "Command",        chars   =  "\u001f"             },
 {  key  =  "N",      mods  =  "Command",        chars   =  "\u000e"             },
 {  key  =  "P",      mods  =  "Command",        chars   =  "\u0010"             },
 {  key  =  "J",      mods  =  "Command",        chars   =  "\u000a"             },
 {  key  =  "K",      mods  =  "Command",        chars   =  "\u000b"             },
 {  key  =  "L",      mods  =  "Command",        chars   =  "\u000c"             },
 {  key  =  "H",      mods  =  "Command",        chars   =  "\u0008"             },
-{  key  =  "X",      mods  =  "Command",        chars   =  "\u0001"             },
-{  key  =  "A",      mods  =  "Command",        chars   =  "\u0018"             },
+{  key  =  "A",      mods  =  "Command",        chars   =  "\u0001"             },
+{  key  =  "X",      mods  =  "Command",        chars   =  "\u0018"             },
 {  key  =  "D",      mods  =  "Command",        chars   =  "\u0004"             },
 {  key  =  "F",      mods  =  "Command",        chars   =  "\u0006"             },
 {  key  =  "S",      mods  =  "Command",        chars   =  "\u0013"             },
@@ -115,8 +114,8 @@ bindings = [
 {  key  =  "R",      mods  =  "Command",        chars   =  "\u0012"             },
 {  key  =  "I",      mods  =  "Command",        chars   =  "\u0009"             },
 {  key  =  "U",      mods  =  "Command",        chars   =  "\u0015"             },
-{ key = "Space" , mods = "Command|Shift", mode = "~Search", action = "ToggleViMode" }
-
+{ key = "Space" , mods = "Command|Shift", mode = "~Search", action = "ToggleViMode" },
+{  key  =  "Slash",  mods  =  "Command",        chars   =  "\u001f"             },
 ]
 
 [mouse]
