@@ -4,9 +4,6 @@
 # export GPG_TTY=$(tty)
 export GPG_TTY="/dev/tty"
 
-# Freeze terminal preventing any new changes to the tty
-ttyctl -f
-
 ############## Essential environment variables ##############
 
 export COLORTERM=truecolor
@@ -41,28 +38,6 @@ if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g InitialKeyRepeat -int 11
 fi
 
-############## Kitty config ##############
-
-# Function to set the tab title
-function set_title() {
-  echo -ne "\033]0;${1}\007"
-}
-
-# Preexec function (executed just before any command)
-function title_preexec() {
-  set_title "$1"
-}
-
-# Precmd function (executed before each prompt)
-function title_precmd() {
-  set_title "${PWD##*/}"
-}
-
-# Add the functions to the appropriate arrays
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec title_preexec
-add-zsh-hook precmd title_precmd
-
 ############## Shell options ##############
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
@@ -71,7 +46,7 @@ setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
 
-setopt COMPLETE_IN_WORD
+# setopt COMPLETE_IN_WORD
 setopt AUTO_LIST
 setopt COMBINING_CHARS
 setopt NO_BEEP
@@ -96,9 +71,9 @@ setopt autocd
 
 ############## History configuration ##############
 export HISTFILE=~/.zsh_history
-export HISTSIZE=3000
-export SAVEHIST=2999
-export HISTIGNORE='ls:ll:proxychains:pwd:sudo ssh*:echo'
+export HISTSIZE=2000
+export SAVEHIST=1999
+# export HISTIGNORE='ls:ll:proxychains:pwd:sudo ssh*:echo'
 HISTDUP=erase
 PROMPT_EOL_MARK=""
 
@@ -362,83 +337,96 @@ d () {
 
 ############## Completion system ##############
 
-[ ! -d ~/.zsh/zsh-autosuggestions ] && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-
-if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-    ZSH_AUTOSUGGEST_USE_ASYNC=true
-    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
-fi
+# [ ! -d ~/.zsh/zsh-autosuggestions ] && git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+#
+# if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+#     source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+#     ZSH_AUTOSUGGEST_USE_ASYNC=true
+#     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
+# fi
 
 if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
-# Optimize autocompletion system
+# # Optimize autocompletion system
+# autoload -Uz compinit
+#
+# # Define dump file location
+# zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+#
+# # Load and regenerate cache only once a day
+# if [[ -n $zcompdump(#qN.mh+24) ]]; then
+#   compinit
+#   touch $zcompdump
+# else
+#   compinit -C
+# fi
+#
+# # Compile zcompdump, if modified, to increase startup speed
+# if [[ -s $zcompdump && (! -s ${zcompdump}.zwc || $zcompdump -nt ${zcompdump}.zwc) ]]; then
+#   zcompile $zcompdump
+# fi
+#
+# Compile zshrc if modified
+
+# [[ -e ~/.zshrc ]] && zcompile ~/.zshrc
+
+# Completion caching
+# zstyle ':completion::complete:*' use-cache 1
+# zstyle ':completion::complete:*' cache-path $HOME/.zsh/cache
+#
+# # Completion speed improvements
+# zstyle ':completion:*' accept-exact '*(N)'
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion:*' cache-path ~/.zsh/cache
+#
+# # Completion display tweaks
+# zstyle ':completion:*' menu select
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+#
+# # Limit and format completion matches
+# zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
+#
+# # Speed up completion selection
+# # zstyle ':completion:*' menu select interactive
+# zstyle ':completion:*' menu select
+#
+# # Disable slow git completions
+# zstyle ':completion:*:*:git:*' script /dev/null
+#
+# # Fuzzy matching of completions
+# zstyle ':completion:*' completer _complete _match _approximate
+# zstyle ':completion:*:match:*' original only
+# zstyle ':completion:*:approximate:*' max-errors 1 numeric
+#
+# # Increase the number of errors based on the length of the typed word
+# zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+#
+# # Ignore completion functions for commands you don't have
+# zstyle ':completion:*:functions' ignored-patterns '_*'
+#
+# # Array completion element sorting
+# zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+#
+# # Allow for autocomplete to be case insensitive
+# zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+
+# Completion system
 autoload -Uz compinit
-
-# Define dump file location
-zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-
-# Load and regenerate cache only once a day
-if [[ -n $zcompdump(#qN.mh+24) ]]; then
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
   compinit
-  touch $zcompdump
 else
   compinit -C
 fi
 
-# Compile zcompdump, if modified, to increase startup speed
-if [[ -s $zcompdump && (! -s ${zcompdump}.zwc || $zcompdump -nt ${zcompdump}.zwc) ]]; then
-  zcompile $zcompdump
-fi
-
-# Compile zshrc if modified
-[[ -e ~/.zshrc ]] && zcompile ~/.zshrc
-
-# Completion caching
-zstyle ':completion::complete:*' use-cache 1
-zstyle ':completion::complete:*' cache-path $HOME/.zsh/cache
-
-# Completion speed improvements
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-
-# Completion display tweaks
+# Completion settings
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# Limit and format completion matches
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%F{yellow}%B-- %d --%b%f'
-
-# Speed up completion selection
-# zstyle ':completion:*' menu select interactive
-zstyle ':completion:*' menu select
-
-# Disable slow git completions
-zstyle ':completion:*:*:git:*' script /dev/null
-
-# Fuzzy matching of completions
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-# Increase the number of errors based on the length of the typed word
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
-
-# Ignore completion functions for commands you don't have
-zstyle ':completion:*:functions' ignored-patterns '_*'
-
-# Array completion element sorting
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# Allow for autocomplete to be case insensitive
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 ############## Key bindings ##############
 
