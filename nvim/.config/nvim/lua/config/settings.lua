@@ -4,7 +4,7 @@ vim.opt.autoread = true
 vim.opt.breakindent = true
 vim.schedule(function()
   -- scheduled to decrease start time
-  vim.opt.clipboard = "unnamedplus"
+  vim.opt.clipboard = "unnamed,unnamedplus"
   -- vim.opt.clipboard:append("unnamedplus")
 end)
 vim.opt.cmdheight = 1

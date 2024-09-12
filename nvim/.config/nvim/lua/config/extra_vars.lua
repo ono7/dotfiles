@@ -317,7 +317,7 @@ set redrawtime=10000
 set ttyfast
 set foldmethod=indent
 set nofoldenable
-set fileformats=unix,dos
+set fileformats=unix
 set autoindent
 set nolisp
 set iskeyword+=-
