@@ -47,6 +47,10 @@ unfocused_hollow = true
 cursor =  "#5f6060"
 text = "#080808"
 
+[colors.vi_mode_cursor]
+text = "#000000"
+cursor = "#FF4500"
+
 [cursor.style]
 blinking = "Never"
 shape = "Block"
@@ -111,6 +115,8 @@ bindings = [
 {  key  =  "R",      mods  =  "Command",        chars   =  "\u0012"             },
 {  key  =  "I",      mods  =  "Command",        chars   =  "\u0009"             },
 {  key  =  "U",      mods  =  "Command",        chars   =  "\u0015"             },
+{ key = "Space" , mods = "Command|Shift", mode = "~Search", action = "ToggleViMode" }
+
 ]
 
 [mouse]
