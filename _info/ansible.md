@@ -1,5 +1,7 @@
 ## aap custom image build
 
+- debug `ANSIBLE_DEBUG=1 pb setup-docker.yml`
+
 ```Dockerfile
 
 FROM rhel-minimal:8-ubi as build
@@ -16,6 +18,7 @@ RUN pip install wheel ruff setuptools ansible ansible-lint ansible-builder pytes
 ENV PATH=/usr/bin:${PATH}
 
 ```
+
 # run adhoc commands
 
 `ansible -m shell -a 'ls -loh /home/builder/.vimrc' 'az_agents[0]'`
@@ -26,13 +29,11 @@ ENV PATH=/usr/bin:${PATH}
 
 remove_keys - removes keys from nested dict
 
-
 ```yaml
 `{{ data_dict_or_list_of_dicts | remove_keys(target=['test_key', 'test_key2']) }}`
 ```
 
 ## string interpolation supported
-
 
 ```yaml
 - name: replace static with delta file

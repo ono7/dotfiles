@@ -1,6 +1,6 @@
 {
   "*.{yml,yaml}": "yamllint",
-  "ansible/**/*.{yml,yaml}": "ansible-lint --offline",
+  "ansible/*.{yml,yaml}": "ansible-lint --offline",
   "*.py": [
     "ruff check"
   ],
