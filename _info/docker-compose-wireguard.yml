@@ -1,31 +1,30 @@
 ---
-# /root/docker-compose-wireguard.yml
-# install docker https://docs.docker.com/engine/install/ubuntu/
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
-    container_name: wireguard2
+    container_name: wireguard
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
     environment:
       - PUID=1000
-      - PGID=100
-      - TZ=US/Central
-      - SERVERURL=<chageme.to.something.com>
+      - PGID=1000
+      - TZ=America/Chicago
+      - SERVERURL=abc.com
       - SERVERPORT=51820
-      - PEERS=8
-      - PEERDNS=192.168.212.171
-      - INTERNAL_SUBNET=10.13.13.0
+      - PEERS=josePhone,joseLaptop,joseLaptop2,joseTablet,shilohPhone,shilohLaptop,emmaTablet,emmaPhone,emmaLaptop,colbyLaptop,colbyPhone,colbyTablet
+      - PEERDNS=100.64.0.1
+      - INTERNAL_SUBNET=100.64.125.0
       - ALLOWEDIPS=0.0.0.0/0
+      - LOG_CONFS=true
     volumes:
-      - /root/wireguard_config:/config
-      - /lib/modules:/lib/modules
+      - ./config:/config
     ports:
-      - 51820:51820/udp
+      - 100.64.0.50:51820:51820/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+
 # this is the systemd service file needed
 # /etc/systemd/system/wireguard.service
 # [Unit]
