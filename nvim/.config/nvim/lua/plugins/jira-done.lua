@@ -207,9 +207,11 @@ vim.api.nvim_create_user_command('JiraMove', function(opts)
   if #a > 1 then
     issue = a[2]
   end
-  if not status:match("^%d+") or not status:match("[Nn][Tt][Ww][Kk]%-%d+") then
-    P(status_table)
-    return
+  if not status_table[status] then
+    if not status:match("^%d+") or not status:match("[Nn][Tt][Ww][Kk]%-%d+") then
+      P(status_table)
+      return
+    end
   end
   issue = parse_issue(issue)
   M.move_issue(status, issue)
