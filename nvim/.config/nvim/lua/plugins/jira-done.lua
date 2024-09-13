@@ -152,8 +152,8 @@ function M.move_issue(status, issue_key)
   local transition_id
 
   for _, transition in ipairs(transitions) do
-    P(transition.name)
-    if transition.name:lower() == status_table[status:lower()] then
+    if transition.name == status_table[status] then
+      -- P({ status_table[status], transition.name })
       transition_id = transition.id
       break
     end
@@ -189,6 +189,16 @@ function M.move_issue(status, issue_key)
   end
 end
 
+--- takes just numbers for the issue
+local function parse_issue(issue)
+  if issue:match("^%d") then
+    return "NTWK-" .. issue
+  elseif issue:match("^[Nn][Tt][Ww][Kk]%-%d+") then
+    return issue
+  end
+  return nil
+end
+
 -- Set up command to call the function with arguments
 vim.api.nvim_create_user_command('JiraMove', function(opts)
   local a = vim.split(opts.args, "%s+")
@@ -197,9 +207,11 @@ vim.api.nvim_create_user_command('JiraMove', function(opts)
   if #a > 1 then
     issue = a[2]
   end
-  if status == "help" or status == "list" then
+  if not status:match("^%d+") or not status:match("[Nn][Tt][Ww][Kk]%-%d+") then
+    P(status_table)
     return
   end
+  issue = parse_issue(issue)
   M.move_issue(status, issue)
 end, { nargs = 1 })
 
