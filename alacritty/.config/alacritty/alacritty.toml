@@ -119,7 +119,7 @@ bindings = [
 {  key  =  "I",      mods  =  "Command",        chars   =  "\u0009"            },
 {  key  =  "U",      mods  =  "Command",        chars   =  "\u0015"            },
 {  key  =  "Space"   ,     mods  =                 "Command|Shift",  mode  =                    "~Search",  action  =  "ToggleViMode"  },
-{  key  =  "Slash",  mods  =     "Command",        chars             =     "\u001f"             },
+{  key  =  "Slash",  mods  =    "Command",        chars             =     "\u001f"             },
 ]
 
 [mouse]

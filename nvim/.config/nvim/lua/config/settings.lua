@@ -92,7 +92,7 @@ vim.opt.undofile = true
 vim.opt.updatetime = 50
 vim.opt.whichwrap:append "<>[]"
 vim.opt.wildignore = [[.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class]]
-vim.opt.winaltkeys = "no"
+-- vim.opt.winaltkeys = "no"
 vim.opt.wrap = false
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
