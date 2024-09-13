@@ -11,6 +11,11 @@ snippet time "time" w
 snippet dt "date and time" w
 	`strftime("%Y-%m-%d %H:%M")`
 
+snippet c "code block" w
+	\`\`\`${1}
+	${0:${VISUAL}}
+	\`\`\`
+
 snippet ft "filetype" w
   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
 
