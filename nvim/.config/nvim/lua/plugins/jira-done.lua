@@ -8,12 +8,27 @@ local config = {
   jira_api_token = nil
 }
 
+local transition_table = {
+  ["Back to To Do"] = "back",
+  ["To To Do"] = "todo",
+  ["To Review"] = "review",
+  ["To Done"] = "done",
+}
+
 local status_table = {
   back = "Back to To Do",
   todo = "To To Do",
   review = "To Review",
   done = "To Done",
 }
+
+local function transitions_to_string(tbl)
+  local result = ""
+  for _, v in ipairs(tbl) do
+    result = result .. ", " .. v.name
+  end
+  return result
+end
 
 -- Helper function for displaying messages
 local function display_message(message, level)
@@ -77,7 +92,7 @@ function M.setup()
   end
 end
 
-function M.move_issue(status)
+function M.move_issue(status, issue_key)
   M.setup()
   if not (config.jira_url and config.jira_email and config.jira_api_token) then
     display_message("Error: Jira plugin not properly configured, missing .env vars", vim.log.levels.ERROR)
@@ -88,18 +103,21 @@ function M.move_issue(status)
   local branch_name = get_current_branch()
   local detected_issue_key = branch_name and extract_issue_key(branch_name) or nil
 
-  -- Prompt for the Jira issue key, with the detected key as default
-  local prompt = detected_issue_key
-      and string.format("Jira issue to move to %s (found: %s) or new: ", status:upper(), detected_issue_key)
-      or string.format("Enter Jira issue key to move to %s: ", status:upper())
-  local user_input = vim.fn.input(prompt)
-  local issue_key = (user_input ~= "") and user_input or detected_issue_key
+  if not issue_key then
+    -- Prompt for the Jira issue key, with the detected key as default
+    local prompt = detected_issue_key
+        and string.format("Jira issue to move to %s (found: %s) or new: ", status:upper(), detected_issue_key)
+        or string.format("Enter Jira issue key to move to %s: ", status:upper())
+    local user_input = vim.fn.input(prompt)
+    issue_key = (user_input ~= "") and user_input or detected_issue_key
+  end
 
   if not issue_key then
     display_message("Error: No valid issue key provided", vim.log.levels.ERROR)
     return
   end
 
+  -- TODO: add using %d+ and add ntwk to stream line
   if not issue_key:upper():match("^NTWK") then
     display_message("Issues must start with NTWK... your rules not mine", vim.log.levels.WARN)
     return
@@ -134,7 +152,8 @@ function M.move_issue(status)
   local transition_id
 
   for _, transition in ipairs(transitions) do
-    if transition.name:lower() == "to " .. status:lower() then
+    P(transition.name)
+    if transition.name:lower() == status_table[status:lower()] then
       transition_id = transition.id
       break
     end
@@ -142,11 +161,9 @@ function M.move_issue(status)
 
   if not transition_id then
     display_message(
-      string.format('E: "%s" transition not valid for this issue.', status:upper()),
+      string.format('E: "%s", invalid transition, valid transitions.', status:upper()),
       vim.log.levels.ERROR)
-    for _, transition in ipairs(transitions) do
-      display_message("- " .. transition.name, vim.log.levels.INFO)
-    end
+    display_message(transitions_to_string(transitions), vim.log.levels.INFO)
     return
   end
 
@@ -174,11 +191,18 @@ end
 
 -- Set up command to call the function with arguments
 vim.api.nvim_create_user_command('JiraMove', function(opts)
-  if opts.args == "help" or opts.args == "list" then
-    P(status_table)
+  local a = vim.split(opts.args, "%s+")
+  local status = a[1]
+  local issue = nil
+  if #a > 1 then
+    issue = a[2]
+  end
+  if status == "help" or status == "list" then
     return
   end
-  M.move_issue(opts.args)
+  M.move_issue(status, issue)
 end, { nargs = 1 })
+
+
 
 return M
