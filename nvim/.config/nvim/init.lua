@@ -51,7 +51,7 @@ require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
 require("plugins.jira")
-require("plugins.jira-done")
+require("plugins.jira-move")
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
