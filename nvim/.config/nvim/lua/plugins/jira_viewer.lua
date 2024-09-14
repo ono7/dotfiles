@@ -55,7 +55,8 @@ local function setup()
 end
 
 local function get_auth_header()
-  return 'Basic ' .. vim.base64.encode(config.jira_email .. ':' .. config.jira_api_token)
+  return 'Basic ' ..
+      fn.system('echo -n "' .. config.jira_email .. ':' .. config.jira_api_token .. '" | base64'):gsub("\n", "")
 end
 
 local function fetch_issue_details(issue_key)
@@ -144,8 +145,13 @@ local function open_issue_detail(issue_key)
     "Assignee: " .. (issue_details.assignee and issue_details.assignee.displayName or "Unassigned"),
     "",
     "Description:",
-    issue_details.description or "No description provided."
   }
+
+  -- Add description, handling potential newlines
+  local description = issue_details.description or "No description provided."
+  for line in description:gmatch("[^\r\n]+") do
+    table.insert(content, line)
+  end
 
   api.nvim_buf_set_lines(buf, 0, -1, false, content)
 
@@ -167,8 +173,9 @@ local function open_issue_detail(issue_key)
   api.nvim_buf_set_option(buf, 'modifiable', true)
   api.nvim_buf_set_option(buf, 'filetype', 'markdown')
 
-  -- Set buffer name
-  api.nvim_buf_set_name(buf, "JIRA Issue: " .. issue_key)
+  -- Set a unique buffer name
+  local timestamp = os.time()
+  api.nvim_buf_set_name(buf, string.format("JIRA Issue: %s (%d)", issue_key, timestamp))
 
   -- Set up autocmd to update the description when saving
   api.nvim_create_autocmd("BufWriteCmd", {
@@ -205,8 +212,8 @@ function M.open_comment_window()
   api.nvim_buf_set_option(comment_buf, 'buftype', 'acwrite')
 
   -- Open the buffer in a new floating window
-  local width = math.floor(vim.o.columns * 0.4)
-  local height = math.floor(vim.o.lines * 0.3)
+  local width = math.floor(vim.o.columns * 0.6)
+  local height = math.floor(vim.o.lines * 0.4)
   local win_opts = {
     relative = 'editor',
     width = width,
@@ -222,8 +229,9 @@ function M.open_comment_window()
   api.nvim_buf_set_option(comment_buf, 'modifiable', true)
   api.nvim_buf_set_option(comment_buf, 'filetype', 'markdown')
 
-  -- Set buffer name
-  api.nvim_buf_set_name(comment_buf, "JIRA Comment: " .. issue_key)
+  -- Set a unique buffer name
+  local timestamp = os.time()
+  api.nvim_buf_set_name(comment_buf, string.format("JIRA Comment: %s (%d)", issue_key, timestamp))
 
   -- Set up autocmd to add the comment when saving and closing
   api.nvim_create_autocmd("BufWriteCmd", {
@@ -277,8 +285,9 @@ function M.open_issues_file()
   api.nvim_buf_set_option(buf, 'modifiable', false)
   api.nvim_buf_set_option(buf, 'filetype', 'markdown')
 
-  -- Set buffer name
-  api.nvim_buf_set_name(buf, "JIRA Issues")
+  -- Set a unique buffer name
+  local timestamp = os.time()
+  api.nvim_buf_set_name(buf, string.format("JIRA Issues (%d)", timestamp))
 
   -- Set up keymap to open issue details
   api.nvim_buf_set_keymap(buf, 'n', '<CR>', ':lua require("jira_viewer").select_issue()<CR>',
@@ -299,6 +308,7 @@ function M.select_issue()
 end
 
 function M.setup()
+  vim.keymap.set("n", "<leader>j", ":JiraIssues<cr>", { silent = true })
   vim.api.nvim_create_user_command('JiraIssues', function()
     require('jira_viewer').open_issues_file()
   end, {})

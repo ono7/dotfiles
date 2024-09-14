@@ -85,7 +85,7 @@ local function fetch_and_write_issues()
 
   -- Collect and process issues
   for _, issue in ipairs(issues) do
-    P(issue)
+    -- P(issue)
     local epic = issue.fields.parent and issue.fields.parent.key or "No Epic"
     local sprint_name = ""
     local sprint_state = ""
