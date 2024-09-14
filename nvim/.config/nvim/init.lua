@@ -57,9 +57,18 @@ require("plugins.jira-fetch-issues")
 require("plugins.jira-clone")
 
 vim.keymap.set("n", "<leader>j", function()
-  vim.cmd [[":JiraIssues<cr>"]]
-  require('jira_viewer').setup()
-end, silent)
+  -- Load and setup the module
+  local ok, jira_viewer = pcall(require, 'jira_viewer')
+  if not ok then
+    vim.notify("Failed to load jira_viewer module", vim.log.levels.ERROR)
+    return
+  end
+  jira_viewer.setup()
+  -- Schedule the command execution to ensure it's available
+  vim.schedule(function()
+    vim.cmd("JiraIssues")
+  end)
+end, { silent = true, desc = "Open Jira Issues" })
 
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
