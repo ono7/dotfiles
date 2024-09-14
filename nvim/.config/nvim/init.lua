@@ -54,6 +54,7 @@ require("plugins.jira-base")
 require("plugins.jira")
 require("plugins.jira-move")
 require("plugins.jira-fetch-issues")
+require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
 
 vim.keymap.set("n", "<leader>j", function()
