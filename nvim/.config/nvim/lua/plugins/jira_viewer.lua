@@ -1,4 +1,5 @@
 --- fetches jira story details, allows to edit and add comments
+--
 local api = vim.api
 local fn = vim.fn
 local curl = require('plenary.curl')
