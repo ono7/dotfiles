@@ -52,6 +52,7 @@ require("config.keymaps")
 require("config.cmds")
 require("plugins.jira")
 require("plugins.jira-move")
+require("plugins.jira-plugin")
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
