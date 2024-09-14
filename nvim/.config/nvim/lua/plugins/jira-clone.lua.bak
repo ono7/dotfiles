@@ -1,7 +1,6 @@
 local curl = require('plenary.curl')
 local jira_main = require('jira-base')
 
-
 local function clone_issue(issue_key, num_clones)
   if not jira_main.setup() then
     return
@@ -10,16 +9,46 @@ local function clone_issue(issue_key, num_clones)
   -- Encode credentials
   local auth = vim.base64.encode(jira_main.config.jira_email .. ':' .. jira_main.config.jira_api_token)
 
+  -- First, get the issue details
+  local response = curl.get(jira_main.config.jira_url .. '/rest/api/2/issue/' .. issue_key, {
+    headers = {
+      Authorization = 'Basic ' .. auth,
+      ['Content-Type'] = 'application/json',
+    },
+  })
+
+  if response.status ~= 200 then
+    jira_main.display_message('Failed to fetch issue details. Status: ' .. response.status, vim.log.levels.ERROR)
+    return
+  end
+
+  local issue = vim.fn.json_decode(response.body)
+
   -- Prepare the payload for cloning
   local clone_payload = {
-    summary = "CLONE - " .. issue_key,
-    optionalFields = {},
-    includeAttachments = true
+    fields = {
+      project = { key = issue.fields.project.key },
+      summary = issue.fields.summary .. " (Clone)",
+      issuetype = { id = issue.fields.issuetype.id },
+      description = issue.fields.description,
+      customfield_10031 = issue.fields.customfield_10031, -- Acceptance Criteria
+      customfield_10095 = issue.fields.customfield_10095  -- Story Type
+    }
   }
+
+  -- Set the sprint ID if it exists
+  if issue.fields.customfield_10020 and #issue.fields.customfield_10020 > 0 then
+    clone_payload.fields.customfield_10020 = issue.fields.customfield_10020[1].id
+  end
+
+  -- Set the parent epic if it exists
+  if issue.fields.parent then
+    clone_payload.fields.parent = { key = issue.fields.parent.key }
+  end
 
   -- Clone the issue the specified number of times
   for i = 1, num_clones do
-    local clone_response = curl.post(jira_main.config.jira_url .. '/rest/internal/2/issue/' .. issue_key .. '/clone', {
+    local clone_response = curl.post(jira_main.config.jira_url .. '/rest/api/2/issue', {
       body = vim.fn.json_encode(clone_payload),
       headers = {
         Authorization = 'Basic ' .. auth,
@@ -27,10 +56,9 @@ local function clone_issue(issue_key, num_clones)
       },
     })
 
-    if clone_response.status ~= 200 and clone_response.status ~= 201 then
+    if clone_response.status ~= 201 then
       local error_body = vim.fn.json_decode(clone_response.body)
       local error_message = 'Failed to clone issue. '
-      P(clone_response)
 
       if error_body and error_body.errors then
         for field, msg in pairs(error_body.errors) do
@@ -65,6 +93,11 @@ local function clone_issue(issue_key, num_clones)
           .ERROR)
       else
         jira_main.display_message('Updated assignee for ' .. new_issue.key, vim.log.levels.INFO)
+      end
+
+      if issue.fields.parent then
+        jira_main.display_message('Added ' .. new_issue.key .. ' to epic ' .. issue.fields.parent.key,
+          vim.log.levels.INFO)
       end
     end
   end
