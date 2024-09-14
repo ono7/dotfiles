@@ -1,6 +1,11 @@
 # look arounds, vim look arounds affect the previous capture group only
 
 ```
+
+remove duplicate adjacent lines
+:g/^\(.*\)$\n\1$/d
+
+
   Positive lookahead: \@=
   Negative lookahead: \@!
   Positive lookbehind: \@<=
