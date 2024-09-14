@@ -60,8 +60,8 @@ local function fetch_and_write_issues()
   -- Encode credentials
   local auth = vim.base64.encode(config.jira_email .. ':' .. config.jira_api_token)
 
-  -- JQL query to get non-done issues assigned to the current user, ordered by sprint
-  local jql = "assignee = currentUser() AND status != Done ORDER BY sprint ASC"
+  -- JQL query to get non-done issues assigned to the current user
+  local jql = "assignee = currentUser() AND status != Done"
 
   -- Make the API request to search for issues
   local response = curl.get(config.jira_url .. '/rest/api/2/search', {
@@ -81,17 +81,11 @@ local function fetch_and_write_issues()
   end
 
   local issues = vim.fn.json_decode(response.body).issues
+  local sorted_issues = {}
 
-  -- Open the ~/.issues.txt file for writing
-  local home = os.getenv("HOME")
-  local file = io.open(home .. "/.issues.txt", "w")
-  if not file then
-    display_message("Error: Unable to open ~/.issues.txt for writing", vim.log.levels.ERROR)
-    return
-  end
-
-  -- Write issues to the file
+  -- Collect and process issues
   for _, issue in ipairs(issues) do
+    -- P(issue)
     local epic = issue.fields.parent and issue.fields.parent.key or "No Epic"
     local sprint_name = ""
     local sprint_state = ""
@@ -115,21 +109,45 @@ local function fetch_and_write_issues()
       end
     end
 
-    -- Only write the issue if the sprint is not closed
+    -- Only include the issue if the sprint is not closed
     if sprint_state:lower() ~= "closed" then
-      local line = string.format("%s, %s, %s, %s, %s\n",
-        issue.key:lower(),
-        epic,
-        sprint_name,
-        issue.fields.status.name,
-        issue.fields.summary
-      )
-      file:write(line)
+      table.insert(sorted_issues, {
+        key = issue.key:lower(),
+        epic = epic,
+        sprint = sprint_name,
+        status = issue.fields.status.name,
+        summary = issue.fields.summary
+      })
     end
   end
 
+  -- Sort issues by sprint name
+  table.sort(sorted_issues, function(a, b)
+    return a.sprint < b.sprint
+  end)
+
+  -- Open the ~/.issues.txt file for writing
+  local home = os.getenv("HOME")
+  local file = io.open(home .. "/.issues.txt", "w")
+  if not file then
+    display_message("Error: Unable to open ~/.issues.txt for writing", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Write sorted issues to the file
+  for _, issue in ipairs(sorted_issues) do
+    local line = string.format("%s, %s, %s, %s, %s\n",
+      issue.key,
+      issue.epic,
+      issue.sprint,
+      issue.status,
+      issue.summary
+    )
+    file:write(line)
+  end
+
   file:close()
-  display_message("Issues have been written to ~/.issues.txt", vim.log.levels.INFO)
+  display_message("Sorted issues have been written to ~/.issues.txt", vim.log.levels.INFO)
 end
 
 -- Function to open the main floating window

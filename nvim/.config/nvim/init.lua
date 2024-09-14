@@ -54,6 +54,8 @@ require("plugins.jira")
 require("plugins.jira-move")
 require("plugins.jira-fetch-issues")
 require("plugins.jira-info")
+require("plugins.jira-clone")
+
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
