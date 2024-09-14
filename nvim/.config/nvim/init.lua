@@ -54,9 +54,12 @@ require("plugins.jira-base")
 require("plugins.jira")
 require("plugins.jira-move")
 require("plugins.jira-fetch-issues")
--- require("plugins.jira-info")
 require("plugins.jira-clone")
-require('jira_viewer').setup()
+
+vim.keymap.set("n", "<leader>j", function()
+  vim.cmd [[":JiraIssues<cr>"]]
+  require('jira_viewer').setup()
+end, silent)
 
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")

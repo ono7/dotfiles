@@ -1,8 +1,11 @@
+--- fetches jira story details, allows to edit and add comments
 local api = vim.api
 local fn = vim.fn
 local curl = require('plenary.curl')
 
 local M = {}
+
+M.is_setup = false
 
 -- Configuration
 local config = {
@@ -308,10 +311,13 @@ function M.select_issue()
 end
 
 function M.setup()
-  vim.keymap.set("n", "<leader>j", ":JiraIssues<cr>", { silent = true })
+  if M.is_setup then
+    return
+  end
   vim.api.nvim_create_user_command('JiraIssues', function()
     require('jira_viewer').open_issues_file()
   end, {})
+  M.is_setup = true
 end
 
 return M
