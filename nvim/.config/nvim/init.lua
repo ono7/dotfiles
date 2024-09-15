@@ -57,6 +57,7 @@ require("plugins.jira-fetch-issues")
 require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
 
+-- TODO: change this to a commnad
 vim.keymap.set("n", "<leader>j", function()
   -- Load and setup the module
   local ok, jira_viewer = pcall(require, 'jira_viewer')
