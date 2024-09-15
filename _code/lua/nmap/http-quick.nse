@@ -1,3 +1,6 @@
+-- nmap -n -Pn -pT:80 --open --script 1.lua 100.64.0.134 -d
+-- n = no dns, Pn = no ping, pT port and (T)protocol, --open, only open ports, -d debug
+--
 -- every script requires:
 --
 --   portrule(func) = this is the rule that says what will trigger this script
@@ -5,6 +8,7 @@
 --   description(string) = what this is/does
 --   category(table) = required usually { "safe", "discovery" }
 --
+
 
 local shortport = require "shortport"
 local http = require "http"

@@ -29,7 +29,8 @@ white = "#a1aab8"
 yellow = "#e3d18a"
 
 [colors.primary]
-background = "#011627"
+# background = "#011627"
+background = "#0b1931"
 foreground = "#bdc1c6"
 
 # background  = "#19202f"
@@ -154,7 +155,7 @@ program = "/bin/zsh"
 decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.93
+opacity = 0.97
 blur = true
 decorations_theme_variant = "Dark"
 
