@@ -6,9 +6,6 @@ vim.diagnostic.config {
 }
 
 local on_attach = function(client, bufnr)
-  -- disable semantictokens that screw up colors or slow down lsp...
-  client.server_capabilities.semanticTokensProvider = nil
-
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
@@ -82,17 +79,6 @@ if not nvim_lsp_status then
   print("lspconfig not loaded in cmp.lua")
   return
 end
-
--- Add cmp_nvim_lsp capabilities settings to lspconfig
--- nvim_lsp.util.default_config.capabilities = vim.tbl_deep_extend(
---   'force',
---   nvim_lsp.util.default_config.capabilities,
---   require('cmp_nvim_lsp').default_capabilities()
--- )
-
--- local capabilities = cmp_nvim_lsp.default_capabilities()
--- lua =vim.lsp.get_clients()[1].server_capabilities
--- local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- HINT: P(capabilities) to inspect the client capabilities, this can then be modified
 
