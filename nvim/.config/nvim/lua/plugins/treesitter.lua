@@ -56,7 +56,7 @@ configs.setup {
     "yaml",
   },
   context_commentstring = {
-    enable = true,
+    enable = false,
   },
   textobjects = {
     select = {
@@ -109,7 +109,7 @@ configs.setup {
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
-        ["]]"] = { query = "@class.outer", desc = "Next class start" },
+        -- ["]]"] = { query = "@class.outer", desc = "Next class start" },
         --
         -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
         ["]o"] = "@loop.*",

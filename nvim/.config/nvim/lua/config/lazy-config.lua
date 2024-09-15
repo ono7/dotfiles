@@ -36,14 +36,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- {
-  --   "tpope/vim-fugitive",
-  --   config = function()
-  --     vim.cmd [[hi! diffAdded ctermfg=188 ctermbg=64 cterm=bold guifg=#50FA7B guibg=NONE gui=bold]]
-  --     vim.cmd [[hi! diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#FA5057 guibg=NONE gui=NONE]]
-  --   end
-  -- },
-
   {
     "NeogitOrg/neogit",
     dependencies = {
@@ -60,13 +52,6 @@ require("lazy").setup({
   },
   "onsails/lspkind-nvim",
   "Glench/Vim-Jinja2-Syntax",
-  -- keep just incase...
-  -- {
-  --   "ellisonleao/gruvbox.nvim",
-  --   priority = 1000,
-  --   config = function() require "themes.gruvbox" end
-  -- },
-
   {
     "monkoose/matchparen.nvim",
     config = function()
@@ -105,19 +90,6 @@ require("lazy").setup({
       vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
     end
   },
-  -- {
-  --   "mfussenegger/nvim-dap",
-  --   dependencies = {
-  --     "mfussenegger/nvim-dap-python",
-  --     "jay-babu/mason-nvim-dap.nvim",
-  --     "leoluz/nvim-dap-go",
-  --     "rcarriga/nvim-dap-ui",
-  --     "thehamsta/nvim-dap-virtual-text",
-  --     "nvim-neotest/nvim-nio",
-  --     "williamboman/mason.nvim",
-  --   },
-  --   config = function() require "plugins.dap" end
-  -- },
   { "NvChad/nvim-colorizer.lua", config = function() require "plugins.colorizer" end },
   { "sindrets/diffview.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },
   {
@@ -156,21 +128,6 @@ require("lazy").setup({
     },
     config = function() require "plugins.lsp.cmp" end
   },
-
-  -- {
-  --   "lewis6991/gitsigns.nvim",
-  --   opts = {
-  --     -- See `:help gitsigns.txt`
-  --     signs = {
-  --       add = { text = "+" },
-  --       change = { text = "~" },
-  --       delete = { text = "_" },
-  --       topdelete = { text = "‾" },
-  --       changedelete = { text = "~" },
-  --     },
-  --   },
-  --   config = function() require "plugins.gitsigns" end
-  -- },
   {
     "nvim-telescope/telescope.nvim",
     version = "*",

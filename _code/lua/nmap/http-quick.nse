@@ -19,8 +19,15 @@ description = [[get cookies]]
 categories = { "safe", "discovery" }
 
 -- the rule
+--
 -- portrule = shortport.http
-portrule = shortport.port_or_service(80, "http", { "tcp" })
+--
+-- portrule = function(host, port)
+--   return port.protocol == "tcp" and
+--       port.state == "open"
+-- end
+-- see docs for different portrule functions and their signature
+portrule = shortport.port_or_service(80, "http", { "tcp" }, { "open" })
 
 
 -- the action
