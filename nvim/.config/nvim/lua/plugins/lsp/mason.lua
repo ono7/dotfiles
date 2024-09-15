@@ -6,8 +6,9 @@ vim.diagnostic.config {
 }
 
 local on_attach = function(client, bufnr)
-  -- disable semantictokens that screw up colors
-  -- client.server_capabilities.semanticTokensProvider = nil
+  -- disable semantictokens that screw up colors or slow down lsp...
+  client.server_capabilities.semanticTokensProvider = nil
+
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
