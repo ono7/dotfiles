@@ -315,9 +315,9 @@ function M.setup()
   if M.is_setup then
     return
   end
-  vim.api.nvim_create_user_command('JiraIssues', function()
-    require('jira_viewer').open_issues_file()
-  end, {})
+  -- vim.api.nvim_create_user_command('JiraIssues', function()
+  --   require('jira_viewer').open_issues_file()
+  -- end, {})
   M.is_setup = true
 end
 

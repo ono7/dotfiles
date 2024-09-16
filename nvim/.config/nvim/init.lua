@@ -60,19 +60,23 @@ require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
 
 -- TODO: change this to a commnad
-vim.keymap.set("n", "<leader>j", function()
-  -- Load and setup the module
-  local ok, jira_viewer = pcall(require, 'plugins.jira_viewer')
-  if not ok then
-    vim.notify(string.format("Failed to load jira_viewer module %s %s", ok, jira_viewer), vim.log.levels.ERROR)
-    return
-  end
-  jira_viewer.setup()
-  -- Schedule the command execution to ensure it's available
-  vim.schedule(function()
-    vim.cmd("JiraIssues")
-  end)
-end, { silent = true, desc = "Open Jira Issues" })
+
+vim.api.nvim_create_user_command('JiraIssues', function()
+  require('jira_viewer').open_issues_file()
+  vim.keymap.set("n", "<leader>j", function()
+    -- Load and setup the module
+    local ok, jira_viewer = pcall(require, 'plugins.jira_viewer')
+    if not ok then
+      vim.notify(string.format("Failed to load jira_viewer module %s %s", ok, jira_viewer), vim.log.levels.ERROR)
+      return
+    end
+    jira_viewer.setup()
+    -- Schedule the command execution to ensure it's available
+    vim.schedule(function()
+      vim.cmd("JiraIssues")
+    end)
+  end, { silent = true, desc = "Open Jira Issues" })
+end, {})
 
 
 vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
