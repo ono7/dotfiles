@@ -62,9 +62,9 @@ require("plugins.jira-clone")
 -- TODO: change this to a commnad
 vim.keymap.set("n", "<leader>j", function()
   -- Load and setup the module
-  local ok, jira_viewer = pcall(require, 'jira_viewer')
+  local ok, jira_viewer = pcall(require, 'plugins.jira_viewer')
   if not ok then
-    vim.notify("Failed to load jira_viewer module", vim.log.levels.ERROR)
+    vim.notify(string.format("Failed to load jira_viewer module %s %s", ok, jira_viewer), vim.log.levels.ERROR)
     return
   end
   jira_viewer.setup()
