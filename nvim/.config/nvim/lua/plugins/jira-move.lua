@@ -13,6 +13,7 @@ local transition_table = {
   ["To To Do"] = "todo",
   ["To Review"] = "review",
   ["To Done"] = "done",
+  ["To In Progress"] = "wip",
 }
 
 local status_table = {
@@ -20,6 +21,7 @@ local status_table = {
   todo = "To To Do",
   review = "To Review",
   done = "To Done",
+  wip = "To In Progress"
 }
 
 local function transitions_to_string(tbl)
@@ -191,10 +193,12 @@ end
 
 --- takes just numbers for the issue
 local function parse_issue(issue)
-  if issue:match("^%d") then
-    return "NTWK-" .. issue
-  elseif issue:match("^[Nn][Tt][Ww][Kk]%-%d+") then
-    return issue
+  if issue ~= nil then
+    if issue:match("^%d") then
+      return "NTWK-" .. issue
+    elseif issue:match("^[Nn][Tt][Ww][Kk]%-%d+") then
+      return issue
+    end
   end
   return nil
 end
