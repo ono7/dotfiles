@@ -61,7 +61,7 @@ require("plugins.jira-clone")
 
 -- this needs fixing
 vim.api.nvim_create_user_command('JiraIssues', function()
-  require('jira_viewer').open_issues_file()
+  require('plugins.jira_viewer').open_issues_file()
   vim.keymap.set("n", "<leader>j", function()
     -- Load and setup the module
     local ok, jira_viewer = pcall(require, 'plugins.jira_viewer')
