@@ -1,5 +1,19 @@
 # linux lua-lsp support
 
+Runs command and returns a pipe that can be read, pipe must be closed
+
+```lua
+-- Function to get the git diff
+local function get_git_diff()
+  local handle = io.popen("git diff")
+  local diff = handle:read("*a")
+  handle:close()
+  return diff
+end
+```
+
+##
+
 - consider a function to be a process that you can give information, and have it
   complete some task.
 
