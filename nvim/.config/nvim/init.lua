@@ -59,8 +59,6 @@ require("plugins.jira-fetch-issues")
 require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
 
--- TODO: change this to a commnad
-
 -- this needs fixing
 vim.api.nvim_create_user_command('JiraIssues', function()
   require('jira_viewer').open_issues_file()
