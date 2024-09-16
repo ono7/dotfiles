@@ -1,5 +1,4 @@
 local api = vim.api
-local fn = vim.fn
 local curl = require('plenary.curl')
 
 local M = {}
