@@ -36,7 +36,15 @@ fi
 if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g KeyRepeat -int 1
   defaults write -g InitialKeyRepeat -int 11
+
 fi
+
+
+fw () {
+  if [[ $OSTYPE == "darwin"* ]]; then
+      /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+  fi
+}
 
 ############## Shell options ##############
 setopt MENU_COMPLETE
@@ -45,6 +53,11 @@ unsetopt LIST_AMBIGUOUS
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
+
+# glob expansion and sorting
+setopt extended_glob
+setopt glob_dots
+setopt numeric_glob_sort
 
 # setopt COMPLETE_IN_WORD
 setopt AUTO_LIST
@@ -443,4 +456,4 @@ fi
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-[[ $? == 0 ]] && clear -x && uptime
+[[ $? == 0 ]] && clear -x && uptime && fw
