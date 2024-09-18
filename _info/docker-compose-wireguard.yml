@@ -1,4 +1,10 @@
 ---
+# re-generate png files
+# for i in $(fd -tf conf peer*)
+# do
+# echo "$i"
+# qrencode -t png -s 5 -o `basename $i`.png < $i
+# done
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
