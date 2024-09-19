@@ -1,7 +1,5 @@
 local curl = require('plenary.curl')
-local jira_main = require('jira-base')
-
-
+local jira_main = require('plugins.jira-base')
 
 local function clone_issue(issue_key, num_clones)
   if not jira_main.setup() then
@@ -11,21 +9,13 @@ local function clone_issue(issue_key, num_clones)
   -- Encode credentials
   local auth = vim.base64.encode(jira_main.config.jira_email .. ':' .. jira_main.config.jira_api_token)
 
-  -- Prepare the payload for cloning
-  local clone_payload = {
-    summary = "CLONE - " .. issue_key,
-    -- optionalFields = {},
-    includeAttachments = false
-  }
-
-
-  -- def issueResult = post('/rest/internal/2/issue/[issue key]/clone')
-  -- .header('Authorization', 'Basic [your base64 endcoded user:token ]')
-  -- .header("Content-Type", "application/json")
-  -- .body([summary : "CLONE - test"]).asString()
-  -- return issueResult
-  -- Clone the issue the specified number of times
   for i = 1, num_clones do
+    local clone_payload = {
+      summary = string.format("CLONE - %s, %d", issue_key, i),
+      -- optionalFields = {},
+      includeAttachments = false
+    }
+    -- this endpoint only valid for cloud base deployments of jira
     local clone_response = curl.post(jira_main.config.jira_url .. '/rest/internal/2/issue/' .. issue_key .. '/clone', {
       body = vim.fn.json_encode(clone_payload),
       headers = {
@@ -34,53 +24,12 @@ local function clone_issue(issue_key, num_clones)
       },
     })
 
-    if clone_response.status ~= 200 and clone_response.status ~= 201 then
-      local error_body = vim.fn.json_decode(clone_response.body)
-      local error_message = 'Failed to clone issue. '
-      P(error_body)
+    if clone_response.status ~= 200 then
       P(clone_response)
     end
+    print(string.format("cloned copy %d from %s, success\n", i, issue_key))
   end
 end
---       if error_body and error_body.errors then
---         for field, msg in pairs(error_body.errors) do
---           error_message = error_message .. field .. ': ' .. msg .. '; '
---         end
---       else
---         error_message = error_message .. 'Status: ' .. clone_response.status
---       end
---
---       jira_main.display_message(error_message, vim.log.levels.ERROR)
---     else
---       local new_issue = vim.fn.json_decode(clone_response.body)
---       jira_main.display_message('Created clone: ' .. new_issue.key, vim.log.levels.INFO)
---
---       -- Update the assignee
---       local assignee_payload = {
---         fields = {
---           assignee = { name = jira_main.config.jira_email:match("(.+)@") }
---         }
---       }
---
---       local assignee_response = curl.put(jira_main.config.jira_url .. '/rest/api/2/issue/' .. new_issue.key, {
---         body = vim.fn.json_encode(assignee_payload),
---         headers = {
---           Authorization = 'Basic ' .. auth,
---           ['Content-Type'] = 'application/json',
---         },
---       })
---
---       if assignee_response.status ~= 204 then
---         jira_main.display_message('Failed to update assignee. Status: ' .. assignee_response.status, vim.log.levels
---           .ERROR)
---       else
---         jira_main.display_message('Updated assignee for ' .. new_issue.key, vim.log.levels.INFO)
---       end
---     end
---   end
--- end
---
--- Function to handle the JiraClone command
 
 local function jira_clone_command(args)
   if #args ~= 2 then
@@ -88,7 +37,15 @@ local function jira_clone_command(args)
     return
   end
 
-  local issue_key = args[1]
+  local issue_key = ""
+
+  local preissue = args[1]
+  if preissue:match("^[Nn][Tt][Ww][Kw]-") then
+    issue_key = preissue
+  elseif preissue:match("^%d+") then
+    issue_key = string.format("NTWK-%d", preissue)
+  end
+
   local num_clones = tonumber(args[2])
 
   if not num_clones or num_clones < 1 then
