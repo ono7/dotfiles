@@ -9,6 +9,9 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
 
+
+-- vim.keymap.set("n", "cw", "ciw", silent)
+
 -- replaces vim surround
 vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la]]
 vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2la]]

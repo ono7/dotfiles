@@ -6,6 +6,10 @@ vim.diagnostic.config {
 }
 
 local on_attach = function(client, bufnr)
+  if client.nam == "lua_ls" then
+    -- disable hl groups created by lua ls
+    client.server_capabilities.semanticTokensProvider = nil
+  end
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
