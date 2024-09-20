@@ -11,7 +11,6 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
 
     for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-      P(group)
       vim.api.nvim_set_hl(0, group, {})
     end
   end
