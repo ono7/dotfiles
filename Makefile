@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps linux-neovim starship ssh shell
+.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -25,8 +25,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps linux-neovim fzf starship done
-mac: mac-deps clean stow nvm go-deps fzf starship done
+linux: linux-deps clean stow nvm go-deps neovim fzf starship done
+mac: mac-deps clean stow nvm go-deps fzf starship neovim done
 
 clean:
 	@echo $(BANNER)
@@ -92,10 +92,10 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
-linux-neovim:
+neovim:
 	@echo $(BANNER)
-	@mkdir -p ~/local/bin
-	@bash ./_scripts/linux-neovim-setup.sh
+	@mkdir -p ~/.local/bin
+	@bash ./_scripts/build-neovim.sh
 
 mac-deps:
 	@echo $(BANNER)
