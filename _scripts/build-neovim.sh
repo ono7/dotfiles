@@ -9,10 +9,8 @@ log() {
 TAG="stable"
 DESTDIR="neovim-stable"
 
-cleanup() {
-  rm -rf ${TAG}.tar.gz
-  rm -rf ${DESTDIR}
-}
+rm -rf ${TAG}.tar.gz
+rm -rf ${DESTDIR}
 
 log cleaning artifacts..
 
@@ -35,7 +33,7 @@ rm -rf "$HOME"/.local/bin/nvim
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
   log installing linux deps
-  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || log "unable to install deps" && exit 1 || echo "unable to install deps" && exit 1
+  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
 fi
 
 if [[ $OSTYPE == "darwin"* ]]; then
@@ -51,6 +49,8 @@ if make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME"/.local; then
   fi
 fi
 
+rm -rf ${TAG}.tar.gz
+rm -rf ${DESTDIR}
+
 log build complete
-cleanup
 which nvim
