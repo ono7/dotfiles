@@ -6,15 +6,18 @@ log() {
   printf '[%s] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+WD=$PWD
+
 TAG="stable"
 DESTDIR="neovim-stable"
 
-rm -rf ${TAG}.tar.gz
-rm -rf ${DESTDIR}
+cleanup() {
+  CD ${WD}
+  rm -rf ${TAG}.tar.gz
+  rm -rf ${DESTDIR}
+}
 
 log cleaning artifacts..
-
-cleanup
 
 log downloading neovim
 curl -LO https://github.com/neovim/neovim/archive/refs/tags/${TAG}.tar.gz
@@ -42,15 +45,19 @@ if [[ $OSTYPE == "darwin"* ]]; then
   brew install ninja cmake gettext curl
 fi
 
-log running make
-if make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME"/.local; then
-  if make install; then
-    log neovim installed successfully in "$HOME"/.local/bin/nvim
-  fi
+if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME"/.local; then
+  cleanup
+  log error while building neovim && exit 1
 fi
 
-rm -rf ${TAG}.tar.gz
-rm -rf ${DESTDIR}
+if ! make install; then
+  cleanup
+  rm -rf ${DESTDIR}
+  log error while installing neovim && exit 1
+fi
+
+cleanup
+log neovim installed successfully in "$HOME"/.local/bin/nvim
 
 log build complete
 which nvim
