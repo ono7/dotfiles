@@ -65,7 +65,9 @@ if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local"; then
   exit 1
 fi
 
+rm -rf ~/nvim
 rm -rf "$HOME/.local/bin/nvim"
+
 if ! make install; then
   log "Error while installing neovim"
   exit 1
