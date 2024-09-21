@@ -17,6 +17,8 @@ cleanup() {
   rm -rf ${DESTDIR}
 }
 
+trap cleanup EXIT
+
 log cleaning artifacts..
 
 log downloading neovim
@@ -32,8 +34,6 @@ make distclean
 make clean
 rm -rf build
 
-rm -rf "$HOME"/.local/bin/nvim
-
 if [[ $OSTYPE == "linux-gnu"* ]]; then
   log installing linux deps
   sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
@@ -46,18 +46,18 @@ if [[ $OSTYPE == "darwin"* ]]; then
 fi
 
 if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME"/.local; then
-  cleanup
   log error while building neovim && exit 1
 fi
 
+rm -rf "$HOME"/.local/bin/nvim
+
 if ! make install; then
-  cleanup
   rm -rf ${DESTDIR}
   log error while installing neovim && exit 1
 fi
 
-cleanup
 log neovim installed successfully in "$HOME"/.local/bin/nvim
 
 log build complete
+log make sure "$HOME"/.local/bin is in $$PATH
 which nvim
