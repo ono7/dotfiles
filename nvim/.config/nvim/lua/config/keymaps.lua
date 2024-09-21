@@ -13,9 +13,14 @@ vim.keymap.set("n", "j", "gj", silent)
 -- vim.keymap.set("n", "cw", "ciw", silent)
 
 -- replaces vim surround
-vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la]]
-vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2la]]
-vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2la]]
+vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]]
+vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]]
+vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]]
+
+-- back to insert mode
+-- vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la]]
+-- vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2la]]
+-- vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2la]]
 
 vim.g.mapleader = " "
 
