@@ -9,7 +9,7 @@ export CXXFLAGS="-O3 -march=native -mtune=native"
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
-  printf '\n\n[%s] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n[%s] - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 TAG="stable"

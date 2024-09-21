@@ -18,7 +18,7 @@ snippet h "header" b
   }
 
   log () {
-      printf '[%s] - %s\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
+      printf '\n[%s] - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
   }
 
   trap cleanup EXIT
