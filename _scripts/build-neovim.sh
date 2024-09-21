@@ -9,14 +9,18 @@ log() {
 TAG="stable"
 DESTDIR="neovim-stable"
 
+cleanup() {
+  rm -rf ${TAG}.tar.gz
+  rm -rf ${DESTDIR}
+}
+
 log cleaning artifacts..
 
-rm -rf ${TAG}.tar.gz
-rm -rf ${DESTDIR}
+cleanup
 
 log downloading neovim
 curl -LO https://github.com/neovim/neovim/archive/refs/tags/${TAG}.tar.gz
-tar vxzf ${TAG}.tar.gz
+tar xzf ${TAG}.tar.gz
 
 log changing dirs
 
@@ -26,6 +30,7 @@ log cleaning build
 make distclean
 make clean
 rm -rf build
+
 rm -rf "$HOME"/.local/bin/nvim
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
@@ -48,3 +53,5 @@ if make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME"/.local; then
 fi
 
 log build complete
+cleanup
+which nvim
