@@ -52,12 +52,15 @@ require("config.helper-functions")
 require("config.lazy-config")
 require("config.keymaps")
 require("config.cmds")
+
+-- home made plugins go here
 require("plugins.jira-base")
 require("plugins.jira")
 require("plugins.jira-move")
 require("plugins.jira-fetch-issues")
 require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
+require("plugins.create-table")
 require("plugins.claude-commit").setup()
 require("plugins.claude-general").setup()
 

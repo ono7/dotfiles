@@ -2,7 +2,7 @@
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
 
-# build optimization...
+# build optimization... if things start acting weird this probably caused it..
 export CFLAGS="-O3 -march=native -mtune=native"
 export CXXFLAGS="-O3 -march=native -mtune=native"
 
