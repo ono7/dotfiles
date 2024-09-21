@@ -19,4 +19,4 @@ function csv_to_markdown_table()
 end
 
 -- Create a command to call the function
-vim.api.nvim_create_user_command("CsvToMarkdownTable", csv_to_markdown_table, { range = true })
+vim.api.nvim_create_user_command("Table", csv_to_markdown_table, { range = true })
