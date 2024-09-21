@@ -2,10 +2,14 @@
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
 
+# build optimization...
+export CFLAGS="-O3 -march=native -mtune=native"
+export CXXFLAGS="-O3 -march=native -mtune=native"
+
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
-  printf '[%s] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n\n[%s] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 TAG="stable"
