@@ -107,7 +107,7 @@ alias vil='vim -u ~/.vimrc_min'
 alias vim=nvim
 alias clear='clear -x '
 alias k='kubectl '
-alias vl="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
+alias v="vim -c \"normal '0\" -c \"bn\" -c \"bd\""
 alias gd='git diff'
 alias gs='git status --untracked-files=all'
 alias tf='terraform'
