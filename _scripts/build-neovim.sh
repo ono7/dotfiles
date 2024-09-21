@@ -35,8 +35,7 @@ rm -rf "$HOME"/.local/bin/nvim
 
 if [[ $OSTYPE == "linux-gnu"* ]]; then
   log installing linux deps
-  sudo apt-get uninstall neovim
-  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || echo "unable to install deps" && exit 1 || echo "unable to install deps" && exit 1
+  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || log "unable to install deps" && exit 1 || echo "unable to install deps" && exit 1
 fi
 
 if [[ $OSTYPE == "darwin"* ]]; then
