@@ -33,37 +33,6 @@ vim.keymap.set("n", "ZQ", "")
 vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
 
 vim.keymap.set({ "n", "x" }, "\\", "<CMD>Neogit<CR>")
-
--- vim.keymap.set({ "n", "x" }, "\\", function()
---   -- Check if the current buffer's filetype is in the exclusion list
---   local excluded_filetypes = { "vim", "help", "" } -- Add more filetypes as needed
---   local current_filetype = vim.bo.filetype
---   for _, excluded in ipairs(excluded_filetypes) do
---     if current_filetype == excluded then
---       -- print("Fugitive toggle is disabled for " .. current_filetype .. " buffers.")
---       return
---     end
---   end
---
---   local fugitive_buf_found = false
---   local windows = vim.api.nvim_list_wins()
---   -- Check each window to see if it's showing a Fugitive buffer
---   for _, win in ipairs(windows) do
---     local buf = vim.api.nvim_win_get_buf(win)
---     local buf_name = vim.api.nvim_buf_get_name(buf)
---     if string.match(buf_name, "^fugitive://") then
---       fugitive_buf_found = true
---       -- Close the window that has the Fugitive buffer
---       vim.api.nvim_win_close(win, false)
---       break
---     end
---   end
---   -- If no Fugitive buffer was found, open Fugitive
---   if not fugitive_buf_found then
---     vim.cmd(":vertical Git")
---   end
--- end, { silent = true })
-
 vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 vim.keymap.set("x", "H", "<gv", silent)
@@ -318,26 +287,4 @@ vim.keymap.set("i", "<enter>", function()
   return enter_actions[prev_char] or default_enter
 end, { expr = true, silent = true })
 
--- Pre-allocate tables for better performance
-local row_col = { 0, 0 }
-local start_pos = { 0, 0 }
-local end_pos = { 0, 0 }
-
--- Cache actions and default_enter outside the function
--- local cached_actions = enter_actions
--- local cached_default = default_enter
---
--- local function get_prev_char()
---   row_col[1], row_col[2] = unpack(api.nvim_win_get_cursor(0))
---   if row_col[2] == 0 then return '' end
---   start_pos[1], start_pos[2] = row_col[1] - 1, row_col[2] - 1
---   end_pos[1], end_pos[2] = row_col[1] - 1, row_col[2]
---   return api.nvim_buf_get_text(0, start_pos[1], start_pos[2], end_pos[1], end_pos[2], {})[1] or ''
--- end
---
--- vim.keymap.set("i", "<enter>", function()
---   return cached_actions[get_prev_char()] or cached_default
--- end, { expr = true, silent = true })
-
---- delete all but the current buffer
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
