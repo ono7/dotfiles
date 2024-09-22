@@ -93,6 +93,7 @@ bindings = [
 {  key  =  "A",         mods  =  "Command",        chars   =  "\u0001"             },
 {  key  =  "Back",      mods  =  "Alt",            chars   =  "\u0017"             },
 {  key  =  "Back",      mods  =  "Command",        chars   =  "\u0017"             },
+{  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
 {  key  =  "C",         mods  =  "Command",        chars   =  "\u0003"             },
 {  key  =  "D",         mods  =  "Command",        chars   =  "\u0004"             },
 {  key  =  "E",         mods  =  "Command",        chars   =  "\u0005"             },
