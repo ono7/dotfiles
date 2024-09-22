@@ -1,26 +1,26 @@
 -- TODO: migrate this to modules
 
-local function check_buf(bufnr)
-  --- checks if this is a valid buffer that we can save to ---
-  local bufname = vim.api.nvim_buf_get_name(bufnr)
-  if bufname == '' then
-    return false
-  end
-  return true
-end
-
-local function clean_space_save()
-  if not check_buf(0) then
-    print("save me first!")
-    return
-  end
-  local save_cursor = vim.fn.getcurpos()
-  -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
-  vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
-  vim.cmd([[:write]])
-  vim.fn.setpos('.', save_cursor)
-  -- this is now handled by conform.nvim
-end
+-- local function check_buf(bufnr)
+--   --- checks if this is a valid buffer that we can save to ---
+--   local bufname = vim.api.nvim_buf_get_name(bufnr)
+--   if bufname == '' then
+--     return false
+--   end
+--   return true
+-- end
+--
+-- local function clean_space_save()
+--   if not check_buf(0) then
+--     print("save me first!")
+--     return
+--   end
+--   local save_cursor = vim.fn.getcurpos()
+--   -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
+--   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
+--   vim.cmd([[:write]])
+--   vim.fn.setpos('.', save_cursor)
+--   -- this is now handled by conform.nvim
+-- end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -36,20 +36,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
-    },
-  },
   {
     "NeogitOrg/neogit",
     dependencies = {
@@ -73,7 +59,7 @@ require("lazy").setup({
         on_startup = true,           -- Should it be enabled by default
         hl_group = 'MatchParen',     -- highlight group of the matched brackets
         augroup_name = 'matchparen', -- almost no reason to touch this unless there is already augroup with such name
-        debounce_time = 40,          -- debounce time in milliseconds for rehighlighting of brackets.
+        debounce_time = 20,          -- debounce time in milliseconds for rehighlighting of brackets.
       })
     end
   },
@@ -191,4 +177,19 @@ require("lazy").setup({
     end
   },
   "folke/neodev.nvim",
-}, {})
+}, {
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+
+})
