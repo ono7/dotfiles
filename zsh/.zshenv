@@ -1,3 +1,4 @@
+export ZK_NOTEBOOK_DIR="$HOME/notes"
 alias f='fd -tf'
 alias l='less -R '
 alias m='more '
