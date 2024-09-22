@@ -16,8 +16,8 @@ require("conform").setup({
     html = { "prettier" },
     json = { "prettier" },
     -- yaml = { "prettier" },
-    markdown = { "prettier" },
-    -- markdown = { "markdownfmt" },
+    -- markdown = { "prettier" },
+    markdown = { "markdownfmt" },
     -- goimports drop in replacement for gofmt
     go = { "goimports", "goimports-reviser" },
     graphql = { "prettier", stop_after_first = true },
