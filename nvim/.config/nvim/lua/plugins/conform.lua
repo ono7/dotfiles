@@ -17,17 +17,14 @@ require("conform").setup({
     json = { "prettier" },
     -- yaml = { "prettier" },
     -- markdown = { "prettier" },
-    markdown = { "mdfmt" },
     -- goimports drop in replacement for gofmt
     go = { "goimports", "goimports-reviser" },
+    markdown = { "markdownfmt" },
     graphql = { "prettier", stop_after_first = true },
   },
   formatters = {
     shfmt = {
       prepend_args = { "-i", "2" },
-    },
-    mdformat = {
-      prepend_args = { "--number" },
     },
   },
   format_on_save = {
