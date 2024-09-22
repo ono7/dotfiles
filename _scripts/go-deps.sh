@@ -11,6 +11,7 @@ if type go &>/dev/null; then
   go install -v github.com/incu6us/goimports-reviser/v3@latest
   go install golang.org/x/tools/cmd/goimports@latest
   go install github.com/shurcooL/markdownfmt@latest
+  go install github.com/moorereason/mdfmt@latest
   go install github.com/fatih/gomodifytags@latest
   env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 else
