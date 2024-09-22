@@ -1,6 +1,5 @@
 function csv_to_markdown_table(opts)
   local start_line, end_line
-
   if opts.range == 0 then
     -- No visual selection, use current line
     start_line = vim.fn.line(".")
@@ -16,14 +15,41 @@ function csv_to_markdown_table(opts)
 
   -- Transform lines into markdown table rows
   local table_rows = {}
-  for _, line in ipairs(lines) do
-    local columns = vim.split(line, ",")
-    -- Trim whitespace from each column
-    for i, col in ipairs(columns) do
-      columns[i] = col:match("^%s*(.-)%s*$")
+  if #lines > 1 then
+    -- Multiple lines selected
+    for i, line in ipairs(lines) do
+      local columns = vim.split(line, ",")
+      -- Trim whitespace from each column
+      for j, col in ipairs(columns) do
+        columns[j] = col:match("^%s*(.-)%s*$")
+      end
+      local markdown_row = "| " .. table.concat(columns, " | ") .. " |"
+      table.insert(table_rows, markdown_row)
+
+      -- Add separator row after headers
+      if i == 1 then
+        local separator = "|" .. string.rep(" --- |", #columns)
+        table.insert(table_rows, separator)
+      end
     end
-    local markdown_row = "| " .. table.concat(columns, " | ") .. " |"
-    table.insert(table_rows, markdown_row)
+  else
+    -- Single line
+    local line = lines[1]
+    if not line:match("^|.*|$") then
+      -- If not already a table, preserve original separators
+      local columns = {}
+      for col in line:gmatch("[^,]+") do
+        table.insert(columns, col:match("^%s*(.-)%s*$"))
+      end
+      if #columns == 1 then
+        -- If no commas found, split by spaces
+        columns = vim.split(line, "%s+")
+      end
+      table_rows = { "| " .. table.concat(columns, " | ") .. " |" }
+    else
+      -- If already a table, leave as is
+      table_rows = { line }
+    end
   end
 
   -- Replace the selected lines with the markdown table
