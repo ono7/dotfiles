@@ -2,6 +2,15 @@ extends html, jinja, todo
 
 priority 100
 
+snippet h "head" w
+  ---
+  title: ${1}
+  date: `strftime("%B %d, %Y")`
+  tags: [${2}]
+  ---
+
+  ${0}
+
 snippet todo "todo" w
   - TODO: ${0:${VISUAL}}
 snippet fix "fix" w

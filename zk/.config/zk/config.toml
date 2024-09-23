@@ -87,7 +87,8 @@ recents = "--sort created- --created-after 'last two weeks'"
 [alias]
 
 # Edit the last modified note.
-edlast = "zk edit --limit 1 --sort modified- $@"
+l = "zk edit --limit 1 --sort modified- $@"
+last = "zk edit --limit 1 --sort modified- $@"
 
 # Edit the notes selected interactively among the notes created the last two weeks.
 recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
@@ -98,8 +99,10 @@ lucky = "zk list --quiet --format full --sort random --limit 1"
 # list notes for editing
 ls = "zk edit --interactive"
 
+# list = "zk edit --interactive"
+
 # sear notes by tags
-t = "zk edit --interactive --tag $@"
+t = 'zk edit --tag "$@"'
 
 config = 'nvim "$HOME/.dotfiles/zk/config.toml"'
 
@@ -107,16 +110,15 @@ config = 'nvim "$HOME/.dotfiles/zk/config.toml"'
 daily = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal"'
 
 # new note
-ne = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas" --title $@'
+ne = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas" --title "$*"'
 
-# new youtube note
-ney = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas" --group youtube --title $@'
+n = 'zk new --no-input --title "$*"'
 
 # new standup entry
 standup = 'zk new --no-input "$ZK_NOTEBOOK_DIR/Standup"'
 
 # list standup
-ls-standup = 'zk edit "$ZK_NOTEBOOK_DIR/Standup" --sort created- --interactive'
+ls-standup = 'zk edit "$ZK_NOTEBOOK_DIR/standup" --sort created- --interactive'
 
 journal = "zk edit --sort created- $ZK_NOTEBOOK_DIR/journal --interactive"
 
