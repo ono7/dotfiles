@@ -95,7 +95,7 @@ ls = "zk edit --interactive"
 # list = "zk edit --interactive"
 
 # sear notes by tags
-t = 'zk edit --tag "$@"'
+t = 'zk list --interactive -t "$*"'
 
 config = 'nvim "$HOME/.dotfiles/zk/config.toml"'
 
