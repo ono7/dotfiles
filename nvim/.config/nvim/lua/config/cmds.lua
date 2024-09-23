@@ -112,7 +112,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "text", "markdown", "python", "go" },
+  pattern = { "text", "python", "go" },
   callback = function()
     vim.opt_local.wrap = true
   end
