@@ -147,7 +147,7 @@ nnoremap <space><space> <c-^>
 
 noremap v <c-v>
 vunmap v
-nnoremap cw ciw
+" nnoremap cw ciw
 
 vnoremap p "0p
 vnoremap P "0P
@@ -157,10 +157,10 @@ vnoremap d "0d
 inoremap <C-c> <Esc>
 
 " change local cd per buffer
-nnoremap <leader>cd :lcd %:h<CR>
+" nnoremap <leader>cd :lcd %:h<CR>
 
-nnoremap H ^
-nnoremap L g_
+" nnoremap H ^
+" nnoremap L g_
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
@@ -173,7 +173,6 @@ inoremap <C-a> <C-o>^
 nnoremap <silent><c-n> :cnext<cr>
 nnoremap <silent><c-p> :cprevious<cr>
 nnoremap ,d :bd!<cr>
-nnoremap ,q :qall!<cr>
 nnoremap ,w :w<cr>
 nnoremap gh ^
 nnoremap gl g_
@@ -189,10 +188,6 @@ nnoremap C "aC
 " switch between current and prev file
 nnoremap <space><space> <c-^>
 
-nnoremap <silent><Esc>j :resize -2<cr>
-nnoremap <silent><Esc>k :resize +2<cr>
-nnoremap <silent><Esc>l :vertical resize -2<cr>
-nnoremap <silent><Esc>h :vertical resize +2<cr>
 nnoremap ' `
 nnoremap ma mA
 nnoremap mb mB
@@ -229,9 +224,9 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
 nnoremap <c-s> :bro oldfiles<CR>
 
-" if executable('rg')
-"     set grepprg=rg\ --no-heading\ --color=never\ --smart-case\ --vimgrep\ -g\ '!.git'
-" endif
+if executable('rg')
+    set grepprg=rg\ --no-heading\ --color=never\ --smart-case\ --vimgrep\ -g\ '!.git'
+endif
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -241,7 +236,7 @@ endfunction
 " inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
 " inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-nnoremap <leader>t :!tmux send-keys -t 2 c-p Enter<cr> :redraw!<cr>
+" nnoremap <leader>t :!tmux send-keys -t 2 c-p Enter<cr> :redraw!<cr>
 
 " cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
 " cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'

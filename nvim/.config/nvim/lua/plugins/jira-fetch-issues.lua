@@ -155,7 +155,7 @@ local function open_issues_window()
   fetch_and_write_issues()
 
   local issues_buf = api.nvim_create_buf(false, true)
-  local width = math.floor(vim.o.columns * 0.6) -- 3/5 of screen width
+  local width = math.floor(vim.o.columns * 0.9) -- 3/5 of screen width
   local height = math.floor(vim.o.lines * 0.6)  -- 3/5 of screen height
   local win_opts = {
     relative = 'editor',
