@@ -8,7 +8,7 @@ else
   exit 1
 fi
 
-exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript/notes}"
+exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
 # Check if there are any changes in the repo
 if [[ -n $(git status --porcelain) ]]; then
   echo "Changes detected, running ctags..."
