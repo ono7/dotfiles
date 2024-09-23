@@ -38,6 +38,7 @@ vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#2b3b55" })
 vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#2b3b55" })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#2b3b55" })
 vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#9eb0ce" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { bold = false, fg = "#2b3b55", blend = 50 })
 
 for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
   vim.api.nvim_set_hl(0, group, {})

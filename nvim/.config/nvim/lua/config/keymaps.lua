@@ -31,8 +31,7 @@ vim.keymap.set("n", "ZQ", "")
 
 --- go ---
 vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
-
-vim.keymap.set({ "n", "x" }, "\\", "<CMD>Neogit<CR>")
+vim.keymap.set({ "n", "x" }, "<M-Bslash>", "<CMD>Neogit<CR>")
 vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 vim.keymap.set("x", "H", "<gv", silent)
