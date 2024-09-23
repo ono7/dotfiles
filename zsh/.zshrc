@@ -39,7 +39,6 @@ if [[ $OSTYPE == "darwin"* ]]; then
 
 fi
 
-
 fw () {
   if [[ $OSTYPE == "darwin"* ]]; then
       /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
