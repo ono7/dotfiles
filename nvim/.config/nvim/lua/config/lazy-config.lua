@@ -1,27 +1,3 @@
--- TODO: migrate this to modules
-
--- local function check_buf(bufnr)
---   --- checks if this is a valid buffer that we can save to ---
---   local bufname = vim.api.nvim_buf_get_name(bufnr)
---   if bufname == '' then
---     return false
---   end
---   return true
--- end
---
--- local function clean_space_save()
---   if not check_buf(0) then
---     print("save me first!")
---     return
---   end
---   local save_cursor = vim.fn.getcurpos()
---   -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
---   vim.cmd([[%s/\v\s*\r+$|\s+$//e]])
---   vim.cmd([[:write]])
---   vim.fn.setpos('.', save_cursor)
---   -- this is now handled by conform.nvim
--- end
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -56,18 +32,18 @@ require("lazy").setup({
       local opts = { noremap = true, silent = false }
 
       -- Create a new note after asking for its title.
-      vim.api.nvim_set_keymap("n", "<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", opts)
+      vim.api.nvim_set_keymap("n", "zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", opts)
 
       -- Open notes.
-      vim.api.nvim_set_keymap("n", "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", opts)
+      vim.api.nvim_set_keymap("n", "zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", opts)
       -- Open notes associated with the selected tags.
-      vim.api.nvim_set_keymap("n", "<leader>zt", "<Cmd>ZkTags<CR>", opts)
+      vim.api.nvim_set_keymap("n", "zt", "<Cmd>ZkTags<CR>", opts)
 
       -- Search for the notes matching a given query.
-      vim.api.nvim_set_keymap("n", "<leader>zf",
+      vim.api.nvim_set_keymap("n", "zf",
         "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", opts)
       -- Search for the notes matching the current visual selection.
-      vim.api.nvim_set_keymap("v", "<leader>zf", ":'<,'>ZkMatch<CR>", opts)
+      vim.api.nvim_set_keymap("v", "zf", ":'<,'>ZkMatch<CR>", opts)
     end
   },
   {
