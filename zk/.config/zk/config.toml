@@ -9,7 +9,7 @@ language = "en"
 default-title = "Untitled"
 
 # Template used to generate a note's filename, without extension.
-filename = "{{id}}-{{slug title}}"
+filename = "{{slug title}}-{{id}}"
 
 # The file extension used for the notes.
 extension = "md"
@@ -24,7 +24,7 @@ template = "default.md"
 id-charset = "alphanum"
 
 # Length of the generated IDs.
-id-length = 8
+id-length = 5
 
 # Letter case for the random IDs.
 id-case = "lower"
@@ -32,7 +32,7 @@ id-case = "lower"
 
 # EXTRA VARIABLES
 [extra]
-author = "Shivan"
+author = "Jose Lima"
 
 
 # GROUP OVERRIDES
@@ -40,7 +40,7 @@ author = "Shivan"
 paths = ["notes/standup"]
 
 [group.standup.note]
-filename = "{{format-date now}}"
+filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "standup.md"
 
@@ -51,9 +51,6 @@ paths = ["journal"]
 filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "daily.md"
-
-[group.osed]
-paths = ["notes/osed"]
 
 # MARKDOWN SETTINGS
 [format.markdown]
