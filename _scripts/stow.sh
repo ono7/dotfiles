@@ -30,6 +30,7 @@ if type stow &>/dev/null; then
   stow wezterm
   stow zsh
   stow jq
+  stow zk
   stow lint-staged
   stow yamllint
 else
