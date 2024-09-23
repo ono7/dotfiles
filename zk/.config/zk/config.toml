@@ -37,7 +37,7 @@ author = "Shivan"
 
 # GROUP OVERRIDES
 [group.standup]
-paths = ["notes/Standup"]
+paths = ["notes/standup"]
 
 [group.standup.note]
 filename = "{{format-date now}}"
@@ -52,12 +52,8 @@ filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "daily.md"
 
-[group.youtube]
-
-[group.youtube.note]
-extension = "md"
-template = "youtube.md"
-
+[group.osed]
+paths = ["notes/osed"]
 
 # MARKDOWN SETTINGS
 [format.markdown]

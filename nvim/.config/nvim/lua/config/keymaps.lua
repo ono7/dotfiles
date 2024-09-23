@@ -40,9 +40,9 @@ vim.keymap.set("x", "L", ">gv", silent)
 
 -- toggle spell on and off
 vim.keymap.set("n", "<leader>ss", function()
-  vim.opt.spell = not vim.opt.spell
-  print(vim.opt.spell._value)
-end, silent)
+  vim.opt.spell = not vim.opt.spell:get()
+  print("Spell check is " .. (vim.opt.spell:get() and "on" or "off"))
+end, { silent = true })
 
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
