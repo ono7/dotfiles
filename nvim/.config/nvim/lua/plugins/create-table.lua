@@ -75,3 +75,31 @@ end
 
 -- Create a command to call the function
 vim.api.nvim_create_user_command("Table", csv_to_markdown_table, { range = true })
+
+-- Function to format Markdown selection
+local function format_markdown_selection(start_line, end_line)
+  -- Get the selected lines
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  -- Join the lines into a single string
+  local markdown_text = table.concat(lines, "\n")
+
+  -- Use Prettier to format the markdown
+  local formatted_text = vim.fn.system('prettier --parser markdown', markdown_text)
+
+  -- Split the formatted text back into lines
+  local formatted_lines = vim.split(formatted_text, "\n")
+
+  -- Remove any trailing empty lines
+  while #formatted_lines > 0 and formatted_lines[#formatted_lines] == "" do
+    table.remove(formatted_lines)
+  end
+
+  -- Replace the selected lines with the formatted markdown
+  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, formatted_lines)
+end
+
+-- Create a command to call the function
+vim.api.nvim_create_user_command("FormatMarkdown", function(opts)
+  format_markdown_selection(opts.line1, opts.line2)
+end, { range = true })
