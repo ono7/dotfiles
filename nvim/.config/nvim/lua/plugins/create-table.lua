@@ -1,4 +1,4 @@
-function csv_to_markdown_table(opts)
+local function csv_to_markdown_table(opts)
   local start_line, end_line
   if opts.range == 0 then
     -- No visual selection, use current line
@@ -9,10 +9,8 @@ function csv_to_markdown_table(opts)
     start_line = opts.line1
     end_line = opts.line2
   end
-
   -- Get the selected lines
   local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
-
   -- Transform lines into markdown table rows
   local table_rows = {}
   if #lines > 1 then
@@ -20,7 +18,7 @@ function csv_to_markdown_table(opts)
     for i, line in ipairs(lines) do
       local columns = vim.split(line, ",")
       if #columns == 1 then
-        print("use: commas to separate table columts 'a, b, c'")
+        print("use: commas to separate table columns 'a, b, c'")
         goto continue
       end
       -- Trim whitespace from each column
@@ -29,7 +27,6 @@ function csv_to_markdown_table(opts)
       end
       local markdown_row = "| " .. table.concat(columns, " | ") .. " |"
       table.insert(table_rows, markdown_row)
-
       -- Add separator row after headers
       if i == 1 then
         local separator = "|" .. string.rep(" --- |", #columns)
@@ -56,9 +53,24 @@ function csv_to_markdown_table(opts)
     end
   end
 
-  -- Replace the selected lines with the markdown table
-  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, table_rows)
   ::continue::
+
+  -- Join the table rows into a single string
+  local markdown_table = table.concat(table_rows, "\n")
+
+  -- Use Prettier to format the markdown table
+  local formatted_table = vim.fn.system('prettier --parser markdown', markdown_table)
+
+  -- Split the formatted table back into lines
+  local formatted_lines = vim.split(formatted_table, "\n")
+
+  -- Remove any trailing empty lines
+  while #formatted_lines > 0 and formatted_lines[#formatted_lines] == "" do
+    table.remove(formatted_lines)
+  end
+
+  -- Replace the selected lines with the formatted markdown table
+  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, formatted_lines)
 end
 
 -- Create a command to call the function
