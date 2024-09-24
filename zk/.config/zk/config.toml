@@ -119,7 +119,7 @@ journal = "zk edit --sort created- $ZK_NOTEBOOK_DIR/journal --interactive"
 ideas = "zk edit --sort created- $ZK_NOTEBOOK_DIR/ideas --interactive"
 
 # update zk notes
-update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'updating'; git push; cd -"
+update = "cd $ZK_NOTEBOOK_DIR; git pull; git add -A; git commit -am 'updating'; git push; cd -"
 
 pull = "cd $ZK_NOTEBOOK_DIR; git pull; cd -"
 
