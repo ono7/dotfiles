@@ -19,6 +19,10 @@ function csv_to_markdown_table(opts)
     -- Multiple lines selected
     for i, line in ipairs(lines) do
       local columns = vim.split(line, ",")
+      if #columns == 1 then
+        print("use: commas to separate table columts 'a, b, c'")
+        goto continue
+      end
       -- Trim whitespace from each column
       for j, col in ipairs(columns) do
         columns[j] = col:match("^%s*(.-)%s*$")
@@ -54,6 +58,7 @@ function csv_to_markdown_table(opts)
 
   -- Replace the selected lines with the markdown table
   vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, table_rows)
+  ::continue::
 end
 
 -- Create a command to call the function
