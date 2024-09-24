@@ -122,6 +122,7 @@ bindings = [
 {  key  =  "Backslash", mods  =  "Command",        chars   =  "\u001c"             },
 {  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
+{  key  =  "T",         mods  =  "Command",        action  =  "None"               },
 {  key  =  "T",         mods  =  "Command|Shift",  action  =  "CreateNewTab"       },
 {  key  =  "U",         mods  =  "Command",        chars   =  "\u0015"             },
 {  key  =  "V",         mods  =  "Command",        chars   =  "\u0016"             },

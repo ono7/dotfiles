@@ -122,7 +122,7 @@ nvim_lsp.bashls.setup(lsp_opts)
 nvim_lsp.cssls.setup(lsp_opts)
 nvim_lsp.html.setup(lsp_opts)
 nvim_lsp.ansiblels.setup(lsp_opts)
-nvim_lsp.jsonls.setup(lsp_opts)
+-- nvim_lsp.jsonls.setup(lsp_opts)
 
 -- custom servers go here
 
