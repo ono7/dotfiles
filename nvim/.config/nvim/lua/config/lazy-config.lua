@@ -61,7 +61,7 @@ require("lazy").setup({
     config = function() require "plugins.conform" end
   },
   "onsails/lspkind-nvim",
-  "Glench/Vim-Jinja2-Syntax",
+  -- "Glench/Vim-Jinja2-Syntax",
   {
     "monkoose/matchparen.nvim",
     config = function()
