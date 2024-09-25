@@ -60,10 +60,10 @@ require("plugins.jira-move")
 require("plugins.jira-fetch-issues")
 require("plugins.jira-fetch-issues-empty")
 require("plugins.jira-clone")
-require("plugins.create-table")
+require("plugins.create-table").setup()
 require("plugins.claude-commit").setup()
 require("plugins.claude-general").setup()
-require("plugins.zoxide")
+require("plugins.zoxide").setup()
 
 -- this needs fixing
 vim.api.nvim_create_user_command('JiraIssues', function()
