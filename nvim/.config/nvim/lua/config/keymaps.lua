@@ -9,6 +9,7 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
 
+vim.keymap.set("n", "<c-t>", "<cmd>new<cr>", silent)
 
 -- vim.keymap.set("n", "cw", "ciw", silent)
 
