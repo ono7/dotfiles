@@ -63,6 +63,7 @@ require("plugins.jira-clone")
 require("plugins.create-table")
 require("plugins.claude-commit").setup()
 require("plugins.claude-general").setup()
+require("plugins.zoxide")
 
 -- this needs fixing
 vim.api.nvim_create_user_command('JiraIssues', function()
