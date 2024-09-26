@@ -1,8 +1,6 @@
 local M = {}
 
--- Function to integrate zoxide with Neovim
 function M.setup()
-  -- Check if already loaded
   if M.loaded then
     return
   end
@@ -12,21 +10,21 @@ function M.setup()
   local conf = require("telescope.config").values
   local actions = require "telescope.actions"
   local action_state = require "telescope.actions.state"
+  local builtin = require "telescope.builtin"
 
   local function zoxide_cd()
-    -- Get zoxide query results
     local handle = io.popen("zoxide query -ls")
     local result = handle:read("*a")
     handle:close()
-    -- Parse the results
+
     local items = {}
     for line in result:gmatch("[^\r\n]+") do
       local score, path = line:match("(%S+)%s+(.*)")
       table.insert(items, { score = tonumber(score), path = path })
     end
-    -- Sort items by score (highest first)
+
     table.sort(items, function(a, b) return a.score > b.score end)
-    -- Use Telescope picker
+
     pickers.new({}, {
       prompt_title = "Zoxide Directories",
       finder = finders.new_table {
@@ -44,19 +42,23 @@ function M.setup()
         actions.select_default:replace(function()
           actions.close(prompt_bufnr)
           local selection = action_state.get_selected_entry()
-          -- Change directory for the current buffer
           vim.cmd('lcd ' .. selection.value.path)
           print("Changed to directory: " .. selection.value.path)
+
+          -- Open Telescope find_files in the selected directory
+          vim.defer_fn(function()
+            builtin.find_files({
+              cwd = selection.value.path,
+              prompt_title = "Find Files in " .. selection.value.path,
+            })
+          end, 100)
         end)
         return true
       end,
     }):find()
   end
 
-  -- Command to call the function
   vim.api.nvim_create_user_command('ZoxideCD', zoxide_cd, {})
-
-  -- Optional: Add a keymap
   vim.api.nvim_set_keymap('n', '<leader>z', ':ZoxideCD<CR>', { noremap = true, silent = true })
 
   M.loaded = true
