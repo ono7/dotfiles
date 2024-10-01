@@ -20,7 +20,7 @@ git config --global user.signingkey YOUR_KEY_ID
 gpg --armor --export YOUR_KEY_ID
 
 ######### backing ###########
-gpg --export-secret-keys --armor YOUR_KEY_ID > private.key
+gpg --export-secret-key --armor YOUR_KEY_ID > private.key
 gpg --export --armor YOUR_KEY_ID > public.key
 
 ############### import ################
