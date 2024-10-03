@@ -164,7 +164,7 @@ alias cdr=_cdr
 alias clear='clear -x'
 
 vs() {
-  vim $(fzf || '' 2>/dev/null)
+  nvim "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
 }
 
 _d() {
