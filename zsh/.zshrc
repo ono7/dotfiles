@@ -8,6 +8,7 @@ export GPG_TTY="/dev/tty"
 
 export COLORTERM=truecolor
 export GOPATH=$HOME/go
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 typeset -U path PATH

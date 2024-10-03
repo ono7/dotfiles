@@ -6,6 +6,7 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # If not running interactively, don't do anything
 case $- in
