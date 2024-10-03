@@ -31,6 +31,14 @@ local with_dropdown = {
   },
 }
 
+local fd_command = { 'fd',
+  '--type',
+  'f',
+  '--strip-cwd-prefix',
+  '--hidden',
+  '--no-ignore-vcs',
+}
+
 require("telescope").setup {
   pickers = {
     find_files = with_dropdown,
@@ -81,8 +89,6 @@ pcall(require("telescope").load_extension, "ui-select")
 
 local builtin = require "telescope.builtin"
 
--- vim.keymap.set("n", "<space>fh", builtin.help_tags)
--- vim.keymap.set("n", "<space>fg", builtin.live_grep)
 vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 
 k("n", "<leader>vc", function()
@@ -101,7 +107,7 @@ end, opt)
 
 k("n", "<leader>d", function() builtin.diagnostics({ previewer = false }) end, opt)
 
---- handle all ignores in ~/.config/fd/ignore
+-- does not use find_command
 vim.keymap.set("n", "<leader>g", function()
   builtin.live_grep {
     vimgrep_arguments = {
@@ -112,10 +118,13 @@ vim.keymap.set("n", "<leader>g", function()
       '--line-number',
       '--column',
       '--smart-case',
-      '-u'
+      '-u',
+      '--glob', '!venv',
+      '--glob', '!.collections',
+      '--glob', '!.git',
+      '--glob', '!tags'
     },
-    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs' },
-    use_regex = true,
+    -- find_command = fd_command,
     show_untracked = true,
     no_ignore = false
   }
@@ -128,13 +137,19 @@ k("n", "<c-b>", function() builtin.buffers({ previewer = false }) end, opt)
 k({ "n", "x" }, "<c-f>", function()
   builtin.find_files({
     previewer = false,
-    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs' }
-    ,
+    find_command = fd_command,
   })
 end, opt)
 
+-- k({ "n", "x" }, "<c-p>", function()
+--   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
+-- end, opt)
+
 k({ "n", "x" }, "<c-p>", function()
-  builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
+  builtin.git_files({
+    previewer = false,
+    find_command = fd_command
+  })
 end, opt)
 
 -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
