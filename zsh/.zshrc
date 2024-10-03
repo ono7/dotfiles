@@ -326,8 +326,12 @@ _d () {
   cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
+# vs () {
+#   vim "$(fd --type f -HI --exclude "venv" --exclude ".collections" --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
+# }
+
 vs () {
-  vim "$(fd --type f -HI --exclude "venv" --exclude ".git" --exclude "__pycache__" . | fzf --height 30% --reverse --border)" || return
+  vim "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
 }
 
 fcd () {
@@ -420,7 +424,7 @@ export FZF_DEFAULT_OPTS='
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
 
 if command -v fd &>/dev/null; then
-  export FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --follow --hidden'
+  export FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --exclude ".collections" --follow --hidden'
   export FZF_DEFAULT_COMMAND="$FD_CMD"
   export FZF_ALT_C_COMMAND="$FD_CMD"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

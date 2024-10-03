@@ -20,7 +20,7 @@
   # MONITOR FOR PERFORMANCE ISSUES....
   # check status: git fsmonitor--daemon status
 	untrackedCache = true
-	fsmonitor = true
+  # fsmonitor = true
 
 [http]
   sslVerify = false

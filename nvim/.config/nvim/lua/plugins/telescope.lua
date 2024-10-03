@@ -101,14 +101,36 @@ end, opt)
 
 k("n", "<leader>d", function() builtin.diagnostics({ previewer = false }) end, opt)
 
-k("n", "<leader>g", function()
-  builtin.live_grep { vimgrep_arguments = { 'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '-u' }, use_regex = true, show_untracked = true, no_ignore = false }
-end, opt)
+--- handle all ignores in ~/.config/fd/ignore
+vim.keymap.set("n", "<leader>g", function()
+  builtin.live_grep {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '-u'
+    },
+    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs' },
+    use_regex = true,
+    show_untracked = true,
+    no_ignore = false
+  }
+end, { desc = "Live grep with fd and rg" })
 
 k("n", "<c-b>", function() builtin.buffers({ previewer = false }) end, opt)
 
+
+--- handle all ignores in ~/.config/fd/ignore
 k({ "n", "x" }, "<c-f>", function()
-  builtin.find_files({ no_ignore = false, hidden = true, previewer = false })
+  builtin.find_files({
+    previewer = false,
+    find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden', '--no-ignore-vcs' }
+    ,
+  })
 end, opt)
 
 k({ "n", "x" }, "<c-p>", function()

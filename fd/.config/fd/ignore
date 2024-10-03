@@ -1,0 +1,10 @@
+venv/
+.DS_Store
+**/venv/
+.collections/
+__pycache__/
+.pytest_cache/
+.git/
+.ruff_cache/
+
+

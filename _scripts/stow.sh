@@ -23,6 +23,8 @@ if type stow &>/dev/null; then
   # stow ssh
   stow sqlite
   stow dlv
+  stow rg
+  stow fd
   stow starship
   stow kitty
   stow tmux
