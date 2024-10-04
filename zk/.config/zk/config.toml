@@ -92,6 +92,7 @@ lucky = "zk list --quiet --format full --sort random --limit 1"
 
 # list notes for editing
 ls = "zk edit --interactive"
+g = "zk edit --interactive $HOME/games"
 
 # list = "zk edit --interactive"
 
