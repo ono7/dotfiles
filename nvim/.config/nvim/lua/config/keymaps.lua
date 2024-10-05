@@ -2,6 +2,11 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
+-- jump to double quotes quicky, could also just /", /' /`
+vim.keymap.set('n', '"', function()
+  vim.fn.search('"', 'W')
+end, { noremap = true, silent = true })
+
 --- map leader ---
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
