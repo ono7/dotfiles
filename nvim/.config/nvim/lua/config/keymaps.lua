@@ -3,9 +3,20 @@ local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
 -- jump to double quotes quicky, could also just /", /' /`
+
 vim.keymap.set('n', '"', function()
   vim.fn.search('"', 'W')
 end, { noremap = true, silent = true })
+
+vim.keymap.set('n', "'", function()
+  vim.fn.search("'", 'W')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', "`", function()
+  vim.fn.search("`", 'W')
+end, { noremap = true, silent = true })
+
+-- vim.keymap.set('n', "'", "/'<cr>", { noremap = true, silent = true })
 
 --- map leader ---
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -173,7 +184,7 @@ vim.keymap.set("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
 --- marks/jumps ---
-vim.keymap.set("n", "'", "`", opt)
+-- vim.keymap.set("n", "'", "`", opt)
 -- k("n", "mm", "mM", opt)
 -- k("n", "'m", [[`M'\"]], opt)
 -- vim.keymap.set("n", "ma", "mA", opt)

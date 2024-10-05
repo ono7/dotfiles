@@ -20,6 +20,7 @@
   # MONITOR FOR PERFORMANCE ISSUES....
   # check status: git fsmonitor--daemon status
 	untrackedCache = true
+	excludesfile = /Users/jlima/.gitignore_global
   # fsmonitor = true
 
 [http]
