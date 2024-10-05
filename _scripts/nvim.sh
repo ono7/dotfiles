@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
 log() {
-    printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "$0"
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -15,4 +14,4 @@ log "attempting to boostrap neovim"
 
 . ~/.bashrc
 
-nvim
+nvim --headless "+Lazy! sync" +qa
