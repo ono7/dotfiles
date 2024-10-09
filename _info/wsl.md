@@ -3,7 +3,16 @@
 install wl-copy (in setup/setup_linux_deps.sh), neovim will detect and use
 accordingly, tmux just works with alacritty configuration
 
-# wsl adjust the nat range to allow vpn
+## wsl adjust the nat range to allow vpn
+
+## install wsl
+
+
+```sh
+wsl --update --web-download
+wsl --set-default-version 2
+wsl --install -d Ubuntu --web-download
+```
 
 ```reg
 Windows Registry Editor Version 5.00
