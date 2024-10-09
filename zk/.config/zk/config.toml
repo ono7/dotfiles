@@ -122,6 +122,7 @@ ideas = "zk edit --sort created- $ZK_NOTEBOOK_DIR/ideas --interactive"
 # update zk notes
 update = "cd $ZK_NOTEBOOK_DIR; git pull; git add -A; git commit -am 'updating'; git push; cd -"
 up = "cd $ZK_NOTEBOOK_DIR; git pull; git add -A; git commit -am 'updating'; git push; cd -"
+u = "if [ -d .zk ]; then git pull; git add -A; git commit -am 'updating'; git push; cd -; fi"
 
 pull = "cd $ZK_NOTEBOOK_DIR; git pull; cd -"
 

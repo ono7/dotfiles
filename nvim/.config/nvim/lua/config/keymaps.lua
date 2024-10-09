@@ -16,6 +16,22 @@ vim.keymap.set('n', "`", function()
   vim.fn.search("`", 'W')
 end, { noremap = true, silent = true })
 
+vim.keymap.set('n', "f{", function()
+  vim.fn.search("{", 'W')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', "f(", function()
+  vim.fn.search("(", 'W')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', "f(", function()
+  vim.fn.search("(", 'cW')
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', "f[", function()
+  vim.fn.search("[", 'W')
+end, { noremap = true, silent = true })
+
 -- vim.keymap.set('n', "'", "/'<cr>", { noremap = true, silent = true })
 
 --- map leader ---
