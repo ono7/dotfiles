@@ -8,9 +8,10 @@ vim.keymap.set('n', '"', function()
   vim.fn.search('"', 'W')
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "'", function()
-  vim.fn.search("'", 'W')
-end, { noremap = true, silent = true })
+-- this screws up the vl command
+-- vim.keymap.set('n', "'", function()
+--   vim.fn.search("'", 'W')
+-- end, { noremap = true, silent = true })
 
 vim.keymap.set('n', "`", function()
   vim.fn.search("`", 'W')
