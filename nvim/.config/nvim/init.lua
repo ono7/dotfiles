@@ -18,8 +18,7 @@ vim.opt.shell = "zsh"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false
 
-vim.opt.shada = "'40,<200,s100,:300,/100,h"
-vim.opt.shada:append { 'r~/COMMIT_EDITMSG' }
+vim.opt.shada = "'40,<200,s100,:300,/100,h,r~/COMMIT_EDITMSG"
 
 --- syntax off to avoid tree-sitter issues
 vim.opt.syntax = "off"
