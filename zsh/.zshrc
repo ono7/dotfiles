@@ -105,7 +105,6 @@ alias -g ......='../../../../..'
 alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias vim=nvim
-alias clear='clear -x '
 alias k='kubectl '
 # alias vl='vim -c \"normal '0\" -c "bn" -c \"bd\"'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'

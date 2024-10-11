@@ -11,12 +11,16 @@ accordingly, tmux just works with alacritty configuration
 ```sh
 wsl --update --web-download
 wsl --set-default-version 2
-wsl --install -d Ubuntu --web-download
+wsl --update
+wsl --install
 ```
 
-```reg
-Windows Registry Editor Version 5.00
+```sh
 
+wsl --update
+wsl --install
+
+# Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss]
 "NatGatewayIpAddress"="100.65.0.1"
 "NatNetwork"="100.65.0.0/24"

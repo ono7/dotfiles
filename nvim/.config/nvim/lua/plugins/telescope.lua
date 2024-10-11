@@ -1,15 +1,15 @@
 local opt = { noremap = true, silent = true }
 local k = vim.keymap.set
 
-local function get_git_root()
-  local dot_git_path = vim.fn.finddir(".git", ".;")
-  if dot_git_path then
-    return vim.fn.fnamemodify(dot_git_path, ":h")
-  else
-    -- return "."
-    return false
-  end
-end
+-- local function get_git_root()
+--   local dot_git_path = vim.fn.finddir(".git", ".;")
+--   if dot_git_path then
+--     return vim.fn.fnamemodify(dot_git_path, ":h")
+--   else
+--     -- return "."
+--     return false
+--   end
+-- end
 
 local actions = require "telescope.actions"
 
@@ -124,14 +124,12 @@ vim.keymap.set("n", "<leader>g", function()
       '--glob', '!.git',
       '--glob', '!tags'
     },
-    -- find_command = fd_command,
     show_untracked = true,
     no_ignore = false
   }
-end, { desc = "Live grep with fd and rg" })
+end, { desc = "Live grep with rg" })
 
 k("n", "<c-b>", function() builtin.buffers({ previewer = false }) end, opt)
-
 
 --- handle all ignores in ~/.config/fd/ignore
 k({ "n", "x" }, "<c-f>", function()
@@ -141,16 +139,34 @@ k({ "n", "x" }, "<c-f>", function()
   })
 end, opt)
 
--- k({ "n", "x" }, "<c-p>", function()
---   builtin.git_files({ no_ignore = false, hidden = true, previewer = false })
--- end, opt)
+-- Function to check if we're in a Git repository
+local function is_git_repo()
+  local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    return result:match("true")
+  end
+  return false
+end
 
-k({ "n", "x" }, "<c-p>", function()
-  builtin.git_files({
-    previewer = false,
-    find_command = fd_command
-  })
-end, opt)
+-- Custom function to use fd for Git files
+local function fd_git_files()
+  if is_git_repo() then
+    return builtin.find_files({
+      previewer = false,
+      find_command = fd_command,
+      cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
+    })
+  else
+    print("Not in a Git repository")
+  end
+end
+
+-- Keymapping for Git files using fd
+-- uses ~/.config/fd/ignore so not all git files are listed
+-- however we traverse back to the git root directory from anywhere in the project which is a win!
+vim.keymap.set({ "n", "x" }, "<c-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
 
 -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
@@ -158,9 +174,3 @@ end, opt)
 k("n", "<c-s>", function()
   require("telescope.builtin").oldfiles {}
 end)
-
--- k("n", "<leader>ff", function()
---   vim.ui.input({ prompt = "Enter directory path: " }, function(input)
---     require("telescope.builtin").find_files({ cwd = input })
---   end)
--- end)

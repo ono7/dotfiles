@@ -2,10 +2,10 @@
 extends: default
 
 ignore:
-  - /this/specific/file.yaml
   - all/this/directory/
   - '*.template.yaml'
   - venv/
+  - backups/
 
 rules:
   line-length:
