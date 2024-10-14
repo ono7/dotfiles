@@ -458,4 +458,4 @@ fi
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-[[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"The journey is not based on increasing success 🐇\"\n\t-- Unknown\n"
+[[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
