@@ -277,7 +277,7 @@ set magic
 set nobackup nowritebackup noswapfile
 set nojoinspaces
 set list
-set listchars=tab:\ \ ,conceal:\ ,trail:\ ,nbsp:\
+set listchars=tab:\ ,conceal:\ ,trail:\ ,nbsp:\
 set noshowcmd
 set showtabline=0
 set novisualbell noerrorbells
