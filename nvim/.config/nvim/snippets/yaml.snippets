@@ -20,8 +20,7 @@ snippet h "header" b
 snippet debug "debug task"
       - name: Debug
         ansible.builtin.debug:
-          msg: |
-            ${0}
+          var: "{{ ${0} }}"
 
 snippet shell "debug task"
       ansible.builtin.shell: ${0}

@@ -1,34 +1,12 @@
 #!/usr/bin/env python
 """
 
-Wed Apr 1 12:00:53 PM 2020
+2024-10-18 10:13
 
 __author__ = "Jose Lima"
 
-    use:
-
-        * setup group vars to use
-
-            my_vars = {
-                "ansible_user": "jose.lima",
-                "ansible_network_os": "nxos",
-                "ansible_connection": "network_cli",
-                "timeout": "5",
-            }
-
-        * create shell inventory
-
-            my_inv = inv_shell()
-
-        * add group and group_vars to inventory, pass it my_vars
-
-            inv_add_group(my_inv, "groupName", grp_vars=my_vars)
-
-        * add hosts to the inventory
-
 """
 
-import json
 from pprint import pprint
 
 default_vars = {

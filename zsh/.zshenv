@@ -140,7 +140,7 @@ alias gr='git reflog '
 alias gs='git status '
 
 gp () {
-  printf '\n********* %s ********\n\n' "checking for updatest"
+  printf '\n********* %s ********\n\n' "checking for updates"
   git pull
   printf '\n********* %s ********\n\n' "pushing changes"
   git push
