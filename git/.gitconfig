@@ -141,3 +141,5 @@
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"
     whitespace-error-style = "#ff5555" reverse
+[rerere]
+	enabled = true
