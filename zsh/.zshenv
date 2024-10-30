@@ -118,7 +118,11 @@ dotc () {
 alias gd='git diff '
 alias gds='git diff --staged'
 alias gc='git commit '
-alias gco='git checkout '
+
+gco () {
+  git switch -c "$1" || git switch "$1"
+}
+
 alias gf='git fetch --all'
 alias afk="open /System/Library/CoreServices/ScreenSaverEngine.app"
 
@@ -126,6 +130,7 @@ alias afk="open /System/Library/CoreServices/ScreenSaverEngine.app"
 # alias gdm="git branch --merged | grep -Pv '(^\*|master|main)' | xargs git branch -d"
 alias gdm="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs echo"
 alias gdmr="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs git branch -d"
+alias gitrm="git fetch -p && git branch -vv | grep ': gone]' | a | xargs git branch -D"
 alias gdmrr="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs git worktree remove"
 
 # git follow a file history gfh nvim/init.lua

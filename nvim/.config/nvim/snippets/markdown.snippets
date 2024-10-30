@@ -48,15 +48,18 @@ snippet ta "tag" w
     ${0:${VISUAL}}
   </${1/\v(\w+).*/\1/g}>
 
-snippet img "image html" w
-  <p align="center">
-    <img width="${2:500}" title="${4:image}" src="${0}"><br>
-  </p>
+# snippet img "image html" w
+#   <p align="center">
+#     <img width="${2:500}" title="${4:image}" src="${0}"><br>
+#   </p>
 
 snippet cimg "image centered" w
   <center>
     <img align="${1|left,right|}" width="${2:500}" height="${3:400}" alt="${4:image}" src="${0}">
   </center>
+
+snippet img "insert html image link" w
+   <img align="left" width="${0:500}" title="" src="${1:name}">
 
 snippet details "creates details section" w
   <details>
