@@ -22,7 +22,7 @@ sudo apt -y upgrade
 sudo apt remove -y nano
 sudo apt install rename zoxide git-delta stow -y
 sudo apt install -y build-essential git libssl-dev curl tree zsh silversearcher-ag \
-  fd-find unzip wl-clipboard ripgrep stow make sqlite3 wget shfmt shellcheck
+  fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck
 sudo apt install python3 python3.11 python3.11-pip python3.11-venv -y
 
 if type snap &>/dev/null; then
