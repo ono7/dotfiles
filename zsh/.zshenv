@@ -53,6 +53,18 @@ extract () {
   fi
 }
 
+gp () {
+  printf '\n********* %s ********\n\n' "checking for updates"
+  git pull
+  printf '\n********* %s ********\n\n' "pushing changes"
+  git push
+  if [ ! -z $PROJECT_ID ]; then
+    printf '\n********* %s ********\n\n' "upgating project..."
+    [ -f ~/aap-project-update.sh ] && bash -c ~/aap-project-update.sh
+  fi
+}
+
+
 ga () {
   # Check for untracked files
   mydir=$PWD
@@ -81,6 +93,11 @@ ga () {
     git add "$@"
   fi
   git commit
+}
+
+gap () {
+  ga "$@"
+  gp
 }
 
 gac () {
@@ -119,6 +136,11 @@ alias gd='git diff '
 alias gds='git diff --staged'
 alias gc='git commit '
 
+# shows tags for release reports
+release () {
+  git for-each-ref --format="%(refname:short) (%(creatordate:short)): %(contents:subject)%0a%(contents:body)" refs/tags
+}
+
 gco () {
   git switch -c "$1" || git switch "$1"
 }
@@ -143,17 +165,6 @@ alias glb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) 
 alias gpu='git pull'
 alias gr='git reflog '
 alias gs='git status '
-
-gp () {
-  printf '\n********* %s ********\n\n' "checking for updates"
-  git pull
-  printf '\n********* %s ********\n\n' "pushing changes"
-  git push
-  if [ ! -z $PROJECT_ID ]; then
-    printf '\n********* %s ********\n\n' "upgating project..."
-    [ -f ~/aap-project-update.sh ] && bash -c ~/aap-project-update.sh
-  fi
-}
 
 gw () {
   if [ $# -eq 0 ]; then  # Check if no arguments were provided
