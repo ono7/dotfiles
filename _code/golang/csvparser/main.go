@@ -31,6 +31,7 @@ func createGroup(records *[][]string) []Host {
 
 			if len(group) == 15 {
 				// When we hit 15 items, keep all remaining records including current index
+				// this will first dereference the *records, then perform slice operation
 				*records = (*records)[i+1:]
 				return group
 			}
