@@ -2,42 +2,44 @@ package main
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"os"
 )
 
 type Host struct {
-	hostname string
-	ip       string
-	key      string
+	Hostname string `json:"hostname"`
+	IP       string `json:"ip"`
+	Key      string `json:"key"`
 }
 
 func createGroup(records *[][]string) []Host {
 	group := make([]Host, 0)
 	m := make(map[string]*Host)
-
-	// Create a new slice to hold remaining records
 	remainingRecords := make([][]string, 0)
 
 	for i, record := range *records {
 		host := &Host{
-			hostname: record[0],
-			ip:       record[1],
-			key:      record[0][:5],
+			Hostname: record[0],
+			IP:       record[1],
+			Key:      record[0][:5],
 		}
 
-		if _, ok := m[host.key]; !ok {
-			m[host.key] = host
+		if _, ok := m[host.Key]; !ok {
+			m[host.Key] = host
 			group = append(group, *host)
+
+			if len(group) == 15 {
+				// When we hit 15 items, keep all remaining records including current index
+				*records = (*records)[i+1:]
+				return group
+			}
 		} else {
-			// If we're not using this record for a new host, keep it
-			remainingRecords = append(remainingRecords, (*records)[i])
+			remainingRecords = append(remainingRecords, record)
 		}
 	}
 
-	// Update the original records slice with remaining records
 	*records = remainingRecords
-
 	return group
 }
 
@@ -62,7 +64,14 @@ func main() {
 			continue
 		}
 		fmt.Printf("************************* %d ****************\n", len(g))
-		fmt.Println(g)
+		jsonData, err := json.MarshalIndent(g, "", "    ")
+		if err != nil {
+			fmt.Println("Error marshaling JSON:", err)
+			continue
+		}
+
+		// Print the JSON string
+		fmt.Println(string(jsonData))
 	}
 
 }
