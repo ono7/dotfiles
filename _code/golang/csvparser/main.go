@@ -12,8 +12,12 @@ type Host struct {
 	key      string
 }
 
-func createGroup(records *[][]string) []Host _	group := make([]Host, 0) // Initialize an empty slice to hold Hosts
+func createGroup(records *[][]string) []Host {
+	group := make([]Host, 0)
 	m := make(map[string]*Host)
+
+	// Create a new slice to hold remaining records
+	remainingRecords := make([][]string, 0)
 
 	for i, record := range *records {
 		host := &Host{
@@ -24,10 +28,15 @@ func createGroup(records *[][]string) []Host _	group := make([]Host, 0) // Initi
 
 		if _, ok := m[host.key]; !ok {
 			m[host.key] = host
-			group = append(group, *host) // Append the Host to the group slice
+			group = append(group, *host)
+		} else {
+			// If we're not using this record for a new host, keep it
+			remainingRecords = append(remainingRecords, (*records)[i])
 		}
-        *records = *
 	}
+
+	// Update the original records slice with remaining records
+	*records = remainingRecords
 
 	return group
 }
@@ -39,6 +48,21 @@ func main() {
 	records, err := readCSV(csvFilePath)
 	if err != nil {
 		panic(err)
+	}
+
+	groups := make([][]Host, 500)
+
+	for len(records) > 0 {
+		group := createGroup(&records)
+		groups = append(groups, group)
+	}
+
+	for _, g := range groups {
+		if len(g) == 0 {
+			continue
+		}
+		fmt.Printf("************************* %d ****************\n", len(g))
+		fmt.Println(g)
 	}
 
 }
