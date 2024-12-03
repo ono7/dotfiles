@@ -120,8 +120,10 @@ local function smart_quotes(quote)
     -- If next character is the same quote, jump over it
     if next_char == quote then
       return "<Right>"
-      -- If previous char is a bracket or space or start of line, and no char after cursor, add paired quotes
-    elseif (prev_char == "" or prev_char == " " or prev_char == "(" or prev_char == "[" or prev_char == "{") and not has_next_char then
+      -- If prev char is opening bracket/space or next char is closing bracket, add paired quotes
+    elseif (prev_char == "" or prev_char == " " or
+          prev_char == "(" or prev_char == "[" or prev_char == "{" or
+          next_char == ")" or next_char == "]" or next_char == "}") then
       return quote .. quote .. "<Left>"
     else
       -- Otherwise insert single quote
