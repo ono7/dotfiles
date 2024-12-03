@@ -88,7 +88,7 @@ vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<C
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
 
 -- comment for beam cursor
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
 vim.cmd [[ syntax off ]]
