@@ -88,7 +88,7 @@ vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<C
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
 
 -- comment for beam cursor
--- vim.opt.guicursor = ""
+vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
 vim.cmd [[ syntax off ]]
@@ -120,12 +120,12 @@ local function smart_quotes(quote)
     -- If next character is the same quote, jump over it
     if next_char == quote then
       return "<Right>"
-      -- If there's any character after cursor or non-space before cursor, just insert single quote
-    elseif has_next_char or (prev_char ~= "" and prev_char ~= " ") then
-      return quote
-    else
-      -- Otherwise insert paired quotes
+      -- If previous char is a bracket or space or start of line, and no char after cursor, add paired quotes
+    elseif (prev_char == "" or prev_char == " " or prev_char == "(" or prev_char == "[" or prev_char == "{") and not has_next_char then
       return quote .. quote .. "<Left>"
+    else
+      -- Otherwise insert single quote
+      return quote
     end
   end
 end
