@@ -96,39 +96,34 @@ vim.cmd [[ syntax off ]]
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true, expr = true }
 
+-- Pre-compile pattern matches for brackets
+local brackets = { ['('] = true, ['['] = true, ['{'] = true }
+local closing_brackets = { [')'] = true, [']'] = true, ['}'] = true }
+
 local function smart_quotes(quote)
   return function()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 
-    -- Get next character
-    local has_next_char = false
-    local next_char = ""
+    -- Get both characters in a single API call
+    -- This is more efficient than making two separate calls
+    local ok, chars = pcall(vim.api.nvim_buf_get_text, 0, row - 1,
+      math.max(0, col - 1), row - 1, col + 1, {})
 
-    -- Try to get next character safely
-    local ok, result = pcall(vim.api.nvim_buf_get_text, 0, row - 1, col, row - 1, col + 1, {})
-    if ok and #result > 0 then
-      next_char = result[1]
-      has_next_char = #next_char > 0
-    end
+    if not ok then return quote end
 
-    -- Get previous character (if not at start of line)
-    local prev_char = ""
-    if col > 0 then
-      prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
-    end
+    local prev_char = #chars[1] >= 2 and chars[1]:sub(1, 1) or ""
+    local next_char = chars[1]:sub(-1)
 
-    -- If next character is the same quote, jump over it
-    if next_char == quote then
-      return "<Right>"
-      -- If prev char is opening bracket/space or next char is closing bracket, add paired quotes
-    elseif (prev_char == "" or prev_char == " " or
-          prev_char == "(" or prev_char == "[" or prev_char == "{" or
-          next_char == ")" or next_char == "]" or next_char == "}") then
+    -- Quick return for quote jump
+    if next_char == quote then return "<Right>" end
+
+    -- Use table lookups instead of multiple or conditions
+    if prev_char == "" or prev_char == " " or
+        brackets[prev_char] or closing_brackets[next_char] then
       return quote .. quote .. "<Left>"
-    else
-      -- Otherwise insert single quote
-      return quote
     end
+
+    return quote
   end
 end
 
