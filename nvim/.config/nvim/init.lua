@@ -92,3 +92,45 @@ vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<C
 vim.opt.mouse = "n"
 
 vim.cmd [[ syntax off ]]
+
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true, expr = true }
+
+local function smart_quotes(quote)
+  return function()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+    -- Get next character
+    local has_next_char = false
+    local next_char = ""
+
+    -- Try to get next character safely
+    local ok, result = pcall(vim.api.nvim_buf_get_text, 0, row - 1, col, row - 1, col + 1, {})
+    if ok and #result > 0 then
+      next_char = result[1]
+      has_next_char = #next_char > 0
+    end
+
+    -- Get previous character (if not at start of line)
+    local prev_char = ""
+    if col > 0 then
+      prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
+    end
+
+    -- If next character is the same quote, jump over it
+    if next_char == quote then
+      return "<Right>"
+      -- If there's any character after cursor or non-space before cursor, just insert single quote
+    elseif has_next_char or (prev_char ~= "" and prev_char ~= " ") then
+      return quote
+    else
+      -- Otherwise insert paired quotes
+      return quote .. quote .. "<Left>"
+    end
+  end
+end
+
+-- Map each quote type
+keymap('i', '"', smart_quotes('"'), opts)
+keymap('i', "'", smart_quotes("'"), opts)
+keymap('i', '`', smart_quotes('`'), opts)
