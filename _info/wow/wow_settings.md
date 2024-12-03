@@ -1,5 +1,9 @@
 https://slothytech.com/world-of-warcraft-best-nvidia-settings/
 
+# macos fix naga mouse
+
+`defaults write com.blizzard.worldofwarcraft disable-expose-fix -bool YES`
+
 # console settings/macros
 
 𝗭𝗢𝗢𝗠 𝗛𝗔𝗖𝗞 ► /console cameraDistanceMaxZoomFactor 2.6

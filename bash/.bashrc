@@ -307,3 +307,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 clear && uptime
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"

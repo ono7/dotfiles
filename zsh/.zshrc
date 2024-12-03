@@ -461,3 +461,6 @@ fi
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
 [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
