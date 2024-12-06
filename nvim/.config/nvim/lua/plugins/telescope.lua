@@ -18,16 +18,6 @@
     local opt = { noremap = true, silent = true }
     local k = vim.keymap.set
 
-    -- local function get_git_root()
-    --   local dot_git_path = vim.fn.finddir(".git", ".;")
-    --   if dot_git_path then
-    --     return vim.fn.fnamemodify(dot_git_path, ":h")
-    --   else
-    --     -- return "."
-    --     return false
-    --   end
-    -- end
-
     local actions = require "telescope.actions"
     local telescope = require "telescope"
     local icons = require "config.icons"
