@@ -3,18 +3,13 @@ return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
-    -- "L3MON4D3/LuaSnip",
-    -- "saadparwaiz1/cmp_luasnip",
-
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "dcampos/nvim-snippy",
-
+    "dcampos/cmp-snippy",
     -- Adds a number of user-friendly snippets
-    "rafamadriz/friendly-snippets",
-
+    -- "rafamadriz/friendly-snippets",
     -- Adds vscode-like pictograms
     "onsails/lspkind.nvim",
   },
@@ -69,11 +64,12 @@ return {
     cmp.setup({
       snippet = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          require("snippy").expand_snippet(args.body)
         end,
       },
       completion = {
         completeopt = "menu,menuone,noinsert",
+        keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -110,17 +106,17 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       sources = {
-        { name = "copilot" },
+        -- { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        { name = "path" },
-        { name = "calc" },
-        { name = "emoji" },
-        { name = "treesitter" },
-        { name = "crates" },
-        { name = "tmux" },
+        -- { name = "luasnip" },
+        -- { name = "buffer" },
+        -- { name = "path" },
+        -- { name = "calc" },
+        -- { name = "emoji" },
+        -- { name = "treesitter" },
+        -- { name = "crates" },
+        -- { name = "tmux" },
       },
       formatting = {
         format = function(entry, vim_item)

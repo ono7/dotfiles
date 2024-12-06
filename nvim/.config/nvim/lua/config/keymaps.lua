@@ -14,8 +14,8 @@ vim.keymap.set("n", "gp", "`[v`]", silent)
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
-vim.keymap.set('n', '"', function()
-  vim.fn.search('"', 'W')
+vim.keymap.set("n", '"', function()
+  vim.fn.search('"', "W")
 end, { noremap = true, silent = true })
 
 -- this screws up the vl command
@@ -23,24 +23,24 @@ end, { noremap = true, silent = true })
 --   vim.fn.search("'", 'W')
 -- end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "`", function()
-  vim.fn.search("`", 'W')
+vim.keymap.set("n", "`", function()
+  vim.fn.search("`", "W")
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "f{", function()
-  vim.fn.search("{", 'W')
+vim.keymap.set("n", "f{", function()
+  vim.fn.search("{", "W")
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "f(", function()
-  vim.fn.search("(", 'W')
+vim.keymap.set("n", "f(", function()
+  vim.fn.search("(", "W")
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "f(", function()
-  vim.fn.search("(", 'cW')
+vim.keymap.set("n", "f(", function()
+  vim.fn.search("(", "cW")
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', "f[", function()
-  vim.fn.search("[", 'W')
+vim.keymap.set("n", "f[", function()
+  vim.fn.search("[", "W")
 end, { noremap = true, silent = true })
 
 -- vim.keymap.set('n', "'", "/'<cr>", { noremap = true, silent = true })
@@ -57,9 +57,9 @@ vim.keymap.set("n", "<c-t>", "<cmd>new<cr>", silent)
 -- vim.keymap.set("n", "cw", "ciw", silent)
 
 -- replaces vim surround
-vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]]
-vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]]
-vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]]
+vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
+vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
+vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
 
 -- back to insert mode
 -- vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la]]
@@ -71,7 +71,6 @@ vim.g.mapleader = " "
 --- nop ---
 vim.keymap.set("n", "ZZ", "")
 vim.keymap.set("n", "ZQ", "")
-
 
 --- go ---
 vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
@@ -90,7 +89,7 @@ end, { silent = true })
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
   local bufname = vim.api.nvim_buf_get_name(bufnr)
-  if bufname == '' then
+  if bufname == "" then
     return false
   end
   return true
@@ -105,17 +104,17 @@ local function clean_space_save()
   -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
   vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   vim.cmd([[:write ++p]])
-  vim.fn.setpos('.', save_cursor)
+  vim.fn.setpos(".", save_cursor)
   -- this is now handled by conform.nvim
 end
 
-vim.api.nvim_create_user_command('CleanAndSave', clean_space_save, {})
+vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
-vim.keymap.set('n', '<leader>%', function()
-  local path = vim.fn.expand('%:p')
-  vim.fn.setreg('+', path)
-  print('File path copied to clipboard: ' .. path)
-end, { noremap = true, silent = true, desc = 'Copy file path to clipboard' })
+vim.keymap.set("n", "<leader>%", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  print("File path copied to clipboard: " .. path)
+end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
 vim.keymap.set("n", ",w", function()
   if not check_buf(0) then
@@ -125,8 +124,8 @@ vim.keymap.set("n", ",w", function()
   local save_cursor = vim.fn.getcurpos()
   vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   -- this might cause issues with oil.nvim
-  vim.cmd [[:write ++p]]
-  vim.fn.setpos('.', save_cursor)
+  vim.cmd([[:write ++p]])
+  vim.fn.setpos(".", save_cursor)
 end, silent)
 
 vim.keymap.set("n", "<leader>s", function()
@@ -137,8 +136,8 @@ vim.keymap.set("n", "<leader>s", function()
   local save_cursor = vim.fn.getcurpos()
   vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
   -- this might cause issues with oil.nvim
-  vim.cmd [[:write ++p]]
-  vim.fn.setpos('.', save_cursor)
+  vim.cmd([[:write ++p]])
+  vim.fn.setpos(".", save_cursor)
 end, silent)
 
 vim.keymap.set("n", "<leader>cd", function()
@@ -251,11 +250,11 @@ vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
 --- Optimized pair matching functions
 local function is_pair(open, close)
-  return (open == '(' and close == ')') or
-      (open == '[' and close == ']') or
-      (open == '{' and close == '}') or
-      (open == '<' and close == '>') or
-      (open == close and (open == "'" or open == '"' or open == '`'))
+  return (open == "(" and close == ")")
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 local api = vim.api
@@ -263,19 +262,19 @@ local api = vim.api
 local function get_next_char()
   local cursor = api.nvim_win_get_cursor(0)
   local row, col = cursor[1], cursor[2]
-  return api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ''
+  return api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
 end
 
-vim.keymap.set('i', ']', function()
-  return get_next_char() == ']' and '<Right>' or ']'
+vim.keymap.set("i", "]", function()
+  return get_next_char() == "]" and "<Right>" or "]"
 end, { expr = true, silent = true })
 
-vim.keymap.set('i', ')', function()
-  return get_next_char() == ')' and '<Right>' or ')'
+vim.keymap.set("i", ")", function()
+  return get_next_char() == ")" and "<Right>" or ")"
 end, { expr = true, silent = true })
 
-vim.keymap.set('i', '}', function()
-  return get_next_char() == '}' and '<Right>' or '}'
+vim.keymap.set("i", "}", function()
+  return get_next_char() == "}" and "<Right>" or "}"
 end, { expr = true, silent = true })
 
 vim.keymap.set("i", "<BS>", function()
@@ -283,12 +282,12 @@ vim.keymap.set("i", "<BS>", function()
   if col == 0 then
     return "<BS>" -- At the start of the line, just return a normal backspace
   end
-  local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ''
+  local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ""
   local prev_char, next_char = chars:sub(1, 1), chars:sub(2, 2)
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
@@ -323,9 +322,9 @@ local default_enter = "<Enter>"
 
 vim.keymap.set("i", "<enter>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local prev_char = ''
+  local prev_char = ""
   if col > 0 then
-    prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
+    prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
   end
   return enter_actions[prev_char] or default_enter
 end, { expr = true, silent = true })
@@ -339,37 +338,48 @@ vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<C
 vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
 
 -- Pre-compile pattern matches for brackets
-local brackets = { ['('] = true, ['['] = true, ['{'] = true }
-local closing_brackets = { [')'] = true, [']'] = true, ['}'] = true }
+local brackets = { ["("] = true, ["["] = true, ["{"] = true }
+local closing_brackets = { [")"] = true, ["]"] = true, ["}"] = true }
 
 local function smart_quotes(quote)
   return function()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-    -- Get both characters in a single API call
-    -- This is more efficient than making two separate calls
-    local ok, chars = pcall(vim.api.nvim_buf_get_text, 0, row - 1,
-      math.max(0, col - 1), row - 1, col + 1, {})
-
-    if not ok then return quote end
+    local ok, chars = pcall(vim.api.nvim_buf_get_text, 0, row - 1, math.max(0, col - 1), row - 1, col + 1, {})
+    if not ok then
+      return quote
+    end
 
     local prev_char = #chars[1] >= 2 and chars[1]:sub(1, 1) or ""
     local next_char = chars[1]:sub(-1)
 
-    -- Quick return for quote jump
-    if next_char == quote then return "<Right>" end
+    -- Quote jump if next character is the same quote
+    if next_char == quote then
+      return "<Right>"
+    end
 
-    -- Use table lookups instead of multiple or conditions
-    if prev_char == "" or prev_char == " " or
-        brackets[prev_char] or closing_brackets[next_char] then
+    -- Check if previous or next character is a word character or non-space
+    local is_word_before = prev_char:match("[%w_]")
+    local is_word_after = next_char:match("[%w_]")
+    local is_non_space_after = next_char ~= "" and next_char ~= " "
+
+    -- Add paired quotes only when:
+    -- 1. No word character before AND no character after, or only space after
+    -- 2. After an opening bracket with no character after
+    -- 3. Between brackets with no word character before
+    if
+      (not is_word_before and not is_non_space_after)
+      or (brackets[prev_char] and not is_non_space_after)
+      or (not is_word_before and closing_brackets[next_char])
+    then
       return quote .. quote .. "<Left>"
     end
 
+    -- Single quote for all other cases
     return quote
   end
 end
 
 -- Map each quote type
-keymap('i', '"', smart_quotes('"'), opts)
-keymap('i', "'", smart_quotes("'"), opts)
-keymap('i', '`', smart_quotes('`'), opts)
+keymap("i", '"', smart_quotes('"'), opts)
+keymap("i", "'", smart_quotes("'"), opts)
+keymap("i", "`", smart_quotes("`"), opts)

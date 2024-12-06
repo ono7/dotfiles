@@ -52,7 +52,7 @@ require("config.lazy")
 -- end, {})
 
 -- comment for beam cursor
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
 -- vim.cmd [[ syntax off ]]
