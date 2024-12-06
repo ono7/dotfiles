@@ -1,10 +1,10 @@
 vim.filetype.add({
   filename = {
-    ['Jenkinsfile'] = 'groovy',
-    ['Jenkinsfile-1'] = 'groovy',
-    ['Jenkinsfile-2'] = 'groovy',
-    ['Jenkinsfile-3'] = 'groovy',
-    ['Jenkinsfile-4'] = 'groovy',
+    ["Jenkinsfile"] = "groovy",
+    ["Jenkinsfile-1"] = "groovy",
+    ["Jenkinsfile-2"] = "groovy",
+    ["Jenkinsfile-3"] = "groovy",
+    ["Jenkinsfile-4"] = "groovy",
     [".env"] = "dotenv",
     ["env"] = "dotenv",
   },
@@ -13,15 +13,7 @@ vim.filetype.add({
     ["%.env%.[%w_.-]+"] = "dotenv",
   },
   extension = {
-    -- h = function()
-    --   -- Use a lazy heuristic that #including a C++ header means it's a
-    --   -- C++ header
-    --   if vim.fn.search("\\C^#include <[^>.]\\+>$", "nw") >= 1 then
-    --     return "cpp"
-    --   end
-    --   return "c"
-    -- end,
-   env = "dotenv",
+    env = "dotenv",
     csv = "csv",
     cl = "opencl",
     env = "env",

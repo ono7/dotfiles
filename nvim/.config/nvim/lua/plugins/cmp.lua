@@ -109,14 +109,8 @@ return {
         -- { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
-        -- { name = "luasnip" },
-        -- { name = "buffer" },
-        -- { name = "path" },
-        -- { name = "calc" },
-        -- { name = "emoji" },
-        -- { name = "treesitter" },
-        -- { name = "crates" },
-        -- { name = "tmux" },
+        { name = "path" },
+        { name = "tmux" },
       },
       formatting = {
         format = function(entry, vim_item)
