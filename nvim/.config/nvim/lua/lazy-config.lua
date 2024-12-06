@@ -19,13 +19,13 @@ require("lazy").setup({
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = true
+    config = true,
   },
   {
     "zk-org/zk-nvim",
     config = function()
       require("zk").setup({
-        picker = "telescope"
+        picker = "telescope",
 
         -- See Setup section below
       })
@@ -35,7 +35,7 @@ require("lazy").setup({
       -- vim.api.nvim_set_keymap("n", "zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", opts)
 
       vim.keymap.set("n", "zn", function()
-        local title = vim.fn.input('Title: ')
+        local title = vim.fn.input("Title: ")
         if #title < 4 then
           print("Title should be 4+ chars")
           return
@@ -49,48 +49,65 @@ require("lazy").setup({
       vim.api.nvim_set_keymap("n", "zt", "<Cmd>ZkTags<CR>", opts)
 
       -- Search for the notes matching a given query.
-      vim.api.nvim_set_keymap("n", "zf",
-        "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", opts)
+      vim.api.nvim_set_keymap(
+        "n",
+        "zf",
+        "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",
+        opts
+      )
       -- Search for the notes matching the current visual selection.
       vim.api.nvim_set_keymap("v", "zf", ":'<,'>ZkMatch<CR>", opts)
-    end
+    end,
   },
   {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
     opts = {},
-    config = function() require "plugins.conform" end
+    config = function()
+      require("plugins.conform")
+    end,
   },
   "onsails/lspkind-nvim",
   -- "Glench/Vim-Jinja2-Syntax",
   {
     "monkoose/matchparen.nvim",
     config = function()
-      require('matchparen').setup({
-        on_startup = true,           -- Should it be enabled by default
-        hl_group = 'MatchParen',     -- highlight group of the matched brackets
-        augroup_name = 'matchparen', -- almost no reason to touch this unless there is already augroup with such name
-        debounce_time = 20,          -- debounce time in milliseconds for rehighlighting of brackets.
+      require("matchparen").setup({
+        on_startup = true, -- Should it be enabled by default
+        hl_group = "MatchParen", -- highlight group of the matched brackets
+        augroup_name = "matchparen", -- almost no reason to touch this unless there is already augroup with such name
+        debounce_time = 20, -- debounce time in milliseconds for rehighlighting of brackets.
       })
-    end
+    end,
   },
   {
     "kylechui/nvim-surround",
-    config = function() require "plugins.surround" end
+    config = function()
+      require("plugins.surround")
+    end,
   },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function() require "plugins.harpoon" end
+    config = function()
+      require("plugins.harpoon")
+    end,
   },
-  { "NvChad/nvim-colorizer.lua", config = function() require "plugins.colorizer" end },
-  { "sindrets/diffview.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("plugins.colorizer")
+    end,
+  },
+  { "sindrets/diffview.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
         "williamboman/mason.nvim",
-        config = function() require "plugins.lsp.mason" end
+        config = function()
+          require("plugins.lsp.mason")
+        end,
       },
       { "williamboman/mason-lspconfig.nvim" },
     },
@@ -104,12 +121,16 @@ require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp-signature-help",
     },
-    config = function() require "plugins.lsp.cmp" end
+    config = function()
+      require("plugins.lsp.cmp")
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function() require "plugins.treesitter" end
+    config = function()
+      require("plugins.treesitter")
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -128,7 +149,9 @@ require("lazy").setup({
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() require "plugins.oil" end
+    config = function()
+      require("plugins.oil")
+    end,
   },
   {
     "olexsmir/gopher.nvim",
@@ -141,8 +164,8 @@ require("lazy").setup({
       require("gopher").setup()
     end,
     build = function()
-      vim.cmd [[silent! GoInstallDeps]]
-    end
+      vim.cmd([[silent! GoInstallDeps]])
+    end,
   },
   "folke/neodev.nvim",
 }, {
@@ -159,5 +182,4 @@ require("lazy").setup({
       },
     },
   },
-
 })

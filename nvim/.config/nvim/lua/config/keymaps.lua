@@ -129,7 +129,7 @@ vim.keymap.set("n", ",w", function()
   vim.fn.setpos('.', save_cursor)
 end, silent)
 
-vim.keymap.set("n", "<leader>w", function()
+vim.keymap.set("n", "<leader>s", function()
   if not check_buf(0) then
     print("save me first!")
     return

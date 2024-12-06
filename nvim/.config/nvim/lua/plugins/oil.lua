@@ -1,8 +1,7 @@
 return {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() 
-
+  "stevearc/oil.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
     local oil_ok, oil_config = pcall(require, "oil")
 
     if not oil_ok then
@@ -11,7 +10,7 @@ return {
     end
 
     -- oil_config.setup {}
-    oil_config.setup {
+    oil_config.setup({
       columns = { "icon" },
       keymaps = {
         -- ["<C-h>"] = false,
@@ -51,12 +50,12 @@ return {
         -- Set to "unmodified" to only save unmodified buffers
         autosave_changes = false,
       },
-    }
+    })
 
     -- Open parent directory in current window
     -- vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
     -- Open parent directory in floating window
     vim.keymap.set("n", "<c-\\>", require("oil").toggle_float)
-  end
+  end,
 }

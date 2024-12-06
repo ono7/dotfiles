@@ -1,35 +1,32 @@
-  return {
-    "nvim-telescope/telescope.nvim",
-    version = false,
-    lazy = false,
-    dependencies = { 
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = 'make' -- linux, macos (requires gcc,clang,make)
-      },
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "nvim-telescope/telescope-ui-select.nvim"
+return {
+  "nvim-telescope/telescope.nvim",
+  version = false,
+  lazy = false,
+  dependencies = {
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make", -- linux, macos (requires gcc,clang,make)
     },
-    config = function() 
-
-
-
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
+  config = function()
     local opt = { noremap = true, silent = true }
     local k = vim.keymap.set
 
-    local actions = require "telescope.actions"
-    local telescope = require "telescope"
-    local icons = require "config.icons"
+    local actions = require("telescope.actions")
+    local telescope = require("telescope")
+    local icons = require("config.icons")
 
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "TelescopeResults",
       callback = function(ctx)
-        vim.api.nvim_buf_call(ctx.buf, function() 
+        vim.api.nvim_buf_call(ctx.buf, function()
           vim.fn.matchadd("TelescopeParent", "\t\t.*$")
           vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
         end)
-      end
+      end,
     })
 
     local function formattedName(_, path)
@@ -51,7 +48,7 @@
           height = 0.8,
           preview_cutoff = 40,
           prompt_position = "top",
-          width = 0.9
+          width = 0.9,
         },
       },
       mappings = {
@@ -59,15 +56,9 @@
       },
     }
 
-    local fd_command = { 'fd',
-      '--type',
-      'f',
-      '--strip-cwd-prefix',
-      '--hidden',
-      '--no-ignore-vcs',
-    }
+    local fd_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--no-ignore-vcs" }
 
-    require("telescope").setup {
+    require("telescope").setup({
       file_ignore_patterns = { "%.git/." },
       pickers = {
         find_files = with_dropdown,
@@ -85,10 +76,10 @@
           fuzzy = true, -- false will only do exact matching
           override_generic_sorter = true,
           override_file_sorter = true,
-          case_mode = "smart_case", 
+          case_mode = "smart_case",
         },
         ["ui-select"] = {
-          require("telescope.themes").get_dropdown {},
+          require("telescope.themes").get_dropdown({}),
         },
       },
 
@@ -100,14 +91,14 @@
         initial_mode = "insert",
         select_strategy = "reset",
         color_devicons = true,
-         set_env = { ["COLORTERM"] = "truecolor" },
+        set_env = { ["COLORTERM"] = "truecolor" },
         sorting_strategy = "ascending",
         layout_config = {
           center = {
             height = 0.4,
             preview_cutoff = 40,
             prompt_position = "top",
-            width = 0.5
+            width = 0.5,
           },
         },
         path_display = { "truncate" },
@@ -124,55 +115,68 @@
           -- ['<C-d>'] = false,
         },
       },
-
-    }
+    })
 
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
 
-    local builtin = require "telescope.builtin"
+    local builtin = require("telescope.builtin")
 
     vim.keymap.set("n", "<space>b", builtin.current_buffer_fuzzy_find)
 
     k("n", "<leader>vc", function()
-      builtin.git_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = false }
+      builtin.git_files({
+        previewer = false,
+        cwd = "~/.dotfiles",
+        hidden = true,
+        show_untracked = true,
+        no_ignore = false,
+      })
     end)
 
     k("n", "<leader>fw", function()
       local word = vim.fn.expand("<cword>")
-      builtin.grep_string { search = word }
+      builtin.grep_string({ search = word })
     end, opt)
 
     k("n", "<leader>fW", function()
       local word = vim.fn.expand("<cWORD>")
-      builtin.grep_string { search = word }
+      builtin.grep_string({ search = word })
     end, opt)
 
-    k("n", "<leader>d", function() builtin.diagnostics({ previewer = false }) end, opt)
+    k("n", "<leader>d", function()
+      builtin.diagnostics({ previewer = false })
+    end, opt)
 
     -- does not use find_command
     vim.keymap.set("n", "<leader>g", function()
-      builtin.live_grep {
+      builtin.live_grep({
         vimgrep_arguments = {
-          'rg',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-          '-u',
-          '--glob', '!venv',
-          '--glob', '!.collections',
-          '--glob', '!.git',
-          '--glob', '!tags'
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "-u",
+          "--glob",
+          "!venv",
+          "--glob",
+          "!.collections",
+          "--glob",
+          "!.git",
+          "--glob",
+          "!tags",
         },
         show_untracked = true,
-        no_ignore = false
-      }
+        no_ignore = false,
+      })
     end, { desc = "Live grep with rg" })
 
-    k("n", "<leader>w", function() builtin.buffers({ previewer = false }) end, opt)
+    k("n", "<leader>w", function()
+      builtin.buffers({ previewer = false })
+    end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore
     k({ "n", "x" }, "<c-f>", function()
@@ -209,13 +213,18 @@
     -- Keymapping for Git files using fd
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
-    vim.keymap.set({ "n", "x" }, "<c-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
+    vim.keymap.set(
+      { "n", "x" },
+      "<c-p>",
+      fd_git_files,
+      { noremap = true, silent = true, desc = "Find Git files using fd" }
+    )
 
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     -- see picker options
     k("n", "<c-s>", function()
-      require("telescope.builtin").oldfiles {}
+      require("telescope.builtin").oldfiles({})
     end)
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
@@ -223,6 +232,5 @@
     -- telescope.load_extension("notify")
     -- telescope.load_extension("package_info")
     -- telescope.load_extension("makefile_targets")
-
-    end
+  end,
 }
