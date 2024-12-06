@@ -160,7 +160,7 @@ dynamic_title = true
 # blur = true
 decorations_theme_variant = "Dark"
 
-startup_mode = "Windowed"
+startup_mode = "Maximized"
 option_as_alt = "both"
 
 [window.dimensions]
