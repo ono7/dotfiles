@@ -172,7 +172,7 @@
       }
     end, { desc = "Live grep with rg" })
 
-    k("n", "<c-b>", function() builtin.buffers({ previewer = false }) end, opt)
+    k("n", "<leader>w", function() builtin.buffers({ previewer = false }) end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore
     k({ "n", "x" }, "<c-f>", function()
