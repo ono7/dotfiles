@@ -1,6 +1,8 @@
 -- local c = vim.api.nvim_create_autocmd
 local create_augroup = vim.api.nvim_create_augroup
 
+vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]]})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()

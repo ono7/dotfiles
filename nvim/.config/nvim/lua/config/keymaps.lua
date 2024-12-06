@@ -4,6 +4,16 @@ local silent = { noremap = true, silent = true }
 
 -- jump to double quotes quicky, could also just /", /' /`
 
+vim.g.mapleader = " "
+
+vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
+
+--- visual select last paste
+vim.keymap.set("n", "gp", "`[v`]", silent)
+
+--- keep cursor in same position when yanking in visual
+vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
+
 vim.keymap.set('n', '"', function()
   vim.fn.search('"', 'W')
 end, { noremap = true, silent = true })
@@ -36,7 +46,7 @@ end, { noremap = true, silent = true })
 -- vim.keymap.set('n', "'", "/'<cr>", { noremap = true, silent = true })
 
 --- map leader ---
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- move through wrapped lines
 vim.keymap.set("n", "k", "gk", silent)
@@ -321,3 +331,45 @@ vim.keymap.set("i", "<enter>", function()
 end, { expr = true, silent = true })
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
+
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true, expr = true }
+
+vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
+vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")
+
+-- Pre-compile pattern matches for brackets
+local brackets = { ['('] = true, ['['] = true, ['{'] = true }
+local closing_brackets = { [')'] = true, [']'] = true, ['}'] = true }
+
+local function smart_quotes(quote)
+  return function()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+    -- Get both characters in a single API call
+    -- This is more efficient than making two separate calls
+    local ok, chars = pcall(vim.api.nvim_buf_get_text, 0, row - 1,
+      math.max(0, col - 1), row - 1, col + 1, {})
+
+    if not ok then return quote end
+
+    local prev_char = #chars[1] >= 2 and chars[1]:sub(1, 1) or ""
+    local next_char = chars[1]:sub(-1)
+
+    -- Quick return for quote jump
+    if next_char == quote then return "<Right>" end
+
+    -- Use table lookups instead of multiple or conditions
+    if prev_char == "" or prev_char == " " or
+        brackets[prev_char] or closing_brackets[next_char] then
+      return quote .. quote .. "<Left>"
+    end
+
+    return quote
+  end
+end
+
+-- Map each quote type
+keymap('i', '"', smart_quotes('"'), opts)
+keymap('i', "'", smart_quotes("'"), opts)
+keymap('i', '`', smart_quotes('`'), opts)

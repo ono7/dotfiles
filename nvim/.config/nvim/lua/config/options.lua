@@ -1,3 +1,14 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- if nothing else, this are the bare minimum necessities
+vim.opt.path:append({ "**" })
+vim.opt.shell = "zsh"
+vim.opt.clipboard = "unnamedplus"
+vim.opt.wrap = false
+
+vim.opt.shada = "'40,<200,s100,:300,/100,h,r~/COMMIT_EDITMSG"
+
 vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
@@ -107,3 +118,24 @@ vim.g.floating_window_border = {
   "╰",
   "│",
 }
+
+--- global vars
+
+vim.g.markdown_fold_style = "nested"
+
+-- disable netrw
+vim.g.loaded_netwr = 1
+vim.g.loaded_netrwPlugin = 1
+-- reuse same window
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 0
+vim.g.netrw_liststyle = 3
+
+-- vim.opt.winbar = "%=%-.75F %-m"
+
+
+-- improve matchparen performance
+vim.g.matchparen_timeout = 20        -- default is 300
+vim.g.matchparen_insert_timeout = 20 -- default is 60
+vim.g.loaded_matchparen = 1
+
