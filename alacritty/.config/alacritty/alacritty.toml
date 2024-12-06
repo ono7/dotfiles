@@ -6,33 +6,32 @@ osc52 = "CopyPaste"
 [colors]
 draw_bold_text_with_bright_colors = false
 
-[colors.bright]
-black = "#7c8f8f"
-blue = "#82aaff"
-cyan = "#7fdbca"
-green = "#21c7a8"
-magenta = "#ae81ff"
-red = "#ff5874"
-white = "#d6deeb"
-yellow = "#ecc48d"
-
-[colors.normal]
-black = "#1d3b53"
-blue = "#82aaff"
-cyan = "#7fdbca"
-green = "#a1cd5e"
-magenta = "#c792ea"
-red = "#fc514e"
-white = "#a1aab8"
-yellow = "#e3d18a"
-
+# Default colors
 [colors.primary]
-background = "#131b25"
-foreground = "#bdc1c6"
+background = '#1d2021'
+foreground = '#d4be98'
 
-[colors.selection]
-background = "#b2ceee"
-text = "#080808"
+# Normal colors
+[colors.normal]
+black   = '#32302f'
+red     = '#ea6962'
+green   = '#a9b665'
+yellow  = '#d8a657'
+blue    = '#7daea3'
+magenta = '#d3869b'
+cyan    = '#89b482'
+white   = '#d4be98'
+
+# Bright colors (same as normal colors)
+[colors.bright]
+black   = '#32302f'
+red     = '#ea6962'
+green   = '#a9b665'
+yellow  = '#d8a657'
+blue    = '#7daea3'
+magenta = '#d3869b'
+cyan    = '#89b482'
+white   = '#d4be98'
 
 [cursor]
 blink_interval = 500
@@ -153,8 +152,8 @@ args = ["--login"]
 program = "/bin/zsh"
 
 [window]
-# decorations = "buttonless"
-decorations = "Full"
+decorations = "None"
+# decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
 # opacity = 0.90
