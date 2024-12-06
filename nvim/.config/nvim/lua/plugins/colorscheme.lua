@@ -234,7 +234,7 @@ return {
             TSURI = { fg = colors.blue },
             TSVariable = { fg = colors.text },
             TSVariableBuiltin = { fg = colors.mauve },
-
+            MatchParen = { fg = "#ffffff", bg = "none", bold = true },
             ["@annotation"] = { link = "TSAnnotation" },
             ["@attribute"] = { link = "TSAttribute" },
             ["@boolean"] = { link = "TSBoolean" },
