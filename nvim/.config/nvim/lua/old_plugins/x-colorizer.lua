@@ -1,9 +1,10 @@
-local ok, config = pcall(require, 'colorizer')
+return {
+  local ok, config = pcall(require, 'colorizer')
 
-if not ok then
-  print('colozirer.lua not loaded')
-  return
-end
+  if not ok then
+    print('colozirer.lua not loaded')
+    return
+  end
 
 config.setup {
   filetypes = { lua = { names = false, mode = 'background' }, 'css', 'html', 'scss'
@@ -18,4 +19,5 @@ config.setup {
     virtualtext = "■",
     always_update = true
   },
+}
 }

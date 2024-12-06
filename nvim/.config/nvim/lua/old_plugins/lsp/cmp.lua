@@ -6,18 +6,18 @@ if not snippy_ok then
 end
 
 snippy.setup({
-  snippet_dirs = '~/.config/nvim/snippets',
+  snippet_dirs = "~/.config/nvim/snippets",
   -- scopes = {
   --   _ = {},
   --   markdown = { "markdown" },
   -- },
   mappings = {
     is = {
-      ['<Tab>'] = 'expand_or_advance',
-      ['<S-Tab>'] = 'previous',
+      ["<Tab>"] = "expand_or_advance",
+      ["<S-Tab>"] = "previous",
     },
     x = {
-      ['<leader>d'] = 'cut_text',
+      ["<leader>d"] = "cut_text",
     },
   },
 })
@@ -58,13 +58,6 @@ local preferred_sources = {
   { name = "nvim_lsp_signature_help" },
   { name = "buffer" },
 }
-
--- local preferred_sources = {
---   { name = "nvim_lsp",                priority = 1000,     group_index = 1,   max_item_count = 200, keyword_length = 2 },
---   { name = "nvim_lsp_signature_help", max_item_count = 20, priority = 2,      keyword_length = 2 },
---   { name = "path" },
---   { name = "buffer",                  max_item_count = 20, keyword_length = 2 },
--- }
 
 local function tooBig(bufnr)
   local max_filesize = 1000 * 1024 -- 1MB
@@ -107,14 +100,8 @@ local function trigger_completion()
   end
 end
 
--- vim.api.nvim_create_autocmd("CursorHoldI", {
---   callback = function()
---     trigger_completion()
---   end,
--- })
-
 -- Set up manual trigger
-vim.keymap.set('i', '<C-Space>', function()
+vim.keymap.set("i", "<C-Space>", function()
   cmp_config.complete()
 end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
@@ -126,16 +113,16 @@ cmp_config.setup({
   preselect = types.cmp.PreselectMode.None, -- do not randomly select item from menu
   window = {
     completion = {
-      border = '',
+      border = "",
       -- scrollbar = '║',
       scrollbar = false,
-      winhighlight = "Normal:Pmenu,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None"
+      winhighlight = "Normal:Pmenu,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None",
     },
     documentation = {
-      border = 'rounded',
+      border = "rounded",
       scrollbar = false,
-      winhighlight = "Normal:Normal,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None"
-    }
+      winhighlight = "Normal:Normal,FloatBorder:cmpBorder,CursorLine:cmpSelect,Search:None",
+    },
   },
   mapping = {
     ["<C-n>"] = cmp_config.mapping.select_next_item(cmp_select),
@@ -175,7 +162,3 @@ cmp_config.setup({
     }),
   },
 })
-
--- cmp_config.mapping.preset.insert({
---   ['<C-Space>'] = cmp_config.mapping.complete(),
--- })

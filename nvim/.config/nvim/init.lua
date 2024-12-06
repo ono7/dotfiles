@@ -1,6 +1,6 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
-vim.cmd [[syntax off]]
+vim.cmd([[syntax off]])
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
