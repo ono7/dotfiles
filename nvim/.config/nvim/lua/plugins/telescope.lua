@@ -7,9 +7,12 @@
         "nvim-telescope/telescope-fzf-native.nvim",
         build = 'make' -- linux, macos (requires gcc,clang,make)
       },
-      "nvim-lua/plenary.nvim" 
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "nvim-telescope/telescope-ui-select.nvim"
     },
     config = function() 
+
 
 
     local opt = { noremap = true, silent = true }
@@ -26,6 +29,27 @@
     -- end
 
     local actions = require "telescope.actions"
+    local telescope = require "telescope"
+    local icons = require "config.icons"
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "TelescopeResults",
+      callback = function(ctx)
+        vim.api.nvim_buf_call(ctx.buf, function() 
+          vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+          vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+        end)
+      end
+    })
+
+    local function formattedName(_, path)
+      local tail = vim.fs.basename(path)
+      local parent = vim.fs.dirname(path)
+      if parent == "." then
+        return tail
+      end
+      return string.format("%s\t\t%s", tail, parent)
+    end
 
     -- 
 
@@ -54,6 +78,7 @@
     }
 
     require("telescope").setup {
+      file_ignore_patterns = { "%.git/." },
       pickers = {
         find_files = with_dropdown,
         git_files = with_dropdown,
@@ -66,14 +91,27 @@
       },
       extensions = {
         wrap_results = true,
-        fzf = {},
+        fzf = {
+          fuzzy = true, -- false will only do exact matching
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case", 
+        },
         ["ui-select"] = {
           require("telescope.themes").get_dropdown {},
         },
       },
 
       defaults = {
-        prompt_prefix = "🔍 ",
+        -- prompt_prefix = "🔍 ",
+        prompt_prefix = " " .. icons.ui.Telescope .. " ",
+        selection_caret = icons.ui.BoldArrowRight .. " ",
+        file_ignore_patterns = { "node_modules", "package-lock.json" },
+        initial_mode = "insert",
+        select_strategy = "reset",
+        color_devicons = true,
+         set_env = { ["COLORTERM"] = "truecolor" },
+        sorting_strategy = "ascending",
         layout_config = {
           center = {
             height = 0.4,
@@ -96,6 +134,7 @@
           -- ['<C-d>'] = false,
         },
       },
+
     }
 
     pcall(require("telescope").load_extension, "fzf")
@@ -103,7 +142,7 @@
 
     local builtin = require "telescope.builtin"
 
-    vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
+    vim.keymap.set("n", "<space>b", builtin.current_buffer_fuzzy_find)
 
     k("n", "<leader>vc", function()
       builtin.git_files { previewer = false, cwd = '~/.dotfiles', hidden = true, show_untracked = true, no_ignore = false }
@@ -188,6 +227,12 @@
     k("n", "<c-s>", function()
       require("telescope.builtin").oldfiles {}
     end)
+    telescope.load_extension("fzf")
+    telescope.load_extension("ui-select")
+    -- telescope.load_extension("dap")
+    -- telescope.load_extension("notify")
+    -- telescope.load_extension("package_info")
+    -- telescope.load_extension("makefile_targets")
 
     end
 }

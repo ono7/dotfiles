@@ -48,7 +48,7 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append("view")
 vim.opt.laststatus = 0
-vim.opt.lazyredraw = true
+vim.opt.lazyredraw = false
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
 vim.opt.magic = true

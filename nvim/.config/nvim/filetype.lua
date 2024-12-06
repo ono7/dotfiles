@@ -5,6 +5,12 @@ vim.filetype.add({
     ['Jenkinsfile-2'] = 'groovy',
     ['Jenkinsfile-3'] = 'groovy',
     ['Jenkinsfile-4'] = 'groovy',
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
   },
   extension = {
     -- h = function()
@@ -15,6 +21,7 @@ vim.filetype.add({
     --   end
     --   return "c"
     -- end,
+   env = "dotenv",
     csv = "csv",
     cl = "opencl",
     env = "env",
