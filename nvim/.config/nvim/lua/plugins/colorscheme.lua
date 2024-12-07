@@ -67,7 +67,7 @@ return {
           crust = "#141617",
         },
       },
-      transparent_background = false,
+      transparent_background = true,
       show_end_of_buffer = false,
       integration_default = false,
       integrations = {
@@ -192,7 +192,7 @@ return {
             TSFunctionCall = { fg = colors.green },
             TSInclude = { fg = colors.red },
             TSKeyword = { fg = colors.red },
-            TSKeywordFunction = { fg = colors.red },
+            TSKeywordFunction = { fg = colors.red, italic = true },
             TSKeywordOperator = { fg = colors.peach },
             TSKeywordReturn = { fg = colors.red },
             TSLabel = { fg = colors.peach },

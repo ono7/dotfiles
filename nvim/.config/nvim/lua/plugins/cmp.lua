@@ -8,15 +8,10 @@ return {
     "hrsh7th/cmp-path",
     "dcampos/nvim-snippy",
     "dcampos/cmp-snippy",
-    -- Adds a number of user-friendly snippets
-    -- "rafamadriz/friendly-snippets",
-    -- Adds vscode-like pictograms
     "onsails/lspkind.nvim",
   },
   config = function()
     local cmp = require("cmp")
-    -- local luasnip = require("luasnip")
-    -- local lspkind = require("lspkind")
     local snippy = require("snippy")
     snippy.setup({
       snippet_dirs = "~/.config/nvim/snippets",
@@ -58,9 +53,6 @@ return {
       Operator = "󰆕",
       TypeParameter = "󰅲",
     }
-    -- require("luasnip.loaders.from_vscode").lazy_load()
-    -- luasnip.config.setup({})
-
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -120,12 +112,12 @@ return {
             vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
             -- Source
             vim_item.menu = ({
-              copilot = "[Copilot]",
+              -- copilot = "[Copilot]",
               nvim_lsp = "[LSP]",
               nvim_lua = "[Lua]",
               luasnip = "[LuaSnip]",
               buffer = "[Buffer]",
-              latex_symbols = "[LaTeX]",
+              -- latex_symbols = "[LaTeX]",
             })[entry.source.name]
             return vim_item
           else
