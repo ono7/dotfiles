@@ -49,6 +49,7 @@ return {
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
     vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#8bc2f0" })
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
+    vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#f2cdcd" })
     vim.api.nvim_set_hl(0, "@property", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "Conditional", { fg = "#f38ba8", italic = true })
@@ -73,7 +74,8 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "Comment" })
+    -- TODO: fix this diagnostics text to be like the original
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "Error" })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#50FA7B", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
   end,
