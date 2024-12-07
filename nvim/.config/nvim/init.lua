@@ -17,6 +17,7 @@ require("config.diff-settings")
 require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
+require("utils.zoxide").setup()
 
 -- require("themes.notheme") -- basic HL groups for no colorscheme
 
@@ -30,8 +31,6 @@ require("config.lazy")
 -- require("plugins.create-table").setup()
 -- require("plugins.claude-commit").setup()
 -- require("plugins.claude-general").setup()
-
-require("utils.zoxide").setup()
 
 -- this needs fixing
 -- vim.api.nvim_create_user_command('JiraIssues', function()
