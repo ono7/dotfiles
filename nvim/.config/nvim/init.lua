@@ -31,7 +31,7 @@ require("config.lazy")
 -- require("plugins.claude-commit").setup()
 -- require("plugins.claude-general").setup()
 
--- require("plugins.zoxide").setup()
+require("utils.zoxide").setup()
 
 -- this needs fixing
 -- vim.api.nvim_create_user_command('JiraIssues', function()
