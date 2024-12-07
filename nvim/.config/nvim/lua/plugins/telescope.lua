@@ -20,15 +20,6 @@ return {
     -- local trouble = require("trouble.sources.telescope")
     local icons = require("config.icons")
 
-    local function formattedName(_, path)
-      local tail = vim.fs.basename(path)
-      local parent = vim.fs.dirname(path)
-      if parent == "." then
-        return tail
-      end
-      return string.format("%s\t\t%s", tail, parent)
-    end
-
     -- 
 
     -- local layout_width = 0.9

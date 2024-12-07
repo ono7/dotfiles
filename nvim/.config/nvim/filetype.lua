@@ -16,7 +16,6 @@ vim.filetype.add({
     env = "dotenv",
     csv = "csv",
     cl = "opencl",
-    env = "env",
     gohtml = "html",
     j2 = "jinja",
     conf = "config",
