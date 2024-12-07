@@ -81,10 +81,10 @@ vim.keymap.set("x", "H", "<gv", silent)
 vim.keymap.set("x", "L", ">gv", silent)
 
 -- toggle spell on and off
-vim.keymap.set("n", "<leader>ss", function()
-  vim.opt.spell = not vim.opt.spell:get()
-  print("Spell check is " .. (vim.opt.spell:get() and "on" or "off"))
-end, { silent = true })
+-- vim.keymap.set("n", "<leader>ss", function()
+--   vim.opt.spell = not vim.opt.spell:get()
+--   print("Spell check is " .. (vim.opt.spell:get() and "on" or "off"))
+-- end, { silent = true })
 
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
@@ -204,7 +204,7 @@ vim.keymap.set("n", "g[", [[?\v\[<cr>]])
 vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
-vim.keymap.set("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
+--- vim.keymap.set("n", "<leader>t", [[:botright 6sp term://zsh<CR>]], silent)
 
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)

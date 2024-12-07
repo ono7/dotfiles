@@ -161,6 +161,13 @@ return {
       builtin.buffers({ previewer = false })
     end, opt)
 
+    k("n", "<leader>s", function()
+      builtin.lsp_document_symbols({ previewer = true, show_line = true })
+    end, opt)
+    k("n", "<leader>S", function()
+      builtin.lsp_workspace_symbols({ previewer = true, show_line = true })
+    end, opt)
+
     --- handle all ignores in ~/.config/fd/ignore
     k({ "n", "x" }, "<c-f>", function()
       builtin.find_files({
