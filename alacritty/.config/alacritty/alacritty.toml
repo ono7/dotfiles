@@ -37,7 +37,7 @@ y = 0
 
 [font.normal]
 family = "MonolisaNoLiga Nerd Font"
-style = "Medium Regular"
+style = "Regular"
 
 [font.offset]
 x = 0
