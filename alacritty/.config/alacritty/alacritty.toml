@@ -120,7 +120,7 @@ decorations = "None"
 # decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.90
+opacity = 0.95
 blur = true
 decorations_theme_variant = "Dark"
 

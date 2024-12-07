@@ -46,6 +46,7 @@ return {
         find_files = with_dropdown,
         git_files = with_dropdown,
         oldfiles = with_dropdown,
+        buffers = with_dropdown,
         live_grep = {
           mappings = {
             i = { ["<c-f>"] = actions.to_fuzzy_refine },
