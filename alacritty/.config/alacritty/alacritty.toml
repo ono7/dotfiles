@@ -69,6 +69,7 @@ bindings = [
 {  key  =  "L",         mods  =  "Command|Shift",  action  =  "SelectNextTab"      },
 {  key  =  "LBracket",  mods  =  "Command",        chars   =  "\u001b"             },
 {  key  =  "N",         mods  =  "Command",        chars   =  "\u000e"             },
+{  key  =  "M",         mods  =  "Command",        chars   =  "\u001bZ"            },
 {  key  =  "O",         mods  =  "Command",        chars   =  "\u000f"             },
 {  key  =  "P",         mods  =  "Command",        chars   =  "\u0010"             },
 {  key  =  "Q",         mods  =  "Command",        action  =  "None"               },
