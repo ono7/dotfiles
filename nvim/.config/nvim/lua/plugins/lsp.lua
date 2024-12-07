@@ -101,6 +101,7 @@ return {
             "jsonls",
             "bashls",
             "terraformls",
+            "ts_ls",
             "cssls",
             "lua_ls",
             "ruff_lsp",
@@ -157,6 +158,7 @@ return {
         nvim_lsp.bashls.setup(lsp_opts)
         nvim_lsp.cssls.setup(lsp_opts)
         nvim_lsp.html.setup(lsp_opts)
+        nvim_lsp.ts_ls.setup(lsp_opts)
         nvim_lsp.ansiblels.setup(lsp_opts)
         -- nvim_lsp.jsonls.setup(lsp_opts)
 
