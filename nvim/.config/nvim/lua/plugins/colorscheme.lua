@@ -35,8 +35,9 @@ return {
 
     vim.api.nvim_set_hl(0, "Folded", { link = "Comment" })
     vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#B0A0FF", bold = true, italic = true })
-    vim.api.nvim_set_hl(0, "String", { fg = "#a6e3a1" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#a6e3a1" })
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
+    vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
     vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "@text.note", { link = "Normal" })
     vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
