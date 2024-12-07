@@ -18,6 +18,7 @@ require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
 require("utils.zoxide").setup()
+require("utils.create-table").setup()
 
 -- require("themes.notheme") -- basic HL groups for no colorscheme
 

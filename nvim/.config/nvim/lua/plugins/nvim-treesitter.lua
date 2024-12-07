@@ -19,6 +19,14 @@ return {
         indent = { enable = true },
         -- context_commentstring = { enable = true, enable_autocmd = false },
         auto_install = true,
+        disable = function(lang, buf)
+          local max_filesize = 300 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            print("max stats.size > 30KB lua, check max size in plugins/treesitter.lua")
+            return true
+          end
+        end,
         ensure_installed = {
           -- "bash",
           "c",
