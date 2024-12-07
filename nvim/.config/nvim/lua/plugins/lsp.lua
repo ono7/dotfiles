@@ -3,6 +3,7 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "folke/neodev.nvim",
+    "onsails/lspkind-nvim",
     "williamboman/mason-lspconfig.nvim",
     {
       "williamboman/mason.nvim",
