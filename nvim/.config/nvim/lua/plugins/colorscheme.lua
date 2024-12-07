@@ -24,7 +24,7 @@ return {
         strings = {},
         variables = {},
         numbers = {},
-        booleans = { "italic" },
+        booleans = {},
         parameters = {},
         properties = {},
         types = {},
