@@ -72,12 +72,10 @@ return {
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#2b2c36" })
     vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#474a59" })
     vim.api.nvim_set_hl(0, "cmpDoc", { bg = "#1B192C" })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
-    -- TODO: fix this diagnostics text to be like the original
-    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "Error" })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underline = false })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = false })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false })
+    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#50FA7B", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
   end,
