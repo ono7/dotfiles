@@ -9,6 +9,20 @@ return {
         light = "latte",
         dark = "mocha",
       },
+      styles = {
+        comments = {}, -- Change the style of comments
+        conditionals = { "italic" },
+        loops = {},
+        functions = { "italic" },
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+      },
       color_overrides = {
         latte = {
           rosewater = "#c14a4a",
