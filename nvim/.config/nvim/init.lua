@@ -1,8 +1,8 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
+
 vim.cmd([[syntax off]])
 vim.g.syntax_on = false
-vim.opt.syntax = "off"
 
 --- syntax off to avoid tree-sitter issues
 vim.opt.syntax = "off"
@@ -20,7 +20,9 @@ require("config.lazy")
 require("utils.zoxide").setup()
 require("utils.create-table").setup()
 
--- require("themes.notheme") -- basic HL groups for no colorscheme
+-- comment for beam cursor
+-- vim.opt.guicursor = ""
+vim.opt.mouse = "n"
 
 -- home made plugins go here
 -- require("plugins.jira-base")
@@ -50,9 +52,5 @@ require("utils.create-table").setup()
 --     end)
 --   end, { silent = true, desc = "Open Jira Issues" })
 -- end, {})
-
--- comment for beam cursor
--- vim.opt.guicursor = ""
-vim.opt.mouse = "n"
 
 -- vim.cmd [[ syntax off ]]
