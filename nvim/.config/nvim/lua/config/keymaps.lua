@@ -18,11 +18,6 @@ vim.keymap.set("n", '"', function()
   vim.fn.search('"', "W")
 end, { noremap = true, silent = true })
 
--- this screws up the vl command
--- vim.keymap.set('n', "'", function()
---   vim.fn.search("'", 'W')
--- end, { noremap = true, silent = true })
-
 vim.keymap.set("n", "`", function()
   vim.fn.search("`", "W")
 end, { noremap = true, silent = true })
@@ -43,30 +38,16 @@ vim.keymap.set("n", "f[", function()
   vim.fn.search("[", "W")
 end, { noremap = true, silent = true })
 
--- vim.keymap.set('n', "'", "/'<cr>", { noremap = true, silent = true })
-
---- map leader ---
--- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-
 -- move through wrapped lines
 vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
 
 vim.keymap.set("n", "<c-t>", "<cmd>new<cr>", silent)
 
--- vim.keymap.set("n", "cw", "ciw", silent)
-
 -- replaces vim surround
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
-
--- back to insert mode
--- vim.cmd [[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2la]]
--- vim.cmd [[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2la]]
--- vim.cmd [[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2la]]
-
-vim.g.mapleader = " "
 
 --- nop ---
 vim.keymap.set("n", "ZZ", "")
