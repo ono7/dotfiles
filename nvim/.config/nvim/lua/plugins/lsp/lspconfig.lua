@@ -28,7 +28,7 @@ return {
           k("gi", require("telescope.builtin").lsp_implementations, "Goto LSP Implementations")
           k("K", vim.lsp.buf.hover, "Hover Documentation")
           k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
-          k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
+          -- k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
           -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
 
           opts.desc = "code action"
@@ -61,12 +61,13 @@ return {
       -- virtual text
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         signs = true,
-        virtual_text = {
-          spacing = 2,
-          -- severity_limit = "Warning", -- disable hints...
-          severity = { min = vim.diagnostic.severity.WARN },
-          underline = true,
-        },
+        -- virtual_text = {
+        --   spacing = 2,
+        --   -- severity_limit = "Warning", -- disable hints...
+        --   severity = { min = vim.diagnostic.severity.WARN },
+        --   underline = true,
+        -- },
+        virtual_text = false,
         virtual_lines = { only_current_line = true },
         update_in_insert = false,
         underline = true,

@@ -33,6 +33,45 @@ return {
       },
     })
 
+    local function tooBig(bufnr)
+      local max_filesize = 1000 * 1024 -- 1MB
+      local check_stats = (vim.uv or vim.loop).fs_stat
+      local ok, stats = pcall(check_stats, vim.api.nvim_buf_get_name(bufnr))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      else
+        return false
+      end
+    end
+
+    local preferred_sources = {
+      { name = "copilot" },
+      { name = "nvim_lsp", max_item_count = 5 },
+      { name = "nvim_lua", max_item_count = 5 },
+      { name = "path", max_item_count = 5 },
+      { name = "tmux", max_item_count = 5 },
+    }
+
+    -- if files are too big disable buffer source
+    -- other wise, enable buffer source
+    vim.api.nvim_create_autocmd("BufRead", {
+      group = vim.api.nvim_create_augroup("CmpBufferDisableGrp", { clear = true }),
+      callback = function(ev)
+        local sources = preferred_sources
+        if not tooBig(ev.buf) then
+          sources[#sources + 1] = { name = "buffer", keyword_length = 4 }
+        end
+        cmp.setup.buffer({
+          sources = cmp.config.sources(sources),
+        })
+      end,
+    })
+
+    -- Set up manual trigger
+    vim.keymap.set("i", "<C-Space>", function()
+      cmp.complete()
+    end, { noremap = true, silent = true, desc = "Manually trigger completion" })
+
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -40,6 +79,7 @@ return {
         end,
       },
       completion = {
+        autocomplete = false, -- we want to test out running this manually
         completeopt = "menu,menuone,noinsert",
         keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
       },
@@ -77,13 +117,7 @@ return {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
-      sources = {
-        -- { name = "copilot" },
-        { name = "nvim_lsp" },
-        { name = "nvim_lua" },
-        { name = "path" },
-        { name = "tmux" },
-      },
+      sources = preferred_sources,
       formatting = {
         format = lspkind.cmp_format({
           mode = "symbol", -- show only symbol annotations
