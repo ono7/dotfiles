@@ -6,12 +6,12 @@ return {
   lazy = true,
   keys = {
     {
-      "<leader>ll",
+      "<leader>xx",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
     {
-      "<leader>lL",
+      "<leader>xl",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
       desc = "Buffer Diagnostics (Trouble)",
     },
@@ -21,7 +21,7 @@ return {
       desc = "Symbols (Trouble)",
     },
     {
-      "<leader>xl",
+      "<leader>xd",
       "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",
     },
