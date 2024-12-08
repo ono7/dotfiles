@@ -21,7 +21,7 @@ end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.complete = ".,w,b,u"
-vim.opt.completeopt = "menu,menuone"
+vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
@@ -34,9 +34,9 @@ vim.opt.foldlevel = 0
 vim.opt.foldmethod = "manual"
 vim.opt.foldnestmax = 3
 vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
-vim.opt.formatoptions = "qlj"                                  -- TODO: overwritten in my_cmds.lua
-vim.opt.grepformat = '%f:%l:%c:%m'
-vim.opt.grepprg = 'rg --vimgrep'
+vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
 vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.hlsearch = false
@@ -84,14 +84,14 @@ vim.opt.virtualedit = "block"
 vim.opt.expandtab = true
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,5"
-vim.opt.spellsuggest = 'best,9'
+vim.opt.spellsuggest = "best,9"
 vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10           -- for performace
+vim.opt.synmaxcol = 10 -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false          -- remove timeout for partially typed commands
+vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 --- report file name to terminal
 vim.opt.title = true
@@ -101,7 +101,7 @@ vim.opt.ttimeoutlen = 0
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.updatetime = 50
-vim.opt.whichwrap:append "<>[]"
+vim.opt.whichwrap:append("<>[]")
 vim.opt.wildignore = [[.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class]]
 -- vim.opt.winaltkeys = "no"
 vim.opt.wrap = false
@@ -133,9 +133,7 @@ vim.g.netrw_liststyle = 3
 
 -- vim.opt.winbar = "%=%-.75F %-m"
 
-
 -- improve matchparen performance
-vim.g.matchparen_timeout = 20        -- default is 300
+vim.g.matchparen_timeout = 20 -- default is 300
 vim.g.matchparen_insert_timeout = 20 -- default is 60
 vim.g.loaded_matchparen = 1
-
