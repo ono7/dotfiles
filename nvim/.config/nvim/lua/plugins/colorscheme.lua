@@ -46,7 +46,7 @@ return {
       -- no_italic = true, -- Force no italic
       -- no_bold = false, -- Force no bold
       styles = {
-        comments = {},
+        comments = { "italic" },
         conditionals = { "italic" },
         loops = { "italic" },
         functions = {},

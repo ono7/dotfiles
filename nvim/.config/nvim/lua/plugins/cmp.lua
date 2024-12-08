@@ -15,6 +15,7 @@ return {
     "dcampos/nvim-snippy",
     "dcampos/cmp-snippy",
     "onsails/lspkind.nvim",
+    "windwp/nvim-autopairs",
   },
   config = function()
     local cmp = require("cmp")
@@ -71,6 +72,9 @@ return {
     vim.keymap.set("i", "<C-Space>", function()
       cmp.complete()
     end, { noremap = true, silent = true, desc = "Manually trigger completion" })
+
+    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
       snippet = {
