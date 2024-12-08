@@ -20,10 +20,6 @@ require("config.lazy")
 require("utils.zoxide").setup()
 require("utils.create-table").setup()
 
-vim.api.nvim_create_user_command("T", function(opts)
-  vim.cmd("split | startinsert | terminal " .. table.concat(opts.fargs, " "))
-end, { nargs = "*", complete = "file" })
-
 -- comment for beam cursor
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
