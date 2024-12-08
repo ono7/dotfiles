@@ -105,7 +105,7 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ffffff", bold = true })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1B192C" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { fg = "#313244", bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", {})
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244" })
     vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#313244" })
     vim.api.nvim_set_hl(0, "cmpDoc", {})
