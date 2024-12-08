@@ -3,19 +3,19 @@ return {
   name = "catppuccin",
   lazy = false,
   priority = 1000,
+  -- bg: "#585b70" # Surface2
+  --  fg: "#cdd6f4"
+  --  red: "#f38ba8"
+  --  green: "#a6e3a1"
+  --  blue: "#89b4fa"
+  --  yellow: "#f9e2af"
+  --  magenta: "#f5c2e7" # Pink
+  --  orange: "#fab387" # Peach
+  --  cyan: "#89dceb" # Sky
+  --  black: "#181825" # Mantle
+  --  white: "#cdd6f4"
   config = function()
     local mycolors = {
-      white = "#D9E0EE",
-      darker_black = "#191828",
-      black = "#1E1D2D", --  nvim bg
-      black2 = "#252434",
-      one_bg = "#2d2c3c", -- real bg of onedark
-      one_bg2 = "#363545",
-      one_bg3 = "#3e3d4d",
-      grey = "#474656",
-      grey_fg = "#4e4d5d",
-      grey_fg2 = "#555464",
-      light_grey = "#605f6f",
       red = "#F38BA8",
       baby_pink = "#ffa5c3",
       pink = "#F5C2E7",
@@ -23,26 +23,15 @@ return {
       -- green = "#ABE9B3",
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
-      -- blue = "#9DBBF4",
+      blue = "#89b4fa",
       yellow = "#FAE3B0",
       sun = "#ffe9b6",
-      purple = "#d0a9e5",
-      dark_purple = "#c7a0dc",
-      -- teal = "#B5E8E0",
-      -- tael = "#86C9C0",
       orange = "#F8BD96",
       teal = "#89DCEB",
       cyan = "#89DCEB",
       statusline_bg = "#232232",
       lightbg = "#2f2e3e",
-      pmenu_bg = "#ABE9B3",
-      folder_bg = "#9DBBF4",
-      lavender = "#c7d1ff",
-      -- my overrides --
       green = "#ceeac8",
-      -- green = "#b2d6a9",
-      -- mauve = "#8174d3"
-      mauve = "#caa1fd",
     }
     require("catppuccin").setup({
       transparent_background = true,
@@ -73,7 +62,7 @@ return {
       color_overrides = {
         -- see link below for override names
         -- https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
-        mocha = mycolors,
+        -- mocha = mycolors,
       },
     })
     vim.api.nvim_command("colorscheme catppuccin-mocha")

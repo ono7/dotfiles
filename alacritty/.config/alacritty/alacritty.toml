@@ -10,7 +10,7 @@ unfocused_hollow = true
 
 
 [cursor.style]
-blinking = "Always"
+blinking = "Never"
 shape = "Block"
 
 [colors]
@@ -37,7 +37,7 @@ y = 0
 
 [font.normal]
 family = "MonolisaNoLiga Nerd Font"
-style = "Regular"
+style = "Medium Regular"
 
 [font.offset]
 x = 0
@@ -121,7 +121,7 @@ decorations = "None"
 # decorations = "Full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.95
+opacity = 0.96
 blur = true
 decorations_theme_variant = "Dark"
 
