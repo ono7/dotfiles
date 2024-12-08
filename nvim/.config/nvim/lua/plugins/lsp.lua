@@ -4,10 +4,46 @@ return {
   dependencies = {
     "folke/neodev.nvim",
     "onsails/lspkind-nvim",
-    "williamboman/mason-lspconfig.nvim",
+    {
+      "williamboman/mason-lspconfig.nvim",
+      config = function()
+        local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+
+        if not mason_lspconfig_status then
+          print("mason_lspconfig not loaded in cmp.lua")
+          return
+        end
+
+        mason_lspconfig.setup({
+          ensure_installed = {
+            "gopls",
+            "pyright",
+            "ansiblels",
+            "html",
+            "jsonls",
+            "bashls",
+            "terraformls",
+            "ts_ls",
+            "cssls",
+            "lua_ls",
+            "ruff_lsp",
+          },
+        })
+      end,
+    },
     {
       "williamboman/mason.nvim",
       config = function()
+        local mason_status, mason = pcall(require, "mason")
+
+        if not mason_status then
+          print("mason not loaded in cmp.lua")
+          return
+        end
+
+        mason.setup()
+
+        -- TODO: move this to its own section
         vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
@@ -75,38 +111,6 @@ return {
         end
 
         -- vim.api.nvim_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
-
-        local mason_status, mason = pcall(require, "mason")
-
-        if not mason_status then
-          print("mason not loaded in cmp.lua")
-          return
-        end
-
-        mason.setup()
-
-        local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-
-        if not mason_lspconfig_status then
-          print("mason_lspconfig not loaded in cmp.lua")
-          return
-        end
-
-        mason_lspconfig.setup({
-          ensure_installed = {
-            "gopls",
-            "pyright",
-            "ansiblels",
-            "html",
-            "jsonls",
-            "bashls",
-            "terraformls",
-            "ts_ls",
-            "cssls",
-            "lua_ls",
-            "ruff_lsp",
-          },
-        })
 
         local neodev_ok, neodev_config = pcall(require, "neodev")
 
