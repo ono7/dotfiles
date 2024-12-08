@@ -1,6 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "folke/neodev.nvim",
       "onsails/lspkind-nvim",
@@ -8,6 +9,28 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(ev)
+          local k = function(keys, func, desc)
+            if desc then
+              desc = "LSP: " .. desc
+            end
+            vim.keymap.set("n", keys, func, { buffer = ev.buf, silent = true, desc = desc })
+          end
+
+          k("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "[G]oto [D]eclaration")
+          k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+          k("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+          k("K", vim.lsp.buf.hover, "Hover Documentation")
+          k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
+          k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
+          -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
+          k("<space>ca", vim.lsp.buf.code_action, "[<code action>]")
+          k("go", vim.lsp.buf.type_definition, "[type definition]")
+          k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
+        end,
+      })
       -- TODO: move this to its own section
       vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
       vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
@@ -22,6 +45,7 @@ return {
       vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "Normal" })
       vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "CursorLineNr" })
       vim.fn.sign_define("DiagnosticsVirtualTextHint", { text = "", texthl = "Normal" })
+      -- vim.api.nvim_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
 
       -- virtual text
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -56,26 +80,7 @@ return {
           -- Disable hover in favor of Pyright
           client.server_capabilities.hoverProvider = false
         end
-        local k = function(keys, func, desc)
-          if desc then
-            desc = "LSP: " .. desc
-          end
-          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-        end
-
-        k("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "[G]oto [D]eclaration")
-        k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        k("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-        k("K", vim.lsp.buf.hover, "Hover Documentation")
-        k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
-        k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
-        -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
-        k("<space>ca", vim.lsp.buf.code_action, "[<code action>]")
-        k("go", vim.lsp.buf.type_definition, "[type definition]")
-        k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
       end
-
-      -- vim.api.nvim_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
 
       local neodev_ok, neodev_config = pcall(require, "neodev")
 
