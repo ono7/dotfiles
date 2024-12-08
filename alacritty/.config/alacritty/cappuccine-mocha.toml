@@ -1,7 +1,8 @@
 [colors.primary]
 # background = "#181825" ori
 # background = "#15151f" darker
-background = "#171721"
+background = "#1e1e2e"
+#foreground = "#4c4f69"
 foreground = "#cdd6f4"
 dim_foreground = "#7f849c"
 bright_foreground = "#cdd6f4"
@@ -39,24 +40,24 @@ text = "#1e1e2e"
 background = "#f5e0dc"
 
 [colors.normal]
-black = "#45475a"
+black = "#4c4f69"
 red = "#f38ba8"
 green = "#a6e3a1"
 yellow = "#f9e2af"
 blue = "#89b4fa"
-magenta = "#f5c2e7"
+magenta = "#cba6f7"
 cyan = "#89dceb"
 white = "#bac2de"
 
 [colors.bright]
-black = "#585b70"
+black = "#4c4f69"
 red = "#f38ba8"
 green = "#a6e3a1"
 yellow = "#f9e2af"
 blue = "#89b4fa"
-magenta = "#f5c2e7"
+magenta = "#cba6f7"
 cyan = "#89dceb"
-white = "#a6adc8"
+white = "#8c8fa1"
 
 [[colors.indexed_colors]]
 index = 16
