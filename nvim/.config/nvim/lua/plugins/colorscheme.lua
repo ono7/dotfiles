@@ -14,9 +14,10 @@ return {
   --  cyan: "#89dceb" # Sky
   --  black: "#181825" # Mantle
   --  white: "#cdd6f4"
+
   config = function()
     local mycolors = {
-      red = "#F38BA8",
+      red = "#f38ba8",
       baby_pink = "#ffa5c3",
       pink = "#F5C2E7",
       line = "#383747", -- for lines like vertsplit
@@ -24,11 +25,11 @@ return {
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
       blue = "#89b4fa",
-      yellow = "#FAE3B0",
-      sun = "#ffe9b6",
+      yellow = "#f9e2af",
+      sun = "#f9e2af",
       orange = "#F8BD96",
-      teal = "#89DCEB",
-      cyan = "#89DCEB",
+      teal = "#89dceb",
+      cyan = "#89dceb",
       statusline_bg = "#232232",
       lightbg = "#2f2e3e",
       green = "#ceeac8",
@@ -62,7 +63,7 @@ return {
       color_overrides = {
         -- see link below for override names
         -- https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
-        -- mocha = mycolors,
+        mocha = mycolors,
       },
     })
     vim.api.nvim_command("colorscheme catppuccin-mocha")
@@ -82,9 +83,10 @@ return {
     vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
-    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#8bc2f0" })
+    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#89b4fa" })
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#f2cdcd" })
+    vim.api.nvim_set_hl(0, "@variable.member", { fg = "#89b4fa" })
     vim.api.nvim_set_hl(0, "@property", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bold = true })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })

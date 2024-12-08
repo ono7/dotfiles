@@ -9,7 +9,13 @@ return {
     },
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
-    "nvim-telescope/telescope-ui-select.nvim",
+    {
+      "nvim-telescope/telescope-ui-select.nvim",
+      config = function()
+        local telescope = require("telescope")
+        telescope.load_extension("ui-select")
+      end,
+    },
   },
   config = function()
     local opt = { noremap = true, silent = true }
@@ -217,7 +223,6 @@ return {
       require("telescope.builtin").oldfiles({})
     end)
     telescope.load_extension("fzf")
-    telescope.load_extension("ui-select")
     -- telescope.load_extension("dap")
     -- telescope.load_extension("notify")
     -- telescope.load_extension("package_info")
