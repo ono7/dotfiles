@@ -3,7 +3,8 @@ return {
   opts = {},
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require("conform").setup({
+    local conform = require("conform")
+    conform.setup({
       formatters_by_ft = {
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
@@ -37,5 +38,12 @@ return {
         return { timeout_ms = 5000, lsp_format = "fallback" }
       end,
     })
+    -- vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+    --   conform.format({
+    --     lsp_fallback = true,
+    --     async = false,
+    --     timeout = 1000,
+    --   })
+    -- end)
   end,
 }
