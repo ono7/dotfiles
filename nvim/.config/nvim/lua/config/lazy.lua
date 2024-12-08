@@ -18,23 +18,23 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    -- import your plugins
     { import = "plugins" },
+    { import = "plugins.lsp" },
   },
   install = {
     missing = true,
-    colorscheme = { "catppuccin", "habamax" }
+    colorscheme = { "catppuccin", "habamax" },
   },
   checker = {
     enabled = true,
-    notify = false
+    notify = false,
   },
   change_detection = {
     enabled = true,
-    notify = false
+    notify = false,
   },
   ui = {
-    border = "rounded"
+    border = "rounded",
   },
   performance = {
     rtp = {

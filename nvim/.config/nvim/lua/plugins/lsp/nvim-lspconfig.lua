@@ -1,32 +1,12 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "gopls",
-          "pyright",
-          "ansiblels",
-          "html",
-          "jsonls",
-          "bashls",
-          "terraformls",
-          "ts_ls",
-          "cssls",
-          "lua_ls",
-          "ruff_lsp",
-        },
-      })
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "folke/neodev.nvim",
+      "onsails/lspkind-nvim",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
     config = function()
       -- TODO: move this to its own section
       vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
@@ -195,9 +175,5 @@ return {
         capabilities = capabilities,
       })
     end,
-  },
-  dependencies = {
-    "folke/neodev.nvim",
-    "onsails/lspkind-nvim",
   },
 }
