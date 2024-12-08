@@ -31,6 +31,10 @@ return {
           -- k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
           -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
 
+          --- document and workspace symbol mapping in telescope.lua ---
+          --- leader+s = document symbols
+          --- leader+S = workspace symbols
+
           opts.desc = "code action"
           ks({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
 

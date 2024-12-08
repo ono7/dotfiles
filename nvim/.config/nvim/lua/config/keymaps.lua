@@ -205,8 +205,9 @@ vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
 --- keep cursor in the middle when using search
-vim.keymap.set("n", "<C-d>", "<C-d>zz", opt)
-vim.keymap.set("n", "<C-u>", "<C-u>zz", opt)
+-- vim.keymap.set("i", "<C-d>", "<c-x><c-o>", opt)
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz", opt)
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz", opt)
 
 --- paste over selection without overwriting clipboard
 vim.keymap.set("x", "p", "pgvy")

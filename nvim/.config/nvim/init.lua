@@ -25,7 +25,7 @@ vim.api.nvim_create_user_command("T", function(opts)
 end, { nargs = "*", complete = "file" })
 
 -- comment for beam cursor
--- vim.opt.guicursor = ""
+vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
 -- home made plugins go here
