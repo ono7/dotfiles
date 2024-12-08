@@ -6,17 +6,18 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      -- "windwp/nvim-ts-autotag", -- typescript/js tag closer
     },
     config = function()
       require("nvim-treesitter.configs").setup({
         sync_install = false,
-        ignore_install = { "javascript" },
         modules = {},
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
+        -- autotag = { enable = true },
         -- context_commentstring = { enable = true, enable_autocmd = false },
         auto_install = true,
         disable = function(lang, buf)
@@ -28,8 +29,14 @@ return {
           end
         end,
         ensure_installed = {
-          -- "bash",
           "c",
+          "css",
+          "dockerfile",
+          "gitignore",
+          "go",
+          "gomod",
+          "gosum",
+          "gowork",
           "html",
           "javascript",
           "json",
@@ -38,21 +45,17 @@ return {
           "luap",
           "markdown",
           "markdown_inline",
+          "proto",
           "python",
           "query",
           "regex",
+          "rust",
+          "terraform",
           "tsx",
           "typescript",
           "vim",
           "vimdoc",
           "yaml",
-          "rust",
-          "go",
-          "gomod",
-          "gowork",
-          "gosum",
-          "terraform",
-          "proto",
         },
         incremental_selection = {
           enable = true,
