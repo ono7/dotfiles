@@ -1,14 +1,8 @@
 return {
   "NvChad/nvim-colorizer.lua",
+  event = "BufReadPre",
   config = function()
-    local ok, config = pcall(require, "colorizer")
-
-    if not ok then
-      print("colozirer.lua not loaded")
-      return
-    end
-
-    config.setup({
+    require("colorizer").setup({
       filetypes = { lua = { names = false, mode = "background" }, "css", "html", "scss" },
       user_default_options = {
         css = true,
