@@ -2,6 +2,7 @@ return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "VeryLazy", -- Or `LspAttach`
   priority = 1000, -- needs to be loaded in first
+  enabled = false,
   config = function()
     require("tiny-inline-diagnostic").setup({
       -- Default configuration

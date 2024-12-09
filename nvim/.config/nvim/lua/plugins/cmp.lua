@@ -69,7 +69,8 @@ return {
     })
 
     -- Set up manual trigger
-    vim.keymap.set("i", "<C-Space>", function()
+    -- vim.keymap.set("i", "<C-Space>", function()
+    vim.keymap.set("i", "<c-e>", function()
       cmp.complete()
     end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 

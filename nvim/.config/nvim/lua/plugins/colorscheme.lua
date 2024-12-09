@@ -118,6 +118,23 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false, bold = false })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { underline = false, bold = false, italic = true })
+    vim.api.nvim_set_hl(
+      0,
+      "DiagnosticVirtualTextError",
+      { fg = "#f38ba9", bg = "#351f25", underline = false, bold = false, italic = true }
+    )
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { underline = false, bold = false, italic = true })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { underline = false, bold = false, italic = true })
+
+    -- DiagnosticVirtualTextError xxx cterm=italic gui=italic guifg=#f38ba9
+    -- DiagnosticVirtualTextWarn xxx cterm=italic gui=italic guifg=#f9e2b0
+    -- DiagnosticVirtualTextInfo xxx cterm=italic gui=italic guifg=#89dcec
+    -- DiagnosticVirtualTextHint xxx cterm=italic gui=italic guifg=#89dcec
+    -- DiagnosticVirtualTextOk xxx cterm=italic gui=italic guifg=#ceeac9
+    -- TinyInlineDiagnosticVirtualTextError xxx cterm=italic gui=italic guifg=#f38ba9 guibg=#351f25
+    -- TinyInlineDiagnosticVirtualTextWarn xxx cterm=italic gui=italic guifg=#f9e2b0 guibg=#373227
+    -- TinyInlineDiagnosticVirtualTextInfo xxx cterm=italic gui=italic guifg=#89dcec guibg=#1e3034
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = "#cba6f8" })

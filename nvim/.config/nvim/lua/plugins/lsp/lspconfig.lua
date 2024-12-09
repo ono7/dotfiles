@@ -28,7 +28,7 @@ return {
           k("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto LSP Declaration")
           k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
           k("gr", require("telescope.builtin").lsp_references, "Goto LSP References")
-          k("gi", require("telescope.builtin").lsp_implementations, "Goto LSP Implementations")
+          k("gI", require("telescope.builtin").lsp_implementations, "Goto LSP Implementations")
           k("K", vim.lsp.buf.hover, "Hover Documentation")
           k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
           -- k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
@@ -54,8 +54,7 @@ return {
       vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
       vim.diagnostic.config({
-        -- disabled when using tiny-nvim-diagnostics
-        -- float = { border = "rounded" },
+        float = { border = "rounded" },
       })
 
       local symbols = { Error = "", Info = "", Hint = "", Warn = "" }
@@ -74,8 +73,8 @@ return {
         --   severity = { min = vim.diagnostic.severity.WARN },
         --   underline = true,
         -- },
-        virtual_text = false,
-        -- virtual_lines = { only_current_line = true },
+        virtual_text = true, -- Disable builtin virtual text diagnostic
+        virtual_lines = { only_current_line = true },
         update_in_insert = false,
         underline = false,
       })
