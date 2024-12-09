@@ -84,6 +84,7 @@ return {
       vim.lsp.handlers["textDocument/signatureHelp"] =
         vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
+      -- TODO: we might not need this anymore, probably time to clean this up 2024-12-09 00:23
       local on_attach = function(client, bufnr)
         if client.name == "lua_ls" then
           -- disable hl groups created by lua ls
@@ -111,12 +112,7 @@ return {
         library = { plugins = { "nvim-dap-ui" }, types = true },
       })
 
-      local nvim_lsp_status, nvim_lsp = pcall(require, "lspconfig")
-
-      if not nvim_lsp_status then
-        print("lspconfig not loaded in cmp.lua")
-        return
-      end
+      local nvim_lsp = require("lspconfig")
 
       -- HINT: P(capabilities) to inspect the client capabilities, this can then be modified
 

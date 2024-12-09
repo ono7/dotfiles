@@ -67,7 +67,7 @@ truncation_length = 4
 truncate_to_repo = false
 # format = "[$path]($style)[$lock_symbol]($lock_style) "
 format = "[$path]($style)[$read_only]($read_only_style) "
-style ="cyan bold"
+style ="sky bold"
 
 # [memory_usage]
 # format = '\[$symbol[$ram( | $swap)]($style)\]'
