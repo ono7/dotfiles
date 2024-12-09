@@ -14,6 +14,7 @@ return {
   config = function()
     require("neo-tree").setup({
       window = { width = 25 },
+      buffers = { follow_current_file = { enabled = true } },
     })
   end,
 }
