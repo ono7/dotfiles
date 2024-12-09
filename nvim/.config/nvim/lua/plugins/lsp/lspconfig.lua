@@ -55,12 +55,18 @@ return {
       })
 
       -- view defined symbols :echo sign_getdefined()
-      vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "ModeMsg" })
-      vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "Error" })
-      vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "Normal" })
-      vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "CursorLineNr" })
-      vim.fn.sign_define("DiagnosticsVirtualTextHint", { text = "", texthl = "Normal" })
-      -- vim.api.nvim_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
+      -- vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "ModeMsg" })
+      -- vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "Error" })
+      -- vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "Normal" })
+      -- vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "CursorLineNr" })
+      -- vim.fn.sign_define("DiagnosticsVirtualTextHint", { text = "", texthl = "Normal" })
+
+      local symbols = { Error = "", Info = "", Hint = "", Warn = "" }
+
+      for name, icon in pairs(symbols) do
+        local hl = "DiagnosticSign" .. name
+        vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+      end
 
       -- virtual text
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {

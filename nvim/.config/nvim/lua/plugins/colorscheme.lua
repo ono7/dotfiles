@@ -92,7 +92,7 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bold = true })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "Conditional", { fg = "#f38ba8", italic = true })
-    vim.api.nvim_set_hl(0, "@variable", { fg = "#c7d1ff" })
+    vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@type", { fg = "#D9E0EE", bold = false })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#D9E0EE" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#2f5293" })
@@ -100,6 +100,7 @@ return {
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "#444d69" })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
+    vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "@property", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
@@ -116,5 +117,7 @@ return {
     -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
+    vim.api.nvim_set_hl(0, "Keyword", { fg = "#cba6f8" })
+    vim.api.nvim_set_hl(0, "Special", {})
   end,
 }
