@@ -311,4 +311,6 @@ vim.keymap.set("i", "<enter>", function()
   return enter_actions[prev_char] or default_enter
 end, { expr = true, silent = true })
 
+vim.keymap.set("n", "<leader>t", ":8sp term://zsh<CR>", { noremap = true, silent = true })
+
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
