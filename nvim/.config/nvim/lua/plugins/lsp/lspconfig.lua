@@ -54,7 +54,8 @@ return {
       vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
       vim.diagnostic.config({
-        float = { border = "rounded" },
+        -- disabled when using tiny-nvim-diagnostics
+        -- float = { border = "rounded" },
       })
 
       local symbols = { Error = "", Info = "", Hint = "", Warn = "" }
