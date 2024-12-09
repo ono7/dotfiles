@@ -65,7 +65,7 @@ return {
         filter = vim.log.levels.INFO, -- Minimum notifications level
         history_size = 128, -- Number of removed messages to retain in history
         -- TODO: (jlima) 2024-12-08 22:06 testing override
-        override_vim_notify = true, -- Automatically override vim.notify() with Fidget
+        override_vim_notify = false, -- Automatically override vim.notify() with Fidget
         -- How to configure notification groups when instantiated
         configs = { default = require("fidget.notification").default_config },
         -- Conditionally redirect notifications to another backend

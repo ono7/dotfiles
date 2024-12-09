@@ -11,4 +11,9 @@ return {
     { "<leader><tab>", ":Neotree toggle left<cr>", silent = true, desc = "Neotree: Float file explorer" },
     { "<leader>e", ":Neotree toggle float<cr>", silent = true, desc = "Neotree: Float file explorer" },
   },
+  config = function()
+    require("neo-tree").setup({
+      window = { width = 25 },
+    })
+  end,
 }
