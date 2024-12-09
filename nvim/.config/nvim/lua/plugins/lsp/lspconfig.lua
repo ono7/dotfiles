@@ -3,7 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "folke/neodev.nvim",
       "onsails/lspkind-nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -106,17 +105,6 @@ return {
           client.server_capabilities.hoverProvider = false
         end
       end
-
-      local neodev_ok, neodev_config = pcall(require, "neodev")
-
-      if not neodev_ok then
-        print("Error in pcall neodev -> ~/.dotfiles/nvim/lua/plugins/lsp/mason.lua")
-        return
-      end
-
-      neodev_config.setup({
-        library = { plugins = { "nvim-dap-ui" }, types = true },
-      })
 
       local nvim_lsp = require("lspconfig")
 

@@ -3,8 +3,6 @@
 
 vim.cmd([[syntax off]])
 vim.g.syntax_on = false
-
---- syntax off to avoid tree-sitter issues
 vim.opt.syntax = "off"
 
 require("config.keymaps")

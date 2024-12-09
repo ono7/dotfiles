@@ -206,10 +206,11 @@ return {
         return builtin.find_files({
           previewer = false,
           find_command = fd_command,
+          prompt_title = "Project files (git)",
           cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
         })
       else
-        print("Not in a Git repository")
+        print("cwd not a git project")
       end
     end
 
@@ -229,10 +230,5 @@ return {
     k("n", "<c-s>", function()
       require("telescope.builtin").oldfiles({})
     end)
-    -- telescope.load_extension("fzf")
-    -- telescope.load_extension("dap")
-    -- telescope.load_extension("notify")
-    -- telescope.load_extension("package_info")
-    -- telescope.load_extension("makefile_targets")
   end,
 }
