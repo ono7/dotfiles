@@ -312,9 +312,3 @@ vim.keymap.set("i", "<enter>", function()
 end, { expr = true, silent = true })
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
-
-local keymap = vim.keymap.set
-local opts = { noremap = true, silent = true, expr = true }
-
--- vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>")
--- vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>")

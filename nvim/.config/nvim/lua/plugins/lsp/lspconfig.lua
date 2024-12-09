@@ -44,6 +44,12 @@ return {
           opts.desc = "Restart LSP"
           ks("n", "<leader>rs", ":LspRestart<cr>", opts)
 
+          opts.desc = "Diagnostics next"
+          ks("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>", opts)
+
+          opts.desc = "Diagnostics Prev"
+          ks("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>", opts)
+
           k("go", vim.lsp.buf.type_definition, "[type definition]")
           k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
         end,
@@ -73,8 +79,8 @@ return {
         --   severity = { min = vim.diagnostic.severity.WARN },
         --   underline = true,
         -- },
-        virtual_text = true, -- Disable builtin virtual text diagnostic
-        virtual_lines = { only_current_line = true },
+        virtual_text = false, -- Disable builtin virtual text diagnostic
+        -- virtual_lines = { only_current_line = true },
         update_in_insert = false,
         underline = false,
       })
