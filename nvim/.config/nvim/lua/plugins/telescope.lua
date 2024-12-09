@@ -107,8 +107,6 @@ return {
       },
     })
 
-    -- pcall(require("telescope").load_extension, "fzf")
-    -- pcall(require("telescope").load_extension, "ui-select")
     telescope.load_extension("fzf")
     telescope.load_extension("ui-select")
     telescope.load_extension("workspaces")
@@ -175,7 +173,7 @@ return {
       builtin.lsp_document_symbols({ previewer = true, show_line = true })
     end, opt)
 
-    k("n", "<D-w>", ":Telescope workspaces<cr>", opt)
+    k("n", "<D-w>", ":Telescope workspaces layout_strategy=horizontal layout_config={prompt_position='top'}<cr>", opt)
 
     k("n", "<leader>S", function()
       builtin.lsp_workspace_symbols({ previewer = true, show_line = true })
