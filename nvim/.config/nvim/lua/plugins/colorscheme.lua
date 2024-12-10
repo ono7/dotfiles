@@ -97,7 +97,7 @@ return {
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "@property", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
-    vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ffffff", bold = true })
+    vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1B192C" })
     vim.api.nvim_set_hl(0, "NormalFloat", {})
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
