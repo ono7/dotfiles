@@ -20,7 +20,7 @@ vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
 vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
 
 --- make dot work in visual mode
-vim.keymap.set("v", ".", ":norm .<cr>", opt)
+-- vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
@@ -74,7 +74,7 @@ vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 
 --- visual block by default
-vim.keymap.set({ "n" }, "v", "<c-v>")
+-- vim.keymap.set({ "n" }, "v", "<c-v>")
 --- vim.cmd("vunmap v")
 
 vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
