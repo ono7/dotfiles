@@ -47,10 +47,10 @@ return {
 
     local preferred_sources = {
       { name = "copilot" },
-      { name = "nvim_lsp", max_item_count = 5 },
-      { name = "nvim_lua", max_item_count = 5 },
-      { name = "path", max_item_count = 5 },
-      { name = "tmux", max_item_count = 5 },
+      { name = "nvim_lsp", max_item_count = 4 },
+      { name = "nvim_lua", max_item_count = 4 },
+      { name = "path", max_item_count = 4 },
+      { name = "tmux", max_item_count = 4 },
     }
 
     -- if files are too big disable buffer source
@@ -85,9 +85,9 @@ return {
         end,
       },
       completion = {
-        autocomplete = false, -- we want to test out running this manually
+        -- autocomplete = true, -- we want to test out running this manually
         completeopt = "menu,menuone,noinsert",
-        keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
+        -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),
