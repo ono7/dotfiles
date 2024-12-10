@@ -21,7 +21,7 @@ end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.complete = ".,w,b,u"
-vim.opt.completeopt = "menu,menuone"
+vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
