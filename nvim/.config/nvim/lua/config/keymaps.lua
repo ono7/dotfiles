@@ -12,30 +12,18 @@ vim.keymap.set("n", "gp", "`[v`]", silent)
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
--- jump to double quotes quicky, could also just /", /' /`
--- vim.keymap.set("n", '"', function()
---   vim.fn.search('"', "W")
--- end, { noremap = true, silent = true })
---
--- vim.keymap.set("n", "`", function()
---   vim.fn.search("`", "W")
--- end, { noremap = true, silent = true })
+--- navigation improvements ----
+vim.keymap.set("n", "0", "^", silent)
 
-vim.keymap.set("n", "f{", function()
-  vim.fn.search("{", "W")
-end, { noremap = true, silent = true })
+--- mapping tab also overrides c-i which is used to move through jump list
+vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
+vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
 
-vim.keymap.set("n", "f(", function()
-  vim.fn.search("(", "W")
-end, { noremap = true, silent = true })
+--- make dot work in visual mode
+vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
-vim.keymap.set("n", "f(", function()
-  vim.fn.search("(", "cW")
-end, { noremap = true, silent = true })
-
-vim.keymap.set("n", "f[", function()
-  vim.fn.search("[", "W")
-end, { noremap = true, silent = true })
+--- macros
+vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 
 -- move through wrapped lines
 vim.keymap.set("n", "k", "gk", silent)
@@ -57,11 +45,53 @@ vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 vim.keymap.set("x", "H", "<gv", silent)
 vim.keymap.set("x", "L", ">gv", silent)
 
--- toggle spell on and off
--- vim.keymap.set("n", "<leader>ss", function()
---   vim.opt.spell = not vim.opt.spell:get()
---   print("Spell check is " .. (vim.opt.spell:get() and "on" or "off"))
--- end, { silent = true })
+--- file ---
+
+-- Bind the function to a key mapping
+vim.keymap.set("n", ",q", "<cmd>q<cr>", silent)
+vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
+vim.keymap.set("n", ",Q", "<cmd>q!<cr>", silent)
+vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
+
+--- visual selection search ---
+vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
+
+vim.keymap.set("i", "<C-c>", "<Esc>", opt)
+vim.keymap.set("n", "Y", "y$", opt)
+vim.keymap.set("n", "U", "<c-r>", opt)
+
+--- paste over selection without overwriting clipboard
+vim.keymap.set("x", "p", "pgvy")
+
+--- leave unnnamed reg alone when changing text
+-- vim.keymap.set("n", "c", '"ac')
+-- vim.keymap.set("n", "C", '"aC')
+
+--- when using J keep cursor to the right
+vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
+
+--- terminal ---
+vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
+
+--- visual block by default
+vim.keymap.set({ "n" }, "v", "<c-v>")
+--- vim.cmd("vunmap v")
+
+vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
+
+--- copy block
+vim.keymap.set("n", "cp", "yap<S-}>p", opt)
+
+--- ex/command mode bindings
+vim.keymap.set("c", "<c-a>", "<Home>", opt)
+vim.keymap.set("c", "<c-h>", "<Left>", opt)
+vim.keymap.set("c", "<c-l>", "<Right>", opt)
+vim.keymap.set("c", "<c-b>", "<S-left>", opt)
+
+vim.keymap.set("n", "<leader>t", ":8sp term://zsh<CR>", { noremap = true, silent = true })
+
+-- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
@@ -122,27 +152,6 @@ vim.keymap.set("n", "<leader>cd", function()
   print("new lcd: " .. vim.fn.getcwd())
 end, { silent = true })
 
-vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
-
--- Bind the function to a key mapping
-vim.keymap.set("n", ",q", "<cmd>q<cr>", silent)
-vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
-vim.keymap.set("n", ",Q", "<cmd>q!<cr>", silent)
-
---- navigation improvements ----
-vim.keymap.set("n", "0", "^", silent)
-
---- mapping tab also overrides c-i which is used to move through jump list
-vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
-vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
--- k("n", "<leader>h", hlsToggle, silent)
-
---- make dot work in visual mode
-vim.keymap.set("v", ".", ":norm .<cr>", opt)
-
---- macros
-vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
-
 -- local function hlsToggle()
 --   if vim.opt.hlsearch then
 --     vim.opt.hlsearch = false
@@ -159,53 +168,19 @@ vim.keymap.set(
   silent
 )
 
---- copy block
-vim.keymap.set("n", "cp", "yap<S-}>p", opt)
+-- vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
+-- vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 
---- ex/command mode bindings
-vim.keymap.set("c", "<c-a>", "<Home>", opt)
-vim.keymap.set("c", "<c-h>", "<Left>", opt)
-vim.keymap.set("c", "<c-l>", "<Right>", opt)
-vim.keymap.set("c", "<c-b>", "<S-left>", opt)
-
-vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
-vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
-vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
-vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
-vim.keymap.set("n", "g{", "?{<cr>")
-vim.keymap.set("n", "g}", "/}<cr>")
-vim.keymap.set("n", "g[", [[?\v\[<cr>]])
-vim.keymap.set("n", "g]", [[/\v\]<cr>]])
+-- vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
+-- vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
+-- vim.keymap.set("n", "g{", "?{<cr>")
+-- vim.keymap.set("n", "g}", "/}<cr>")
+-- vim.keymap.set("n", "g[", [[?\v\[<cr>]])
+-- vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
---- visual selection search ---
-vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-
-vim.keymap.set("i", "<C-c>", "<Esc>", opt)
-vim.keymap.set("n", "Y", "y$", opt)
-vim.keymap.set("n", "U", "<c-r>", opt)
-
---- paste over selection without overwriting clipboard
-vim.keymap.set("x", "p", "pgvy")
-
---- leave unnnamed reg alone when changing text
-vim.keymap.set("n", "c", '"ac')
-vim.keymap.set("n", "C", '"aC')
-
---- when using J keep cursor to the right
-vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
-
---- terminal ---
-vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
-
---- visual block by default
-vim.keymap.set({ "n" }, "v", "<c-v>")
---- vim.cmd("vunmap v")
-
 vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
-vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
 --- Optimized pair matching functions
 local function is_pair(open, close)
@@ -216,7 +191,6 @@ local function is_pair(open, close)
     or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
---
 -- local api = vim.api
 --
 -- local function get_next_char()
@@ -289,6 +263,18 @@ end, xpr)
 --   return enter_actions[prev_char] or default_enter
 -- end, { expr = true, silent = true })
 
-vim.keymap.set("n", "<leader>t", ":8sp term://zsh<CR>", { noremap = true, silent = true })
-
--- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
+-- vim.keymap.set("n", "f{", function()
+--   vim.fn.search("{", "W")
+-- end, { noremap = true, silent = true })
+--
+-- vim.keymap.set("n", "f(", function()
+--   vim.fn.search("(", "W")
+-- end, { noremap = true, silent = true })
+--
+-- vim.keymap.set("n", "f(", function()
+--   vim.fn.search("(", "cW")
+-- end, { noremap = true, silent = true })
+--
+-- vim.keymap.set("n", "f[", function()
+--   vim.fn.search("[", "W")
+-- end, { noremap = true, silent = true })
