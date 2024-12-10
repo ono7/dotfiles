@@ -69,11 +69,12 @@ return {
         -- How to configure notification groups when instantiated
         configs = { default = require("fidget.notification").default_config },
         -- Conditionally redirect notifications to another backend
-        redirect = function(msg, level, opts)
-          if opts and opts.on_open then
-            return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-          end
-        end,
+
+        -- redirect = function(msg, level, opts)
+        --   if opts and opts.on_open then
+        --     return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
+        --   end
+        -- end,
 
         -- Options related to how notifications are rendered as text
         view = {
@@ -116,7 +117,7 @@ return {
       -- Options related to logging
       logger = {
         level = vim.log.levels.WARN, -- Minimum logging level
-        max_size = 10000, -- Maximum log file size, in KB
+        max_size = 5000, -- Maximum log file size, in KB
         float_precision = 0.01, -- Limit the number of decimals displayed for floats
         -- Where Fidget writes its logs to
         path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
