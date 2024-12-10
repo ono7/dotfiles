@@ -22,6 +22,13 @@ require("utils.create-table").setup()
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
+vim.api.nvim_create_user_command("Commit", function(opts)
+  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "head^"
+  vim.cmd("r!git diff " .. diff_cmd)
+end, {
+  nargs = "?", -- Makes the argument optional
+})
+
 -- home made plugins go here
 -- require("plugins.jira-base")
 -- require("plugins.jira")
