@@ -166,8 +166,9 @@ echo_green () {
   echo -e "${GREEN}$@${RESET}"
 }
 
+# Suspend and foreground Neovim with ctrl+z
 toggle () {
-  fg
+  fg %nvim
 }
 
 runner () {
@@ -243,11 +244,6 @@ mktag () {
 rmtag () {
   [ -z "$1" ] && echo "Please provide an argument"
   git tag -d $1;git push --delete origin $1
-}
-
-vq () {
-  [ -z "$1" ] && echo "Please provide an argument"
-  vim -q <(rg --vimgrep --pcre2 -i -S $@) +"copen 6"
 }
 
 _cdr () {
@@ -353,8 +349,7 @@ d () {
 
 ############## Completion system ##############
 
-if type brew &>/dev/null
-then
+if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
@@ -462,7 +457,7 @@ fi
 
 [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
-[[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
+# [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
