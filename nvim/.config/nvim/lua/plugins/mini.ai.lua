@@ -1,43 +1,39 @@
 return {
   "echasnovski/mini.ai",
-  version = false,
+  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
   config = function()
+    local treesitter = require("mini.ai").gen_spec.treesitter
+
     require("mini.ai").setup({
-      -- No need to copy this inside `setup()`. Will be used automatically.
-      {
-        -- Table with textobject id as fields, textobject specification as values.
-        -- Also use this to disable builtin textobjects. See |MiniAi.config|.
-        custom_textobjects = nil,
+      custom_textobjects = {
+        -- Whole buffer
+        e = function()
+          local from = { line = 1, col = 1 }
+          local to = {
+            line = vim.fn.line("$"),
+            col = math.max(vim.fn.getline("$"):len(), 1),
+          }
+          return { from = from, to = to }
+        end,
 
-        -- Module mappings. Use `''` (empty string) to disable one.
-        mappings = {
-          -- Main textobject prefixes
-          around = "a",
-          inside = "i",
+        -- Current line
+        j = function(args)
+          local index_of_first_non_whitespace_character = string.find(vim.fn.getline("."), "%S")
+          local col = args == "i" and index_of_first_non_whitespace_character or 1
 
-          -- Next/last variants
-          around_next = "an",
-          inside_next = "in",
-          around_last = "al",
-          inside_last = "il",
+          return {
+            from = { line = vim.fn.line("."), col = col },
+            to = { line = vim.fn.line("."), col = math.max(vim.fn.getline("."):len(), 1) },
+          }
+        end,
 
-          -- Move cursor to corresponding edge of `a` textobject
-          goto_left = "g[",
-          goto_right = "g]",
-        },
+        -- Function definition (needs treesitter queries with these captures)
+        m = treesitter({ a = "@function.outer", i = "@function.inner" }),
 
-        -- Number of lines within which textobject is searched
-        n_lines = 50,
-
-        -- How to search for object (first inside current line, then inside
-        -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
-        -- 'cover_or_nearest', 'next', 'previous', 'nearest'.
-        search_method = "cover_or_next",
-
-        -- Whether to disable showing non-error feedback
-        -- This also affects (purely informational) helper messages shown after
-        -- idle time if user input is required.
-        silent = false,
+        o = treesitter({
+          a = { "@conditional.outer", "@loop.outer" },
+          i = { "@conditional.inner", "@loop.inner" },
+        }),
       },
     })
   end,
