@@ -13,13 +13,13 @@ vim.keymap.set("n", "gp", "`[v`]", silent)
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
 -- jump to double quotes quicky, could also just /", /' /`
-vim.keymap.set("n", '"', function()
-  vim.fn.search('"', "W")
-end, { noremap = true, silent = true })
-
-vim.keymap.set("n", "`", function()
-  vim.fn.search("`", "W")
-end, { noremap = true, silent = true })
+-- vim.keymap.set("n", '"', function()
+--   vim.fn.search('"', "W")
+-- end, { noremap = true, silent = true })
+--
+-- vim.keymap.set("n", "`", function()
+--   vim.fn.search("`", "W")
+-- end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "f{", function()
   vim.fn.search("{", "W")
