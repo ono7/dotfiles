@@ -86,8 +86,8 @@ return {
 
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
-      vim.lsp.handlers["textDocument/signatureHelp"] =
-        vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+      -- vim.lsp.handlers["textDocument/signatureHelp"] =
+      --   vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
       -- TODO: we might not need this anymore, probably time to clean this up 2024-12-09 00:23
       local on_attach = function(client, bufnr)

@@ -1,6 +1,7 @@
 return {
   "monkoose/matchparen.nvim",
   enabled = true,
+  priority = 20,
   config = function()
     require("matchparen").setup({
       on_startup = true,

@@ -10,7 +10,7 @@ echo '' >"$COMMIT_MSG_FILE"
 STAGED_FILES=$(git status --porcelain | head -n 10)
 
 # Add the list of staged files to the commit message
-echo "$STAGED_FILES" | sed 's/^/# /' >>"$COMMIT_MSG_FILE"
+# echo "$STAGED_FILES" | sed 's/^/# /' >>"$COMMIT_MSG_FILE"
 
 # Add content to the bottom
 # cat <<EOF >>"$COMMIT_MSG_FILE"

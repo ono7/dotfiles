@@ -46,11 +46,9 @@ return {
     end
 
     local preferred_sources = {
-      { name = "copilot" },
-      { name = "nvim_lsp", max_item_count = 4 },
-      { name = "nvim_lua", max_item_count = 4 },
-      { name = "path", max_item_count = 4 },
-      { name = "tmux", max_item_count = 4 },
+      { name = "nvim_lsp", max_item_count = 5 },
+      { name = "path", max_item_count = 5 },
+      { name = "nvim_lua", max_item_count = 5 },
     }
 
     -- if files are too big disable buffer source
@@ -86,7 +84,8 @@ return {
       },
       completion = {
         -- autocomplete = true, -- we want to test out running this manually
-        completeopt = "menu,menuone,noinsert",
+        -- completeopt = "menu,menuone,noinsert",
+        completeopt = "menu,menuone,noselect",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
       },
       mapping = cmp.mapping.preset.insert({
@@ -97,7 +96,8 @@ return {
         ["<C-Space>"] = cmp.mapping.complete({}),
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
+          -- behavior = cmp.ConfirmBehavior.Replace,
+          behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -122,6 +122,10 @@ return {
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
+      },
+      performance = {
+        debounce = 0, -- default is 60ms
+        throttle = 0, -- default is 30ms
       },
       sources = preferred_sources,
       formatting = {
