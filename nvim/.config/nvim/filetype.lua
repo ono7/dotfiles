@@ -7,10 +7,16 @@ vim.filetype.add({
     ["Jenkinsfile-4"] = "groovy",
     [".env"] = "dotenv",
     ["env"] = "dotenv",
+    [".eslintrc"] = "json",
+    [".prettierrc"] = "json",
+    [".babelrc"] = "json",
+    [".stylelintrc"] = "json",
   },
   pattern = {
     ["[jt]sconfig.*.json"] = "jsonc",
     ["%.env%.[%w_.-]+"] = "dotenv",
+    [".*config/git/config"] = "gitconfig",
+    [".env.*"] = "sh",
   },
   extension = {
     env = "dotenv",
@@ -28,5 +34,8 @@ vim.filetype.add({
     tfstate = "json",
     hcl = "terraform",
     asm = "nasm",
+    es6 = "javascript",
+    mts = "typescript",
+    cts = "typescript",
   },
 })
