@@ -44,7 +44,7 @@ return {
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, only provide the commit message using proper commit etiquette. $input:\n$text",
+      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
       replace = true,
     }
     require("gen").setup({
@@ -56,7 +56,7 @@ return {
       host = "100.64.0.150", -- The host running the Ollama service.
       port = "11434", -- The port on which the Ollama service is listening.
       display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
-      show_prompt = true, -- Shows the prompt submitted to Ollama.
+      show_prompt = false, -- Shows the prompt submitted to Ollama.
       show_model = true, -- Displays which model you are using at the beginning of your chat session.
       no_auto_close = false, -- Never closes the window automatically.
       file = false, -- Write the payload to a temporary file to keep the command short.
