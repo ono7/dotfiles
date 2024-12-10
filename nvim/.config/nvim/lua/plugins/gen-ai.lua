@@ -31,20 +31,20 @@ return {
   },
   config = function()
     require("gen").prompts["Elaborate_Text"] = {
-      prompt = "Elaborate the following text:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns, Elaborate the following text:\n$text",
       replace = true,
     }
     require("gen").prompts["Fix_Code"] = {
-      prompt = "Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns, Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
       replace = true,
       extract = "```$filetype\n(.-)```",
     }
     require("gen").prompts["DevOps"] = {
-      prompt = "You are a senior devops engineer, acting as an assistant. You offer help with cloud technologies like: Ansible, Golang, Docker, python. You answer with code examples when possible. $input:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns. You offer help with cloud technologies like: Ansible, Golang, Docker, python. You answer with code examples when possible. $input:\n$text",
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
       replace = true,
     }
     require("gen").setup({
