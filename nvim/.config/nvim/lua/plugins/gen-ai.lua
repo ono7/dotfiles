@@ -43,6 +43,10 @@ return {
       prompt = "You are a senior devops engineer, acting as an assistant. You offer help with cloud technologies like: Ansible, Golang, Docker, python. You answer with code examples when possible. $input:\n$text",
       replace = true,
     }
+    require("gen").prompts["Commit"] = {
+      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, only provide the commit message using proper commit etiquette. $input:\n$text",
+      replace = true,
+    }
     require("gen").setup({
 
       model = "qwen2.5-coder-custom", -- The default model to use.
