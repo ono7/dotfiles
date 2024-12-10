@@ -44,7 +44,7 @@ return {
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
+      prompt = "You are a senior devops engineer, acting as an assistant. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
       replace = true,
     }
     require("gen").setup({
