@@ -3,25 +3,12 @@ return {
   name = "catppuccin",
   lazy = false,
   priority = 1000,
-  -- bg: "#585b70" # Surface2
-  --  fg: "#cdd6f4"
-  --  red: "#f38ba8"
-  --  green: "#a6e3a1"
-  --  blue: "#89b4fa"
-  --  yellow: "#f9e2af"
-  --  magenta: "#f5c2e7" # Pink
-  --  orange: "#fab387" # Peach
-  --  cyan: "#89dceb" # Sky
-  --  black: "#181825" # Mantle
-  --  white: "#cdd6f4"
-
   config = function()
     local mycolors = {
       red = "#f38ba8",
       baby_pink = "#ffa5c3",
       pink = "#F5C2E7",
       line = "#383747", -- for lines like vertsplit
-      -- green = "#ABE9B3",
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
       blue = "#89b4fa",
@@ -43,8 +30,6 @@ return {
         shade = "dark",
         percentage = 0.15,
       },
-      -- no_italic = true, -- Force no italic
-      -- no_bold = false, -- Force no bold
       styles = {
         comments = { "italic" },
         conditionals = { "italic" },
@@ -101,8 +86,10 @@ return {
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@type", { fg = "#D9E0EE", bold = false })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#D9E0EE" })
-    vim.api.nvim_set_hl(0, "Visual", { bg = "#2f5293" })
-    vim.api.nvim_set_hl(0, "Search", { bg = "#2f5293" })
+    vim.api.nvim_set_hl(0, "Visual", { bg = "#243d61" })
+    vim.api.nvim_set_hl(0, "Search", { bg = "#243d61" })
+    -- vim.api.nvim_set_hl(0, "Visual", { bg = "#2f5293" })
+    -- vim.api.nvim_set_hl(0, "Search", { bg = "#2f5293" })
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "#444d69" })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
@@ -122,13 +109,14 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { underline = false, bold = false, italic = true })
-    vim.api.nvim_set_hl(
-      0,
-      "DiagnosticVirtualTextError",
-      { fg = "#f38ba9", bg = "#351f25", underline = false, bold = false, italic = true }
-    )
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { underline = false, bold = false, italic = true })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { underline = false, bold = false, italic = true })
+    -- vim.api.nvim_set_hl(
+    --   0,
+    --   "DiagnosticVirtualTextError",
+    --   { fg = "#f38ba9", bg = "#351f25", underline = false, bold = false, italic = true }
+    -- )
+
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { underline = false, bold = false, italic = true })
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { underline = false, bold = false, italic = true })
 
     -- DiagnosticVirtualTextError xxx cterm=italic gui=italic guifg=#f38ba9
     -- DiagnosticVirtualTextWarn xxx cterm=italic gui=italic guifg=#f9e2b0
