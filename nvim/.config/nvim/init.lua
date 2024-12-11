@@ -24,7 +24,7 @@ vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
 vim.api.nvim_create_user_command("Commit", function(opts)
-  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "head^"
+  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
   vim.cmd("r!git diff " .. diff_cmd)
   vim.cmd("normal! ggVG")
 end, {

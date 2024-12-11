@@ -123,6 +123,7 @@ return {
         cwd = "~/.dotfiles",
         hidden = true,
         show_untracked = true,
+        prompt_title = "Dotfiles",
         no_ignore = false,
       })
     end)
