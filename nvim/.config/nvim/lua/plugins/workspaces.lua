@@ -12,6 +12,7 @@ return {
         return false
       end
     end
+
     local current_file_in_ws = function()
       local workspaces = require("workspaces")
       local ws_path = require("workspaces.util").path
@@ -19,6 +20,16 @@ return {
       local current_file_dir = ws_path.parent(vim.fn.expand("%:p", true))
       return is_dir_in_parent(current_file_dir, current_ws)
     end
+
+    --- keymaps ---
+
+    vim.keymap.set("n", "<leader>wa", function()
+      vim.cmd([[WorkspacesAdd]])
+    end, { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>wd", function()
+      vim.cmd([[WorkspacesRemove]])
+    end, { noremap = true, silent = true })
+
     require("workspaces").setup({
       hooks = {
         open = {

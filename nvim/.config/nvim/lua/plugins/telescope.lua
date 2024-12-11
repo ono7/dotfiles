@@ -168,7 +168,7 @@ return {
       })
     end, { desc = "Live grep with rg" })
 
-    k("n", "<leader>w", function()
+    k("n", "<c-d>", function()
       builtin.buffers({ previewer = false })
     end, opt)
 
