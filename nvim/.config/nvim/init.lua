@@ -31,6 +31,10 @@ end, {
   nargs = "?", -- Makes the argument optional
 })
 
+-- normalize colorscheme for transparent background on main and floats
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+
 -- home made plugins go here
 -- require("plugins.jira-base")
 -- require("plugins.jira")

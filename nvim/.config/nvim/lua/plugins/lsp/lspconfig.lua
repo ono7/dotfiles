@@ -141,6 +141,7 @@ return {
       nvim_lsp.cssls.setup(lsp_opts)
       nvim_lsp.html.setup(lsp_opts)
       nvim_lsp.ts_ls.setup(lsp_opts)
+      nvim_lsp.eslint.setup(lsp_opts)
       nvim_lsp.ansiblels.setup(lsp_opts)
       -- nvim_lsp.jsonls.setup(lsp_opts)
 
@@ -149,6 +150,7 @@ return {
       -- python
       nvim_lsp.pyright.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         -- root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
         root_dir = vim.fs.root(0, ".git"),
         settings = {

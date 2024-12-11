@@ -31,7 +31,7 @@ return {
 
     -- local layout_width = 0.9
     local with_dropdown = {
-      theme = "dropdown",
+      theme = "ivy", --- 2024-12-11 12:12 makes evererything more usable in small terminals
       layout_config = {
         center = {
           height = 0.8,
@@ -54,10 +54,13 @@ return {
         git_files = with_dropdown,
         oldfiles = with_dropdown,
         buffers = with_dropdown,
+        workspaces = { theme = "ivy" },
+        diagnostics = { theme = "ivy" },
         live_grep = {
           mappings = {
             i = { ["<c-f>"] = actions.to_fuzzy_refine },
           },
+          theme = "ivy",
         },
       },
       extensions = {
@@ -139,7 +142,7 @@ return {
     end, opt)
 
     k("n", "<leader>d", function()
-      builtin.diagnostics({ previewer = false })
+      builtin.diagnostics({ previewer = false, theme = "ivy" })
     end, opt)
 
     -- does not use find_command
@@ -165,6 +168,7 @@ return {
         },
         show_untracked = true,
         no_ignore = false,
+        theme = "ivy",
       })
     end, { desc = "Live grep with rg" })
 
@@ -176,7 +180,8 @@ return {
       builtin.lsp_document_symbols({ previewer = true, show_line = true })
     end, opt)
 
-    k("n", "<D-w>", ":Telescope workspaces layout_strategy=horizontal layout_config={prompt_position='top'}<cr>", opt)
+    -- k("n", "<D-w>", ":Telescope workspaces layout_strategy=horizontal layout_config={prompt_position='top'}<cr>", opt)
+    k("n", "<D-w>", ":Telescope workspaces theme=ivy<CR>", opt)
 
     k("n", "<leader>S", function()
       builtin.lsp_workspace_symbols({ previewer = true, show_line = true })
