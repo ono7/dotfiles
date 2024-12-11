@@ -1,5 +1,5 @@
 return {
-  "natecraddock/workspaces.nvim",
+  "ono7/workspaces.nvim",
   config = function()
     local is_dir_in_parent = function(dir, parent)
       if parent == nil then
@@ -17,7 +17,6 @@ return {
       local ws_path = require("workspaces.util").path
       local current_ws = workspaces.path()
       local current_file_dir = ws_path.parent(vim.fn.expand("%:p", true))
-
       return is_dir_in_parent(current_file_dir, current_ws)
     end
     require("workspaces").setup({
@@ -30,7 +29,6 @@ return {
               return false
             end
           end,
-
           -- function()
           --   require("telescope.builtin").find_files()
           -- end,
