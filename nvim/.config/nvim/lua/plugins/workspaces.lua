@@ -40,9 +40,9 @@ return {
               return false
             end
           end,
-          -- function()
-          --   require("telescope.builtin").find_files()
-          -- end,
+          function()
+            require("telescope.builtin").find_files()
+          end,
         },
       },
     })

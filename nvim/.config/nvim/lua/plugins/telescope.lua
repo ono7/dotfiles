@@ -37,7 +37,7 @@ return {
           height = 0.8,
           preview_cutoff = 40,
           prompt_position = "top",
-          width = 0.9,
+          -- width = 0.1, --- comment to use more space when its limited
         },
       },
       mappings = {
@@ -90,7 +90,7 @@ return {
             height = 0.2,
             preview_cutoff = 40,
             prompt_position = "top",
-            width = 0.3,
+            -- width = 0.3, -- comment to use more space when its needed
           },
         },
         path_display = { "truncate" },

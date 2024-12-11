@@ -15,6 +15,7 @@ return {
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
+          use_languagetree = true,
         },
         indent = { enable = true },
         -- autotag = { enable = true },
@@ -85,10 +86,10 @@ return {
               -- ["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
             },
             selection_modes = {
-              -- ["@parameter.outer"] = "v", -- charwise
-              -- ["@parameter.inner"] = "v", -- charwise
-              -- ["@function.outer"] = "v", -- charwise
-              -- ["@conditional.outer"] = "V", -- linewise
+              ["@parameter.outer"] = "v", -- charwise
+              ["@parameter.inner"] = "v", -- charwise
+              ["@function.outer"] = "v", -- charwise
+              ["@conditional.outer"] = "V", -- linewise
               -- ["@loop.outer"] = "V", -- linewise
               -- ["@class.outer"] = "<c-v>", -- blockwise
             },
@@ -98,18 +99,18 @@ return {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_previous_start = {
-              -- ["[f"] = { query = "@function.outer", desc = "Previous function" },
-              -- ["[c"] = { query = "@class.outer", desc = "Previous class" },
-              -- ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
+              ["[f"] = { query = "@function.outer", desc = "Previous function" },
+              ["[c"] = { query = "@class.outer", desc = "Previous class" },
+              ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
             },
             goto_next_start = {
-              -- ["]f"] = { query = "@function.outer", desc = "Next function" },
-              -- ["]c"] = { query = "@class.outer", desc = "Next class" },
-              -- ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
+              ["]f"] = { query = "@function.outer", desc = "Next function" },
+              ["]c"] = { query = "@class.outer", desc = "Next class" },
+              ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
             },
           },
           swap = {
-            enable = true,
+            enable = false,
             swap_next = {
               -- ["<leader>a"] = "@parameter.inner",
             },
