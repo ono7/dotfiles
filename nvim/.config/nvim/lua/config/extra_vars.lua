@@ -1,6 +1,6 @@
 M = {}
 M.legacy_cfg = [===[
-" Follow the white rabbit
+" --- 🐇 Follow the white Rabbit...
 
 set nocompatible
 
@@ -96,6 +96,10 @@ nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 
 inoremap <expr> <bs> <sid>remove_pair()
 inoremap <expr> <enter> <sid>indent_ret()
+
+" core maps for moving around in insert mode
+inoremap <c-a> <ESC>^i
+inoremap <c-e> <End>
 
 imap <c-h> <bs>
 function! GoFmt()
@@ -450,8 +454,6 @@ hi! link SpecialKey Comment
 hi! StatusLine guibg=#444d69
 hi! Normal guibg=NONE
 
-
-" Lima's vimrc, use at your own risk :)
 ]===]
 
 return M

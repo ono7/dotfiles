@@ -4,6 +4,10 @@ local silent = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+--- core keymaps --
+vim.keymap.set("i", "<C-a>", "<ESC>^i", silent)
+vim.keymap.set("i", "<C-e>", "<End>", silent)
+
 vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
 
 --- visual select last paste
@@ -279,6 +283,3 @@ end, xpr)
 -- vim.keymap.set("n", "f[", function()
 --   vim.fn.search("[", "W")
 -- end, { noremap = true, silent = true })
-
-vim.keymap.set("i", "<C-a>", "<ESC>^i", silent)
-vim.keymap.set("i", "<C-e>", "<End>", silent)
