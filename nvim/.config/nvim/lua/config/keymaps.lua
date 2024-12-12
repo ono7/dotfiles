@@ -62,6 +62,9 @@ vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
 vim.keymap.set("i", "<C-c>", "<Esc>", opt)
 vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
+
+-- vim.keymap.set("n", "<leader>o", ":b#<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
@@ -69,8 +72,8 @@ vim.keymap.set("n", "U", "<c-r>", opt)
 vim.keymap.set("x", "p", "pgvy")
 
 --- leave unnnamed reg alone when changing text
--- vim.keymap.set("n", "c", '"ac')
--- vim.keymap.set("n", "C", '"aC')
+vim.keymap.set("n", "c", '"ac')
+vim.keymap.set("n", "C", '"aC')
 
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
