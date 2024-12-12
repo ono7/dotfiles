@@ -94,8 +94,7 @@ vim.keymap.set("c", "<c-l>", "<Right>", opt)
 vim.keymap.set("c", "<c-b>", "<S-left>", opt)
 
 --- size 8, belowright split
-vim.keymap.set("n", "<leader>t", ":bel 8sp term://zsh<CR>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
 local function check_buf(bufnr)

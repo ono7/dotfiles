@@ -1,6 +1,14 @@
 vim.api.nvim_create_user_command("T", function(opts)
-  vim.cmd("split | startinsert | terminal " .. table.concat(opts.fargs, " "))
+  vim.cmd("bel 8split | startinsert | terminal " .. table.concat(opts.fargs, " "))
 end, { nargs = "*", complete = "file" })
+
+vim.api.nvim_create_user_command("Commit", function(opts)
+  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
+  vim.cmd("r!git diff " .. diff_cmd)
+  vim.cmd("normal! ggVG")
+end, {
+  nargs = "?", -- Makes the argument optional
+})
 
 ---Call `:GitOpen dev` to open the file on the `dev` branch
 vim.api.nvim_create_user_command("GitOpen", function(opts)
@@ -31,6 +39,5 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
     vim.uri_encode(file),
     line
   )
-
   vim.fn.system("open " .. github_file_url)
 end, { nargs = "?" })
