@@ -5,21 +5,37 @@ return {
   priority = 1000,
   config = function()
     local mycolors = {
-      red = "#f38ba8",
+      white = "#D9E0EE",
+      darker_black = "#191828",
+      black = "#1E1D2D", --  nvim bg
+      black2 = "#252434",
+      one_bg = "#2d2c3c", -- real bg of onedark
+      one_bg2 = "#363545",
+      one_bg3 = "#3e3d4d",
+      grey = "#474656",
+      grey_fg = "#4e4d5d",
+      grey_fg2 = "#555464",
+      light_grey = "#605f6f",
+      red = "#F38BA8",
       baby_pink = "#ffa5c3",
       pink = "#F5C2E7",
       line = "#383747", -- for lines like vertsplit
+      green = "#ABE9B3",
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
-      blue = "#89b4fa",
-      yellow = "#f9e2af",
-      sun = "#f9e2af",
+      blue = "#89B4FA",
+      yellow = "#FAE3B0",
+      sun = "#ffe9b6",
+      purple = "#d0a9e5",
+      dark_purple = "#c7a0dc",
+      teal = "#B5E8E0",
       orange = "#F8BD96",
-      teal = "#89dceb",
-      cyan = "#89dceb",
+      cyan = "#89DCEB",
       statusline_bg = "#232232",
       lightbg = "#2f2e3e",
-      green = "#ceeac8",
+      pmenu_bg = "#ABE9B3",
+      folder_bg = "#89B4FA",
+      lavender = "#c7d1ff",
     }
     require("catppuccin").setup({
       transparent_background = true,
@@ -69,13 +85,17 @@ return {
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
     -- vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#89b4fa" })
-    vim.api.nvim_set_hl(0, "@variable.builtin", {})
+    -- vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#f2cdcd" })
     -- vim.api.nvim_set_hl(0, "@variable.member", { fg = "#89b4fa" })
     vim.api.nvim_set_hl(0, "@variable.member", {})
-    vim.api.nvim_set_hl(0, "@property", { fg = "#f38ba8" })
+    -- vim.api.nvim_set_hl(0, "@property", { fg = mycolors.teal })
+    -- vim.api.nvim_set_hl(0, "@variable", { fg = mycolors.teal })
+    vim.api.nvim_set_hl(0, "@variable", {})
+    vim.api.nvim_set_hl(0, "@property", {})
+    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = mycolors.red })
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bold = true })
     vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
     vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ceeac8", bold = true })
@@ -83,19 +103,15 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "Conditional", { fg = "#f38ba8", italic = true })
-    vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@type", { fg = "#D9E0EE", bold = false })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#D9E0EE" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#243d61" })
-    -- vim.api.nvim_set_hl(0, "Visual", { bg = "#2f5293" })
-    -- vim.api.nvim_set_hl(0, "Search", { bg = "#2f5293" })
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "#444d69" })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
-    vim.api.nvim_set_hl(0, "@property", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1B192C" })
@@ -110,23 +126,6 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { underline = false, bold = false, italic = true })
-    -- vim.api.nvim_set_hl(
-    --   0,
-    --   "DiagnosticVirtualTextError",
-    --   { fg = "#f38ba9", bg = "#351f25", underline = false, bold = false, italic = true }
-    -- )
-
-    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { underline = false, bold = false, italic = true })
-    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { underline = false, bold = false, italic = true })
-
-    -- DiagnosticVirtualTextError xxx cterm=italic gui=italic guifg=#f38ba9
-    -- DiagnosticVirtualTextWarn xxx cterm=italic gui=italic guifg=#f9e2b0
-    -- DiagnosticVirtualTextInfo xxx cterm=italic gui=italic guifg=#89dcec
-    -- DiagnosticVirtualTextHint xxx cterm=italic gui=italic guifg=#89dcec
-    -- DiagnosticVirtualTextOk xxx cterm=italic gui=italic guifg=#ceeac9
-    -- TinyInlineDiagnosticVirtualTextError xxx cterm=italic gui=italic guifg=#f38ba9 guibg=#351f25
-    -- TinyInlineDiagnosticVirtualTextWarn xxx cterm=italic gui=italic guifg=#f9e2b0 guibg=#373227
-    -- TinyInlineDiagnosticVirtualTextInfo xxx cterm=italic gui=italic guifg=#89dcec guibg=#1e3034
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = "#cba6f8" })

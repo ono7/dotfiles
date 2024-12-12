@@ -4,6 +4,7 @@ return {
   config = function()
     require("nvim-autopairs").setup({
       disable_filetype = { "TelescopePrompt", "vim" },
+      fast_wrap = {},
       check_ts = true,
       ts_config = {
         lua = { "sting" }, -- dont add autopairs in lua string treesitter nodes

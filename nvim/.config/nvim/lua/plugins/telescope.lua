@@ -42,6 +42,7 @@ return {
       },
       mappings = {
         i = { ["<c-f>"] = actions.to_fuzzy_refine },
+        n = { ["q"] = actions.close },
       },
     }
 
@@ -59,6 +60,7 @@ return {
         live_grep = {
           mappings = {
             i = { ["<c-f>"] = actions.to_fuzzy_refine },
+            n = { ["q"] = actions.close },
           },
           theme = "ivy",
         },
@@ -108,6 +110,9 @@ return {
           -- ["<c-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           -- ['<C-u>'] = false,
           -- ['<C-d>'] = false,
+        },
+        n = {
+          n = { ["q"] = actions.close },
         },
       },
     })
