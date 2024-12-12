@@ -1,7 +1,7 @@
 -- local c = vim.api.nvim_create_autocmd
 local create_augroup = vim.api.nvim_create_augroup
 
-vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]]})
+vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
@@ -14,10 +14,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = create_augroup("highlight_yanked_text", { clear = true }),
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "js",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typescriptreact",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
+})
+
 -- fix commit msg, goto top of file on enter
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   group = create_augroup("vim_commit_msg", { clear = true }),
-  pattern = 'COMMIT_EDITMSG',
+  pattern = "COMMIT_EDITMSG",
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.wrap = false
@@ -43,9 +57,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-            not (ft:match("commit") and ft:match("rebase"))
-            and last_known_line > 1
-            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+          not (ft:match("commit") and ft:match("rebase"))
+          and last_known_line > 1
+          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -71,7 +85,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = create_augroup("disable_lsp_diags_for_folders", { clear = true }),
 })
 
-vim.cmd [[
+vim.cmd([[
 augroup _QuickFixOpen
 	autocmd!
 	" auto open quickfix when executing make!
@@ -79,7 +93,7 @@ augroup _QuickFixOpen
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup END
-]]
+]])
 
 -- auto source snippets file
 vim.api.nvim_create_autocmd("BufWritePost", {
@@ -117,5 +131,5 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "text", "python", "go" },
   callback = function()
     vim.opt_local.wrap = true
-  end
+  end,
 })

@@ -13,8 +13,8 @@ return {
     oil_config.setup({
       columns = { "icon" },
       keymaps = {
-        -- ["<C-h>"] = false,
-        -- ["<c-v>"] = "actions.select_split",
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+        ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
       },
       view_options = {
         show_hidden = true,

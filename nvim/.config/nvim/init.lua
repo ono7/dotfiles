@@ -7,7 +7,6 @@ vim.opt.syntax = "off"
 
 require("config.keymaps")
 require("config.options")
-require("config.autocmds")
 require("config.disabled")
 require("config.legacy")
 require("config.abbreviations")
@@ -18,6 +17,7 @@ require("config.lazy")
 require("utils.zoxide").setup()
 require("utils.create-table").setup()
 require("config.commands")
+require("config.autocmds")
 
 -- comment for beam cursor
 vim.opt.guicursor = ""

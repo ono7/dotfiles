@@ -91,7 +91,7 @@ vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,5"
 vim.opt.spellsuggest = "best,9"
 vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
 vim.opt.synmaxcol = 10 -- for performace
@@ -106,7 +106,7 @@ vim.opt.ttimeout = true -- disable for indefinite wait time
 vim.opt.ttimeoutlen = 0
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
-vim.opt.updatetime = 100
+vim.opt.updatetime = 250
 -- vim.opt.whichwrap:append("<>[]")
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 -- vim.opt.wildignore = [[.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class]]
@@ -153,6 +153,11 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_liststyle = 3
+
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 -- vim.opt.winbar = "%=%-.75F %-m"
 

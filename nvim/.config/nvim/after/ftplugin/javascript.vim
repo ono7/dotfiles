@@ -1,5 +1,6 @@
 setlocal ai ts=2 sw=2 et fo-=r fo-=o
 
+setlocal commentstring = "// %s"
 setlocal suffixesadd+=.js
 
 " ES6 - defines what vim's include look up should parse

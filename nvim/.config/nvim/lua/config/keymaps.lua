@@ -74,7 +74,7 @@ vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 
 --- visual block by default
--- vim.keymap.set({ "n" }, "v", "<c-v>")
+vim.keymap.set({ "n" }, "v", "<c-v>")
 --- vim.cmd("vunmap v")
 
 vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
@@ -89,7 +89,8 @@ vim.keymap.set("c", "<c-h>", "<Left>", opt)
 vim.keymap.set("c", "<c-l>", "<Right>", opt)
 vim.keymap.set("c", "<c-b>", "<S-left>", opt)
 
-vim.keymap.set("n", "<leader>t", ":8sp term://zsh<CR>", { noremap = true, silent = true })
+--- size 8, belowright split
+vim.keymap.set("n", "<leader>t", ":bel 8sp term://zsh<CR>", { noremap = true, silent = true })
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
@@ -278,3 +279,6 @@ end, xpr)
 -- vim.keymap.set("n", "f[", function()
 --   vim.fn.search("[", "W")
 -- end, { noremap = true, silent = true })
+
+vim.keymap.set("i", "<C-a>", "<ESC>^i", silent)
+vim.keymap.set("i", "<C-e>", "<End>", silent)

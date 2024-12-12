@@ -68,9 +68,9 @@ return {
 
     -- Set up manual trigger
     -- vim.keymap.set("i", "<C-Space>", function()
-    vim.keymap.set("i", "<c-e>", function()
-      cmp.complete()
-    end, { noremap = true, silent = true, desc = "Manually trigger completion" })
+    -- vim.keymap.set("i", "<c-e>", function()
+    --   cmp.complete()
+    -- end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
     -- autopairs integration
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
@@ -86,7 +86,7 @@ return {
         -- autocomplete = true, -- we want to test out running this manually
         -- completeopt = "menu,menuone,noinsert",
         completeopt = "menu,menuone,noselect",
-        -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
+        keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),

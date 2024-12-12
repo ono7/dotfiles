@@ -36,8 +36,9 @@ fi
 
 if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g KeyRepeat -int 1
-  defaults write -g InitialKeyRepeat -int 11
-
+  defaults write -g InitialKeyRepeat -int 20
+  # defaults delete -g KeyRepeat
+  # defaults delete -g InitialKeyRepeat
 fi
 
 fw () {
