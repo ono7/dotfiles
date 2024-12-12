@@ -61,6 +61,7 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
 vim.keymap.set("i", "<C-c>", "<Esc>", opt)
+vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
 vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
@@ -76,6 +77,8 @@ vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
 --- terminal ---
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
+--- size 8, belowright split
+vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
 
 --- visual block by default
 vim.keymap.set({ "n" }, "v", "<c-v>")
@@ -93,8 +96,6 @@ vim.keymap.set("c", "<c-h>", "<Left>", opt)
 vim.keymap.set("c", "<c-l>", "<Right>", opt)
 vim.keymap.set("c", "<c-b>", "<S-left>", opt)
 
---- size 8, belowright split
-vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
 local function check_buf(bufnr)

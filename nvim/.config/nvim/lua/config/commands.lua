@@ -1,5 +1,5 @@
 vim.api.nvim_create_user_command("T", function(opts)
-  vim.cmd("bel 8split | startinsert | terminal " .. table.concat(opts.fargs, " "))
+  vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
 end, { nargs = "*", complete = "file" })
 
 vim.api.nvim_create_user_command("Commit", function(opts)

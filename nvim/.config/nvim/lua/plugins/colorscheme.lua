@@ -84,6 +84,7 @@ return {
     vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
+    vim.api.nvim_set_hl(0, "Comment", { fg = "#757c9c" })
     -- vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#89b4fa" })
     -- vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
