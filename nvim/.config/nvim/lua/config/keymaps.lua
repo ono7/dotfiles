@@ -75,6 +75,8 @@ vim.keymap.set("x", "p", "pgvy")
 vim.keymap.set("n", "c", '"ac')
 vim.keymap.set("n", "C", '"aC')
 
+vim.keymap.set("x", ",a", ":!column -t<cr>")
+
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
