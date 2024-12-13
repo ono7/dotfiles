@@ -12,6 +12,7 @@ return {
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
     "dcampos/nvim-snippy",
     "dcampos/cmp-snippy",
     "onsails/lspkind.nvim",
@@ -46,9 +47,10 @@ return {
     end
 
     local preferred_sources = {
-      { name = "nvim_lsp", max_item_count = 5 },
-      { name = "path", max_item_count = 5 },
-      { name = "nvim_lua", max_item_count = 5 },
+      { name = "nvim_lsp", max_item_count = 20 },
+      { name = "nvim_lsp_signature_help" },
+      { name = "path", max_item_count = 10 },
+      { name = "nvim_lua", max_item_count = 10 },
     }
 
     -- if files are too big disable buffer source
@@ -87,6 +89,7 @@ return {
         -- completeopt = "menu,menuone,noinsert",
         completeopt = "menu,menuone,noselect",
         keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
+        -- keyword_length = 3,
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),

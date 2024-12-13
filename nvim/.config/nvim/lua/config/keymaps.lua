@@ -2,6 +2,7 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
+vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
 --- core keymaps --
@@ -145,17 +146,17 @@ vim.keymap.set("n", ",w", function()
   vim.fn.setpos(".", save_cursor)
 end, silent)
 
-vim.keymap.set("n", "<leader>s", function()
-  if not check_buf(0) then
-    print("save me first!")
-    return
-  end
-  local save_cursor = vim.fn.getcurpos()
-  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
-  -- this might cause issues with oil.nvim
-  vim.cmd([[:write ++p]])
-  vim.fn.setpos(".", save_cursor)
-end, silent)
+-- vim.keymap.set("n", "<leader>s", function()
+--   if not check_buf(0) then
+--     print("save me first!")
+--     return
+--   end
+--   local save_cursor = vim.fn.getcurpos()
+--   vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
+--   -- this might cause issues with oil.nvim
+--   vim.cmd([[:write ++p]])
+--   vim.fn.setpos(".", save_cursor)
+-- end, silent)
 
 vim.keymap.set("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")

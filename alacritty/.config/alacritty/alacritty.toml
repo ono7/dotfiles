@@ -52,6 +52,7 @@ bindings = [
 {  key  =  "A",         mods  =  "Command",        chars   =  "\u0001"             },
 {  key  =  "Back",      mods  =  "Alt",            chars   =  "\u0017"             },
 {  key  =  "Back",      mods  =  "Command",        chars   =  "\u0017"             },
+# {  key  =  "W",         mods  =  "Command",        chars   =  "\u0017"             },
 {  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
 {  key  =  "C",         mods  =  "Command",        chars   =  "\u0003"             },
 {  key  =  "D",         mods  =  "Command",        chars   =  "\u0004"             },
@@ -83,7 +84,6 @@ bindings = [
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
 {  key  =  "T",         mods  =  "Command",        action  =  "None"               },
 {  key  =  "T",         mods  =  "Command",        chars  =  "\u0014"              },
-{  key  =  "T",         mods  =  "Command|Shift",  action  =  "CreateNewTab"       },
 {  key  =  "U",         mods  =  "Command",        chars   =  "\u0015"             },
 {  key  =  "V",         mods  =  "Command",        chars   =  "\u0016"             },
 {  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
@@ -97,6 +97,7 @@ bindings = [
 {  key  =  "4",         mods  =  "Command",        action  =  "SelectTab4"},
 {  key  =  "5",         mods  =  "Command",        action  =  "SelectTab5"},
 {  key  =  "6",         mods  =  "Command",        action  =  "SelectTab6"},
+{  key  =  "T",         mods  =  "Command|Shift",  action  =  "CreateNewTab"       },
 ]
 
 [mouse]
@@ -118,9 +119,8 @@ program = "/bin/zsh"
 
 [window]
 decorations = "None"
-# decorations = "Full"
 dynamic_padding = true
-dynamic_title = true
+dynamic_title = false
 opacity = 0.90
 blur = true
 decorations_theme_variant = "Dark"

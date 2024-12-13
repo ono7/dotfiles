@@ -5,6 +5,9 @@ return {
   config = function()
     local conform = require("conform")
     conform.setup({
+      log_level = vim.log.levels.ERROR,
+      notify_on_error = true,
+      notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
@@ -51,17 +54,20 @@ return {
         vim.b.disable_autoformat = true
       else
         vim.g.disable_autoformat = true
+        vim.notify("Conform: FormatDisabled")
       end
     end, {
       desc = "Disable autoformat-on-save",
       bang = true,
     })
+
     vim.api.nvim_create_user_command("FormatEnable", function()
       vim.b.disable_autoformat = false
       vim.g.disable_autoformat = false
     end, {
       desc = "Re-enable autoformat-on-save",
     })
+
     vim.api.nvim_create_user_command("Format", function(args)
       local range = nil
       if args.count ~= -1 then

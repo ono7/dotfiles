@@ -7,6 +7,9 @@ set nocompatible
 set t_Co=8
 set guicursor=n:block,i:block
 
+
+" space does nothing in normal, it will be leader
+nnoremap <space> <nop>
 let mapleader = " "
 let g:loaded_matchit = 1
 " let g:loaded_matchparen = 1

@@ -18,8 +18,7 @@ return {
           use_languagetree = true,
         },
         indent = { enable = true },
-        -- autotag = { enable = true },
-        -- context_commentstring = { enable = true, enable_autocmd = false },
+        context_commentstring = { enable = true, enable_autocmd = false },
         auto_install = true,
         disable = function(lang, buf)
           local max_filesize = 300 * 1024 -- 100 KB

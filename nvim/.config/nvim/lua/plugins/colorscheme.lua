@@ -5,9 +5,9 @@ return {
   priority = 1000,
   config = function()
     local mycolors = {
-      white = "#D9E0EE",
+      white = "#d9e0ee",
       darker_black = "#191828",
-      black = "#1E1D2D", --  nvim bg
+      black = "#1e1d2d", --  nvim bg
       black2 = "#252434",
       one_bg = "#2d2c3c", -- real bg of onedark
       one_bg2 = "#363545",
@@ -16,25 +16,25 @@ return {
       grey_fg = "#4e4d5d",
       grey_fg2 = "#555464",
       light_grey = "#605f6f",
-      red = "#F38BA8",
+      red = "#f38ba8",
       baby_pink = "#ffa5c3",
-      pink = "#F5C2E7",
+      pink = "#f5c2e7",
       line = "#383747", -- for lines like vertsplit
-      green = "#ABE9B3",
+      green = "#abe9b3",
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
-      blue = "#89B4FA",
-      yellow = "#FAE3B0",
+      blue = "#89b4fa",
+      yellow = "#fae3b0",
       sun = "#ffe9b6",
       purple = "#d0a9e5",
       dark_purple = "#c7a0dc",
-      teal = "#B5E8E0",
-      orange = "#F8BD96",
-      cyan = "#89DCEB",
+      teal = "#b5e8e0",
+      orange = "#f8bd96",
+      cyan = "#89dceb",
       statusline_bg = "#232232",
       lightbg = "#2f2e3e",
-      pmenu_bg = "#ABE9B3",
-      folder_bg = "#89B4FA",
+      pmenu_bg = "#abe9b3",
+      folder_bg = "#89b4fa",
       lavender = "#c7d1ff",
     }
     require("catppuccin").setup({
@@ -70,7 +70,7 @@ return {
     vim.api.nvim_command("colorscheme catppuccin-mocha")
 
     vim.api.nvim_set_hl(0, "Folded", { link = "Comment" })
-    vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#B0A0FF", bold = true, italic = true })
+    vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b0a0ff", bold = true, italic = true })
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
     vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
@@ -104,18 +104,18 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "Conditional", { fg = "#f38ba8", italic = true })
-    vim.api.nvim_set_hl(0, "@type", { fg = "#D9E0EE", bold = false })
-    vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#D9E0EE" })
+    vim.api.nvim_set_hl(0, "@type", { fg = "#d9e0ee", bold = false })
+    vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#d9e0ee" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#243d61" })
-    vim.api.nvim_set_hl(0, "StatusLine", { bg = "#444d69" })
+    vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
-    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1B192C" })
+    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1b192c" })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
@@ -128,7 +128,7 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false, bold = false })
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { underline = false, bold = false, italic = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
-    vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#FA5057", bold = true })
+    vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#fa5057", bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = "#cba6f8" })
     vim.api.nvim_set_hl(0, "Special", {})
   end,
