@@ -186,7 +186,7 @@ return {
     end, opt)
 
     -- k("n", "<D-w>", ":Telescope workspaces layout_strategy=horizontal layout_config={prompt_position='top'}<cr>", opt)
-    k("n", "<D-w>", ":Telescope workspaces theme=ivy<CR>", opt)
+    k("n", "<m-w>", ":Telescope workspaces theme=ivy<CR>", opt)
 
     k("n", "<leader>S", function()
       builtin.lsp_workspace_symbols({ previewer = true, show_line = true })
