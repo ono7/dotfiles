@@ -7,7 +7,7 @@ return {
     accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
     host = "100.64.0.150", -- The host running the Ollama service.
     port = "11434", -- The port on which the Ollama service is listening.
-    display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
+    display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
     show_prompt = true, -- Shows the prompt submitted to Ollama.
     show_model = false, -- Displays which model you are using at the beginning of your chat session.
     no_auto_close = false, -- Never closes the window automatically.
@@ -31,20 +31,20 @@ return {
   },
   config = function()
     require("gen").prompts["Elaborate_Text"] = {
-      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns, Elaborate the following text:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in software architecture and design patterns, Elaborate the following text:\n$text",
       replace = true,
     }
     require("gen").prompts["Fix_Code"] = {
-      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns, Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in software architecture and design patterns, Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
       replace = true,
       extract = "```$filetype\n(.-)```",
     }
     require("gen").prompts["DevOps"] = {
-      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns. You offer help with cloud technologies like: Ansible, Golang, Docker, python. You answer with code examples when possible. $input:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize software architecture and design patterns. You offer help with cloud technologies like: Ansible, Golang, Docker, python. You answer with code examples when possible. $input:\n$text",
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in architecture and design patterns. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
+      prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize software architecture and design patterns. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
       replace = true,
     }
     require("gen").setup({
@@ -55,7 +55,7 @@ return {
       accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
       host = "100.64.0.150", -- The host running the Ollama service.
       port = "11434", -- The port on which the Ollama service is listening.
-      display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
+      display_mode = "horizontal-split", -- The display mode. Can be "float" or "split" or "horizontal-split".
       show_prompt = false, -- Shows the prompt submitted to Ollama.
       show_model = false, -- Displays which model you are using at the beginning of your chat session.
       no_auto_close = false, -- Never closes the window automatically.

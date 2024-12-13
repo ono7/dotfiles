@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "js",
+  pattern = "*.js",
   callback = function()
     vim.bo.commentstring = "// %s"
   end,
@@ -40,7 +40,17 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
+-- fix commit msg, goto top of file on enter
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--   group = create_augroup("markdown-files", { clear = true }),
+--   pattern = "*.md",
+--   callback = function()
+--     vim.opt_local.wrap = true
+--   end,
+-- })
+
 -- resize windows
+
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   pattern = "*",
   command = [[:wincmd =]],
@@ -78,7 +88,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
+  pattern = { "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
   callback = function()
     vim.diagnostic.enable(false)
   end,

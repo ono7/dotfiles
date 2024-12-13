@@ -3,9 +3,6 @@
 
 vim.cmd([[syntax off]])
 
---- make this work 16 colors
-vim.cmd([[set t_Co=16]])
-
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
