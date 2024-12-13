@@ -5,27 +5,14 @@ local silent = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
---- core keymaps --
+--- core keymaps ---
 vim.keymap.set("i", "<C-a>", "<ESC>^i", silent)
 vim.keymap.set("i", "<C-e>", "<End>", silent)
 
-vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
-
---- visual select last paste
-vim.keymap.set("n", "gp", "`[v`]", silent)
-
---- keep cursor in same position when yanking in visual
-vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
-
---- navigation improvements ----
-vim.keymap.set("n", "0", "^", silent)
-
---- mapping tab also overrides c-i which is used to move through jump list
-vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
-vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
-
---- make dot work in visual mode
--- vim.keymap.set("v", ".", ":norm .<cr>", opt)
+-- replaces vim surround
+vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
+vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
+vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
@@ -34,23 +21,16 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
 
--- replaces vim surround
-vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
-vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
-vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
+--- nav improvement
+vim.keymap.set("n", "0", "^", silent)
 
---- nop ---
-vim.keymap.set("n", "ZZ", "")
-vim.keymap.set("n", "ZQ", "")
-
---- go ---
-vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
-vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
+--- visual select last paste
+vim.keymap.set("n", "gp", "`[v`]", silent)
+--- keep cursor in same position when yanking in visual
+vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
 vim.keymap.set("x", "H", "<gv", silent)
 vim.keymap.set("x", "L", ">gv", silent)
-
---- file ---
 
 -- Bind the function to a key mapping
 vim.keymap.set("n", ",q", "<cmd>q<cr>", silent)
@@ -64,34 +44,8 @@ vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 vim.keymap.set("i", "<C-c>", "<Esc>", opt)
 vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
 
--- vim.keymap.set("n", "<leader>o", ":b#<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
-vim.keymap.set("n", "Y", "y$", opt)
-vim.keymap.set("n", "U", "<c-r>", opt)
-
---- paste over selection without overwriting clipboard
-vim.keymap.set("x", "p", "pgvy")
-
---- leave unnnamed reg alone when changing text
-vim.keymap.set("n", "c", '"ac')
-vim.keymap.set("n", "C", '"aC')
-
-vim.keymap.set("x", ",a", ":!column -t<cr>")
-
---- when using J keep cursor to the right
-vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
-
---- terminal ---
-vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
---- size 8, belowright split
-vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
-
 --- visual block by default
 vim.keymap.set({ "n" }, "v", "<c-v>")
---- vim.cmd("vunmap v")
-
-vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
@@ -101,6 +55,58 @@ vim.keymap.set("c", "<c-a>", "<Home>", opt)
 vim.keymap.set("c", "<c-h>", "<Left>", opt)
 vim.keymap.set("c", "<c-l>", "<Right>", opt)
 vim.keymap.set("c", "<c-b>", "<S-left>", opt)
+
+vim.keymap.set("n", "<leader>cd", function()
+  vim.cmd.lcd("%:p:h")
+  print("new lcd: " .. vim.fn.getcwd())
+end, { silent = true })
+
+--- paste over selection without overwriting clipboard
+vim.keymap.set("x", "p", "pgvy")
+
+--- leave unnnamed reg alone when changing text
+vim.keymap.set("n", "c", '"ac')
+vim.keymap.set("n", "C", '"aC')
+
+--- when using J keep cursor to the right
+vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
+
+--- terminal ---
+vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
+
+--- all others ---
+
+vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
+
+--- mapping tab also overrides c-i which is used to move through jump list
+vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
+vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
+
+--- make dot work in visual mode
+-- vim.keymap.set("v", ".", ":norm .<cr>", opt)
+
+--- nop ---
+vim.keymap.set("n", "ZZ", "")
+vim.keymap.set("n", "ZQ", "")
+
+--- go ---
+vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
+vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
+
+--- file ---
+
+-- vim.keymap.set("n", "<leader>o", ":b#<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
+vim.keymap.set("n", "Y", "y$", opt)
+vim.keymap.set("n", "U", "<c-r>", opt)
+
+vim.keymap.set("x", ",a", ":!column -t<cr>")
+
+--- size 8, belowright split, T in commands.lua
+vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
@@ -157,11 +163,6 @@ end, silent)
 --   vim.cmd([[:write ++p]])
 --   vim.fn.setpos(".", save_cursor)
 -- end, silent)
-
-vim.keymap.set("n", "<leader>cd", function()
-  vim.cmd.lcd("%:p:h")
-  print("new lcd: " .. vim.fn.getcwd())
-end, { silent = true })
 
 -- local function hlsToggle()
 --   if vim.opt.hlsearch then
