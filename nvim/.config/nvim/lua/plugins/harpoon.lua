@@ -7,7 +7,15 @@ return {
     local harpoon = require("harpoon")
 
     -- REQUIRED
-    harpoon:setup()
+    harpoon:setup({
+      settings = {
+        save_on_toggle = false,
+        sync_on_ui_close = false,
+        key = function()
+          return vim.loop.cwd()
+        end,
+      },
+    })
     -- REQUIRED
 
     vim.keymap.set("n", "mm", function()
