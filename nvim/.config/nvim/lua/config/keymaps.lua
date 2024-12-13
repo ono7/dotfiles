@@ -17,6 +17,9 @@ vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 
+--- quit it all
+vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
+
 -- move through wrapped lines
 vim.keymap.set("n", "k", "gk", silent)
 vim.keymap.set("n", "j", "gj", silent)
@@ -139,6 +142,8 @@ vim.keymap.set("n", "<leader>%", function()
   vim.fn.setreg("+", path)
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
+
+vim.keymap.set("n", ";w", ":write<CR>", { silent = true })
 
 vim.keymap.set("n", ",w", function()
   if not check_buf(0) then

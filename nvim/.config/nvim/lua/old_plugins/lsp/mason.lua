@@ -1,9 +1,9 @@
 vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+-- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   float = { border = "rounded" },
-}
+})
 
 local on_attach = function(client, bufnr)
   if client.name == "lua_ls" then
@@ -15,7 +15,7 @@ local on_attach = function(client, bufnr)
     end
   end
 
-  if client.name == 'ruff_lsp' then
+  if client.name == "ruff_lsp" then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
   end
@@ -68,7 +68,7 @@ mason_lspconfig.setup({
     "cssls",
     "lua_ls",
     "ruff_lsp",
-  }
+  },
 })
 
 local neodev_ok, neodev_config = pcall(require, "neodev")
@@ -79,7 +79,7 @@ if not neodev_ok then
 end
 
 neodev_config.setup({
-  library = { plugins = { "nvim-dap-ui" }, types = true }
+  library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
 local nvim_lsp_status, nvim_lsp = pcall(require, "lspconfig")
@@ -127,30 +127,29 @@ nvim_lsp.ansiblels.setup(lsp_opts)
 -- custom servers go here
 
 -- python
-nvim_lsp.pyright.setup {
+nvim_lsp.pyright.setup({
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = true
+      disableOrganizeImports = true,
     },
     python = {
       analysis = {
         autoSearchPaths = true,
-        diagnosticMode = 'openFilesOnly',
+        diagnosticMode = "openFilesOnly",
         useLibraryCodeForTypes = true,
-        typeCheckingMode = 'off', -- 'basic'
+        typeCheckingMode = "off", -- 'basic'
         -- ignore = { '*' },
-      }
-    }
-  }
-}
-
+      },
+    },
+  },
+})
 
 -- terraform
 local tf_opts = {
-  root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv")
+  root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv"),
 }
 require("lspconfig").terraformls.setup(extend_opts(lsp_opts, tf_opts))
 
@@ -164,5 +163,5 @@ nvim_lsp.lua_ls.setup({
     },
   },
   on_attach = on_attach,
-  capabilities = capabilities
+  capabilities = capabilities,
 })
