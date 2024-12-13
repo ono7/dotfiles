@@ -43,9 +43,8 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-
-vim.keymap.set("i", "<C-c>", "<Esc>", opt)
-vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
+vim.keymap.set("i", "<c-c>", "<Esc>", opt)
+-- vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
 
 --- visual block by default
 vim.keymap.set({ "n" }, "v", "<c-v>")
@@ -178,12 +177,12 @@ end, silent)
 -- end
 
 -- hex stuff, just look away
-vim.keymap.set(
-  "x",
-  "<space>h",
-  [[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
-  silent
-)
+-- vim.keymap.set(
+--   "x",
+--   "<space>h",
+--   [[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
+--   silent
+-- )
 
 -- vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
 -- vim.keymap.set("i", "<c-a>", "<c-o>^", silent)

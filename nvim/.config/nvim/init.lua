@@ -2,6 +2,10 @@
 -- :write ++p (creates directories if they dont exists)
 
 vim.cmd([[syntax off]])
+
+--- make this work 16 colors
+vim.cmd([[set t_Co=16]])
+
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
@@ -22,14 +26,6 @@ require("config.autocmds")
 -- comment for beam cursor
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
-
-vim.api.nvim_create_user_command("Commit", function(opts)
-  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
-  vim.cmd("r!git diff " .. diff_cmd)
-  vim.cmd("normal! ggVG")
-end, {
-  nargs = "?", -- Makes the argument optional
-})
 
 -- normalize colorscheme for transparent background on main and floats
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

@@ -4,7 +4,6 @@
     Date:    2024-01-31  16:12
     
 """
-
 import requests
 import json
 
@@ -18,9 +17,7 @@ job_template_id = "your_job_template_id"  # Replace with your job template ID
 endpoint = f"{tower_url}{job_template_id}/launch/"
 
 # Headers for the request
-headers = {
-    'Content-Type': 'application/json'
-}
+headers = {"Content-Type": "application/json"}
 
 # Authentication
 auth = (username, password)

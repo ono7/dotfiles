@@ -6,7 +6,7 @@ export GPG_TTY="/dev/tty"
 
 ############## Essential environment variables ##############
 
-export COLORTERM=truecolor
+# export COLORTERM=truecolor
 export GOPATH=$HOME/go
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other

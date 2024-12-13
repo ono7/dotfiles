@@ -1,73 +1,9 @@
 return {
-  "catppuccin/nvim",
-  name = "catppuccin",
+  "RRethy/base16-nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    local mycolors = {
-      white = "#d9e0ee",
-      darker_black = "#191828",
-      black = "#1e1d2d", --  nvim bg
-      black2 = "#252434",
-      one_bg = "#2d2c3c", -- real bg of onedark
-      one_bg2 = "#363545",
-      one_bg3 = "#3e3d4d",
-      grey = "#474656",
-      grey_fg = "#4e4d5d",
-      grey_fg2 = "#555464",
-      light_grey = "#605f6f",
-      red = "#f38ba8",
-      baby_pink = "#ffa5c3",
-      pink = "#f5c2e7",
-      line = "#383747", -- for lines like vertsplit
-      green = "#abe9b3",
-      vibrant_green = "#b6f4be",
-      nord_blue = "#8bc2f0",
-      blue = "#89b4fa",
-      yellow = "#fae3b0",
-      sun = "#ffe9b6",
-      purple = "#d0a9e5",
-      dark_purple = "#c7a0dc",
-      teal = "#b5e8e0",
-      orange = "#f8bd96",
-      cyan = "#89dceb",
-      statusline_bg = "#232232",
-      lightbg = "#2f2e3e",
-      pmenu_bg = "#abe9b3",
-      folder_bg = "#89b4fa",
-      lavender = "#c7d1ff",
-    }
-    require("catppuccin").setup({
-      transparent_background = true,
-      show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-      term_colors = true,
-      dim_inactive = {
-        enabled = false,
-        shade = "dark",
-        percentage = 0.15,
-      },
-      styles = {
-        comments = { "italic" },
-        conditionals = { "italic" },
-        loops = { "italic" },
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        parameters = {},
-        properties = {},
-        types = {},
-        operators = {},
-      },
-      color_overrides = {
-        -- see link below for override names
-        -- https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
-        mocha = mycolors,
-      },
-    })
-    vim.api.nvim_command("colorscheme catppuccin-mocha")
+    vim.cmd([[colorscheme base16-catppuccin-mocha]])
 
     vim.api.nvim_set_hl(0, "Folded", { link = "Comment" })
     vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b0a0ff", bold = true, italic = true })
@@ -96,11 +32,12 @@ return {
     -- vim.api.nvim_set_hl(0, "@variable", { fg = mycolors.teal })
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
-    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = mycolors.red })
+    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
     vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#f38ba8", bold = true })
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Repeat", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "Conditional", { fg = "#f38ba8", italic = true })
@@ -108,8 +45,8 @@ return {
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#d9e0ee" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#243d61" })
-    vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
-    vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
+    -- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
+    -- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
