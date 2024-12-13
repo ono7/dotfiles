@@ -18,7 +18,7 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamed,unnamedplus"
   -- vim.opt.clipboard:append("unnamedplus")
 end)
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 2
 vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.complete = ".,w,b,u"
 vim.opt.completeopt = "menu,menuone,noselect"
