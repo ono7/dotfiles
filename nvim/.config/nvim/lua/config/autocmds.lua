@@ -33,8 +33,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   group = create_augroup("vim_commit_msg", { clear = true }),
   pattern = "COMMIT_EDITMSG",
   callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.wrap = false
+    vim.opt_local.spell = false
+    vim.opt_local.wrap = true
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
     -- vim.cmd('startinsert')
   end,
