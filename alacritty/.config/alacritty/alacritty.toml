@@ -91,6 +91,7 @@ bindings = [
 {  key  =  "X",         mods  =  "Command",        chars   =  "\u0018"             },
 {  key  =  "Z",         mods  =  "Command",        chars   =  "\u001A"             },
 # sends alt-w when pressing cmd+w
+# \u001b = alt, add w to the end
 { key = "W", mods = "Command", chars = "\u001bw"                                   },
 # {  key  =  "W",         mods  =  "Command",        action   =  "ReceiveChar"       }, # passthrough cmd+w
 {  key  =  "1",         mods  =  "Command",        action  =  "SelectTab1"},
