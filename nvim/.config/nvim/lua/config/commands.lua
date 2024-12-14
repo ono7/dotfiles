@@ -1,7 +1,8 @@
 -- vim.api.nvim_create_user_command("T", function(opts)
 --   vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
 -- end, { nargs = "*", complete = "file" })
---
+
+--- vscode like terminal ---
 local terminal_buf = nil
 local terminal_win = nil
 

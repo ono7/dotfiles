@@ -129,6 +129,7 @@ return {
 
     --- make it more black and white ----
 
+    vim.api.nvim_set_hl(0, "String", { fg = "#7e8ba5" })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})

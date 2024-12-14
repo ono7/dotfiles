@@ -88,7 +88,7 @@ return {
         -- autocomplete = true, -- we want to test out running this manually
         -- completeopt = "menu,menuone,noinsert",
         completeopt = "menu,menuone,noselect",
-        keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
+        -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
         -- keyword_length = 3,
       },
       mapping = cmp.mapping.preset.insert({

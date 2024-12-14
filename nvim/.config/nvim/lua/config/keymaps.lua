@@ -73,9 +73,6 @@ vim.keymap.set("n", "C", '"aC')
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
---- terminal ---
-vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
-
 --- all others ---
 
 vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
@@ -104,8 +101,11 @@ vim.keymap.set("n", "U", "<c-r>", opt)
 
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
+--- terminal ---
+vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 --- size 8, belowright split, T in commands.lua
-vim.keymap.set("n", "<leader>t", ":T<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<m-t>", ":T<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<m-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
 
 vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
