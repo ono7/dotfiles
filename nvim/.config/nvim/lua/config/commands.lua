@@ -1,6 +1,42 @@
-vim.api.nvim_create_user_command("T", function(opts)
-  vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
-end, { nargs = "*", complete = "file" })
+-- vim.api.nvim_create_user_command("T", function(opts)
+--   vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
+-- end, { nargs = "*", complete = "file" })
+--
+local terminal_buf = nil
+local terminal_win = nil
+
+vim.api.nvim_create_user_command("T", function()
+  -- If terminal buffer doesn't exist, create it
+  if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+    vim.cmd("bel 5split")
+    vim.cmd("terminal")
+    terminal_buf = vim.api.nvim_get_current_buf()
+    terminal_win = vim.api.nvim_get_current_win()
+    vim.cmd("startinsert")
+    return
+  end
+
+  -- Terminal buffer exists, check if it's currently displayed
+  local wins = vim.api.nvim_list_wins()
+  local is_visible = false
+
+  for _, win in ipairs(wins) do
+    if vim.api.nvim_win_get_buf(win) == terminal_buf then
+      -- Terminal is visible, hide it
+      vim.api.nvim_win_hide(win)
+      is_visible = true
+      break
+    end
+  end
+
+  -- If terminal wasn't visible, show it
+  if not is_visible then
+    vim.cmd("bel 5split")
+    vim.api.nvim_win_set_buf(0, terminal_buf)
+    terminal_win = vim.api.nvim_get_current_win()
+    vim.cmd("startinsert")
+  end
+end, {})
 
 vim.api.nvim_create_user_command("Commit", function(opts)
   local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
