@@ -54,9 +54,6 @@ fw () {
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
 
-
-setopt HIST_FCNTL_LOCK
-
 # disable bracked paste
 unset zle_bracketed_paste
 
