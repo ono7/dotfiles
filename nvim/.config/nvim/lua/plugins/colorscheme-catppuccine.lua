@@ -129,7 +129,7 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#7e8ba5" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#a6a7bf" })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
@@ -137,7 +137,6 @@ return {
     vim.api.nvim_set_hl(0, "Operator", {})
     vim.api.nvim_set_hl(0, "Number", {})
     vim.api.nvim_set_hl(0, "Float", {})
-    vim.api.nvim_set_hl(0, "String", {})
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
     vim.api.nvim_set_hl(0, "@keyword.return", { bold = true })
     vim.api.nvim_set_hl(0, "Keyword", {})
