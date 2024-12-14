@@ -89,7 +89,6 @@ return {
     -- vim.api.nvim_set_hl(0, "@variable.member", { fg = "#89b4fa" })
     -- vim.api.nvim_set_hl(0, "@property", { fg = mycolors.teal })
     -- vim.api.nvim_set_hl(0, "@variable", { fg = mycolors.teal })
-    -- vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", { bold = true })
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
@@ -129,6 +128,8 @@ return {
     vim.api.nvim_set_hl(0, "Special", {})
 
     --- make it more black and white ----
+
+    vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
@@ -147,5 +148,6 @@ return {
     vim.api.nvim_set_hl(0, "@variable.member", {})
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
+    vim.api.nvim_set_hl(0, "@constructor", {})
   end,
 }
