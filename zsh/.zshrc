@@ -385,7 +385,7 @@ bindkey "^O" accept-line-and-down-history
 bindkey "^P" up-line-or-history
 bindkey ' ' magic-space
 bindkey "^R" fzf-history-widget
-bindkey "^T" fzf-file-widget
+bindkey "^F" fzf-file-widget
 zle -N toggle
 bindkey '^Z' toggle
 zle -N _d

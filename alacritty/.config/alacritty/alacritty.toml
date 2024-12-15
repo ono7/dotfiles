@@ -83,7 +83,7 @@ bindings = [
 {  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
 {  key  =  "T",         mods  =  "Command",        action  =  "None"               },
-{  key  =  "T",         mods  =  "Command",        chars  =  "\u0014"              },
+# {  key  =  "T",         mods  =  "Command",        chars  =  "\u0014"              },
 {  key  =  "U",         mods  =  "Command",        chars   =  "\u0015"             },
 {  key  =  "V",         mods  =  "Command",        chars   =  "\u0016"             },
 {  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
@@ -93,6 +93,7 @@ bindings = [
 # sends alt-w when pressing cmd+w
 # \u001b = alt, add w to the end
 { key = "W", mods = "Command", chars = "\u001bw"                                   },
+{ key = "T", mods = "Command", chars = "\u001bt"                                   },
 # {  key  =  "W",         mods  =  "Command",        action   =  "ReceiveChar"       }, # passthrough cmd+w
 {  key  =  "1",         mods  =  "Command",        action  =  "SelectTab1"},
 {  key  =  "2",         mods  =  "Command",        action  =  "SelectTab2"},

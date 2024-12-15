@@ -123,7 +123,7 @@ return {
 
     local builtin = require("telescope.builtin")
 
-    vim.keymap.set("n", "<space>b", builtin.current_buffer_fuzzy_find)
+    -- vim.keymap.set("n", "<leader>b", builtin.current_buffer_fuzzy_find)
 
     k("n", "<leader>vc", function()
       builtin.git_files({

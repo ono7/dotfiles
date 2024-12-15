@@ -127,7 +127,7 @@ vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 vim.opt.sessionoptions:remove({ "buffers", "folds" })
 
 -- vim.opt.winaltkeys = "no"
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
 

@@ -83,7 +83,7 @@ return {
     vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
-    vim.api.nvim_set_hl(0, "Comment", { fg = "#454660" })
+    vim.api.nvim_set_hl(0, "Comment", { fg = "#57597a" })
     -- vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#89b4fa" })
     -- vim.api.nvim_set_hl(0, "@variable.builtin", {})
     -- vim.api.nvim_set_hl(0, "@variable.member", { fg = "#89b4fa" })
@@ -130,6 +130,7 @@ return {
     --- make it more black and white ----
 
     vim.api.nvim_set_hl(0, "String", { fg = "#a6a7bf" })
+    -- vim.api.nvim_set_hl(0, "String", { bold = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
@@ -138,6 +139,7 @@ return {
     vim.api.nvim_set_hl(0, "Number", {})
     vim.api.nvim_set_hl(0, "Float", {})
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
+    vim.api.nvim_set_hl(0, "@type.builtin", {})
     vim.api.nvim_set_hl(0, "@keyword.return", { bold = true })
     vim.api.nvim_set_hl(0, "Keyword", {})
     vim.api.nvim_set_hl(0, "Type", {})
