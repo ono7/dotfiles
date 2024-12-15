@@ -89,7 +89,7 @@ return {
         -- completeopt = "menu,menuone,noinsert",
         completeopt = "menu,menuone,noselect",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
-        -- keyword_length = 3,
+        keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),
