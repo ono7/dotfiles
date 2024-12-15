@@ -142,7 +142,12 @@ return {
       nvim_lsp.cssls.setup(lsp_opts)
       nvim_lsp.html.setup(lsp_opts)
       nvim_lsp.ts_ls.setup(lsp_opts)
-      nvim_lsp.eslint.setup(lsp_opts)
+      nvim_lsp.eslint.setup({
+        flags = {
+          allow_incremental_sync = false,
+          debounce_text_changes = 1000,
+        },
+      })
       nvim_lsp.ansiblels.setup(lsp_opts)
       -- nvim_lsp.jsonls.setup(lsp_opts)
 
