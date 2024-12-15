@@ -9,8 +9,11 @@ local terminal_win = nil
 vim.api.nvim_create_user_command("T", function()
   -- If terminal buffer doesn't exist, create it
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-    vim.cmd("bel 5split")
-    vim.cmd("terminal")
+    -- vim.cmd("bel 5split")
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 5)
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
     vim.cmd("startinsert")
