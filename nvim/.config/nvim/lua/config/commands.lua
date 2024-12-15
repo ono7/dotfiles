@@ -5,17 +5,20 @@
 --- vscode like terminal ---
 local terminal_buf = nil
 local terminal_win = nil
+local term_job_id = nil
+local term_size = 5
 
 vim.api.nvim_create_user_command("T", function()
-  -- If terminal buffer doesn't exist, create it
+  -- If terminal buffer doesn't exist, create it, otherwise reuse it
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-    -- vim.cmd("bel 5split")
+    -- vim.cmd("bel " .. term_size .. "split")
     vim.cmd.vnew()
     vim.cmd.term()
     vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 5)
+    vim.api.nvim_win_set_height(0, term_size)
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
+    temr_job_id = vim.bo.channel
     vim.cmd("startinsert")
     return
   end
@@ -35,7 +38,14 @@ vim.api.nvim_create_user_command("T", function()
 
   -- If terminal wasn't visible, show it
   if not is_visible then
-    vim.cmd("bel 5split")
+    -- this makes smaller termial confined to one window pane
+    vim.cmd("bel " .. term_size .. "split")
+
+    -- this gives us a full horizontal window even when two panes are opened for more term realstate
+    -- vim.cmd.vnew()
+    -- vim.cmd.wincmd("J")
+
+    vim.api.nvim_win_set_height(0, term_size)
     vim.api.nvim_win_set_buf(0, terminal_buf)
     terminal_win = vim.api.nvim_get_current_win()
     vim.cmd("startinsert")
