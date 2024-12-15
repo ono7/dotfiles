@@ -13,6 +13,9 @@ vim.keymap.set("i", "<C-e>", "<End>", silent)
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
+vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>`>2l]])
+vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>`>2l]])
+vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>`>2l]])
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
