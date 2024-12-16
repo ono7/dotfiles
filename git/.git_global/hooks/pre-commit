@@ -8,12 +8,12 @@ else
   exit 1
 fi
 
-exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript}"
+exclude_dirs="${EXCLUDE_DIRS:-static/pico static/htmx static/hyperscript/node_modules}"
 # Check if there are any changes in the repo
 if [[ -n $(git status --porcelain) ]]; then
   echo "Changes detected, running ctags..."
   if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" |
-    ctags --tag-relative -L - -f"$$.tags"; then
+    ctags --exclude=.git --exclude=node_modules --tag-relative -L - -f"$$.tags"; then
     echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
     exit 1
   fi
