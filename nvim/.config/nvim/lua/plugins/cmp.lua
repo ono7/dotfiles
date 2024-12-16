@@ -47,7 +47,7 @@ return {
     end
 
     local preferred_sources = {
-      { name = "nvim_lsp", max_item_count = 20 },
+      { name = "nvim_lsp", max_item_count = 30 },
       { name = "nvim_lsp_signature_help" },
       { name = "path", max_item_count = 10 },
       { name = "nvim_lua", max_item_count = 10 },
