@@ -141,17 +141,16 @@ return {
       nvim_lsp.bashls.setup(lsp_opts)
       nvim_lsp.cssls.setup(lsp_opts)
       nvim_lsp.html.setup(lsp_opts)
-      -- might need to enable for typescript later
+
+      nvim_lsp.eslint.setup({
+        root_dir = nvim_lsp.util.root_pattern(".git", "index.js", "tsconfig.json"),
+        flags = {
+          allow_incremental_sync = false,
+          debounce_text_changes = 1000,
+        },
+      })
+
       nvim_lsp.ts_ls.setup(lsp_opts)
-
-      -- nvim_lsp.eslint.setup({
-      --   root_dir = nvim_lsp.util.root_pattern(".git", "index.js", "tsconfig.json"),
-      --   flags = {
-      --     allow_incremental_sync = false,
-      --     debounce_text_changes = 1000,
-      --   },
-      -- })
-
       nvim_lsp.ansiblels.setup(lsp_opts)
       -- nvim_lsp.jsonls.setup(lsp_opts)
 

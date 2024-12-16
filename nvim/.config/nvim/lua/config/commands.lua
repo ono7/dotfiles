@@ -60,6 +60,14 @@ end, {
   nargs = "?", -- Makes the argument optional
 })
 
+vim.api.nvim_create_user_command("A", function()
+  vim.cmd([[WorkspacesAdd]])
+end, {})
+
+vim.api.nvim_create_user_command("R", function()
+  vim.cmd([[WorkspacesRemove]])
+end, {})
+
 ---Call `:GitOpen dev` to open the file on the `dev` branch
 vim.api.nvim_create_user_command("GitOpen", function(opts)
   -- Current file
