@@ -141,6 +141,7 @@ return {
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
     vim.api.nvim_set_hl(0, "@type.builtin", {})
     vim.api.nvim_set_hl(0, "@keyword.return", {})
+    vim.api.nvim_set_hl(0, "ModeMsg", {})
     vim.api.nvim_set_hl(0, "Keyword", { italic = true })
     vim.api.nvim_set_hl(0, "Type", {})
     vim.api.nvim_set_hl(0, "Include", {})
