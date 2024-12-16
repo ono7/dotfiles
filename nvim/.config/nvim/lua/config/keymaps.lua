@@ -32,6 +32,7 @@ vim.keymap.set("n", "0", "^", silent)
 
 --- visual select last paste
 vim.keymap.set("n", "gp", "`[v`]", silent)
+
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 

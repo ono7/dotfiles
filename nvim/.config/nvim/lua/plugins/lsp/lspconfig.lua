@@ -60,7 +60,7 @@ return {
       -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
       vim.diagnostic.config({
-        float = { border = "rounded" },
+        float = { border = "rounded", source = true },
       })
 
       local symbols = { Error = "", Info = "", Hint = "", Warn = "" }
