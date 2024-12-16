@@ -40,6 +40,7 @@ if [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g ApplePressAndHoldEnabled -bool false
   defaults write -g InitialKeyRepeat -int 10
   defaults write -g KeyRepeat -int 1
+  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
   # defaults delete -g KeyRepeat
   # defaults delete -g InitialKeyRepeat
 fi

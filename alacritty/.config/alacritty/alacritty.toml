@@ -1,16 +1,14 @@
-
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
-osc52 = "CopyPaste"
+osc52 = "OnlyCopy"
 
 [cursor]
 blink_interval = 500
 blink_timeout = 0
 unfocused_hollow = true
 
-
 [cursor.style]
-blinking = "Never"
+blinking = "Always"
 shape = "Block"
 
 [colors]
@@ -26,7 +24,9 @@ render_timer = false
 # prefer_egl = true
 
 [env]
-TERM = "xterm-256color"
+
+# infocmp -L alacritty alacritty-direct
+TERM = "alacritty-direct"
 
 [font]
 size = 22.0
@@ -129,7 +129,8 @@ opacity = 0.90
 blur = true
 decorations_theme_variant = "Dark"
 
-startup_mode = "Maximized"
+position = "None"
+startup_mode = "Windowed"
 option_as_alt = "both"
 
 [window.dimensions]
@@ -146,5 +147,4 @@ import = ["./cappuccine-mocha.toml"]
 
 live_config_reload = true
 working_directory = "None"
-
 
