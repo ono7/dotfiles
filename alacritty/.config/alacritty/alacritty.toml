@@ -29,7 +29,7 @@ render_timer = false
 TERM = "alacritty-direct"
 
 [font]
-size = 24.0
+size = 19.0
 
 [font.glyph_offset]
 x = 0
@@ -122,8 +122,8 @@ args = ["--login"]
 program = "/bin/zsh"
 
 [window]
-# decorations = "Full"
-decorations = "None"
+decorations = "Full"
+# decorations = "None"
 dynamic_padding = true
 dynamic_title = false
 opacity = 0.90

@@ -13,6 +13,10 @@
 
   ```
 
+  ```sh
+  until sudo lsof -nP -iTCP:8443 | grep -q .; do sleep 1; done; sudo lsof -nP -iTCP:8443
+  ```
+
 - `lsof -nP -i` - list both tcp/udp and ipv4/ipv6
 
 - show list of open files by pid
