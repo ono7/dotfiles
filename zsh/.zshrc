@@ -463,7 +463,7 @@ fi
 
 ############## Load virtual environment if it exists ##############
 
-[ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
+[ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
 # [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
