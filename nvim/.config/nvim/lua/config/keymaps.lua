@@ -74,6 +74,9 @@ vim.keymap.set("x", "p", "pgvy")
 vim.keymap.set("n", "c", '"ac')
 vim.keymap.set("n", "C", '"aC')
 
+-- Copy full file path
+vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
+
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 

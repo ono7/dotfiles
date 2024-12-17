@@ -29,7 +29,7 @@ render_timer = false
 TERM = "alacritty-direct"
 
 [font]
-size = 22.0
+size = 24.0
 
 [font.glyph_offset]
 x = 0
@@ -41,7 +41,7 @@ style = "Medium Regular"
 
 [font.offset]
 x = 0
-y = 11
+y = 12
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
@@ -122,6 +122,7 @@ args = ["--login"]
 program = "/bin/zsh"
 
 [window]
+# decorations = "Full"
 decorations = "None"
 dynamic_padding = true
 dynamic_title = false

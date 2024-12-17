@@ -30,7 +30,31 @@ return {
       vim.cmd([[WorkspacesRemove]])
     end, { noremap = true, silent = true })
 
+    vim.keymap.set("n", "<leader>we", function()
+      local path = vim.fn.stdpath("data") .. "/workspaces"
+      vim.cmd.edit(path)
+    end, { noremap = true, silent = true })
+
     require("workspaces").setup({
+
+      cd_type = "global",
+
+      -- sort the list of workspaces by name after loading from the workspaces path.
+      sort = true,
+
+      -- sort by recent use rather than by name. requires sort to be true
+      mru_sort = true,
+
+      -- option to automatically activate workspace when opening neovim in a workspace directory
+      auto_open = true,
+
+      -- option to automatically activate workspace when changing directory not via this plugin
+      -- set to "autochdir" to enable auto_dir when using :e and vim.opt.autochdir
+      -- valid options are false, true, and "autochdir"
+      auto_dir = true,
+
+      -- enable info-level notifications after adding or removing a workspace
+      notify_info = true,
       hooks = {
         open = {
           -- do not run hooks if file already in active workspace
