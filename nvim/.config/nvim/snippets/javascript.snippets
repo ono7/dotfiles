@@ -7,6 +7,11 @@ snippet h "header" b
 
 snippet log "console" w
   console.log(${0:${VISUAL}})
+  
+snippet func "function" w
+  function $1($2) {
+    ${0:${VISUAL}}
+  }
 
 snippet for "for loop" w
   for (let ${1:i} = 0; ${1} ${2:cond}; ${1}++ ) {

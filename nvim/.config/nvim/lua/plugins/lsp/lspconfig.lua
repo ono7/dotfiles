@@ -112,14 +112,28 @@ return {
       -- HINT: P(capabilities) to inspect the client capabilities, this can then be modified
 
       -- P(capabilities) -- see what the client supports
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      ------------------- blink changes ---------------------
+
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local capabilities = (function()
+        local ok, cmp = pcall(require, "blink.cmp")
+        if ok and cmp.get_lsp_capabilities then
+          return cmp.get_lsp_capabilities()
+        end
+        vim.notify("blink.cmp not available see lspconfig.lua")
+        return vim.lsp.protocol.make_client_capabilities()
+      end)()
 
       -- make some changes
-      capabilities.textDocument.completion.completionItem.snippetSupport = false
+      -- capabilities.textDocument.completion.completionItem.snippetSupport = false
 
       -- this could create performace problems on big projects, best disabled for now
-      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
       -- P(capabilities)
+
+      ---------------- end blink changes -----------------
 
       -- expand lsp opts and return new table of options
       local extend_opts = function(opts1, override)

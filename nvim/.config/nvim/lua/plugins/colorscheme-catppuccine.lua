@@ -104,7 +104,7 @@ return {
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     -- vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "@keyword.function", { italic = true })
-    vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
+    vim.api.nvim_set_hl(0, "@variable.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     -- vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
     vim.api.nvim_set_hl(0, "MatchParen", { bg = "#3d3d5c", bold = true })
@@ -134,7 +134,7 @@ return {
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
-    vim.api.nvim_set_hl(0, "@variable.builtin", {})
+    vim.api.nvim_set_hl(0, "@variable.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "Operator", {})
     vim.api.nvim_set_hl(0, "Number", {})
     vim.api.nvim_set_hl(0, "Float", {})
@@ -153,5 +153,10 @@ return {
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
+    vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
+
+    -- BlinkCmpScrollBarThumb xxx links to PmenuThumb                                                    BlinkCmpScrollBarGutter xxx links to PmenuSbar                                                    BlinkCmpGhostText xxx links to CmpGhostText                                                       BlinkCmpMenu   xxx links to Pmenu                                                                 BlinkCmpMenuBorder xxx links to Pmenu                                                             BlinkCmpMenuSelection xxx links to PmenuSel
   end,
 }

@@ -1,6 +1,7 @@
 return {
   -- Autocompletion
   "hrsh7th/nvim-cmp",
+  event = "InsertEnter",
   opts = {
     performance = {
       debounce = 0, -- default is 60ms
