@@ -21,20 +21,41 @@ return {
           border = "rounded",
           auto_show = true,
         },
+        documentation = {
+          border = "rounded",
+          auto_show = true,
+        },
+        documentation = {
+          border = "rounded",
+          auto_show = true,
+        },
         list = {
           max_items = 50,
         },
-        accept = { auto_brackets = { enabled = true } },
-        trigger = { signature_help = { enabled = true } },
+        accept = {
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        trigger = {
+          signature_help = {
+            enabled = true,
+          },
+          show_on_insert_on_trigger_character = false,
+        },
       },
       sources = {
         completion = {
           enabled_providers = { "lsp", "path", "snippets", "buffer" },
         },
         providers = {
+          lsp = {
+            -- min_keyword_length = 4, -- Minimum number of characters in the keyword to trigger the provider
+          },
           snippets = {
             min_keyword_length = 1, -- don't show when triggered manually, useful for JSON keys
             score_offset = -1,
+            -- min_keyword_length = 4,
           },
           path = {
             opts = { get_cwd = vim.uv.cwd },
@@ -42,12 +63,12 @@ return {
           buffer = {
             fallback_for = {}, -- disable being fallback for LSP
             max_items = 4,
-            min_keyword_length = 4,
+            min_keyword_length = 5,
             score_offset = -3,
           },
         },
       },
-      signature = { enabled = true },
+      signature = { enabled = false },
     })
   end,
 }
