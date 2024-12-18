@@ -158,6 +158,7 @@ return {
     vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
 
     -- BlinkCmpScrollBarThumb xxx links to PmenuThumb                                                    BlinkCmpScrollBarGutter xxx links to PmenuSbar                                                    BlinkCmpGhostText xxx links to CmpGhostText                                                       BlinkCmpMenu   xxx links to Pmenu                                                                 BlinkCmpMenuBorder xxx links to Pmenu                                                             BlinkCmpMenuSelection xxx links to PmenuSel
   end,
