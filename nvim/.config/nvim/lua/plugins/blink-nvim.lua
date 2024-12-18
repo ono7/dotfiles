@@ -5,9 +5,6 @@ return {
   version = "v0.*",
   config = function()
     require("blink-cmp").setup({
-      -- 'default' for mappings similar to built-in completion
-      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
       keymap = { preset = "default" },
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -18,16 +15,10 @@ return {
           max_height = 6,
         },
         documentation = {
-          border = "rounded",
           auto_show = true,
-        },
-        documentation = {
-          border = "rounded",
-          auto_show = true,
-        },
-        documentation = {
-          border = "rounded",
-          auto_show = true,
+          window = {
+            border = "rounded",
+          },
         },
         list = {
           max_items = 50,
@@ -46,7 +37,8 @@ return {
       },
       sources = {
         completion = {
-          enabled_providers = { "lsp", "path", "snippets", "buffer" },
+          -- enabled_providers = { "lsp", "path", "snippets", "buffer" },
+          enabled_providers = { "lsp", "path", "buffer" },
         },
         providers = {
           lsp = {
@@ -68,7 +60,12 @@ return {
           },
         },
       },
-      signature = { enabled = false },
+      signature = {
+        enabled = true,
+        window = {
+          border = "rounded",
+        },
+      },
     })
   end,
 }
