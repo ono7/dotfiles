@@ -20,8 +20,8 @@ vim.schedule(function()
 end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
-vim.opt.complete = ".,w,b,u"
-vim.opt.completeopt = "menu,menuone,noselect"
+-- vim.opt.complete = ".,w,b,u"
+-- vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
@@ -63,10 +63,10 @@ vim.opt.mouse = "n"
 vim.opt.nrformats = "bin,hex"
 vim.opt.fileformats = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.numberwidth = 2
 vim.opt.pumheight = 5
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.ruler = true
 vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]

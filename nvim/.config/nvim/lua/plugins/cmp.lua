@@ -71,7 +71,7 @@ return {
 
     -- Set up manual trigger
     -- vim.keymap.set("i", "<C-Space>", function()
-    -- vim.keymap.set("i", "<c-e>", function()
+    -- vim.keymap.set("i", "<c-y>", function()
     --   cmp.complete()
     -- end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
@@ -86,10 +86,12 @@ return {
         end,
       },
       completion = {
-        -- autocomplete = true, -- we want to test out running this manually
+        autocomplete = false, -- we want to test out running this manually
         -- completeopt = "menu,menuone,noinsert",
-        completeopt = "menu,menuone,noselect",
+        -- completeopt = "menu,menuone,noselect",
+        completeopt = "menu,menuone",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
+        keyword_pattern = [[%.]],
         keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
@@ -97,12 +99,12 @@ return {
         ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete({}),
-        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-Space>"] = cmp.mapping.complete({ select = true }),
+        -- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<CR>"] = cmp.mapping.confirm({
-          -- behavior = cmp.ConfirmBehavior.Replace,
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
+          behavior = cmp.ConfirmBehavior.Replace,
+          -- behavior = cmp.ConfirmBehavior.Insert,
+          -- select = true,
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if snippy.can_expand_or_advance() then

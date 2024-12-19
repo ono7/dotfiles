@@ -2,6 +2,7 @@ return {
   "saghen/blink.cmp",
   dependencies = "rafamadriz/friendly-snippets",
   event = "InsertEnter",
+  enabled = false,
   version = "v0.*",
   config = function()
     require("blink-cmp").setup({
@@ -38,6 +39,10 @@ return {
       sources = {
         completion = {
           -- enabled_providers = { "lsp", "path", "snippets", "buffer" },
+          trigger = {
+            -- regex = "[-_]\\|\\k",
+            regex = "[-_]\\|.",
+          },
           enabled_providers = { "lsp", "path", "buffer" },
         },
         providers = {

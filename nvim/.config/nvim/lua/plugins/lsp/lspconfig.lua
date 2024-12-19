@@ -29,7 +29,8 @@ return {
           k("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
           k("gr", require("telescope.builtin").lsp_references, "Goto LSP References")
           k("gI", require("telescope.builtin").lsp_implementations, "Goto LSP Implementations")
-          k("K", vim.lsp.buf.hover, "Hover Documentation")
+          -- k("K", vim.lsp.buf.hover, "Hover Documentation")
+          k("H", vim.lsp.buf.hover, "Hover Documentation")
           k("<m-k>", vim.lsp.buf.signature_help, "Signature help")
           -- k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
           -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")
@@ -45,10 +46,10 @@ return {
           ks("n", "<leader>rs", ":LspRestart<cr>", opts)
 
           opts.desc = "Diagnostics next"
-          ks("n", "]d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>", opts)
+          ks("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = true })<CR>", opts)
 
           opts.desc = "Diagnostics Prev"
-          ks("n", "[d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>", opts)
+          ks("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = true })<CR>", opts)
 
           k("go", vim.lsp.buf.type_definition, "[type definition]")
           k("gn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -121,7 +122,7 @@ return {
         if ok and cmp.get_lsp_capabilities then
           return cmp.get_lsp_capabilities()
         end
-        vim.notify("blink.cmp not available see lspconfig.lua")
+        -- vim.notify("blink.cmp not available see lspconfig.lua")
         return vim.lsp.protocol.make_client_capabilities()
       end)()
 
@@ -130,7 +131,6 @@ return {
 
       -- this could create performace problems on big projects, best disabled for now
       -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-
       -- P(capabilities)
 
       ---------------- end blink changes -----------------

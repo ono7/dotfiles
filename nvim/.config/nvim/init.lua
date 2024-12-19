@@ -25,6 +25,7 @@ require("utils.zoxide").setup()
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
+require("config.completion")
 
 -- comment for beam cursor
 vim.opt.guicursor = ""
