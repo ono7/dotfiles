@@ -23,7 +23,7 @@ return {
           "ansiblels",
           "jsonls",
           "bashls",
-          "tsserver",
+          "ts_ls",
           "terraformls",
           "html",
           "cssls",

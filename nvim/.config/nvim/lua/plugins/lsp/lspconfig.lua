@@ -164,7 +164,7 @@ return {
         },
       })
 
-      nvim_lsp.tsserver.setup(lsp_opts)
+      nvim_lsp.ts_ls.setup(lsp_opts)
       nvim_lsp.ansiblels.setup(lsp_opts)
       -- nvim_lsp.jsonls.setup(lsp_opts)
 
