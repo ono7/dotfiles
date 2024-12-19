@@ -174,8 +174,8 @@ return {
       nvim_lsp.pyright.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-        -- root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
-        root_dir = vim.fs.root(0, ".git"),
+        root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
+        -- root_dir = vim.fs.root(0, ".git"),
         settings = {
           pyright = {
             autoImportCompletion = true,
@@ -195,8 +195,8 @@ return {
 
       -- terraform
       local tf_opts = {
-        -- root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv"),
-        root_dir = vim.fs.root(0, ".git"),
+        root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv"),
+        -- root_dir = vim.fs.root(0, ".git"),
       }
       require("lspconfig").terraformls.setup(extend_opts(lsp_opts, tf_opts))
 
