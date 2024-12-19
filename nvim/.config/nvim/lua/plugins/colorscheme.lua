@@ -7,7 +7,7 @@ return {
     local mycolors = {
       white = "#d9e0ee",
       darker_black = "#191828",
-      black = "#1e1d2d", --  nvim bg
+      black = "#1e1d2d",  --  nvim bg
       black2 = "#252434",
       one_bg = "#2d2c3c", -- real bg of onedark
       one_bg2 = "#363545",
@@ -155,6 +155,10 @@ return {
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
+    vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
+    vim.api.nvim_set_hl(0, "@string.documentation", {})
+    vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.red })
+    vim.api.nvim_set_hl(0, "@string.yaml", {})
     vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })

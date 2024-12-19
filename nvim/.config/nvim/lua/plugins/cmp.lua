@@ -48,10 +48,10 @@ return {
     end
 
     local preferred_sources = {
-      { name = "nvim_lsp", max_item_count = 30 },
+      { name = "nvim_lsp",               max_item_count = 30 },
       { name = "nvim_lsp_signature_help" },
-      { name = "path", max_item_count = 10 },
-      { name = "nvim_lua", max_item_count = 10 },
+      { name = "path",                   max_item_count = 10 },
+      { name = "nvim_lua",               max_item_count = 10 },
     }
 
     -- if files are too big disable buffer source
@@ -91,8 +91,8 @@ return {
         -- completeopt = "menu,menuone,noselect",
         completeopt = "menu,menuone,longest",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
-        keyword_pattern = [[%.]],
-        keyword_length = 4,
+        -- keyword_pattern = [[%.]],
+        -- keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item(),
