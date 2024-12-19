@@ -89,7 +89,7 @@ return {
         autocomplete = false, -- we want to test out running this manually
         -- completeopt = "menu,menuone,noinsert",
         -- completeopt = "menu,menuone,noselect",
-        completeopt = "menu,menuone",
+        completeopt = "menu,menuone,longest",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
         keyword_pattern = [[%.]],
         keyword_length = 4,
