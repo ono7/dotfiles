@@ -10,6 +10,10 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    requires = {
+      'neovim/nvim-lspconfig',
+      'williamboman/mason.nvim',
+    },
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
@@ -20,7 +24,6 @@ return {
           "jsonls",
           "bashls",
           "terraformls",
-          "ts_ls",
           "html",
           "cssls",
           "lua_ls",
