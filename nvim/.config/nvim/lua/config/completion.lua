@@ -1,5 +1,6 @@
 vim.opt.completeopt = { "longest" }
-vim.opt.complete:append({ "w", "b", "t" })
+vim.opt.complete = { ".", "w", "b", "u" }
+-- vim.opt.complete = { ".", "w", "b", "t" }
 vim.opt.updatetime = 100
 
 -- Map Ctrl-Y to trigger completion and auto-select
