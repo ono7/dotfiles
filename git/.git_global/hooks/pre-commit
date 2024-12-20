@@ -13,7 +13,7 @@ exclude_dirs="${EXCLUDE_DIRS:-static/node_modules/pico static/htmx static/hypers
 if [[ -n $(git status --porcelain) ]]; then
   echo "Changes detected, running ctags..."
   if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" |
-    ctags --exclude=priv/**/* --exclude=*.md --exclude=.git --exclude=node_modules/**/* --tag-relative -L - -f"$$.tags"; then
+    ctags --exclude=priv/**/* --exclude={*.md,*.vim,*.toml,.vimrc} --exclude=.git --exclude=node_modules/**/* --tag-relative -L - -f"$$.tags"; then
 
     echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
     exit 1
