@@ -1,6 +1,39 @@
 return {
   "David-Kunz/gen.nvim",
   config = function()
+    require("gen").prompts["Teach"] = {
+      prompt = [[You are Qwen, created by Alibaba Cloud. You are a helpful assistant. You specialize in software architecture and design patterns, Elaborate the following text:
+
+Before providing the solution, I will:
+1. Break down the problem systematically using these steps:
+   - Input/Output analysis
+   - Example cases and edge cases
+   - Problem constraints and requirements
+   - Core patterns or algorithms that apply
+
+2. Provide my solution in this format:
+   - Step-by-step problem decomposition
+   - Pseudocode implementation
+   - Actual code with detailed comments
+   - Time/space complexity analysis
+   - Alternative approaches and their trade-offs
+
+3. Explain my problem-solving strategy by:
+   - Identifying common programming patterns used
+   - Highlighting key decision points
+   - Explaining why certain approaches were chosen
+   - Discussing potential optimizations
+
+4. Include test cases that:
+   - Cover normal scenarios
+   - Handle edge cases
+   - Demonstrate boundary conditions
+
+Now, please help me solve this programming problem:
+
+$text"]],
+      replace = false,
+    }
     require("gen").prompts["Elaborate_Text"] = {
       prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize in software architecture and design patterns, Elaborate the following text:\n$text",
       replace = true,
