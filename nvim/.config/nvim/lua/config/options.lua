@@ -106,6 +106,7 @@ vim.opt.ttimeout = true -- disable for indefinite wait time
 vim.opt.ttimeoutlen = 0
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
+vim.opt.wildmode = "longest:full,full"
 vim.opt.updatetime = 250
 -- vim.opt.whichwrap:append("<>[]")
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
