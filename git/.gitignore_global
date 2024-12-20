@@ -1,5 +1,5 @@
 .DS_Store
-venv/**/*
+venv/
 priv/
 .env
 __pycache__/
@@ -7,6 +7,7 @@ __pycache__/
 .dbg_history
 .pytest_cache/
 fact_cache/
+node_modules/
 tags
 1.cfg
 2.cfg

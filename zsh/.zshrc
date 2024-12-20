@@ -1,6 +1,10 @@
 # Uncomment next line to start profiling
 # zmodload zsh/zprof
 
+# Disable flow control (Ctrl+S/Ctrl+Q) which can cause apparent input delays
+stty -ixon 
+
+
 # export GPG_TTY=$(tty)
 export GPG_TTY="/dev/tty"
 
@@ -89,6 +93,12 @@ setopt numericglobsort
 setopt promptsubst
 setopt autopushd
 setopt autocd
+
+# Disable immediate history sharing between shells
+unsetopt SHARE_HISTORY
+
+# save only when shell exits
+unsetopt INC_APPEND_HISTORY
 
 ############## History configuration ##############
 export HISTFILE=~/.zsh_history

@@ -1,2 +1,10 @@
 set show-mode-in-prompt on
-set keyseq-timeout 100
+# set keyseq-timeout 100
+
+set input-meta on
+set output-meta on
+set convert-meta off
+# Reduces delay when pressing ESC even further
+set keyseq-timeout 50
+# Disable bracketed paste which can add delay
+set enable-bracketed-paste off
