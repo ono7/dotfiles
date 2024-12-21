@@ -2,7 +2,7 @@
 # zmodload zsh/zprof
 
 # Disable flow control (Ctrl+S/Ctrl+Q) which can cause apparent input delays
-stty -ixon 
+stty -ixon
 
 
 # export GPG_TTY=$(tty)
@@ -368,7 +368,48 @@ d () {
 ############## Completion system ##############
 
 # shift+tab
-bindkey '^[[Z' reverse-menu-complete
+function setup_keys() {
+    bindkey -v
+    bindkey "^E" end-of-line
+    bindkey "^A" beginning-of-line
+    bindkey "^N" down-line-or-history
+    bindkey "^O" accept-line-and-down-history
+    bindkey "^P" up-line-or-history
+    bindkey ' ' magic-space
+    bindkey "^R" fzf-history-widget
+    bindkey "^F" fzf-file-widget
+    zle -N toggle
+    bindkey '^Z' toggle
+    zle -N _d
+    bindkey -s '^G' _d^M
+
+    # copy to clipboard
+    bindkey -M vicmd 'y' vi-yank-pbcopy
+    function vi-yank-pbcopy {
+        zle vi-yank
+        echo "$CUTBUFFER" | pbcopy
+    }
+    zle -N vi-yank-pbcopy
+
+    # ci" in vi-mode
+    autoload -U select-quoted
+    zle -N select-quoted
+    for m in visual viopp; do
+      for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+      done
+    done
+
+    # ci{, ci(, di{ etc.. in vi-mode
+    autoload -U select-bracketed
+    zle -N select-bracketed
+    for m in visual viopp; do
+      for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $m $c select-bracketed
+      done
+    done
+    bindkey '^[[Z' reverse-menu-complete
+}
 
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -389,45 +430,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 ############## Key bindings ##############
 
-bindkey -v
-bindkey "^E" end-of-line
-bindkey "^A" beginning-of-line
-bindkey "^N" down-line-or-history
-bindkey "^O" accept-line-and-down-history
-bindkey "^P" up-line-or-history
-bindkey ' ' magic-space
-bindkey "^R" fzf-history-widget
-bindkey "^F" fzf-file-widget
-zle -N toggle
-bindkey '^Z' toggle
-zle -N _d
-bindkey -s '^G' _d^M
-
-# copy to clipboard
-bindkey -M vicmd 'y' vi-yank-pbcopy
-function vi-yank-pbcopy {
-    zle vi-yank
-    echo "$CUTBUFFER" | pbcopy
-}
-zle -N vi-yank-pbcopy
-
-# ci" in vi-mode
-autoload -U select-quoted
-zle -N select-quoted
-for m in visual viopp; do
-  for c in {a,i}{\',\",\`}; do
-    bindkey -M $m $c select-quoted
-  done
-done
-
-# ci{, ci(, di{ etc.. in vi-mode
-autoload -U select-bracketed
-zle -N select-bracketed
-for m in visual viopp; do
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $m $c select-bracketed
-  done
-done
 
 ############## FZF configuration ##############
 
@@ -471,6 +473,8 @@ if command -v zoxide &>/dev/null; then
 else
   echo "zoxide not installed..."
 fi
+
+setup_keys
 
 ############## Load virtual environment if it exists ##############
 

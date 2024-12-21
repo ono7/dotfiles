@@ -11,8 +11,8 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     requires = {
-      'neovim/nvim-lspconfig',
-      'williamboman/mason.nvim',
+      "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim",
     },
     config = function()
       require("mason-lspconfig").setup({
@@ -28,7 +28,7 @@ return {
           "html",
           "cssls",
           "lua_ls",
-          "ruff_lsp",
+          "ruff",
         },
       })
     end,
