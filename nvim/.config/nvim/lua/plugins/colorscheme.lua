@@ -129,7 +129,8 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#b67c8f" })
     -- vim.api.nvim_set_hl(0, "String", { fg = mycolors.green })
     -- vim.api.nvim_set_hl(0, "String", { bold = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
@@ -160,6 +161,7 @@ return {
     vim.api.nvim_set_hl(0, "Include", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2 })
+    vim.api.nvim_set_hl(0, "Exception", { fg = mycolors.yellow2 })
     -- vim.api.nvim_set_hl(0, "Operator", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = mycolors.yellow2 })
@@ -168,5 +170,6 @@ return {
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
     vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
+    -- vim.api.nvim_set_hl(0, "@function.method.call", { fg = "#9ea4af" })
   end,
 }
