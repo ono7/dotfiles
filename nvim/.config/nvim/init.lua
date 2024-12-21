@@ -31,10 +31,6 @@ require("config.completion")
 vim.opt.guicursor = ""
 vim.opt.mouse = "n"
 
--- normalize colorscheme for transparent background on main and floats
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-
 -- home made plugins go here
 -- require("plugins.jira-base")
 -- require("plugins.jira")
@@ -43,8 +39,6 @@ vim.opt.mouse = "n"
 -- require("plugins.jira-fetch-issues-empty")
 -- require("plugins.jira-clone").setup()
 -- require("plugins.create-table").setup()
--- require("plugins.claude-commit").setup()
--- require("plugins.claude-general").setup()
 
 -- this needs fixing
 -- vim.api.nvim_create_user_command('JiraIssues', function()
@@ -63,5 +57,3 @@ vim.opt.mouse = "n"
 --     end)
 --   end, { silent = true, desc = "Open Jira Issues" })
 -- end, {})
-
--- vim.cmd [[ syntax off ]]
