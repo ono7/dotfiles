@@ -50,7 +50,7 @@ vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
-vim.opt.jumpoptions:append("view")
+vim.opt.jumpoptions:append({ "view", "stack" })
 vim.opt.laststatus = 0
 vim.opt.lazyredraw = false
 vim.opt.list = false -- set on demand

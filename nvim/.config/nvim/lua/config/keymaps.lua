@@ -24,8 +24,12 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
 
 -- move through wrapped lines
-vim.keymap.set("n", "k", "gk", silent)
-vim.keymap.set("n", "j", "gj", silent)
+-- vim.keymap.set("n", "k", "gk", silent)
+-- vim.keymap.set("n", "j", "gj", silent)
+
+-- Move within visual lines
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 --- nav improvement
 vim.keymap.set("n", "0", "^", silent)
