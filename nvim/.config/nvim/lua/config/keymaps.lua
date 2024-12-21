@@ -8,6 +8,7 @@ vim.g.mapleader = " "
 --- core keymaps ---
 vim.keymap.set("i", "<C-a>", "<ESC>^i", silent)
 vim.keymap.set("i", "<C-e>", "<End>", silent)
+vim.keymap.set("n", "dw", 'vb"_d', silent)
 
 -- replaces vim surround
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])

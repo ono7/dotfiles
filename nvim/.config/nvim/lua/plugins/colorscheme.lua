@@ -7,7 +7,7 @@ return {
     local mycolors = {
       white = "#d9e0ee",
       darker_black = "#191828",
-      black = "#1e1d2d",  --  nvim bg
+      black = "#1e1d2d", --  nvim bg
       black2 = "#252434",
       one_bg = "#2d2c3c", -- real bg of onedark
       one_bg2 = "#363545",
@@ -104,7 +104,7 @@ return {
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     -- vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
     vim.api.nvim_set_hl(0, "@keyword.function", { italic = true })
-    vim.api.nvim_set_hl(0, "@variable.builtin", { italic = true })
+    vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     -- vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
     vim.api.nvim_set_hl(0, "MatchParen", { bg = "#d9e0ee", fg = "#000000", bold = true })
@@ -129,12 +129,12 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#a6a7bf" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#9bb7ca" })
     -- vim.api.nvim_set_hl(0, "String", { bold = true })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
-    vim.api.nvim_set_hl(0, "@variable.builtin", { italic = true })
+    vim.api.nvim_set_hl(0, "@variable.member", { italic = true })
     vim.api.nvim_set_hl(0, "Operator", {})
     vim.api.nvim_set_hl(0, "Number", {})
     -- vim.api.nvim_set_hl(0, "Float", {})
@@ -151,7 +151,7 @@ return {
     vim.api.nvim_set_hl(0, "Boolean", { italic = true })
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", {})
-    vim.api.nvim_set_hl(0, "@variable.member", {})
+    vim.api.nvim_set_hl(0, "@variable.member", { italic = true })
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
