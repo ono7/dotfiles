@@ -164,6 +164,7 @@ return {
     vim.api.nvim_set_hl(0, "Exception", { fg = mycolors.yellow2 })
     -- vim.api.nvim_set_hl(0, "Operator", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.yellow2 })
+    vim.api.nvim_set_hl(0, "@keyword.operator", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@string.yaml", {})
     vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
