@@ -159,6 +159,7 @@ return {
     vim.api.nvim_set_hl(0, "Include", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2 })
+    -- vim.api.nvim_set_hl(0, "Operator", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@string.yaml", {})
