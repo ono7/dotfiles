@@ -367,6 +367,9 @@ d () {
 
 ############## Completion system ##############
 
+# shift+tab
+bindkey '^[[Z' reverse-menu-complete
+
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
@@ -383,8 +386,6 @@ fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# shift+tab
-bindkey '^[[Z' reverse-menu-complete
 
 ############## Key bindings ##############
 
