@@ -25,8 +25,10 @@ return {
       nord_blue = "#8bc2f0",
       blue = "#89b4fa",
       yellow = "#fae3b0",
+      yellow2 = "#f9e2af",
       sun = "#ffe9b6",
       purple = "#d0a9e5",
+      purple2 = "#cba6f7",
       dark_purple = "#c7a0dc",
       teal = "#b5e8e0",
       orange = "#f8bd96",
@@ -95,15 +97,13 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#f38ba8", bold = true })
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#243d61" })
-    vim.api.nvim_set_hl(0, "Repeat", { fg = "#c7d1ff", italic = true })
     vim.api.nvim_set_hl(0, "@type", { fg = "#d9e0ee", bold = false })
-    vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#d9e0ee" })
+    -- vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#d9e0ee" })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#243d61" })
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     -- vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#f38ba8", italic = true })
-    vim.api.nvim_set_hl(0, "@keyword.function", { italic = true })
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     -- vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
@@ -134,36 +134,37 @@ return {
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
-    vim.api.nvim_set_hl(0, "@variable.member", { italic = true })
     vim.api.nvim_set_hl(0, "Operator", {})
     vim.api.nvim_set_hl(0, "Number", {})
     -- vim.api.nvim_set_hl(0, "Float", {})
     -- vim.api.nvim_set_hl(0, "NormalFloat", { link = "Comment" })
     -- vim.api.nvim_set_hl(0, "Float", { link = "Comment" })
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
-    vim.api.nvim_set_hl(0, "@type.builtin", {})
-    vim.api.nvim_set_hl(0, "@keyword.return", {})
-    vim.api.nvim_set_hl(0, "Conditional", { italic = true })
+    -- vim.api.nvim_set_hl(0, "@type.builtin", {})
     vim.api.nvim_set_hl(0, "ModeMsg", {})
-    vim.api.nvim_set_hl(0, "Keyword", { italic = true })
+    vim.api.nvim_set_hl(0, "Constant", {})
     vim.api.nvim_set_hl(0, "Type", {})
-    vim.api.nvim_set_hl(0, "Include", {})
     vim.api.nvim_set_hl(0, "Boolean", { italic = true })
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", {})
-    vim.api.nvim_set_hl(0, "@variable.member", { italic = true })
+    vim.api.nvim_set_hl(0, "@variable.member", {})
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
-    vim.api.nvim_set_hl(0, "@function.builtin", { italic = true })
     vim.api.nvim_set_hl(0, "@string.documentation", {})
-    vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.red })
+    vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.yellow2, bold = true, italic = true })
+    vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.yellow2, italic = true, bold = true })
+    vim.api.nvim_set_hl(0, "@keyword.return", { fg = mycolors.yellow2, bold = true })
+    vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.yellow2, bold = true, italic = true })
+    vim.api.nvim_set_hl(0, "Include", { fg = mycolors.yellow2, bold = true })
+    vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.yellow2, bold = true })
+    vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2 })
+    vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.yellow2 })
+    vim.api.nvim_set_hl(0, "@type.builtin", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@string.yaml", {})
     vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
     vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
-
-    -- BlinkCmpScrollBarThumb xxx links to PmenuThumb                                                    BlinkCmpScrollBarGutter xxx links to PmenuSbar                                                    BlinkCmpGhostText xxx links to CmpGhostText                                                       BlinkCmpMenu   xxx links to Pmenu                                                                 BlinkCmpMenuBorder xxx links to Pmenu                                                             BlinkCmpMenuSelection xxx links to PmenuSel
   end,
 }
