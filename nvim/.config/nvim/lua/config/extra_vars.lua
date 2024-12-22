@@ -28,31 +28,7 @@ let g:pyindent_open_paren = '0'
 let g:pyindent_nested_paren = '&sw'
 let g:pyindent_continue = '&sw'
 
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
 let g:netrw_localcopydircmd = 'cp -r'
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 20
-" let g:NetrwIsOpen=0
-
-function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore
-    endif
-endfunction
-
-nnoremap <silent>\ :call ToggleNetrw()<CR>
 
 " use osc52 to copy to tmux
 function! CopyToClipboard(text)
@@ -157,17 +133,15 @@ nnoremap <space><space> <c-^>
 
 noremap v <c-v>
 vunmap v
-" nnoremap cw ciw
 
 vnoremap p "0p
 vnoremap P "0P
-" vnoremap y "0y
 vnoremap d "0d
 
 inoremap <C-c> <Esc>
 
 " change local cd per buffer
-" nnoremap <leader>cd :lcd %:h<CR>
+nnoremap <leader>cd :lcd %:h<CR>
 
 " nnoremap H ^
 " nnoremap L g_
@@ -178,10 +152,8 @@ cnoremap <C-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
-" inoremap <m-b> <C-o>B
-" inoremap <m-f> <C-o>W
-nnoremap <silent><c-n> :cnext<cr>
-nnoremap <silent><c-p> :cprevious<cr>
+nnoremap <silent><m-k> :cnext<cr>
+nnoremap <silent><m-j> :cprevious<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w<cr>
 nnoremap gh ^
@@ -189,14 +161,13 @@ nnoremap gl g_
 
 " return cursor position after yank in v-mode
 vnoremap y ygv<Esc>
+
 " paste matches indentation
 nnoremap p p=`]
+
 " leave unnamed alone when changing text
 nnoremap c "ac
 nnoremap C "aC
-
-" switch between current and prev file
-nnoremap <space><space> <c-^>
 
 nnoremap ' `
 nnoremap ma mA
@@ -243,32 +214,24 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
-" inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" nnoremap <leader>t :!tmux send-keys -t 2 c-p Enter<cr> :redraw!<cr>
-
-" cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() =~# '^grep')  ? 'silent grep'  : 'grep'
-" cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() =~# '^lgrep') ? 'silent lgrep' : 'lgrep'
-
 cnoreabbrev q qa!
 
 set gp=git\ grep\ -n
 
-set completeopt=menuone,longest
+set completeopt=longest
 set pumheight=10
 set notitle
+
 " ~ search upwards until home dir
 set tags=./tags,tags;~
 set virtualedit=all
-" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 set path+=**
 set whichwrap+=<>[]hl
 set autoread
 set backspace=indent,eol,start
 set background=dark
 set cmdheight=1
-set complete+=kspell complete-=i
+set complete=.,w,b,u
 set diffopt=filler
 set directory=
 set viminfo='20,<1000,s100,:100,/100,h
@@ -433,10 +396,6 @@ command! Mktags !ctags -R .
 
 hi! clear MatchParen
 hi! MatchParen term=reverse cterm=reverse gui=reverse
-
-if !has("patch-7.4.2213")
-  hi! link NonText Comment
-end
 
 augroup _init
   autocmd!
