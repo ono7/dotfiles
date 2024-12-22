@@ -23,10 +23,6 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 --- quit it all
 vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
 
--- move through wrapped lines
--- vim.keymap.set("n", "k", "gk", silent)
--- vim.keymap.set("n", "j", "gj", silent)
-
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -52,7 +48,6 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 vim.keymap.set("i", "<c-c>", "<Esc>", opt)
--- vim.keymap.set("i", "<D-w>", "<c-o>ciw", opt) -- cmd+w
 
 --- visual block by default
 vim.keymap.set({ "n" }, "v", "<c-v>")
@@ -85,15 +80,14 @@ vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
 --- all others ---
-
-vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
+-- vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
 
 --- mapping tab also overrides c-i which is used to move through jump list
 vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
 vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
 
---- make dot work in visual mode
--- vim.keymap.set("v", ".", ":norm .<cr>", opt)
+-- make dot work in visual mode
+vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
 --- nop ---
 vim.keymap.set("n", "ZZ", "")
@@ -120,8 +114,8 @@ vim.keymap.set({ "n" }, "<m-t>", ":T<CR>", { noremap = true, silent = true })
 vim.keymap.set({ "i" }, "<m-t>", "<esc>:T<CR>", { noremap = true, silent = true })
 vim.keymap.set("t", "<m-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
 
-vim.keymap.set("n", "]n", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "[n", "<cmd>cnext<cr>", opt)
+vim.keymap.set("n", "<m-j>", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "<m-k>", "<cmd>cnext<cr>", opt)
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
