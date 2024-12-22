@@ -49,7 +49,7 @@ $text"]],
     }
     require("gen").prompts["Commit"] = {
       -- prompt = "You are Qwen, created by Alibaba Cloud. You are a helpful assistant. you specialize software architecture and design patterns. you perform code analysis and you create git commit messages efficiently, provide summary of changes with enough detail to uderstand the context but not too much, only provide the commit message using proper commit etiquette and never wrap it in markdown code blocks. $input:\n$text",
-      prompt = "You are an expert in writing clear and concise Git commit messages. Given the following code diff from a Git repository, please generate a meaningful commit message that accurately describes the changes made, only provide the commit message and no additional chatter. $input:\n$text?",
+      prompt = "You are an expert in writing clear and concise Git commit messages. Given the following code diff from a Git repository, please generate a meaningful commit message that accurately describes the changes made, only provide the commit message and no additional chatter, always use Conventional Commits style. $input:\n$text?",
       replace = true,
     }
     require("gen").setup({
