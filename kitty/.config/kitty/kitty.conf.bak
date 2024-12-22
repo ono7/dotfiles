@@ -231,7 +231,7 @@ map opt+cmd+m hide_macos_app
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="IosevkaTerm Nerd Font Mono"
+font_family      family="Iosevka Custom"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -241,6 +241,6 @@ bold_italic_font auto
 # macos_thicken_font 0.5
 disable_ligatures always
 
-font_size 26.0
-adjust_line_height 120%
+font_size 23.0
+adjust_line_height 140%
 
