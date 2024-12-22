@@ -27,12 +27,12 @@ return {
       -- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
       require("nvim-treesitter.configs").setup({
-        sync_install = false,
-        modules = {},
+        -- sync_install = false,
+        -- modules = {},
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
-          use_languagetree = true,
+          -- use_languagetree = true,
         },
         indent = { enable = true },
         context_commentstring = { enable = true, enable_autocmd = false },

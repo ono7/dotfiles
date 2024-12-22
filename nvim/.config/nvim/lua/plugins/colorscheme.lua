@@ -113,7 +113,7 @@ return {
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
     -- vim.api.nvim_set_hl(0, "Conditional", { fg = "#c7d1ff", italic = true })
-    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#313244", bold = true })
+    vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
     vim.api.nvim_set_hl(0, "cmpDoc", {})
     -- vim.api.nvim_set_hl(0, "@spell.markdown", { link = "Normal" })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underline = false, bold = true })
