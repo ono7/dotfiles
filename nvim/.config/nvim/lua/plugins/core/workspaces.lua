@@ -31,11 +31,15 @@ return {
     end, { noremap = true, silent = true })
 
     vim.keymap.set("n", "<leader>we", function()
-      local path = vim.fn.stdpath("data") .. "/workspaces"
+      -- local path = vim.fn.stdpath("data") .. "/workspaces"
+      local path = os.getenv("HOME") .. "/.workspaces"
       vim.cmd.edit(path)
     end, { noremap = true, silent = true })
 
     require("workspaces").setup({
+
+      -- path = vim.fn.stdpath("data") .. "/workspaces",
+      path = os.getenv("HOME") .. "/.workspaces",
 
       cd_type = "global",
 

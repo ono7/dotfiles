@@ -22,7 +22,6 @@ if type stow &>/dev/null; then
   stow nvim
   # stow ssh
   stow sqlite
-  stow dlv
   stow rg
   stow fd
   stow starship

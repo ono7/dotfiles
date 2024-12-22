@@ -98,6 +98,7 @@ linux-deps:
 neovim:
 	@echo $(BANNER)
 	@mkdir -p ~/.local/bin
+	@touch ~/.workspaces
 	@bash ./_scripts/build-neovim.sh
 
 mac-deps:
