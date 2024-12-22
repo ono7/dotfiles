@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 log() {
-    printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+  printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 log "$0"
@@ -23,5 +23,4 @@ nvm install node
 npm set strict-ssl false
 
 log "installing npm packages"
-npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim lint-staged lint-staged-shellcheck
-
+npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim lint-staged lint-staged-shellcheck eslint-formatter-compact
