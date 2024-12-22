@@ -1,5 +1,6 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
+vim.hl = vim.highlight
 
 vim.cmd([[syntax off]])
 
