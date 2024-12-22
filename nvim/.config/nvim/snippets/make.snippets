@@ -4,6 +4,13 @@ snippet h "header" w
   # Jose Lima (`getenv('USER')`)
   # `strftime("%Y-%m-%d %H:%M")`
 
+snippet simple "Makefile Simple" w
+  .PHONY: lint
+
+  lint-%:
+    npx eslint $*
+  # Usage: make lint-filename.js
+
 snippet make "Makefile" w
   BINARY_NAME := ${1}
   OUTPUT_DIR := ${2}

@@ -114,8 +114,8 @@ vim.keymap.set({ "n" }, "<m-t>", ":T<CR>", { noremap = true, silent = true })
 vim.keymap.set({ "i" }, "<m-t>", "<esc>:T<CR>", { noremap = true, silent = true })
 vim.keymap.set("t", "<m-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
 
-vim.keymap.set("n", "<m-j>", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "<m-k>", "<cmd>cnext<cr>", opt)
+vim.keymap.set("n", "<m-k>", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "<m-j>", "<cmd>cnext<cr>", opt)
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
