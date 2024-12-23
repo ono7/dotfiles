@@ -78,12 +78,11 @@ return {
         --   spacing = 2,
         --   -- severity_limit = "Warning", -- disable hints...
         --   severity = { min = vim.diagnostic.severity.WARN },
-        --   underline = true,
+        undercurl = true,
         -- },
         virtual_text = false, -- Disable builtin virtual text diagnostic
         -- virtual_lines = { only_current_line = true },
         update_in_insert = false,
-        underline = false,
       })
 
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
