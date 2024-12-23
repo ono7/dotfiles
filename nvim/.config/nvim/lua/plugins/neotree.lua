@@ -13,6 +13,8 @@ return {
   },
   config = function()
     require("neo-tree").setup({
+      enable_git_status = false,
+      enable_diagnostics = false,
       window = { width = 25 },
       filesystem = {
         filtered_items = {
