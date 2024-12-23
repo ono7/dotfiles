@@ -4,6 +4,24 @@ snippet fun "function" w
 	function ${1:name}(${2:params})
 		${0:$VISUAL}
 	end
+snippet module "module" b
+  local M = {}
+
+  function M.setup()
+    -- Check if already loaded
+    if M.loaded then
+      return
+    end
+    -- code goes here $0
+
+    -- set the module as loaded, leave this be...
+    M.loaded = true
+  end
+
+  return M
+
+
+
 snippet upcase "upcase" w
 	local ${1:var} = '${1/.*/\U\0/g}'
 snippet choices "choices" w

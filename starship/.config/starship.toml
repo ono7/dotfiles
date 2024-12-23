@@ -77,7 +77,7 @@ style ="sky bold"
 # # symbol = "[ ](blue)"
 # # symbol = "[ ](blue)"
 # # 󰽜  
-symbol = "[ ](bright white)"
+symbol = "[  ](bright white)"
 format = '[$symbol$branch]($style)'
 
 [git_status]
