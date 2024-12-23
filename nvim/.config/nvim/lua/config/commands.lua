@@ -99,3 +99,19 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   )
   vim.fn.system("open " .. github_file_url)
 end, { nargs = "?" })
+
+-- Using vim.api to create command
+vim.api.nvim_create_user_command("MakeClean", function(opts)
+  -- opts.args contains all arguments passed to the command
+  if #opts.args > 0 then
+    vim.cmd("silent make! " .. opts.args)
+  else
+    vim.cmd("silent make!")
+  end
+  vim.cmd("redraw!")
+end, {
+  nargs = "*", -- Allow any number of arguments
+  desc = "Run make command with clean output",
+})
+
+vim.keymap.set("n", "<leader>b", ":MakeClean<cr>", { silent = true, noremap = true })
