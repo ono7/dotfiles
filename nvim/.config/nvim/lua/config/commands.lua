@@ -114,4 +114,4 @@ end, {
   desc = "Run make command with clean output",
 })
 
-vim.keymap.set("n", "<leader>b", ":MakeClean<cr>", { silent = true, noremap = true })
+-- vim.keymap.set("n", "<leader>b", ":MakeClean<cr>", { silent = true, noremap = true })
