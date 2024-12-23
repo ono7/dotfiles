@@ -185,11 +185,10 @@ return {
       builtin.lsp_document_symbols({ previewer = true, show_line = true })
     end, opt)
 
-    -- k("n", "<D-w>", ":Telescope workspaces layout_strategy=horizontal layout_config={prompt_position='top'}<cr>", opt)
     k("n", "<m-w>", ":Telescope workspaces theme=ivy<CR>", opt)
 
     k("n", "<leader>S", function()
-      builtin.lsp_workspace_symbols({ previewer = true, show_line = true })
+      builtin.lsp_workspace_symbols({ previewer = true })
     end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore

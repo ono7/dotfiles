@@ -29,15 +29,16 @@ render_timer = false
 TERM = "alacritty-direct"
 
 [font]
-size = 19.0
+size = 25.0
 
 [font.glyph_offset]
 x = 0
 y = 0
 
 [font.normal]
-family = "MonolisaNoLiga Nerd Font"
-style = "Medium Regular"
+# family = "MonolisaNoLiga Nerd Font"
+family = "Iosevka Custom"
+# style = "Medium Regular"
 
 [font.offset]
 x = 0
