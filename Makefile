@@ -7,8 +7,10 @@ export PATH := $(HOME)/.fzf/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebr
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
-# Default target for easy installation
 install:
+	@echo "run: make build"
+# Default target for easy installation
+build:
 	@$(MAKE) detect-os
 
 # Detect the operating system and invoke the appropriate target
