@@ -129,7 +129,7 @@ xnoremap H <gv
 xnoremap L >gv
 
 " switch between current and prev file
-nnoremap <space><space> <c-^>
+nnoremap <c-6> c-^>
 
 noremap v <c-v>
 vunmap v
@@ -143,9 +143,6 @@ inoremap <C-c> <Esc>
 " change local cd per buffer
 nnoremap <leader>cd :lcd %:h<CR>
 
-" nnoremap H ^
-" nnoremap L g_
-
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
@@ -154,8 +151,8 @@ inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
 nnoremap <silent><m-k> :cnext<cr>
 nnoremap <silent><m-j> :cprevious<cr>
-nnoremap ,d :bd!<cr>
-nnoremap ,w :w<cr>
+nnoremap <leader>d :bd!<cr>
+nnoremap <leader>w :w<cr>
 nnoremap gh ^
 nnoremap gl g_
 
@@ -250,7 +247,7 @@ set magic
 set nobackup nowritebackup noswapfile
 set nojoinspaces
 set list
-set listchars=tab:\ ,conceal:\ ,trail:\ ,nbsp:\
+set listchars=conceal:\ ,trail:\ ,nbsp:\
 set noshowcmd
 set showtabline=0
 set novisualbell noerrorbells
@@ -417,6 +414,7 @@ hi! Comment ctermfg=8 guibg=DarkGrey
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! StatusLine guibg=#444d69
+hi! Visual guibg=#243d61
 hi! Normal guibg=NONE
 
 ]===]

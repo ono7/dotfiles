@@ -40,9 +40,9 @@ vim.keymap.set("x", "H", "<gv", silent)
 vim.keymap.set("x", "L", ">gv", silent)
 
 -- Bind the function to a key mapping
-vim.keymap.set("n", ",q", "<cmd>q<cr>", silent)
+vim.keymap.set("n", ",w", "<cmd>write<cr>", silent)
+vim.keymap.set("n", ",q", "<cmd>q!<cr>", silent)
 vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
-vim.keymap.set("n", ",Q", "<cmd>q!<cr>", silent)
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
@@ -151,7 +151,7 @@ end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
 -- vim.keymap.set("n", "<leaeder>w", ":write<CR>", { silent = true })
 
-vim.keymap.set("n", ";", ":")
+-- vim.keymap.set("n", ";", ":")
 -- vim.keymap.set("n", ":", ";")
 
 vim.keymap.set("n", "<leader>w", function()
