@@ -37,7 +37,16 @@ return {
       },
     }
 
-    local fd_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--no-ignore-vcs", "--exclude", ".git" }
+    local fd_command = {
+      "fd",
+      "--type",
+      "f",
+      "--strip-cwd-prefix",
+      "--hidden",
+      -- "--no-ignore-vcs", -- Ignore all default ignore files
+      "--ignore-file",
+      "~/.config/fd/ignore",
+    }
 
     require("telescope").setup({
       file_ignore_patterns = { "%.git/." },
@@ -74,7 +83,7 @@ return {
         -- prompt_prefix = "🔍 ",
         prompt_prefix = " " .. icons.ui.Telescope .. "  ",
         selection_caret = icons.ui.BoldArrowRight .. " ",
-        -- file_ignore_patterns = { "node_modules", "package-lock.json" },
+        file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
         path_display = { "truncate" },
         preview = false,
       },

@@ -163,6 +163,6 @@ vim.g.loaded_ruby_provider = 0
 -- vim.opt.winbar = "%=%-.75F %-m"
 
 -- improve matchparen performance
-vim.g.matchparen_timeout = 20 -- default is 300
-vim.g.matchparen_insert_timeout = 20 -- default is 60
-vim.g.loaded_matchparen = 1
+-- vim.g.matchparen_timeout = 20 -- default is 300
+-- vim.g.matchparen_insert_timeout = 60 -- default is 60
+-- vim.g.loaded_matchparen = 1
