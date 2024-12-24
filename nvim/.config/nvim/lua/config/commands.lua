@@ -2,6 +2,7 @@
 --   vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
 -- end, { nargs = "*", complete = "file" })
 
+--[[
 --- vscode like terminal ---
 local terminal_buf = nil
 local terminal_win = nil
@@ -52,6 +53,59 @@ vim.api.nvim_create_user_command("T", function()
   end
 end, {})
 
+--]]
+
+local terminal_buf = nil
+local terminal_win = nil
+local term_job_id = nil
+local term_size = 5
+
+vim.api.nvim_create_user_command("T", function(opts)
+  local cmd = opts.args
+
+  -- If terminal buffer doesn't exist, create it
+  if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+    vim.cmd.vnew()
+    vim.cmd.term() -- Always create a regular terminal first
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, term_size)
+    terminal_buf = vim.api.nvim_get_current_buf()
+    terminal_win = vim.api.nvim_get_current_win()
+    term_job_id = vim.b.terminal_job_id
+
+    -- If command was provided, send it after terminal is created
+    if cmd ~= "" then
+      vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
+    end
+
+    vim.cmd("startinsert")
+    return
+  end
+
+  local wins = vim.api.nvim_list_wins()
+  local is_visible = false
+  for _, win in ipairs(wins) do
+    if vim.api.nvim_win_get_buf(win) == terminal_buf then
+      vim.api.nvim_win_hide(win)
+      is_visible = true
+      break
+    end
+  end
+
+  if not is_visible then
+    vim.cmd("bel " .. term_size .. "split")
+    vim.api.nvim_win_set_height(0, term_size)
+    vim.api.nvim_win_set_buf(0, terminal_buf)
+    terminal_win = vim.api.nvim_get_current_win()
+
+    if cmd ~= "" then
+      vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
+    end
+
+    vim.cmd("startinsert")
+  end
+end, { nargs = "*" })
+
 vim.api.nvim_create_user_command("Commit", function(opts)
   local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
   vim.cmd("r!git diff " .. diff_cmd)
@@ -99,19 +153,3 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   )
   vim.fn.system("open " .. github_file_url)
 end, { nargs = "?" })
-
--- Using vim.api to create command
-vim.api.nvim_create_user_command("MakeClean", function(opts)
-  -- opts.args contains all arguments passed to the command
-  if #opts.args > 0 then
-    vim.cmd("silent make! " .. opts.args)
-  else
-    vim.cmd("silent make!")
-  end
-  vim.cmd("redraw!")
-end, {
-  nargs = "*", -- Allow any number of arguments
-  desc = "Run make command with clean output",
-})
-
--- vim.keymap.set("n", "<leader>b", ":MakeClean<cr>", { silent = true, noremap = true })
