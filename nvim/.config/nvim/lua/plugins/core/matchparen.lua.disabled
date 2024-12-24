@@ -4,10 +4,12 @@ return {
   priority = 20,
   config = function()
     require("matchparen").setup({
+      on_cursor_moved = false, -- Disable real-time updates
+      delay = 100, --
       on_startup = true,
       hl_group = "MatchParen",
       augroup_name = "matchparen-nvim",
-      debounce_time = 20, -- debounce time in milliseconds for rehighlighting of brackets.
+      debounce_time = 250, -- debounce time in milliseconds for rehighlighting of brackets.
     })
   end,
 }

@@ -34,6 +34,7 @@ func main() {
 	if err != nil {
 		log.Fatal("os.UserHomeDir() enable to resolve current working directory")
 	}
+
 	homeDir = filepath.Join(homeDir, ".env")
 	if err := godotenv.Load(homeDir); err != nil {
 		log.Fatal("error loading dotenv, try adding a ~/.env file with AAP_BASE_URL and AAP_TOKEN")

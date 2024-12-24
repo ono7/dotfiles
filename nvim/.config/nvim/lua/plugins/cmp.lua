@@ -3,12 +3,16 @@ return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   opts = {
+    -- performance = {
+    --   debounce = 0, -- default is 60ms
+    --   throttle = 0, -- default is 30ms
+    -- },
     performance = {
-      debounce = 0, -- default is 60ms
-      throttle = 0, -- default is 30ms
+      debounce = 150, -- Increase debounce time
+      throttle = 60,
+      fetching_timeout = 200,
     },
   },
-  event = "InsertEnter",
   dependencies = {
     -- Adds LSP completion capabilities
     "hrsh7th/cmp-nvim-lsp",
@@ -48,10 +52,10 @@ return {
     end
 
     local preferred_sources = {
-      { name = "nvim_lsp",               max_item_count = 30 },
+      { name = "nvim_lsp", max_item_count = 30 },
       { name = "nvim_lsp_signature_help" },
-      { name = "path",                   max_item_count = 10 },
-      { name = "nvim_lua",               max_item_count = 10 },
+      { name = "path", max_item_count = 10 },
+      { name = "nvim_lua", max_item_count = 10 },
     }
 
     -- if files are too big disable buffer source
