@@ -83,8 +83,13 @@ return {
         -- prompt_prefix = "🔍 ",
         prompt_prefix = " " .. icons.ui.Telescope .. "  ",
         selection_caret = icons.ui.BoldArrowRight .. " ",
+        entry_prefix = "  ",
         file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
-        path_display = { "truncate" },
+        -- path_display = { "truncate" },
+        path_display = function(opts, path)
+          local truncated = require("plenary.path"):new(path):shorten(1)
+          return "  " .. truncated
+        end,
         preview = false,
       },
 
