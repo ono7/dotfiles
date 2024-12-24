@@ -85,11 +85,23 @@ return {
         selection_caret = icons.ui.BoldArrowRight .. " ",
         entry_prefix = "  ",
         file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
-        -- path_display = { "truncate" },
         path_display = function(opts, path)
-          local truncated = require("plenary.path"):new(path):shorten(1)
-          return "  " .. truncated
+          local tail = require("telescope.utils").path_tail(path)
+          path = string.format(" %s (%s)", tail, path)
+
+          local highlights = {
+            {
+              {
+                #tail + 2, -- highlight start position
+                #tail + #path + 2, -- highlight end position
+              },
+              "Pmenu", -- highlight group name
+            },
+          }
+
+          return path, highlights
         end,
+        -- Add the extra space between icon and path using the entry formatter
         preview = false,
       },
 
