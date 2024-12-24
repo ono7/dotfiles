@@ -61,7 +61,7 @@ return {
         textobjects = {
           select = {
             enable = true,
-            lookahead = true,
+            -- lookahead = true,
 
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
@@ -93,12 +93,12 @@ return {
             include_surrounding_whitespace = false,
           },
           move = {
-            enable = false,
+            enable = true,
             -- set_jumps = true, -- whether to set jumps in the jumplist
             -- goto_previous_start = {
             --   ["[f"] = { query = "@function.outer", desc = "Previous function" },
             --   ["[c"] = { query = "@call.outer", desc = "Previous class" },
-            --   ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
+            ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
             -- },
             -- goto_previous_end = {
             --   ["[F"] = { query = "@function.outer", desc = "Previous function" },
@@ -108,7 +108,7 @@ return {
             -- goto_next_start = {
             --   ["]f"] = { query = "@function.outer", desc = "Next function" },
             --   ["]c"] = { query = "@call.outer", desc = "Next class" },
-            --   ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
+            ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
             -- },
             -- goto_next_end = {
             --   ["]F"] = { query = "@function.outer", desc = "Next function" },

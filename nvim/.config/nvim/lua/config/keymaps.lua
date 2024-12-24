@@ -149,9 +149,12 @@ vim.keymap.set("n", "<leader>%", function()
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
-vim.keymap.set("n", ";w", ":write<CR>", { silent = true })
+-- vim.keymap.set("n", "<leaeder>w", ":write<CR>", { silent = true })
 
-vim.keymap.set("n", ",w", function()
+vim.keymap.set("n", ";", ":")
+-- vim.keymap.set("n", ":", ";")
+
+vim.keymap.set("n", "<leader>w", function()
   if not check_buf(0) then
     print("save me first!")
     return

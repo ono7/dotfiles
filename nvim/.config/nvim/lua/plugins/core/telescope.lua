@@ -87,12 +87,12 @@ return {
         file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
         path_display = function(opts, path)
           local tail = require("telescope.utils").path_tail(path)
-          path = string.format(" %s (%s)", tail, path)
+          path = string.format(" %s (%s)", tail, path) -- need extra space for iosevka/kitty icons are too large
 
           local highlights = {
             {
               {
-                #tail + 2, -- highlight start position
+                #tail + 2, -- highlight start position +2 = (path = string.format)
                 #tail + #path + 2, -- highlight end position
               },
               "Pmenu", -- highlight group name
