@@ -133,10 +133,10 @@ return {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
-      performance = {
-        debounce = 0, -- default is 60ms
-        throttle = 0, -- default is 30ms
-      },
+      -- performance = {
+      -- debounce = 0, -- default is 60ms
+      -- throttle = 0, -- default is 30ms
+      -- },
       sources = preferred_sources,
       formatting = {
         format = lspkind.cmp_format({
