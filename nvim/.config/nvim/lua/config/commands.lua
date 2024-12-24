@@ -58,7 +58,7 @@ end, {})
 local terminal_buf = nil
 local terminal_win = nil
 local term_job_id = nil
-local term_size = 5
+local term_size = 6
 
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
