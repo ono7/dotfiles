@@ -7,7 +7,7 @@ return {
       on_startup = true,
       hl_group = "MatchParen",
       augroup_name = "matchparen-nvim",
-      debounce_time = 50, -- debounce time in milliseconds for rehighlighting of brackets.
+      debounce_time = 20, -- 5 ms is the matchtime for vim
     })
   end,
 }
