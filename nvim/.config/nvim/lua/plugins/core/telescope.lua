@@ -27,26 +27,17 @@ return {
     -- local trouble = require("trouble.sources.telescope")
     local icons = require("config.icons")
 
-    -- 
+    require("telescope").load_extension("fzf")
 
-    -- local layout_width = 0.9
     local with_dropdown = {
-      theme = "ivy", --- 2024-12-11 12:12 makes evererything more usable in small terminals
-      layout_config = {
-        center = {
-          height = 0.8,
-          preview_cutoff = 40,
-          prompt_position = "top",
-          -- width = 0.1, --- comment to use more space when its limited
-        },
-      },
+      theme = "ivy",
       mappings = {
         i = { ["<c-f>"] = actions.to_fuzzy_refine },
         n = { ["q"] = actions.close },
       },
     }
 
-    local fd_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--no-ignore-vcs" }
+    local fd_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--no-ignore-vcs", "--exclude", ".git" }
 
     require("telescope").setup({
       file_ignore_patterns = { "%.git/." },
@@ -66,38 +57,24 @@ return {
         },
       },
       extensions = {
-        wrap_results = true,
         fzf = {
           fuzzy = true, -- false will only do exact matching
           override_generic_sorter = true,
           override_file_sorter = true,
           case_mode = "smart_case",
         },
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({}),
-        },
+        -- ["ui-select"] = {
+        --   require("telescope.themes").get_dropdown({}),
+        -- },
       },
 
       defaults = {
-        -- prompt_prefix = "🔍 ",
-        prompt_prefix = " " .. icons.ui.Telescope .. " ",
-        selection_caret = icons.ui.BoldArrowRight .. " ",
-        file_ignore_patterns = { "node_modules", "package-lock.json" },
-        initial_mode = "insert",
-        select_strategy = "reset",
-        layout_strategy = "horizontal",
-        sorting_strategy = "ascending",
-        win_blend = 0,
-        color_devicons = true,
+        theme = "ivy",
         set_env = { ["COLORTERM"] = "truecolor" },
-        layout_config = {
-          center = {
-            height = 0.2,
-            preview_cutoff = 40,
-            prompt_position = "top",
-            -- width = 0.3, -- comment to use more space when its needed
-          },
-        },
+        -- prompt_prefix = "🔍 ",
+        prompt_prefix = " " .. icons.ui.Telescope .. "  ",
+        selection_caret = icons.ui.BoldArrowRight .. " ",
+        -- file_ignore_patterns = { "node_modules", "package-lock.json" },
         path_display = { "truncate" },
         preview = false,
       },
@@ -117,10 +94,6 @@ return {
       },
     })
 
-    telescope.load_extension("fzf")
-    telescope.load_extension("ui-select")
-    telescope.load_extension("workspaces")
-
     local builtin = require("telescope.builtin")
 
     -- vim.keymap.set("n", "<leader>b", builtin.current_buffer_fuzzy_find)
@@ -135,16 +108,6 @@ return {
         no_ignore = false,
       })
     end)
-
-    k("n", "<leader>fw", function()
-      local word = vim.fn.expand("<cword>")
-      builtin.grep_string({ search = word })
-    end, opt)
-
-    k("n", "<leader>fW", function()
-      local word = vim.fn.expand("<cWORD>")
-      builtin.grep_string({ search = word })
-    end, opt)
 
     k("n", "<leader>d", function()
       builtin.diagnostics({ previewer = false, theme = "ivy" })
@@ -193,10 +156,12 @@ return {
 
     --- handle all ignores in ~/.config/fd/ignore
     k({ "n", "x" }, "<c-f>", function()
-      builtin.find_files({
-        previewer = false,
+      local opts = {
+        hidden = true,
+        no_ignore = true,
         find_command = fd_command,
-      })
+      }
+      require("telescope.builtin").find_files(opts)
     end, opt)
 
     -- Function to check if we're in a Git repository
@@ -240,5 +205,8 @@ return {
     k("n", "<c-s>", function()
       require("telescope.builtin").oldfiles({})
     end)
+
+    telescope.load_extension("ui-select")
+    telescope.load_extension("workspaces")
   end,
 }
