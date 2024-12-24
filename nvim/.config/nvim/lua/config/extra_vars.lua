@@ -272,7 +272,7 @@ set timeoutlen=500 ttimeoutlen=0
 set undolevels=999
 set undodir=/tmp
 set undofile
-set updatetime=50
+set updatetime=1000
 set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
 set wildmenu
 set winaltkeys=no
@@ -281,7 +281,7 @@ set matchtime=0
 set belloff=all
 set matchpairs=(:),{:},[:],<:>
 set nocursorcolumn
-set redrawtime=10000
+set redrawtime=2000
 set ttyfast
 set foldmethod=indent
 set nofoldenable
