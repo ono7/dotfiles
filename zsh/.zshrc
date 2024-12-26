@@ -409,8 +409,9 @@ function setup_keys() {
       done
     done
     bindkey '^[[Z' reverse-menu-complete
+    bindkey "^R" fzf-history-widget 
 }
-
+bindkey "^R" fzf-history-widget 
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
