@@ -30,8 +30,8 @@ require("config.autocmds")
 require("config.completion")
 
 -- comment for beam cursor
-vim.opt.guicursor = ""
-vim.opt.mouse = "n"
+-- vim.opt.guicursor = ""
+vim.opt.mouse = "a"
 
 -- home made plugins go here
 -- require("plugins.jira-base")

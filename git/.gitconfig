@@ -16,7 +16,7 @@
   editor = nvim
   mergeoptions = --no-edit
 	pager = delta
-	hookspath = ~/.git_global/hooks
+  # hookspath = ~/.git_global/hooks
   # MONITOR FOR PERFORMANCE ISSUES....
   # check status: git fsmonitor--daemon status
 	untrackedCache = true
