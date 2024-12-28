@@ -20,10 +20,7 @@ return {
   },
 
   config = function()
-    local prefix = function(s)
-      local c = vim.g.neovide and "D" or "C"
-      return string.format("<%s-%s>", c, s)
-    end
+    local set_keys = require("utils.keys")
 
     local opt = { noremap = true, silent = true }
     local k = vim.keymap.set
@@ -37,10 +34,10 @@ return {
 
     local default_maps = {
       i = {
-        [prefix("f")] = actions.to_fuzzy_refine,
-        [prefix("k")] = actions.move_selection_previous,
-        [prefix("j")] = actions.move_selection_next,
-        [prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
+        [set_keys.prefix("f")] = actions.to_fuzzy_refine,
+        [set_keys.prefix("k")] = actions.move_selection_previous,
+        [set_keys.prefix("j")] = actions.move_selection_next,
+        [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
       },
       n = { ["q"] = actions.close },
     }

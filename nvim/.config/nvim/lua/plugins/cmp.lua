@@ -24,10 +24,7 @@ return {
     "windwp/nvim-autopairs",
   },
   config = function()
-    local prefix = function(s)
-      local c = vim.g.neovide and "D" or "C"
-      return string.format("<%s-%s>", c, s)
-    end
+    local k = require("utils.keys")
     local cmp = require("cmp")
     local snippy = require("snippy")
     local lspkind = require("lspkind")
@@ -102,11 +99,11 @@ return {
         -- keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
-        [prefix("n")] = cmp.mapping.select_next_item(),
-        [prefix("p")] = cmp.mapping.select_prev_item(),
-        [prefix("b")] = cmp.mapping.scroll_docs(-4),
-        [prefix("f")] = cmp.mapping.scroll_docs(4),
-        [prefix("Space")] = cmp.mapping.complete({ select = true }),
+        [k.prefix("n")] = cmp.mapping.select_next_item(),
+        [k.prefix("p")] = cmp.mapping.select_prev_item(),
+        [k.prefix("b")] = cmp.mapping.scroll_docs(-4),
+        [k.prefix("f")] = cmp.mapping.scroll_docs(4),
+        [k.prefix("Space")] = cmp.mapping.complete({ select = true }),
         -- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,

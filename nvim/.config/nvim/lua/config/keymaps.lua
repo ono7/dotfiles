@@ -2,17 +2,14 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-local prefix = function(s)
-  local c = vim.g.neovide and "D" or "C"
-  return string.format("<%s-%s>", c, s)
-end
+local set_keys = require("utils.keys")
 
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
 --- core keymaps ---
-vim.keymap.set("i", prefix("a"), "<ESC>^i", silent)
-vim.keymap.set("i", prefix("e"), "<End>", silent)
+vim.keymap.set("i", set_keys.prefix("a"), "<ESC>^i", silent)
+vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
 
 -- replaces vim surround
 
@@ -56,20 +53,20 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-vim.keymap.set("i", prefix("c"), "<Esc>", opt)
+vim.keymap.set("i", set_keys.prefix("c"), "<Esc>", opt)
 
 --- visual block by default
-vim.keymap.set({ "n" }, "v", prefix("v"))
+vim.keymap.set({ "n" }, "v", set_keys.prefix("v"))
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 --- ex/command mode bindings
-vim.keymap.set("c", prefix("a"), "<Home>", opt)
-vim.keymap.set("c", prefix("e"), "<End>", opt)
-vim.keymap.set("c", prefix("h"), "<Left>", opt)
-vim.keymap.set("c", prefix("l"), "<Right>", opt)
-vim.keymap.set("c", prefix("b"), "<S-left>", opt)
+vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
+vim.keymap.set("c", set_keys.prefix("e"), "<End>", opt)
+vim.keymap.set("c", set_keys.prefix("h"), "<Left>", opt)
+vim.keymap.set("c", set_keys.prefix("l"), "<Right>", opt)
+vim.keymap.set("c", set_keys.prefix("b"), "<S-left>", opt)
 
 vim.keymap.set("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")
@@ -151,7 +148,7 @@ local function clean_space_save()
   -- this is now handled by conform.nvim
 end
 
-vim.keymap.set("i", prefix("BS"), "<C-W>", { noremap = true })
+vim.keymap.set("i", set_keys.prefix("BS"), "<C-W>", { noremap = true })
 
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
