@@ -14,7 +14,6 @@ vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
 -- TODO: need to figure out how to start in home dir
--- TODO: add .zprofile to stow
 if vim.g.neovide then
   -- see ~/.config/neovide/config.toml
   vim.g.neovide_window_blurred = true
