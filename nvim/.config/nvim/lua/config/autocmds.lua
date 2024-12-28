@@ -142,4 +142,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.opt_local.wrap = true
   end,
+  group = create_augroup("set_wrap", { clear = true }),
 })
+
+vim.on_key(function(char)
+  if vim.fn.mode() == "n" then
+    local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+    if vim.opt.hlsearch:get() ~= new_hlsearch then
+      vim.opt.hlsearch = new_hlsearch
+    end
+  end
+end, vim.api.nvim_create_namespace("auto_hlsearch"))

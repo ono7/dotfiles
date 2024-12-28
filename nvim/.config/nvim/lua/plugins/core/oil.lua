@@ -2,6 +2,10 @@ return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
+    local prefix = function(s)
+      local c = vim.g.neovide and "D" or "C"
+      return string.format("<%s-%s>", c, s)
+    end
     local oil_ok, oil_config = pcall(require, "oil")
 
     if not oil_ok then
@@ -13,8 +17,8 @@ return {
     oil_config.setup({
       columns = { "icon" },
       keymaps = {
-        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
-        ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
+        [prefix("v")] = { "actions.select", opts = { vertical = true } },
+        [prefix("x")] = { "actions.select", opts = { horizontal = true } },
       },
       view_options = {
         show_hidden = true,
@@ -56,6 +60,7 @@ return {
     -- vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
     -- Open parent directory in floating window
-    vim.keymap.set("n", "<c-\\>", require("oil").toggle_float)
+    local binding = vim.g.neovide and "<D-\\>" or "<C-\\>"
+    vim.keymap.set("n", binding, require("oil").toggle_float)
   end,
 }

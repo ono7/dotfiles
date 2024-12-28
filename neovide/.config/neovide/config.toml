@@ -9,7 +9,7 @@ srgb = false
 tabs = true
 theme = "auto"
 title-hidden = true
-vsync = false
+vsync = true
 wsl = false
 
 [font]

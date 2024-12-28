@@ -21,7 +21,7 @@ return {
 
   config = function()
     local prefix = function(s)
-      local c = vim.g.neovide and "C" or "D"
+      local c = vim.g.neovide and "D" or "C"
       return string.format("<%s-%s>", c, s)
     end
 
@@ -35,12 +35,19 @@ return {
 
     require("telescope").load_extension("fzf")
 
+    local default_maps = {
+      i = {
+        [prefix("f")] = actions.to_fuzzy_refine,
+        [prefix("k")] = actions.move_selection_previous,
+        [prefix("j")] = actions.move_selection_next,
+        [prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
+      },
+      n = { ["q"] = actions.close },
+    }
+
     local with_dropdown = {
       theme = "ivy",
-      mappings = {
-        i = { [prefix("f")] = actions.to_fuzzy_refine },
-        n = { ["q"] = actions.close },
-      },
+      mappings = default_maps,
     }
 
     local fd_command = {
@@ -64,10 +71,7 @@ return {
         workspaces = { theme = "ivy" },
         diagnostics = { theme = "ivy" },
         live_grep = {
-          mappings = {
-            i = { [prefix("f")] = actions.to_fuzzy_refine },
-            n = { ["q"] = actions.close },
-          },
+          mappings = default_maps,
           theme = "ivy",
         },
       },
@@ -98,10 +102,10 @@ return {
           local highlights = {
             {
               {
-                #tail + 2,         -- highlight start position +2 = (path = string.format)
+                #tail + 2, -- highlight start position +2 = (path = string.format)
                 #tail + #path + 2, -- highlight end position
               },
-              "Pmenu",             -- highlight group name
+              "Pmenu", -- highlight group name
             },
           }
 
@@ -111,19 +115,7 @@ return {
         preview = false,
       },
 
-      mappings = {
-        i = {
-          [prefix("k")] = actions.move_selection_previous,
-          [prefix("j")] = actions.move_selection_next,
-          [prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
-          -- ["<c-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-          -- ['<C-u>'] = false,
-          -- ['<C-d>'] = false,
-        },
-        n = {
-          n = { ["q"] = actions.close },
-        },
-      },
+      mappings = default_maps,
     })
 
     local builtin = require("telescope.builtin")
@@ -224,13 +216,7 @@ return {
     -- Keymapping for Git files using fd
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
-    vim.keymap.set(
-      { "n" },
-      "<M-p>",
-      fd_git_files,
-      { noremap = true, silent = true, desc = "Find Git files using fd" }
-    )
-
+    vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     -- see picker options

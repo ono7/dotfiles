@@ -25,7 +25,7 @@ return {
   },
   config = function()
     local prefix = function(s)
-      local c = vim.g.neovide and "C" or "D"
+      local c = vim.g.neovide and "D" or "C"
       return string.format("<%s-%s>", c, s)
     end
     local cmp = require("cmp")

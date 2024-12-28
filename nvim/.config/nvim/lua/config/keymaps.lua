@@ -2,9 +2,8 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-
 local prefix = function(s)
-  local c = vim.g.neovide and "C" or "D"
+  local c = vim.g.neovide and "D" or "C"
   return string.format("<%s-%s>", c, s)
 end
 
@@ -67,6 +66,7 @@ vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 --- ex/command mode bindings
 vim.keymap.set("c", prefix("a"), "<Home>", opt)
+vim.keymap.set("c", prefix("e"), "<End>", opt)
 vim.keymap.set("c", prefix("h"), "<Left>", opt)
 vim.keymap.set("c", prefix("l"), "<Right>", opt)
 vim.keymap.set("c", prefix("b"), "<S-left>", opt)
@@ -151,6 +151,8 @@ local function clean_space_save()
   -- this is now handled by conform.nvim
 end
 
+vim.keymap.set("i", prefix("BS"), "<C-W>", { noremap = true })
+
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
 vim.keymap.set("n", "<leader>%", function()
@@ -221,10 +223,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 -- local api = vim.api
@@ -257,7 +259,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
