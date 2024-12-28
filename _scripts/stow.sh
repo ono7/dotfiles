@@ -29,6 +29,7 @@ if type stow &>/dev/null; then
   stow tmux
   stow alacritty
   stow wezterm
+  stow neovide
   stow zsh
   stow jq
   stow zk

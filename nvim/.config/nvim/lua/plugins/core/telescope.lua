@@ -18,7 +18,13 @@ return {
       end,
     },
   },
+
   config = function()
+    local prefix = function(s)
+      local c = vim.g.neovide and "C" or "D"
+      return string.format("<%s-%s>", c, s)
+    end
+
     local opt = { noremap = true, silent = true }
     local k = vim.keymap.set
 
@@ -32,7 +38,7 @@ return {
     local with_dropdown = {
       theme = "ivy",
       mappings = {
-        i = { ["<c-f>"] = actions.to_fuzzy_refine },
+        i = { [prefix("f")] = actions.to_fuzzy_refine },
         n = { ["q"] = actions.close },
       },
     }
@@ -59,7 +65,7 @@ return {
         diagnostics = { theme = "ivy" },
         live_grep = {
           mappings = {
-            i = { ["<c-f>"] = actions.to_fuzzy_refine },
+            i = { [prefix("f")] = actions.to_fuzzy_refine },
             n = { ["q"] = actions.close },
           },
           theme = "ivy",
@@ -92,10 +98,10 @@ return {
           local highlights = {
             {
               {
-                #tail + 2, -- highlight start position +2 = (path = string.format)
+                #tail + 2,         -- highlight start position +2 = (path = string.format)
                 #tail + #path + 2, -- highlight end position
               },
-              "Pmenu", -- highlight group name
+              "Pmenu",             -- highlight group name
             },
           }
 
@@ -107,9 +113,9 @@ return {
 
       mappings = {
         i = {
-          ["<c-k>"] = actions.move_selection_previous,
-          ["<c-j>"] = actions.move_selection_next,
-          ["<C-q>"] = actions.smart_add_to_qflist + actions.open_qflist,
+          [prefix("k")] = actions.move_selection_previous,
+          [prefix("j")] = actions.move_selection_next,
+          [prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
           -- ["<c-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           -- ['<C-u>'] = false,
           -- ['<C-d>'] = false,
@@ -140,7 +146,7 @@ return {
     end, opt)
 
     -- does not use find_command
-    vim.keymap.set("n", "<leader>g", function()
+    vim.keymap.set("n", "<M-g>", function()
       builtin.live_grep({
         vimgrep_arguments = {
           "rg",
@@ -166,7 +172,7 @@ return {
       })
     end, { desc = "Live grep with rg" })
 
-    k("n", "<c-d>", function()
+    k("n", "<M-b>", function()
       builtin.buffers({ previewer = false })
     end, opt)
 
@@ -174,14 +180,14 @@ return {
       builtin.lsp_document_symbols({ previewer = true, show_line = true })
     end, opt)
 
-    k("n", "<m-w>", ":Telescope workspaces theme=ivy<CR>", opt)
+    k("n", "<M-w>", ":Telescope workspaces theme=ivy<CR>", opt)
 
     k("n", "<leader>S", function()
       builtin.lsp_workspace_symbols({ previewer = true })
     end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore
-    k({ "n", "x" }, "<c-f>", function()
+    k({ "n", "x" }, "<M-f>", function()
       local opts = {
         hidden = true,
         no_ignore = true,
@@ -219,8 +225,8 @@ return {
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
     vim.keymap.set(
-      { "n", "x" },
-      "<c-p>",
+      { "n" },
+      "<M-p>",
       fd_git_files,
       { noremap = true, silent = true, desc = "Find Git files using fd" }
     )
@@ -228,7 +234,7 @@ return {
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     -- see picker options
-    k("n", "<c-s>", function()
+    k("n", "<M-s>", function()
       require("telescope.builtin").oldfiles({})
     end)
 

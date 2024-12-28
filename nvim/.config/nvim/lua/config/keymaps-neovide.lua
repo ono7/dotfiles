@@ -2,18 +2,12 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-
-local prefix = function(s)
-  local c = vim.g.neovide and "C" or "D"
-  return string.format("<%s-%s>", c, s)
-end
-
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
 --- core keymaps ---
-vim.keymap.set("i", prefix("a"), "<ESC>^i", silent)
-vim.keymap.set("i", prefix("e"), "<End>", silent)
+vim.keymap.set("i", "<D-a>", "<ESC>^i", silent)
+vim.keymap.set("i", "<D-e>", "<End>", silent)
 
 -- replaces vim surround
 
@@ -57,19 +51,19 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-vim.keymap.set("i", prefix("c"), "<Esc>", opt)
+vim.keymap.set("i", "<D-c>", "<Esc>", opt)
 
 --- visual block by default
-vim.keymap.set({ "n" }, "v", prefix("v"))
+vim.keymap.set({ "n" }, "v", "<c-v>")
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 --- ex/command mode bindings
-vim.keymap.set("c", prefix("a"), "<Home>", opt)
-vim.keymap.set("c", prefix("h"), "<Left>", opt)
-vim.keymap.set("c", prefix("l"), "<Right>", opt)
-vim.keymap.set("c", prefix("b"), "<S-left>", opt)
+vim.keymap.set("c", "<D-a>", "<Home>", opt)
+vim.keymap.set("c", "<D-h>", "<Left>", opt)
+vim.keymap.set("c", "<D-l>", "<Right>", opt)
+vim.keymap.set("c", "<D-b>", "<S-left>", opt)
 
 vim.keymap.set("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")
@@ -120,12 +114,12 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 
 --- size 8, belowright split, T in commands.lua
-vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", { noremap = true, silent = true })
-vim.keymap.set({ "i" }, "<M-t>", "<esc>:T<CR>", { noremap = true, silent = true })
-vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "<m-t>", ":T<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "i" }, "<m-t>", "<esc>:T<CR>", { noremap = true, silent = true })
+vim.keymap.set("t", "<m-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
 
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
+vim.keymap.set("n", "<m-k>", "<cmd>cprev<cr>", opt)
+vim.keymap.set("n", "<m-j>", "<cmd>cnext<cr>", opt)
 
 -- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
@@ -221,10 +215,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 -- local api = vim.api
@@ -257,7 +251,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 

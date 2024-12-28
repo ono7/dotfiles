@@ -24,6 +24,10 @@ return {
     "windwp/nvim-autopairs",
   },
   config = function()
+    local prefix = function(s)
+      local c = vim.g.neovide and "C" or "D"
+      return string.format("<%s-%s>", c, s)
+    end
     local cmp = require("cmp")
     local snippy = require("snippy")
     local lspkind = require("lspkind")
@@ -72,7 +76,6 @@ return {
         })
       end,
     })
-
     -- Set up manual trigger
     -- vim.keymap.set("i", "<C-Space>", function()
     -- vim.keymap.set("i", "<c-y>", function()
@@ -99,11 +102,11 @@ return {
         -- keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete({ select = true }),
+        [prefix("n")] = cmp.mapping.select_next_item(),
+        [prefix("p")] = cmp.mapping.select_prev_item(),
+        [prefix("b")] = cmp.mapping.scroll_docs(-4),
+        [prefix("f")] = cmp.mapping.scroll_docs(4),
+        [prefix("Space")] = cmp.mapping.complete({ select = true }),
         -- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,

@@ -13,8 +13,29 @@ end
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
-require("config.keymaps")
+-- TODO: need to figure out how to start in home dir
+-- TODO: add .zprofile to stow
+if vim.g.neovide then
+  -- see ~/.config/neovide/config.toml
+  vim.g.neovide_window_blurred = true
+  vim.g.neovide_scale_factor = 1.3
+  vim.g.neovide_input_macos_option_key_is_meta = "both"
+  vim.g.neovide_cursor_animation_length = 0.02
+
+  --- change font size with
+  local change_scale_factor = function(delta)
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+  end
+  vim.keymap.set("n", "<D-=>", function()
+    change_scale_factor(1.25)
+  end)
+  vim.keymap.set("n", "<D-->", function()
+    change_scale_factor(1 / 1.25)
+  end)
+end
+
 require("config.options")
+require("config.keymaps")
 require("config.disabled")
 require("config.legacy")
 require("config.abbreviations")
@@ -59,3 +80,7 @@ vim.opt.mouse = "a"
 --     end)
 --   end, { silent = true, desc = "Open Jira Issues" })
 -- end, {})
+
+if vim.g.neovide then
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#cdd6f4" })
+end
