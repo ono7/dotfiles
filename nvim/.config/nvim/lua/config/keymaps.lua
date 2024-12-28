@@ -115,6 +115,8 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
+vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
 
 --- size 8, belowright split, T in commands.lua
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", { noremap = true, silent = true })

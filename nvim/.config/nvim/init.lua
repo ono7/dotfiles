@@ -13,29 +13,7 @@ end
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
--- TODO: need to figure out how to start in home dir
-if vim.g.neovide then
-  -- see ~/.config/neovide/config.toml
-  vim.g.neovide_window_blurred = true
-  vim.g.neovide_scale_factor = 1.3
-  vim.g.neovide_input_macos_option_key_is_meta = "both"
-  vim.g.neovide_cursor_animation_length = 0.02
-
-  vim.g.neovide_scroll_animation_far_lines = 0
-  vim.g.neovide_scroll_animation_length = 0.00
-
-  --- change font size with
-  local change_scale_factor = function(delta)
-    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
-  end
-  vim.keymap.set("n", "<D-=>", function()
-    change_scale_factor(1.25)
-  end)
-  vim.keymap.set("n", "<D-->", function()
-    change_scale_factor(1 / 1.25)
-  end)
-end
-
+require("config.neovide")
 require("config.options")
 require("config.keymaps")
 require("config.disabled")
@@ -52,8 +30,6 @@ require("config.commands")
 require("config.autocmds")
 require("config.completion")
 
--- comment for beam cursor
--- vim.opt.guicursor = ""
 vim.opt.mouse = "a"
 
 -- home made plugins go here
@@ -63,7 +39,6 @@ vim.opt.mouse = "a"
 -- require("plugins.jira-fetch-issues")
 -- require("plugins.jira-fetch-issues-empty")
 -- require("plugins.jira-clone").setup()
--- require("plugins.create-table").setup()
 
 -- this needs fixing
 -- vim.api.nvim_create_user_command('JiraIssues', function()

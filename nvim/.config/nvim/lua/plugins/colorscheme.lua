@@ -107,7 +107,7 @@ return {
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     -- vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f9e2af", bold = true })
-    vim.api.nvim_set_hl(0, "MatchParen", { bg = "#d9e0ee", fg = "#000000", bold = true })
+    vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f38ba8", bg = "#161927", bold = true })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1b192c" })
     -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
