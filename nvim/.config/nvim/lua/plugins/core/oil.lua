@@ -2,10 +2,7 @@ return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    local prefix = function(s)
-      local c = vim.g.neovide and "D" or "C"
-      return string.format("<%s-%s>", c, s)
-    end
+    local set_keys = require("utils.keys")
     local oil_ok, oil_config = pcall(require, "oil")
 
     if not oil_ok then
@@ -17,8 +14,8 @@ return {
     oil_config.setup({
       columns = { "icon" },
       keymaps = {
-        [prefix("v")] = { "actions.select", opts = { vertical = true } },
-        [prefix("x")] = { "actions.select", opts = { horizontal = true } },
+        [set_keys.prefix("v")] = { "actions.select", opts = { vertical = true } },
+        [set_keys.prefix("x")] = { "actions.select", opts = { horizontal = true } },
       },
       view_options = {
         show_hidden = true,

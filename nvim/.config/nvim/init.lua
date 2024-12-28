@@ -21,6 +21,9 @@ if vim.g.neovide then
   vim.g.neovide_input_macos_option_key_is_meta = "both"
   vim.g.neovide_cursor_animation_length = 0.02
 
+  vim.g.neovide_scroll_animation_far_lines = 0
+  vim.g.neovide_scroll_animation_length = 0.00
+
   --- change font size with
   local change_scale_factor = function(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
