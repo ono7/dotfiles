@@ -26,7 +26,6 @@ function M.setup()
 
     local on_exit = function()
       if #lines == 0 then
-        print(string.format("<finish>"))
       elseif #lines > 0 then
         local terminal_buf = vim.api.nvim_create_buf(false, true)
 
@@ -48,6 +47,8 @@ function M.setup()
       on_stderr = append_data,
       on_exit = on_exit,
     })
+
+    print(string.format("< job_id: %s, finished >", job_id))
   end, { nargs = "*" })
 
   M.loaded = true
