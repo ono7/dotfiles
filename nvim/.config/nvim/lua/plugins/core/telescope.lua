@@ -35,8 +35,8 @@ return {
     local default_maps = {
       i = {
         [set_keys.prefix("f")] = actions.to_fuzzy_refine,
-        [set_keys.prefix("k")] = actions.move_selection_previous,
-        [set_keys.prefix("j")] = actions.move_selection_next,
+        [set_keys.prefix("p")] = actions.move_selection_previous,
+        [set_keys.prefix("n")] = actions.move_selection_next,
         [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
       },
       n = { ["q"] = actions.close },

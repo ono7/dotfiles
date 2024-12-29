@@ -14,4 +14,4 @@ wsl = false
 
 [font]
 normal = ["Iosevka Custom"] # Will use the bundled Fira Code Nerd Font by default
-size = 20.0
+size = 23.0

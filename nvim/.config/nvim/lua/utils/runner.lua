@@ -9,7 +9,7 @@ function M.setup()
   vim.api.nvim_create_user_command("M", function(args)
     -- this should work with any non-interactive commands
     if #args.args == 0 then
-      print("no command provided")
+      print("missing cmd")
       return
     end
 
@@ -26,7 +26,7 @@ function M.setup()
 
     local on_exit = function()
       if #lines == 0 then
-        print("no stdout")
+        print(string.format("<finish>"))
       elseif #lines > 0 then
         local terminal_buf = vim.api.nvim_create_buf(false, true)
 

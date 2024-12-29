@@ -125,6 +125,11 @@ if vim.g.neovide then
   -- Visual mode increment/decrement
   vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
+
+  --- command line -----
+  vim.keymap.set({ "c", "n" }, "<D-p>", "<c-p>", opt)
+  vim.keymap.set({ "c", "n" }, "<D-n>", "<c-n>", opt)
+  vim.keymap.set({ "c", "n" }, "<D-f>", "<c-f>", opt)
 end
 
 vim.keymap.set("x", ",a", ":!column -t<cr>")
@@ -133,6 +138,9 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
+vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
+vim.keymap.set("t", set_keys.prefix("p"), [[<c-p>]], silent)
+vim.keymap.set("t", set_keys.prefix("n"), [[<c-n>]], silent)
 
 --- size 8, belowright split, T in commands.lua
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", { noremap = true, silent = true })

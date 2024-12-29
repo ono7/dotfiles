@@ -127,6 +127,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 -- })
 --
 
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    local dir = vim.fn.expand("%:p:h")
+    vim.cmd("silent! lcd " .. dir)
+  end,
+  group = create_augroup("set_path_lcd", { clear = true }),
+})
+
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.relativenumber = false
