@@ -111,6 +111,19 @@ vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or c
 vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
+if vim.g.neovide then
+  vim.keymap.set("n", "<D-i>", "<c-i>", opt)
+  vim.keymap.set("n", "<D-o>", "<c-o>", opt)
+  vim.keymap.set("n", "<D-v>", "<c-v>", opt)
+  -- Regular increment/decrement
+  vim.keymap.set("n", "<D-a>", "<c-a>", opt)
+  vim.keymap.set("n", "<D-x>", "<c-x>", opt)
+
+  -- Visual mode increment/decrement
+  vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
+  vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
+end
+
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
