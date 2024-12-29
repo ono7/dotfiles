@@ -1,3 +1,4 @@
+-- Second module (M)
 local M = {}
 
 function M.setup()
@@ -7,9 +8,10 @@ function M.setup()
 
   local term_size = 10
   vim.api.nvim_create_user_command("M", function(args)
-    -- this should work with any non-interactive commands
     if #args.args == 0 then
-      print("missing cmd")
+      vim.schedule(function()
+        print("missing cmd")
+      end)
       return
     end
 
@@ -25,19 +27,17 @@ function M.setup()
     end
 
     local on_exit = function()
-      if #lines == 0 then
-      elseif #lines > 0 then
-        local terminal_buf = vim.api.nvim_create_buf(false, true)
-
-        vim.bo[terminal_buf].bufhidden = "wipe"
-        vim.bo[terminal_buf].buflisted = false
-        vim.bo[terminal_buf].buftype = "nofile"
-
-        vim.cmd("belowright " .. term_size .. "split")
-        local win_id = vim.api.nvim_get_current_win()
-        vim.api.nvim_win_set_buf(win_id, terminal_buf)
-        vim.api.nvim_buf_set_lines(terminal_buf, 0, -1, false, lines)
-        -- vim.api.nvim_win_set_cursor(win_id, { #lines, 0 })
+      if #lines > 0 then
+        vim.schedule(function()
+          local terminal_buf = vim.api.nvim_create_buf(false, true)
+          vim.bo[terminal_buf].bufhidden = "wipe"
+          vim.bo[terminal_buf].buflisted = false
+          vim.bo[terminal_buf].buftype = "nofile"
+          vim.cmd("belowright " .. term_size .. "split")
+          local win_id = vim.api.nvim_get_current_win()
+          vim.api.nvim_win_set_buf(win_id, terminal_buf)
+          vim.api.nvim_buf_set_lines(terminal_buf, 0, -1, false, lines)
+        end)
       end
     end
 
@@ -48,7 +48,10 @@ function M.setup()
       on_exit = on_exit,
     })
 
-    print(string.format("< job_id: %s, finished >", job_id))
+    -- Schedule the job_id message
+    vim.schedule(function()
+      print(string.format("< job_id: %s, finished >", job_id))
+    end)
   end, { nargs = "*" })
 
   M.loaded = true

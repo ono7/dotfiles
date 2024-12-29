@@ -310,6 +310,19 @@ vim.keymap.set("i", "<BS>", function()
   end
 end, xpr)
 
+-- captures :messages to buffer
+vim.keymap.set("n", "<Leader>m", function()
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+  vim.api.nvim_command("redir => g:message_capture")
+  vim.api.nvim_command("silent messages")
+  vim.api.nvim_command("redir END")
+  local lines = vim.split(vim.g.message_capture, "\n")
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.api.nvim_command("vsplit")
+  vim.api.nvim_win_set_buf(0, buf)
+end)
+
 --- these table and keymap below go together
 -- local pair_map_2 = {
 --   ["("] = ")",
