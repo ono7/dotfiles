@@ -21,7 +21,8 @@
 # base0F = "#f38ba8",
 
 # background = "#1e1d2d"
-background = "#1f1f2f"
+background = "#1e1e2e"
+# background = "#1f1f2f"
 foreground = "#d9e0ee"
 
 dim_foreground = "#bac2de"
