@@ -47,6 +47,8 @@ if [[ $OSTYPE == "darwin"* ]]; then
   defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
   # defaults delete -g KeyRepeat
   # defaults delete -g InitialKeyRepeat
+  defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+  defaults -currentHost write -g AppleFontSmoothing -int 0
 fi
 
 fw () {
