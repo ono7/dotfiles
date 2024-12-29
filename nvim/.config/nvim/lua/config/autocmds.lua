@@ -1,4 +1,3 @@
--- local c = vim.api.nvim_create_autocmd
 local create_augroup = vim.api.nvim_create_augroup
 
 vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
@@ -39,15 +38,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     -- vim.cmd('startinsert')
   end,
 })
-
--- fix commit msg, goto top of file on enter
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   group = create_augroup("markdown-files", { clear = true }),
---   pattern = "*.md",
---   callback = function()
---     vim.opt_local.wrap = true
---   end,
--- })
 
 -- resize windows
 
@@ -114,19 +104,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- auto create dirs when saving files: use :w ++p
 
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   group = create_augroup("remove_trailing_empty_line", { clear = true }),
---   pattern = { "*" },
---   callback = function()
---     local lastLine = vim.fn.line('$')
---     local lastNonblankLine = vim.fn.prevnonblank(lastLine)
---     if lastLine > 0 and lastNonblankLine ~= lastLine then
---       vim.cmd(string.format("%d,%ddelete _", lastNonblankLine + 1, lastLine))
---     end
---   end,
--- })
---
-
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = function()
@@ -153,12 +130,3 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
   group = create_augroup("set_wrap", { clear = true }),
 })
-
-vim.on_key(function(char)
-  if vim.fn.mode() == "n" then
-    local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
-    if vim.opt.hlsearch:get() ~= new_hlsearch then
-      vim.opt.hlsearch = new_hlsearch
-    end
-  end
-end, vim.api.nvim_create_namespace("auto_hlsearch"))
