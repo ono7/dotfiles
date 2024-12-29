@@ -59,5 +59,6 @@ vim.opt.mouse = "a"
 
 if vim.g.neovide then
   --- vsync = true for smooth cursor movement, which is why we are here
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#cdd6f4" })
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b3bbd4" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
 end
