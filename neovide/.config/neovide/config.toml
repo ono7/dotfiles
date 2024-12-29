@@ -9,7 +9,7 @@ no-multigrid = false
 tabs = true
 theme = "auto"
 title-hidden = true
-# vsync = true
+vsync = true
 wsl = false
 
 [font]

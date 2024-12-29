@@ -1,7 +1,6 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
 vim.hl = vim.highlight
-
 vim.cmd([[syntax off]])
 
 if vim.opt.termguicolors then
@@ -59,5 +58,19 @@ vim.opt.mouse = "a"
 -- end, {})
 
 if vim.g.neovide then
+  --- vsync = true for smooth cursor movement, which is why we are here
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#cdd6f4" })
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_cursor_vfx_mode = ""
+  -- vim.g.neovide_refresh_rate = 120
+
+  -- Helper function for transparency formatting
+  -- local alpha = function()
+  --   return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+  -- end
+  -- -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  -- vim.g.neovide_transparency = 0.0
+  -- vim.g.transparency = 0.9
+  -- vim.g.neovide_window_blurred = true
+  -- vim.g.neovide_background_color = "#0f1117" .. alpha()
 end
