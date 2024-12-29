@@ -99,8 +99,8 @@ return {
         -- keyword_length = 4,
       },
       mapping = cmp.mapping.preset.insert({
-        [k.prefix("n")] = cmp.mapping.select_next_item(),
-        [k.prefix("p")] = cmp.mapping.select_prev_item(),
+        [k.prefix("j")] = cmp.mapping.select_next_item(),
+        [k.prefix("k")] = cmp.mapping.select_prev_item(),
         [k.prefix("b")] = cmp.mapping.scroll_docs(-4),
         [k.prefix("f")] = cmp.mapping.scroll_docs(4),
         [k.prefix("Space")] = cmp.mapping.complete({ select = true }),
