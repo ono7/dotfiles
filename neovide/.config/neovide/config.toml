@@ -1,15 +1,15 @@
-fork = false
+# fork = false
 frame = "full"
-idle = true
+# idle = true
 maximized = false
 mouse-cursor-icon = "arrow"
 neovim-bin = "/Users/jlima/.local/bin/nvim" # in reality found dynamically on $PATH if unset
 no-multigrid = false
-srgb = false
+# srgb = false
 tabs = true
 theme = "auto"
 title-hidden = true
-vsync = true
+# vsync = true
 wsl = false
 
 [font]

@@ -27,7 +27,7 @@ vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>`>2l]])
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 
 --- quit it all
-vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
+-- vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
 
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -47,8 +47,8 @@ vim.keymap.set("x", "L", ">gv", silent)
 
 -- Bind the function to a key mapping
 vim.keymap.set("n", ",w", "<cmd>write<cr>", silent)
-vim.keymap.set("n", ",q", "<cmd>q!<cr>", silent)
-vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
+-- vim.keymap.set("n", ",q", "<cmd>q!<cr>", silent)
+-- vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
@@ -112,9 +112,12 @@ vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
 if vim.g.neovide then
+  vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
+  -- jumps and visual select
   vim.keymap.set("n", "<D-i>", "<c-i>", opt)
   vim.keymap.set("n", "<D-o>", "<c-o>", opt)
   vim.keymap.set("n", "<D-v>", "<c-v>", opt)
+  vim.keymap.set("n", "<D-g>", "<c-g>", opt)
   -- Regular increment/decrement
   vim.keymap.set("n", "<D-a>", "<c-a>", opt)
   vim.keymap.set("n", "<D-x>", "<c-x>", opt)

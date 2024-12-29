@@ -217,7 +217,7 @@ return {
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     -- see picker options
-    k("n", "<M-s>", function()
+    k("n", "<M-r>", function()
       require("telescope.builtin").oldfiles({})
     end)
 
