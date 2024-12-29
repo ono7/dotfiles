@@ -16,12 +16,12 @@ vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
-vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]])
-vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]])
-vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]])
-vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>`>2l]])
-vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>`>2l]])
-vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>`>2l]])
+vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>g_l]])
+vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>g_l]])
+vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>g_l]])
+vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>g_l]])
+vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>g_l]])
+vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>g_l]])
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
@@ -37,7 +37,7 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "0", "^", silent)
 
 --- visual select last paste
-vim.keymap.set("n", "gp", "`[v`]", silent)
+-- vim.keymap.set("n", "gp", "`[v`]", silent)
 
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)

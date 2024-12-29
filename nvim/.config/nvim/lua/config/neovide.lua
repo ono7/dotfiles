@@ -4,14 +4,15 @@ if vim.g.neovide then
   -- vim.g.neovide_window_blurred = true
   -- vim.g.neovide_scale_factor = 1.4
   vim.g.neovide_input_macos_option_key_is_meta = "both"
-  -- vim.g.neovide_cursor_animation_length = 0.03
-  vim.g.neovide_cursor_animation_length = 0.08
+  vim.g.neovide_cursor_smooth_blink = false
+  vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_cursor_trail_size = 0.01
   vim.g.neovide_cursor_smooth_blink = false
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_scroll_animation_length = 0.00
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_cursor_animate_command_line = false
+  vim.opt.guifont = "Iosevka Custom:h27:#e-subpixelantialias:#h-none"
 
   vim.opt.linespace = 4
 

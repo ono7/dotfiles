@@ -105,12 +105,12 @@ function s:indent_ret() abort
 endfunction
 
 " Add single quotes around selected text
-vnoremap ' <esc>`>a'<esc>`<i'<esc>`>2l]
-vnoremap " <esc>`>a"<esc>`<i"<esc>`>2l]
-vnoremap ` <esc>`>a`<esc>`<i`<esc>`>2l]
-vnoremap [ <esc>`>a]<esc>`<i[<esc>`>2l]
-vnoremap { <esc>`>a}<esc>`<i{<esc>`>2l]
-vnoremap ( <esc>`>a)<esc>`<i(<esc>`>2l]
+noremap ' <esc>`>a'<esc>`<i'<esc>g_l
+noremap " <esc>`>a"<esc>`<i"<esc>g_l
+noremap ` <esc>`>a`<esc>`<i`<esc>g_l
+noremap [ <esc>`>a]<esc>`<i[<esc>g_l
+noremap { <esc>`>a}<esc>`<i{<esc>g_l
+noremap ( <esc>`>a)<esc>`<i(<esc>g_l
 
 vnoremap s" ciw"<c-r><c-p>""
 vnoremap s' ciw'<c-r><c-p>"'
@@ -369,8 +369,8 @@ augroup _resize
 augroup END
 
 augroup _quickfix
-	autocmd!
-	" auto open quickfix
+  autocmd!
+  " auto open quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
@@ -379,7 +379,7 @@ augroup END
 augroup _files
   autocmd!
   autocmd FileType python setlocal sw=4 ts=4 et softtabstop=4 tw=0 nowrap autoindent nolisp
-  autocmd FileType python setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
+  autocmd FileType python setlocal indentkeys=!^F,o,O,<:>,0,0],0},=elif,=except
   " autocmd FileType python setlocal suffixesadd+=.py
   " help gf find files missing extentions
   " autocmd FileType go setlocal suffixesadd+=.go

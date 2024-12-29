@@ -3,7 +3,7 @@ frame = "full"
 # idle = true
 maximized = false
 mouse-cursor-icon = "arrow"
-neovim-bin = "/Users/jlima/.local/bin/nvim" # in reality found dynamically on $PATH if unset
+# neovim-bin = "/Users/jlima/.local/bin/nvim" # in reality found dynamically on $PATH if unset
 no-multigrid = false
 # srgb = false
 tabs = true
@@ -14,4 +14,4 @@ wsl = false
 
 [font]
 normal = ["Iosevka Custom"] # Will use the bundled Fira Code Nerd Font by default
-size = 23.0
+size = 24.0
