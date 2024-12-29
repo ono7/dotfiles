@@ -112,6 +112,9 @@ noremap [ <esc>`>a]<esc>`<i[<esc>g_l
 noremap { <esc>`>a}<esc>`<i{<esc>g_l
 noremap ( <esc>`>a)<esc>`<i(<esc>g_l
 
+" clear hsl
+nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
+
 vnoremap s" ciw"<c-r><c-p>""
 vnoremap s' ciw'<c-r><c-p>"'
 nnoremap <c-t> <cmd>new<cr>
