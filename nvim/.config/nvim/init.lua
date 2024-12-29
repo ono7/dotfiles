@@ -28,6 +28,7 @@ require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.completion")
+require("utils.help-lookup").setup()
 
 vim.opt.mouse = "a"
 
