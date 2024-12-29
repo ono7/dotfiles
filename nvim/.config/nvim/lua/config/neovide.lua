@@ -15,6 +15,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_frame_no_title = true -- remove title bar
+
   vim.opt.guifont = "Iosevka Custom:h26:#h-none"
 
   vim.opt.linespace = 4

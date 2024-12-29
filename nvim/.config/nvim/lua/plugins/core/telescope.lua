@@ -75,8 +75,8 @@ return {
       extensions = {
         fzf = {
           fuzzy = true, -- false will only do exact matching
-          override_generic_sorter = true,
-          override_file_sorter = true,
+          override_generic_sorter = true, -- default true
+          override_file_sorter = true, -- default true
           case_mode = "smart_case",
         },
         -- ["ui-select"] = {
@@ -181,6 +181,7 @@ return {
         hidden = true,
         no_ignore = true,
         find_command = fd_command,
+        -- find_command = { "rg", "--files", "--sortr=modified" },
       }
       require("telescope.builtin").find_files(opts)
     end, opt)

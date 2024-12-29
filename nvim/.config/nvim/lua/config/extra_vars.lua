@@ -209,6 +209,19 @@ if executable('rg')
     set grepprg=rg\ --no-heading\ --color=never\ --smart-case\ --vimgrep\ -g\ '!.git'
 endif
 
+nnoremap <D-m> :lua ToggleMaximize()<CR>
+
+function! ToggleMaximize()
+    if exists('t:maximized') && t:maximized
+        wincmd =
+        let t:maximized = 0
+    else
+        wincmd |
+        wincmd _
+        let t:maximized = 1
+    endif
+endfunction
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'

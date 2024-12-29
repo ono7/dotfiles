@@ -113,16 +113,27 @@ vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or c
 vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
+vim.keymap.set("n", set_keys.prefix("m"), function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
 if vim.g.neovide then
   --- paste with cmd+v
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
-  vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+  -- vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
   -- jumps and visual select

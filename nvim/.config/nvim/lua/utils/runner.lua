@@ -5,7 +5,7 @@ function M.setup()
     return
   end
 
-  local term_size = 6
+  local term_size = 10
   vim.api.nvim_create_user_command("M", function(args)
     -- this should work with any non-interactive commands
     if #args.args == 0 then
@@ -38,7 +38,7 @@ function M.setup()
         local win_id = vim.api.nvim_get_current_win()
         vim.api.nvim_win_set_buf(win_id, terminal_buf)
         vim.api.nvim_buf_set_lines(terminal_buf, 0, -1, false, lines)
-        vim.api.nvim_win_set_cursor(win_id, { #lines, 0 })
+        -- vim.api.nvim_win_set_cursor(win_id, { #lines, 0 })
       end
     end
 
