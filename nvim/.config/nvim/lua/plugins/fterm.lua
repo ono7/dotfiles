@@ -2,8 +2,7 @@ return {
   "numtostr/fterm.nvim",
   opts = {},
   config = function()
-    -- local binding = vim.g.neovide and "<D-/>" or "<C-_>"
-    local binding = vim.g.neovide and "<M-/>" or "<M-_>"
+    local binding = vim.g.neovide and "<D-/>" or "<C-_>"
 
     require("FTerm").setup({
       dimensions = {

@@ -124,6 +124,17 @@ vim.keymap.set("n", set_keys.prefix("m"), function()
   end
 end, { desc = "Toggle window maximize" })
 
+vim.keymap.set("t", set_keys.prefix("m"), function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
 if vim.g.neovide then
   --- paste with cmd+v
   -- cmd+shift+v for paste
@@ -133,12 +144,14 @@ if vim.g.neovide then
   vim.keymap.set('t', '<D-V>', '<C-\\><C-N>"+pi', { noremap = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
+
   -- jumps and visual select
   vim.keymap.set("n", "<D-i>", "<c-i>", opt)
   vim.keymap.set("n", "<D-o>", "<c-o>", opt)
 
   -- vim.keymap.set("n", "<D-v>", "<c-v>", opt)
   vim.keymap.set("n", "<D-g>", "<c-g>", opt)
+
   -- Regular increment/decrement
   vim.keymap.set("n", "<D-a>", "<c-a>", opt)
   vim.keymap.set("n", "<D-x>", "<c-x>", opt)
@@ -157,6 +170,8 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
+
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
 vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
@@ -165,9 +180,8 @@ vim.keymap.set("t", set_keys.prefix("n"), [[<c-n>]], silent)
 vim.keymap.set("t", set_keys.prefix("r"), [[<c-r>]], silent)
 
 --- size 8, belowright split, T in commands.lua
-vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", { noremap = true, silent = true })
-vim.keymap.set({ "i" }, "<M-t>", "<esc>:T<CR>", { noremap = true, silent = true })
-vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], { noremap = true, silent = true })
+vim.keymap.set({ "n" }, set_keys.prefix("t"), ":T<CR>", silent)
+vim.keymap.set({ "i" }, set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
