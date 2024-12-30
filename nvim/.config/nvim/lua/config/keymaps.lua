@@ -169,6 +169,10 @@ end
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
+
+-- delete word cmd+backspace
+vim.keymap.set('t', '<D-BS>', '\x17', { noremap = true }) -- this works!
+
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
 
