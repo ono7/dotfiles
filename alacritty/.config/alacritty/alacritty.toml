@@ -126,8 +126,8 @@ args = ["--login"]
 program = "/bin/zsh"
 
 [window]
-decorations = "Full"
-# decorations = "None"
+# decoration options: None, Transparent, Full, Buttonless
+decorations = "Full" 
 dynamic_padding = true
 dynamic_title = false
 # opacity = 0.90
