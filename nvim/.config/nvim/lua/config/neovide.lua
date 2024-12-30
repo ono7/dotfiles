@@ -21,7 +21,7 @@ if vim.g.neovide then
   -- vim.opt.guifont = "Iosevka Fixed:h28:#h-none"
   -- vim.opt.guifont = "JetBrains Mono NL:h25:#h-none"
   -- vim.opt.guifont = "Menlo:h24:#h-none"
-  vim.opt.guifont = "SF Mono:h23:#h-none"
+  -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
   vim.opt.linespace = 8
 
