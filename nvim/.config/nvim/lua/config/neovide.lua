@@ -15,12 +15,11 @@ if vim.g.neovide then
   vim.g.neovide_scroll_animation_length = 0.00
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_cursor_animate_command_line = false
-  vim.g.neovide_frame_no_title = true -- remove title bar
+  vim.g.neovide_frame_no_title = true
 
-  -- vim.opt.guifont = "Iosevka Custom:h26:#h-none"
-  -- vim.opt.guifont = "Iosevka Fixed:h28:#h-none"
-  -- vim.opt.guifont = "JetBrains Mono NL:h25:#h-none"
-  -- vim.opt.guifont = "Menlo:h24:#h-none"
+  vim.g.neovide_confirm_quit = true
+
+  -- see ~/.config/neovide/config.toml for font config
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
   vim.opt.linespace = 8

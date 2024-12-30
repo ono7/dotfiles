@@ -3,8 +3,8 @@
 osc52 = "OnlyCopy"
 
 [cursor]
-blink_interval = 500
-blink_timeout = 0
+# blink_interval = 500
+# blink_timeout = 0
 unfocused_hollow = true
 
 [cursor.style]

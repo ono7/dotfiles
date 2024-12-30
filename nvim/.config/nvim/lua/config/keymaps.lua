@@ -23,9 +23,6 @@ vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a]])
 vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>f}a]])
 vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a]])
 
--- vim.cmd([[vnoremap s" ciw"<c-r><c-p>""]])
--- vim.cmd([[vnoremap s' ciw'<c-r><c-p>"']])
-
 vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
 
 --- macros
@@ -129,14 +126,10 @@ end, { desc = "Toggle window maximize" })
 
 if vim.g.neovide then
   --- paste with cmd+v
-  vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+  vim.keymap.set("n", "<D-v>", '"+P')         -- Paste normal mode
+  vim.keymap.set("v", "<D-v>", '"+P')         -- Paste visual mode
+  vim.keymap.set("c", "<D-v>", "<C-R>+")      -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
-  -- vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
   -- jumps and visual select
@@ -162,12 +155,13 @@ end
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
-vim.keymap.set("t", "<Esc>", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "<M-m>", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
 vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
 vim.keymap.set("t", set_keys.prefix("p"), [[<c-p>]], silent)
 vim.keymap.set("t", set_keys.prefix("n"), [[<c-n>]], silent)
+vim.keymap.set("t", set_keys.prefix("r"), [[<c-r>]], silent)
 
 --- size 8, belowright split, T in commands.lua
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", { noremap = true, silent = true })
@@ -252,10 +246,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-    or (open == "[" and close == "]")
-    or (open == "{" and close == "}")
-    or (open == "<" and close == ">")
-    or (open == close and (open == "'" or open == '"' or open == "`"))
+      or (open == "[" and close == "]")
+      or (open == "{" and close == "}")
+      or (open == "<" and close == ">")
+      or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 -- local api = vim.api
@@ -288,7 +282,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>" -- Normal backspace behavior
+    return "<BS>"       -- Normal backspace behavior
   end
 end, xpr)
 
