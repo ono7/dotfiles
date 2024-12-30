@@ -33,7 +33,7 @@ function P.setup()
     return
   end
 
-  vim.api.nvim_create_user_command("P", function(args)
+  vim.api.nvim_create_user_command("H", function(args)
     if #args.args == 0 then
       monitor_file = nil
       monitor_cmd = nil

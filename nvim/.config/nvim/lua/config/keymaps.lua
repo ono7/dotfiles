@@ -16,12 +16,15 @@ vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
-vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>g_l]])
-vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>g_l]])
-vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>g_l]])
-vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>g_l]])
-vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>g_l]])
-vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>g_l]])
+vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
+vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
+vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
+vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a]])
+vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>f}a]])
+vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a]])
+
+-- vim.cmd([[vnoremap s" ciw"<c-r><c-p>""]])
+-- vim.cmd([[vnoremap s' ciw'<c-r><c-p>"']])
 
 vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
 
@@ -208,11 +211,6 @@ vim.keymap.set("n", "<leader>%", function()
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
--- vim.keymap.set("n", "<leaeder>w", ":write<CR>", { silent = true })
-
--- vim.keymap.set("n", ";", ":")
--- vim.keymap.set("n", ":", ";")
-
 vim.keymap.set("n", "<leader>w", function()
   if not check_buf(0) then
     print("save me first!")
@@ -237,31 +235,15 @@ end, silent)
 --   vim.fn.setpos(".", save_cursor)
 -- end, silent)
 
--- local function hlsToggle()
---   if vim.opt.hlsearch then
---     vim.opt.hlsearch = false
---   else
---     vim.opt.hlsearch = true
---   end
--- end
-
--- hex stuff, just look away
--- vim.keymap.set(
---   "x",
---   "<space>h",
---   [[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
---   silent
--- )
-
 -- vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
 -- vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 
--- vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
--- vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
--- vim.keymap.set("n", "g{", "?{<cr>")
--- vim.keymap.set("n", "g}", "/}<cr>")
--- vim.keymap.set("n", "g[", [[?\v\[<cr>]])
--- vim.keymap.set("n", "g]", [[/\v\]<cr>]])
+vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
+vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
+vim.keymap.set("n", "g{", "?{<cr>")
+vim.keymap.set("n", "g}", "/}<cr>")
+vim.keymap.set("n", "g[", [[?\v\[<cr>]])
+vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
@@ -323,25 +305,25 @@ vim.keymap.set("n", "<Leader>m", function()
   vim.api.nvim_win_set_buf(0, buf)
 end)
 
---- these table and keymap below go together
--- local pair_map_2 = {
---   ["("] = ")",
---   ["["] = "]",
---   ["{"] = "}",
---   ["<"] = ">",
--- }
+-- - these table and keymap below go together
+local pair_map_2 = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+  ["<"] = ">",
+}
 
---- optimized
--- k("i", "<enter>", function()
---   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
---   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ''
---   local closing_char = pair_map_2[prev_char]
---   if closing_char then
---     return "<enter>" .. closing_char .. "<Esc>O"
---   else
---     return "<Enter>"
---   end
--- end, { expr = true })
+-- - optimized
+vim.keymap.set("i", "<enter>", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+  local closing_char = pair_map_2[prev_char]
+  if closing_char then
+    return "<enter>" .. closing_char .. "<Esc>O"
+  else
+    return "<Enter>"
+  end
+end, { expr = true })
 
 --- Optimized Enter key actions using a lookup table
 -- local enter_actions = {

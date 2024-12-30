@@ -24,7 +24,7 @@ require("config.helper-functions")
 require("config.lazy")
 require("utils.zoxide").setup()
 require("utils.runner").setup() -- runs anything :M ps waux :)
-require("utils.monitor-file").setup() -- adds monitoring hook that triggers on file save
+require("utils.runner-hook").setup() -- adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")

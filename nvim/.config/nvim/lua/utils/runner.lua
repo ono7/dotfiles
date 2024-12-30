@@ -1,11 +1,9 @@
 -- Second module (M)
 local M = {}
-
 function M.setup()
   if M.loaded then
     return
   end
-
   local term_size = 10
   vim.api.nvim_create_user_command("M", function(args)
     if #args.args == 0 then
@@ -15,11 +13,18 @@ function M.setup()
       return
     end
 
+    -- Process the command string and handle '%' symbol
+    local cmd_str = args.args
+    -- Replace % with the current buffer's file path
+    cmd_str = cmd_str:gsub("%%", vim.fn.expand("%:p"))
+    -- Split the command string into parts
+    local processed_args = vim.split(cmd_str, " ", { trimempty = true })
+
     local lines = {}
     local append_data = function(_, data)
       if data then
         for _, line in ipairs(data) do
-          if line ~= "" then
+          if line ~= "" then -- this was to skip non empty lines
             table.insert(lines, line)
           end
         end
@@ -41,20 +46,17 @@ function M.setup()
       end
     end
 
-    local job_id = vim.fn.jobstart(args.args, {
+    local job_id = vim.fn.jobstart(processed_args, {
       stdout_buffered = true,
       on_stdout = append_data,
       on_stderr = append_data,
       on_exit = on_exit,
     })
 
-    -- Schedule the job_id message
     vim.schedule(function()
       print(string.format("< job_id: %s, finished >", job_id))
     end)
   end, { nargs = "*" })
-
   M.loaded = true
 end
-
 return M

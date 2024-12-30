@@ -20,10 +20,10 @@
 # base0E = "#cba6f7",
 # base0F = "#f38ba8",
 
-# background = "#1e1d2d"
-background = "#1e1e2e"
-# background = "#1f1f2f"
-foreground = "#d9e0ee"
+# background = "#1e1e2e"
+# foreground = "#d9e0ee"
+foreground = "#b8c1e6"
+background = "#1b1f31"
 
 dim_foreground = "#bac2de"
 bright_foreground = "#cdd6f4"

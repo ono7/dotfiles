@@ -105,12 +105,13 @@ function s:indent_ret() abort
 endfunction
 
 " Add single quotes around selected text
-noremap ' <esc>`>a'<esc>`<i'<esc>g_l
-noremap " <esc>`>a"<esc>`<i"<esc>g_l
-noremap ` <esc>`>a`<esc>`<i`<esc>g_l
-noremap [ <esc>`>a]<esc>`<i[<esc>g_l
-noremap { <esc>`>a}<esc>`<i{<esc>g_l
-noremap ( <esc>`>a)<esc>`<i(<esc>g_l
+
+vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+vnoremap " <esc>`>a"<esc>`<i"<esc>f"a
+vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a
+vnoremap { <esc>`>a}<esc>`<i{<esc>f}a
+vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a
 
 " clear hsl
 nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
