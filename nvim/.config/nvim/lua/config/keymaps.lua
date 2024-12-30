@@ -126,10 +126,11 @@ end, { desc = "Toggle window maximize" })
 
 if vim.g.neovide then
   --- paste with cmd+v
-  vim.keymap.set("n", "<D-v>", '"+P')         -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P')         -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+")      -- Paste command mode
-  vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+  -- cmd+shift+v for paste
+  vim.keymap.set('n', '<D-V>', '"+p', { noremap = true })    -- Normal mode
+  vim.keymap.set('i', '<D-V>', '<C-R>+', { noremap = true }) -- Insert mode
+  vim.keymap.set('v', '<D-V>', '"+p', { noremap = true })    -- Visual mode
+  vim.keymap.set('t', '<D-V>', '<C-\\><C-N>"+pi', { noremap = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
   -- jumps and visual select
@@ -155,7 +156,7 @@ end
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
-vim.keymap.set("t", "<M-m>", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "<D-M>", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
 vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
