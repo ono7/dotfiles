@@ -37,7 +37,7 @@ y = 0
 
 [font.normal]
 # family = "MonolisaNoLiga Nerd Font"
-family = "Iosevka Custom"
+family = "Iosevka Fixed"
 # style = "Medium Regular"
 
 [font.offset]

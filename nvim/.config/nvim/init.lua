@@ -1,5 +1,6 @@
 --- 🐇 Follow the white Rabbit...
 -- :write ++p (creates directories if they dont exists)
+
 vim.hl = vim.highlight
 vim.cmd([[syntax off]])
 
@@ -64,3 +65,6 @@ if vim.g.neovide then
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b3bbd4" })
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
 end
+
+-- block cursor
+vim.opt.guicursor = ""
