@@ -156,7 +156,7 @@ end
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
-vim.keymap.set("t", "<D-M>", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
 vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
