@@ -71,8 +71,22 @@ return {
           function()
             require("telescope.builtin").find_files({
               hidden = true,
-              no_ignore = true,
-              find_command = { "rg", "--files", "--sortr=modified" },
+              no_ignore = false,
+              find_command = {
+                "rg",
+                "--files",
+                "--sortr=modified",
+                "--glob",
+                "!**/__pycache__/*",
+                "--glob",
+                "!venv/*",
+                "--glob",
+                "!.git/*",
+                "--glob",
+                "!node_modules/*",
+                "--glob",
+                "!.collections/*"
+              },
             })
           end,
         },

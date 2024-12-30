@@ -53,9 +53,9 @@ return {
       "f",
       "--strip-cwd-prefix",
       "--hidden",
-      -- "--no-ignore-vcs", -- Ignore all default ignore files
+      "--no-ignore",                        -- Don't use any default ignore files
       "--ignore-file",
-      "~/.config/fd/ignore",
+      vim.fn.expand("~/.config/fd/ignore"), -- Expand the path explicitly
     }
 
     require("telescope").setup({
@@ -74,9 +74,9 @@ return {
       },
       extensions = {
         fzf = {
-          fuzzy = true, -- false will only do exact matching
+          fuzzy = true,                   -- false will only do exact matching
           override_generic_sorter = true, -- default true
-          override_file_sorter = true, -- default true
+          override_file_sorter = true,    -- default true
           case_mode = "smart_case",
         },
         -- ["ui-select"] = {
@@ -99,10 +99,10 @@ return {
           local highlights = {
             {
               {
-                #tail + 2, -- highlight start position +2 = (path = string.format)
+                #tail + 2,         -- highlight start position +2 = (path = string.format)
                 #tail + #path + 2, -- highlight end position
               },
-              "Pmenu", -- highlight group name
+              "Pmenu",             -- highlight group name
             },
           }
 
@@ -179,7 +179,7 @@ return {
     k({ "n", "x" }, "<M-f>", function()
       local opts = {
         hidden = true,
-        no_ignore = true,
+        show_untracked = true,
         find_command = fd_command,
         -- find_command = { "rg", "--files", "--sortr=modified" },
       }
@@ -200,11 +200,17 @@ return {
     -- Custom function to use fd for Git files
     local function fd_git_files()
       if is_git_repo() then
-        return builtin.find_files({
+        return builtin.git_files({
           previewer = false,
-          find_command = fd_command,
-          prompt_title = "Project files (git)",
-          cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
+          show_untracked = true,
+          -- find_command = {
+          --   "fd",
+          --   "--type",
+          --   "f",
+          --   "--strip-cwd-prefix"
+          -- },
+          -- prompt_title = "Project files (git)",
+          -- cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
         })
       else
         print("cwd not a git project")
