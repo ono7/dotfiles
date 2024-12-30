@@ -3,8 +3,9 @@ if vim.g.neovide then
   -- see ~/.config/neovide/config.toml for the rest
 
   -- the most important settings for smooth typing
-  vim.g.neovide_cursor_animation_length = 0.08
+  vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_cursor_trail_size = 0.01
+
   vim.g.neovide_refresh_rate = 120
   vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
@@ -17,10 +18,10 @@ if vim.g.neovide then
   vim.g.neovide_frame_no_title = true -- remove title bar
 
   -- vim.opt.guifont = "Iosevka Custom:h26:#h-none"
-  vim.opt.guifont = "Iosevka Fixed:h28:#h-none"
-  -- vim.opt.guifont = "MonoLisa NoLiga:h26:#h-none"
+  -- vim.opt.guifont = "Iosevka Fixed:h28:#h-none"
+  -- vim.opt.guifont = "JetBrains Mono NL:h25:#h-none"
   -- vim.opt.guifont = "Menlo:h24:#h-none"
-  -- vim.opt.guifont = "Menlo:h24:#h-none"
+  vim.opt.guifont = "SF Mono:h24:#h-none"
 
   vim.opt.linespace = 8
 
