@@ -29,7 +29,7 @@ render_timer = false
 TERM = "alacritty-direct"
 
 [font]
-size = 25.0
+size = 24.0
 
 [font.glyph_offset]
 x = 0
