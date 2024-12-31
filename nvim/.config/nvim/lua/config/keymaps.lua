@@ -138,10 +138,10 @@ end, { desc = "Toggle window maximize" })
 if vim.g.neovide then
   --- paste with cmd+v
   -- cmd+shift+v for paste
-  vim.keymap.set('n', '<D-V>', '"+p', { noremap = true })    -- Normal mode
-  vim.keymap.set('i', '<D-V>', '<C-R>+', { noremap = true }) -- Insert mode
-  vim.keymap.set('v', '<D-V>', '"+p', { noremap = true })    -- Visual mode
-  vim.keymap.set('t', '<D-V>', '<C-\\><C-N>"+pi', { noremap = true })
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+  vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+  vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
 
@@ -171,9 +171,15 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 --- terminal ---
 
 -- delete word cmd+backspace
-vim.keymap.set('t', '<D-BS>', '\x17', { noremap = true }) -- this works!
+vim.keymap.set("t", "<D-BS>", "\x17", { noremap = true }) -- this works!
 
+-- pass <c-b> to through term for tmux
+vim.keymap.set("t", set_keys.prefix("b"), "<C-b>", { noremap = true })
+
+-- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
+
+-- toggle term
 vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
@@ -265,10 +271,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 -- local api = vim.api
@@ -301,7 +307,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
