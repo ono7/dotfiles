@@ -39,7 +39,7 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "0", "^", silent)
 
 --- visual select last paste
--- vim.keymap.set("n", "gp", "`[v`]", silent)
+vim.keymap.set("n", "gp", "`[v`]", silent)
 
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
@@ -171,7 +171,8 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 --- terminal ---
 
 -- delete word cmd+backspace
-vim.keymap.set("t", "<D-BS>", "\x17", { noremap = true }) -- this works!
+-- vim.keymap.set("t", "<D-BS>", "\x17", { noremap = true }) -- this works!
+vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
 vim.keymap.set("t", set_keys.prefix("b"), "<C-b>", { noremap = true })
@@ -220,7 +221,9 @@ local function clean_space_save()
   -- this is now handled by conform.nvim
 end
 
-vim.keymap.set("i", set_keys.prefix("BS"), "<C-W>", { noremap = true })
+-- delete word
+-- vim.keymap.set("i", set_keys.prefix("BS"), "\x17", { noremap = true })
+vim.keymap.set("i", "<M-BS>", "\x17", { noremap = true })
 
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 

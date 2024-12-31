@@ -90,3 +90,55 @@ snippet banner "create banner" b
     printf "%\${span}s\n" "\$title"
     printf "%\${COLUMNS}s\n" | tr " " "*"
   }
+
+snippet docker "docker build" b
+  #!/bin/bash
+
+  # Author:  Jose Lima (`getenv('USER')`)
+  # Date:    2024-09-05 19:04
+
+  # Exit on any error
+  set -e
+
+  # Define variables
+  IMAGE_NAME="registry.com/image-name"
+  TAG="production"
+  FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG}"
+
+  # Source environment variables
+  if [ ! -f ~/.env ]; then
+    echo "Error: ~/.env file not found"
+    exit 1
+  fi
+
+  # shellcheck source=/dev/null
+  . ~/.env
+
+  # Verify SFTP_PASS exists
+  if [ -z "${SFTP_PASS}" ]; then
+    echo "Error: SFTP_PASS not set in ~/.env"
+    exit 1
+  fi
+
+  echo "Building image ${FULL_IMAGE_NAME}..."
+
+  # Build the image
+  if ! podman build \
+    --tls-verify=false \
+    --build-arg SFTP_PASSWORD="${SFTP_PASS}" \
+    --platform linux/amd64 \
+    --tag "${FULL_IMAGE_NAME}" \
+    .; then
+    echo "Error: Build failed"
+    exit 1
+  fi
+
+  echo "Build successful. Pushing image..."
+
+  # Push the image
+  if ! podman push "${FULL_IMAGE_NAME}"; then
+    echo "Error: Push failed"
+    exit 1
+  fi
+
+  echo "Successfully built and pushed ${FULL_IMAGE_NAME}"
