@@ -66,10 +66,10 @@ stow:
 	@bash ./_scripts/stow.sh
 
 # make ssh/config not tracked in ~/.dotfiles
-ssh:
-	@echo $(BANNER)
-	stow -D ssh
-	@cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
+# ssh:
+# 	@echo $(BANNER)
+# 	stow -D ssh
+# 	@cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
 
 fzf:
 	@echo $(BANNER)
