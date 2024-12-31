@@ -13,6 +13,8 @@
 --glob=!.git/*
 --glob=!.collections/*
 --glob=!venv/*
+--glob=!**/__pycache__/*
+--glob=!node_modules/*
 
 # Set the colors.
 --colors=line:none

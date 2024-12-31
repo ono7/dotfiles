@@ -53,7 +53,7 @@ return {
       "f",
       "--strip-cwd-prefix",
       "--hidden",
-      "--no-ignore",                        -- Don't use any default ignore files
+      "--no-ignore", -- Don't use any default ignore files
       "--ignore-file",
       vim.fn.expand("~/.config/fd/ignore"), -- Expand the path explicitly
     }
@@ -74,9 +74,9 @@ return {
       },
       extensions = {
         fzf = {
-          fuzzy = true,                   -- false will only do exact matching
+          fuzzy = true, -- false will only do exact matching
           override_generic_sorter = true, -- default true
-          override_file_sorter = true,    -- default true
+          override_file_sorter = true, -- default true
           case_mode = "smart_case",
         },
         -- ["ui-select"] = {
@@ -99,10 +99,10 @@ return {
           local highlights = {
             {
               {
-                #tail + 2,         -- highlight start position +2 = (path = string.format)
+                #tail + 2, -- highlight start position +2 = (path = string.format)
                 #tail + #path + 2, -- highlight end position
               },
-              "Pmenu",             -- highlight group name
+              "Pmenu", -- highlight group name
             },
           }
 
@@ -156,8 +156,10 @@ return {
           "!tags",
         },
         show_untracked = true,
+        hidden = true,
         no_ignore = false,
         theme = "ivy",
+        cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
       })
     end, { desc = "Live grep with rg" })
 

@@ -72,6 +72,7 @@ return {
             require("telescope.builtin").find_files({
               hidden = true,
               no_ignore = false,
+              -- sorting by modified is single threaded, but we dont expect many files
               find_command = {
                 "rg",
                 "--files",
