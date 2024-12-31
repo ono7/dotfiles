@@ -159,7 +159,13 @@ return {
         hidden = true,
         no_ignore = false,
         theme = "ivy",
-        cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
+        cwd = (function()
+          local d = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+          if d:match("not a git repository") then
+            return "."
+          end
+          return d
+        end)(),
       })
     end, { desc = "Live grep with rg" })
 
