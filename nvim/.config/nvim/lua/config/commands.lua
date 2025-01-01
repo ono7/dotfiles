@@ -93,7 +93,13 @@ vim.api.nvim_create_user_command("T", function(opts)
   end
 
   if not is_visible then
-    vim.cmd("bel " .. term_size .. "split")
+    -- deploys below a single window pane
+    -- vim.cmd("bel " .. term_size .. "split")
+
+    -- takes the entire section below
+    vim.cmd.vnew()
+    vim.cmd.wincmd("J")
+
     vim.api.nvim_win_set_height(0, term_size)
     vim.api.nvim_win_set_buf(0, terminal_buf)
     terminal_win = vim.api.nvim_get_current_win()

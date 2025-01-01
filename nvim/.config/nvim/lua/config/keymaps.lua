@@ -185,7 +185,7 @@ vim.keymap.set("t", set_keys.prefix("b"), "<C-b>", { noremap = true })
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 
 -- toggle term
-vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
+vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
