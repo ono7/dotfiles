@@ -36,30 +36,30 @@ local BytesToString = function(opts)
   end
 
   -- Remove any whitespace or non-hex characters
-  selected_text = selected_text:gsub('[^0-9A-Fa-f]', '')
+  selected_text = selected_text:gsub("[^0-9A-Fa-f]", "")
 
-  if selected_text == '' then
+  if selected_text == "" then
     vim.api.nvim_err_writeln("No valid bytes selected.")
     return
   end
 
   -- Convert hex to string
-  local string_result = ''
+  local string_result = ""
   for i = 1, #selected_text, 2 do
     local hex_byte = selected_text:sub(i, i + 1)
     string_result = string_result .. string.char(tonumber(hex_byte, 16))
   end
 
   -- Display the result in a new buffer
-  vim.api.nvim_command('new')
+  vim.api.nvim_command("new")
   vim.api.nvim_buf_set_lines(0, 0, -1, false, { string_result })
-  vim.api.nvim_command('setlocal buftype=nofile bufhidden=wipe noswapfile')
-  vim.api.nvim_command('setlocal filetype=text')
-  vim.api.nvim_command('setlocal nonumber norelativenumber')
+  vim.api.nvim_command("setlocal buftype=nofile bufhidden=wipe noswapfile")
+  vim.api.nvim_command("setlocal filetype=text")
+  vim.api.nvim_command("setlocal nonumber norelativenumber")
   vim.api.nvim_win_set_cursor(0, { 1, 0 }) -- Move the cursor to the beginning of the buffer
 end
 
-vim.api.nvim_create_user_command('BytesToString', BytesToString, { range = true, nargs = 0 })
+vim.api.nvim_create_user_command("BytesToString", BytesToString, { range = true, nargs = 0 })
 
 vim.cmd([[
 function! Esc()

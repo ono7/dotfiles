@@ -1,25 +1,25 @@
 local M = {}
-
 function M.setup()
   if M.loaded then
     return
   end
-
   local term_size = 10
-
   vim.api.nvim_create_user_command("M", function(args)
+    -- Close any existing scratch buffer first
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if vim.bo[buf].buftype == "nofile" and not vim.bo[buf].buflisted then
+        vim.api.nvim_win_close(win, true)
+      end
+    end
+
     if #args.args == 0 then
       vim.schedule(function()
         print("missing cmd")
       end)
       return
     end
-
-    -- Process the command string and handle '%' symbol
-    local cmd_str = args.args
-    -- Replace % with the current buffer's file path
-    cmd_str = cmd_str:gsub("%%", vim.fn.expand("%:p"))
-
+    local cmd_str = args.args:gsub("%%", vim.fn.expand("%:p"))
     local lines = {}
     local append_data = function(_, data)
       if data then
@@ -30,7 +30,6 @@ function M.setup()
         end
       end
     end
-
     local on_exit = function()
       if #lines > 0 then
         vim.schedule(function()
@@ -45,21 +44,16 @@ function M.setup()
         end)
       end
     end
-
-    -- Use a shell to properly handle pipes and operators
     local job_id = vim.fn.jobstart({ "sh", "-c", cmd_str }, {
       stdout_buffered = true,
       on_stdout = append_data,
       on_stderr = append_data,
       on_exit = on_exit,
     })
-
     vim.schedule(function()
       print(string.format("< job_id: %s, finished >", job_id))
     end)
   end, { nargs = "*" })
-
   M.loaded = true
 end
-
 return M
