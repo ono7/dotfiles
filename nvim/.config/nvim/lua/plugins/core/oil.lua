@@ -57,7 +57,8 @@ return {
     -- vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
     -- Open parent directory in floating window
-    local binding = vim.g.neovide and "<D-\\>" or "<C-\\>"
+
+    local binding = vim.loop.os_uname().sysname == "Darwin" and "<D-\\>" or "<C-\\>"
     vim.keymap.set("n", binding, require("oil").toggle_float)
   end,
 }

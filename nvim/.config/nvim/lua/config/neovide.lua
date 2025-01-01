@@ -1,5 +1,5 @@
--- TODO: need to figure out how to start in home dir
 if vim.g.neovide then
+  -- TODO: need to figure out how to start in home dir
   -- see ~/.config/neovide/config.toml for the rest
 
   -- the most important settings for smooth typing

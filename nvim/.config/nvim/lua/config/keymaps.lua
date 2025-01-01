@@ -135,7 +135,9 @@ vim.keymap.set("t", set_keys.prefix("m"), function()
   end
 end, { desc = "Toggle window maximize" })
 
-if vim.g.neovide then
+-- if vim.g.neovide then
+
+if vim.loop.os_uname().sysname == "Darwin" then
   --- paste with cmd+v
   -- cmd+shift+v for paste
   vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
