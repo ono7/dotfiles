@@ -1,3 +1,10 @@
+[general]
+
+import = ["./cappuccine-mocha.toml"]
+
+live_config_reload = true
+working_directory = "None"
+
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "OnlyCopy"
@@ -5,14 +12,15 @@ osc52 = "OnlyCopy"
 [cursor]
 # blink_interval = 500
 # blink_timeout = 0
-unfocused_hollow = true
+# unfocused_hollow = true
+# block_replace_shape = "underline"
 
-[cursor.style]
-blinking = "Always"
-shape = "Block"
+# [cursor.style]
+# blinking = "Never"
+# shape = "Block"
 
-[colors]
-draw_bold_text_with_bright_colors = false
+# [colors]
+# draw_bold_text_with_bright_colors = false
 
 [debug]
 log_level = "Off"
@@ -26,7 +34,7 @@ render_timer = false
 [env]
 
 # infocmp -L alacritty alacritty-direct
-TERM = "alacritty-direct"
+TERM = "alacritty"
 
 [font]
 size = 23.0
@@ -127,12 +135,12 @@ program = "/bin/zsh"
 
 [window]
 # decoration options: None, Transparent, Full, Buttonless
-decorations = "Full" 
-dynamic_padding = true
-dynamic_title = false
+# decorations = "Full" 
+# dynamic_padding = true
+# dynamic_title = false
 # opacity = 0.90
 # blur = true
-decorations_theme_variant = "Dark"
+# decorations_theme_variant = "Dark"
 
 position = "None"
 startup_mode = "Windowed"
@@ -145,11 +153,4 @@ lines = 28
 [window.padding]
 x = 5
 y = 5
-
-[general]
-
-import = ["./cappuccine-mocha.toml"]
-
-live_config_reload = true
-working_directory = "None"
 

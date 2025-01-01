@@ -141,6 +141,7 @@ return {
     vim.api.nvim_set_hl(0, "@variable.member", {})
     vim.api.nvim_set_hl(0, "@parameter", {})
     vim.api.nvim_set_hl(0, "@module", {})
+    vim.api.nvim_set_hl(0, "@markup.raw", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
     vim.api.nvim_set_hl(0, "@string.documentation", {})
     vim.api.nvim_set_hl(0, "Boolean", { italic = false })

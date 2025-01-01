@@ -1,6 +1,8 @@
 # docker build examples
 
-```
+## multi stage build for smaller docker final image
+
+```Dockerfile
 # Dockerfile.multi-stage | builds smaller images
 
 # Stage 1: Build
@@ -38,6 +40,8 @@ EXPOSE 5000
 # Run the Flask app
 CMD ["python", "app.py"]
 ```
+
+## build go project
 
 ```Dockerfile
 #

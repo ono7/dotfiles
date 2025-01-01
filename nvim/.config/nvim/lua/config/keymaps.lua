@@ -145,6 +145,10 @@ if vim.g.neovide then
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
 
+  -- delete line
+  vim.keymap.set("i", "<D-u>", "<c-u>", opt)
+  vim.keymap.set("t", "<D-u>", "<c-u>", opt)
+
   -- jumps and visual select
   vim.keymap.set("n", "<D-i>", "<c-i>", opt)
   vim.keymap.set("n", "<D-o>", "<c-o>", opt)

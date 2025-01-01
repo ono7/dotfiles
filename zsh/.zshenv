@@ -234,3 +234,4 @@ gpg_backup () {
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
 }
+. "$HOME/.cargo/env"
