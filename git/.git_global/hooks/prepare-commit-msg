@@ -7,7 +7,7 @@ SHA1=$3
 echo '' >"$COMMIT_MSG_FILE"
 
 # Get the list of staged files
-STAGED_FILES=$(git status --porcelain | head -n 10)
+# STAGED_FILES=$(git status --porcelain | head -n 10)
 
 # Add the list of staged files to the commit message
 # echo "$STAGED_FILES" | sed 's/^/# /' >>"$COMMIT_MSG_FILE"
