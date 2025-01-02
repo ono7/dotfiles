@@ -24,8 +24,8 @@ require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
 require("utils.zoxide").setup()
-require("utils.runner").setup() -- runs anything :M ps waux :)
-require("utils.runner-hook").setup() -- adds monitoring hook that triggers on file save
+require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
@@ -33,6 +33,15 @@ require("config.completion")
 require("utils.help-lookup").setup()
 
 vim.opt.mouse = "a"
+
+if vim.g.neovide then
+  --- vsync = true for smooth cursor movement, which is why we are here
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b3bbd4" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
+end
+
+-- block cursor
+vim.opt.guicursor = ""
 
 -- home made plugins go here
 -- require("plugins.jira-base")
@@ -59,12 +68,3 @@ vim.opt.mouse = "a"
 --     end)
 --   end, { silent = true, desc = "Open Jira Issues" })
 -- end, {})
-
-if vim.g.neovide then
-  --- vsync = true for smooth cursor movement, which is why we are here
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b3bbd4" })
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
-end
-
--- block cursor
-vim.opt.guicursor = ""
