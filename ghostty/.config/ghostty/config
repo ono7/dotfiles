@@ -5,6 +5,7 @@ foreground = b8c1e6
 
 # font settings
 font-family = SF Mono
+font-family-bold = SF Mono Heavy
 font-style = Medium
 font-size = 23
 adjust-cell-height= 30%

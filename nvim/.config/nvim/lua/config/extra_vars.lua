@@ -8,7 +8,10 @@ set nocompatible
 set t_Co=8
 
 nnoremap <space> <nop>
+nnoremap <M-e> <nop>
 inoremap <M-e> <nop>
+inoremap <M-C-U> <nop>
+
 let mapleader = " "
 
 " let g:loaded_matchparen = 1
@@ -149,6 +152,9 @@ nnoremap <leader>cd :lcd %:h<CR>
 " Word movement
 inoremap <M-f> <C-o>w
 inoremap <M-b> <C-o>b
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
