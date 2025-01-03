@@ -38,6 +38,8 @@ return {
         [set_keys.prefix("p")] = actions.move_selection_previous,
         [set_keys.prefix("n")] = actions.move_selection_next,
         [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
+        [set_keys.prefix("x")] = actions.select_horizontal,
+        [set_keys.prefix("v")] = actions.select_vertical,
       },
       n = { ["q"] = actions.close },
     }
