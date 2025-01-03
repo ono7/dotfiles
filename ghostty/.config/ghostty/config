@@ -1,13 +1,14 @@
+# UI related
 theme = catppuccin-mocha
+background = 1b1f31
+foreground = b8c1e6
 
-# font
+# font settings
 font-family = SF Mono
 font-style = Medium
 font-size = 23
 adjust-cell-height= 30%
 
-background = 1b1f31
-foreground = b8c1e6
 
 shell-integration-features = no-cursor,sudo,no-title
 
@@ -29,19 +30,26 @@ keybind = cmd+shift+t=new_tab
 keybind = cmd+shift+h=next_tab
 keybind = cmd+shift+l=previous_tab
 
-# unbind some defaults
+# unbind some defaults makes them passthrough 
 keybind = cmd+c=unbind
 keybind = cmd+d=unbind
 keybind = cmd+w=unbind
 keybind = cmd+q=unbind
 keybind = cmd+h=unbind
+keybind = cmd+t=unbind
+keybind = cmd+v=unbind
+keybind = cmd+k=unbind
+keybind = alt+right=unbind
+
+# open config
+keybind = cmd+comma=unbind
 
 # convert some of our cmd+ combos to ctr+
 keybind = cmd+a=text:\x01
-keybind = cmd+e=text:\x05
 keybind = cmd+b=text:\x02
 keybind = cmd+c=text:\x03
 keybind = cmd+d=text:\x04
+keybind = cmd+e=text:\x05
 keybind = cmd+n=text:\x0e
 keybind = cmd+left_bracket=text:\x1b
 keybind = cmd+p=text:\x10
@@ -49,3 +57,4 @@ keybind = cmd+r=text:\x12
 keybind = cmd+x=text:\x18
 keybind = cmd+z=text:\x1a
 keybind = cmd+right_bracket=text:\x1d
+keybind = super+shift+v=paste_from_clipboard

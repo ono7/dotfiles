@@ -270,20 +270,8 @@ vim.keymap.set("n", "<leader>w", function()
   vim.fn.setpos(".", save_cursor)
 end, silent)
 
--- vim.keymap.set("n", "<leader>s", function()
---   if not check_buf(0) then
---     print("save me first!")
---     return
---   end
---   local save_cursor = vim.fn.getcurpos()
---   vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
---   -- this might cause issues with oil.nvim
---   vim.cmd([[:write ++p]])
---   vim.fn.setpos(".", save_cursor)
--- end, silent)
-
--- vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
--- vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
+vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
+vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 
 vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
 vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
@@ -304,26 +292,6 @@ local function is_pair(open, close)
     or (open == "<" and close == ">")
     or (open == close and (open == "'" or open == '"' or open == "`"))
 end
-
--- local api = vim.api
---
--- local function get_next_char()
---   local cursor = api.nvim_win_get_cursor(0)
---   local row, col = cursor[1], cursor[2]
---   return api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
--- end
---
--- vim.keymap.set("i", "]", function()
---   return get_next_char() == "]" and "<Right>" or "]"
--- end, { expr = true, silent = true })
---
--- vim.keymap.set("i", ")", function()
---   return get_next_char() == ")" and "<Right>" or ")"
--- end, { expr = true, silent = true })
---
--- vim.keymap.set("i", "}", function()
---   return get_next_char() == "}" and "<Right>" or "}"
--- end, { expr = true, silent = true })
 
 vim.keymap.set("i", "<BS>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -371,37 +339,3 @@ vim.keymap.set("i", "<enter>", function()
     return "<Enter>"
   end
 end, { expr = true })
-
---- Optimized Enter key actions using a lookup table
--- local enter_actions = {
---   ["("] = "<enter>)<Esc>O",
---   ["["] = "<enter>]<Esc>O",
---   ["{"] = "<enter>}<Esc>O",
---   ["<"] = "<enter>><Esc>O",
--- }
--- local default_enter = "<Enter>"
---
--- vim.keymap.set("i", "<enter>", function()
---   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
---   local prev_char = ""
---   if col > 0 then
---     prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
---   end
---   return enter_actions[prev_char] or default_enter
--- end, { expr = true, silent = true })
-
--- vim.keymap.set("n", "f{", function()
---   vim.fn.search("{", "W")
--- end, { noremap = true, silent = true })
---
--- vim.keymap.set("n", "f(", function()
---   vim.fn.search("(", "W")
--- end, { noremap = true, silent = true })
---
--- vim.keymap.set("n", "f(", function()
---   vim.fn.search("(", "cW")
--- end, { noremap = true, silent = true })
---
--- vim.keymap.set("n", "f[", function()
---   vim.fn.search("[", "W")
--- end, { noremap = true, silent = true })
