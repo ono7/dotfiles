@@ -36,6 +36,7 @@ if type stow &>/dev/null; then
   stow eslint
   stow lint-staged
   stow yamllint
+  stow ghostty
 else
   log "stow is not installed, please install stow first..."
   exit 1
