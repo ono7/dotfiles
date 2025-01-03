@@ -61,10 +61,19 @@ inoremap <expr> <bs> <sid>remove_pair()
 inoremap <expr> <enter> <sid>indent_ret()
 
 " Line navigation
-inoremap <C-a> <C-o>^
-inoremap <C-a> <C-o>^
-inoremap <D-e> <C-o>$
-inoremap <D-e> <C-o>$
+inoremap <C-a> <Esc>^i
+inoremap <C-e> <End>
+
+noremap <D-a> ^
+noremap <D-e> $
+
+" For insert mode
+inoremap <D-a> <Esc>^i
+inoremap <D-e> <End>
+
+" For command mode
+cnoremap <D-a> <Home>
+cnoremap <D-e> <End>
 
 " macos
 nnoremap <D-o> <C-o>
@@ -264,7 +273,7 @@ set relativenumber
 set ruler
 set shiftround shiftwidth=2
 set shortmess=atcIoOsT
-set showmode
+" set showmode
 set sidescrolloff=1
 set smartcase smarttab
 set spelllang=en_us
@@ -272,23 +281,23 @@ set nosplitbelow
 set splitright
 set softtabstop=2 tabstop=2 textwidth=0 expandtab
 set timeout ttimeout
-set timeoutlen=500 ttimeoutlen=0
+" set timeoutlen=500 ttimeoutlen=0
 set undolevels=999
 set undodir=/tmp
 set undofile
 set updatetime=1000
 set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
-set wildmenu
-set winaltkeys=no
-set lazyredraw
-set matchtime=0
-set belloff=all
-set matchpairs=(:),{:},[:],<:>
-set nocursorcolumn
-set redrawtime=2000
-set ttyfast
-set foldmethod=indent
-set nofoldenable
+" set wildmenu
+" set winaltkeys=no
+" set lazyredraw
+" set matchtime=0
+" set belloff=all
+" set matchpairs=(:),{:},[:],<:>
+" set nocursorcolumn
+" set redrawtime=2000
+" set ttyfast
+" set foldmethod=indent
+" set nofoldenable
 set fileformats=unix
 set autoindent
 set nolisp
@@ -372,6 +381,7 @@ augroup _clean
 augroup END
 
 hi! clear Error
+hi! clear ModeMsg
 hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment

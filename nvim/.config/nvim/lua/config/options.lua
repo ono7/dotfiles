@@ -5,9 +5,9 @@ vim.g.maplocalleader = " "
 vim.opt.path:append({ "**" })
 vim.opt.shell = "zsh"
 vim.opt.clipboard = "unnamedplus"
--- vim.opt.wrap = false
 
-vim.opt.shada = "'40,<200,s100,:300,/100,h,r~/COMMIT_EDITMSG"
+-- vim.opt.shada = "'40,<200,s100,:300,/100,h,r~/COMMIT_EDITMSG"
+vim.opt.shada = "'20,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
 
 vim.opt.autochdir = false
 vim.opt.autoindent = true
@@ -20,8 +20,6 @@ vim.schedule(function()
 end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
--- vim.opt.complete = ".,w,b,u"
--- vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
@@ -37,8 +35,6 @@ vim.opt.foldmethod = "manual"
 vim.opt.foldnestmax = 3
 vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
--- vim.opt.grepformat = "%f:%l:%c:%m"
--- vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 vim.opt.hidden = true
@@ -52,7 +48,6 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append({ "view", "stack" })
 vim.opt.laststatus = 0
-vim.opt.lazyredraw = false
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
 vim.opt.magic = true
@@ -71,7 +66,6 @@ vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, us
 vim.opt.showbreak = [[↪ ]]
 vim.opt.showcmd = false
 vim.opt.showmatch = false
--- vim.opt.matchtime = 3
 vim.opt.showmode = true
 vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 5
@@ -80,12 +74,9 @@ vim.opt.sidescroll = 3
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
 vim.opt.smartindent = true
--- vim.opt.smarttab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
--- virtualedit allows moving cursor freely in c-v block mode
--- vim.opt.virtualedit = "block"
 vim.opt.expandtab = true
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,5"
@@ -108,9 +99,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
 vim.opt.updatetime = 1000
--- vim.opt.whichwrap:append("<>[]")
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
--- vim.opt.wildignore = [[.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class]]
 vim.opt.wildignore = {
   "**/node_modules/**",
   "**/coverage/**",
@@ -127,7 +116,6 @@ vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 -- Sesssions
 vim.opt.sessionoptions:remove({ "buffers", "folds" })
 
--- vim.opt.winaltkeys = "no"
 vim.opt.wrap = true
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
