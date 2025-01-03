@@ -8,6 +8,7 @@ local set_keys = require("utils.keys")
 vim.keymap.set("n", "ZZ", "")
 vim.keymap.set("n", "ZQ", "")
 vim.keymap.set("i", "<M-e>", "")
+vim.keymap.set("i", "<M-C-U>", "")
 vim.keymap.set("n", "<M-e>", "")
 
 vim.keymap.set("n", "<space>", "")

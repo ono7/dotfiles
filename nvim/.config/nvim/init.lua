@@ -44,11 +44,11 @@ end
 vim.opt.guicursor = ""
 
 -- home made plugins go here
--- require("plugins.jira-base")
--- require("plugins.jira")
--- require("plugins.jira-move")
--- require("plugins.jira-fetch-issues")
--- require("plugins.jira-fetch-issues-empty")
+-- require("old_plugins.jira-base")
+require("old_plugins.jira")
+require("old_plugins.jira-move")
+require("old_plugins.jira-fetch-issues")
+require("old_plugins.jira-fetch-issues-empty")
 -- require("plugins.jira-clone").setup()
 
 -- this needs fixing
