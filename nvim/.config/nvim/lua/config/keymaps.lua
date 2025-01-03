@@ -4,6 +4,12 @@ local silent = { noremap = true, silent = true }
 
 local set_keys = require("utils.keys")
 
+--- nop ---
+vim.keymap.set("n", "ZZ", "")
+vim.keymap.set("n", "ZQ", "")
+vim.keymap.set("i", "<M-e>", "")
+vim.keymap.set("n", "<M-e>", "")
+
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
@@ -63,6 +69,22 @@ vim.keymap.set({ "n" }, "v", set_keys.prefix("v"))
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
+-- copy line
+vim.keymap.set("n", "<D-,>", "yyp", opt) -- Normal mode
+vim.keymap.set("i", "<D-,>", "<Esc>yyp`^i", opt)
+
+-- useful emacs keybinds ---
+-- Forward/Backward character
+vim.keymap.set("i", "<D-f>", "<Right>", opt)
+vim.keymap.set("i", "<D-b>", "<Left>", opt)
+
+-- Up/Down lines
+vim.keymap.set("i", "<D-p>", "<Up>", opt)
+vim.keymap.set("i", "<D-n>", "<Down>", opt)
+
+vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
+vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
+
 --- ex/command mode bindings
 vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
 vim.keymap.set("c", set_keys.prefix("e"), "<End>", opt)
@@ -97,10 +119,6 @@ vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
 
 -- make dot work in visual mode
 vim.keymap.set("v", ".", ":norm .<cr>", opt)
-
---- nop ---
-vim.keymap.set("n", "ZZ", "")
-vim.keymap.set("n", "ZQ", "")
 
 --- go ---
 vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)

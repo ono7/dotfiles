@@ -1,18 +1,19 @@
 M = {}
+
 M.legacy_cfg = [===[
 " --- 🐇 Follow the white Rabbit...
 
 set nocompatible
 
 set t_Co=8
-set guicursor=n:block,i:block
 
-
-" space does nothing in normal, it will be leader
 nnoremap <space> <nop>
+inoremap <M-e> <nop>
 let mapleader = " "
-let g:loaded_matchit = 1
+
 " let g:loaded_matchparen = 1
+
+let g:loaded_matchit = 1
 let g:loaded_logiPat = 1
 let g:loaded_rrhelper = 1
 let g:loaded_tarPlugin = 1
@@ -53,38 +54,21 @@ syntax off
 
 """ hold my beer """
 
-" inoremap ` ``<left>
-" inoremap ( ()<left>
-" inoremap { {}<left>
-" inoremap [ []<left>
-
-" j, k   Store relative line number jumps in the jumplist. c-o, c-i
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-
-" inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-" inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-" inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-" inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
-" inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
-
-" skip over \" and \' if they are inline
-" inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'"
-" inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\""
-" inoremap <expr> ` strpart(getline('.'), col('.')-1, 1) == "\`" ? "\<Right>" : "\`"
 
 inoremap <expr> <bs> <sid>remove_pair()
 inoremap <expr> <enter> <sid>indent_ret()
 
-" core maps for moving around in insert mode
-inoremap <c-a> <ESC>^i
-inoremap <c-e> <End>
+" Line navigation
+inoremap <C-a> <C-o>^
+inoremap <C-a> <C-o>^
+inoremap <D-e> <C-o>$
+inoremap <D-e> <C-o>$
 
-imap <c-h> <bs>
-function! GoFmt()
-  cexpr system('gofmt -e -w ' . expand('%'))
-  edit!
-endfunction
+" macos
+nnoremap <D-o> <C-o>
+nnoremap <D-i> <C-i>
 
 function! CopyMatches(reg)
   let hits = []
@@ -99,12 +83,23 @@ function s:remove_pair() abort
   return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
 endfunction
 
-function s:indent_ret() abort
-  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
-  return stridx('()[]{}', pair) % 2 == 0 ? "\<cr>\<esc>O" : "\<cr>"
+function! s:smart_indent_ret() abort
+    let line = getline('.')
+    let col = col('.')
+    let prev_char = line[col-2]
+
+    if prev_char == '{'
+        return "\<CR>\<CR>}\<Up>\<Tab>"
+    elseif prev_char == '['
+        return "\<CR>\<CR>]\<Up>\<Tab>"
+    elseif prev_char == '('
+        return "\<CR>\<CR>)\<Up>\<Tab>"
+    else
+        return "\<CR>"
+    endif
 endfunction
 
-" Add single quotes around selected text
+inoremap <expr> <CR> <SID>smart_indent_ret()
 
 vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 vnoremap " <esc>`>a"<esc>`<i"<esc>f"a
@@ -115,12 +110,8 @@ vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a
 
 " clear hsl
 nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
-
-vnoremap s" ciw"<c-r><c-p>""
-vnoremap s' ciw'<c-r><c-p>"'
 nnoremap <c-t> <cmd>new<cr>
 
-nnoremap <leader>p \"_dP
 nnoremap <c-j> <C-W><C-J>
 nnoremap <c-k> <C-W><C-K>
 nnoremap <c-l> <C-W><C-L>
@@ -128,37 +119,39 @@ nnoremap <c-h> <C-W><C-H>
 nnoremap 0 ^
 
 " save some keystrokes
-
 xnoremap H <gv
 xnoremap L >gv
 
 " switch between current and prev file
 nnoremap <c-6> c-^>
 
-noremap v <c-v>
-vunmap v
+nnoremap v <c-v>
 
 vnoremap p "0p
 vnoremap P "0P
 vnoremap d "0d
 
 inoremap <C-c> <Esc>
+inoremap <D-c> <Esc>
 
 " change local cd per buffer
 nnoremap <leader>cd :lcd %:h<CR>
 
+" Word movement
+inoremap <M-f> <C-o>w
+inoremap <M-b> <C-o>b
+
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
+cnoremap <D-A> <Home>
+cnoremap <D-h> <Left>
+cnoremap <D-l> <Right>
 nnoremap <silent><cr> :noh<cr>1<c-g>
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>^
 nnoremap <silent><m-k> :cnext<cr>
 nnoremap <silent><m-j> :cprevious<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>w :w<cr>
-nnoremap gh ^
-nnoremap gl g_
 
 " return cursor position after yank in v-mode
 vnoremap y ygv<Esc>
@@ -180,18 +173,13 @@ nnoremap 'a `A'"
 nnoremap 'b `B'"
 nnoremap 'c `C'"
 nnoremap 'm `M'"
+
 nnoremap Q @qj
 xnoremap Q :norm @q<cr>
 " make dot work on many visual sel lines
 vnoremap . :norm.<CR>
 nnoremap Y y$
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap <c-d> <c-d>zz
-nnoremap <c-u> <c-u>zz
 nnoremap D d$
-nnoremap <c-z> <nop>
-cnoremap <c-z> <nop>
 nnoremap cp yap<S-}>p
 nnoremap U <c-r>
 nnoremap <c-e> g_
@@ -228,7 +216,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-cnoreabbrev q qa!
+cnoreabbrev qq qa!
 
 set gp=git\ grep\ -n
 
@@ -271,6 +259,8 @@ set novisualbell noerrorbells
 set nowrap
 set nrformats-=octal nrformats+=alpha
 set numberwidth=2
+set number
+set relativenumber
 set ruler
 set shiftround shiftwidth=2
 set shortmess=atcIoOsT
@@ -319,11 +309,6 @@ if has('nvim')
   set clipboard+=unnamedplus
 endif
 
-if has('nvim-0.3.2') || has("patch-8.1.0360")
-  set completeopt=menu,menuone,longest
-  packadd cfilter
-end
-
 if &diff
   if has('nvim-0.3.2')
     set diffopt=filler,internal,algorithm:histogram,indent-heuristic
@@ -345,15 +330,6 @@ fun! <SID>TrimWhitespace()
     call winrestview(l:save)
 endfun
 
-function! <SID>mySyntax()
-  syntax match myCyanBold /[*.,:;]/
-  " syntax match myBold /[*.,:;]/
-  " syntax match myBlue /[]/
-  syntax match myCyan /[\[\]=<!>-]/
-  syntax match myYellow /[{}]/
-  " syntax match myRedBold /[()]/
-endfu
-
 augroup _del_hidden_buffer
   au!
   au FileType netrw setlocal bufhidden=wipe
@@ -363,15 +339,6 @@ augroup _read
   autocmd!
   " restore last known position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-augroup _linters
-  " Set yamllint as a makeprg for YAML files
-  autocmd FileType yaml setlocal makeprg=yamllint\ --f\ parsable\ %
-  autocmd FileType python setlocal makeprg=pylint\ -sn\ -f\ text\ %
-  " Set QuickFix to automatically open on errors after :make
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost    l* lwindow
 augroup END
 
 augroup _write
@@ -393,30 +360,10 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup END
 
-augroup _files
-  autocmd!
-  autocmd FileType python setlocal sw=4 ts=4 et softtabstop=4 tw=0 nowrap autoindent nolisp
-  autocmd FileType python setlocal indentkeys=!^F,o,O,<:>,0,0],0},=elif,=except
-  " autocmd FileType python setlocal suffixesadd+=.py
-  " help gf find files missing extentions
-  " autocmd FileType go setlocal suffixesadd+=.go
-  autocmd FileType yaml setlocal suffixesadd+=.yml
-  autocmd FileType make setlocal sw=4 ts=4 noet sts=4 tw=0 nowrap autoindent nolisp
-  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  autocmd filetype * :call <SID>mySyntax()
-augroup END
-
 command! Mktags !ctags -R .
 
 hi! clear MatchParen
 hi! MatchParen term=reverse cterm=reverse gui=reverse
-
-augroup _init
-  autocmd!
-  autocmd BufWinEnter * if line2byte(line("$") + 1) > 800000 | setlocal syntax=OFF nowrap noundofile noswapfile foldmethod=manual | endif
-  autocmd BufEnter * silent! set formatoptions=qnlj
-  autocmd BufEnter * :call <SID>mySyntax()
-augroup END
 
 augroup _clean
   " clean empty lines at end of file
@@ -424,16 +371,13 @@ augroup _clean
   autocmd BufWritePre * :%s#\($\n\s*\)\+\%$##e
 augroup END
 
-" python indent file in ~/.dotfiles/nvim/indent/python.vim -> ~/.vim/indent/python.vim"
 hi! clear Error
-
-hi! Comment ctermfg=8 guibg=DarkGrey
+hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! StatusLine guibg=#444d69
 hi! Visual guibg=#243d61
-hi! Normal guibg=NONE
-
+hi! Normal guibg=NONE ctermbg=NONE
 ]===]
 
 return M
