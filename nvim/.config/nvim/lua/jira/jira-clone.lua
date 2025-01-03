@@ -1,25 +1,25 @@
 local M = {}
 
-local curl = require('plenary.curl')
-local jira_main = require('plugins.jira-base')
+local curl = require("plenary.curl")
+local jira_main = require("jira.jira-base")
 
 local function clone_issue(issue_key, num_clones)
   if not jira_main.setup() then
     return
   end
   -- Encode credentials
-  local auth = vim.base64.encode(jira_main.config.jira_email .. ':' .. jira_main.config.jira_api_token)
+  local auth = vim.base64.encode(jira_main.config.jira_email .. ":" .. jira_main.config.jira_api_token)
   for i = 1, num_clones do
     local clone_payload = {
       summary = string.format("CLONE - %s, %d", issue_key, i),
-      includeAttachments = false
+      includeAttachments = false,
     }
     -- this endpoint only valid for cloud base deployments of jira
-    local clone_response = curl.post(jira_main.config.jira_url .. '/rest/internal/2/issue/' .. issue_key .. '/clone', {
+    local clone_response = curl.post(jira_main.config.jira_url .. "/rest/internal/2/issue/" .. issue_key .. "/clone", {
       body = vim.fn.json_encode(clone_payload),
       headers = {
-        Authorization = 'Basic ' .. auth,
-        ['Content-Type'] = 'application/json',
+        Authorization = "Basic " .. auth,
+        ["Content-Type"] = "application/json",
       },
     })
     if clone_response.status ~= 200 then
@@ -52,9 +52,9 @@ end
 function M.setup()
   -- Only set up the command once
   if not M.is_setup then
-    vim.api.nvim_create_user_command('JiraClone', function(opts)
+    vim.api.nvim_create_user_command("JiraClone", function(opts)
       jira_clone_command(opts.fargs)
-    end, { nargs = '+' })
+    end, { nargs = "+" })
     M.is_setup = true
   end
 end

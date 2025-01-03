@@ -36,35 +36,15 @@ vim.opt.mouse = "a"
 
 if vim.g.neovide then
   --- vsync = true for smooth cursor movement, which is why we are here
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b3bbd4" })
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
 end
 
 -- block cursor
 vim.opt.guicursor = ""
 
--- home made plugins go here
 -- require("old_plugins.jira-base")
-require("old_plugins.jira")
-require("old_plugins.jira-move")
-require("old_plugins.jira-fetch-issues")
-require("old_plugins.jira-fetch-issues-empty")
--- require("plugins.jira-clone").setup()
-
--- this needs fixing
--- vim.api.nvim_create_user_command('JiraIssues', function()
---   require('plugins.jira_viewer').open_issues_file()
---   vim.keymap.set("n", "<leader>j", function()
---     -- Load and setup the module
---     local ok, jira_viewer = pcall(require, 'plugins.jira_viewer')
---     if not ok then
---       vim.notify(string.format("Failed to load jira_viewer module %s %s", ok, jira_viewer), vim.log.levels.ERROR)
---       return
---     end
---     jira_viewer.setup()
---     -- Schedule the command execution to ensure it's available
---     vim.schedule(function()
---       vim.cmd("JiraIssues")
---     end)
---   end, { silent = true, desc = "Open Jira Issues" })
--- end, {})
+require("jira.jira")
+require("jira.jira-move")
+require("jira.jira-fetch-issues")
+require("jira.jira-fetch-issues-empty")
+require("jira.jira-clone").setup()
