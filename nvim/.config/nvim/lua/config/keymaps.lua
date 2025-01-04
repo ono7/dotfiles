@@ -18,6 +18,9 @@ vim.g.mapleader = " "
 vim.keymap.set("i", set_keys.prefix("a"), "<ESC>^i", silent)
 vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
 
+vim.keymap.set("i", "<M-a>", "<ESC>^i", silent)
+vim.keymap.set("i", "<M-e>", "<End>", silent)
+
 -- replaces vim surround
 
 -- prevents matchit from mapping [%
@@ -169,13 +172,19 @@ if vim.loop.os_uname().sysname == "Darwin" then
   -- delete line
   vim.keymap.set("i", "<D-u>", "<c-u>", opt)
   vim.keymap.set("t", "<D-u>", "<c-u>", opt)
+  vim.keymap.set("i", "<M-u>", "<c-u>", opt)
+  vim.keymap.set("t", "<M-u>", "<c-u>", opt)
 
   -- jumps and visual select
   vim.keymap.set("n", "<D-i>", "<c-i>", opt)
   vim.keymap.set("n", "<D-o>", "<c-o>", opt)
 
+  vim.keymap.set("n", "<M-i>", "<c-i>", opt)
+  vim.keymap.set("n", "<M-o>", "<c-o>", opt)
+
   -- vim.keymap.set("n", "<D-v>", "<c-v>", opt)
   vim.keymap.set("n", "<D-g>", "<c-g>", opt)
+  vim.keymap.set("n", "<M-g>", "<c-g>", opt)
 
   -- Regular increment/decrement
   vim.keymap.set("n", "<D-a>", "<c-a>", opt)
@@ -201,12 +210,14 @@ vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
 vim.keymap.set("t", set_keys.prefix("b"), "<C-b>", { noremap = true })
+vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 
 -- toggle term
 vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
+vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
 vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
@@ -218,6 +229,8 @@ vim.keymap.set("t", set_keys.prefix("r"), [[<c-r>]], silent)
 --- size 8, belowright split, T in commands.lua
 vim.keymap.set({ "n" }, set_keys.prefix("t"), ":T<CR>", silent)
 vim.keymap.set({ "i" }, set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
+vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", silent)
+vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
