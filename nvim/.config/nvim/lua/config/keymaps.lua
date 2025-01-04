@@ -214,6 +214,7 @@ vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
+-- vim.keymap.set("i", "jj", [[<esc>]], silent)
 
 -- toggle term
 vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
