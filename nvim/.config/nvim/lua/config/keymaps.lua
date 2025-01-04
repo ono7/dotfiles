@@ -118,8 +118,8 @@ vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 -- vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
 
 --- mapping tab also overrides c-i which is used to move through jump list
-vim.keymap.set("n", "<m-]>", ":bnext<CR>", silent)
-vim.keymap.set("n", "<m-[>", ":bprevious<CR>", silent)
+vim.keymap.set("n", "<Tab>", ":bnext<CR>", silent)
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", silent)
 
 -- make dot work in visual mode
 vim.keymap.set("v", ".", ":norm .<cr>", opt)
@@ -162,9 +162,9 @@ end, { desc = "Toggle window maximize" })
 if vim.loop.os_uname().sysname == "Darwin" then
   --- paste with cmd+v
   -- cmd+shift+v for paste
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 
   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
@@ -300,10 +300,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 vim.keymap.set("i", "<BS>", function()
@@ -316,7 +316,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
