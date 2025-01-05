@@ -62,7 +62,6 @@ local term_size = 6
 
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
-
   -- If terminal buffer doesn't exist, create it
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
     vim.cmd.vnew()
@@ -72,17 +71,20 @@ vim.api.nvim_create_user_command("T", function(opts)
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
     term_job_id = vim.b.terminal_job_id
-
     -- If command was provided, send it after terminal is created
     if cmd ~= "" then
       vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
     end
-
     vim.cmd("startinsert")
     return
   end
 
   local wins = vim.api.nvim_list_wins()
+  -- If there's only one window and it's the terminal, do nothing
+  if #wins == 1 and vim.api.nvim_win_get_buf(wins[1]) == terminal_buf then
+    return
+  end
+
   local is_visible = false
   for _, win in ipairs(wins) do
     if vim.api.nvim_win_get_buf(win) == terminal_buf then
@@ -93,21 +95,14 @@ vim.api.nvim_create_user_command("T", function(opts)
   end
 
   if not is_visible then
-    -- deploys below a single window pane
-    -- vim.cmd("bel " .. term_size .. "split")
-
-    -- takes the entire section below
     vim.cmd.vnew()
     vim.cmd.wincmd("J")
-
     vim.api.nvim_win_set_height(0, term_size)
     vim.api.nvim_win_set_buf(0, terminal_buf)
     terminal_win = vim.api.nvim_get_current_win()
-
     if cmd ~= "" then
       vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
     end
-
     vim.cmd("startinsert")
   end
 end, { nargs = "*" })
