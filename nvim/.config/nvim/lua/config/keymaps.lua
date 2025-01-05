@@ -45,8 +45,12 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
---- nav improvement
+--- text navigation improvement
 vim.keymap.set("n", "0", "^", silent)
+vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
+vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
+vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
+vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
 
 --- visual select last paste
 vim.keymap.set("n", "gp", "`[v`]", silent)
@@ -74,20 +78,8 @@ vim.keymap.set({ "n" }, "v", set_keys.prefix("v"))
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 -- copy line
-vim.keymap.set("n", "<D-,>", "yyp", opt) -- Normal mode
-vim.keymap.set("i", "<D-,>", "<Esc>yyp`^i", opt)
-
--- useful emacs keybinds ---
--- Forward/Backward character
-vim.keymap.set("i", "<D-f>", "<Right>", opt)
-vim.keymap.set("i", "<D-b>", "<Left>", opt)
-
--- Up/Down lines
-vim.keymap.set("i", "<D-p>", "<Up>", opt)
-vim.keymap.set("i", "<D-n>", "<Down>", opt)
-
-vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
-vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
+vim.keymap.set("n", "<C-,>", "yyp", opt) -- Normal mode
+vim.keymap.set("i", "<C-,>", "<Esc>yyp`^i", opt)
 
 --- ex/command mode bindings
 vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
@@ -159,46 +151,55 @@ end, { desc = "Toggle window maximize" })
 
 -- if vim.g.neovide then
 
-if vim.loop.os_uname().sysname == "Darwin" then
-  --- paste with cmd+v
-  -- cmd+shift+v for paste
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
-  vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
-  vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
-
-  vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
-
-  -- delete line
-  vim.keymap.set("i", "<D-u>", "<c-u>", opt)
-  vim.keymap.set("t", "<D-u>", "<c-u>", opt)
-  vim.keymap.set("i", "<M-u>", "<c-u>", opt)
-  vim.keymap.set("t", "<M-u>", "<c-u>", opt)
-
-  -- jumps and visual select
-  vim.keymap.set("n", "<D-i>", "<c-i>", opt)
-  vim.keymap.set("n", "<D-o>", "<c-o>", opt)
-
-  vim.keymap.set("n", "<M-i>", "<c-i>", opt)
-  vim.keymap.set("n", "<M-o>", "<c-o>", opt)
-
-  -- vim.keymap.set("n", "<D-v>", "<c-v>", opt)
-  vim.keymap.set("n", "<D-g>", "<c-g>", opt)
-  vim.keymap.set("n", "<M-g>", "<c-g>", opt)
-
-  -- Regular increment/decrement
-  vim.keymap.set("n", "<D-a>", "<c-a>", opt)
-  vim.keymap.set("n", "<D-x>", "<c-x>", opt)
-
-  -- Visual mode increment/decrement
-  vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
-  vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
-
-  --- command line -----
-  vim.keymap.set({ "c", "n" }, "<D-p>", "<c-p>", opt)
-  vim.keymap.set({ "c", "n" }, "<D-n>", "<c-n>", opt)
-  vim.keymap.set({ "c", "n" }, "<D-f>", "<c-f>", opt)
-end
+-- if vim.loop.os_uname().sysname == "Darwin" then
+--   --- paste with cmd+v
+--   -- cmd+shift+v for paste
+--   vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+--   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
+--   vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+--   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
+--
+--   vim.keymap.set({ "n", "x" }, "<D-c>", "<c-c>", opt)
+--
+--   ----------------------- macos ----------------------------
+--   -- Forward/Backward character
+--   vim.keymap.set("i", "<D-f>", "<Right>", opt)
+--   vim.keymap.set("i", "<D-b>", "<Left>", opt)
+--
+--   -- Up/Down lines
+--   vim.keymap.set("i", "<D-p>", "<Up>", opt)
+--   vim.keymap.set("i", "<D-n>", "<Down>", opt)
+--
+--   -- delete line
+--   vim.keymap.set("i", "<D-u>", "<c-u>", opt)
+--   vim.keymap.set("t", "<D-u>", "<c-u>", opt)
+--   vim.keymap.set("i", "<M-u>", "<c-u>", opt)
+--   vim.keymap.set("t", "<M-u>", "<c-u>", opt)
+--
+--   -- jumps and visual select
+--   vim.keymap.set("n", "<D-i>", "<c-i>", opt)
+--   vim.keymap.set("n", "<D-o>", "<c-o>", opt)
+--
+--   vim.keymap.set("n", "<M-i>", "<c-i>", opt)
+--   vim.keymap.set("n", "<M-o>", "<c-o>", opt)
+--
+--   -- vim.keymap.set("n", "<D-v>", "<c-v>", opt)
+--   vim.keymap.set("n", "<D-g>", "<c-g>", opt)
+--   vim.keymap.set("n", "<M-g>", "<c-g>", opt)
+--
+--   -- Regular increment/decrement
+--   vim.keymap.set("n", "<D-a>", "<c-a>", opt)
+--   vim.keymap.set("n", "<D-x>", "<c-x>", opt)
+--
+--   -- Visual mode increment/decrement
+--   vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
+--   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
+--
+--   --- command line -----
+--   vim.keymap.set({ "c", "n" }, "<D-p>", "<c-p>", opt)
+--   vim.keymap.set({ "c", "n" }, "<D-n>", "<c-n>", opt)
+--   vim.keymap.set({ "c", "n" }, "<D-f>", "<c-f>", opt)
+-- end
 
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
@@ -216,7 +217,7 @@ vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 -- vim.keymap.set("i", "jj", [[<esc>]], silent)
 
--- toggle term
+------------------ terminal maps --------------------
 vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
@@ -284,15 +285,12 @@ vim.keymap.set("n", "<leader>w", function()
   vim.fn.setpos(".", save_cursor)
 end, silent)
 
-vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
-vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
-
-vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
-vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
-vim.keymap.set("n", "g{", "?{<cr>")
-vim.keymap.set("n", "g}", "/}<cr>")
-vim.keymap.set("n", "g[", [[?\v\[<cr>]])
-vim.keymap.set("n", "g]", [[/\v\]<cr>]])
+-- vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
+-- vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
+-- vim.keymap.set("n", "g{", "?{<cr>")
+-- vim.keymap.set("n", "g}", "/}<cr>")
+-- vim.keymap.set("n", "g[", [[?\v\[<cr>]])
+-- vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
@@ -301,10 +299,10 @@ vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 vim.keymap.set("i", "<BS>", function()
@@ -317,7 +315,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
