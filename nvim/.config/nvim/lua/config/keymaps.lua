@@ -33,7 +33,7 @@ vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a]])
 vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>f}a]])
 vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a]])
 
-vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
