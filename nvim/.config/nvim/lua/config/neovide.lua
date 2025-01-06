@@ -17,6 +17,9 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_frame_no_title = true
 
+  vim.g.neovide_window_blurred = true
+  -- vim.g.neovide_transparency = 0.96
+
   vim.g.neovide_confirm_quit = true
 
   -- see ~/.config/neovide/config.toml for font config
