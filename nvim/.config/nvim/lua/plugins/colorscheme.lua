@@ -144,6 +144,7 @@ return {
     vim.api.nvim_set_hl(0, "@markup.raw", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
     vim.api.nvim_set_hl(0, "@string.documentation", {})
+    vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = "#89b4fa" })
     vim.api.nvim_set_hl(0, "Boolean", { italic = false })
     vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.yellow2, bold = true, italic = false })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.yellow2, italic = false, bold = true })

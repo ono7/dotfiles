@@ -73,36 +73,38 @@ http://vim.wikia.com/wiki/Best_Vim_Tips
 
   * execute macro on entire file or line range
 
-  - :%normal @q
-  - % == entire buffer
-  - normal == execute normal command
-  - @q == macro
+  ```
+    :%normal @q
+    % == entire buffer
+    normal == execute normal command
+    @q == macro
+  ```
 
-  * execute @q number of times:
+  - execute @q number of times:
 
-  - 99999@q
+  * 99999@q
 
-  * remove trailing on buffer for any line
+  - remove trailing on buffer for any line
 
-  - %s/\s\+$//
+  * %s/\s\+$//
 
-  * the power of /g
+  - the power of /g
 
-  * copy line that match a patter to register a
+  - copy line that match a patter to register a
 
-  - :g/^x/y a
+  * :g/^x/y a
 
-  * copy(append) lines that match a patter to register a
+  - copy(append) lines that match a patter to register a
 
-  - :g/^x/y A
-  - :g/^x.\*/y A
+  * :g/^x/y A
+  * :g/^x.\*/y A
 
-  * remove from file and (append) lines that match a patter to register a
+  - remove from file and (append) lines that match a patter to register a
 
-  - :g/^x/d A
-  - :g/^x.\*/d A
+  * :g/^x/d A
+  * :g/^x.\*/d A
 
-  * clear register
+  - clear register
 
 * qbq ( clears b register using macro trick )
 
