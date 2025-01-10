@@ -25,7 +25,7 @@ if vim.g.neovide then
   -- see ~/.config/neovide/config.toml for font config
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
-  vim.opt.linespace = 8
+  vim.opt.linespace = 10
 
   --- change font size with
   local change_scale_factor = function(delta)
