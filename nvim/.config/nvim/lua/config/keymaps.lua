@@ -138,6 +138,17 @@ vim.keymap.set("n", set_keys.prefix("m"), function()
   end
 end, { desc = "Toggle window maximize" })
 
+vim.keymap.set("t", set_keys.prefix("m"), function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
 vim.keymap.set("t", "<C-y>", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
