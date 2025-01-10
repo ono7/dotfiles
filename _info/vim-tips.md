@@ -1,4 +1,4 @@
-# useful things for [vim
+# useful things for vim
 
 2023-12-19 00:36
 
