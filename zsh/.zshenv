@@ -7,6 +7,7 @@ alias pret="prettier --parser "
 alias vil="/usr/bin/vi"
 alias aider="aider --no-auto-commits --dark-mode"
 alias dc="docker compose "
+alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 
 golinux () {
   [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return
