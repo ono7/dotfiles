@@ -95,7 +95,7 @@ bindings = [
 {  key  =  "S",         mods  =  "Command",        chars   =  "\u0013"             },
 {  key  =  "Slash",     mods  =  "Command",        chars   =  "\u001f"             },
 {  key  =  "Backslash", mods  =  "Command",        chars   =  "\u001c"             },
-{  key  =  "Space",     mods  =  "Alt|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
+{  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
 {  key  =  "T",         mods  =  "Command",        action  =  "ReceiveChar"               },
 {  key  =  "Slash",     mods  =  "Command",        action   =  "ReceiveChar"             },
@@ -140,11 +140,11 @@ program = "/bin/zsh"
 
 [window]
 # decoration options: None, Transparent, Full, Buttonless
-decorations = "Transparent" 
+decorations = "Full" 
 # dynamic_padding = true
 # dynamic_title = false
-# opacity = 0.90
-# blur = true
+opacity = 0.90
+blur = true
 # decorations_theme_variant = "Dark"
 
 position = "None"
