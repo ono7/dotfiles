@@ -78,8 +78,8 @@ vim.keymap.set({ "n" }, "v", set_keys.prefix("v"))
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
 
 -- copy line
-vim.keymap.set("n", "<C-,>", "yyp", opt) -- Normal mode
-vim.keymap.set("i", "<C-,>", "<Esc>yyp`^i", opt)
+vim.keymap.set("n", "<D-,>", "yyp", opt) -- Normal mode
+vim.keymap.set("i", "<D-,>", "<Esc>yyp`^i", opt)
 
 --- ex/command mode bindings
 vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
@@ -138,7 +138,7 @@ vim.keymap.set("n", "<C-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
-vim.keymap.set("t", "<C-y>", function()
+vim.keymap.set("t", "<D-y>", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
     vim.t.maximized = false

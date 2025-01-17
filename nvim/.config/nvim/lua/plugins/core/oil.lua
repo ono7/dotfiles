@@ -59,7 +59,7 @@ return {
     -- Open parent directory in floating window
 
     -- local binding = vim.loop.os_uname().sysname == "Darwin" and "<M-\\>" or "<C-\\>"
-    local binding = "<C-\\>"
+    local binding = "<M-\\>"
     vim.keymap.set("n", binding, require("oil").toggle_float)
   end,
 }
