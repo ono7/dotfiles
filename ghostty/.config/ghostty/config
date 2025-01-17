@@ -13,6 +13,9 @@ adjust-cell-height= 30%
 
 shell-integration-features = no-cursor,sudo,no-title
 
+# turn off cursor blinking
+cursor-style-blink = false
+
 window-inherit-working-directory = true
 window-theme = ghostty
 window-colorspace = "display-p3"

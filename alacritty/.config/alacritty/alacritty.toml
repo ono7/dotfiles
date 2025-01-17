@@ -140,7 +140,7 @@ program = "/bin/zsh"
 
 [window]
 # decoration options: None, Transparent, Full, Buttonless
-# decorations = "Full" 
+decorations = "Transparent" 
 # dynamic_padding = true
 # dynamic_title = false
 # opacity = 0.90
