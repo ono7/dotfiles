@@ -72,7 +72,7 @@ vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 vim.keymap.set("i", set_keys.prefix("c"), "<Esc>", opt)
 
 --- visual block by default
-vim.keymap.set({ "n" }, "v", set_keys.prefix("v"))
+vim.keymap.set({ "n" }, "v", "<c-v>")
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)

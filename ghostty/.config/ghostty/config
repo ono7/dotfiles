@@ -27,12 +27,11 @@ clipboard-paste-bracketed-safe = true
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 
 keybind = cmd+shift+r=reload_config
-keybind = ctrl+shift+r=reload_config
 
 # tabs and windows
-keybind = ctrl+shift+t=new_tab
-keybind = ctrl+shift+l=next_tab
-keybind = ctrl+shift+h=previous_tab
+keybind = cmd+shift+t=new_tab
+keybind = cmd+shift+l=next_tab
+keybind = cmd+shift+h=previous_tab
 
 # unbind some defaults makes them passthrough 
 keybind = cmd+c=unbind
