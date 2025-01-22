@@ -40,20 +40,20 @@ if vim.g.neovide then
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#b8c1e6" })
   -- Map Cmd+g to Ctrl+g in multiple modes
 
-  vim.keymap.set("i", "<D-g>", "<C-g>") -- Insert mode
-  vim.keymap.set("n", "<D-g>", "<C-g>") -- Normal mode
-  vim.keymap.set("n", "<D-a>", "<C-a>") -- Normal mode
-  vim.keymap.set("v", "<D-g>", "<C-g>") -- Visual mode
-  vim.keymap.set("x", "<D-g>", "<C-g>") -- Visual block mode
+  vim.keymap.set("i", "<D-g>", "<C-g>")
+  vim.keymap.set("n", "<D-g>", "<C-g>")
+  vim.keymap.set("n", "<D-a>", "<C-a>")
+  vim.keymap.set("v", "<D-g>", "<C-g>")
+  vim.keymap.set("x", "<D-g>", "<C-g>")
 
-  vim.keymap.set("c", "<D-p>", "<C-p>") -- Insert mode
-  vim.keymap.set("c", "<D-n>", "<C-n>") -- Insert mode
+  vim.keymap.set("c", "<D-p>", "<C-p>")
+  vim.keymap.set("c", "<D-n>", "<C-n>")
 
-  vim.keymap.set("n", "<D-p>", "<C-p>") -- Insert mode
-  vim.keymap.set("n", "<D-n>", "<C-n>") -- Insert mode
+  vim.keymap.set("n", "<D-p>", "<C-p>")
+  vim.keymap.set("n", "<D-n>", "<C-n>")
 
-  vim.keymap.set("i", "<D-p>", "<C-p>") -- Insert mode
-  vim.keymap.set("i", "<D-n>", "<C-n>") -- Insert mode
+  -- vim.keymap.set("i", "<D-p>", "<C-p>") -- Insert mode
+  -- vim.keymap.set("i", "<D-n>", "<C-n>") -- Insert mode
 
   -- Regular increment/decrement
   vim.keymap.set("n", "<D-a>", "<c-a>", opt)

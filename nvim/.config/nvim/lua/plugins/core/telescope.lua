@@ -34,17 +34,25 @@ return {
 
     local default_maps = {
       i = {
-        [set_keys.prefix("f")] = actions.to_fuzzy_refine,
-        [set_keys.prefix("p")] = actions.move_selection_previous,
-        [set_keys.prefix("n")] = actions.move_selection_next,
-        [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
-        [set_keys.prefix("x")] = actions.select_horizontal,
-        [set_keys.prefix("v")] = actions.select_vertical,
+        -- [set_keys.prefix("f")] = actions.to_fuzzy_refine,
+        -- [set_keys.prefix("p")] = actions.move_selection_previous,
+        -- [set_keys.prefix("n")] = actions.move_selection_next,
+        -- [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
+        -- [set_keys.prefix("x")] = actions.select_horizontal,
+        -- [set_keys.prefix("v")] = actions.select_vertical,
+        ["<C-f"] = actions.to_fuzzy_refine,
+        ["<C-p>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.move_selection_next,
+        ["<M-p>"] = actions.move_selection_previous,
+        ["<M-n>"] = actions.move_selection_next,
+        ["<C-q"] = actions.smart_add_to_qflist + actions.open_qflist,
+        ["<C-x"] = actions.select_horizontal,
+        ["<C-v"] = actions.select_vertical,
         ["<M-x>"] = actions.select_horizontal,
         ["<M-v>"] = actions.select_vertical,
 
-        ["<M-p>"] = actions.move_selection_previous,
-        ["<M-n>"] = actions.move_selection_next,
+        ["<D-p>"] = actions.move_selection_previous,
+        ["<D-n>"] = actions.move_selection_next,
       },
       n = { ["q"] = actions.close },
     }

@@ -88,6 +88,9 @@ vim.keymap.set("c", set_keys.prefix("h"), "<Left>", opt)
 vim.keymap.set("c", set_keys.prefix("l"), "<Right>", opt)
 vim.keymap.set("c", set_keys.prefix("b"), "<S-left>", opt)
 
+vim.keymap.set("n", "<D-i>", "<c-i>", opt)
+vim.keymap.set("n", "<D-o>", "<c-o>", opt)
+
 vim.keymap.set("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")
   print("new lcd: " .. vim.fn.getcwd())
