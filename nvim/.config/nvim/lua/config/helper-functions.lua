@@ -1,5 +1,3 @@
-local MYHOME = os.getenv("HOME")
-
 local function get_git_root()
   local dot_git_path = vim.fn.finddir(".git", ".;")
   print(vim.fn.fnamemodify(dot_git_path, ":h"))
@@ -9,8 +7,6 @@ end
 vim.api.nvim_create_user_command("CdGitRoot", function()
   vim.api.nvim_set_current_dir(get_git_root())
 end, {})
-
-vim.g.python3_host_prog = MYHOME .. "/.virtualenvs/prod3/bin/python3"
 
 -- Converts selected bytes to a string, useful for debugging
 local BytesToString = function(opts)
@@ -61,34 +57,34 @@ end
 
 vim.api.nvim_create_user_command("BytesToString", BytesToString, { range = true, nargs = 0 })
 
-vim.cmd([[
-function! Esc()
-python3 << EOF_
-import vim
-
-c_map = {i: '\\' + chr(i) for i in b'()[]{}?*+-|^$\\.&~#\n\r\v\f\'\"'}
-
-def escape(pattern):
-    if isinstance(pattern, str):
-        return pattern.translate(c_map)
-    else:
-        pattern = str(pattern, 'latin1')
-        return pattern.translate(c_map).encode('latin1')
-
-        vim.current.line = escape(vim.current.line)
-
-EOF_
-endfunction
-command! -nargs=? -range Esc call Esc()
-
-function! CopyMatches(reg)
-  let hits = []
-  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
-  let reg = empty(a:reg) ? '+' : a:reg
-  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
-endfunction
-command! -register Cm call CopyMatches(<q-reg>)
-]])
+-- vim.cmd([[
+-- function! Esc()
+-- python3 << EOF_
+-- import vim
+--
+-- c_map = {i: '\\' + chr(i) for i in b'()[]{}?*+-|^$\\.&~#\n\r\v\f\'\"'}
+--
+-- def escape(pattern):
+--     if isinstance(pattern, str):
+--         return pattern.translate(c_map)
+--     else:
+--         pattern = str(pattern, 'latin1')
+--         return pattern.translate(c_map).encode('latin1')
+--
+--         vim.current.line = escape(vim.current.line)
+--
+-- EOF_
+-- endfunction
+-- command! -nargs=? -range Esc call Esc()
+--
+-- function! CopyMatches(reg)
+--   let hits = []
+--   %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+--   let reg = empty(a:reg) ? '+' : a:reg
+--   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+-- endfunction
+-- command! -register Cm call CopyMatches(<q-reg>)
+-- ]])
 
 P = function(x)
   print(vim.inspect(x))

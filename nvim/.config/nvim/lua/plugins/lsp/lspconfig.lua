@@ -174,24 +174,48 @@ return {
         on_attach = on_attach,
         capabilities = capabilities,
         root_dir = nvim_lsp.util.root_pattern("venv", "requirements.txt", "setup.py", ".git"),
-        -- root_dir = vim.fs.root(0, ".git"),
         settings = {
           pyright = {
             autoImportCompletion = true,
-            disableOrganizeImports = true,
+            disableOrganizeImports = false,
           },
           python = {
             analysis = {
               autoSearchPaths = true,
-              diagnosticMode = "openFilesOnly",
+              diagnosticMode = "workspace",
               useLibraryCodeForTypes = true,
-              typeCheckingMode = "off", -- 'basic'
-              -- ignore = { '*' },
+              typeCheckingMode = "off",
             },
           },
         },
+        before_init = function(_, config)
+          local root_dir = vim.fs.root(0, ".git")
+          if root_dir then
+            local venv_path = string.format("%s/venv", root_dir)
+            if vim.fn.isdirectory(venv_path) then
+              vim.env.VIRTUAL_ENV = venv_path
+              if venv_path ~= "" then
+                -- print(venv_path)
+                config.settings.python.pythonPath = venv_path .. "/bin/python"
+                -- config.settings.python.venvPath= vim.fn.resolve(venv_path .. "/bin/python")
+              end
+            end
+          end
+        end,
       })
 
+      -- require('lspconfig').pyright.setup{
+      --   on_attach = on_attach,
+      --   settings = {
+      --     python = {
+      --       analysis = {
+      --         autoSearchPaths = true,
+      --         useLibraryCodeForTypes = true,
+      --         diagnosticMode = 'workspace'
+      --       }
+      --     }
+      --   }
+      -- }
       -- terraform
       local tf_opts = {
         root_dir = nvim_lsp.util.root_pattern("terraform.tfvars", "main.tf", ".git", "venv"),
