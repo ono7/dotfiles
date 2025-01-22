@@ -480,7 +480,7 @@ setup_keys
 
 ############## Load virtual environment if it exists ##############
 
-# [ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
+[ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
 
 # [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
@@ -488,3 +488,6 @@ eval "$(direnv hook zsh)"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
+
+# remove control+t (fzf)
+bindkey -r '^T'
