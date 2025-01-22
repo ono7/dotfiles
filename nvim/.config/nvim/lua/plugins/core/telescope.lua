@@ -72,7 +72,7 @@ return {
         git_files = with_dropdown,
         oldfiles = with_dropdown,
         buffers = with_dropdown,
-        workspaces = { theme = "ivy" },
+        workspaces = with_dropdown,
         diagnostics = { theme = "ivy" },
         live_grep = {
           mappings = default_maps,
