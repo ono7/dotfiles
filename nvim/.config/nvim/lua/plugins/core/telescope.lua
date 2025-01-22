@@ -45,21 +45,19 @@ return {
         ["<C-n>"] = actions.move_selection_next,
         ["<M-p>"] = actions.move_selection_previous,
         ["<M-n>"] = actions.move_selection_next,
+        ["<D-p>"] = actions.move_selection_previous,
+        ["<D-n>"] = actions.move_selection_next,
         ["<C-q"] = actions.smart_add_to_qflist + actions.open_qflist,
         ["<C-x"] = actions.select_horizontal,
         ["<C-v"] = actions.select_vertical,
         ["<M-x>"] = actions.select_horizontal,
         ["<M-v>"] = actions.select_vertical,
-
-        ["<D-p>"] = actions.move_selection_previous,
-        ["<D-n>"] = actions.move_selection_next,
       },
       n = { ["q"] = actions.close },
     }
 
     local with_dropdown = {
       theme = "ivy",
-      mappings = default_maps,
     }
 
     local fd_command = {
@@ -101,6 +99,7 @@ return {
 
       defaults = {
         theme = "ivy",
+        mappings = default_maps,
         set_env = { ["COLORTERM"] = "truecolor" },
         -- prompt_prefix = "🔍 ",
         prompt_prefix = " " .. icons.ui.Telescope .. "  ",

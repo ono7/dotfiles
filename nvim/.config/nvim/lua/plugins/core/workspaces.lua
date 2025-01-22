@@ -69,32 +69,9 @@ return {
             end
           end,
           function()
-            local set_keys = require("utils.keys")
-            local actions = require("telescope.actions")
-
-            local default_maps = {
-              i = {
-                [set_keys.prefix("f")] = actions.to_fuzzy_refine,
-                [set_keys.prefix("p")] = actions.move_selection_previous,
-                [set_keys.prefix("n")] = actions.move_selection_next,
-                [set_keys.prefix("q")] = actions.smart_add_to_qflist + actions.open_qflist,
-                [set_keys.prefix("x")] = actions.select_horizontal,
-                [set_keys.prefix("v")] = actions.select_vertical,
-                ["<M-x>"] = actions.select_horizontal,
-                ["<M-v>"] = actions.select_vertical,
-
-                ["<M-p>"] = actions.move_selection_previous,
-                ["<M-n>"] = actions.move_selection_next,
-              },
-              n = { ["q"] = actions.close },
-            }
             require("telescope.builtin").find_files({
               hidden = true,
               no_ignore = false,
-              -- sorting by modified is single threaded, but we dont expect many files
-              defaults = {
-                mappings = default_maps,
-              },
               find_command = {
                 "rg",
                 "--files",
