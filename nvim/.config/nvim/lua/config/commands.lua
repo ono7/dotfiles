@@ -1,60 +1,3 @@
--- vim.api.nvim_create_user_command("T", function(opts)
---   vim.cmd("bel 5split | startinsert | terminal " .. table.concat(opts.fargs, " "))
--- end, { nargs = "*", complete = "file" })
-
---[[
---- vscode like terminal ---
-local terminal_buf = nil
-local terminal_win = nil
-local term_job_id = nil
-local term_size = 5
-
-vim.api.nvim_create_user_command("T", function()
-  -- If terminal buffer doesn't exist, create it, otherwise reuse it
-  if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-    -- vim.cmd("bel " .. term_size .. "split")
-    vim.cmd.vnew()
-    vim.cmd.term()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, term_size)
-    terminal_buf = vim.api.nvim_get_current_buf()
-    terminal_win = vim.api.nvim_get_current_win()
-    temr_job_id = vim.bo.channel
-    vim.cmd("startinsert")
-    return
-  end
-
-  -- Terminal buffer exists, check if it's currently displayed
-  local wins = vim.api.nvim_list_wins()
-  local is_visible = false
-
-  for _, win in ipairs(wins) do
-    if vim.api.nvim_win_get_buf(win) == terminal_buf then
-      -- Terminal is visible, hide it
-      vim.api.nvim_win_hide(win)
-      is_visible = true
-      break
-    end
-  end
-
-  -- If terminal wasn't visible, show it
-  if not is_visible then
-    -- this makes smaller termial confined to one window pane
-    vim.cmd("bel " .. term_size .. "split")
-
-    -- this gives us a full horizontal window even when two panes are opened for more term realstate
-    -- vim.cmd.vnew()
-    -- vim.cmd.wincmd("J")
-
-    vim.api.nvim_win_set_height(0, term_size)
-    vim.api.nvim_win_set_buf(0, terminal_buf)
-    terminal_win = vim.api.nvim_get_current_win()
-    vim.cmd("startinsert")
-  end
-end, {})
-
---]]
-
 local terminal_buf = nil
 local terminal_win = nil
 local term_job_id = nil
@@ -62,32 +5,30 @@ local term_size = 6
 
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
-  -- If terminal buffer doesn't exist, create it
+
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-    vim.cmd.vnew()
-    vim.cmd.term() -- Always create a regular terminal first
+    vim.cmd.split()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, term_size)
+    vim.cmd.term()
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
     term_job_id = vim.b.terminal_job_id
-    -- If command was provided, send it after terminal is created
+
     if cmd ~= "" then
-      vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
+      vim.fn.chansend(term_job_id, cmd .. "\n")
     end
     vim.cmd("startinsert")
     return
   end
 
   local wins = vim.api.nvim_list_wins()
-  -- If there's only one window and it's the terminal, do nothing
-  if #wins == 1 and vim.api.nvim_win_get_buf(wins[1]) == terminal_buf then
-    return
-  end
-
   local is_visible = false
+  local cursor_pos
+
   for _, win in ipairs(wins) do
     if vim.api.nvim_win_get_buf(win) == terminal_buf then
+      cursor_pos = vim.api.nvim_win_get_cursor(win)
       vim.api.nvim_win_hide(win)
       is_visible = true
       break
@@ -95,18 +36,30 @@ vim.api.nvim_create_user_command("T", function(opts)
   end
 
   if not is_visible then
-    vim.cmd.vnew()
+    vim.cmd.split()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, term_size)
     vim.api.nvim_win_set_buf(0, terminal_buf)
     terminal_win = vim.api.nvim_get_current_win()
+
+    if cursor_pos then
+      vim.api.nvim_win_set_cursor(terminal_win, cursor_pos)
+    end
+
     if cmd ~= "" then
-      vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
+      vim.fn.chansend(term_job_id, cmd .. "\n")
     end
     vim.cmd("startinsert")
   end
 end, { nargs = "*" })
 
+local opts = { silent = true }
+vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", opts)
+vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], opts)
+
+local opts = { silent = true }
+vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", opts)
+vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], opts)
 vim.api.nvim_create_user_command("Commit", function(opts)
   local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
   vim.cmd("r!git diff " .. diff_cmd)

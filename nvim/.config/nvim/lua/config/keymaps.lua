@@ -152,6 +152,17 @@ vim.keymap.set("t", "<D-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
+vim.keymap.set("t", "<C-y>", function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
 -- if vim.g.neovide then
 
 -- if vim.loop.os_uname().sysname == "Darwin" then

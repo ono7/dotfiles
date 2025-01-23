@@ -101,6 +101,8 @@ return {
       mapping = cmp.mapping.preset.insert({
         [k.prefix("j")] = cmp.mapping.select_next_item(),
         [k.prefix("k")] = cmp.mapping.select_prev_item(),
+        ["<D-n>"] = cmp.mapping.select_next_item(),
+        ["<D-p>"] = cmp.mapping.select_prev_item(),
         [k.prefix("b")] = cmp.mapping.scroll_docs(-4),
         [k.prefix("f")] = cmp.mapping.scroll_docs(4),
         [k.prefix("Space")] = cmp.mapping.complete({ select = true }),

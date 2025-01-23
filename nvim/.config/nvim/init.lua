@@ -65,6 +65,7 @@ if vim.g.neovide then
 
   vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
+  vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 end
