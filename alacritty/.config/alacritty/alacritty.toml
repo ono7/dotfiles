@@ -44,9 +44,6 @@ x = 0
 y = 0
 
 [font.normal]
-# family = "MonolisaNoLiga Nerd Font"
-# family = "Iosevka Fixed"
-# style = "Medium Regular"
 family = "SF Mono"
 style = "Medium"
 
@@ -65,7 +62,6 @@ bindings = [
 {  key  =  "Back",      mods  =  "Alt",            chars   =  "\u0017"             },
 {  key  =  "Back",      mods  =  "Command",        chars   =  "\u0017"             },
 {  key  =  "W",         mods  =  "Command",        chars   =  "\u0017"             },
-{  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
 {  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
 {  key  =  "C",         mods  =  "Command",        chars   =  "\u0003"             },
 {  key  =  "D",         mods  =  "Command",        chars   =  "\u0004"             },
