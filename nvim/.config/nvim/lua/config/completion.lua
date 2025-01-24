@@ -6,4 +6,8 @@ vim.opt.complete = { ".", "w", "b", "u" }
 -- vim.opt.updatetime = 1000
 
 -- Map Ctrl-Y to trigger completion and auto-select
-vim.api.nvim_set_keymap("i", set_keys.prefix("y"), [[<C-n><c-p>]], { noremap = true, silent = true })
+if vim.loop.os_uname().sysname == "Darwin" then
+  vim.api.nvim_set_keymap("i", "<D-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
+else
+  vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
+end
