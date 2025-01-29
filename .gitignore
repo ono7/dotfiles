@@ -32,7 +32,9 @@ my_creds.py
 profile.log
 lazy-lock.json
 
-ipython/*
-!ipython/profile_default/ipython_config.py
-!ipython/profile_default/startup/custom.py
+ipython/.ipython/*
+!ipython/.ipython/profile_default/
+ipython/.ipython/profile_default/*
+!ipython/.ipython/profile_default/ipython_config.py
+
 .aider*

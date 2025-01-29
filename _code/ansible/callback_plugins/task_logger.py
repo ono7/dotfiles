@@ -51,7 +51,7 @@
 """
 # from pathlib import Path
 from ansible.plugins.callback import CallbackBase
-from ansible.executor.task_result import TaskResult
+from ansible.executor.task_result import TaskResult  # noqa: F401
 from pathlib import Path
 import logging
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # chmod +x this_file
 
-import requests
+import requests  # noqa: F401
 import json
 
 

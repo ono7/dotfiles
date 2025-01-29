@@ -1,6 +1,6 @@
 # ... existing code ...
 
-class CallbackModule(CallbackBase):
+class CallbackModule(CallbackBase):  # noqa: F821
     # ... existing methods ...
 
     def v2_runner_on_ok(self, result):
