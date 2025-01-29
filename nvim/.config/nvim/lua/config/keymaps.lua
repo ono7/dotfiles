@@ -97,11 +97,11 @@ vim.keymap.set("n", "<leader>cd", function()
 end, { silent = true })
 
 --- paste over selection without overwriting clipboard
-vim.keymap.set("x", "p", "pgvy")
+-- vim.keymap.set("x", "p", "pgvy")
 
 --- leave unnnamed reg alone when changing text
-vim.keymap.set("n", "c", '"ac')
-vim.keymap.set("n", "C", '"aC')
+-- vim.keymap.set("n", "c", '"ac')
+-- vim.keymap.set("n", "C", '"aC')
 
 -- Copy full file path
 vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)

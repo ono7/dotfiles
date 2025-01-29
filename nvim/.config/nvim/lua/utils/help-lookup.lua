@@ -111,8 +111,8 @@ function M.setup()
     open_documentation(true)
   end
 
-  vim.keymap.set("n", "K", normal_documentation, { noremap = true, silent = true })
-  vim.keymap.set("v", "K", function()
+  vim.keymap.set("n", "H", normal_documentation, { noremap = true, silent = true })
+  vim.keymap.set("v", "H", function()
     vim.cmd('normal! "vy')
     visual_documentation()
   end, { noremap = true, silent = true })

@@ -30,7 +30,7 @@ return {
           k("gr", require("telescope.builtin").lsp_references, "Goto LSP References")
           k("gI", require("telescope.builtin").lsp_implementations, "Goto LSP Implementations")
           -- k("K", vim.lsp.buf.hover, "Hover Documentation")
-          k("H", vim.lsp.buf.hover, "Hover Documentation")
+          k("K", vim.lsp.buf.hover, "Hover Documentation")
           -- k("K", vim.lsp.buf.signature_help, "Signature help")
           -- k("<space>ll", "<cmd>lua vim.diagnostic.set_loclist()<CR>", "set_loclist")
           -- k("<space>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", "implementation")

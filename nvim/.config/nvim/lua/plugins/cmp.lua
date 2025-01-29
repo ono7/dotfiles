@@ -74,10 +74,10 @@ return {
       end,
     })
     -- Set up manual trigger
-    -- vim.keymap.set("i", "<C-Space>", function()
-    -- vim.keymap.set("i", "<c-y>", function()
-    --   cmp.complete()
-    -- end, { noremap = true, silent = true, desc = "Manually trigger completion" })
+    vim.keymap.set("i", "<C-Space>", function()
+      -- vim.keymap.set("i", "<c-y>", function()
+      cmp.complete()
+    end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
     -- autopairs integration
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
