@@ -2,7 +2,6 @@
 -- :write ++p (creates directories if they dont exists)
 local opt = { noremap = true }
 
-vim.hl = vim.highlight
 vim.cmd([[syntax off]])
 
 if vim.opt.termguicolors then
