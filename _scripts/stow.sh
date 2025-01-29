@@ -28,6 +28,7 @@ if type stow &>/dev/null; then
   stow kitty
   stow tmux
   stow alacritty
+  stow ipython
   stow wezterm
   stow neovide
   stow zsh
