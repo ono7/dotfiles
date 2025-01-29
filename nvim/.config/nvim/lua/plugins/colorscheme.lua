@@ -26,7 +26,8 @@ return {
       blue = "#89b4fa",
       yellow = "#fae3b0",
       -- yellow2 = "#f9e2af",
-      yellow2 = "#e6c99d",
+      -- yellow2 = "#e6c99d",
+      yellow2 = "#5fd7ff",
       sun = "#ffe9b6",
       purple = "#d0a9e5",
       purple2 = "#cba6f7",
@@ -126,7 +127,10 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#d7d787" })
+
+    -- yellow2 = "",
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})

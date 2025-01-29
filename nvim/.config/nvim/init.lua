@@ -36,7 +36,10 @@ require("utils.help-lookup").setup()
 if vim.g.neovide then
   --- vsync = true for smooth cursor movement, which is why we are here
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#b8c1e6" })
+
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#b8c1e6" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#e7e7e7" })
+
   -- Map Cmd+g to Ctrl+g in multiple modes
 
   vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")

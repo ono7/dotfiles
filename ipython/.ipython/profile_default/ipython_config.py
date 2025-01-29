@@ -5,7 +5,7 @@ c = get_config()  # noqa: F821
 
 # Set colors for better visibility on dark background
 c.TerminalInteractiveShell.colors = "Linux"  # This gives a good dark-background preset
-c.TerminalInteractiveShell.true_color = False
+c.TerminalInteractiveShell.true_color = True
 
 # If you need more customization, you can set specific colors:
 c.colors_linux = {
@@ -15,4 +15,5 @@ c.colors_linux = {
     "name": "\033[0;37m",  # Light gray
     "punct": "\033[0;37m",  # Light gray
     "comment": "\033[0;36m",  # Darker cyan
+    "NoColor": "\033[0;37m",
 }
