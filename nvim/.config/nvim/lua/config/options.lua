@@ -18,7 +18,6 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamed,unnamedplus"
   -- vim.opt.clipboard:append("unnamedplus")
 end)
-vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
@@ -47,7 +46,11 @@ vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append({ "view", "stack" })
-vim.opt.laststatus = 0
+
+-- cmd and status line
+vim.opt.laststatus = 3
+vim.opt.cmdheight = 0
+
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
 vim.opt.magic = true
