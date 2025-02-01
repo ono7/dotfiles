@@ -67,8 +67,6 @@ end
 
 vim.opt.mouse = "a"
 
--- test
-
 -- block cursor
 vim.opt.guicursor = ""
 
