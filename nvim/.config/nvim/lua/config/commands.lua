@@ -57,9 +57,9 @@ local opts = { silent = true }
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", opts)
 vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], opts)
 
-local opts = { silent = true }
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", opts)
 vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], opts)
+
 vim.api.nvim_create_user_command("Commit", function(opts)
   local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
   vim.cmd("r!git diff " .. diff_cmd)
