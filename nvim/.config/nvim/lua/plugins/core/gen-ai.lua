@@ -48,7 +48,7 @@ $text"]],
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are an expert in writing clear and concise Git commit messages. Given the following code diff from a Git repository, please generate a meaningful commit message that accurately describes the changes made, only provide the commit message and no additional chatter, always use Conventional Commits style. $input:\n$text?",
+      prompt = "You are providing only commit messages for code changes in a repo, do not provide additonal thinking and reasoning information verbose, only provide the commit message, always use Conventional Commits style. $input:\n$text?",
       replace = true,
     }
     require("gen").setup({
