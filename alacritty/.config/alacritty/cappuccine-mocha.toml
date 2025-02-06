@@ -23,7 +23,7 @@
 background = "#1b1f31"
 # foreground = "#d9e0ee"
 # foreground = "#b8c1e6"
-foreground = "#e7e7e7"
+foreground = "#a8b5d1"
 
 dim_foreground = "#bac2de"
 bright_foreground = "#cdd6f4"

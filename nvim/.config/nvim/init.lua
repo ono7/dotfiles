@@ -38,7 +38,7 @@ if vim.g.neovide then
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
 
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#b8c1e6" })
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#e7e7e7" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
 
