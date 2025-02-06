@@ -106,6 +106,7 @@ return {
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#3A4057" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#253d61" })
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
+    vim.api.nvim_set_hl(0, "StatusLine", { bg = "#25293c", fg = mycolors.white })
     vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
