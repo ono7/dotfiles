@@ -22,7 +22,8 @@ vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
-vim.opt.diffopt = "filler"
+-- vim.opt.diffopt = "filler"
+vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
