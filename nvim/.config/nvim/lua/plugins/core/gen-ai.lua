@@ -48,7 +48,7 @@ $text"]],
       replace = true,
     }
     require("gen").prompts["Commit"] = {
-      prompt = "You are providing only commit messages for code changes in a repo, do not provide additonal thinking and reasoning information verbose, only provide the commit message, always use Conventional Commits style. $input:\n$text?",
+      prompt = "please remove the <thinking> tag from the output and only provide the commit message, always use Conventional Commits style. $input:\n$text?",
       replace = true,
     }
     require("gen").setup({
