@@ -20,9 +20,8 @@
 # base0E = "#cba6f7",
 # base0F = "#f38ba8",
 
-background = "#1b1f31"
-# foreground = "#d9e0ee"
-# foreground = "#b8c1e6"
+# background = "#1b1f31"
+background = "#1a1f32"
 foreground = "#a8b5d1"
 
 dim_foreground = "#bac2de"
