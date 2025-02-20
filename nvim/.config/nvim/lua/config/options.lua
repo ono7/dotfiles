@@ -25,22 +25,19 @@ vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
-vim.opt.fillchars = { fold = " " }
+-- vim.opt.fillchars = { fold = " " }
+vim.opt.fillchars:append({ fold = "·" })
 
+vim.opt.foldtext =
+  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 vim.opt.foldenable = false
 vim.opt.foldlevel = 99
-vim.g.markdown_folding = 1 -- enable markdown folding
-
 vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldnestmax = 1
--- vim.opt.foldtext = ""
--- vim.opt.foldenable = false
--- vim.opt.foldlevel = 0
--- vim.opt.foldmethod = "manual"
--- vim.opt.foldnestmax = 3
--- vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
+vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
+vim.g.markdown_folding = 1 -- enable markdown folding
+
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
