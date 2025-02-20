@@ -156,7 +156,7 @@ return {
       nvim_lsp.html.setup(lsp_opts)
 
       nvim_lsp.eslint.setup({
-        root_dir = nvim_lsp.util.root_pattern(".git", "index.js", "tsconfig.json"),
+        root_dir = nvim_lsp.util.root_pattern(".git", "index.js", "index.ts", "tsconfig.json"),
         flags = {
           allow_incremental_sync = false,
           debounce_text_changes = 1000,
