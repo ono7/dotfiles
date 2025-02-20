@@ -124,7 +124,7 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { undercurl = true, bold = true, italic = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#fa5057", bold = true })
-    vim.api.nvim_set_hl(0, "EndOfBuffer", {})
+    -- vim.api.nvim_set_hl(0, "EndOfBuffer", {})
     vim.api.nvim_set_hl(0, "Special", {})
 
     --- make it more black and white ----

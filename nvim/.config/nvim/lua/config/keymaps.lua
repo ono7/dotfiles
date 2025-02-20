@@ -21,11 +21,10 @@ vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
 vim.keymap.set("i", "<M-a>", "<ESC>^i", silent)
 vim.keymap.set("i", "<M-e>", "<End>", silent)
 
--- replaces vim surround
-
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
+-- replaces vim surround
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
@@ -33,13 +32,8 @@ vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a]])
 vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>f}a]])
 vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a]])
 
--- vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true })
-
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
-
---- quit it all
--- vim.keymap.set("n", "<leader>q", ":qa!<Cr>", opt)
 
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -62,9 +56,6 @@ vim.keymap.set("x", "H", "<gv", silent)
 vim.keymap.set("x", "L", ">gv", silent)
 
 -- Bind the function to a key mapping
--- vim.keymap.set("n", ",w", "<cmd>write<cr>", silent)
--- vim.keymap.set("n", ",q", "<cmd>q!<cr>", silent)
--- vim.keymap.set("n", ",x", "<cmd>x!<cr>", silent)
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
@@ -96,21 +87,11 @@ vim.keymap.set("n", "<leader>cd", function()
   print("new lcd: " .. vim.fn.getcwd())
 end, { silent = true })
 
---- paste over selection without overwriting clipboard
--- vim.keymap.set("x", "p", "pgvy")
-
---- leave unnnamed reg alone when changing text
--- vim.keymap.set("n", "c", '"ac')
--- vim.keymap.set("n", "C", '"aC')
-
 -- Copy full file path
 vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
 
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
-
---- all others ---
--- vim.keymap.set("n", "+", ":e ~/todo.md<cr>", opt)
 
 --- mapping tab also overrides c-i which is used to move through jump list
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", silent)
@@ -162,11 +143,6 @@ vim.keymap.set("t", "<C-y>", function()
     vim.t.maximized = true
   end
 end, { desc = "Toggle window maximize" })
-
--- if vim.g.neovide then
-
--- if vim.loop.os_uname().sysname == "Darwin" then
--- end
 
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
@@ -251,13 +227,6 @@ vim.keymap.set("n", ",w", function()
   vim.cmd([[:write ++p]])
   vim.fn.setpos(".", save_cursor)
 end, silent)
-
--- vim.keymap.set("n", "g(", [[?\v\w+.{-}\(\zs<cr>]])
--- vim.keymap.set("n", "g)", [[/\v\w+.{-}\(\zs<cr>]])
--- vim.keymap.set("n", "g{", "?{<cr>")
--- vim.keymap.set("n", "g}", "/}<cr>")
--- vim.keymap.set("n", "g[", [[?\v\[<cr>]])
--- vim.keymap.set("n", "g]", [[/\v\]<cr>]])
 
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
