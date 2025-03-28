@@ -1,5 +1,9 @@
 # list open files (lsof)
 
+check containers (if supported)
+
+while true; do clear; docker exec `<container_id>` lsof -ni; sleep 3; done
+
 - show processes, `-nP` no dns and no port-name resolution
 
   ```sh
