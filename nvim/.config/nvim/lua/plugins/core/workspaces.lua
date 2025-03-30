@@ -64,31 +64,31 @@ return {
           -- do not run hooks if file already in active workspace
           function()
             if current_file_in_ws() then
-              vim.notify("already in in workspace")
+              vim.notify("Managed workspace")
               return false
             end
           end,
-          function()
-            require("telescope.builtin").find_files({
-              hidden = true,
-              no_ignore = false,
-              find_command = {
-                "rg",
-                "--files",
-                "--sortr=modified",
-                "--glob",
-                "!**/__pycache__/*",
-                "--glob",
-                "!venv/*",
-                "--glob",
-                "!.git/*",
-                "--glob",
-                "!node_modules/*",
-                "--glob",
-                "!.collections/*",
-              },
-            })
-          end,
+          -- function()
+          --   require("telescope.builtin").find_files({
+          --     hidden = true,
+          --     no_ignore = false,
+          --     find_command = {
+          --       "rg",
+          --       "--files",
+          --       "--sortr=modified",
+          --       "--glob",
+          --       "!**/__pycache__/*",
+          --       "--glob",
+          --       "!venv/*",
+          --       "--glob",
+          --       "!.git/*",
+          --       "--glob",
+          --       "!node_modules/*",
+          --       "--glob",
+          --       "!.collections/*",
+          --     },
+          --   })
+          -- end,
         },
       },
     })

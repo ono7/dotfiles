@@ -16,29 +16,26 @@ vim.schedule(function()
   -- scheduled to decrease start time
   vim.opt.clipboard = "unnamed,unnamedplus"
 end)
--- vim.opt.colorcolumn = "99999" -- fixes indentline?
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
--- vim.opt.diffopt = "filler"
 vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
--- vim.opt.fillchars = { fold = " " }
 vim.opt.fillchars:append({ fold = "·" })
 
 vim.opt.foldtext =
-  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+[[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldnestmax = 1
 vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1                                     -- enable markdown folding
 
-vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
+vim.opt.formatoptions = "qlj"                                  -- TODO: overwritten in my_cmds.lua
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 vim.opt.hidden = true
@@ -66,7 +63,12 @@ vim.opt.nrformats = "bin,hex"
 vim.opt.fileformats = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 vim.opt.number = true
-vim.opt.numberwidth = 2
+
+-- vim.opt.signcolumn = "yes"
+-- vim.opt.numberwidth = 2
+vim.opt.numberwidth = 3
+vim.opt.signcolumn = "yes:1"
+vim.opt.statuscolumn = "%l%s"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = true
 vim.opt.ruler = false
@@ -79,7 +81,6 @@ vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 5
 vim.opt.scrolloff = 5
 vim.opt.sidescroll = 3
-vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
@@ -93,10 +94,10 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10 -- for performace
+vim.opt.synmaxcol = 10           -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = false          -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 --- report file name to terminal
 vim.opt.title = true
@@ -127,17 +128,18 @@ vim.opt.sessionoptions:remove({ "buffers", "folds" })
 vim.opt.wrap = true
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
+-- vim.o.winborder = "rounded"
 
-vim.g.floating_window_border = {
-  "╭",
-  "─",
-  "╮",
-  "│",
-  "╯",
-  "─",
-  "╰",
-  "│",
-}
+-- vim.g.floating_window_border = {
+--   "╭",
+--   "─",
+--   "╮",
+--   "│",
+--   "╯",
+--   "─",
+--   "╰",
+--   "│",
+-- }
 
 --- global vars
 

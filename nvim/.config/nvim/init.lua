@@ -15,7 +15,6 @@ vim.opt.syntax = "off"
 
 require("config.neovide")
 require("config.options")
-
 require("config.keymaps")
 require("config.disabled")
 require("config.legacy")
@@ -25,7 +24,7 @@ require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
 require("utils.zoxide").setup()
-require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
@@ -58,10 +57,10 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 end
 
@@ -76,3 +75,132 @@ require("jira.jira-move")
 require("jira.jira-fetch-issues")
 require("jira.jira-fetch-issues-empty")
 require("jira.jira-clone").setup()
+
+--- lsp config
+
+-- this will get merged with the lsp/*.lua files
+-- conviniently making some settings global
+vim.lsp.config("*", {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      },
+    },
+  },
+  root_markers = { ".git" },
+})
+
+-- NOTE: this works, 2025-03-29 23:18
+vim.lsp.config["luals"] = {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".luarc.json", ".luarc.jsonc" },
+  settings = {
+    Lua = {
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+        },
+      },
+    },
+  },
+}
+
+-- NOTE: this crashes, 2025-03-29 23:18
+vim.lsp.config["pyright"] = {
+  cmd = { "pyright" },
+  filetypes = { "python" },
+  root_markers = {
+    "pyproject.toml",
+    "setup.py",
+    "setup.cfg",
+    "requirements.txt",
+    "Pipfile",
+    "*.git",
+    "pyrightconfig.json",
+  },
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+}
+
+vim.lsp.enable({ "luals", "pyright" })
+
+-- vim.diagnostic.config({ virtual_text = true })
+--
+-- vim.diagnostic.config({
+--   virtual_text = { current_line = true },
+-- })
+
+vim.diagnostic.config({
+  virtual_text = { current_line = true },
+  virtual_lines = {
+    -- Only show virtual line diagnostics for the current cursor line
+    current_line = true,
+  },
+})
+
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = "WarningMsg",
+      [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+      [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+      [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+    },
+  },
+})
+
+-- auto completion and autoformat
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("my.lsp", {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    -- if client:supports_method("textDocument/implementation") then
+    -- Create a keymap for vim.lsp.buf.implementation ...
+    -- end
+
+    -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+    if client:supports_method("textDocument/completion") then
+      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+      -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+      -- client.server_capabilities.completionProvider.triggerCharacters = chars
+
+      vim.keymap.set("i", "<c-space>", function()
+        vim.lsp.completion.get()
+      end)
+
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    end
+
+    -- Auto-format ("lint") on save.
+    -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
+    if
+        not client:supports_method("textDocument/willSaveWaitUntil")
+        and client:supports_method("textDocument/formatting")
+    then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+        end,
+      })
+    end
+  end,
+})
+
+-- map <cr> to <c-y> when the popup menu is visible
+vim.keymap.set("i", "<cr>", "pumvisible() ? '<c-y>' : '<cr>'", { expr = true })
