@@ -484,7 +484,9 @@ setup_keys
 
 # [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
-eval "$(direnv hook zsh)"
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
