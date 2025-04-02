@@ -1,5 +1,15 @@
 --- 🐇 Follow the white Rabbit...
+
 -- :write ++p (creates directories if they dont exists)
+
+-- neovim 0.11 defaults for lsp_attach
+-- grn in Normal mode maps to vim.lsp.buf.rename()
+-- grr in Normal mode maps to vim.lsp.buf.references()
+-- gri in Normal mode maps to vim.lsp.buf.implementation()
+-- gO in Normal mode maps to vim.lsp.buf.document_symbol()
+-- gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
+-- CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
+
 local opt = { noremap = true }
 
 vim.cmd([[syntax off]])
@@ -111,13 +121,15 @@ vim.diagnostic.config({
   },
 })
 
-vim.diagnostic.config({
-  virtual_text = false,
-  virtual_lines = {
-    -- new diag implementation for 0.11, shows only text under the line
-    current_line = true,
-  },
-})
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   virtual_lines = {
+--     -- new diag implementation for 0.11, shows only text under the line
+--     current_line = true,
+--   },
+-- })
+
+vim.diagnostic.config({ virtual_text = { current_line = true } })
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
@@ -136,6 +148,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client:supports_method("textDocument/completion") then
       -- Default triggerCharacters is dot only { "." }
+      if client == nil then
+        return
+      end
       client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
 
       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
