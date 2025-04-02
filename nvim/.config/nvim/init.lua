@@ -30,6 +30,7 @@ require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.completion")
+require("config.mason")
 require("utils.help-lookup").setup()
 
 if vim.g.neovide then
@@ -91,52 +92,7 @@ vim.lsp.config("*", {
   root_markers = { ".git" },
 })
 
--- NOTE: this works, 2025-03-29 23:18
-vim.lsp.config["luals"] = {
-  cmd = { "lua-language-server" },
-  filetypes = { "lua" },
-  root_markers = { ".luarc.json", ".luarc.jsonc" },
-  settings = {
-    Lua = {
-      workspace = {
-        library = {
-          vim.env.VIMRUNTIME,
-        },
-      },
-    },
-  },
-}
-
--- NOTE: this crashes, 2025-03-29 23:18
-vim.lsp.config["pyright"] = {
-  cmd = { "pyright" },
-  filetypes = { "python" },
-  root_markers = {
-    "pyproject.toml",
-    "setup.py",
-    "setup.cfg",
-    "requirements.txt",
-    "Pipfile",
-    "*.git",
-    "pyrightconfig.json",
-  },
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
-      },
-    },
-  },
-}
-
-vim.lsp.enable({ "luals", "pyright" })
-
--- vim.diagnostic.config({ virtual_text = true })
---
--- vim.diagnostic.config({
---   virtual_text = { current_line = true },
--- })
+vim.lsp.enable({ "gopls", "pyright", "ansiblels", "luals" })
 
 vim.diagnostic.config({
   virtual_text = { current_line = true },
@@ -164,43 +120,47 @@ vim.diagnostic.config({
 })
 
 -- auto completion and autoformat
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("my.lsp", {}),
-  callback = function(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    -- if client:supports_method("textDocument/implementation") then
-    -- Create a keymap for vim.lsp.buf.implementation ...
-    -- end
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = vim.api.nvim_create_augroup("my.lsp", {}),
+--   callback = function(args)
+--     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+--     -- if client:supports_method("textDocument/implementation") then
+--     -- Create a keymap for vim.lsp.buf.implementation ...
+--     -- end
+--
+--     -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+--     if client:supports_method("textDocument/completion") then
+--       -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+--       -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+--       -- client.server_capabilities.completionProvider.triggerCharacters = chars
+--
+--       vim.keymap.set("i", "<c-space>", function()
+--         vim.lsp.completion.get()
+--       end)
+--
+--       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+--
+--       if client.server_capabilities.completionProvider then
+--         client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", ">", "(" } -- Example trigger characters
+--       end
+--     end
+--
+--     -- Auto-format ("lint") on save.
+--     -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
+--     if
+--         not client:supports_method("textDocument/willSaveWaitUntil")
+--         and client:supports_method("textDocument/formatting")
+--     then
+--       vim.api.nvim_create_autocmd("BufWritePre", {
+--         group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
+--         buffer = args.buf,
+--         callback = function()
+--           vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+--         end,
+--       })
+--     end
+--   end,
+-- })
 
-    -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
-    if client:supports_method("textDocument/completion") then
-      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-      -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-      -- client.server_capabilities.completionProvider.triggerCharacters = chars
-
-      vim.keymap.set("i", "<c-space>", function()
-        vim.lsp.completion.get()
-      end)
-
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-    end
-
-    -- Auto-format ("lint") on save.
-    -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
-    if
-        not client:supports_method("textDocument/willSaveWaitUntil")
-        and client:supports_method("textDocument/formatting")
-    then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
-        buffer = args.buf,
-        callback = function()
-          vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
-        end,
-      })
-    end
-  end,
-})
-
--- map <cr> to <c-y> when the popup menu is visible
-vim.keymap.set("i", "<cr>", "pumvisible() ? '<c-y>' : '<cr>'", { expr = true })
+-- -- map <cr> to <c-y> when the popup menu is visible
+-- vim.keymap.set("i", "<cr>", "pumvisible() ? '<c-y>' : '<cr>'", { expr = true })
