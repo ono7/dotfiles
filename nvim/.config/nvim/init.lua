@@ -77,7 +77,7 @@ require("jira.jira-fetch-issues")
 require("jira.jira-fetch-issues-empty")
 require("jira.jira-clone").setup()
 
---- lsp config
+--- lsp config ---
 
 -- this will get merged with the lsp/*.lua files
 -- conviniently making some settings global
@@ -119,8 +119,7 @@ vim.diagnostic.config({
   },
 })
 
--- autocompletion
-
+--- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
 local pumMaps = {
@@ -138,7 +137,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client:supports_method("textDocument/completion") then
       -- Default triggerCharacters is dot only { "." }
-      -- Trigger autocompletion on EVERY letter. May be slow!
       client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
 
       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
@@ -146,6 +144,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- trigger complete once in buffer
 vim.keymap.set("i", "<c-space>", function()
   vim.lsp.completion.get()
 end)
