@@ -24,7 +24,7 @@ require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
 require("utils.zoxide").setup()
-require("utils.runner").setup()      -- runs anything :M <cmd> :)
+require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
@@ -58,10 +58,10 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 end
 
@@ -119,48 +119,33 @@ vim.diagnostic.config({
   },
 })
 
--- auto completion and autoformat
--- vim.api.nvim_create_autocmd("LspAttach", {
---   group = vim.api.nvim_create_augroup("my.lsp", {}),
---   callback = function(args)
---     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
---     -- if client:supports_method("textDocument/implementation") then
---     -- Create a keymap for vim.lsp.buf.implementation ...
---     -- end
---
---     -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
---     if client:supports_method("textDocument/completion") then
---       -- Optional: trigger autocompletion on EVERY keypress. May be slow!
---       -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
---       -- client.server_capabilities.completionProvider.triggerCharacters = chars
---
---       vim.keymap.set("i", "<c-space>", function()
---         vim.lsp.completion.get()
---       end)
---
---       vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
---
---       if client.server_capabilities.completionProvider then
---         client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", ">", "(" } -- Example trigger characters
---       end
---     end
---
---     -- Auto-format ("lint") on save.
---     -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
---     if
---         not client:supports_method("textDocument/willSaveWaitUntil")
---         and client:supports_method("textDocument/formatting")
---     then
---       vim.api.nvim_create_autocmd("BufWritePre", {
---         group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
---         buffer = args.buf,
---         callback = function()
---           vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
---         end,
---       })
---     end
---   end,
--- })
+-- autocompletion
 
--- -- map <cr> to <c-y> when the popup menu is visible
--- vim.keymap.set("i", "<cr>", "pumvisible() ? '<c-y>' : '<cr>'", { expr = true })
+vim.o.completeopt = "menu,noinsert,popup,fuzzy"
+
+local pumMaps = {
+  ["<Tab>"] = "<C-n>",
+  ["<S-Tab>"] = "<C-p>",
+}
+for insertKmap, pumKmap in pairs(pumMaps) do
+  vim.keymap.set("i", insertKmap, function()
+    return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
+  end, { expr = true })
+end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client:supports_method("textDocument/completion") then
+      -- Default triggerCharacters is dot only { "." }
+      -- Trigger autocompletion on EVERY letter. May be slow!
+      client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
+
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
+    end
+  end,
+})
+
+vim.keymap.set("i", "<c-space>", function()
+  vim.lsp.completion.get()
+end)
