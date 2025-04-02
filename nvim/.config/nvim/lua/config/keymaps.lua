@@ -94,8 +94,8 @@ vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
 --- mapping tab also overrides c-i which is used to move through jump list
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", silent)
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", silent)
+-- vim.keymap.set("n", "<Tab>", ":bnext<CR>", silent)
+-- vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", silent)
 
 -- make dot work in visual mode
 vim.keymap.set("v", ".", ":norm .<cr>", opt)

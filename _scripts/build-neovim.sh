@@ -73,6 +73,14 @@ if ! make install; then
   exit 1
 fi
 
+
+log "remove matchparen.vim....."
+find ~/.local/share/nvim -name 'matchparen.vim' -exec rm -f {} \;
+
+if [ $? != 0 ]; then
+  log "error finding matchparen.vim"
+fi
+
 log "Neovim installed successfully in $HOME/.local/bin/nvim"
 log "Build complete"
 log "Make sure $HOME/.local/bin is in \$PATH"

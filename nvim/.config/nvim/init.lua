@@ -133,15 +133,15 @@ vim.diagnostic.config({ virtual_text = { current_line = true } })
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
-local pumMaps = {
-  ["<Tab>"] = "<C-n>",
-  ["<S-Tab>"] = "<C-p>",
-}
-for insertKmap, pumKmap in pairs(pumMaps) do
-  vim.keymap.set("i", insertKmap, function()
-    return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
-  end, { expr = true })
-end
+-- local pumMaps = {
+--   ["<Tab>"] = "<C-n>",
+--   ["<S-Tab>"] = "<C-p>",
+-- }
+-- for insertKmap, pumKmap in pairs(pumMaps) do
+--   vim.keymap.set("i", insertKmap, function()
+--     return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
+--   end, { expr = true })
+-- end
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
