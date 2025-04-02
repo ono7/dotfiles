@@ -130,6 +130,7 @@ vim.diagnostic.config({
 -- })
 
 vim.diagnostic.config({ virtual_text = { current_line = true } })
+
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
