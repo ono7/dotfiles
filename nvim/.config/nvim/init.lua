@@ -95,14 +95,6 @@ vim.lsp.config("*", {
 vim.lsp.enable({ "gopls", "pyright", "ansiblels", "luals" })
 
 vim.diagnostic.config({
-  virtual_text = { current_line = true },
-  virtual_lines = {
-    -- Only show virtual line diagnostics for the current cursor line
-    current_line = true,
-  },
-})
-
-vim.diagnostic.config({
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "",
@@ -119,6 +111,13 @@ vim.diagnostic.config({
   },
 })
 
+vim.diagnostic.config({
+  virtual_text = false,
+  virtual_lines = {
+    -- new diag implementation for 0.11, shows only text under the line
+    current_line = true,
+  },
+})
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
