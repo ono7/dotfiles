@@ -75,6 +75,7 @@ fi
 
 
 log "remove matchparen.vim....."
+# this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
 find ~/.local/share/nvim -name 'matchparen.vim' -exec rm -f {} \;
 
 if [ $? != 0 ]; then
