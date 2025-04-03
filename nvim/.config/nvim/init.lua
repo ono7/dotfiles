@@ -40,7 +40,6 @@ require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.completion")
-require("config.mason")
 require("utils.help-lookup").setup()
 
 if vim.g.neovide then
@@ -118,31 +117,15 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
       [vim.diagnostic.severity.HINT] = "DiagnosticHint",
     },
+    float = { border = "rounded" },
   },
 })
 
--- vim.diagnostic.config({
---   virtual_text = false,
---   virtual_lines = {
---     -- new diag implementation for 0.11, shows only text under the line
---     current_line = true,
---   },
--- })
-
 vim.diagnostic.config({ virtual_text = { current_line = true } })
+vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
 
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
-
--- local pumMaps = {
---   ["<Tab>"] = "<C-n>",
---   ["<S-Tab>"] = "<C-p>",
--- }
--- for insertKmap, pumKmap in pairs(pumMaps) do
---   vim.keymap.set("i", insertKmap, function()
---     return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
---   end, { expr = true })
--- end
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
