@@ -2,7 +2,8 @@
 echo "Running global hooks..."
 PATH="/usr/local/bin:$PATH"
 if type lint-staged >/dev/null 2>&1; then
-  lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  lint-staged --concurrent false -r || exit 1
 else
   echo "lint-staged not installed: npm install lint-staged -g"
   exit 1

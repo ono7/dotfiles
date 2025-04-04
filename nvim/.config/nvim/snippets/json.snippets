@@ -1,5 +1,15 @@
 extends todo
 
+snippet lint "lint configuration" b
+  {
+    "*.{yml,yaml}": "yamllint",
+    "*.{yml,yaml}": "ansible-lint --offline",
+    "!(node_modules/**/*)*.py": [
+      "ruff check"
+    ],
+    "*.sh": [ "shellcheck -e SC1090 -e SC2164 -S warning -a -x" ]
+  }
+
 snippet dev "dev container" b
   {
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",

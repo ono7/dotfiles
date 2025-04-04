@@ -134,7 +134,7 @@ vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { d
 
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
-vim.o.winborder = "rounded"
+-- vim.o.winborder = "rounded"
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
