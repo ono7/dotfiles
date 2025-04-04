@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 echo "Running global hooks..."
+echo "$0"
 PATH="/usr/local/bin:$PATH"
 if type lint-staged >/dev/null 2>&1; then
   # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
-  lint-staged --concurrent false -r || exit 1
+  if [ -f .lintstagedrc ]; then
+    echo "✔ Using local lintstagedrc"
+    lint-staged --concurrent false -r || exit 1
+  else
+    echo "! Using global lintstagedrc"
+    lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  fi
 else
   echo "lint-staged not installed: npm install lint-staged -g"
   exit 1
