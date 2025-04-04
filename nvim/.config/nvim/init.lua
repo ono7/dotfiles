@@ -43,10 +43,6 @@ require("config.completion")
 require("utils.help-lookup").setup()
 
 if vim.g.neovide then
-  --- vsync = true for smooth cursor movement, which is why we are here
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1f31", fg = "#b8c1e6" })
-
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#b8c1e6" })
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
@@ -55,9 +51,6 @@ if vim.g.neovide then
 
   vim.keymap.set({ "c", "n" }, "<D-p>", "<C-p>")
   vim.keymap.set({ "c", "n" }, "<D-n>", "<C-n>")
-
-  -- vim.keymap.set("i", "<D-p>", "<C-p>") -- Insert mode
-  -- vim.keymap.set("i", "<D-n>", "<C-n>") -- Insert mode
 
   -- Regular increment/decrement
   vim.keymap.set("n", "<D-x>", "<c-x>", opt)
@@ -141,6 +134,7 @@ vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { d
 
 --- completion ---
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
+vim.o.winborder = "rounded"
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
