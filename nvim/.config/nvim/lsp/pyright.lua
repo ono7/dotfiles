@@ -6,10 +6,11 @@ return {
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = false,
+      disableOrganizeImports = true, -- Using Ruff
     },
     python = {
       analysis = {
+        ignore = { "*" }, -- Using Ruff
         autoSearchPaths = true,
         diagnosticMode = "openFilesOnly",
         useLibraryCodeForTypes = true,

@@ -101,7 +101,22 @@ vim.lsp.config("*", {
   root_markers = { ".git" },
 })
 
-vim.lsp.enable({ "gopls", "pyright", "ansiblels", "luals" })
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- configure under lsp/*.lua
+vim.lsp.enable({
+  "gopls",
+  "pyright",
+  "ansiblels",
+  "luals",
+  "bashls",
+  "html",
+  "jsonls",
+  "eslint",
+  "ts_ls",
+  "terraformls",
+  "cssls",
+  "ruff",
+})
 
 vim.diagnostic.config({
   signs = {
