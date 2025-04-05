@@ -10,16 +10,16 @@ return {
       disable_when_zoomed = true, -- defaults to false
     })
 
-    if vim.g.neovide then
-      vim.keymap.set("n", set_keys.prefix("h"), nvim_tmux_nav.NvimTmuxNavigateLeft)
-      vim.keymap.set("n", set_keys.prefix("j"), nvim_tmux_nav.NvimTmuxNavigateDown)
-      vim.keymap.set("n", set_keys.prefix("k"), nvim_tmux_nav.NvimTmuxNavigateUp)
-      vim.keymap.set("n", set_keys.prefix("l"), nvim_tmux_nav.NvimTmuxNavigateRight)
-    else
-      vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
-      vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
-      vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
-      vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
-    end
+    -- if vim.g.neovide then
+    vim.keymap.set("n", set_keys.prefix("h"), nvim_tmux_nav.NvimTmuxNavigateLeft)
+    vim.keymap.set("n", set_keys.prefix("j"), nvim_tmux_nav.NvimTmuxNavigateDown)
+    vim.keymap.set("n", set_keys.prefix("k"), nvim_tmux_nav.NvimTmuxNavigateUp)
+    vim.keymap.set("n", set_keys.prefix("l"), nvim_tmux_nav.NvimTmuxNavigateRight)
+    -- else
+    --   vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+    --   vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+    --   vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+    --   vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+    -- end
   end,
 }

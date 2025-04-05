@@ -1,4 +1,6 @@
 # UI related
+# cmd+shift+j (dump scroll back buffer)
+
 theme = catppuccin-mocha
 background = 1b1f31
 foreground = b8c1e6
@@ -15,6 +17,8 @@ shell-integration-features = no-cursor,sudo,no-title
 cursor-style-blink = false
 cursor-color = "#a9d0f0"
 cursor-text = "#000000"
+
+scrollback-limit = 4294967296
 
 window-inherit-working-directory = true
 window-theme = ghostty
@@ -36,6 +40,8 @@ keybind = cmd+shift+t=new_tab
 keybind = cmd+shift+l=next_tab
 keybind = cmd+shift+h=previous_tab
 
+keybind = ctrl+shift+l=write_scrollback_file:open
+
 # unbind some defaults makes them passthrough
 keybind = cmd+c=unbind
 keybind = cmd+d=unbind
@@ -51,6 +57,7 @@ keybind = alt+right=unbind
 keybind = cmd+comma=unbind
 
 # convert some of our cmd+ combos to ctr+
+# keybind = cmd+space=text:\x00
 keybind = cmd+a=text:\x01
 keybind = cmd+b=text:\x02
 keybind = cmd+c=text:\x03

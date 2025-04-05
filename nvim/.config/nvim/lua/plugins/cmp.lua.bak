@@ -74,14 +74,14 @@ return {
       end,
     })
     -- Set up manual trigger
-    vim.keymap.set("i", "<C-Space>", function()
+    vim.keymap.set("i", k.prefix("space"), function()
       -- vim.keymap.set("i", "<c-y>", function()
       cmp.complete()
     end, { noremap = true, silent = true, desc = "Manually trigger completion" })
 
     -- autopairs integration
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    -- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
       snippet = {
@@ -93,7 +93,7 @@ return {
         autocomplete = false, -- we want to test out running this manually
         -- completeopt = "menu,menuone,noinsert",
         -- completeopt = "menu,menuone,noselect",
-        completeopt = "menu,menuone,longest",
+        completeopt = "menu,menuone,longest,fuzzy",
         -- keyword_pattern = [[\%(\.\|:\)\@<=\w*]],
         -- keyword_pattern = [[%.]],
         -- keyword_length = 4,

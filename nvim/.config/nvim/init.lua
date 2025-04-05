@@ -33,7 +33,7 @@ require("config.diff-settings")
 require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
-require("utils.zoxide").setup()
+-- require("utils.zoxide").setup()
 require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
@@ -41,6 +41,9 @@ require("config.commands")
 require("config.autocmds")
 require("config.completion")
 require("utils.help-lookup").setup()
+
+-- set keybind prefix to D(macos), C(everything else) e.g. C-Space/D-Space
+local k = require("utils.keys")
 
 if vim.g.neovide then
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
@@ -80,7 +83,6 @@ require("jira.jira-fetch-issues-empty")
 require("jira.jira-clone").setup()
 
 --- lsp config ---
-
 -- this will get merged with the lsp/*.lua files
 -- conviniently making some settings global
 vim.lsp.config("*", {
@@ -152,6 +154,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- trigger complete once in buffer
-vim.keymap.set("i", "<c-space>", function()
+vim.keymap.set("i", k.prefix("space"), function()
   vim.lsp.completion.get()
 end)

@@ -5,6 +5,8 @@ M.prefix = function(s)
   local c = "C"
   if vim.loop.os_uname().sysname == "Darwin" then
     c = "D"
+  else
+    c = "C"
   end
   return string.format("<%s-%s>", c, s)
 end
