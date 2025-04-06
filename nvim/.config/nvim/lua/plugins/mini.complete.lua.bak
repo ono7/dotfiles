@@ -1,0 +1,23 @@
+return {
+  "echasnovski/mini.completion",
+  version = "*",
+  config = function()
+    local border = {
+      "╭",
+      "─",
+      "╮",
+      "│",
+      "╯",
+      "─",
+      "╰",
+      "│",
+    }
+    require("mini.completion").setup({
+      manual_trigger = "<D-Space>",
+      window = {
+        info = { height = 25, width = 40, border = border },
+        signature = { height = 25, width = 40, border = border },
+      },
+    })
+  end,
+}

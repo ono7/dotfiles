@@ -10,19 +10,16 @@ return {
       notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
-        -- Conform will run multiple formatters sequentially
-        python = { "black" },
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        css = { "prettier" },
-        scss = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        -- yaml = { "prettier" },
-        markdown = { "prettier" },
-        -- goimports drop in replacement for gofmt
-        go = { "goimports", "goimports-reviser" },
-        graphql = { "prettier", stop_after_first = true },
+        -- python = { "black" },
+        -- javascript = { "prettier" },
+        -- typescript = { "prettier" },
+        -- css = { "prettier" },
+        -- scss = { "prettier" },
+        -- html = { "prettier" },
+        -- json = { "prettier" },
+        -- markdown = { "prettier" },
+        -- go = { "goimports", "goimports-reviser" },
+        -- graphql = { "prettier", stop_after_first = true },
       },
       formatters = {
         shfmt = {

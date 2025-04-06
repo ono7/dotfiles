@@ -57,7 +57,7 @@ keybind = alt+right=unbind
 keybind = cmd+comma=unbind
 
 # convert some of our cmd+ combos to ctr+
-# keybind = cmd+space=text:\x00
+keybind = cmd+space=text:\x00
 keybind = cmd+a=text:\x01
 keybind = cmd+b=text:\x02
 keybind = cmd+c=text:\x03
@@ -68,6 +68,7 @@ keybind = cmd+left_bracket=text:\x1b
 keybind = cmd+p=text:\x10
 keybind = cmd+r=text:\x12
 keybind = cmd+x=text:\x18
+keybind = cmd+y=text:\x19
 keybind = cmd+z=text:\x1a
 keybind = cmd+right_bracket=text:\x1d
 keybind = super+shift+v=paste_from_clipboard

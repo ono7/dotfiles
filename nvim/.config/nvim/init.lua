@@ -11,6 +11,7 @@
 -- CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
 
 local opt = { noremap = true }
+local silent = { noremap = true, silent = true }
 
 vim.cmd([[syntax off]])
 
@@ -39,11 +40,8 @@ require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that trig
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
-require("config.completion")
+-- require("config.completion").enable() -- this is broken
 require("utils.help-lookup").setup()
-
--- set keybind prefix to D(macos), C(everything else) e.g. C-Space/D-Space
-local k = require("utils.keys")
 
 if vim.g.neovide then
   vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
@@ -86,6 +84,7 @@ require("jira.jira-clone").setup()
 -- this will get merged with the lsp/*.lua files
 -- conviniently making some settings global
 vim.lsp.config("*", {
+  root_markers = { ".git" },
   capabilities = {
     textDocument = {
       semanticTokens = {
@@ -93,8 +92,10 @@ vim.lsp.config("*", {
       },
     },
   },
-  root_markers = { ".git" },
 })
+
+-- get the lsp client resolved configuration
+-- :lua P(vim.lsp.config.luals)
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- configure under lsp/*.lua
@@ -132,6 +133,7 @@ vim.diagnostic.config({
 })
 
 vim.diagnostic.config({ virtual_text = { current_line = true } })
+-- vim.diagnostic.config({ virtual_text = false })
 vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
 
 --- completion ---
@@ -140,20 +142,36 @@ vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
+    -- manual trigger
+    vim.keymap.set("i", "<C-Space>", function()
+      vim.lsp.completion.get()
+    end)
+
+    vim.keymap.set("n", "[d", function()
+      -- goto prev
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, silent)
+    vim.keymap.set("n", "]d", function()
+      -- goto next
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, silent)
+
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client then
+      return
+    end
     if client:supports_method("textDocument/completion") then
-      -- Default triggerCharacters is dot only { "." }
-      if client == nil then
-        return
-      end
       client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
 
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
+      vim.lsp.completion.enable(true, client.id, ev.buf, {
+        autotrigger = false,
+        convert = function(item)
+          return { abbr = item.label:gsub("%b()", "") }
+        end,
+      })
     end
   end,
 })
 
--- trigger complete once in buffer
-vim.keymap.set("i", k.prefix("space"), function()
-  vim.lsp.completion.get()
-end)
+-- select first option in complete menu, works in cmp or without keywords
+vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)

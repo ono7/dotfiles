@@ -1,76 +1,52 @@
 return {
   "saghen/blink.cmp",
-  dependencies = "rafamadriz/friendly-snippets",
-  event = "InsertEnter",
-  enabled = true,
-  version = "v0.*",
-  config = function()
-    require("blink-cmp").setup({
-      keymap = { preset = "default" },
-      appearance = {
-        use_nvim_cmp_as_default = true,
+  -- optional: provides snippets for the snippet source
+  -- dependencies = { "rafamadriz/friendly-snippets" },
+
+  -- use a release tag to download pre-built binaries
+  version = "1.*",
+  -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+  -- build = 'cargo build --release',
+  -- If you use nix, you can build from source using latest nightly rust with:
+  -- build = 'nix run .#build-plugin',
+
+  ---@module 'blink.cmp'
+  ---@type blink.cmp.Config
+  opts = {
+    -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+    -- 'super-tab' for mappings similar to vscode (tab to accept)
+    -- 'enter' for enter to accept
+    -- 'none' for no mappings
+    --
+    -- All presets have the following mappings:
+    -- C-space: Open menu or open docs if already open
+    -- C-n/C-p or Up/Down: Select next/previous item
+    -- C-e: Hide menu
+    -- C-k: Toggle signature help (if signature.enabled = true)
+    --
+    -- See :h blink-cmp-config-keymap for defining your own keymap
+    keymap = { preset = "default" },
+
+    appearance = {
+      nerd_font_variant = "mono",
+    },
+
+    completion = {
+      trigger = {
+        -- disable auto trigger, fall back to C-space(manual trigger), C-y for select
+        show_on_keyword = false,
+        show_on_trigger_character = false,
       },
-      completion = {
-        menu = {
-          border = "rounded",
-          max_height = 6,
-        },
-        documentation = {
-          auto_show = true,
-          window = {
-            border = "rounded",
-          },
-        },
-        list = {
-          max_items = 50,
-        },
-        accept = {
-          auto_brackets = {
-            enabled = true,
-          },
-        },
-        trigger = {
-          signature_help = {
-            enabled = true,
-          },
-          show_on_insert_on_trigger_character = false,
-        },
-      },
-      sources = {
-        completion = {
-          -- enabled_providers = { "lsp", "path", "snippets", "buffer" },
-          trigger = {
-            -- regex = "[-_]\\|\\k",
-            regex = "[-_]\\|.",
-          },
-          enabled_providers = { "lsp", "path", "buffer" },
-        },
-        providers = {
-          lsp = {
-            -- min_keyword_length = 4, -- Minimum number of characters in the keyword to trigger the provider
-          },
-          snippets = {
-            min_keyword_length = 1, -- don't show when triggered manually, useful for JSON keys
-            score_offset = -1,
-            -- min_keyword_length = 4,
-          },
-          path = {
-            opts = { get_cwd = vim.uv.cwd },
-          },
-          buffer = {
-            fallback_for = {}, -- disable being fallback for LSP
-            max_items = 4,
-            min_keyword_length = 5,
-            score_offset = -3,
-          },
-        },
-      },
-      signature = {
-        enabled = true,
-        window = {
-          border = "rounded",
-        },
-      },
-    })
-  end,
+      documentation = { auto_show = true },
+    },
+
+    sources = {
+      -- default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "buffer" },
+    },
+
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+  },
+
+  opts_extend = { "sources.default" },
 }
