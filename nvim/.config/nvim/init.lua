@@ -11,7 +11,6 @@
 -- CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
 
 local opt = { noremap = true }
-local silent = { noremap = true, silent = true }
 
 vim.cmd([[syntax off]])
 
@@ -40,7 +39,7 @@ require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that trig
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
--- require("config.completion").enable() -- this is broken
+require("config.lsp").enable() -- this is broken
 require("utils.help-lookup").setup()
 
 if vim.g.neovide then
@@ -79,112 +78,3 @@ require("jira.jira-move")
 require("jira.jira-fetch-issues")
 require("jira.jira-fetch-issues-empty")
 require("jira.jira-clone").setup()
-
---- lsp config ---
--- this will get merged with the lsp/*.lua files
--- conviniently making some settings global
-vim.lsp.config("*", {
-  root_markers = { ".git" },
-  capabilities = {
-    textDocument = {
-      semanticTokens = {
-        multilineTokenSupport = true,
-      },
-    },
-  },
-})
-
--- get the lsp client resolved configuration
--- :lua P(vim.lsp.config.luals)
-
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
--- configure under lsp/*.lua
-vim.lsp.enable({
-  "gopls",
-  "pyright",
-  "ansiblels",
-  "luals",
-  "bashls",
-  "html",
-  "jsonls",
-  "eslint",
-  "ts_ls",
-  "terraformls",
-  "cssls",
-  "ruff",
-})
-
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = "",
-      [vim.diagnostic.severity.WARN] = "",
-      [vim.diagnostic.severity.INFO] = "",
-      [vim.diagnostic.severity.HINT] = "",
-    },
-    numhl = {
-      [vim.diagnostic.severity.WARN] = "WarningMsg",
-      [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-      [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-      [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-    },
-    float = { border = "rounded" },
-  },
-})
-
-vim.diagnostic.config({ virtual_text = { current_line = true } })
--- vim.diagnostic.config({ virtual_text = false })
-vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Open float" })
-
---- completion ---
-vim.o.completeopt = "menu,noinsert,popup,fuzzy"
--- vim.o.winborder = "rounded"
-
-local borders = {
-  border = {
-    "╭",
-    "─",
-    "╮",
-    "│",
-    "╯",
-    "─",
-    "╰",
-    "│",
-  },
-}
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    -- manual trigger
-    vim.keymap.set("i", "<C-Space>", function()
-      vim.lsp.completion.get()
-    end)
-
-    vim.keymap.set("n", "[d", function()
-      -- goto prev
-      vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
-    end, silent)
-    vim.keymap.set("n", "]d", function()
-      -- goto next
-      vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
-    end, silent)
-
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if not client then
-      return
-    end
-    if client:supports_method("textDocument/completion") then
-      client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
-
-      vim.lsp.completion.enable(true, client.id, ev.buf, {
-        autotrigger = false,
-        convert = function(item)
-          return { abbr = item.label:gsub("%b()", "") }
-        end,
-      })
-    end
-  end,
-})
-
--- select first option in complete menu, works in cmp or without keywords
-vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)

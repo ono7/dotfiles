@@ -144,8 +144,8 @@ return {
       })
     end)
 
-    k("n", "<leader>d", function()
-      builtin.diagnostics({ previewer = false, theme = "ivy" })
+    k("n", "<C-d>", function()
+      builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
     end, opt)
 
     -- does not use find_command
