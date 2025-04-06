@@ -1,12 +1,3 @@
--- vim.opt.completeopt = { "longest" }
--- vim.opt.complete = { ".", "w", "b", "u" }
--- Map Ctrl-Y to trigger completion and auto-select
--- if vim.loop.os_uname().sysname == "Darwin" then
---   vim.api.nvim_set_keymap("i", "<D-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
--- else
---   vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
--- end
-
 local M = {}
 
 M.setup = function()
@@ -100,6 +91,7 @@ M.setup = function()
         -- goto prev
         vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
       end, silent)
+
       vim.keymap.set("n", "]d", function()
         -- goto next
         vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
@@ -124,5 +116,16 @@ M.setup = function()
 
   -- select first option in complete menu, works in cmp or without keywords
   vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)
+end
+
+M.no_lsp = function()
+  vim.opt.completeopt = { "longest" }
+  vim.opt.complete = { ".", "w", "b", "u" }
+  -- Map Ctrl-Y to trigger completion and auto-select
+  if vim.loop.os_uname().sysname == "Darwin" then
+    vim.api.nvim_set_keymap("i", "<D-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
+  else
+    vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
+  end
 end
 return M
