@@ -140,6 +140,19 @@ vim.keymap.set("n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<cr>", { d
 vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 -- vim.o.winborder = "rounded"
 
+local borders = {
+  border = {
+    "╭",
+    "─",
+    "╮",
+    "│",
+    "╯",
+    "─",
+    "╰",
+    "│",
+  },
+}
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     -- manual trigger
@@ -149,11 +162,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     vim.keymap.set("n", "[d", function()
       -- goto prev
-      vim.diagnostic.jump({ count = -1, float = true })
+      vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
     end, silent)
     vim.keymap.set("n", "]d", function()
       -- goto next
-      vim.diagnostic.jump({ count = 1, float = true })
+      vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
     end, silent)
 
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
