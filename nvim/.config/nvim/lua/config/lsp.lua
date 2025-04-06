@@ -9,7 +9,7 @@
 
 local M = {}
 
-M.enable = function()
+M.setup = function()
   local silent = { noremap = true, silent = true }
 
   local borders = {

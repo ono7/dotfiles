@@ -39,7 +39,7 @@ require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that trig
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
-require("config.lsp").enable() -- this is broken
+require("config.lsp").setup()
 require("utils.help-lookup").setup()
 
 if vim.g.neovide then
