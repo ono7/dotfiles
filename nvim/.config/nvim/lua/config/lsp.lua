@@ -77,6 +77,10 @@ M.setup = function()
     vim.diagnostic.open_float(borders)
   end, { desc = "Open float" })
 
+  vim.keymap.set("n", "K", function()
+    vim.lsp.buf.hover({ borders })
+  end, { desc = "Open documentation" })
+
   --- completion ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
