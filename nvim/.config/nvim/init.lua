@@ -23,7 +23,7 @@ end
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
-require("config.neovide")
+-- require("config.neovide")
 require("config.options")
 require("config.keymaps")
 require("config.disabled")
@@ -33,7 +33,6 @@ require("config.diff-settings")
 require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
--- require("utils.zoxide").setup()
 require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
