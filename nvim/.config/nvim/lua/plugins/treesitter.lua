@@ -5,10 +5,10 @@ return {
     enabled = true,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      -- "windwp/nvim-ts-autotag", -- typescript/js tag closer
-    },
+    -- dependencies = {
+    --   "nvim-treesitter/nvim-treesitter-textobjects",
+    --   -- "windwp/nvim-ts-autotag", -- typescript/js tag closer
+    -- },
     config = function()
       -- this keeps this config from breaking when selecting up to "the end of this quote" and deleting
       -- this should be uncommented if using object motions
