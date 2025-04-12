@@ -83,7 +83,6 @@ M.setup = function()
 
   --- completion ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
-
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
       -- manual trigger

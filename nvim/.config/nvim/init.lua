@@ -78,3 +78,44 @@ require("jira.jira-move")
 require("jira.jira-fetch-issues")
 require("jira.jira-fetch-issues-empty")
 require("jira.jira-clone").setup()
+
+-- vim.opt.completeopt = { "menu" }
+
+-- . = this buffer, w = from other windows, b = other loaded buffers
+vim.opt.complete = { ".", "w", "b" }
+
+vim.opt.completeopt = { "menu", "menuone" }
+
+-- . = this buffer, w = from other windows, b = other loaded buffers
+vim.opt.complete = { ".", "w", "b" }
+
+local function smart_completion()
+  if vim.fn.pumvisible() == 1 then
+    -- If completion menu is visible, select next item
+    return "<C-n>"
+  else
+    -- If no menu is visible, trigger completion
+    return "<C-x><C-n>"
+  end
+end
+
+-- Map D-y or C-y to the smart completion function
+if vim.fn.has("macunix") == 1 then
+  vim.api.nvim_set_keymap(
+    "i",
+    "<D-y>",
+    "v:lua.require('vim.lsp.util')._complete_done()",
+    { expr = true, noremap = true, silent = true }
+  )
+  vim.keymap.set("i", "<D-y>", function()
+    return smart_completion()
+  end, { expr = true, noremap = true, silent = true })
+else
+  vim.keymap.set("i", "<C-y>", function()
+    return smart_completion()
+  end, { expr = true, noremap = true, silent = true })
+end
+
+-- Optional: Add mappings for navigating the completion menu
+vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
+vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
