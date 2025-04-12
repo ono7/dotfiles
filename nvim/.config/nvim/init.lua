@@ -80,13 +80,10 @@ require("jira.jira-clone").setup()
 
 -- vim.opt.completeopt = { "menu" }
 
--- . = this buffer, w = from other windows, b = other loaded buffers
-vim.opt.complete = { ".", "w", "b" }
-
 vim.opt.completeopt = { "menu", "menuone" }
 
 -- . = this buffer, w = from other windows, b = other loaded buffers
-vim.opt.complete = { ".", "w", "b" }
+vim.opt.complete = { ".", "w", "b", "u" }
 
 local function smart_completion()
   if vim.fn.pumvisible() == 1 then
