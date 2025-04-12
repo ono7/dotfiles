@@ -18,7 +18,7 @@ return {
         -- html = { "prettier" },
         -- json = { "prettier" },
         -- markdown = { "prettier" },
-        -- go = { "goimports", "goimports-reviser" },
+        go = { "goimports", "goimports-reviser" },
         -- graphql = { "prettier", stop_after_first = true },
       },
       formatters = {
