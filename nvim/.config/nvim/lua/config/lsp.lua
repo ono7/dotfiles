@@ -91,15 +91,16 @@ M.setup = function()
         vim.lsp.completion.get()
       end)
 
-      vim.keymap.set("n", "[d", function()
-        -- goto prev
-        vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
-      end, silent)
-
-      vim.keymap.set("n", "]d", function()
-        -- goto next
-        vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
-      end, silent)
+      --- disabled in favor of tiny-diagnostics plugin
+      -- vim.keymap.set("n", "[d", function()
+      --   -- goto prev
+      --   vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
+      -- end, silent)
+      --
+      -- vim.keymap.set("n", "]d", function()
+      --   -- goto next
+      --   vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
+      -- end, silent)
 
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
       if not client then
