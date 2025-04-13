@@ -51,25 +51,26 @@ M.setup = function()
     "ruff",
   })
 
-  vim.diagnostic.config({
-    signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = "",
-        [vim.diagnostic.severity.WARN] = "",
-        [vim.diagnostic.severity.INFO] = "",
-        [vim.diagnostic.severity.HINT] = "",
-      },
-      numhl = {
-        [vim.diagnostic.severity.WARN] = "WarningMsg",
-        [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
-      },
-    },
-  })
+  -- vim.diagnostic.config({
+  --   signs = {
+  --     text = {
+  --       [vim.diagnostic.severity.ERROR] = "",
+  --       [vim.diagnostic.severity.WARN] = "",
+  --       [vim.diagnostic.severity.INFO] = "",
+  --       [vim.diagnostic.severity.HINT] = "",
+  --     },
+  --     numhl = {
+  --       [vim.diagnostic.severity.WARN] = "WarningMsg",
+  --       [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+  --       [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+  --       [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+  --     },
+  --   },
+  -- })
 
   -- <C-d> for telescope diagnostics
-  vim.diagnostic.config({ virtual_text = { current_line = true } })
+  -- replaced by tiny-inline-diagnostics.lua
+  -- vim.diagnostic.config({ virtual_text = { current_line = true } })
 
   -- vim.diagnostic.config({ virtual_text = false })
 

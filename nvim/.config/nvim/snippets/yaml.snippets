@@ -3,7 +3,7 @@ extends jinja, todo
 priority 1000
 
 snippet ft "filetype" b
-  # vim:ft=yaml
+  # vim: ft=yaml
 
 snippet h "header" b
   ---
@@ -19,7 +19,7 @@ snippet h "header" b
 snippet debug "debug task"
       - name: Debug
         ansible.builtin.debug:
-          var: "{{ ${0} }}"
+          msg: "{{ ${0} }}"
 
 snippet shell "debug task"
       ansible.builtin.shell: ${0}
