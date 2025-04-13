@@ -25,5 +25,11 @@ return {
     vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
     vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextBg", {})
     vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextArrow", {})
+    local symbols = { Error = "󰅙", Info = "󰋼", Hint = "󰌵", Warn = "" }
+
+    for name, icon in pairs(symbols) do
+      local hl = "DiagnosticSign" .. name
+      vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
+    end
   end,
 }
