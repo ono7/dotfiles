@@ -41,30 +41,30 @@ require("config.autocmds")
 require("config.lsp").setup()
 require("utils.help-lookup").setup()
 
-if vim.g.neovide then
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
-
-  -- Map Cmd+g to Ctrl+g in multiple modes
-
-  vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")
-
-  vim.keymap.set({ "c", "n" }, "<D-p>", "<C-p>")
-  vim.keymap.set({ "c", "n" }, "<D-n>", "<C-n>")
-
-  -- Regular increment/decrement
-  vim.keymap.set("n", "<D-x>", "<c-x>", opt)
-
-  -- Visual mode increment/decrement
-  vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
-  vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
-  vim.keymap.set("n", "<D-a>", "<C-a>")
-
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
-  vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
-  vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
-end
+-- if vim.g.neovide then
+--   vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
+--
+--   -- Map Cmd+g to Ctrl+g in multiple modes
+--
+--   vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")
+--
+--   vim.keymap.set({ "c", "n" }, "<D-p>", "<C-p>")
+--   vim.keymap.set({ "c", "n" }, "<D-n>", "<C-n>")
+--
+--   -- Regular increment/decrement
+--   vim.keymap.set("n", "<D-x>", "<c-x>", opt)
+--
+--   -- Visual mode increment/decrement
+--   vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
+--   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
+--   vim.keymap.set("n", "<D-a>", "<C-a>")
+--
+--   vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+--   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
+--   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
+--   vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+--   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
+-- end
 
 vim.opt.mouse = "a"
 

@@ -70,11 +70,16 @@ vim.keymap.set("n", "<D-,>", "yyp", opt) -- Normal mode
 vim.keymap.set("i", "<D-,>", "<Esc>yyp`^i", opt)
 
 --- ex/command mode bindings
-vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
-vim.keymap.set("c", set_keys.prefix("e"), "<End>", opt)
-vim.keymap.set("c", set_keys.prefix("h"), "<Left>", opt)
-vim.keymap.set("c", set_keys.prefix("l"), "<Right>", opt)
-vim.keymap.set("c", set_keys.prefix("b"), "<S-left>", opt)
+vim.keymap.set("c", "<C-a>", "<Home>", opt)
+vim.keymap.set("c", "<C-e>", "<End>", opt)
+vim.keymap.set("c", "<C-h>", "<Left>", opt)
+vim.keymap.set("c", "<C-l>", "<Right>", opt)
+vim.keymap.set("c", "<C-b>", "<S-left>", opt)
+-- vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
+-- vim.keymap.set("c", set_keys.prefix("e"), "<End>", opt)
+-- vim.keymap.set("c", set_keys.prefix("h"), "<Left>", opt)
+-- vim.keymap.set("c", set_keys.prefix("l"), "<Right>", opt)
+-- vim.keymap.set("c", set_keys.prefix("b"), "<S-left>", opt)
 
 vim.keymap.set("n", "<D-i>", "<c-i>", opt)
 vim.keymap.set("n", "<D-o>", "<c-o>", opt)
@@ -158,19 +163,20 @@ vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
 -- vim.keymap.set("i", "jj", [[<esc>]], silent)
 
 ------------------ terminal maps --------------------
-vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
+-- vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
+-- vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
-vim.keymap.set("t", set_keys.prefix("e"), [[<c-e>]], silent)
-vim.keymap.set("t", set_keys.prefix("d"), [[<c-d>]], silent)
-vim.keymap.set("t", set_keys.prefix("c"), [[<c-c>]], silent)
-vim.keymap.set("t", set_keys.prefix("p"), [[<c-p>]], silent)
-vim.keymap.set("t", set_keys.prefix("n"), [[<c-n>]], silent)
-vim.keymap.set("t", set_keys.prefix("r"), [[<c-r>]], silent)
+vim.keymap.set("t", "<D-e>", [[<c-e>]], silent)
+vim.keymap.set("t", "<D-d>", [[<c-d>]], silent)
+vim.keymap.set("t", "<D-c>", [[<c-c>]], silent)
+vim.keymap.set("t", "<D-p>", [[<c-p>]], silent)
+vim.keymap.set("t", "<D-n>", [[<c-n>]], silent)
+vim.keymap.set("t", "<D-r>", [[<c-r>]], silent)
 
 --- size 8, belowright split, T in commands.lua
-vim.keymap.set({ "n" }, set_keys.prefix("t"), ":T<CR>", silent)
-vim.keymap.set({ "i" }, set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
+-- vim.keymap.set({ "n" }, set_keys.prefix("t"), ":T<CR>", silent)
+-- vim.keymap.set({ "i" }, set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", silent)
 vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 

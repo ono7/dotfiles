@@ -51,6 +51,8 @@ keybind = cmd+h=unbind
 keybind = cmd+t=unbind
 keybind = cmd+v=unbind
 keybind = cmd+k=unbind
+keybind = cmd+l=unbind
+keybind = cmd+h=unbind
 keybind = alt+right=unbind
 
 # open config
