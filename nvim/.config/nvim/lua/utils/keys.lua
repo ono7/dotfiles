@@ -1,9 +1,9 @@
 local M = {}
 
+-- returns <D-?> macos or neovide else <C-?>
 M.prefix = function(s)
-  -- local c = vim.g.neovide and "D" or "C"
   local c = "C"
-  if vim.fn.has("macunix") == 1 then
+  if vim.fn.has("macunix") == 1 or vim.g.neovide then
     c = "D"
   else
     c = "C"

@@ -22,14 +22,22 @@ return {
         mixing_color = "None",
       },
     })
-    vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
+
+    -- disable virtual text for this plugin to work (jlima)
+    vim.diagnostic.config({
+      virtual_text = false,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "X",
+          [vim.diagnostic.severity.WARN] = "!",
+          [vim.diagnostic.severity.HINT] = "h",
+          [vim.diagnostic.severity.INFO] = "i",
+        },
+      },
+    })
+
+    -- this should be handles with the option, but this works for now
     vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextBg", {})
     vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextArrow", {})
-    local symbols = { Error = "󰅙", Info = "󰋼", Hint = "󰌵", Warn = "" }
-
-    for name, icon in pairs(symbols) do
-      local hl = "DiagnosticSign" .. name
-      vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-    end
   end,
 }

@@ -2,7 +2,9 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-local set_keys = require("utils.keys")
+local unpack = table.unpack or unpack
+
+local neovide_or_macos = require("utils.keys")
 
 --- nop ---
 vim.keymap.set("n", "ZZ", "")
@@ -15,8 +17,8 @@ vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
 --- core keymaps ---
-vim.keymap.set("i", set_keys.prefix("a"), "<ESC>^i", silent)
-vim.keymap.set("i", set_keys.prefix("e"), "<End>", silent)
+vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
+vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)
 
 vim.keymap.set("i", "<M-a>", "<ESC>^i", silent)
 vim.keymap.set("i", "<M-e>", "<End>", silent)
@@ -57,7 +59,7 @@ vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-vim.keymap.set("i", set_keys.prefix("c"), "<Esc>", opt)
+vim.keymap.set("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
 
 --- visual block by default
 vim.keymap.set({ "n" }, "v", "<c-v>")
@@ -75,11 +77,6 @@ vim.keymap.set("c", "<C-e>", "<End>", opt)
 vim.keymap.set("c", "<C-h>", "<Left>", opt)
 vim.keymap.set("c", "<C-l>", "<Right>", opt)
 vim.keymap.set("c", "<C-b>", "<S-left>", opt)
--- vim.keymap.set("c", set_keys.prefix("a"), "<Home>", opt)
--- vim.keymap.set("c", set_keys.prefix("e"), "<End>", opt)
--- vim.keymap.set("c", set_keys.prefix("h"), "<Left>", opt)
--- vim.keymap.set("c", set_keys.prefix("l"), "<Right>", opt)
--- vim.keymap.set("c", set_keys.prefix("b"), "<S-left>", opt)
 
 vim.keymap.set("n", "<D-i>", "<c-i>", opt)
 vim.keymap.set("n", "<D-o>", "<c-o>", opt)
@@ -155,14 +152,12 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
-vim.keymap.set("t", set_keys.prefix("b"), "<C-b>", { noremap = true })
+vim.keymap.set("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
 vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
--- vim.keymap.set("i", "jj", [[<esc>]], silent)
 
------------------- terminal maps --------------------
 -- vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 -- vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
