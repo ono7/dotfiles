@@ -2,8 +2,6 @@ local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-local unpack = table.unpack or unpack
-
 local neovide_or_macos = require("utils.keys")
 
 --- nop ---
