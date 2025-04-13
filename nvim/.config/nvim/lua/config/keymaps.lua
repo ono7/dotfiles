@@ -28,9 +28,6 @@ vim.g.loaded_matchit = 1
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
--- vim.cmd([[vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a]])
--- vim.cmd([[vnoremap { <esc>`>a}<esc>`<i{<esc>f}a]])
--- vim.cmd([[vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a]])
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)

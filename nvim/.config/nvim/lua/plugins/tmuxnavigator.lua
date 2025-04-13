@@ -10,11 +10,27 @@ return {
       disable_when_zoomed = true, -- defaults to false
     })
 
-    -- if vim.g.neovide then
+    -- if vim.fn.has("macunix") == 1 then
     vim.keymap.set("n", set_keys.prefix("h"), nvim_tmux_nav.NvimTmuxNavigateLeft)
     vim.keymap.set("n", set_keys.prefix("j"), nvim_tmux_nav.NvimTmuxNavigateDown)
     vim.keymap.set("n", set_keys.prefix("k"), nvim_tmux_nav.NvimTmuxNavigateUp)
     vim.keymap.set("n", set_keys.prefix("l"), nvim_tmux_nav.NvimTmuxNavigateRight)
+    vim.keymap.set("t", set_keys.prefix("h"), function()
+      vim.cmd.stopinsert()
+      nvim_tmux_nav.NvimTmuxNavigateLeft()
+    end)
+    vim.keymap.set("t", set_keys.prefix("j"), function()
+      vim.cmd.stopinsert()
+      nvim_tmux_nav.NvimTmuxNavigateDown()
+    end)
+    vim.keymap.set("t", set_keys.prefix("k"), function()
+      vim.cmd.stopinsert()
+      nvim_tmux_nav.NvimTmuxNavigateUp()
+    end)
+    vim.keymap.set("t", set_keys.prefix("l"), function()
+      vim.cmd.stopinsert()
+      nvim_tmux_nav.NvimTmuxNavigateRight()
+    end)
     -- else
     --   vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
     --   vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
