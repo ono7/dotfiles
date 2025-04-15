@@ -10,7 +10,7 @@ return {
       notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "black" },
+        -- python = { "ruff" },
         javascript = { "prettier" },
         typescript = { "prettier" },
         css = { "prettier" },
@@ -25,9 +25,12 @@ return {
         shfmt = {
           prepend_args = { "-i", "2" },
         },
+        -- ruff = {
+        --   prepend_args = { "format" },
+        -- },
       },
       format_on_save = {
-        -- lsp_format = "fallback",
+        lsp_format = "fallback",
         timeout_ms = 700,
       },
       format_after_save = function(bufnr)

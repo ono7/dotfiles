@@ -7,6 +7,8 @@ return {
       args = {},
     },
   },
-  settings = {},
+  settings = {
+    organizeImports = true,
+  },
   single_file_support = true,
 }
