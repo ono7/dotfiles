@@ -3,6 +3,28 @@ local terminal_win = nil
 local term_job_id = nil
 local term_size = 12
 
+vim.api.nvim_create_user_command("CopyMatches", function(opts)
+  local reg = opts.args ~= "" and opts.args or "+"
+  local pattern = vim.fn.getreg("/")
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local hits = {}
+
+  for _, line in ipairs(lines) do
+    local start_idx = 1
+    while true do
+      local match_start, match_end = line:find(pattern, start_idx)
+      if not match_start then
+        break
+      end
+      table.insert(hits, line:sub(match_start, match_end))
+      start_idx = match_end + 1
+    end
+  end
+
+  vim.fn.setreg(reg, table.concat(hits, "\n") .. "\n")
+  print(#hits .. " matches copied to register " .. reg)
+end, { nargs = "?" })
+
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
 

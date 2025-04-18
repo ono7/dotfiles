@@ -21,6 +21,13 @@ return {
         -- Use "None" or a hexadecimal color (#RRGGBB) to blend with another color
         mixing_color = "None",
       },
+      options = {
+        -- Display the source of the diagnostic (e.g., basedpyright, vsserver, lua_ls etc.)
+        show_source = {
+          enabled = true,
+          if_many = true,
+        },
+      },
     })
 
     -- disable virtual text for this plugin to work (jlima)

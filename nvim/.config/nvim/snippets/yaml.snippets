@@ -3,11 +3,12 @@ extends jinja, todo
 priority 1000
 
 snippet ft "filetype" b
-  # vim: ft=yaml
+  # vim: ft=yaml.ansible
 
 snippet h "header" b
   ---
   # Author: Jose Lima (`getenv('USER')`)
+  # vim: ft=yaml.ansible
 
   - name: "${1}"
     hosts: ${2:localhost}

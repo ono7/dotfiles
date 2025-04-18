@@ -7,6 +7,9 @@ return {
       python = {
         interpreterPath = "python",
       },
+      playbook = {
+        arguments = { "--syntax-check" },
+      },
       ansible = {
         path = "ansible",
       },
@@ -14,7 +17,6 @@ return {
         enabled = false,
       },
       validation = {
-        enabled = true,
         lint = {
           enabled = true,
           path = "ansible-lint",
