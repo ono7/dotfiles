@@ -1,5 +1,9 @@
 https://slothytech.com/world-of-warcraft-best-nvidia-settings/
 
+# faster loading wow
+
+/console worldpreloadnoncritical 0
+
 # macos fix naga mouse
 
 `defaults write com.blizzard.worldofwarcraft disable-expose-fix -bool YES`
