@@ -2,6 +2,7 @@
 case "$1" in
   rebase) 
     if [ -f .git/hooks/post-merge ]; then
-      exec .git/hooks/post-merge ;;
+      exec .git/hooks/post-merge
     fi
+    ;;
 esac
