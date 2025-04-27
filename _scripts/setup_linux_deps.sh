@@ -23,7 +23,7 @@ sudo apt remove -y nano
 sudo apt install rename zoxide git-delta stow -y
 sudo apt install -y build-essential git libssl-dev curl tree zsh silversearcher-ag \
   fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck
-sudo apt install python3 python3.11 python3.11-pip python3.11-venv -y
+sudo apt install python3 python3.12 python3.12-pip python3.12-venv -y
 
 if type snap &>/dev/null; then
   log "installing snap packages"

@@ -74,7 +74,8 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # Have the Dock show only active apps
-defaults write com.apple.dock static-only -bool true
+# defaults write com.apple.dock static-only -bool true
+defaults write com.apple.dock static-only -bool false
 
 # Set Dock autohide
 # defaults write com.apple.dock autohide -bool true
