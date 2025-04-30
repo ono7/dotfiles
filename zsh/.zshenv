@@ -235,6 +235,11 @@ gpg_backup () {
   [ -z $1 ] && echo "provide a key.." && return
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
+  
+  echo "gpg --import private.key"
+  echo "gpg --import public.key"
+  echo "# set trust level"
+  echo "gpg --edit-key YOUR_KEY_ID"
 }
 
 if [ -f "$HOME/.cargo/env" ]; then

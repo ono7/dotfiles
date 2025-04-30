@@ -28,6 +28,7 @@ sudo apt install python3 python3.12 python3.12-pip python3.12-venv -y
 if type snap &>/dev/null; then
   log "installing snap packages"
   sudo snap install go --classic
+  sudo snap install universal-ctags
   sudo snap install --edge starship
 fi
 
