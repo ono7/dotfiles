@@ -14,6 +14,13 @@ vim.keymap.set("n", "<M-e>", "")
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
+-- change paste behaviour
+vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]], { desc = "paste from yank register" })
+
+--- change default behaviour of p so that unnamed register is not overwritten on paste
+vim.keymap.set("x", "p", "P")
+vim.keymap.set("x", "P", "p")
+
 --- core keymaps ---
 vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
 vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)
