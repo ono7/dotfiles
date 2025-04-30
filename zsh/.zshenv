@@ -231,6 +231,7 @@ gpg_delete_key () {
 }
 
 gpg_backup () {
+  gpg --list-keys --keyid-format SHORT
   [ -z $1 ] && echo "provide a key.." && return
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
