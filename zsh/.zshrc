@@ -474,6 +474,8 @@ export NVM_DIR="$HOME/.nvm"
 
 if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
+else
+  echo "starship not installed"
 fi
 
 ############## Zoxide ##############
