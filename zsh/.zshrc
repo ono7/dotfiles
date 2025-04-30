@@ -2,7 +2,7 @@
 # zmodload zsh/zprof
 
 # Disable flow control (Ctrl+S/Ctrl+Q) which can cause apparent input delays
-stty -ixon
+stty -ixon 2>/dev/null
 
 
 # export GPG_TTY=$(tty)
@@ -57,49 +57,53 @@ fw () {
 }
 
 ############## Shell options ##############
-setopt MENU_COMPLETE
-unsetopt LIST_AMBIGUOUS
 
-# disable bracked paste
-unset zle_bracketed_paste
+# Essential shell options (performance related)
+setopt NO_BEEP
+setopt NO_HUP
+setopt nonomatch
+setopt notify
+setopt interactivecomments
 
+# Directory navigation options
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
-
-# glob expansion and sorting
 setopt extended_glob
 setopt glob_dots
 setopt numeric_glob_sort
+setopt autocd
 
-# setopt COMPLETE_IN_WORD
-setopt AUTO_LIST
-setopt COMBINING_CHARS
-setopt NO_BEEP
+# History options
+# Disable immediate history sharing for better performance
+unsetopt SHARE_HISTORY
+unsetopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-setopt interactivecomments
+
+# Set the number of directories to remember
+DIRSTACKSIZE=9
+
+# Completion options (load more efficiently)
+setopt MENU_COMPLETE
+unsetopt LIST_AMBIGUOUS
+setopt AUTO_LIST
+setopt COMBINING_CHARS
 setopt PROMPT_SP
-setopt NO_HUP
-setopt nonomatch
-setopt notify
-setopt numericglobsort
-setopt promptsubst
-setopt autopushd
-setopt autocd
+
 
 # Disable immediate history sharing between shells
 unsetopt SHARE_HISTORY
 
 # save only when shell exits
 unsetopt INC_APPEND_HISTORY
+ 
+unset zle_bracketed_paste
 
 ############## History configuration ##############
 export HISTFILE=~/.zsh_history
@@ -466,7 +470,9 @@ export NVM_DIR="$HOME/.nvm"
 
 ############## Starship prompt ##############
 
-eval "$(starship init zsh)"
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
 
 ############## Zoxide ##############
 
@@ -480,7 +486,11 @@ setup_keys
 
 ############## Load virtual environment if it exists ##############
 
-[ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
+# [ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
+#
+if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
+  source ~/.virtualenvs/prod3/bin/activate
+fi
 
 # [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
