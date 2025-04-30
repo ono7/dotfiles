@@ -1,14 +1,19 @@
 --- 🐇 Follow the white Rabbit...
 
--- :write ++p (creates directories if they dont exists)
+--[[
 
--- neovim 0.11 defaults for lsp_attach
--- grn in Normal mode maps to vim.lsp.buf.rename()
--- grr in Normal mode maps to vim.lsp.buf.references()
--- gri in Normal mode maps to vim.lsp.buf.implementation()
--- gO in Normal mode maps to vim.lsp.buf.document_symbol()
--- gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
--- CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
+* :write ++p (creates directories if they dont exists)
+
+* neovim 0.11 defaults for lsp_attach
+* grn in Normal mode maps to vim.lsp.buf.rename()
+* grr in Normal mode maps to vim.lsp.buf.references()
+* gri in Normal mode maps to vim.lsp.buf.implementation()
+* gO in Normal mode maps to vim.lsp.buf.document_symbol()
+* gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
+* CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
+* :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg
+
+]]
 
 vim.cmd([[syntax off]])
 
