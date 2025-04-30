@@ -18,7 +18,8 @@ vim.g.mapleader = " "
 vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]], { desc = "paste from yank register" })
 
 --- change default behaviour of p so that unnamed register is not overwritten on paste
-vim.keymap.set("x", "p", "P")
+-- vim.keymap.set("x", "p", "P")
+vim.keymap.set("x", "p", [["0p]])
 vim.keymap.set("x", "P", "p")
 
 --- core keymaps ---
