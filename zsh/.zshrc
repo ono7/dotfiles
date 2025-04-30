@@ -14,7 +14,9 @@ export GPG_TTY="/dev/tty"
 export GOPATH=$HOME/go
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
+
 export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+
 typeset -U path PATH
 
 # kitty, alacritty use CPU instead of GPU
@@ -33,21 +35,21 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
+# OS-specific settings (only run what's needed)
 if [[ $OSTYPE == "linux-gnu"* ]]; then
   export DISPLAY=:0.0
-fi
-
-if [[ $OSTYPE == "darwin"* ]]; then
-  # defaults write -g KeyRepeat -int 1
-  # defaults write -g InitialKeyRepeat -int 20
-  defaults write -g ApplePressAndHoldEnabled -bool false
-  defaults write -g InitialKeyRepeat -int 10
-  defaults write -g KeyRepeat -int 1
-  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-  # defaults delete -g KeyRepeat
-  # defaults delete -g InitialKeyRepeat
-  defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-  defaults -currentHost write -g AppleFontSmoothing -int 0
+elif [[ $OSTYPE == "darwin"* ]]; then
+  # Only run these settings if they haven't been set before
+  # Create a sentinel file and check for its existence
+  if [[ ! -f "$HOME/.macos_defaults_set" ]]; then
+    defaults write -g ApplePressAndHoldEnabled -bool false
+    defaults write -g InitialKeyRepeat -int 10
+    defaults write -g KeyRepeat -int 1
+    defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+    defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+    defaults -currentHost write -g AppleFontSmoothing -int 0
+    touch "$HOME/.macos_defaults_set"
+  fi
 fi
 
 fw () {
@@ -102,7 +104,7 @@ unsetopt SHARE_HISTORY
 
 # save only when shell exits
 unsetopt INC_APPEND_HISTORY
- 
+
 unset zle_bracketed_paste
 
 ############## History configuration ##############
