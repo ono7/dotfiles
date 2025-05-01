@@ -1,3 +1,5 @@
+--[[==
+
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
@@ -10,12 +12,14 @@ return {
     },
     python = {
       analysis = {
-        ignore = { "*" }, -- Using Ruff
-        autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
+        -- ignore = { "*" }, -- Using Ruff
+        -- autoSearchPaths = true,
+        -- diagnosticMode = "openFilesOnly",
+        -- useLibraryCodeForTypes = true,
         typeCheckingMode = "off",
       },
     },
   },
 }
+
+==]]
