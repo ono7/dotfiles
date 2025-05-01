@@ -1,6 +1,6 @@
 return {
-  "echasnovski/mini.nvim",
-  version = "*",
+  "echasnovski/mini.pairs",
+  version = false,
   config = function()
     require("mini.pairs").setup({
       -- In which modes mappings from this `config` should be created
