@@ -35,7 +35,10 @@ vim.opt.foldnestmax = 1
 vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.g.markdown_folding = 1 -- enable markdown folding
 
-vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
+-- vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
+-- Add asterisks in block comments
+-- vim.opt.formatoptions:append({ "r" })
+vim.opt.formatoptions = "c1lqjr"
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 vim.opt.hidden = true
