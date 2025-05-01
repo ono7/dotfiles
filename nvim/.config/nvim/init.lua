@@ -98,5 +98,7 @@ vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
 -- mini.pairs (disable auto closing quotes)
-vim.keymap.set("i", "'", "'", { buffer = 0 })
-vim.keymap.set("i", '"', '"', { buffer = 0 })
+-- vim.keymap.set("i", "'", "'", { buffer = 0 })
+-- vim.keymap.set("i", '"', '"', { buffer = 0 })
+vim.keymap.set("i", "'", "'")
+vim.keymap.set("i", '"', '"')
