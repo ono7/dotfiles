@@ -75,20 +75,19 @@ y = 8
 
 [keyboard]
 bindings = [
-{  key  =  "-",      mods  =  "Control",        action  =  "DecreaseFontSize"   },
-{  key  =  "=",      mods  =  "Control",        action  =  "IncreaseFontSize"   },
-{  key  =  "A",      mods  =  "Control",        chars   =  "\u0001"             },
-{  key  =  "Back",   mods  =  "Alt",            chars   =  "\u0017"             },
-{  key  =  "Back",   mods  =  "Control",        chars   =  "\u0017"             },
-{  key  =  "F",      mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
-{  key  =  "H",      mods  =  "Control",        action  =  "ReceiveChar"        },
-{  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
-{  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
-{  key  =  "Q",      mods  =  "Control",        action  =  "None"               },
-{  key  =  "Space",  mods  =  "Control|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
-{  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
-{  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
-{  key  =  "W",      mods  =  "command|Shift",  action  =  "Quit"               },
+	{ key = "-", mods = "Control", action = "DecreaseFontSize" },
+	{ key = "=", mods = "Control", action = "IncreaseFontSize" },
+	{ key = "Back", mods = "Alt", chars = "\u0017" },
+	{ key = "Back", mods = "Control", chars = "\u0017" },
+	{ key = "F", mods = "Control|Shift", action = "ToggleFullscreen" },
+	{ key = "H", mods = "Control", action = "ReceiveChar" },
+	{ key = "H", mods = "Control|Shift", action = "SelectPreviousTab" },
+	{ key = "L", mods = "Control|Shift", action = "SelectNextTab" },
+	{ key = "Q", mods = "Control", action = "None" },
+	{ key = "Space", mods = "Control|Shift", mode = "~Search", action = "ToggleViMode" },
+	{ key = "Space", mods = "Control", chars = "\u0000" },
+	{ key = "V", mods = "Control|Shift", action = "Paste" },
+	{ key = "W", mods = "command|Shift", action = "Quit" },
 ]
 
 [mouse]

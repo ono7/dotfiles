@@ -97,6 +97,7 @@ style = "bold white"
 [golang]
 symbol = "[](cyan)"
 format = '[$symbol]($style) Go '
+disabled = true
 
 # [python]
 # symbol = "[](green)"
