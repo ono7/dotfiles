@@ -272,22 +272,23 @@ vim.keymap.set("n", "<Leader>m", function()
   vim.api.nvim_win_set_buf(0, buf)
 end)
 
+-- using mini.pairs
 -- - these table and keymap below go together
-local pair_map_2 = {
-  ["("] = ")",
-  ["["] = "]",
-  ["{"] = "}",
-  ["<"] = ">",
-}
-
--- - optimized
-vim.keymap.set("i", "<enter>", function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
-  local closing_char = pair_map_2[prev_char]
-  if closing_char then
-    return "<enter>" .. closing_char .. "<Esc>O"
-  else
-    return "<Enter>"
-  end
-end, { expr = true })
+-- local pair_map_2 = {
+--   ["("] = ")",
+--   ["["] = "]",
+--   ["{"] = "}",
+--   ["<"] = ">",
+-- }
+--
+-- -- - optimized
+-- vim.keymap.set("i", "<enter>", function()
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+--   local closing_char = pair_map_2[prev_char]
+--   if closing_char then
+--     return "<enter>" .. closing_char .. "<Esc>O"
+--   else
+--     return "<Enter>"
+--   end
+-- end, { expr = true })

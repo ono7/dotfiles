@@ -5,7 +5,7 @@ palette = "catppuccin_mocha"
 right_format="""
 """
 # $python $git_branch"""
-command_timeout = 1000
+command_timeout = 500
 
 [hostname]
 ssh_only = true
