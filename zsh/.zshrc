@@ -374,6 +374,13 @@ d () {
 
 ############## Completion system ##############
 
+ct () {
+  wd=$PWD
+  cdr
+  ctags -R --exclude=@$HOME/.ctagsignore
+  cd $wd
+}
+
 # shift+tab
 function setup_keys() {
     bindkey -v
