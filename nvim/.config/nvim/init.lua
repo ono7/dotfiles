@@ -11,7 +11,7 @@
 * gO in Normal mode maps to vim.lsp.buf.document_symbol()
 * gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
 * CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
-* :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg
+* :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg 0
 
 ]]
 
