@@ -98,10 +98,6 @@ setopt AUTO_LIST
 setopt COMBINING_CHARS
 setopt PROMPT_SP
 
-
-# Disable immediate history sharing between shells
-unsetopt SHARE_HISTORY
-
 # save only when shell exits
 unsetopt INC_APPEND_HISTORY
 
@@ -145,9 +141,6 @@ alias ls='ls --color'
 alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
-
-# Set the number of directories to remember
-DIRSTACKSIZE=9
 
 # Directory movement aliases
 alias -- -='cd -'
