@@ -52,8 +52,16 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append({ "view", "stack" })
 
-vim.opt.laststatus = 3
-vim.opt.cmdheight = 0
+-- vim.opt.laststatus = 3
+vim.opt.laststatus = 0
+-- vim.opt.cmdheight = 0
+vim.opt.ruler = true
+vim.opt.showcmd = true -- this may be slow
+vim.opt.showmode = true
+
+vim.cmd([[
+set statusline=%{repeat('─',winwidth('.'))}
+]])
 
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
@@ -71,12 +79,10 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = true
-vim.opt.ruler = false
-vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
+-- vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
+vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
-vim.opt.showcmd = false
 vim.opt.showmatch = false
-vim.opt.showmode = true
 vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 5
 vim.opt.scrolloff = 5
