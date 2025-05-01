@@ -1,5 +1,26 @@
 local M = {}
 
+M.toggle_lsp_for_buffer = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ buffer = bufnr })
+
+  if #clients > 0 then
+    -- LSP is active, disable it
+    for _, client in ipairs(clients) do
+      client:stop()
+    end
+    vim.notify("LSP disabled for current buffer")
+  else
+    -- LSP is inactive, enable it
+    -- Re-enable by re-triggering filetype detection
+    local ft = vim.bo[bufnr].filetype
+    vim.cmd("set filetype=" .. ft)
+    vim.notify("LSP enabled for current buffer")
+  end
+end
+
+vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for current buffer" })
+
 M.setup = function()
   local silent = { noremap = true, silent = true }
 
