@@ -1,4 +1,3 @@
-# 2025-04-30 20:16
 [general]
 live_config_reload = true
 working_directory = "None"
@@ -40,12 +39,6 @@ white = "#C9C8BF"
 yellow = "0xffc777"
 
 [colors.primary]
-# background = "0x1e293b"
-##background = "#181d28"
-# background = "#152f4b"
-# background = "0x1d2436"
-
-# background = "0x111721"
 foreground = "#C9C8BF"
 background = "#031224"
 
@@ -75,154 +68,28 @@ size = 17.0
 family = "SF Mono"
 style = "Regular"
 
-# [font.italic]
-# family = "MonoLisaLiga Nerd Font"
-# style = "Italic"
-
-# [font.bold]
-# family = "MonoLisaLiga Nerd Font"
-# style = "Bold"
 
 [font.offset]
 x = 0
 y = 8
 
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "Paste"
-key = "Paste"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "Copy"
-
-[[keyboard.bindings]]
-chars = "\u0017"
-key = "Back"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0017"
-key = "Back"
-mods = "Alt"
-
-[[keyboard.bindings]]
-chars = "\u0011"
-key = "Q"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0001"
-key = "A"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0012"
-key = "R"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0005"
-key = "E"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0010"
-key = "P"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u000E"
-key = "N"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0003"
-key = "C"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0014"
-key = "T"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u001A"
-key = "Z"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\t"
-key = "I"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u000F"
-key = "O"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0015"
-key = "U"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u001D"
-key = "RBracket"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u001B"
-key = "LBracket"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0002"
-key = "B"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0004"
-key = "D"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0017"
-key = "W"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0002z"
-key = "M"
-mods = "Shift|Control"
-
-[[keyboard.bindings]]
-chars = "\u001B/"
-key = "Slash"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0007"
-key = "G"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u0006"
-key = "F"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "SpawnNewInstance"
-key = "F9"
+[keyboard]
+bindings = [
+{  key  =  "-",      mods  =  "Control",        action  =  "DecreaseFontSize"   },
+{  key  =  "=",      mods  =  "Control",        action  =  "IncreaseFontSize"   },
+{  key  =  "A",      mods  =  "Control",        chars   =  "\u0001"             },
+{  key  =  "Back",   mods  =  "Alt",            chars   =  "\u0017"             },
+{  key  =  "Back",   mods  =  "Control",        chars   =  "\u0017"             },
+{  key  =  "F",      mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
+{  key  =  "H",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
+{  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
+{  key  =  "Q",      mods  =  "Control",        action  =  "None"               },
+{  key  =  "Space",  mods  =  "Control|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
+{  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
+{  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
+{  key  =  "W",      mods  =  "command|Shift",  action  =  "Quit"               },
+]
 
 [mouse]
 hide_when_typing = true
@@ -251,9 +118,9 @@ blur = true # does not work in windows?
 startup_mode = "Maximized"
 option_as_alt = "both"
 
-# [window.dimensions]
-# columns = 82
-# lines = 28
+[window.dimensions]
+columns = 82
+lines = 28
 
 [window.padding]
 x = 5
