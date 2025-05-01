@@ -418,12 +418,15 @@ function setup_keys() {
     bindkey '^[[Z' reverse-menu-complete
     bindkey "^R" fzf-history-widget
 }
+
 bindkey "^R" fzf-history-widget
+
+
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
-# Completion system
+# only run compinit once a day
 autoload -Uz compinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
   compinit
@@ -431,9 +434,16 @@ else
   compinit -C
 fi
 
-# Completion settings
+# Comprehensive completion style configuration
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
+zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
 
 
 ############## Key bindings ##############
@@ -462,7 +472,13 @@ export FZF_COMPLETION_TRIGGER="**"
 ############## Load configurations ##############
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -d ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [ ! -d ~/.zsh/zsh-autosuggestions ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 ############## NVM configuration ##############
 
@@ -486,7 +502,19 @@ else
   echo "zoxide not installed..."
 fi
 
+
+# Important completion options
+setopt MENU_COMPLETE
+unsetopt LIST_AMBIGUOUS
+setopt AUTO_LIST
+setopt COMBINING_CHARS
+
+# Run the setup function
 setup_keys
+
+# Make sure these options are set
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
 
 ############## Load virtual environment if it exists ##############
 
