@@ -26,7 +26,7 @@ end
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
--- require("config.neovide")
+require("config.neovide")
 require("config.options")
 require("config.keymaps")
 require("config.disabled")

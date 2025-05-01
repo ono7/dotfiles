@@ -1,13 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- if nothing else, this are the bare minimum necessities
 vim.opt.path:append({ "**" })
 vim.opt.shell = "zsh"
 
--- vim.opt.shada = "'40,<200,s100,:300,/100,h,r~/COMMIT_EDITMSG"
 vim.opt.shada = "'20,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
 
+vim.opt.fsync = false
 vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
@@ -49,7 +48,6 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append({ "view", "stack" })
 
--- cmd and status line
 vim.opt.laststatus = 3
 vim.opt.cmdheight = 0
 
@@ -64,8 +62,6 @@ vim.opt.fileformats = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 vim.opt.number = true
 
--- vim.opt.signcolumn = "yes"
--- vim.opt.numberwidth = 2
 vim.opt.numberwidth = 3
 vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
@@ -99,11 +95,13 @@ vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
 vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
---- report file name to terminal
 vim.opt.title = true
 vim.opt.titlestring = "%t"
 vim.opt.ttimeout = true -- disable for indefinite wait time
-vim.opt.ttimeoutlen = 0
+
+--- needs to be 50 wsl will hang on exit
+vim.opt.ttimeoutlen = 50
+
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
@@ -122,13 +120,11 @@ vim.opt.wildignore = {
 
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
--- Sesssions
 vim.opt.sessionoptions:remove({ "buffers", "folds" })
 
 vim.opt.wrap = true
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
--- vim.o.winborder = "rounded"
 
 vim.g.floating_window_border = {
   "╭",
@@ -141,14 +137,10 @@ vim.g.floating_window_border = {
   "│",
 }
 
---- global vars
-
 vim.g.markdown_fold_style = "nested"
 
--- disable netrw
 vim.g.loaded_netwr = 1
 vim.g.loaded_netrwPlugin = 1
--- reuse same window
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_liststyle = 3
@@ -159,10 +151,3 @@ vim.g.python3_host_prog = MYHOME .. "/.virtualenvs/prod3/bin/python3"
 vim.g.loaded_python3_provider = 1
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
-
--- vim.opt.winbar = "%=%-.75F %-m"
-
--- improve matchparen performance
--- vim.g.matchparen_timeout = 20 -- default is 300
--- vim.g.matchparen_insert_timeout = 60 -- default is 60
--- vim.g.loaded_matchparen = 1
