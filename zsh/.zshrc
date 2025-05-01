@@ -443,7 +443,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
-zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
+# zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
 
 
 ############## Key bindings ##############

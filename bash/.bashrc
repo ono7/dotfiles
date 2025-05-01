@@ -1,5 +1,7 @@
 # added to support containers
 
+stty -ixon 2>/dev/null
+
 export GPG_TTY=$(tty)
 
 export LANGUAGE=en_US.UTF-8
