@@ -111,7 +111,8 @@ vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
 
--- vim.keymap.set("n", "<leader>o", ":b#<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
+
 vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 vim.keymap.set("n", "Y", "y$", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
