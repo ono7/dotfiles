@@ -123,6 +123,7 @@ vim.opt.wildignore = {
   "**/.idea/**",
   "**/.git/**",
   "**/.nuxt/**",
+  "**/.collections/**",
   ".tags",
   "tags",
   "__pycache__",

@@ -10,7 +10,7 @@ return {
       notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black" },
+        python = { "black" },
         yaml = { "prettier" },
         javascript = { "prettier" },
         typescript = { "prettier" },
@@ -26,14 +26,19 @@ return {
         shfmt = {
           prepend_args = { "-i", "2" },
         },
-        -- ruff = {
-        --   prepend_args = { "format" },
-        -- },
       },
-      format_on_save = {
-        lsp_format = "fallback",
-        timeout_ms = 700,
-      },
+      format_on_save = function(bufnr)
+        if vim.bo.filetype == "python" then
+          vim.lsp.buf.code_action({
+            context = {
+              only = { "source.organizeImports.ruff" },
+              diagnostics = {},
+            },
+            apply = true,
+          })
+        end
+        return { timeout_ms = 500, lsp_format = "fallback" }
+      end,
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
