@@ -56,7 +56,7 @@ vim.opt.jumpoptions:append({ "view", "stack" })
 vim.opt.laststatus = 0
 -- vim.opt.cmdheight = 0
 vim.opt.ruler = true
-vim.opt.showcmd = true -- this may be slow
+vim.opt.showcmd = false -- this may be slow
 vim.opt.showmode = true
 
 vim.cmd([[
