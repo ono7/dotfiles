@@ -1,5 +1,12 @@
 # look arounds, vim look arounds affect the previous capture group only
 
+Negative look behind, find all occurrences of AnsibleFilterError that do not
+have raise before them
+
+```
+/\v(raise\s+)@<!AnsibleFilterError
+```
+
 ```
 
 remove duplicate adjacent lines
