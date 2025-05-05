@@ -27,6 +27,7 @@ return {
           prepend_args = { "-i", "2" },
         },
       },
+      -- organize imports
       format_on_save = function(bufnr)
         if vim.bo.filetype == "python" then
           vim.lsp.buf.code_action({
@@ -37,7 +38,6 @@ return {
             apply = true,
           })
         end
-        return { timeout_ms = 500, lsp_format = "fallback" }
       end,
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
