@@ -1,3 +1,6 @@
+# WSL alacritty location
+# /mnt/c/Users/jl78/AppData/Roaming/alacritty/alacritty.toml
+
 [general]
 live_config_reload = true
 working_directory = "None"
