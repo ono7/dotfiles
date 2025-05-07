@@ -56,9 +56,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
-      - SERVERURL=hcr085kevpr.sn.mynetname.net
+      - SERVERURL=<server_url>
       - SERVERPORT=4500
-      - PEERS=josePhone,joseLaptop,joseLaptop2,joseTablet,shilohPhone,shilohLaptop,emmaTablet,emmaPhone,emmaLaptop,colbyLaptop,colbyPhone,colbyTablet
+      - PEERS=<peer1>,<peer2>,<peer3>
       - PEERDNS=100.64.0.50
       - INTERNAL_SUBNET=100.64.125.0
       - ALLOWEDIPS=0.0.0.0/0

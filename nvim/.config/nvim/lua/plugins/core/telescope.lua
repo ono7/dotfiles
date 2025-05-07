@@ -149,6 +149,10 @@ return {
       builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
     end, opt)
 
+    k("n", "<M-d>", function()
+      builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
+    end, opt)
+
     -- does not use find_command
     vim.keymap.set("n", "<M-g>", function()
       builtin.live_grep({
