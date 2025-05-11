@@ -45,7 +45,8 @@ y = 0
 
 [font.normal]
 family = "SF Mono"
-style = "Medium"
+# style = "Medium"
+style = "Bold"
 
 [font.offset]
 x = 0
