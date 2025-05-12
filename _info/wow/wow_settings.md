@@ -30,9 +30,12 @@ Fix overly saturated worl
 
 # macro
 
-/console set ResampleAlwaysSharpen 1
-/console set renderscale 0.999
+-- these settings should be applied any time cvars are reset
 /console CameraReduceUnexpectedMovement 1
+/console set renderscale 0.999
+/console set ResampleAlwaysSharpen 1
+/console UnitNamePlayerGuild 0
+/console UnitNamePlayerPVPTitle 0
 
 # nvidia control panel options for wow
 
