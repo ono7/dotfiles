@@ -6,9 +6,9 @@ live_config_reload = true
 working_directory = "None"
 
 [colors.primary]
-# background = "#1e1e2e"
+background = "#1e1e2e"
 # foreground = "#cdd6f4"
-background = "#191929"
+# background = "#191929"
 foreground = "#b6bed9"
 
 dim_foreground = "#7f849c"
@@ -75,7 +75,6 @@ color = "#fab387"
 index = 17
 color = "#f5e0dc"
 
-
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "OnlyCopy"
@@ -110,14 +109,14 @@ TERM = "alacritty"
 [font]
 size = 23.0
 
-[font.glyph_offset]
-x = 0
-y = 0
-
 [font.normal]
 family = "SF Mono"
 style = "Medium"
 # style = "Semi Bold"
+
+[font.glyph_offset]
+x = 0
+y = 0
 
 [font.offset]
 x = 0
