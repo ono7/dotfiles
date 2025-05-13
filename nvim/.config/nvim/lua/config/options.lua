@@ -36,15 +36,29 @@ vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 vim.opt.fillchars:append({ fold = "·" })
 
-vim.opt.foldtext =
-  [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
-vim.opt.foldenable = false
-vim.opt.foldlevel = 99
+-- vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = ""
+-- how deep to fold
+vim.opt.foldlevelstart = 1
+vim.opt.foldnestmax = 2
+-- fold when entering buffer
+-- vim.opt.foldlevelstart = 99
+
+-- vim.opt.foldtext =
+--   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 -- vim.opt.foldmethod = "expr"
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldmethod = "manual" -- fallback
-vim.opt.foldnestmax = 1
-vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
+
+-- vim.opt.foldcolumn = "1" -- '0' is not bad
+-- vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.foldenable = true
+-- vim.opt.foldmethod = "manual" -- fallback
+-- vim.opt.foldnestmax = 1
+-- vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 -- vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
