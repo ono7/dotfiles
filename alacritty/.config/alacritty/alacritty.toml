@@ -1,79 +1,78 @@
 [general]
 
+# foreground = "#b6bed9"
+
 # import = ["./cappuccine-mocha.toml"]
 
 live_config_reload = true
 working_directory = "None"
 
 [colors.primary]
-background = "#1e1e2e"
-# foreground = "#cdd6f4"
-# background = "#191929"
+background = "#24273a"
 foreground = "#b6bed9"
-
-dim_foreground = "#7f849c"
-# bright_foreground = "#cdd6f4"
-bright_foreground = "#b6bed9"
+# foreground = "#cad3f5"
+dim_foreground = "#8087a2"
+bright_foreground = "#cad3f5"
 
 [colors.cursor]
-text = "#1e1e2e"
-cursor = "#f5e0dc"
+text = "#24273a"
+cursor = "#f4dbd6"
 
 [colors.vi_mode_cursor]
-text = "#1e1e2e"
-cursor = "#b4befe"
+text = "#24273a"
+cursor = "#b7bdf8"
 
 [colors.search.matches]
-foreground = "#1e1e2e"
-background = "#a6adc8"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.search.focused_match]
-foreground = "#1e1e2e"
-background = "#a6e3a1"
+foreground = "#24273a"
+background = "#a6da95"
 
 [colors.footer_bar]
-foreground = "#1e1e2e"
-background = "#a6adc8"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.hints.start]
-foreground = "#1e1e2e"
-background = "#f9e2af"
+foreground = "#24273a"
+background = "#eed49f"
 
 [colors.hints.end]
-foreground = "#1e1e2e"
-background = "#a6adc8"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.selection]
-text = "#1e1e2e"
-background = "#f5e0dc"
+text = "#24273a"
+background = "#f4dbd6"
 
 [colors.normal]
-black = "#45475a"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#bac2de"
+black = "#494d64"
+red = "#ed8796"
+green = "#a6da95"
+yellow = "#eed49f"
+blue = "#8aadf4"
+magenta = "#f5bde6"
+cyan = "#8bd5ca"
+white = "#b8c0e0"
 
 [colors.bright]
-black = "#585b70"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#b6bed9"
+black = "#5b6078"
+red = "#ed8796"
+green = "#a6da95"
+yellow = "#eed49f"
+blue = "#8aadf4"
+magenta = "#f5bde6"
+cyan = "#8bd5ca"
+white = "#a5adcb"
 
 [[colors.indexed_colors]]
 index = 16
-color = "#fab387"
+color = "#f5a97f"
 
 [[colors.indexed_colors]]
 index = 17
-color = "#f5e0dc"
+color = "#f4dbd6"
 
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
@@ -112,7 +111,10 @@ size = 23.0
 [font.normal]
 family = "SF Mono"
 style = "Medium"
-# style = "Semi Bold"
+
+# [font.normal]
+# family = "IosevkaTerm Nerd Font Mono"
+# style = "Bold"
 
 [font.glyph_offset]
 x = 0
@@ -120,7 +122,7 @@ y = 0
 
 [font.offset]
 x = 0
-y = 12
+y = 14
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
