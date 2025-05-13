@@ -83,6 +83,9 @@ return {
     vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
     vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#242438" })
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
+    -- vim.api.nvim_set_hl(0, "WinBar", { fg = "#f38ba8", bg = "none", bold = true })
+    vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
+    vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2b3b55", bold = false })
     vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#000000", bold = false })
     -- vim.api.nvim_set_hl(0, "DiffChange", { bg = "#2b3b55", bold = true })
@@ -132,8 +135,9 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
-    -- vim.api.nvim_set_hl(0, "String", { fg = "#d7d787" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#b7ebbb" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#c1d7c4" })
 
     -- yellow2 = "",
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
