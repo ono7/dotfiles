@@ -119,6 +119,11 @@ RESET='\033[0m'
 
 ############## Aliases ##############
 
+# fixes issue with poetry shell not activated propery.
+# https://github.com/python-poetry/poetry/issues/571
+## on .{bash,zsh,wtv}rc
+alias poetry_shell='. "$(dirname $(poetry run which python))/activate"'
+
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
