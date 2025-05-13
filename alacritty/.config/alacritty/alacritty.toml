@@ -106,15 +106,15 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 23.0
+size = 25.0
 
 [font.normal]
 # family = "SF Mono"
-family = "SFMono Nerd Font"
-style = "Medium"
+# family = "SFMono Nerd Font"
+# style = "Medium"
 
-# family = "IosevkaTerm Nerd Font Mono"
-# style = "SemiBold"
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold"
 
 # family = "FiraMono Nerd Font Mono"
 # style = "Medium"
