@@ -6,7 +6,7 @@ return {
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = true, -- Using Ruff
+      disableOrganizeImports = false, -- Using Ruff
     },
     python = {
       analysis = {

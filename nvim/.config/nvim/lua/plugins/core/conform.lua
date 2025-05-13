@@ -10,7 +10,7 @@ return {
       notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "black" },
+        python = { "isort", "black" },
         yaml = { "prettier" },
         javascript = { "prettier" },
         typescript = { "prettier" },
