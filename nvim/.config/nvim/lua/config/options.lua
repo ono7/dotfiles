@@ -36,16 +36,22 @@ vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 vim.opt.fillchars:append({ fold = "·" })
 
--- vim.opt.foldenable = true
+vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
--- how deep to fold
-vim.opt.foldlevelstart = 1
+vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 2
--- fold when entering buffer
--- vim.opt.foldlevelstart = 99
+
+-- Use a more reliable event and add a small delay
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    vim.defer_fn(function()
+      vim.cmd("normal! zR")
+    end, 10)
+  end,
+})
 
 -- vim.opt.foldtext =
 --   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]

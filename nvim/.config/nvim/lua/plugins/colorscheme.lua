@@ -74,7 +74,6 @@ return {
     })
     vim.api.nvim_command("colorscheme catppuccin-mocha")
 
-    vim.api.nvim_set_hl(0, "Folded", { link = "Comment" })
     vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b0a0ff", bold = true, italic = true })
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
@@ -85,6 +84,7 @@ return {
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
     -- vim.api.nvim_set_hl(0, "WinBar", { fg = "#f38ba8", bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
+    vim.api.nvim_set_hl(0, "Folded", { link = "WinBar" })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2b3b55", bold = false })
     vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#000000", bold = false })
