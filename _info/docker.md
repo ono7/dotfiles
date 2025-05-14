@@ -1,3 +1,7 @@
+## install (ubuntu/wsl) standalone
+
+https://docs.docker.com/engine/install/ubuntu/
+
 ## chroot - run container in jail
 
 `docker run -it --rm -p "127.0.0.1:2022:2022" b44983c7efbe chroot /app ./linux-server`
@@ -15,7 +19,6 @@ ENV LANG=C.UTF-8
 ```
 
 ## git shell on running container (root)
-
 
 ```sh
 
