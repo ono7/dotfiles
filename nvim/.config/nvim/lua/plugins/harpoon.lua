@@ -6,17 +6,12 @@ return {
   config = function()
     local harpoon = require("harpoon")
 
-    -- REQUIRED
     harpoon:setup({
       settings = {
-        save_on_toggle = false,
-        sync_on_ui_close = false,
-        key = function()
-          return vim.loop.cwd()
-        end,
+        save_on_toggle = true,
+        sync_on_ui_close = true,
       },
     })
-    -- REQUIRED
 
     vim.keymap.set("n", "mm", function()
       harpoon:list():add()

@@ -19,3 +19,4 @@ test.txt
 *.egg-info/
 *.cache
 .aider*
+.envrc

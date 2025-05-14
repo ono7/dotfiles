@@ -233,6 +233,18 @@ vim.keymap.set("n", ",w", function()
   vim.fn.setpos(".", save_cursor)
 end, silent)
 
+vim.keymap.set("n", "<leader>w", function()
+  if not check_buf(0) then
+    print("save me first!")
+    return
+  end
+  local save_cursor = vim.fn.getcurpos()
+  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
+  -- this might cause issues with oil.nvim
+  vim.cmd([[:write ++p]])
+  vim.fn.setpos(".", save_cursor)
+end, silent)
+
 --- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
 vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/

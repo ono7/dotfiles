@@ -119,14 +119,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- auto create dirs when saving files: use :w ++p
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
-  callback = function()
-    local dir = vim.fn.expand("%:p:h")
-    vim.cmd("silent! lcd " .. dir)
-  end,
-  group = create_augroup("set_path_lcd", { clear = true }),
-})
+-- this breaks harpoon
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*",
+--   callback = function()
+--     local dir = vim.fn.expand("%:p:h")
+--     vim.cmd("silent! lcd " .. dir)
+--   end,
+--   group = create_augroup("set_path_lcd", { clear = true }),
+-- })
 
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
@@ -145,31 +146,3 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
   group = create_augroup("set_wrap", { clear = true }),
 })
-
--- python ruff fix imports on write
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---   pattern = { "*.py" },
---   group = vim.api.nvim_create_augroup("buf_write_post_ruff_fix_format_sort", { clear = true }),
---   callback = function()
---     -- fixAll
---     if vim.bo.filetype == "python" then
---       vim.lsp.buf.code_action({
---         context = {
---           only = { "source.fixAll.ruff" },
---         },
---         apply = true,
---       })
---     end
---     -- format
---     vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
---     -- organizeImports
---     if vim.bo.filetype == "python" then
---       vim.lsp.buf.code_action({
---         context = {
---           only = { "source.organizeImports.ruff" },
---         },
---         apply = true,
---       })
---     end
---   end,
--- })
