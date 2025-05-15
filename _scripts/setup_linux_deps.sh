@@ -52,3 +52,6 @@ if [[ -f ~/local/bin/delta ]]; then
 else
   log "delta installation failed"
 fi
+
+log "installing direnv"
+curl -sfL https://direnv.net/install.sh | bash
