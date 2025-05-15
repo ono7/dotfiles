@@ -11,10 +11,10 @@ return {
     python = {
       analysis = {
         -- ignore = { "*" }, -- Using Ruff
-        -- autoSearchPaths = true,
-        -- diagnosticMode = "openFilesOnly",
-        -- useLibraryCodeForTypes = true,
-        typeCheckingMode = "off",
+        autoSearchPaths = true,
+        diagnosticMode = "openFilesOnly",
+        useLibraryCodeForTypes = true,
+        -- typeCheckingMode = "off",
       },
     },
   },
