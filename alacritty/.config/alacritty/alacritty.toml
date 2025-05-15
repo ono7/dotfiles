@@ -1,3 +1,7 @@
+# catppuccin
+# foreground = "#b6bed9"
+# background = "#24273a"
+
 [general]
 
 # foreground = "#b6bed9"
@@ -8,8 +12,8 @@ live_config_reload = true
 working_directory = "None"
 
 [colors.primary]
-background = "#24273a"
 foreground = "#b6bed9"
+background = "#24273a"
 # foreground = "#cad3f5"
 dim_foreground = "#8087a2"
 bright_foreground = "#cad3f5"

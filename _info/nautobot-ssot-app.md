@@ -1,7 +1,18 @@
 ## debug
 
-- using `pip install remote-pdb`
-  pp inspect.signature(nbdevicetype)
+`pip install remote-pdb`
+`brew install socat`
+`brew install rlwrap`
+
+### use socat to gain readline functionality
+
+socat readline tcp:localhost:4444
+
+or
+
+rlwrap nc localhost 4444
+
+pp inspect.signature(nbdevicetype)
 
 ```python
 import inspect
