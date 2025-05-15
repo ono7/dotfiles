@@ -24,7 +24,8 @@ return {
       green = "#abe9b3",
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
-      blue = "#89b4fa",
+      -- blue = "#89b4fa",
+      blue = "#8CA7BE",
       -- yellow = "#fae3b0",
       yellow = "#D4B97E",
       -- yellow2 = "#ffe9b6",
@@ -84,23 +85,14 @@ return {
     vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
     vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#242438" })
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
-    -- vim.api.nvim_set_hl(0, "WinBar", { fg = mycolors.red, bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
     vim.api.nvim_set_hl(0, "Folded", { link = "WinBar" })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2b3b55", bold = false })
     vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#000000", bold = false })
-    -- vim.api.nvim_set_hl(0, "DiffChange", { bg = "#2b3b55", bold = true })
     vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#ceeac8", bold = true })
-    -- vim.api.nvim_set_hl(0, "DiffText", { bg = "#9eb0ce", fg = "#000000" })
     vim.api.nvim_set_hl(0, "Comment", { fg = "#384057" })
-    -- vim.api.nvim_set_hl(0, "Comment", { fg = "#666666" })
-    -- vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#89b4fa" })
-    -- vim.api.nvim_set_hl(0, "@variable.builtin", {})
-    -- vim.api.nvim_set_hl(0, "@variable.member", { fg = "#89b4fa" })
-    -- vim.api.nvim_set_hl(0, "@property", { fg = mycolors.teal })
-    -- vim.api.nvim_set_hl(0, "@variable", { fg = mycolors.teal })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = mycolors.red, bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
@@ -114,9 +106,6 @@ return {
     vim.api.nvim_set_hl(0, "StatusLine", {})
     vim.api.nvim_set_hl(0, "StatusLine", {})
     vim.api.nvim_set_hl(0, "StatusLineNC", {})
-    -- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#313244", fg = mycolors.white })
-    -- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#25293c", fg = mycolors.white })
-    -- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = mycolors.red, bg = "#161927", bold = true })
@@ -136,7 +125,7 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, italic = false })
     vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.blue, italic = false })
 
-    vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a6e3a1", bold = true })
+    vim.api.nvim_set_hl(0, "diffAdded", { fg = "#8CBBAD", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#fa5057", bold = true })
     -- vim.api.nvim_set_hl(0, "EndOfBuffer", {})
     vim.api.nvim_set_hl(0, "Special", {})
@@ -165,7 +154,7 @@ return {
     vim.api.nvim_set_hl(0, "@markup.raw", {})
     vim.api.nvim_set_hl(0, "@constructor", {})
     vim.api.nvim_set_hl(0, "@string.documentation", {})
-    vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = "#89b4fa" })
+    vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = mycolors.blue })
     vim.api.nvim_set_hl(0, "Boolean", { italic = false })
     vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.yellow2, bold = false, italic = false })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.yellow2, italic = false, bold = false })
