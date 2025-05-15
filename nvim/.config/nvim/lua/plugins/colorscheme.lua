@@ -16,7 +16,8 @@ return {
       grey_fg = "#4e4d5d",
       grey_fg2 = "#555464",
       light_grey = "#605f6f",
-      red = "#f38ba8",
+      -- red = mycolors.red,
+      red = "#C49A9A",
       baby_pink = "#ffa5c3",
       pink = "#f5c2e7",
       line = "#383747", -- for lines like vertsplit
@@ -24,9 +25,10 @@ return {
       vibrant_green = "#b6f4be",
       nord_blue = "#8bc2f0",
       blue = "#89b4fa",
-      yellow = "#fae3b0",
-      -- yellow2 = "#f9e2af",
-      yellow2 = "#ffe9b6",
+      -- yellow = "#fae3b0",
+      yellow = "#D4B97E",
+      -- yellow2 = "#ffe9b6",
+      yellow2 = "#D4B97E",
       -- yellow2 = "#e6c99d",
       -- yellow2 = "#5fd7ff",
       sun = "#ffe9b6",
@@ -82,7 +84,7 @@ return {
     vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
     vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#242438" })
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
-    -- vim.api.nvim_set_hl(0, "WinBar", { fg = "#f38ba8", bg = "none", bold = true })
+    -- vim.api.nvim_set_hl(0, "WinBar", { fg = mycolors.red, bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
     vim.api.nvim_set_hl(0, "Folded", { link = "WinBar" })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
@@ -100,10 +102,10 @@ return {
     -- vim.api.nvim_set_hl(0, "@property", { fg = mycolors.teal })
     -- vim.api.nvim_set_hl(0, "@variable", { fg = mycolors.teal })
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
-    vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = "#f38ba8", bg = "none", bold = true })
+    vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = mycolors.red, bg = "none", bold = true })
     vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
     vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ceeac8", bold = true })
-    vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#f38ba8", bold = true })
+    vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = mycolors.red, bold = true })
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#253d61" })
     vim.api.nvim_set_hl(0, "@type", { fg = "#d9e0ee", bold = false })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#253d61" })
@@ -117,7 +119,7 @@ return {
     -- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#313244", fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
-    vim.api.nvim_set_hl(0, "MatchParen", { fg = "#f38ba8", bg = "#161927", bold = true })
+    vim.api.nvim_set_hl(0, "MatchParen", { fg = mycolors.red, bg = "#161927", bold = true })
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1b192c" })
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
@@ -141,9 +143,8 @@ return {
 
     --- make it more black and white ----
 
-    vim.api.nvim_set_hl(0, "String", { fg = "#b7ebbb" })
-    -- vim.api.nvim_set_hl(0, "String", { fg = "#92b997" })
-    -- vim.api.nvim_set_hl(0, "String", { fg = "#c1d7c4" })
+    -- vim.api.nvim_set_hl(0, "String", { fg = "#b7ebbb" })
+    vim.api.nvim_set_hl(0, "String", { fg = "#8CBBAD" })
 
     -- yellow2 = "",
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
