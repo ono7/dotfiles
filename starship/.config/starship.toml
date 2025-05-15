@@ -13,34 +13,39 @@ ssh_symbol = '🌏'
 format = '[$ssh_symbol](bold blue) [$hostname](bold red) '
 disabled = false
 
-# Inserts a blank line between shell prompts
 [palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#8fd6e3"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+red = "#C49A9A"
+green = "#8CBBAD"
+yellow = "#D4B97E"
+blue = "#8CA7BE"
+
+pink = "#B097B6"        # Using your magenta
+mauve = "#B097B6"       # Also using magenta for mauve
+maroon = "#C49A9A"      # A variation of your red
+peach = "#D4B97E"       # Using your yellow as peach
+teal = "#93B5B3"        # Using your cyan
+sky = "#93B5B3"         # Also using cyan for sky
+sapphire = "#8CA7BE"    # A variation of your blue
+lavender = "#B097B6"    # Another use of your magenta
+
+text = "#C9C2B8"        # Your white/cream
+subtext1 = "#BAB3A9"    # Slightly darker than your cream
+subtext0 = "#ABA49A"    # Even darker shade
+
+overlay2 = "#9C958B"    # Derived from your white/cream
+overlay1 = "#8D867C"    # Darker
+overlay0 = "#7E776D"    # Even darker
+
+surface2 = "#424B5E"    # Lighter than your black
+surface1 = "#384051"    # Between your black and surface2
+surface0 = "#2D3343"    # Your black
+
+base = "#252A36"        # Darker than your black
+mantle = "#1E222B"      # Even darker
+crust = "#171A21"       # Darkest
+
+rosewater = "#C9B8B8"   # Lighter version of your red
+flamingo = "#C4A4A4"    # Between your red and rosewater
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
