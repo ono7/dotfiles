@@ -9,7 +9,8 @@ working_directory = "None"
 draw_bold_text_with_bright_colors = false
 
 [colors.primary]
-background = "#1D2433"         # Muted navy
+# background = "#1D2433"         # Muted navy
+background = "#161b27" # slighty darker for windows
 foreground = "#E3DED7"         # Antique paper
 dim_foreground = "#8087a2"     # Subdued blue-gray
 bright_foreground = "#cad3f5"  # Bright lavender-tinted white
