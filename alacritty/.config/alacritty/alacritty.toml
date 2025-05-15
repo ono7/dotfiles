@@ -119,6 +119,10 @@ size = 25.0
 family = "IosevkaTerm Nerd Font Mono"
 style = "SemiBold"
 
+[font.italic]
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold Italic"
+
 # family = "FiraMono Nerd Font Mono"
 # style = "Medium"
 
