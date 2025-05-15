@@ -8,42 +8,71 @@ working_directory = "None"
 [colors]
 draw_bold_text_with_bright_colors = false
 
-[[colors.indexed_colors]]
-color = "0xff966c"
-index = 16
-
-[[colors.indexed_colors]]
-color = "0xc53b53"
-index = 17
-
-[colors.bright]
-black = "0x444a73"
-blue = "0x82aaff"
-cyan = "0x86e1fc"
-green = "0xc3e88d"
-magenta = "0xc099ff"
-red = "0xff757f"
-white = "#C9C8BF"
-yellow = "0xffc777"
+[colors.primary]
+background = "#1D2433"         # Muted navy
+foreground = "#E3DED7"         # Antique paper
+dim_foreground = "#8087a2"     # Subdued blue-gray
+bright_foreground = "#cad3f5"  # Bright lavender-tinted white
 
 [colors.cursor]
-# cursor = "#4fc2e8"
-cursor = "#C9C8BF"
-text = "#000000"
+cursor = "#B4ADA0"            # Muted foreground for cursor
+text = "#1D2433"
+
+[colors.vi_mode_cursor]
+cursor = "#B4ADA0"            # Muted foreground for cursor
+text = "#1D2433"
+
+[colors.search.matches]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.search.focused_match]
+foreground = "#24273a"
+background = "#a6da95"
+
+[colors.footer_bar]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.hints.start]
+foreground = "#24273a"
+background = "#eed49f"
+
+[colors.hints.end]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.selection]
+# text = "#24273a"
+background = "#364156"
 
 [colors.normal]
-black = "0x1b1d2b"
-blue = "0x82aaff"
-cyan = "0x86e1fc"
-green = "0xc3e88d"
-magenta = "0xc099ff"
-red = "0xff757f"
-white = "#C9C8BF"
-yellow = "0xffc777"
+black = "#2D3343"         # Slightly lighter than background
+red = "#C49A9A"           # Muted dusty rose
+green = "#8CBBAD"         # Soft sage green
+yellow = "#D4B97E"        # Gentle amber
+blue = "#8CA7BE"          # Muted steel blue
+magenta = "#B097B6"       # Soft lavender
+cyan = "#93B5B3"          # Muted teal
+white = "#C9C2B8"         # Soft cream (slightly darker than foreground)
 
-[colors.primary]
-foreground = "#C9C8BF"
-background = "#031224"
+[colors.bright]
+black = "#3E485A"     # Medium gray-blue
+red = "#D5AFAF"       # Lighter dusty rose
+green = "#A2CFBF"     # Lighter sage
+yellow = "#E1CA97"    # Lighter amber
+blue = "#A4BCCE"      # Lighter steel blue
+magenta = "#C4AFC8"   # Lighter lavender
+cyan = "#A9C9C7"      # Lighter teal
+white = "#E3DED7"     # Same as foreground
+
+[[colors.indexed_colors]]
+index = 16
+color = "#B6A58B"  # Soft muted tan/bronze
+
+[[colors.indexed_colors]]
+index = 17
+color = "#A6B0C3"  # Soft muted periwinkle
 
 [cursor]
 blink_interval = 200
