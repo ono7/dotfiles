@@ -115,16 +115,17 @@ size = 25.0
 # family = "SF Mono"
 # family = "SFMono Nerd Font"
 # style = "Medium"
+
 family = "IosevkaTerm Nerd Font Mono"
 style = "SemiBold"
 
 [font.italic]
 family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold Italic"
+style = "SemiBold Oblique"
 
 [font.bold]
 family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold Oblique"
+style = "Bold"
 
 # family = "FiraMono Nerd Font Mono"
 # style = "Medium"

@@ -106,11 +106,11 @@ style = "SemiBold"
 
 [font.italic]
 family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold Italic"
+style = "SemiBold Oblique"
 
 [font.bold]
 family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold Oblique"
+style = "Bold"
 
 [font.offset]
 x = 0
