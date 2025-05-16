@@ -163,7 +163,7 @@ return {
     vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.yellow2, bold = false, italic = false })
     vim.api.nvim_set_hl(0, "Include", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.yellow2, bold = false })
-    vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2, italic = true })
+    vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "Exception", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "@label.markdown", { fg = "#2f3041" })
     vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.yellow2 })
