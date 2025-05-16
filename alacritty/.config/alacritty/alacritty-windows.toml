@@ -98,9 +98,19 @@ LC_CTYPE = "en_US.UTF-8"
 size = 17.0
 
 [font.normal]
-family = "SF Mono"
-style = "Regular"
+# family = "SF Mono"
+# style = "Regular"
 
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold"
+
+[font.italic]
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold Italic"
+
+[font.bold]
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold Oblique"
 
 [font.offset]
 x = 0
