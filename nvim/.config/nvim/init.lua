@@ -40,6 +40,7 @@ require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
 require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.change-path").setup() -- :Cd (toggle root dir and cwd)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
