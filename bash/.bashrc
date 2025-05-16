@@ -149,9 +149,15 @@ fi
 
 export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 
-if [ -d ~/.virtualenvs/prod3 ]; then
-  # default virtual env if exists
+if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
   source ~/.virtualenvs/prod3/bin/activate
+fi
+
+# Auto-detect and reactivate virtual environment in tmux
+if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
+  if [ -f "$VIRTUAL_ENV/bin/activate" ]; then
+    source "$VIRTUAL_ENV/bin/activate"
+  fi
 fi
 
 alias gd='git diff'
@@ -301,6 +307,14 @@ eval "$(fzf --bash)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# fixes issue with poetry shell not activated propery.
+# https://github.com/python-poetry/poetry/issues/571
+## on .{bash,zsh,wtv}rc
+poetry_shell() {
+  deactivate 2>/dev/null
+  . "$(dirname $(poetry run which python))/activate"
+}
+
 # unset display in wsl or vim will starup slow
 [[ $(uname -a) == *"Microsoft"* ]] && unset DISPLAY
 
@@ -308,7 +322,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-eval "$(direnv hook bash)"
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 clear && uptime
 

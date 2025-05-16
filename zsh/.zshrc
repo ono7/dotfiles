@@ -4,7 +4,6 @@
 # Disable flow control (Ctrl+S/Ctrl+Q) which can cause apparent input delays
 stty -ixon 2>/dev/null
 
-
 # export GPG_TTY=$(tty)
 export GPG_TTY="/dev/tty"
 
@@ -119,11 +118,6 @@ RESET='\033[0m'
 
 ############## Aliases ##############
 
-# fixes issue with poetry shell not activated propery.
-# https://github.com/python-poetry/poetry/issues/571
-## on .{bash,zsh,wtv}rc
-alias poetry_shell='. "$(dirname $(poetry run which python))/activate"'
-
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
@@ -172,6 +166,14 @@ if [[ -f ~/.zdirs ]]; then
 fi
 
 ############## Functions ##############
+
+# fixes issue with poetry shell not activated propery.
+# https://github.com/python-poetry/poetry/issues/571
+## on .{bash,zsh,wtv}rc
+poetry_shell () {
+  deactivate 2>/dev/null
+  . "$(dirname $(poetry run which python))/activate"
+}
 
 function d () {
   if [[ -n $1 ]]; then
@@ -426,7 +428,6 @@ function setup_keys() {
 
 bindkey "^R" fzf-history-widget
 
-
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
@@ -450,9 +451,7 @@ zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 # zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
 
-
 ############## Key bindings ##############
-
 
 ############## FZF configuration ##############
 
@@ -507,7 +506,6 @@ else
   echo "zoxide not installed..."
 fi
 
-
 # Important completion options
 setopt MENU_COMPLETE
 unsetopt LIST_AMBIGUOUS
@@ -523,10 +521,15 @@ setopt ALWAYS_TO_END
 
 ############## Load virtual environment if it exists ##############
 
-# [ -f ~/.virtualenvs/prod3/bin/activate ] && [ -n $VIRTUAL_ENV ] && . ~/.virtualenvs/prod3/bin/activate
-#
 if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
   source ~/.virtualenvs/prod3/bin/activate
+fi
+
+# Auto-detect and reactivate virtual environment in tmux
+if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
+  if [ -f "$VIRTUAL_ENV/bin/activate" ]; then
+    source "$VIRTUAL_ENV/bin/activate"
+  fi
 fi
 
 # [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
@@ -541,7 +544,6 @@ export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
 # remove control+t (fzf)
 bindkey -r '^T'
 
-
 if ! infocmp -l -x | grep Smulx &> /dev/null; then
   echo "building .... ${TERM}"
 
@@ -555,5 +557,4 @@ if ! infocmp -l -x | grep Smulx &> /dev/null; then
     echo "Undercurl support is now compiled and ready"
   fi
 fi
-
 
