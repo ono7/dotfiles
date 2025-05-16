@@ -86,7 +86,7 @@ return {
     vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#242438" })
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
-    vim.api.nvim_set_hl(0, "Folded", { link = "WinBar" })
+    vim.api.nvim_set_hl(0, "Folded", { link = "DiffDelete" })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2b3b55", bold = false })
     vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#000000", bold = false })

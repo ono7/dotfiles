@@ -40,7 +40,35 @@ vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldcolumn = "0"
-vim.opt.foldtext = ""
+-- vim.opt.foldtext = ""
+-- Keep your custom fold text
+-- vim.opt.foldtext =
+--   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+
+_G.better_fold_text = function()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local line_count = vim.v.foldend - vim.v.foldstart + 1
+  local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
+
+  -- Clean up the line but keep most of its content
+  line = line:gsub("^%s+", "")
+
+  -- Truncate if too long (adjust max length as needed)
+  local max_length = 60
+  local display_line = line
+  if #line > max_length then
+    display_line = line:sub(1, max_length) .. "..."
+  end
+
+  -- Add the line count in brackets
+  return indent .. "▶ " .. display_line .. " [" .. line_count .. " lines]"
+end
+
+vim.opt.foldtext = "v:lua.better_fold_text()"
+-- vim.opt.fillchars:append({ fold = " " })
+
+-- Clear the Folded highlight group completely
+vim.api.nvim_set_hl(0, "Folded", {})
 vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 2
 
