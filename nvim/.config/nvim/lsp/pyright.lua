@@ -1,21 +1,23 @@
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
-  root_markers = { "venv", "requirements.txt", "setup.py", ".git" },
-  -- on_attach is now handled outside of the config for individual servers. see vim.lsp.handlers
+  root_markers = { "pyrightconfig.json", "venv", "requirements.txt", "setup.py", ".git" },
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = false, -- Using Ruff
+      disableOrganizeImports = false,
     },
     python = {
       analysis = {
-        -- ignore = { "*" }, -- Using Ruff
         autoSearchPaths = true,
-        -- diagnosticMode = "openFilesOnly",
         useLibraryCodeForTypes = true,
-        -- typeCheckingMode = "off",
+        extraPaths = {}, -- Add any extra paths to your packages here
+        reportMissingImports = true,
+        reportMissingTypeStubs = false,
+        pythonVersion = "3.x",
+        typeCheckingMode = "basic",
       },
     },
   },
+  -- Make sure capabilities are set in your global LSP setup
 }
