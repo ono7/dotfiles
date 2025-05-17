@@ -173,6 +173,7 @@ fi
 poetry_shell () {
   deactivate 2>/dev/null
   . "$(dirname $(poetry run which python))/activate"
+  which python
 }
 
 function d () {
