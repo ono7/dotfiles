@@ -83,14 +83,14 @@ vim.api.nvim_create_autocmd("BufRead", {
 -- vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
 -- vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=co]] })
 
--- vim.api.nvim_create_autocmd("BufEnter", {
---   callback = function()
---     -- vim.opt.formatoptions:remove({ "c", "r", "o" })
---     vim.opt.formatoptions:remove({ "c", "o" })
---   end,
---   group = create_augroup("remove_format_options", { clear = true }),
---   desc = "Disable New Line Comment",
--- })
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    -- vim.opt.formatoptions:remove({ "c", "r", "o" })
+    vim.opt.formatoptions:remove({ "c", "o" })
+  end,
+  group = create_augroup("remove_format_options", { clear = true }),
+  desc = "Disable New Line Comment",
+})
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = { "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },

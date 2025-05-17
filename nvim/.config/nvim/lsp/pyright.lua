@@ -12,7 +12,7 @@ return {
       analysis = {
         -- ignore = { "*" }, -- Using Ruff
         autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
+        -- diagnosticMode = "openFilesOnly",
         useLibraryCodeForTypes = true,
         -- typeCheckingMode = "off",
       },

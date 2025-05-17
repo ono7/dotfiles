@@ -209,6 +209,7 @@ return {
         hidden = true,
         show_untracked = true,
         find_command = fd_command,
+        cwd = vim.fn.expand("%:p:h"), -- current file's working directory
         -- find_command = { "rg", "--files", "--sortr=modified" },
       }
       require("telescope.builtin").find_files(opts)

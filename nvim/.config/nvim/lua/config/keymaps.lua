@@ -63,6 +63,9 @@ vim.keymap.set("x", "L", ">gv", silent)
 -- Bind the function to a key mapping
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
 
+-- notes
+vim.keymap.set("n", "<leader>n", ":e ~/notes.md<cr>", silent)
+
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 vim.keymap.set("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
