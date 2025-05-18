@@ -28,18 +28,18 @@ return {
         },
       },
       -- organize imports
-      format_on_save = function(bufnr)
-        if vim.bo.filetype == "python" then
-          _ = bufnr
-          vim.lsp.buf.code_action({
-            context = {
-              only = { "source.organizeImports.ruff" },
-              diagnostics = {},
-            },
-            apply = true,
-          })
-        end
-      end,
+      -- format_on_save = function(bufnr)
+      --   if vim.bo.filetype == "python" then
+      --     _ = bufnr
+      --     vim.lsp.buf.code_action({
+      --       context = {
+      --         only = { "source.organizeImports.ruff" },
+      --         diagnostics = {},
+      --       },
+      --       apply = true,
+      --     })
+      --   end
+      -- end,
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then

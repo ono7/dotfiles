@@ -5,7 +5,8 @@ return {
   priority = 1000,
   config = function()
     local mycolors = {
-      white = "#d9e0ee",
+      white = "#E3DED7",
+      -- white = "#d9e0ee",
       darker_black = "#191828",
       black = "#1e1d2d", --  nvim bg
       black2 = "#252434",
@@ -85,7 +86,7 @@ return {
     vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
     vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#242438" })
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
-    vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1", bold = true })
+    vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "Folded", { fg = "#3E485A", italic = true })
     -- vim.api.nvim_set_hl(0, "Folded", { fg = mycolors.blue })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
@@ -100,7 +101,7 @@ return {
     vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ceeac8", bold = true })
     vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = mycolors.red, bold = true })
     vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#253d61" })
-    vim.api.nvim_set_hl(0, "@type", { fg = "#d9e0ee", bold = false })
+    vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
     vim.api.nvim_set_hl(0, "Visual", { bg = "#253d61" })
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#3A4057" })
     vim.api.nvim_set_hl(0, "Search", { bg = "#253d61" })
@@ -120,12 +121,12 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, bold = true })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true, bold = true })
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true, bold = true })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { undercurl = true, bold = true, italic = false })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { undercurl = true, bold = true })
 
-    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red, italic = false })
-    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow, italic = false })
-    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, italic = false })
-    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.blue, italic = false })
+    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red })
+    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow })
+    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue })
+    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.blue })
 
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#8CBBAD", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#fa5057", bold = true })
@@ -147,7 +148,7 @@ return {
     -- vim.api.nvim_set_hl(0, "@type.builtin", {})
     vim.api.nvim_set_hl(0, "ModeMsg", {})
     vim.api.nvim_set_hl(0, "Constant", {})
-    vim.api.nvim_set_hl(0, "Type", {})
+    -- vim.api.nvim_set_hl(0, "Type", {})
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", {})
     vim.api.nvim_set_hl(0, "@variable.member", {})
@@ -157,11 +158,11 @@ return {
     vim.api.nvim_set_hl(0, "@constructor", {})
     vim.api.nvim_set_hl(0, "@string.documentation", {})
     vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = mycolors.blue })
-    vim.api.nvim_set_hl(0, "Boolean", { italic = false })
-    vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.yellow2, bold = false, italic = false })
+    vim.api.nvim_set_hl(0, "Boolean", {})
+    vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.yellow2, bold = false })
     vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.yellow2, italic = true, bold = false })
     vim.api.nvim_set_hl(0, "@keyword.return", { fg = mycolors.yellow2, italic = true, bold = false })
-    vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.yellow2, bold = false, italic = false })
+    vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.yellow2, bold = false })
     vim.api.nvim_set_hl(0, "Include", { fg = mycolors.yellow2, bold = true })
     vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.yellow2, bold = false })
     vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.yellow2 })
