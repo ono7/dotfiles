@@ -72,14 +72,14 @@ vim.api.nvim_set_hl(0, "Folded", {})
 vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 2
 
--- Use a more reliable event and add a small delay
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  callback = function()
-    vim.defer_fn(function()
-      vim.cmd("normal! zR")
-    end, 10)
-  end,
-})
+-- -- Use a more reliable event and add a small delay
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--   callback = function()
+--     vim.defer_fn(function()
+--       vim.cmd("normal! zR")
+--     end, 10)
+--   end,
+-- })
 
 -- vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.g.markdown_folding = 1 -- enable markdown folding
