@@ -116,6 +116,9 @@ size = 25.0
 # family = "SFMono Nerd Font"
 # style = "Medium"
 
+# family = "Iosevka Custom"
+# style = "Semibold"
+
 family = "IosevkaTerm Nerd Font Mono"
 style = "SemiBold"
 
