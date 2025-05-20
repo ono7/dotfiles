@@ -11,6 +11,7 @@
 
 [tag]
   gpgsign = true
+  sort = -taggerdate
 
 [core]
   editor = nvim
@@ -42,11 +43,13 @@
 [pull]
 # requires git > 2.6
 # `git rebase –abort` when we need to reset the changes
+  default = current
   rebase = true
 
 [rebase]
   # Stash and pop uncommitted changes on rebase
   autostash = true
+  missingCommitCheck = warn
   autosquash = true
   updateRefs = true
 
@@ -62,7 +65,7 @@
   fsckobjects = true
 
 [branch]
-  sort = committerdate
+  sort = -committerdate
 
 [merge]
   tool = nvimdiff4
@@ -78,6 +81,9 @@
 
 [push]
   autoSetupRemote = true
+  default = current
+ # create tags automatically
+  followTags = true
 
   # push only the default branch
   default = simple
