@@ -17,7 +17,9 @@
   mergeoptions = --no-edit
 	pager = delta
   hookspath = ~/.git_global/hooks
-
+  compression = 9
+  whitespace = error
+  preloadindex = true
   # MONITOR FOR PERFORMANCE ISSUES....
   # check status: git fsmonitor--daemon status
 	untrackedCache = true

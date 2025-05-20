@@ -131,7 +131,7 @@ alias k='kubectl '
 # alias vl='vim -c \"normal '0\" -c "bn" -c \"bd\"'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 alias gd='git diff'
-alias gs='git status --untracked-files=all'
+alias gs='git status --untracked-files=all --short'
 alias tf='terraform'
 alias ssh='TERM=xterm-256color ssh '
 alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
