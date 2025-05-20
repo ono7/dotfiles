@@ -85,6 +85,9 @@
 [diff]
 	colorMoved = default
   algorithm = patience
+  context = 4
+  renames = copies
+  interHunkContext = 10
 
 [color]
   ui = auto
@@ -103,9 +106,12 @@
 
 [interactive]
 	diffFilter = delta --color-only
+  singleKey = true
 
 [status]
   # Show untracked files, directories and files in untracked directories
+  branch = true
+  showStash = true
   showUntrackedFiles = all
   submoduleSummary = true
 
