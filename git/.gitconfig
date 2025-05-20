@@ -86,7 +86,7 @@
   followTags = true
 
   # push only the default branch
-  default = simple
+  ; default = simple
 
 [diff]
 	colorMoved = default
