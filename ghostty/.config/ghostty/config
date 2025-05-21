@@ -6,10 +6,12 @@ background = 1b1f31
 foreground = b8c1e6
 
 # font settings
-font-family = SF Mono
-font-family-bold = SF Mono Heavy
-font-style = Medium
-font-size = 23
+# font-family = SF Mono
+# font-family-bold = SF Mono Heavy
+# font-style = Medium
+font-family = IosevkaTerm Nerd Font Mono
+font-style = SemiBold
+font-size = 26
 adjust-cell-height= 30%
 
 shell-integration-features = no-cursor,sudo,no-title
@@ -69,6 +71,7 @@ keybind = cmd+n=text:\x0e
 keybind = cmd+left_bracket=text:\x1b
 keybind = cmd+p=text:\x10
 keybind = cmd+r=text:\x12
+keybind = cmd+v=text:\x16
 keybind = cmd+x=text:\x18
 keybind = cmd+y=text:\x19
 keybind = cmd+z=text:\x1a

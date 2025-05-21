@@ -17,7 +17,6 @@
 ]]
 
 vim.loader.enable(true)
-
 vim.cmd([[syntax off]])
 
 if vim.opt.termguicolors then
