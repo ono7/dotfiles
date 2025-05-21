@@ -77,8 +77,11 @@ setopt autocd
 
 # History options
 # Disable immediate history sharing for better performance
-unsetopt SHARE_HISTORY
-unsetopt INC_APPEND_HISTORY
+# unsetopt SHARE_HISTORY
+# unsetopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
@@ -96,9 +99,6 @@ unsetopt LIST_AMBIGUOUS
 setopt AUTO_LIST
 setopt COMBINING_CHARS
 setopt PROMPT_SP
-
-# save only when shell exits
-unsetopt INC_APPEND_HISTORY
 
 unset zle_bracketed_paste
 
