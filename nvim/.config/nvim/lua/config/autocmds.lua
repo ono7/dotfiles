@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     vim.opt_local.spell = false
     vim.opt_local.wrap = true
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    -- vim.cmd('startinsert')
+    vim.cmd("startinsert")
   end,
 })
 
