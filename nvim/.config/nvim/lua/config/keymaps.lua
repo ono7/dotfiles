@@ -32,7 +32,6 @@ vim.keymap.set("i", "<M-e>", "<End>", silent)
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
--- replaces vim surround
 vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
@@ -57,8 +56,8 @@ vim.keymap.set("n", "gp", "`[v`]", silent)
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
 
-vim.keymap.set("x", "H", "<gv", silent)
-vim.keymap.set("x", "L", ">gv", silent)
+vim.keymap.set("x", "<", "<gv", silent)
+vim.keymap.set("x", ">", ">gv", silent)
 
 -- Bind the function to a key mapping
 vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
@@ -75,10 +74,6 @@ vim.keymap.set({ "n" }, "v", "<c-v>")
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
-
--- copy line
-vim.keymap.set("n", "<D-,>", "yyp", opt) -- Normal mode
-vim.keymap.set("i", "<D-,>", "<Esc>yyp`^i", opt)
 
 --- ex/command mode bindings
 vim.keymap.set("c", "<C-a>", "<Home>", opt)
@@ -101,10 +96,6 @@ vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
 --- when using J keep cursor to the right
 vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 
---- mapping tab also overrides c-i which is used to move through jump list
--- vim.keymap.set("n", "<Tab>", ":bnext<CR>", silent)
--- vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", silent)
-
 -- make dot work in visual mode
 vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
@@ -113,7 +104,6 @@ vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
 vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
-
 vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
 
 vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
@@ -156,9 +146,6 @@ end, { desc = "Toggle window maximize" })
 vim.keymap.set("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
-
--- delete word cmd+backspace
--- vim.keymap.set("t", "<D-BS>", "\x17", { noremap = true }) -- this works!
 vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
@@ -167,9 +154,6 @@ vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
-
--- vim.keymap.set("t", set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
--- vim.keymap.set("t", "<D-t>", [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", "<D-e>", [[<c-e>]], silent)
@@ -179,9 +163,6 @@ vim.keymap.set("t", "<D-p>", [[<c-p>]], silent)
 vim.keymap.set("t", "<D-n>", [[<c-n>]], silent)
 vim.keymap.set("t", "<D-r>", [[<c-r>]], silent)
 
---- size 8, belowright split, T in commands.lua
--- vim.keymap.set({ "n" }, set_keys.prefix("t"), ":T<CR>", silent)
--- vim.keymap.set({ "i" }, set_keys.prefix("t"), [[<c-\><c-n>:T<CR>]], silent)
 vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", silent)
 vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
 
@@ -212,10 +193,7 @@ local function clean_space_save()
   -- this is now handled by conform.nvim
 end
 
--- delete word
--- vim.keymap.set("i", set_keys.prefix("BS"), "\x17", { noremap = true })
 vim.keymap.set("i", "<M-BS>", "\x17", { noremap = true })
-
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
 vim.keymap.set("n", "<leader>%", function()
@@ -247,8 +225,6 @@ vim.keymap.set("n", "<leader>w", function()
   vim.cmd([[:write ++p]])
   vim.fn.setpos(".", save_cursor)
 end, silent)
-
---- k("n", "<leader>t", [[:silent !tmux send-keys -t 2 c-p Enter<cr>]], silent)
 
 vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
 

@@ -4,20 +4,8 @@ vim.g.maplocalleader = " "
 vim.opt.path:append({ "**" })
 vim.opt.shell = "zsh"
 
--- vim.opt.shada = "'20,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
--- Change this line to remember more files
 vim.opt.shada = "'50,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
--- local function branch_name()
---   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
---   if branch ~= "" then
---     return branch
---   else
---     return ""
---   end
--- end
---
--- vim.opt.winbar = "%=%-.75F %-m {%{get(b:, 'branch_name', '')}}"
 vim.opt.winbar = "%=%-.75F %-m"
 
 vim.opt.fsync = false
@@ -42,10 +30,6 @@ vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldcolumn = "0"
--- vim.opt.foldtext = ""
--- Keep your custom fold text
--- vim.opt.foldtext =
---   [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 
 _G.better_fold_text = function()
   local line = vim.fn.getline(vim.v.foldstart)
@@ -71,24 +55,11 @@ vim.opt.foldtext = "v:lua.better_fold_text()"
 
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
-vim.opt.foldlevelstart = 99
+vim.opt.foldlevelstart = 2
 vim.opt.foldnestmax = 2
-
--- -- Use a more reliable event and add a small delay
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---   callback = function()
---     vim.defer_fn(function()
---       vim.cmd("normal! zR")
---     end, 10)
---   end,
--- })
-
--- vim.opt.foldopen = "hor,mark,percent,quickfix,search,tag,undo" -- removed 'block'
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
--- Add asterisks in block comments
--- vim.opt.formatoptions:append({ "r" })
 vim.opt.formatoptions = "c1lqjr"
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
@@ -96,6 +67,8 @@ vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
+vim.opt.smartcase = true
+-- vim.opt.inccommand = "nosplit"
 vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
@@ -103,11 +76,9 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 vim.opt.jumpoptions:append({ "view", "stack" })
 
--- vim.opt.laststatus = 3
 vim.opt.laststatus = 0
--- vim.opt.cmdheight = 0
 vim.opt.ruler = true
-vim.opt.showcmd = false -- this may be slow
+vim.opt.showcmd = false
 vim.opt.showmode = true
 
 vim.cmd([[
@@ -138,7 +109,6 @@ vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 5
 vim.opt.scrolloff = 5
 vim.opt.sidescroll = 3
-vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -159,10 +129,7 @@ vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = "%t"
 vim.opt.ttimeout = true -- disable for indefinite wait time
-
---- needs to be 50 wsl will hang on exit
 vim.opt.ttimeoutlen = 50
-
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
@@ -174,6 +141,7 @@ vim.opt.wildignore = {
   "**/.idea/**",
   "**/.git/**",
   "**/.nuxt/**",
+  "**/.cache/**",
   "**/.collections/**",
   ".tags",
   "tags",
@@ -182,24 +150,11 @@ vim.opt.wildignore = {
 
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
-vim.opt.sessionoptions:remove({ "buffers", "folds" })
-
+-- vim.opt.sessionoptions:remove({ "buffers", "folds" })
 vim.opt.wrap = true
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
 vim.opt.lazyredraw = true
-
-vim.g.floating_window_border = {
-  "╭",
-  "─",
-  "╮",
-  "│",
-  "╯",
-  "─",
-  "╰",
-  "│",
-}
-
 vim.g.markdown_fold_style = "nested"
 
 vim.g.loaded_netwr = 1
