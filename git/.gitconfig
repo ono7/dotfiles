@@ -131,34 +131,42 @@ follow = true
     side-by-side = true
     line-numbers = true
     dark = true
-    blame-palette = "#24273a #1e2030 #181926 #363a4f #494d64"
+    blame-palette = "#1D2433 #2D3343 #3E485A #364156 #424B5D"
     commit-decoration-style = none
     file-decoration-style = none
-    file-style = "#cad3f5"
+    file-style = "#E3DED7"
     hunk-header-decoration-style = none
     hunk-header-file-style = bold
-    hunk-header-line-number-style = bold "#a5adcb"
+    hunk-header-line-number-style = bold "#A6B0C3"
     hunk-header-style = file line-number syntax
-    line-numbers-left-style = "#6e738d"
-    line-numbers-minus-style = "#995a65"
-    line-numbers-plus-style = "#5a7a54"
-    line-numbers-right-style = "#6e738d"
-    line-numbers-zero-style = "#6e738d"
-    minus-emph-style = bold "#563f51"
-    minus-style = "#ed8796"
-    plus-emph-style = bold "#455450"
-    plus-style = "#a6da95"
-    map-styles = \
-        bold purple => "#4d4569", \
-        bold blue => "#3e4868", \
-        bold cyan => "#3f5364", \
-        bold yellow => "#575253"
-    # Compact settings
-    # side-by-side-width = 80
-    # wrap-max-lines = 80
-    # max-line-length = 80
+    
+    # Standard line number styling
+    line-numbers-left-style = "#8087a2"
+    line-numbers-right-style = "#8087a2"
+    line-numbers-zero-style = "#8087a2"
+    
+    # Much brighter line numbers for deleted/added lines
+    line-numbers-minus-style = "#FF9999"
+    line-numbers-plus-style = "#99FF99"
+    
+    # Subtle coloring for added/deleted lines, but not too prominent
+    minus-style = "#D5AFAF"
+    plus-style = "#A2CFBF"
+    
+    # Yellow background with black text ONLY for changed parts
+    minus-emph-style = "#000000 #D4B97E"
+    plus-emph-style = "#000000 #D4B97E"
+    
+    # Increase word diff detection to catch more changes
+    word-diff-regex = "[^[:space:]]+"
+    
+    whitespace-error-style = "#D4B97E" reverse
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"
-    whitespace-error-style = "#ff5555" reverse
+    map-styles = \
+        bold purple => "#3E3A47", \
+        bold blue => "#344054", \
+        bold cyan => "#394A49", \
+        bold yellow => "#4A4335"
 [rerere]
 	enabled = true
