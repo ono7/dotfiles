@@ -1,12 +1,12 @@
 local create_augroup = vim.api.nvim_create_augroup
 
---- updates shada so that recent files can be used by Telescope oldfiles
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
-  callback = function()
-    vim.cmd("wshada")
-  end,
-  group = create_augroup("highlight_yanked_text", { clear = true }),
-})
+-- --- updates shada so that recent files can be used by Telescope oldfiles
+-- vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+--   callback = function()
+--     vim.cmd("wshada")
+--   end,
+--   group = create_augroup("highlight_yanked_text", { clear = true }),
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",

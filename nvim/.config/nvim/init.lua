@@ -39,14 +39,14 @@ require("config.diff-settings")
 require("config.vars")
 require("config.helper-functions")
 require("config.lazy")
-require("utils.runner").setup() -- runs anything :M <cmd> :)
+-- require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.change-path").setup() -- :Cd (toggle root dir and cwd)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.lsp").setup()
-require("utils.help-lookup").setup()
+-- require("utils.help-lookup").setup()
 
 vim.opt.mouse = "a"
 
@@ -54,11 +54,11 @@ vim.opt.mouse = "a"
 vim.opt.guicursor = ""
 
 -- require("old_plugins.jira-base")
-require("jira.jira")
-require("jira.jira-move")
-require("jira.jira-fetch-issues")
-require("jira.jira-fetch-issues-empty")
-require("jira.jira-clone").setup()
+-- require("jira.jira")
+-- require("jira.jira-move")
+-- require("jira.jira-fetch-issues")
+-- require("jira.jira-fetch-issues-empty")
+-- require("jira.jira-clone").setup()
 
 -- vim.opt.completeopt = { "menu" }
 
