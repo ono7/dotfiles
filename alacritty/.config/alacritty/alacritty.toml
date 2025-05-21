@@ -1,10 +1,4 @@
-# catppuccin
-# foreground = "#b6bed9"
-# background = "#24273a"
-
 [general]
-
-# foreground = "#b6bed9"
 
 # import = ["./cappuccine-mocha.toml"]
 
@@ -46,7 +40,6 @@ foreground = "#24273a"
 background = "#a5adcb"
 
 [colors.selection]
-# text = "#24273a"
 background = "#364156"
 
 [colors.normal]
@@ -82,17 +75,6 @@ color = "#A6B0C3"  # Soft muted periwinkle
 osc52 = "OnlyCopy"
 
 [cursor]
-# blink_interval = 500
-# blink_timeout = 0
-# unfocused_hollow = true
-# block_replace_shape = "underline"
-
-# [cursor.style]
-# blinking = "Never"
-# shape = "Block"
-
-# [colors]
-# draw_bold_text_with_bright_colors = false
 
 [debug]
 log_level = "Off"
@@ -112,12 +94,6 @@ TERM = "alacritty"
 size = 25.0
 
 [font.normal]
-# family = "SF Mono"
-# family = "SFMono Nerd Font"
-# style = "Medium"
-
-# family = "Iosevka Custom"
-# style = "Semibold"
 
 family = "IosevkaTerm Nerd Font Mono"
 style = "SemiBold"
@@ -130,9 +106,6 @@ style = "SemiBold Oblique"
 family = "IosevkaTerm Nerd Font Mono"
 style = "Bold"
 
-# family = "FiraMono Nerd Font Mono"
-# style = "Medium"
-
 [font.glyph_offset]
 x = 0
 y = 0
@@ -143,7 +116,6 @@ y = 16
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 
-# keymaps
 [keyboard]
 bindings = [
 {  key  =  "-",         mods  =  "Command",        action  =  "DecreaseFontSize"   },
@@ -193,11 +165,6 @@ bindings = [
 {  key  =  "W",         mods  =  "command|Shift",  action  =  "Quit"               },
 {  key  =  "X",         mods  =  "Command",        chars   =  "\u0018"             },
 {  key  =  "Z",         mods  =  "Command",        chars   =  "\u001A"             },
-# sends alt-w when pressing cmd+w
-# \u001b = alt, add w to the end
-# { key = "W", mods = "Command", chars = "\u001bw"                                   },
-# { key = "T", mods = "Command", chars = "\u001bt"                                   },
-## {  key  =  "W",         mods  =  "Command",        action   =  "ReceiveChar"       }, # passthrough cmd+w
 {  key  =  "1",         mods  =  "Command",        action  =  "SelectTab1"},
 {  key  =  "2",         mods  =  "Command",        action  =  "SelectTab2"},
 {  key  =  "3",         mods  =  "Command",        action  =  "SelectTab3"},
