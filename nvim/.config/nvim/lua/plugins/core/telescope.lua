@@ -252,10 +252,15 @@ return {
     vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
-    -- see picker options
+    --- this does what I expected
     k("n", "<M-r>", function()
       require("telescope.builtin").oldfiles({
         cwd_only = false,
+        file_ignore_patterns = { "COMMIT_EDITMSG$" },
+        hidden = true,
+        no_ignore = true,
+        sort_mru = true, -- Most recently used first
+        sorting_strategy = "ascending",
       })
     end)
 
