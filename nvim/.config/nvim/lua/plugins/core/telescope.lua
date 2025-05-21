@@ -254,7 +254,9 @@ return {
 
     -- see picker options
     k("n", "<M-r>", function()
-      require("telescope.builtin").oldfiles({})
+      require("telescope.builtin").oldfiles({
+        cwd_only = false,
+      })
     end)
 
     telescope.load_extension("ui-select")

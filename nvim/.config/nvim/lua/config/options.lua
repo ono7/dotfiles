@@ -4,7 +4,9 @@ vim.g.maplocalleader = " "
 vim.opt.path:append({ "**" })
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'20,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
+-- vim.opt.shada = "'20,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
+-- Change this line to remember more files
+vim.opt.shada = "'1000,<1000,s100,:100,/100,h,r~/COMMIT_EDITMSG"
 
 -- local function branch_name()
 --   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
