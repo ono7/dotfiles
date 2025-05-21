@@ -58,7 +58,7 @@ extract () {
 gp () {
   printf '\n********* %s ********\n\n' "checking for updates"
   git pull
-  printf '\n********* %s ********\n\n' "pushing changes"
+  printf '\n********* %s ********\n\n' "pushing pending changes"
   git push
   if [ ! -z $PROJECT_ID ]; then
     printf '\n********* %s ********\n\n' "upgating project..."
