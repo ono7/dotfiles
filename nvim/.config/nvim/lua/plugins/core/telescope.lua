@@ -109,19 +109,28 @@ return {
         file_ignore_patterns = { "node_modules", "package-lock.json", ".git" },
         path_display = function(opts, path)
           local tail = require("telescope.utils").path_tail(path)
-          path = string.format(" %s (%s)", tail, path) -- need extra space for iosevka/kitty icons are too large
+
+          -- Replace home directory with ~/ for cleaner display
+          local home = os.getenv("HOME")
+          local display_path = path
+          if home and path:sub(1, #home) == home then
+            display_path = "~" .. path:sub(#home + 1)
+          end
+
+          -- Format with cleaned path
+          local formatted = string.format(" %s (%s)", tail, display_path)
 
           local highlights = {
             {
               {
                 #tail + 2, -- highlight start position +2 = (path = string.format)
-                #tail + #path + 2, -- highlight end position
+                #tail + #formatted, -- highlight end position adjusted for new path
               },
               "Pmenu", -- highlight group name
             },
           }
 
-          return path, highlights
+          return formatted, highlights
         end,
         -- Add the extra space between icon and path using the entry formatter
         preview = false,
@@ -210,7 +219,6 @@ return {
         show_untracked = true,
         find_command = fd_command,
         cwd = vim.fn.expand("%:p:h"), -- current file's working directory
-        -- find_command = { "rg", "--files", "--sortr=modified" },
       }
       require("telescope.builtin").find_files(opts)
     end, opt)
@@ -232,14 +240,6 @@ return {
         return builtin.git_files({
           previewer = false,
           show_untracked = true,
-          -- find_command = {
-          --   "fd",
-          --   "--type",
-          --   "f",
-          --   "--strip-cwd-prefix"
-          -- },
-          -- prompt_title = "Project files (git)",
-          -- cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
         })
       else
         print("cwd not a git project")
