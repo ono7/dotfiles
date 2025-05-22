@@ -1,244 +1,232 @@
-# palette = "catppuccin_macchiato"
-add_newline = true
-palette = "catppuccin_mocha"
+# Starship configuration - Elegant rounded style matching your Alacritty colors
+# Save this as ~/.config/starship.toml
 
-right_format="""
-"""
-# $python $git_branch"""
-command_timeout = 500
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$rust\
+$golang\
+$php\
+$python\
+$docker_context\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
 
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+# OS Symbol - subtle, no background
+[os]
+style = "fg:#8CA7BE"
+disabled = false
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# Username - clean, minimal
+[username]
+show_always = false
+style_user = "fg:#D4B97E"
+style_root = "fg:#C49A9A bold"
+format = "[$user]($style)[@](fg:#8087a2)"
+
+# Hostname - only when SSH
 [hostname]
 ssh_only = true
-ssh_symbol = '🌏'
-format = '[$ssh_symbol](bold blue) [$hostname](bold red) '
-disabled = false
+style = "fg:#8CA7BE"
+format = "[$hostname]($style) "
 
-[palettes.catppuccin_mocha]
-red = "#C49A9A"
-green = "#8CBBAD"
-yellow = "#D4B97E"
-blue = "#8CA7BE"
-
-pink = "#B097B6"        # Using your magenta
-mauve = "#B097B6"       # Also using magenta for mauve
-maroon = "#C49A9A"      # A variation of your red
-peach = "#D4B97E"       # Using your yellow as peach
-teal = "#93B5B3"        # Using your cyan
-sky = "#93B5B3"         # Also using cyan for sky
-sapphire = "#8CA7BE"    # A variation of your blue
-lavender = "#B097B6"    # Another use of your magenta
-
-text = "#C9C2B8"        # Your white/cream
-subtext1 = "#BAB3A9"    # Slightly darker than your cream
-subtext0 = "#ABA49A"    # Even darker shade
-
-overlay2 = "#9C958B"    # Derived from your white/cream
-overlay1 = "#8D867C"    # Darker
-overlay0 = "#7E776D"    # Even darker
-
-surface2 = "#424B5E"    # Lighter than your black
-surface1 = "#384051"    # Between your black and surface2
-surface0 = "#2D3343"    # Your black
-
-base = "#252A36"        # Darker than your black
-mantle = "#1E222B"      # Even darker
-crust = "#171A21"       # Darkest
-
-rosewater = "#C9B8B8"   # Lighter version of your red
-flamingo = "#C4A4A4"    # Between your red and rosewater
-
-# Replace the "❯" symbol in the prompt with "➜"
-[character]                            # The name of the module we are configuring is "character"
-success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-# error_symbol = "[➜](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = "[🤮 ](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-
-# 🥷🏻
-# success_symbol = "[🥷](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-# success_symbol = "[🐇](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-# success_symbol = "[➢ ](bold blue)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-# error_symbol = "[🤮 ](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-
-[cmd_duration]
-min_time = 1_000
-
-# Disable the package module, hiding it from the prompt completely
-# [package]
-# disabled = true
-
+# Directory - with elegant icon
 [directory]
-# truncate_length = how many directories deep before path is truncated
-truncation_length = 2
-truncate_to_repo = false
-# format = "[$path]($style)[$lock_symbol]($lock_style) "
-format = "[$path]($style)[$read_only]($read_only_style) "
-style ="sky bold"
+style = "fg:#E3DED7 bold"
+format = "[  $path]($style) "
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 󰌾"
+read_only_style = "fg:#C49A9A"
 
-# [memory_usage]
-# format = '\[$symbol[$ram( | $swap)]($style)\]'
+[directory.substitutions]
+"Documents" = "󰈙 Docs"
+"Downloads" = "  Downloads"
+"Music" = "󰝚 Music"
+"Pictures" = "  Pictures"
+"Developer" = "󰲋 Dev"
+"~" = "󰋜 ~"
 
+# Git Branch - clean and minimal
 [git_branch]
-# # symbol = "[ ](blue)"
-# # symbol = "[ ](blue)"
-# # symbol = "[ ](blue)"
-# # 󰽜  
-symbol = "[  ](bright white)"
-format = '[$symbol$branch]($style)'
+symbol = ""
+style = "fg:#8CBBAD"
+format = "[on $symbol$branch]($style)"
 
+# Git Status - clean indicators
 [git_status]
-# up_to_date = "[✓](bold green)"
-stashed = ""
-ahead = "[⇡](blue)${count}"
-# staged = '[++\($count\)](green)'
-staged = '[++\($count\)](green)'
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "[⇣](blue)${count}"
-format = '([$all_status$ahead_behind]($style)) '
+style = "fg:#C49A9A"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = "⚡"
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+up_to_date = ""
+untracked = "?${count} "
+stashed = "📦"
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
 
-[git_commit]
-commit_hash_length = 8
-style = "bold white"
-
-[golang]
-symbol = "[](cyan)"
-format = '[$symbol]($style) Go '
-disabled = true
-
-# [python]
-# symbol = "[](green)"
-# format = '[${symbol}${pyenv_prefix} (${virtualenv})]($style) '
-
-[python]
-format = '[${pyenv_prefix}(${virtualenv})]($style) '
-
-# [lua]
-# disabled = true
-# symbol = "[ ](blue)"
-
-
-# [custom.tmux]
-# symbol = "🐇()"
-# when = "[ ! -z $TMUX ]"
-# format = '        [${symbol}]($style) '
-
-[time]
-disabled = true
-style = "bold bright-black"
-format = "[$time]($style)"
-
-[bun]
-format = " [$symbol]($style)"
-
-[buf]
-format = " [$symbol]($style)"
-
-[cmake]
-format = " [$symbol]($style)"
-
-[cobol]
-format = " [$symbol]($style)"
-
-[crystal]
-format = " [$symbol]($style)"
-
-[daml]
-format = " [$symbol]($style)"
-
-[dart]
-format = " [$symbol]($style)"
-
-[deno]
-format = " [$symbol]($style)"
-
-[dotnet]
-format = "[$symbol(🎯 $tfm )]($style)"
-
-[elixir]
-format = ' [$symbol]($style)'
-
-[elm]
-format = ' [$symbol]($style)'
-
-[erlang]
-format = ' [$symbol]($style)'
-
-[fennel]
-format = ' [$symbol]($style)'
-
-[gradle]
-format = ' [$symbol]($style)'
-
-[haxe]
-format = ' [$symbol]($style)'
-
-[helm]
-format = ' [$symbol]($style)'
-
-[java]
-format = ' [$symbol]($style)'
-
-[julia]
-format = ' [$symbol]($style)'
-
-[kotlin]
-format = ' [$symbol]($style)'
-
-[lua]
-format = ' [$symbol]($style)'
-
-[meson]
-format = ' [$symbol]($style)'
-
-[nim]
-format = ' [$symbol]($style)'
-
+# Language/Tool Indicators - floating style
 [nodejs]
-format = ' [$symbol]($style)'
-
-[ocaml]
-format = ' [$symbol(\($switch_indicator$switch_name\) )]($style)'
-
-[opa]
-format = ' [$symbol]($style)'
-
-[perl]
-format = ' [$symbol]($style)'
-
-[php]
-format = ' [$symbol]($style)'
-
-[pulumi]
-format = ' [$symbol$stack]($style)'
-
-[purescript]
-format = ' [$symbol]($style)'
-
-[raku]
-format = ' [$symbol]($style)'
-
-[red]
-format = ' [$symbol]($style)'
-
-[rlang]
-format = ' [$symbol]($style)'
-
-[ruby]
-format = ' [$symbol]($style)'
+symbol = " "
+style = "fg:#8CBBAD"
+format = "[( $symbol$version )]($style)"
 
 [rust]
-format = ' [$symbol]($style)'
+symbol = " "
+style = "fg:#C49A9A"
+format = "[( $symbol$version )]($style)"
 
-[solidity]
-format = ' [$symbol]($style)'
+[golang]
+symbol = " "
+style = "fg:#93B5B3"
+format = "[( $symbol$version )]($style)"
 
-[swift]
-format = ' [$symbol]($style)'
+[php]
+symbol = " "
+style = "fg:#B097B6"
+format = "[( $symbol$version )]($style)"
 
-[vagrant]
-format = ' [$symbol]($style)'
+[python]
+symbol = " "
+style = "fg:#D4B97E"
+format = "[( $symbol$version )]($style)"
 
-[vlang]
-format = ' [$symbol]($style)'
+[docker_context]
+symbol = " "
+style = "fg:#8CA7BE"
+format = "[( $symbol$context )]($style)"
 
-[zig]
-format = ' [$symbol]($style)'
+# Package version - subtle
+[package]
+style = "fg:#C9C2B8"
+format = "[(📦 $version )]($style)"
+
+# Command duration - only show if > 2 seconds
+[cmd_duration]
+min_time = 2000
+style = "fg:#8087a2 italic"
+format = "[( $duration )]($style)"
+
+# Line break
+[line_break]
+disabled = false
+
+# Character - elegant arrows
+[character]
+disabled = false
+success_symbol = "[╰─❯](bold fg:#8CBBAD)"
+error_symbol = "[╰─❯](bold fg:#C49A9A)"
+vimcmd_symbol = "[╰─⦿](bold fg:#D4B97E)"
+vimcmd_replace_one_symbol = "[╰─⦿](bold fg:#B097B6)"
+vimcmd_replace_symbol = "[╰─⦿](bold fg:#B097B6)"
+vimcmd_visual_symbol = "[╰─⦿](bold fg:#93B5B3)"
+
+# Time - only show on right side if needed
+[time]
+disabled = true
+time_format = "%R"
+style = "fg:#8087a2"
+format = "[🕐 $time]($style)"
+
+# Battery - clean indicators
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 30
+style = "bold fg:#C49A9A"
+
+[[battery.display]]
+threshold = 60
+style = "fg:#D4B97E"
+
+[[battery.display]]
+threshold = 100
+style = "fg:#8CBBAD"
+
+# Status - minimal error display
+[status]
+style = "fg:#C49A9A"
+symbol = "✗"
+success_symbol = ""
+format = "[$symbol$int]($style) "
+map_symbol = true
+disabled = false
+
+# Cloud services - subtle when present
+[aws]
+symbol = "☁️  "
+style = "fg:#D4B97E"
+format = "[($symbol$profile )]($style)"
+
+[azure]
+disabled = false
+format = "[($symbol$subscription )]($style)"
+symbol = "☁️  "
+style = "fg:#8CA7BE"
+
+[gcloud]
+symbol = "☁️  "
+style = "fg:#C49A9A"
+format = "[($symbol$project )]($style)"
+
+# Kubernetes - when relevant
+[kubernetes]
+symbol = "⛵ "
+style = "fg:#93B5B3"
+format = "[($symbol$context )]($style)"
+disabled = false
+
+# Memory usage - minimal
+[memory]
+disabled = false
+threshold = 75
+symbol = "🧠 "
+style = "fg:#B097B6"
+format = "[($symbol${ram_pct} )]($style)"
+
+# Jobs indicator
+[jobs]
+symbol = "⚙️ "
+style = "fg:#D4B97E"
+number_threshold = 1
+format = "[$symbol$number]($style) "
