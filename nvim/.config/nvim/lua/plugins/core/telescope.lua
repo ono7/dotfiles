@@ -213,7 +213,17 @@ return {
     end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore
-    k({ "n", "x" }, "<M-f>", function()
+    -- k({ "n", "x" }, "<M-f>", function()
+    --   local opts = {
+    --     hidden = true,
+    --     show_untracked = true,
+    --     find_command = fd_command,
+    --     cwd = vim.fn.expand("%:p:h"), -- current file's working directory
+    --   }
+    --   require("telescope.builtin").find_files(opts)
+    -- end, opt)
+
+    k({ "n", "x" }, "<C-f>", function()
       local opts = {
         hidden = true,
         show_untracked = true,
@@ -250,6 +260,8 @@ return {
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
     vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
+
+    vim.keymap.set({ "n" }, "<M-f>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     --- this does what I expected
