@@ -216,14 +216,6 @@ style = "fg:#93B5B3"
 format = "[($symbol$context )]($style)"
 disabled = false
 
-# Memory usage - minimal
-[memory]
-disabled = false
-threshold = 75
-symbol = "🧠 "
-style = "fg:#B097B6"
-format = "[($symbol${ram_pct} )]($style)"
-
 # Jobs indicator
 [jobs]
 symbol = "⚙️ "
