@@ -62,12 +62,12 @@ ssh_only = true
 style = "fg:#8CA7BE"
 format = "[$hostname]($style) "
 
-# Directory - with elegant icon
 [directory]
 style = "fg:#E3DED7 bold"
 format = "[  $path]($style) "
-truncation_length = 3
+truncation_length = 5
 truncation_symbol = "…/"
+fish_style_pwd_dir_length = 1  # Show first char of truncated dirs
 read_only = " 󰌾"
 read_only_style = "fg:#C49A9A"
 
