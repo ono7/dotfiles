@@ -265,7 +265,7 @@ return {
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
     --- this does what I expected
-    k("n", "<M-r>", function()
+    k("n", "<C-r>", function()
       require("telescope.builtin").oldfiles({
         cwd_only = false,
         file_ignore_patterns = { "COMMIT_EDITMSG$" },

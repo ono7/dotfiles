@@ -4,7 +4,7 @@ vim.g.maplocalleader = " "
 vim.opt.path:append({ "**" })
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'50,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
+vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 vim.opt.winbar = "%=%-.75F %-m"
 

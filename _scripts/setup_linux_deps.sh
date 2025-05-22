@@ -33,7 +33,7 @@ sudo apt install python3.11 -y
 if type snap &>/dev/null; then
   log "installing snap packages"
   sudo snap install go --classic
-  sudo snap install universal-ctags
+  sudo snap install universal-ctags btop
   sudo snap install --edge starship
 fi
 
