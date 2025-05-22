@@ -9,9 +9,16 @@ snippet h "header" b
   """
   ${0}
 
-snippet debug "removed debug" b
+snippet db "removed debug" b
   from remote_pdb import RemotePdb
   RemotePdb('0.0.0.0', 4444).set_trace()
+
+snippet de "removed debug" b
+  try:
+    ${0:${VISUAL}}
+  except:
+    from remote_pdb import RemotePdb
+    RemotePdb('0.0.0.0', 4444).set_trace()
 
 snippet dl "debug" b
   import pdb;pdb.set_trace()
