@@ -491,14 +491,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-############## Starship prompt ##############
-
-if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
-else
-  echo "starship not installed"
-fi
-
 ############## Zoxide ##############
 
 if command -v zoxide &>/dev/null; then
@@ -557,5 +549,14 @@ if ! infocmp -l -x | grep Smulx &> /dev/null; then
   if infocmp -l -x | grep Smulx &> /dev/null; then
     echo "Undercurl support is now compiled and ready"
   fi
+fi
+
+
+############## Starship prompt ##############
+
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  echo "starship not installed"
 fi
 

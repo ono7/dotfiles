@@ -65,15 +65,16 @@ format = "[$hostname]($style) "
 [directory]
 style = "fg:#E3DED7 bold"
 format = "[  $path]($style) "
-truncation_length = 5
-truncation_symbol = "…/"
-fish_style_pwd_dir_length = 1  # Show first char of truncated dirs
+truncation_length = 3  # Show 3 full levels, abbreviate the rest
+truncate_to_repo = false
+truncation_symbol = '…/'
+fish_style_pwd_dir_length = 1  # Show only first character of each truncated dir
 read_only = " 󰌾"
 read_only_style = "fg:#C49A9A"
 
 [directory.substitutions]
 "Documents" = "󰈙 Docs"
-"Downloads" = "  Downloads"
+"Downloads" = "󰈙 Downloads"
 "Music" = "󰝚 Music"
 "Pictures" = "  Pictures"
 "Developer" = "󰲋 Dev"
