@@ -1,11 +1,12 @@
-from IPython.terminal.prompts import Prompts, Token  # noqa: F401
 import IPython.terminal.prompts as prompts  # noqa: F401
+from IPython.terminal.prompts import Prompts, Token  # noqa: F401
 
 c = get_config()  # noqa: F821
 
 # Set colors for better visibility on dark background
 c.TerminalInteractiveShell.colors = "Linux"  # This gives a good dark-background preset
 c.TerminalInteractiveShell.true_color = True
+c.TerminalInteractiveShell.editing_mode = "vi"
 
 # If you need more customization, you can set specific colors:
 c.colors_linux = {

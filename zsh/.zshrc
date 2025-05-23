@@ -36,7 +36,7 @@ export MANWIDTH=999
 
 # OS-specific settings (only run what's needed)
 if [[ $OSTYPE == "linux-gnu"* ]]; then
-  export DISPLAY=:0.0
+   export TERSTRSTRSTST=0
 elif [[ $OSTYPE == "darwin"* ]]; then
   # Only run these settings if they haven't been set before
   # Create a sentinel file and check for its existence

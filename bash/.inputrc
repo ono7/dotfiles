@@ -1,5 +1,7 @@
 set show-mode-in-prompt on
 # set keyseq-timeout 100
+set editing-mode vi
+# set keymap vi
 
 set input-meta on
 set output-meta on
