@@ -5,7 +5,8 @@ return {
   config = function()
     require("tiny-inline-diagnostic").setup({
       preset = "classic",
-      transparent_bg = true, -- Set
+      transparent_bg = false, -- Set
+      transparent_cursorline = true,
       hi = {
         error = "DiagnosticError", -- Highlight group for error messages
         warn = "DiagnosticWarn", -- Highlight group for warning messages
@@ -15,7 +16,7 @@ return {
 
         -- Background color for diagnostics
         -- Can be a highlight group or a hexadecimal color (#RRGGBB)
-        background = "CursorLine",
+        background = "LineNr",
 
         -- Color blending option for the diagnostic background
         -- Use "None" or a hexadecimal color (#RRGGBB) to blend with another color

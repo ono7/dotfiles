@@ -55,8 +55,8 @@ vim.opt.foldtext = "v:lua.better_fold_text()"
 
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
-vim.opt.foldlevelstart = 2
-vim.opt.foldnestmax = 2
+vim.opt.foldlevelstart = 99
+vim.opt.foldnestmax = 3
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
@@ -101,11 +101,13 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = true
+vim.opt.complete = ".,w,b"
 -- vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
 vim.opt.showmatch = false
 vim.opt.showtabline = 0
+vim.opt.scrollback = 1000
 vim.opt.sidescrolloff = 5
 vim.opt.scrolloff = 5
 vim.opt.sidescroll = 3
@@ -133,7 +135,7 @@ vim.opt.ttimeoutlen = 50
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
-vim.opt.updatetime = 200
+vim.opt.updatetime = 300
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 vim.opt.wildignore = {
   "**/node_modules/**",
@@ -151,7 +153,7 @@ vim.opt.wildignore = {
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
 -- vim.opt.sessionoptions:remove({ "buffers", "folds" })
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
 vim.opt.lazyredraw = true

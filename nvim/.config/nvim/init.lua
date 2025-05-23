@@ -66,7 +66,8 @@ vim.opt.guicursor = ""
 vim.opt.completeopt = { "menu", "menuone" }
 
 -- . = this buffer, w = from other windows, b = other loaded buffers
-vim.opt.complete = { ".", "w", "b", "u" }
+-- vim.opt.complete = { ".", "w", "b", "u" }
+vim.opt.complete = { ".", "w", "b" }
 
 local function smart_completion()
   if vim.fn.pumvisible() == 1 then

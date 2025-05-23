@@ -6,7 +6,6 @@ return {
   config = function()
     local mycolors = {
       white = "#E3DED7",
-      -- white = "#d9e0ee",
       darker_black = "#191828",
       black = "#1e1d2d", --  nvim bg
       black2 = "#252434",
@@ -17,38 +16,38 @@ return {
       grey_fg = "#4e4d5d",
       grey_fg2 = "#555464",
       light_grey = "#605f6f",
-      -- red = mycolors.red,
-      red = "#C49A9A",
-      baby_pink = "#ffa5c3",
+      -- Updated to match Alacritty colors exactly
+      red = "#C49A9A", -- Muted dusty rose
+      baby_pink = "#D5AFAF", -- Lighter dusty rose (from bright.red)
       pink = "#f5c2e7",
       line = "#383747", -- for lines like vertsplit
-      green = "#abe9b3",
-      vibrant_green = "#b6f4be",
+      green = "#8CBBAD", -- Soft sage green
+      vibrant_green = "#A2CFBF", -- Lighter sage (from bright.green)
       nord_blue = "#8bc2f0",
-      -- blue = "#89b4fa",
-      blue = "#8CA7BE",
-      -- yellow = "#fae3b0",
-      yellow = "#D4B97E",
-      -- yellow2 = "#ffe9b6",
-      yellow2 = "#D4B97E",
-      -- yellow2 = "#e6c99d",
-      -- yellow2 = "#5fd7ff",
+      blue = "#8CA7BE", -- Muted steel blue
+      yellow = "#D4B97E", -- Gentle amber
+      yellow2 = "#E1CA97", -- Lighter amber (from bright.yellow)
       sun = "#ffe9b6",
-      purple = "#d0a9e5",
-      purple2 = "#cba6f7",
+      purple = "#B097B6", -- Soft lavender
+      purple2 = "#C4AFC8", -- Lighter lavender (from bright.magenta)
       dark_purple = "#c7a0dc",
-      teal = "#b5e8e0",
-      orange = "#f8bd96",
-      cyan = "#89dceb",
+      teal = "#93B5B3", -- Muted teal
+      orange = "#B6A58B", -- Soft muted tan/bronze (from indexed colors)
+      cyan = "#93B5B3", -- Muted teal
       statusline_bg = "#232232",
       lightbg = "#2f2e3e",
-      pmenu_bg = "#abe9b3",
-      folder_bg = "#89b4fa",
-      lavender = "#c7d1ff",
+      pmenu_bg = "#8CBBAD",
+      folder_bg = "#8CA7BE",
+      lavender = "#A6B0C3", -- Soft muted periwinkle (from indexed colors)
+      -- Additional colors for diagnostics
+      bg_dark = "#1D2433", -- Primary background from Alacritty
+      selection = "#364156", -- Selection background from Alacritty
+      cursor_line = "#2D3343", -- Slightly lighter than background
     }
+
     require("catppuccin").setup({
       transparent_background = true,
-      show_end_of_buffer = false, -- show the '~' characters after the end of buffers
+      show_end_of_buffer = false,
       term_colors = true,
       dim_inactive = {
         enabled = false,
@@ -71,13 +70,12 @@ return {
         operators = {},
       },
       color_overrides = {
-        -- see link below for override names
-        -- https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
         mocha = mycolors,
       },
     })
     vim.api.nvim_command("colorscheme catppuccin-mocha")
 
+    -- Original highlights
     vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b0a0ff", bold = true, italic = true })
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
@@ -88,7 +86,6 @@ return {
     vim.api.nvim_set_hl(0, "@text.uri", { fg = "#8186a1", undercurl = true })
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#8186a1" })
     vim.api.nvim_set_hl(0, "Folded", { fg = "#3E485A", italic = true })
-    -- vim.api.nvim_set_hl(0, "Folded", { fg = mycolors.blue })
     vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#384057" })
     vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2b3b55", bold = false })
     vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#000000", bold = false })
@@ -117,38 +114,78 @@ return {
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
     vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
     vim.api.nvim_set_hl(0, "cmpDoc", {})
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = true, bold = true })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, bold = true })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true, bold = true })
-    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true, bold = true })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { undercurl = true, bold = true })
 
-    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red })
-    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow })
-    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue })
-    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.blue })
+    -- Enhanced Diagnostic highlights with dark background matching Alacritty
+    -- Virtual text (inline diagnostic messages)
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
 
+    -- Underlines for diagnostics
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = mycolors.red })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { undercurl = true, sp = mycolors.yellow })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = true, sp = mycolors.blue })
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true, sp = mycolors.lavender })
+
+    -- Virtual text with dark background
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = mycolors.red, bg = mycolors.bg_dark, italic = true })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark, italic = true })
+    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = mycolors.blue, bg = mycolors.bg_dark, italic = true })
+    vim.api.nvim_set_hl(
+      0,
+      "DiagnosticVirtualTextHint",
+      { fg = mycolors.lavender, bg = mycolors.bg_dark, italic = true }
+    )
+
+    -- Floating window diagnostics
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+
+    -- Sign column diagnostics with dark background
+    vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+
+    -- CursorLine for tini-diagnostics background (using Alacritty background)
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = mycolors.yellow, bg = mycolors.bg_dark, bold = true })
+
+    -- NonText for diagnostic arrows in tini-diagnostics
+    vim.api.nvim_set_hl(0, "NonText", { fg = "#3E485A" })
+
+    -- Additional diagnostic-related highlights with dark background
+    vim.api.nvim_set_hl(0, "ErrorMsg", { fg = mycolors.baby_pink, bg = mycolors.bg_dark, bold = true })
+    vim.api.nvim_set_hl(0, "WarningMsg", { fg = mycolors.yellow2, bg = mycolors.bg_dark, bold = true })
+    vim.api.nvim_set_hl(0, "Question", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "MoreMsg", { fg = mycolors.vibrant_green, bg = mycolors.bg_dark })
+
+    -- LSP-specific highlights
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError", { link = "DiagnosticError" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultWarning", { link = "DiagnosticWarn" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultInformation", { link = "DiagnosticInfo" })
+    vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultHint", { link = "DiagnosticHint" })
+
+    -- Rest of original highlights
     vim.api.nvim_set_hl(0, "diffAdded", { fg = "#8CBBAD", bold = true })
     vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#fa5057", bold = true })
-    -- vim.api.nvim_set_hl(0, "EndOfBuffer", {})
     vim.api.nvim_set_hl(0, "Special", {})
-
-    --- make it more black and white ----
-
-    -- vim.api.nvim_set_hl(0, "String", { fg = "#b7ebbb" })
     vim.api.nvim_set_hl(0, "String", { fg = "#8CBBAD" })
-
-    -- yellow2 = "",
     vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
     vim.api.nvim_set_hl(0, "@variable", {})
     vim.api.nvim_set_hl(0, "@property", {})
     vim.api.nvim_set_hl(0, "Operator", {})
     vim.api.nvim_set_hl(0, "Number", {})
     vim.api.nvim_set_hl(0, "@constant.builtin", {})
-    -- vim.api.nvim_set_hl(0, "@type.builtin", {})
     vim.api.nvim_set_hl(0, "ModeMsg", {})
     vim.api.nvim_set_hl(0, "Constant", {})
-    -- vim.api.nvim_set_hl(0, "Type", {})
     vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
     vim.api.nvim_set_hl(0, "@variable.parameter", {})
     vim.api.nvim_set_hl(0, "@variable.member", {})
