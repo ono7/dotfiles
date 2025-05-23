@@ -5,14 +5,16 @@ return {
   config = function()
     require("tiny-inline-diagnostic").setup({
       preset = "classic",
-      transparent_bg = false, -- Set
+      transparent_bg = true, -- Set
       transparent_cursorline = true,
       hi = {
-        error = "DiagnosticError", -- Highlight group for error messages
-        warn = "DiagnosticWarn", -- Highlight group for warning messages
-        info = "DiagnosticInfo", -- Highlight group for informational messages
-        hint = "DiagnosticHint", -- Highlight group for hint or suggestion messages
-        arrow = "NonText", -- Highlight group for diagnostic arrows
+
+        -- this is the gutter
+        error = "DiagnosticError",
+        warn = "DiagnosticWarn",
+        info = "DiagnosticInfo",
+        hint = "DiagnosticHint",
+        arrow = "Visual",
 
         -- Background color for diagnostics
         -- Can be a highlight group or a hexadecimal color (#RRGGBB)
@@ -45,7 +47,7 @@ return {
     })
 
     -- this should be handles with the option, but this works for now
-    vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextBg", {})
-    vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextArrow", {})
+    -- vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextBg", { bg = "#1d2433" })
+    -- vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextArrow", {})
   end,
 }

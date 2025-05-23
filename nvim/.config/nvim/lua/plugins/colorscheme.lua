@@ -121,10 +121,10 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
     vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
     vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
 
     -- Underlines for diagnostics
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = mycolors.red })
@@ -133,39 +133,44 @@ return {
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = true, sp = mycolors.lavender })
 
     -- Virtual text with dark background
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = mycolors.red, bg = mycolors.bg_dark, italic = true })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark, italic = true })
-    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = mycolors.blue, bg = mycolors.bg_dark, italic = true })
-    vim.api.nvim_set_hl(
-      0,
-      "DiagnosticVirtualTextHint",
-      { fg = mycolors.lavender, bg = mycolors.bg_dark, italic = true }
-    )
-
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = mycolors.red, bg = mycolors.bg_dark, italic = true })
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark, italic = true })
+    -- vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = mycolors.blue, bg = mycolors.bg_dark, italic = true })
+    -- vim.api.nvim_set_hl(
+    --   0,
+    --   "DiagnosticVirtualTextHint",
+    --   { fg = mycolors.lavender, bg = mycolors.bg_dark, italic = true }
+    -- )
+    --
     -- Floating window diagnostics
-    vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = mycolors.red, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
-
+    -- vim.api.nvim_set_hl(0, "TinyDiagnosticFloatingError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "TinyDiagnosticFloatingWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "TinyDiagnosticFloatingInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "TinyDiagnosticFloatingHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "TinyInlineDiagnosticVirtualTextBg", { bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    --
     -- Sign column diagnostics with dark background
-    vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = mycolors.red, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = mycolors.red, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = mycolors.yellow, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = mycolors.blue, bg = mycolors.bg_dark })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = mycolors.lavender, bg = mycolors.bg_dark })
 
     -- CursorLine for tini-diagnostics background (using Alacritty background)
     vim.api.nvim_set_hl(0, "CursorLine", { bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = mycolors.yellow, bg = mycolors.bg_dark, bold = true })
+    vim.api.nvim_set_hl(0, "CursorLineNr", {})
 
     -- NonText for diagnostic arrows in tini-diagnostics
     vim.api.nvim_set_hl(0, "NonText", { fg = "#3E485A" })
 
     -- Additional diagnostic-related highlights with dark background
-    vim.api.nvim_set_hl(0, "ErrorMsg", { fg = mycolors.baby_pink, bg = mycolors.bg_dark, bold = true })
-    vim.api.nvim_set_hl(0, "WarningMsg", { fg = mycolors.yellow2, bg = mycolors.bg_dark, bold = true })
-    vim.api.nvim_set_hl(0, "Question", { fg = mycolors.lavender, bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "MoreMsg", { fg = mycolors.vibrant_green, bg = mycolors.bg_dark })
+    vim.api.nvim_set_hl(0, "ErrorMsg", { fg = mycolors.baby_pink, bold = true })
+    vim.api.nvim_set_hl(0, "WarningMsg", { fg = mycolors.yellow2, bold = true })
+    vim.api.nvim_set_hl(0, "Question", { fg = mycolors.lavender })
+    vim.api.nvim_set_hl(0, "MoreMsg", {})
 
     -- LSP-specific highlights
     vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError", { link = "DiagnosticError" })

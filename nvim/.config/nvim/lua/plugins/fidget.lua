@@ -24,10 +24,10 @@ return {
 
         -- Options related to how LSP progress messages are displayed as notifications
         display = {
-          render_limit = 16, -- How many LSP messages to show at once
+          render_limit = 7, -- How many LSP messages to show at once
           done_ttl = 3, -- How long a message should persist after completion
           done_icon = "✔", -- Icon shown when all LSP progress tasks are complete
-          done_style = "Constant", -- Highlight group for completed LSP tasks
+          done_style = "DiagnosticSignOk", -- Highlight group for completed LSP tasks
           progress_ttl = math.huge, -- How long a message should persist when in progress
           -- Icon shown when LSP progress tasks are in progress
           progress_icon = { pattern = "dots", period = 1 },
@@ -78,7 +78,7 @@ return {
 
         -- Options related to how notifications are rendered as text
         view = {
-          stack_upwards = true, -- Display notification items from bottom to top
+          stack_upwards = false, -- Display notification items from bottom to top
           icon_separator = " ", -- Separator between group name and icon
           group_separator = "---", -- Separator between notification groups
           -- Highlight group used for group separator
