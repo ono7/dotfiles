@@ -158,6 +158,7 @@ bindings = [
 {  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
 {  key  =  "T",         mods  =  "Command",        action  =  "ReceiveChar"               },
+{  key  =  "V",         mods  =  "Command",  chars  =  "\u0016"              },
 {  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
 {  key  =  "W",         mods  =  "command|Shift",  action  =  "Quit"               },
 {  key  =  "X",         mods  =  "Command",        chars   =  "\u0018"             },
