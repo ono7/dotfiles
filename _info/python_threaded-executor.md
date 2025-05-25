@@ -2,16 +2,25 @@
 
 ```python
 
+
 import logging
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import prisma_sase
+from requests.adapters import HTTPAdapter
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-tenant_ids = {"1283310576": "sdwan_lab"}
+
+MAX_POOL = 50
+
+
+def tenant_id_mapper(s: str) -> str:
+    """Return tenant map."""
+    return tenant_ids.get(s, "sdwan-ssot-not-defined")
+
 
 def get_interfaces(conn, site_id, element_id, hostname):
     """Gets interfaces for given device -> element_id."""
@@ -26,7 +35,33 @@ def get_interfaces(conn, site_id, element_id, hostname):
         )
         return []
 
-def collect_inventory(sdk, max_workers=10):
+
+def connect_to_api():
+    """Establish connection to StrataCloud | update."""
+    adapter = HTTPAdapter(
+        pool_connections=MAX_POOL,
+        pool_maxsize=MAX_POOL,
+    )
+    try:
+        sdk = prisma_sase.API(
+            "https://api.sase.paloaltonetworks.com",
+            ssl_verify=False,
+            update_check=False,
+        )
+        sdk.update_session_adapter(adapter)
+        # default 240 (seconds)
+        sdk.rest_call_timeout = 120
+        sdk.interactive.login_secret(
+            client_id=os.getenv("SDWAN_CLIENT_ID"),
+            client_secret=os.getenv("SDWAN_TOKEN"),
+            tsg_id=os.getenv("SDWAN_TENANT_ID"),
+        )
+        return sdk
+    except Exception as e:
+        print(f"Failed to connect to StrataCloud | update: {e!s}")
+
+
+def collect_inventory(sdk, max_workers=MAX_POOL):
     """Collect basic device info and then gather interfaces concurrently.
 
     Hopefully the stratacloud API can handle this... :)

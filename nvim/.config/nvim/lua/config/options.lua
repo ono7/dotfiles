@@ -145,9 +145,9 @@ vim.opt.wildignore = {
   "**/.nuxt/**",
   "**/.cache/**",
   "**/.collections/**",
+  "**/__pycache__/**",
   ".tags",
   "tags",
-  "__pycache__",
 }
 
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }

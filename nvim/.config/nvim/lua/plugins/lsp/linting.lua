@@ -10,7 +10,7 @@ return {
       javascript = {
         "eslint_d",
       },
-      python = { "ruff" },
+      -- python = { "ruff" },
       -- yaml = { "yamllint" },
       zsh = { "zsh" },
       bash = { "bash" },

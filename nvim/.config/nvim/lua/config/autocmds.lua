@@ -250,7 +250,7 @@ local function optimize_large_file(bufnr)
   -- Disable list mode (showing whitespace)
   vim.api.nvim_win_set_option(0, "list", false)
 
-  vim.notify("Large file detected - performance optimizations applied")
+  vim.notify("Large file detecte\nOptimizations applied..")
 end
 
 -- Setup autocmds
