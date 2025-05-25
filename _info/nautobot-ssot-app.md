@@ -1,3 +1,16 @@
+### Order of operations when loading adapters
+
+```python
+self.load_tenants()        # 1. Foundation - needed by VRFs and other resources
+self.load_vrfs()           # 2. Network contexts - needed by prefixes/IPs
+self.load_devicetypes()    # 3. Device metadata - needed before devices
+self.load_deviceroles()    # 4. Device metadata - needed before devices
+self.load_devices()        # 5. Physical devices - needed before interfaces
+self.load_interfaces()     # 6. Device interfaces - needed before IP assignments
+self.load_prefixes()       # 7. Network prefixes - should exist before IPs
+self.load_ipaddresses()    # 8. IP addresses - depend on prefixes and interfaces
+```
+
 ## debug
 
 `pip install remote-pdb`

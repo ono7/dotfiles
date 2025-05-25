@@ -1,23 +1,27 @@
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
-  root_markers = { "pyrightconfig.json", "venv", "requirements.txt", "setup.py", ".git" },
+  root_markers = { "pyrightconfig.json", "pyproject.toml", "venv", "requirements.txt", "setup.py", ".git" },
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = false,
+      disableOrganizeImports = true,
     },
     python = {
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
-        extraPaths = {}, -- Add any extra paths to your packages here
+        extraPaths = {},
         reportMissingImports = true,
         reportMissingTypeStubs = false,
-        pythonVersion = "3.x",
+        -- pythonVersion = "3.12",
         typeCheckingMode = "basic",
+        -- Disable "is not accessed" warnings
+        -- reportUnusedVariable = false,
+        -- reportUnusedImports = false,
+        -- reportUnusedClass = false,
+        -- reportUnusedFunction = false,
       },
     },
   },
-  -- Make sure capabilities are set in your global LSP setup
 }
