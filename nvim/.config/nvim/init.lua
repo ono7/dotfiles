@@ -48,6 +48,7 @@ require("config.lsp").setup()
 --- these two worktogether
 require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
+require("utils.ruff")
 
 vim.opt.mouse = "a"
 
