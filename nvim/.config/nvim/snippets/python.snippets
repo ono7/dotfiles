@@ -11,7 +11,7 @@ snippet h "header" b
 
 snippet db "removed debug" b
   from remote_pdb import RemotePdb
-  RemotePdb('0.0.0.0', 4444).set_trace()
+  RemotePdb('0.0.0.0', 444${0:4}).set_trace()
 
 snippet de "removed debug" b
   try:
