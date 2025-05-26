@@ -22,6 +22,12 @@ vim.keymap.set("x", "p", "P")
 -- vim.keymap.set("x", "p", [["0p]])
 -- vim.keymap.set("x", "P", "p")
 
+-- Shift-> to indent last pasted text to the right
+vim.keymap.set("n", ">", "gv>`]", { noremap = true, silent = true })
+
+-- Shift-< to indent last pasted text to the left
+vim.keymap.set("n", "<", "gv<`]", { noremap = true, silent = true })
+
 --- core keymaps ---
 vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
 vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)

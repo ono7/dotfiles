@@ -78,6 +78,12 @@ inoremap <D-e> <End>
 cnoremap <D-a> <Home>
 cnoremap <D-e> <End>
 
+" Shift-> to indent last pasted text to the right
+nnoremap > mz`[V`]>`z
+
+" Shift-< to indent last pasted text to the left
+nnoremap < mz`[V`]<`z
+
 " macos
 nnoremap <D-o> <C-o>
 nnoremap <D-i> <C-i>
@@ -198,8 +204,6 @@ nnoremap D d$
 nnoremap cp yap<S-}>p
 nnoremap U <c-r>
 nnoremap <c-e> g_
-nnoremap <silent><Tab> :bnext<cr>
-nnoremap <silent><S-Tab> :bprev<cr>
 
 " select last paste in visual mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -232,8 +236,6 @@ function! s:check_back_space() abort
 endfunction
 
 cnoreabbrev qq qa!
-
-set gp=git\ grep\ -n
 
 set completeopt=longest
 set pumheight=10
@@ -293,24 +295,13 @@ set undodir=/tmp
 set undofile
 set updatetime=1000
 set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
-" set wildmenu
-" set winaltkeys=no
-" set lazyredraw
-" set matchtime=0
-" set belloff=all
-" set matchpairs=(:),{:},[:],<:>
-" set nocursorcolumn
-" set redrawtime=2000
-" set ttyfast
-" set foldmethod=indent
-" set nofoldenable
 set fileformats=unix
 set autoindent
 set nolisp
 set iskeyword+=-
 
 if has('unnamedplus')
-  set clipboard+=unnamedplus
+  set clipboard=unnamedplus
 else
   set clipboard=unnamed
 endif
