@@ -221,5 +221,10 @@ return {
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
     vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
     vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
+
+    vim.api.nvim_set_hl(0, "Pmenu", { bg = "#2D3343", fg = "#C9C2B8" })
+    vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#8CBBAD", fg = "#1D2433", bold = true })
+    vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E485A" })
+    vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#8087a2" })
   end,
 }

@@ -138,14 +138,21 @@ vim.opt.wildmode = "longest:full,full"
 vim.opt.updatetime = 300
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 vim.opt.wildignore = {
-  "**/node_modules/**",
-  "**/coverage/**",
-  "**/.idea/**",
-  "**/.git/**",
-  "**/.nuxt/**",
   "**/.cache/**",
   "**/.collections/**",
+  "**/coverage/**",
+  "**/.DS_Store",
+  "**/.git/**",
+  "**/.idea/**",
+  "**/__init__.py",
+  "**/node_modules/**",
+  "**/.nuxt/**",
   "**/__pycache__/**",
+  "**/*_test.py",
+  "**/test_*.py",
+  "**/Thumbs.db",
+  "**/.venv/**",
+  "**/venv/**",
   ".tags",
   "tags",
 }
