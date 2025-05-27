@@ -22,12 +22,6 @@ vim.keymap.set("x", "p", "P")
 -- vim.keymap.set("x", "p", [["0p]])
 -- vim.keymap.set("x", "P", "p")
 
--- Shift-> to indent last pasted text to the right
-vim.keymap.set("n", ">", "gv>`]", { noremap = true, silent = true })
-
--- Shift-< to indent last pasted text to the left
-vim.keymap.set("n", "<", "gv<`]", { noremap = true, silent = true })
-
 --- core keymaps ---
 vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
 vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)
@@ -48,6 +42,16 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Switch to alternate file" })
+vim.keymap.set("n", "<leader>b", ":buffer ", { desc = "Switch buffer by name" })
+
+-- Select entire buffer content
+vim.keymap.set("n", "<leader>a", "ggVG", { desc = "Select all" })
+
+-- Quick paragraph operations
+vim.keymap.set("n", "<leader>dp", "dap", { desc = "Delete paragraph" })
+vim.keymap.set("n", "<leader>yp", "yap", { desc = "Yank paragraph" })
 
 --- text navigation improvement
 vim.keymap.set("n", "0", "^", silent)
@@ -106,8 +110,8 @@ vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
 vim.keymap.set("v", ".", ":norm .<cr>", opt)
 
 --- go ---
-vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
-vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
+-- vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
+-- vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
 vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
