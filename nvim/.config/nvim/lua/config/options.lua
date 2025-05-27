@@ -137,25 +137,6 @@ vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
 vim.opt.updatetime = 300
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
-vim.opt.wildignore = {
-  "**/.cache/**",
-  "**/.collections/**",
-  "**/coverage/**",
-  "**/.DS_Store",
-  "**/.git/**",
-  "**/.idea/**",
-  "**/__init__.py",
-  "**/node_modules/**",
-  "**/.nuxt/**",
-  "**/__pycache__/**",
-  "**/*_test.py",
-  "**/test_*.py",
-  "**/Thumbs.db",
-  "**/.venv/**",
-  "**/venv/**",
-  ".tags",
-  "tags",
-}
 
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
@@ -178,3 +159,129 @@ vim.g.python3_host_prog = MYHOME .. "/.virtualenvs/prod3/bin/python3"
 vim.g.loaded_python3_provider = 1
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+
+-- Base wildignore setup
+vim.opt.wildignore = {}
+
+-- General ignores (OS, editors, etc.)
+vim.opt.wildignore:append({
+  "**/.DS_Store",
+  "**/Thumbs.db",
+  "**/Desktop.ini",
+  "**/.git/**",
+  "**/.svn/**",
+  "**/.hg/**",
+  "**/.idea/**",
+  "**/.vscode/**",
+  "**/*.tmp",
+  "**/*.temp",
+  "**/*.swp",
+  "**/*.swo",
+  "**/*~",
+  ".tags",
+  "tags",
+})
+
+-- Shared build/cache/temp directories
+vim.opt.wildignore:append({
+  "**/.cache/**",
+  "**/build/**",
+  "**/dist/**",
+  "**/out/**",
+  "**/target/**",
+  "**/coverage/**",
+  "**/tmp/**",
+  "**/.tmp/**",
+  "**/.temp/**",
+  "**/logs/**",
+  "**/.logs/**",
+  "**/*.log",
+})
+
+-- Python-specific ignores
+vim.opt.wildignore:append({
+  "**/__init__.py",
+  "**/test_*.py",
+  "**/*_test.py",
+  "**/conftest.py",
+  "**/__pycache__/**",
+  "**/venv/**",
+  "**/.venv/**",
+  "**/env/**",
+  "**/.env/**",
+  "**/virtualenv/**",
+  "**/.pytest_cache/**",
+  "**/.coverage",
+  "**/htmlcov/**",
+  "**/.tox/**",
+  "**/*.egg-info/**",
+  "**/*.egg/**",
+  "**/wheels/**",
+  "**/.mypy_cache/**",
+  "**/.ruff_cache/**",
+  "**/site-packages/**",
+  "**/*.pyc",
+  "**/*.pyo",
+  "**/*.pyd",
+  "**/pip-log.txt",
+  "**/pip-delete-this-directory.txt",
+})
+
+-- JavaScript/TypeScript/Node.js ignores
+vim.opt.wildignore:append({
+  "**/node_modules/**",
+  "**/npm-debug.log*",
+  "**/yarn-debug.log*",
+  "**/yarn-error.log*",
+  "**/.npm/**",
+  "**/.yarn/**",
+  "**/package-lock.json",
+  "**/yarn.lock",
+  "**/pnpm-lock.yaml",
+  "**/.next/**",
+  "**/.nuxt/**",
+  "**/.output/**",
+  "**/.nyc_output/**",
+  "**/.parcel-cache/**",
+  "**/jspm_packages/**",
+  "**/bower_components/**",
+  "**/*.min.js",
+  "**/*.min.css",
+  "**/.eslintcache",
+  "**/.stylelintcache",
+  "**/tsconfig.tsbuildinfo",
+  "**/.turbo/**",
+})
+
+-- Go ignores
+vim.opt.wildignore:append({
+  "**/vendor/**",
+  "**/*.exe",
+  "**/go.sum",
+  "**/bin/**",
+  "**/.bin/**",
+})
+
+-- Database ignores
+vim.opt.wildignore:append({
+  "**/*.sqlite",
+  "**/*.db",
+  "**/*.sqlite3",
+})
+
+-- Documentation/Media
+vim.opt.wildignore:append({
+  "**/*.pdf",
+  "**/*.doc",
+  "**/*.docx",
+  "**/*.jpg",
+  "**/*.jpeg",
+  "**/*.png",
+  "**/*.gif",
+  "**/*.ico",
+  "**/*.svg",
+  "**/*.mp3",
+  "**/*.mp4",
+  "**/*.avi",
+  "**/*.mov",
+})
