@@ -294,11 +294,60 @@ set undolevels=999
 set undodir=/tmp
 set undofile
 set updatetime=1000
-set wildignore+=.tags,tags,vtags,*.o,*.obj,*.rbc,*.pyc,__pycache__/*,.git,.git/*,*.class
 set fileformats=unix
 set autoindent
 set nolisp
 set iskeyword+=-
+
+" Base wildignore setup
+set wildignore=
+
+" General ignores (OS, editors, etc.)
+set wildignore+=**/.DS_Store,**/Thumbs.db,**/Desktop.ini
+set wildignore+=**/.git/**,**/.svn/**,**/.hg/**
+set wildignore+=**/.idea/**,**/.vscode/**
+set wildignore+=**/*.tmp,**/*.temp,**/*.swp,**/*.swo,**/*~
+set wildignore+=.tags,tags
+
+" Shared build/cache/temp directories
+set wildignore+=**/.cache/**,**/build/**,**/dist/**,**/out/**
+set wildignore+=**/target/**,**/coverage/**,**/tmp/**
+set wildignore+=**/.tmp/**,**/.temp/**,**/logs/**,**/.logs/**
+set wildignore+=**/*.log
+
+" Python-specific ignores
+set wildignore+=**/__init__.py,**/test_*.py,**/*_test.py,**/conftest.py
+set wildignore+=**/__pycache__/**,**/venv/**,**/.venv/**
+set wildignore+=**/env/**,**/.env/**,**/virtualenv/**
+set wildignore+=**/.pytest_cache/**,**/.coverage,**/htmlcov/**
+set wildignore+=**/.tox/**,**/*.egg-info/**,**/*.egg/**
+set wildignore+=**/wheels/**,**/.mypy_cache/**,**/.ruff_cache/**
+set wildignore+=**/site-packages/**,**/*.pyc,**/*.pyo,**/*.pyd
+set wildignore+=**/pip-log.txt,**/pip-delete-this-directory.txt
+
+" JavaScript/TypeScript/Node.js ignores
+set wildignore+=**/node_modules/**,**/npm-debug.log*
+set wildignore+=**/yarn-debug.log*,**/yarn-error.log*
+set wildignore+=**/.npm/**,**/.yarn/**,**/package-lock.json
+set wildignore+=**/yarn.lock,**/pnpm-lock.yaml,**/.next/**
+set wildignore+=**/.nuxt/**,**/.output/**,**/.nyc_output/**
+set wildignore+=**/.parcel-cache/**,**/jspm_packages/**
+set wildignore+=**/bower_components/**,**/*.min.js,**/*.min.css
+set wildignore+=**/.eslintcache,**/.stylelintcache
+set wildignore+=**/tsconfig.tsbuildinfo,**/.turbo/**
+
+" Go ignores
+set wildignore+=**/vendor/**,**/*.exe,**/go.sum
+set wildignore+=**/bin/**,**/.bin/**
+
+" Database ignores
+set wildignore+=**/*.sqlite,**/*.db,**/*.sqlite3
+
+" Documentation/Media
+set wildignore+=**/*.pdf,**/*.doc,**/*.docx
+set wildignore+=**/*.jpg,**/*.jpeg,**/*.png,**/*.gif
+set wildignore+=**/*.ico,**/*.svg,**/*.mp3,**/*.mp4
+set wildignore+=**/*.avi,**/*.mov
 
 if has('unnamedplus')
   set clipboard=unnamedplus
