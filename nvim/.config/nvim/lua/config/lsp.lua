@@ -3,7 +3,6 @@ local M = {}
 M.toggle_lsp_for_buffer = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ buffer = bufnr })
-
   if #clients > 0 then
     -- LSP is active, disable it
     for _, client in ipairs(clients) do
@@ -23,7 +22,6 @@ vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP 
 
 M.setup = function()
   local silent = { noremap = true, silent = true }
-
   local borders = {
     source = "if_many",
     border = {
@@ -75,7 +73,6 @@ M.setup = function()
   -- <C-d> for telescope diagnostics
   -- replaced by tiny-inline-diagnostics.lua
   -- vim.diagnostic.config({ virtual_text = { current_line = true } })
-
   -- vim.diagnostic.config({ virtual_text = false })
 
   vim.keymap.set("n", "<leader>f", function()
@@ -88,31 +85,30 @@ M.setup = function()
 
   --- completion ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
+
+  -- Configure diagnostics to not update in insert mode
+  vim.diagnostic.config({ update_in_insert = false })
+
+  -- Trigger diagnostics on insert leave
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local clients = vim.lsp.get_clients({ buffer = bufnr })
+      if #clients > 0 then
+        vim.diagnostic.show(nil, bufnr)
+      end
+    end,
+  })
+
+  -- Setup completion when LSP attaches
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
-      -- manual trigger
-      vim.keymap.set("i", "<C-Space>", function()
-        vim.lsp.completion.get()
-      end)
-
-      --- disabled in favor of tiny-diagnostics plugin
-      -- vim.keymap.set("n", "[d", function()
-      --   -- goto prev
-      --   vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
-      -- end, silent)
-      --
-      -- vim.keymap.set("n", "]d", function()
-      --   -- goto next
-      --   vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
-      -- end, silent)
-
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
       if not client then
         return
       end
-      if client:supports_method("textDocument/completion") then
+      if client.supports_method("textDocument/completion") then
         client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
-
         vim.lsp.completion.enable(true, client.id, ev.buf, {
           autotrigger = false,
           convert = function(item)
@@ -122,6 +118,17 @@ M.setup = function()
       end
     end,
   })
+
+  --- disabled in favor of tiny-diagnostics plugin
+  -- vim.keymap.set("n", "[d", function()
+  --   -- goto prev
+  --   vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
+  -- end, silent)
+  --
+  -- vim.keymap.set("n", "]d", function()
+  --   -- goto next
+  --   vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
+  -- end, silent)
 
   -- select first option in complete menu, works in cmp or without keywords
   vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)
@@ -137,4 +144,5 @@ M.no_lsp = function()
     vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
   end
 end
+
 return M

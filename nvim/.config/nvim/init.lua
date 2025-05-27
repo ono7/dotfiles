@@ -2,8 +2,13 @@
 
 --[[
 
+* set dir to current open file, :cd %:h
+* add all files to buff for faster navigation :argadd **/*.py
+  * apply commands to open args list
+    :sall
+    :tab sall
+    :argdo %s/test/Test/gc
 * :write ++p (creates directories if they dont exists)
-
 * neovim 0.11 defaults for lsp_attach
 * grn in Normal mode maps to vim.lsp.buf.rename()
 * grr in Normal mode maps to vim.lsp.buf.references()
