@@ -15,6 +15,10 @@ bright_foreground = "#cad3f5"  # Bright lavender-tinted white
 cursor = "#B4ADA0"            # Muted foreground for cursor
 text = "#1D2433"
 
+[colors.cursor]
+cursor = "#FFFFFF"            # Pure white - maximum contrast
+text = "#171F2C"
+
 [colors.vi_mode_cursor]
 cursor = "#B4ADA0"            # Muted foreground for cursor
 text = "#1D2433"
