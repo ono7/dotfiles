@@ -58,7 +58,7 @@ vim.opt.foldtext = "v:lua.better_fold_text()"
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
 vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 3
+vim.opt.foldnestmax = 2
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
