@@ -234,7 +234,7 @@ ta () {
         return 1
     fi
 
-    local SESSION_NAME="${1:-main}"
+    local SESSION_NAME="${1:-develop}"
 
     if [ -n "$TMUX" ]; then
         if [ -n "$1" ]; then
