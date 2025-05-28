@@ -129,7 +129,7 @@ alias vi='nvim -n'
 alias vio=/usr/bin/vi
 alias k='kubectl '
 # alias vl='vim -c \"normal '0\" -c "bn" -c \"bd\"'
-alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
+# alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 alias gd='git diff'
 alias gs='git status --untracked-files=all --short'
 alias tf='terraform'
@@ -157,6 +157,20 @@ alias 9='cd -9'
 # Save the directory stack on exit
 chpwd () {
     print -l $PWD ${(u)dirstack} >~/.zdirs
+}
+
+vl () {
+  local sessions_dir="$HOME/vim/sessions"
+  local project_name=$(basename "$PWD")
+  local session_file="$sessions_dir/${project_name}.vim"
+
+  if [[ -f "$session_file" ]]; then
+    echo "Loading session for $project_name..."
+    nvim -S "$session_file"
+  else
+    # Fallback to your original behavior
+    nvim -c "normal '0" -c "bn" -c "bd"
+  fi
 }
 
 # Load the directory stack at startup
