@@ -141,8 +141,9 @@ vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
 -- vim.opt.sessionoptions:remove({ "buffers", "folds" })
+vim.opt.sessionoptions = "buffers,curdir,folds,winsize"
 vim.opt.wrap = false
-vim.opt.wrapscan = true
+vim.opt.wrapscan = false
 vim.opt.writebackup = false
 vim.opt.lazyredraw = true
 vim.g.markdown_fold_style = "nested"
