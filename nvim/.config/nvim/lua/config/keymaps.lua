@@ -274,6 +274,60 @@ vim.keymap.set("n", "<Leader>m", function()
   vim.api.nvim_win_set_buf(0, buf)
 end)
 
+-- Ensure sessions directory exists
+local sessions_dir = vim.fn.expand("~/vim/sessions")
+if vim.fn.isdirectory(sessions_dir) == 0 then
+  vim.fn.mkdir(sessions_dir, "p")
+end
+
+-- Auto-save session for current directory
+vim.keymap.set("n", "<leader>ss", function()
+  local project_name = vim.fn.getcwd():match("([^/]+)$")
+  local session_path = sessions_dir .. "/" .. project_name .. ".vim"
+  vim.cmd("mksession! " .. vim.fn.fnameescape(session_path))
+  print("Session saved: " .. session_path)
+end, { desc = "Save session" })
+
+-- Quick session restore
+vim.keymap.set("n", "<leader>sl", function()
+  local project_name = vim.fn.getcwd():match("([^/]+)$")
+  local session_path = sessions_dir .. "/" .. project_name .. ".vim"
+  if vim.fn.filereadable(session_path) == 1 then
+    vim.cmd("source " .. vim.fn.fnameescape(session_path))
+    print("Session restored: " .. session_path)
+  else
+    print("No session file found: " .. session_path)
+  end
+end, { desc = "Restore session" })
+
+-- List available sessions
+-- vim.keymap.set("n", "<leader>sl", function()
+--   local sessions = vim.fn.glob(sessions_dir .. "/*.vim", false, true)
+--   if #sessions == 0 then
+--     print("No sessions found in " .. sessions_dir)
+--     return
+--   end
+--
+--   print("Available sessions:")
+--   for i, session in ipairs(sessions) do
+--     local name = vim.fn.fnamemodify(session, ":t:r")
+--     print(i .. ". " .. name)
+--   end
+-- end, { desc = "List sessions" })
+--
+-- Delete current project session
+
+vim.keymap.set("n", "<leader>sd", function()
+  local project_name = vim.fn.getcwd():match("([^/]+)$")
+  local session_path = sessions_dir .. "/" .. project_name .. ".vim"
+  if vim.fn.filereadable(session_path) == 1 then
+    vim.fn.delete(session_path)
+    print("Session deleted: " .. session_path)
+  else
+    print("No session file found: " .. session_path)
+  end
+end, { desc = "Delete session" })
+
 -- using mini.pairs
 -- - these table and keymap below go together
 -- local pair_map_2 = {
