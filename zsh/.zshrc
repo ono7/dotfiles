@@ -129,7 +129,7 @@ alias vi='nvim -n'
 alias vio=/usr/bin/vi
 alias k='kubectl '
 # alias vl='vim -c \"normal '0\" -c "bn" -c \"bd\"'
-# alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
+alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 alias gd='git diff'
 alias gs='git status --untracked-files=all --short'
 alias tf='terraform'
@@ -159,7 +159,7 @@ chpwd () {
     print -l $PWD ${(u)dirstack} >~/.zdirs
 }
 
-vl () {
+vls () {
   local sessions_dir="$HOME/vim/sessions"
   local project_name=$(basename "$PWD")
   local session_file="$sessions_dir/${project_name}.vim"

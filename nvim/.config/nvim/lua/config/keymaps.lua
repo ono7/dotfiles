@@ -294,7 +294,8 @@ vim.keymap.set("n", "<leader>sl", function()
   local session_path = sessions_dir .. "/" .. project_name .. ".vim"
   if vim.fn.filereadable(session_path) == 1 then
     vim.cmd("source " .. vim.fn.fnameescape(session_path))
-    print("Session restored: " .. session_path)
+    -- print("Session restored: " .. session_path)
+    print(":)")
   else
     print("No session file found: " .. session_path)
   end
