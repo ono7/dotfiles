@@ -33,7 +33,6 @@ end
 vim.g.syntax_on = false
 vim.opt.syntax = "off"
 
-require("config.neovide")
 require("config.options")
 require("config.keymaps")
 require("config.disabled")
@@ -48,6 +47,8 @@ require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.lsp").setup()
+require("config.neovide")
+
 -- require("utils.help-lookup").setup()
 
 --- these two worktogether
