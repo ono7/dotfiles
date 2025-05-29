@@ -89,7 +89,7 @@ M.setup = function()
   vim.diagnostic.config({ update_in_insert = false })
 
   --- enable on enter
-  vim.api.nvim_create_autocmd("BufReadPost", {
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter" }, {
     callback = function()
       vim.diagnostic.enable(true)
     end,
@@ -110,16 +110,6 @@ M.setup = function()
       end
     end,
   })
-
-  -- vim.api.nvim_create_autocmd("BufWritePost", {
-  --   callback = function()
-  --     local bufnr = vim.api.nvim_get_current_buf()
-  --     local clients = vim.lsp.get_clients({ buffer = bufnr })
-  --     if #clients > 0 then
-  --       vim.diagnostic.show(nil, bufnr)
-  --     end
-  --   end,
-  -- })
 
   -- Setup completion when LSP attaches
   vim.api.nvim_create_autocmd("LspAttach", {
