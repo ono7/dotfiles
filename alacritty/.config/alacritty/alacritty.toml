@@ -95,7 +95,7 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 25.0
+size = 26.0
 
 [font.normal]
 
@@ -116,7 +116,7 @@ y = 0
 
 [font.offset]
 x = 0
-y = 16
+y = 12
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 

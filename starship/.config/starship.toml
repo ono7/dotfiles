@@ -126,7 +126,15 @@ format = "[( $symbol$version )]($style)"
 [python]
 symbol = " "
 style = "fg:#D4B97E"
-format = "[( $symbol$version )]($style)"
+format = '[( $symbol$version)]($style)'
+
+[env_var.VIRTUAL_ENV]
+symbol = "🔸"
+style = "fg:#D4B97E"
+format = "[$symbol]($style)"
+detect_extensions = ['py', 'ipynb', 'pyc', 'pyd', 'pyo', 'pyw', 'pyz']
+detect_files = ['requirements.txt', 'pyproject.toml', 'Pipfile', '.python-version']
+# Starship automatically detects virtual environments via VIRTUAL_ENV, CONDA_DEFAULT_ENV, etc.
 
 [docker_context]
 symbol = " "
