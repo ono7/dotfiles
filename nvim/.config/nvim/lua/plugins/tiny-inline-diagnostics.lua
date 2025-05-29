@@ -14,7 +14,7 @@ return {
         warn = "DiagnosticWarn",
         info = "DiagnosticInfo",
         hint = "DiagnosticHint",
-        arrow = "Visual",
+        arrow = "DiffAdd",
 
         -- Background color for diagnostics
         -- Can be a highlight group or a hexadecimal color (#RRGGBB)
