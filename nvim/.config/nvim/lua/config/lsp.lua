@@ -90,7 +90,7 @@ M.setup = function()
   vim.diagnostic.config({ update_in_insert = false })
 
   -- Trigger diagnostics on insert leave
-  vim.api.nvim_create_autocmd("InsertLeave", {
+  vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function()
       local bufnr = vim.api.nvim_get_current_buf()
       local clients = vim.lsp.get_clients({ buffer = bufnr })
