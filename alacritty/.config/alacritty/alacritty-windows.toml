@@ -117,8 +117,8 @@ family = "IosevkaTerm Nerd Font Mono"
 style = "Bold"
 
 [font.offset]
-x = 0
-y = 9
+x = 1
+y = 11
 
 [keyboard]
 bindings = [
