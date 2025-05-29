@@ -5,23 +5,22 @@
 live_config_reload = true
 working_directory = "None"
 
-[colors.primary]
-background = "#1D2433"         # Muted navy
-foreground = "#E3DED7"         # Antique paper
-dim_foreground = "#8087a2"     # Subdued blue-gray
-bright_foreground = "#cad3f5"  # Bright lavender-tinted white
+# Enhanced Alacritty color theme - optimized for sRGB to look closer to P3
+# Generated using saturation enhancement algorithm
 
-# [colors.cursor]
-# cursor = "#B4ADA0"            # Muted foreground for cursor
-# text = "#1D2433"
+[colors.primary]
+background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
+foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
+dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
+bright_foreground = "#c7d2f8"  # Enhanced bright lavender (was #cad3f5)
 
 [colors.cursor]
-cursor = "#FFFFFF"            # Pure white - maximum contrast
-text = "#171F2C"
+cursor = "#ffffff"             # Enhanced pure white (was #FFFFFF)
+text = "#151f2e"               # Enhanced cursor text (was #171F2C)
 
 [colors.vi_mode_cursor]
-cursor = "#B4ADA0"            # Muted foreground for cursor
-text = "#1D2433"
+cursor = "#b6ad9f"             # Enhanced muted cursor (was #B4ADA0)
+text = "#1b2335"               # Enhanced cursor text (was #1D2433)
 
 [colors.search.matches]
 foreground = "#24273a"
@@ -44,35 +43,35 @@ foreground = "#24273a"
 background = "#a5adcb"
 
 [colors.selection]
-background = "#364156"
+background = "#354157"         # Enhanced selection (was #364156)
 
 [colors.normal]
-black = "#2D3343"         # Slightly lighter than background
-red = "#C49A9A"           # Muted dusty rose
-green = "#8CBBAD"         # Soft sage green
-yellow = "#D4B97E"        # Gentle amber
-blue = "#8CA7BE"          # Muted steel blue
-magenta = "#B097B6"       # Soft lavender
-cyan = "#93B5B3"          # Muted teal
-white = "#C9C2B8"         # Soft cream (slightly darker than foreground)
+black = "#2c3344"              # Enhanced black (was #2D3343)
+red = "#c89696"                # Enhanced dusty rose (was #C49A9A) - 1.18x boost
+green = "#86c1af"              # Enhanced sage green (was #8CBBAD) - 1.25x boost 🌟
+yellow = "#dabb78"             # Enhanced amber (was #D4B97E)
+blue = "#88a7c2"               # Enhanced steel blue (was #8CA7BE)
+magenta = "#b294b9"            # Enhanced lavender (was #B097B6) - 1.18x boost
+cyan = "#8fb9b7"               # Enhanced teal (was #93B5B3) - 1.25x boost 🌟
+white = "#cac2b7"              # Enhanced cream (was #C9C2B8)
 
 [colors.bright]
-black = "#3E485A"     # Medium gray-blue
-red = "#D5AFAF"       # Lighter dusty rose
-green = "#A2CFBF"     # Lighter sage
-yellow = "#E1CA97"    # Lighter amber
-blue = "#A4BCCE"      # Lighter steel blue
-magenta = "#C4AFC8"   # Lighter lavender
-cyan = "#A9C9C7"      # Lighter teal
-white = "#E3DED7"     # Same as foreground
+black = "#3d485b"              # Enhanced medium gray-blue (was #3E485A)
+red = "#d8acac"                # Enhanced bright rose (was #D5AFAF) - 1.18x boost
+green = "#9cd5c1"              # Enhanced bright sage (was #A2CFBF) - 1.25x boost 🌟
+yellow = "#e7cc91"             # Enhanced bright amber (was #E1CA97)
+blue = "#a1bcd1"               # Enhanced bright blue (was #A4BCCE)
+magenta = "#c6adca"            # Enhanced bright lavender (was #C4AFC8) - 1.18x boost
+cyan = "#a5cdcb"               # Enhanced bright teal (was #A9C9C7) - 1.25x boost 🌟
+white = "#e4ded6"              # Enhanced bright white (was #E3DED7)
 
 [[colors.indexed_colors]]
 index = 16
-color = "#B6A58B"  # Soft muted tan/bronze
+color = "#b9a688"              # Enhanced tan/bronze (was #B6A58B)
 
 [[colors.indexed_colors]]
 index = 17
-color = "#A6B0C3"  # Soft muted periwinkle
+color = "#a4afc5"              # Enhanced periwinkle (was #A6B0C3)
 
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
@@ -195,7 +194,7 @@ program = "/bin/zsh"
 
 [window]
 # decoration options: None, Transparent, Full, Buttonless
-decorations = "Full"
+decorations = "Transparent"
 # dynamic_padding = true
 # dynamic_title = false
 # opacity = 0.90
