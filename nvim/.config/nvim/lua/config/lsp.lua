@@ -88,32 +88,25 @@ M.setup = function()
 
   vim.diagnostic.config({ update_in_insert = false })
 
-  local diagnostics_enabled = false
-
   --- enable on enter
   vim.api.nvim_create_autocmd("BufReadPost", {
     callback = function()
-      if not diagnostics_enabled then
-        vim.diagnostic.enable(true)
-        diagnostics_enabled = true
-      end
+      vim.diagnostic.enable(true)
     end,
   })
 
   vim.api.nvim_create_autocmd("BufWritePost", {
     callback = function()
-      if not diagnostics_enabled then
+      if not vim.diagnostic.is_enabled() then
         vim.diagnostic.enable(true)
-        diagnostics_enabled = true
       end
     end,
   })
 
   vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
-      if diagnostics_enabled then
+      if vim.diagnostic.is_enabled() then
         vim.diagnostic.enable(false)
-        diagnostics_enabled = false
       end
     end,
   })
