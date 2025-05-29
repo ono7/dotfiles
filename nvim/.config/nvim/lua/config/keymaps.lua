@@ -36,6 +36,17 @@ vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
 
+---
+vim.keymap.set("n", "<leader>dt", function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
+    print("diag: disabled")
+  else
+    vim.diagnostic.enable(true)
+    print("diag: enabled")
+  end
+end)
+
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 

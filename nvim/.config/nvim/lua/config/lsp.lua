@@ -86,19 +86,47 @@ M.setup = function()
   --- completion ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
-  -- Configure diagnostics to not update in insert mode
   vim.diagnostic.config({ update_in_insert = false })
 
-  -- Trigger diagnostics on insert leave
-  vim.api.nvim_create_autocmd("BufWritePost", {
+  local diagnostics_enabled = false
+
+  --- enable on enter
+  vim.api.nvim_create_autocmd("BufReadPost", {
     callback = function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      local clients = vim.lsp.get_clients({ buffer = bufnr })
-      if #clients > 0 then
-        vim.diagnostic.show(nil, bufnr)
+      if not diagnostics_enabled then
+        vim.diagnostic.enable(true)
+        diagnostics_enabled = true
       end
     end,
   })
+
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    callback = function()
+      if not diagnostics_enabled then
+        vim.diagnostic.enable(true)
+        diagnostics_enabled = true
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+      if diagnostics_enabled then
+        vim.diagnostic.enable(false)
+        diagnostics_enabled = false
+      end
+    end,
+  })
+
+  -- vim.api.nvim_create_autocmd("BufWritePost", {
+  --   callback = function()
+  --     local bufnr = vim.api.nvim_get_current_buf()
+  --     local clients = vim.lsp.get_clients({ buffer = bufnr })
+  --     if #clients > 0 then
+  --       vim.diagnostic.show(nil, bufnr)
+  --     end
+  --   end,
+  -- })
 
   -- Setup completion when LSP attaches
   vim.api.nvim_create_autocmd("LspAttach", {
