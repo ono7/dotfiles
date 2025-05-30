@@ -5,10 +5,15 @@
 # font-family = SF Mono
 # font-family-bold = SF Mono Heavy
 # font-style = Medium
+
 font-family = IosevkaTerm Nerd Font Mono
 font-style = SemiBold
+font-style-bold = Bold
+font-style-italic = SemiBold Oblique
+
 font-size = 26
-adjust-cell-height= 30%
+font-feature = -calt, -liga, -dlig
+adjust-cell-height = 30%
 
 shell-integration-features = no-cursor,sudo,no-title
 
@@ -147,7 +152,7 @@ keybind = ctrl+shift+v=paste_from_clipboard
 # Add this to your ghostty config file
 
 # Primary colors
-background = #1D2433 
+background = #1D2433
 foreground = #E3DED7
 cursor-color = ffffff
 cursor-text = 171f2c

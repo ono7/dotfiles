@@ -23,6 +23,13 @@ sw.name = "test"
 sw.save() # this method will update the record with the name "test"
 ```
 
+- validators
+
+```python
+from django.core.validators import MinValueValidator .....
+
+```
+
 ### Order of operations when loading adapters
 
 ```python
