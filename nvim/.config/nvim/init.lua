@@ -87,21 +87,21 @@ local function smart_completion()
 end
 
 -- Map D-y or C-y to the smart completion function
-if vim.fn.has("macunix") == 1 then
-  vim.api.nvim_set_keymap(
-    "i",
-    "<D-y>",
-    "v:lua.require('vim.lsp.util')._complete_done()",
-    { expr = true, noremap = true, silent = true }
-  )
-  vim.keymap.set("i", "<D-y>", function()
-    return smart_completion()
-  end, { expr = true, noremap = true, silent = true })
-else
-  vim.keymap.set("i", "<C-y>", function()
-    return smart_completion()
-  end, { expr = true, noremap = true, silent = true })
-end
+-- if vim.fn.has("macunix") == 1 then
+--   vim.api.nvim_set_keymap(
+--     "i",
+--     "<D-y>",
+--     "v:lua.require('vim.lsp.util')._complete_done()",
+--     { expr = true, noremap = true, silent = true }
+--   )
+--   vim.keymap.set("i", "<D-y>", function()
+--     return smart_completion()
+--   end, { expr = true, noremap = true, silent = true })
+-- else
+--   vim.keymap.set("i", "<C-y>", function()
+--     return smart_completion()
+--   end, { expr = true, noremap = true, silent = true })
+-- end
 
 -- Optional: Add mappings for navigating the completion menu
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })

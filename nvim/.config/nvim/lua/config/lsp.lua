@@ -114,6 +114,9 @@ M.setup = function()
   -- Setup completion when LSP attaches
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
+      vim.keymap.set("i", "<C-y>", function()
+        vim.lsp.completion.get()
+      end)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
       if not client then
         return
@@ -142,7 +145,7 @@ M.setup = function()
   -- end, silent)
 
   -- select first option in complete menu, works in cmp or without keywords
-  vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)
+  -- vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)
 end
 
 M.no_lsp = function()
