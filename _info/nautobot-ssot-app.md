@@ -1,3 +1,28 @@
+## django
+
+- Query data
+
+```python
+Software.objects.filter(ratings__gte=5)
+Software.objects.first() # is the same as LIMIT 1 in sql
+Software.objects.all() # gets all the objects
+Software.objects.all()[0] # gets first object
+Software.objects.exclude(ratings=5) # will bring everything except 5
+Software.objects.exclude(ratings__lte=5) # will bring everything except <= 5
+
+# the __gte is a lookup that django uses internally which will translate to >= in
+# the database
+```
+
+- Update data
+
+```python
+
+sw = Software.object.first() # get the first object on the table
+sw.name = "test"
+sw.save() # this method will update the record with the name "test"
+```
+
 ### Order of operations when loading adapters
 
 ```python
