@@ -40,10 +40,10 @@ vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
 vim.keymap.set("n", "<leader>dt", function()
   if vim.diagnostic.is_enabled() then
     vim.diagnostic.enable(false)
-    print("diag: disabled")
+    print("diags: disabled")
   else
     vim.diagnostic.enable(true)
-    print("diag: enabled")
+    print("diags: enabled")
   end
 end)
 
@@ -340,6 +340,21 @@ vim.keymap.set("n", "<leader>sd", function()
   end
 end, { desc = "Delete session" })
 
+-- Toggle quickfix list
+vim.keymap.set("n", "<C-t>", function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+      break
+    end
+  end
+  if qf_exists == true then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end, { desc = "Toggle quickfix list" })
 -- using mini.pairs
 -- - these table and keymap below go together
 -- local pair_map_2 = {
