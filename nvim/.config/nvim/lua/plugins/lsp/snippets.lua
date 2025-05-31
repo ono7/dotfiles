@@ -31,7 +31,7 @@ return {
           ["<Tab>"] = "expand_or_advance",
           ["<S-Tab>"] = "previous",
         },
-        nx = {
+        x = {
           ["<leader>d"] = "cut_text",
         },
       },

@@ -37,7 +37,7 @@ vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
 
 ---
-vim.keymap.set("n", "<leader>dt", function()
+vim.keymap.set("n", "<leader>td", function()
   if vim.diagnostic.is_enabled() then
     vim.diagnostic.enable(false)
     print("diags: disabled")
@@ -55,13 +55,12 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Switch to alternate file" })
-vim.keymap.set("n", "<leader>b", ":buffer ", { desc = "Switch buffer by name" })
+-- vim.keymap.set("n", "<leader>b", ":buffer ", { desc = "Switch buffer by name" })
 
 -- Select entire buffer content
 vim.keymap.set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
 -- Quick paragraph operations
-vim.keymap.set("n", "<leader>dp", "dap", { desc = "Delete paragraph" })
 vim.keymap.set("n", "<leader>yp", "yap", { desc = "Yank paragraph" })
 
 --- text navigation improvement
@@ -81,7 +80,7 @@ vim.keymap.set("x", "<", "<gv", silent)
 vim.keymap.set("x", ">", ">gv", silent)
 
 -- Bind the function to a key mapping
-vim.keymap.set("n", ",d", "<cmd>bd<cr>", silent)
+vim.keymap.set("n", ",d", "<cmd>bd!<cr>", silent)
 
 -- notes
 vim.keymap.set("n", "<leader>n", ":e ~/notes.md<cr>", silent)
