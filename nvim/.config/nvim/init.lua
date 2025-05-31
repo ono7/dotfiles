@@ -49,7 +49,7 @@ require("config.autocmds")
 require("config.lsp").setup()
 require("config.neovide")
 
--- require("utils.help-lookup").setup()
+require("utils.help-lookup").setup()
 
 --- these two worktogether
 require("utils.runner").setup() -- runs anything :M <cmd> :)

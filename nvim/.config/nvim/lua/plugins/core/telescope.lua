@@ -126,7 +126,7 @@ return {
                 #tail + 2, -- highlight start position +2 = (path = string.format)
                 #tail + #formatted, -- highlight end position adjusted for new path
               },
-              "Pmenu", -- highlight group name
+              "Directory", -- highlight group name
             },
           }
 
@@ -150,6 +150,7 @@ return {
         hidden = true,
         show_untracked = true,
         prompt_title = "Dotfiles",
+        sort_mru = true, -- Most recently used first
         no_ignore = false,
       })
     end)
@@ -225,6 +226,7 @@ return {
 
     k({ "n", "x" }, "<C-f>", function()
       local opts = {
+        sort_mru = true, -- Most recently used first
         hidden = true,
         show_untracked = true,
         find_command = fd_command,
@@ -255,12 +257,16 @@ return {
         print("cwd not a git project")
       end
     end
-
+    -- vim.keymap.set("n", "<M-p>", function()
+    --   require("telescope.builtin").find_files({
+    --     sort_mru = true, -- This enables MRU sorting
+    --     cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
+    --   })
+    -- end, { noremap = true, silent = true, desc = "Find files with MRU sorting" })
     -- Keymapping for Git files using fd
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
     vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
-
     vim.keymap.set({ "n" }, "<M-f>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
 
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
@@ -277,16 +283,16 @@ return {
       })
     end)
 
-    k("n", "<C-t>", function()
-      require("telescope.builtin").oldfiles({
-        cwd_only = false,
-        file_ignore_patterns = { "COMMIT_EDITMSG$" },
-        hidden = true,
-        no_ignore = true,
-        sort_mru = true, -- Most recently used first
-        sorting_strategy = "ascending",
-      })
-    end)
+    -- k("n", "<C-t>", function()
+    --   require("telescope.builtin").oldfiles({
+    --     cwd_only = false,
+    --     file_ignore_patterns = { "COMMIT_EDITMSG$" },
+    --     hidden = true,
+    --     no_ignore = true,
+    --     sort_mru = true, -- Most recently used first
+    --     sorting_strategy = "ascending",
+    --   })
+    -- end)
 
     telescope.load_extension("ui-select")
     telescope.load_extension("workspaces")
