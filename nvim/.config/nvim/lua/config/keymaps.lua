@@ -37,7 +37,7 @@ vim.cmd([[vnoremap " <esc>`>a"<esc>`<i"<esc>f"a]])
 vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
 
 ---
-vim.keymap.set("n", "<leader>td", function()
+vim.keymap.set("n", "<leader>dt", function()
   if vim.diagnostic.is_enabled() then
     vim.diagnostic.enable(false)
     print("diags: disabled")
