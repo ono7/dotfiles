@@ -124,7 +124,7 @@ style = "fg:#B097B6"
 format = "[( $symbol$version )]($style)"
 
 [python]
-symbol = " "
+symbol = "🐍 "
 style = "fg:#D4B97E"
 format = '[( $symbol$version)]($style)'
 
