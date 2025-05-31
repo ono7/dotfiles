@@ -70,22 +70,21 @@ vim.opt.guicursor = ""
 -- require("jira.jira-clone").setup()
 
 -- vim.opt.completeopt = { "menu" }
-
 vim.opt.completeopt = { "menu", "menuone" }
 
 -- . = this buffer, w = from other windows, b = other loaded buffers
 -- vim.opt.complete = { ".", "w", "b", "u" }
 vim.opt.complete = { ".", "w", "b" }
 
-local function smart_completion()
-  if vim.fn.pumvisible() == 1 then
-    -- If completion menu is visible, select next item
-    return "<C-n>"
-  else
-    -- If no menu is visible, trigger completion
-    return "<C-x><C-n>"
-  end
-end
+-- local function smart_completion()
+--   if vim.fn.pumvisible() == 1 then
+--     -- If completion menu is visible, select next item
+--     return "<C-n>"
+--   else
+--     -- If no menu is visible, trigger completion
+--     return "<C-x><C-n>"
+--   end
+-- end
 
 -- Map D-y or C-y to the smart completion function
 -- if vim.fn.has("macunix") == 1 then
