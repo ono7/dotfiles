@@ -1,6 +1,7 @@
 --- 🐇 Follow the white Rabbit...
 
 --[[
+* == auto indent
 * insert mode: c-t and c-d to indent/unindent a line that is not in the corret indent level
 * set dir to current open file, :cd %:h
 * add all files to buff for faster navigation :argadd **/*.py
