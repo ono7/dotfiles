@@ -1,0 +1,121 @@
+return {
+  "ibhagwan/fzf-lua",
+  dependencies = { "echasnovski/mini.icons" },
+  config = function()
+    local fzf = require("fzf-lua")
+
+    fzf.setup({
+      {
+        "fzf-native",
+        winopts = {
+          -- -- preview = { default = "bat" },
+        },
+      },
+      keymap = {
+        fzf = {
+          ["ctrl-u"] = "preview-page-up",
+          ["ctrl-d"] = "preview-page-down",
+          ["ctrl-k"] = "up",
+          ["ctrl-j"] = "down",
+          ["ctrl-q"] = "select-all+accept",
+        },
+      },
+      files = {
+        fd_opts = "--type f --hidden --exclude node_modules --exclude .git --exclude .venv",
+        -- -- previewer = "bat",
+      },
+      oldfiles = {
+        include_current_session = true,
+        sort_lastused = true,
+      },
+      buffers = {
+        sort_lastused = true,
+        -- previewer = "bat",
+      },
+      grep = {
+        cmd = "rg --line-number --column --no-heading --color=always --smart-case",
+        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.git/*" --glob "!.venv/*"',
+        -- previewer = "bat",
+      },
+      live_grep = {
+        cmd = "rg --line-number --column --no-heading --color=always --smart-case",
+        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.git/*" --glob "!.venv/*"',
+        -- previewer = "bat",
+      },
+      git = {
+        files = {
+          -- previewer = "bat",
+        },
+      },
+      fzf_opts = {
+        ["--tiebreak"] = "index",
+      },
+      defaults = {
+        git_icons = true,
+        file_icons = true,
+        color_icons = true,
+      },
+    })
+
+    local keymap = vim.keymap.set
+
+    keymap("n", "<leader>fb", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
+    keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
+    keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
+    keymap("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
+    keymap("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
+    keymap("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
+    keymap("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
+    keymap("n", "<leader>ff", fzf.files, { desc = "[S]earch [F]iles" })
+    keymap("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
+    keymap("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
+    keymap("n", "<leader>lg", fzf.live_grep, { desc = "[S]earch by [G]rep" })
+    keymap("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    keymap("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
+    keymap("n", "<leader>fo", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
+    keymap("n", "<leader>ft", function()
+      fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
+    end, { desc = "Find todos" })
+    keymap("n", "<leader>a", function()
+      fzf.lsp_document_symbols({
+        symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
+      })
+    end, { desc = "[S]each LSP document [S]ymbols" })
+    keymap("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
+    keymap("n", "<leader>s/", function()
+      fzf.live_grep({ buffers_only = true, prompt = "Live Grep in Open Files> " })
+    end, { desc = "[S]earch [/] in Open Files" })
+    keymap("n", "<leader>/", function()
+      fzf.blines({ previewer = false })
+    end, { desc = "Fuzzily search in current buffer" })
+  end,
+}
+-- return {
+--   "ibhagwan/fzf-lua",
+--   -- optional for icon support
+--   -- dependencies = { "nvim-tree/nvim-web-devicons" },
+--   -- or if using mini.icons/mini.nvim
+--   dependencies = { "echasnovski/mini.icons" },
+--   keymap = {
+--     fzf = {
+--       -- use cltr-q to select all items and convert to quickfix list
+--       ["ctrl-q"] = "select-all+accept",
+--     },
+--   },
+--   opts = {
+--     oldfiles = {
+--       include_current_session = true,
+--     },
+--     previewers = {
+--       builtin = {
+--         syntax_limit_b = 1024 * 100, -- 100KB
+--       },
+--     },
+--     grep = {
+--       rg_glob = true, -- enable glob parsing
+--       glob_flag = "--iglob", -- case insensitive globs
+--       glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
+--     },
+--   },
+-- }

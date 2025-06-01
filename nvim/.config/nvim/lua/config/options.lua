@@ -65,6 +65,7 @@ vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
 vim.opt.formatoptions = "c1lqjr"
 vim.opt.grepprg = "rg --ignore-case --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+-- vim.opt.grepformat = "%f:%l:%c:%m,%f"
 vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.hlsearch = false
@@ -76,7 +77,7 @@ vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
-vim.opt.jumpoptions:append({ "view", "stack" })
+-- vim.opt.jumpoptions:append({ "view", "stack" })
 
 vim.opt.laststatus = 0
 vim.opt.ruler = true
