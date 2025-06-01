@@ -143,17 +143,18 @@ return {
 
     -- vim.keymap.set("n", "<leader>b", builtin.current_buffer_fuzzy_find)
 
-    k("n", "<leader>vc", function()
-      builtin.git_files({
-        previewer = false,
-        cwd = "~/.dotfiles",
-        hidden = true,
-        show_untracked = true,
-        prompt_title = "Dotfiles",
-        sort_mru = true, -- Most recently used first
-        no_ignore = false,
-      })
-    end)
+    -- migrated to fzf
+    -- k("n", "<leader>vc", function()
+    --   builtin.git_files({
+    --     previewer = false,
+    --     cwd = "~/.dotfiles",
+    --     hidden = true,
+    --     show_untracked = true,
+    --     prompt_title = "Dotfiles",
+    --     sort_mru = true, -- Most recently used first
+    --     no_ignore = false,
+    --   })
+    -- end)
 
     k("n", "<C-d>", function()
       builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
@@ -224,16 +225,16 @@ return {
     --   require("telescope.builtin").find_files(opts)
     -- end, opt)
 
-    k({ "n", "x" }, "<C-f>", function()
-      local opts = {
-        sort_mru = true, -- Most recently used first
-        hidden = true,
-        show_untracked = true,
-        find_command = fd_command,
-        cwd = vim.fn.expand("%:p:h"), -- current file's working directory
-      }
-      require("telescope.builtin").find_files(opts)
-    end, opt)
+    -- k({ "n", "x" }, "<C-f>", function()
+    --   local opts = {
+    --     sort_mru = true, -- Most recently used first
+    --     hidden = true,
+    --     show_untracked = true,
+    --     find_command = fd_command,
+    --     cwd = vim.fn.expand("%:p:h"), -- current file's working directory
+    --   }
+    --   require("telescope.builtin").find_files(opts)
+    -- end, opt)
 
     -- Function to check if we're in a Git repository
     local function is_git_repo()
@@ -266,22 +267,24 @@ return {
     -- Keymapping for Git files using fd
     -- uses ~/.config/fd/ignore so not all git files are listed
     -- however we traverse back to the git root directory from anywhere in the project which is a win!
-    vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
-    vim.keymap.set({ "n" }, "<M-f>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
+
+    -- migrated to fzf lua
+    -- vim.keymap.set({ "n" }, "<M-p>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
+    -- vim.keymap.set({ "n" }, "<M-f>", fd_git_files, { noremap = true, silent = true, desc = "Find Git files using fd" })
 
     -- k("n", "<c-s>", [[:bro oldfiles<CR>]], opt)
 
-    --- this does what I expected
-    k("n", "<C-r>", function()
-      require("telescope.builtin").oldfiles({
-        cwd_only = false,
-        file_ignore_patterns = { "COMMIT_EDITMSG$" },
-        hidden = true,
-        no_ignore = true,
-        sort_mru = true, -- Most recently used first
-        sorting_strategy = "ascending",
-      })
-    end)
+    --- migrated to fzf lua
+    -- k("n", "<C-r>", function()
+    --   require("telescope.builtin").oldfiles({
+    --     cwd_only = false,
+    --     file_ignore_patterns = { "COMMIT_EDITMSG$" },
+    --     hidden = true,
+    --     no_ignore = true,
+    --     sort_mru = true, -- Most recently used first
+    --     sorting_strategy = "ascending",
+    --   })
+    -- end)
 
     -- k("n", "<C-t>", function()
     --   require("telescope.builtin").oldfiles({
