@@ -201,9 +201,9 @@ return {
     --   })
     -- end, { desc = "Live grep with rg" })
 
-    k("n", "<M-b>", function()
-      builtin.buffers({ previewer = false })
-    end, opt)
+    -- k("n", "<M-b>", function()
+    --   builtin.buffers({ previewer = false })
+    -- end, opt)
 
     k("n", "<leader>s", function()
       builtin.lsp_document_symbols({ previewer = true, show_line = true })

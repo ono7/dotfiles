@@ -30,7 +30,7 @@ return {
       },
       buffers = {
         sort_lastused = true,
-        -- previewer = "bat",
+        previewer = false,
       },
       grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",
@@ -59,9 +59,9 @@ return {
 
     local keymap = vim.keymap.set
 
-    keymap("n", "<leader>fb", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
-    keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
-    keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
+    keymap("n", "<M-b>", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
+    -- keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
+    -- keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
     keymap("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
     keymap("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
     keymap("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
@@ -80,11 +80,11 @@ return {
     -- keymap("n", "<leader>vs", fzf.dotfiles, { desc = "Seach dotfiles" })
     keymap("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     keymap("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
-    keymap("n", "<leader>lg", fzf.live_grep, { desc = "[S]earch by [G]rep" })
+    keymap("n", "<M-g>", fzf.live_grep, { desc = "[S]earch by [G]rep" })
     keymap("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
     keymap("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
     -- keymap("n", "<leader>fo", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
+    -- keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
     keymap("n", "<leader>ft", function()
       fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
     end, { desc = "Find todos" })
