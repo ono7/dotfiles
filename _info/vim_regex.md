@@ -15,6 +15,7 @@ remove duplicate adjacent lines
 
   Positive lookahead: \@=
   Negative lookahead: \@!
+      /\v.*parent":\s+(null)@!  -- do not match any lines that contain null after parent":
   Positive lookbehind: \@<=
   Negative lookbehind: \@<!
 
