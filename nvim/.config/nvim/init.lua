@@ -106,3 +106,6 @@ vim.opt.complete = { ".", "w", "b" }
 -- Optional: Add mappings for navigating the completion menu
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
+
+-- disable blinking cursor
+vim.opt.guicursor:append("a:blinkon0")

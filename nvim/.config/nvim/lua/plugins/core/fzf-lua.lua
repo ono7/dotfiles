@@ -88,11 +88,11 @@ return {
     keymap("n", "<leader>ft", function()
       fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
     end, { desc = "Find todos" })
-    keymap("n", "<leader>a", function()
-      fzf.lsp_document_symbols({
-        symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
-      })
-    end, { desc = "[S]each LSP document [S]ymbols" })
+    -- keymap("n", "<leader>a", function()
+    --   fzf.lsp_document_symbols({
+    --     symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
+    --   })
+    -- end, { desc = "[S]each LSP document [S]ymbols" })
 
     -- find files
     vim.keymap.set("n", "<C-f>", function()
