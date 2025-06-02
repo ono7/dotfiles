@@ -484,9 +484,7 @@ zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 
 export FZF_DEFAULT_OPTS='
 --height 40%
---layout=reverse
 --border=rounded
---info=inline
 --color=bg+:#2D364A,bg:#171F2C,spinner:#9A82A0,hl:#8BC184
 --color=fg:#D6CFC7,header:#7E9F9D,info:#BFA46C,pointer:#C19999
 --color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
