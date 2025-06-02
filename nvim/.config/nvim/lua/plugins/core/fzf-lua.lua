@@ -140,6 +140,33 @@ return {
       })
     end, { desc = "Recent files (no git)" })
 
+    -- live grep
+    vim.keymap.set("n", "<M-g>", function()
+      require("fzf-lua").live_grep({
+        prompt = "Live Grep> ",
+        -- previewer = false,
+        rg_opts = table.concat({
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "-u",
+          "--glob=!venv",
+          "--glob=!.collections",
+          "--glob=!.git",
+          "--glob=!tags",
+        }, " "),
+        no_ignore = false,
+        hidden = true,
+        winopts = {
+          title = " Live Grep ",
+          title_pos = "center",
+        },
+      })
+    end, { desc = "Live grep with rg" })
+
     keymap("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
     keymap("n", "<leader>s/", function()
       fzf.live_grep({ buffers_only = true, prompt = "Live Grep in Open Files> " })

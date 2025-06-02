@@ -165,40 +165,41 @@ return {
     end, opt)
 
     -- does not use find_command
-    vim.keymap.set("n", "<M-g>", function()
-      builtin.live_grep({
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "-u",
-          "--glob",
-          "!venv",
-          "--glob",
-          "!.collections",
-          "--glob",
-          "!.git",
-          "--glob",
-          "!tags",
-        },
-        show_untracked = true,
-        hidden = true,
-        no_ignore = false,
-        theme = "ivy",
-        ---- this will allow search from the git root dir
-        -- cwd = (function()
-        --   local d = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-        --   if d:match("not a git repository") then
-        --     return "."
-        --   end
-        --   return d
-        -- end)(),
-      })
-    end, { desc = "Live grep with rg" })
+    -- migrated to fzf lua
+    -- vim.keymap.set("n", "<M-g>", function()
+    --   builtin.live_grep({
+    --     vimgrep_arguments = {
+    --       "rg",
+    --       "--color=never",
+    --       "--no-heading",
+    --       "--with-filename",
+    --       "--line-number",
+    --       "--column",
+    --       "--smart-case",
+    --       "-u",
+    --       "--glob",
+    --       "!venv",
+    --       "--glob",
+    --       "!.collections",
+    --       "--glob",
+    --       "!.git",
+    --       "--glob",
+    --       "!tags",
+    --     },
+    --     show_untracked = true,
+    --     hidden = true,
+    --     no_ignore = false,
+    --     theme = "ivy",
+    --     ---- this will allow search from the git root dir
+    --     -- cwd = (function()
+    --     --   local d = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+    --     --   if d:match("not a git repository") then
+    --     --     return "."
+    --     --   end
+    --     --   return d
+    --     -- end)(),
+    --   })
+    -- end, { desc = "Live grep with rg" })
 
     k("n", "<M-b>", function()
       builtin.buffers({ previewer = false })
