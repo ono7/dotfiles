@@ -11,6 +11,7 @@ snippet h "header" b
 
 snippet db "removed debug" b
   from remote_pdb import RemotePdb
+  print("--------- DEBUG BREAKPOINT ---------")
   RemotePdb('0.0.0.0', 444${0:4}).set_trace()
 
 snippet de "removed debug" b
@@ -18,15 +19,19 @@ snippet de "removed debug" b
     ${0:${VISUAL}}
   except:
     from remote_pdb import RemotePdb
+    print("--------- DEBUG BREAKPOINT ---------")
     RemotePdb('0.0.0.0', 4444).set_trace()
 
 snippet dl "debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
   import pdb;pdb.set_trace()
 
 snippet st "debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
   import pdb;pdb.set_trace()
 
 snippet rst "remote debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
   import rpdb;rpdb.set_trace()
 
 snippet doc "docstring" b

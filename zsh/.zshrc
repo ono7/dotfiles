@@ -470,13 +470,27 @@ zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 
 ############## FZF configuration ##############
 
-# export FZF_DEFAULT_OPTS='
-# --height 40% --no-preview
-# --color=bg+:#0a1623,bg:#0a1623,spinner:#f5e0dc,hl:#f38ba8
-# --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
-# --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
+# export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
-export FZF_DEFAULT_OPTS='--height 40% --no-preview'
+# export FZF_DEFAULT_OPTS='
+# --height 40%
+# --layout=reverse
+# --border=rounded
+# --info=inline
+# --color=bg+:#2D364A,bg:#171F2C,spinner:#9A82A0,hl:#8BC184
+# --color=fg:#D6CFC7,header:#7E9F9D,info:#BFA46C,pointer:#C19999
+# --color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
+# --color=border:#6D778F,separator:#323C4D,scrollbar:#7591A8'
+
+export FZF_DEFAULT_OPTS='
+--height 40%
+--layout=reverse
+--border=rounded
+--info=inline
+--color=bg+:#2D364A,bg:#171F2C,spinner:#9A82A0,hl:#8BC184
+--color=fg:#D6CFC7,header:#7E9F9D,info:#BFA46C,pointer:#C19999
+--color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
+--color=border:#6D778F,separator:#323C4D,scrollbar:#7591A8'
 
 if command -v fd &>/dev/null; then
   # TODO: revisit this and use ~/.config/fd/ignore
