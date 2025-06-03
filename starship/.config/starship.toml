@@ -144,7 +144,7 @@ format = "[( $symbol$context )]($style)"
 # Package version - subtle
 [package]
 style = "fg:#C9C2B8"
-format = "[(📦 $version )]($style)"
+format = "[( 📦 $version )]($style)"
 
 # Command duration - only show if > 2 seconds
 [cmd_duration]

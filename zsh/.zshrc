@@ -184,6 +184,7 @@ fi
 # fixes issue with poetry shell not activated propery.
 # https://github.com/python-poetry/poetry/issues/571
 ## on .{bash,zsh,wtv}rc
+
 poetry_shell () {
   deactivate 2>/dev/null
   . "$(dirname $(poetry run which python))/activate"
@@ -321,7 +322,11 @@ jira () {
 
 va () {
   if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/venv ]]; then
-    source $(git rev-parse --show-toplevel)/venv/bin/activate
+    if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
+      poetry_shell
+    else
+      source $(git rev-parse --show-toplevel)/venv/bin/activate
+    fi
   else
     source $HOME/.virtualenvs/prod3/bin/activate
   fi
