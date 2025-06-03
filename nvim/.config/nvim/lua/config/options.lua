@@ -26,11 +26,12 @@ vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
-vim.opt.fillchars:append({ fold = "·" })
+-- vim.opt.fillchars:append({ fold = "·" })
 
 vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 vim.opt.foldcolumn = "0"
 
 _G.better_fold_text = function()
@@ -53,7 +54,7 @@ _G.better_fold_text = function()
 end
 
 vim.opt.foldtext = "v:lua.better_fold_text()"
--- vim.opt.fillchars:append({ fold = " " })
+vim.opt.fillchars:append({ fold = " " })
 
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
