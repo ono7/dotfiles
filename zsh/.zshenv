@@ -151,7 +151,7 @@ release () {
 }
 
 gco () {
-  git switch -c "$1" || git switch "$1"
+  git checkout $@
 }
 
 alias gf='git fetch --all'

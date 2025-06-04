@@ -154,12 +154,6 @@ keybind = ctrl+shift+v=paste_from_clipboard
 # Ghostty color theme converted from Alacritty
 # Add this to your ghostty config file
 
-# Primary colors
-background = #1D2433
-foreground = #E3DED7
-cursor-color = ffffff
-cursor-text = 171f2c
-
 # Selection
 selection-background = 364156
 selection-foreground = e3ded7
@@ -185,8 +179,12 @@ palette = 14=#a9c9c7
 palette = 15=#e3ded7
 
 # Primary colors
-background = 1d2433
-foreground = e3ded7
+# background = 1d2433
+# foreground = e3ded7
+# foreground = #b8b2ab
+# foreground = #9ca3af
+foreground = #c5bfb8
+background = #171F2C
 cursor-color = ffffff
 cursor-text = 171f2c
 
