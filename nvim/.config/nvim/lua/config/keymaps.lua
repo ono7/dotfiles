@@ -11,6 +11,11 @@ vim.keymap.set("i", "<M-e>", "")
 vim.keymap.set("i", "<M-C-U>", "")
 vim.keymap.set("n", "<M-e>", "")
 
+-- show current function or class
+vim.cmd([[
+  nnoremap <M-a> :echo getline(search('\v^[[:alpha:]$_]', "bn", 1, 100))<CR>
+]])
+
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
