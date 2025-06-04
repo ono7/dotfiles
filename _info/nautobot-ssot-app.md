@@ -1,6 +1,12 @@
 ## django
 
-- Query data
+## access nautobot inside a container using cookiecutter template
+
+`invoke nbshell`
+
+- this is the fastest way to delete objects `Device.objects.all().delete()`
+
+* Query data
 
 ```python
 Software.objects.filter(ratings__gte=5)
