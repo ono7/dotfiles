@@ -156,13 +156,13 @@ return {
     --   })
     -- end)
 
-    k("n", "<C-d>", function()
-      builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
-    end, opt)
+    -- k("n", "<C-d>", function()
+    --   builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
+    -- end, opt)
 
-    k("n", "<M-d>", function()
-      builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
-    end, opt)
+    -- k("n", "<M-d>", function()
+    --   builtin.diagnostics({ bufnr = 0, previewer = false, theme = "ivy" })
+    -- end, opt)
 
     -- does not use find_command
     -- migrated to fzf lua
@@ -205,15 +205,15 @@ return {
     --   builtin.buffers({ previewer = false })
     -- end, opt)
 
-    k("n", "<leader>s", function()
-      builtin.lsp_document_symbols({ previewer = true, show_line = true })
-    end, opt)
+    -- k("n", "<leader>s", function()
+    --   builtin.lsp_document_symbols({ previewer = true, show_line = true })
+    -- end, opt)
 
     k("n", "<M-w>", ":Telescope workspaces theme=ivy<CR>", opt)
 
-    k("n", "<leader>S", function()
-      builtin.lsp_workspace_symbols({ previewer = true })
-    end, opt)
+    -- k("n", "<leader>S", function()
+    --   builtin.lsp_workspace_symbols({ previewer = true })
+    -- end, opt)
 
     --- handle all ignores in ~/.config/fd/ignore
     -- k({ "n", "x" }, "<M-f>", function()

@@ -10,8 +10,12 @@ draw_bold_text_with_bright_colors = false
 
 #### Good for OLED ####
 [colors.primary]
-background = "#171F2C"         # Deepened navy for better OLED blacks
-foreground = "#D6CFC7"         # Slightly less bright antique paper
+# background = "#171F2C"         # Deepened navy for better OLED blacks
+# foreground = "#D6CFC7"         # Slightly less bright antique paper
+
+foreground = "#c5bfb8"
+background = "#171F2C"
+
 dim_foreground = "#6D778F"     # Deeper blue-gray
 bright_foreground = "#B9C2E4"  # Less bright lavender-tinted white
 
