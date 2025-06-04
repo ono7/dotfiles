@@ -11,6 +11,11 @@ return {
           -- -- preview = { default = "bat" },
         },
       },
+      previewers = {
+        builtin = {
+          syntax_limit_b = 1024 * 100, -- 100KB
+        },
+      },
       keymap = {
         fzf = {
           ["ctrl-u"] = "preview-page-up",
@@ -27,6 +32,7 @@ return {
       oldfiles = {
         include_current_session = true,
         sort_lastused = true,
+        stat_file = true,
       },
       buffers = {
         sort_lastused = true,
@@ -34,7 +40,7 @@ return {
       },
       grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",
-        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.git/*" --glob "!.venv/*"',
+        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.cache/*" --glob "!.git/*" --glob "!.venv/*"',
         -- previewer = "bat",
       },
       live_grep = {
