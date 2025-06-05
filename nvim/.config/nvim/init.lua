@@ -107,5 +107,15 @@ vim.opt.complete = { ".", "w", "b" }
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
+vim.cmd([[
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
+]])
+
 -- disable blinking cursor
 vim.opt.guicursor:append("a:blinkon0")
