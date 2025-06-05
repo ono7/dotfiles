@@ -4,7 +4,7 @@ local term_job_id = nil
 local term_size = 12
 
 vim.api.nvim_create_user_command("CopyMatches", function(opts)
-  local reg = opts.args ~= "" and opts.args or "+"
+  local reg = opts.args ~= "" and opts.args or "*"
   local pattern = vim.fn.getreg("/")
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local hits = {}
