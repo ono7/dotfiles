@@ -32,6 +32,7 @@ macos-titlebar-style = transparent
 macos-option-as-alt = true
 
 clipboard-paste-bracketed-safe = true
+clipboard-paste-protection = false
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
