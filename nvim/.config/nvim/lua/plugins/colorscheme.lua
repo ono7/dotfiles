@@ -110,7 +110,10 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = mycolors.red, bg = "#161927", bold = true })
     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#161927" })
-    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#1b192c" })
+    vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#3e485a" })
+    vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "#3e485a" })
+    vim.api.nvim_set_hl(0, "NeoTreeStatusLineNC", { fg = "#3e485a" })
+
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
     vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })

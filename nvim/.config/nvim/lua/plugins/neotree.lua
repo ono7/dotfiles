@@ -15,7 +15,7 @@ return {
     require("neo-tree").setup({
       enable_git_status = false,
       enable_diagnostics = false,
-      window = { width = 25 },
+      window = { width = 35 },
       filesystem = {
         filtered_items = {
           visible = false, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
