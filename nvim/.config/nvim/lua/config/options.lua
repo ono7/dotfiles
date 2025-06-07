@@ -85,9 +85,9 @@ vim.opt.ruler = true
 vim.opt.showcmd = false
 vim.opt.showmode = true
 
--- vim.cmd([[
--- set statusline=%{repeat('─',winwidth('.'))}
--- ]])
+vim.cmd([[
+set statusline=%{repeat('─',winwidth('.'))}
+]])
 
 -- replaces the standard :find function with fd
 function Fd(file_pattern, _)
