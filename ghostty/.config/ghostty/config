@@ -158,6 +158,14 @@ window-vsync = false
 # background-opacity = .95
 # background-blur = true
 
+# colorscheme
+
+# Primary colors
+foreground = #c5bfb8
+background = #171F2C
+cursor-color = ffffff
+cursor-text = 171f2c
+
 # Selection
 selection-background = 364156
 selection-foreground = e3ded7
@@ -181,12 +189,6 @@ palette = 12=#a4bcce
 palette = 13=#c4afc8
 palette = 14=#a9c9c7
 palette = 15=#e3ded7
-
-# Primary colors
-foreground = #c5bfb8
-background = #171F2C
-cursor-color = ffffff
-cursor-text = 171f2c
 
 # Selection
 selection-background = 364156
