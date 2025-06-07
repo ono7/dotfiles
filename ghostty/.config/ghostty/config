@@ -19,6 +19,7 @@ shell-integration-features = no-cursor,sudo,no-title
 
 cursor-style-blink = false
 
+mouse-hide-while-typing = true
 
 scrollback-limit = 4294967296
 
@@ -151,9 +152,11 @@ keybind = ctrl+shift+v=paste_from_clipboard
 # keybind = ctrl+c=unbind
 # keybind = ctrl+v=unbind
 
+# reduce input latency (but may crash with display link)
+window-vsync = false
 
-# Ghostty color theme converted from Alacritty
-# Add this to your ghostty config file
+# background-opacity = .95
+# background-blur = true
 
 # Selection
 selection-background = 364156
