@@ -180,10 +180,6 @@ palette = 14=#a9c9c7
 palette = 15=#e3ded7
 
 # Primary colors
-# background = 1d2433
-# foreground = e3ded7
-# foreground = #b8b2ab
-# foreground = #9ca3af
 foreground = #c5bfb8
 background = #171F2C
 cursor-color = ffffff
