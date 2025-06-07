@@ -38,10 +38,10 @@ return {
       virtual_text = false,
       signs = {
         text = {
-          [vim.diagnostic.severity.ERROR] = "X",
-          [vim.diagnostic.severity.WARN] = "!",
-          [vim.diagnostic.severity.HINT] = "h",
-          [vim.diagnostic.severity.INFO] = "i",
+          [vim.diagnostic.severity.ERROR] = "•",
+          [vim.diagnostic.severity.WARN] = "•",
+          [vim.diagnostic.severity.HINT] = "•",
+          [vim.diagnostic.severity.INFO] = "•",
         },
       },
     })

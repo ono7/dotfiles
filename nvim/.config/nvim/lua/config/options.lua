@@ -102,7 +102,7 @@ function Fd(file_pattern, _)
   return result
 end
 
-vim.opt.findfunc = "v:lua.Fd"
+-- vim.opt.findfunc = "v:lua.Fd"
 
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
