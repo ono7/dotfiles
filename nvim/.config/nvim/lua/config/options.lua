@@ -63,7 +63,7 @@ vim.opt.foldnestmax = 2
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
-vim.opt.formatoptions = "c1lqjr"
+-- vim.opt.formatoptions = "c1lqjr"
 
 vim.opt.grepprg = "rg --vimgrep --smart-case --pcre2"
 -- allows lookaround :Rg ^from (?=.*Adapter)

@@ -38,12 +38,10 @@ return {
       virtual_text = false,
       signs = {
         text = {
-          [vim.diagnostic.severity.ERROR] = "●",
-          [vim.diagnostic.severity.WARN] = "●",
-          [vim.diagnostic.severity.HINT] = "●",
-          [vim.diagnostic.severity.INFO] = "●",
-
-          -- 4  • from diffsync import Adapter, DiffSyncModel       Import "diffsync" could not be resolved
+          [vim.diagnostic.severity.ERROR] = "•",
+          [vim.diagnostic.severity.WARN] = "•",
+          [vim.diagnostic.severity.HINT] = "•",
+          [vim.diagnostic.severity.INFO] = "•",
         },
       },
     })

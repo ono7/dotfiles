@@ -106,7 +106,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     -- vim.opt.formatoptions:remove({ "c", "r", "o" })
-    vim.opt.formatoptions:remove({ "c", "o" })
+    vim.opt.formatoptions:remove({ "c", "o", "t" })
   end,
   group = create_augroup("remove_format_options", { clear = true }),
   desc = "Disable New Line Comment",
