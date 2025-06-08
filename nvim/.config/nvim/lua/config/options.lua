@@ -64,9 +64,33 @@ vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
 vim.opt.formatoptions = "c1lqjr"
-vim.opt.grepprg = "rg --ignore-case --vimgrep"
-vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
--- vim.opt.grepformat = "%f:%l:%c:%m,%f"
+
+vim.opt.grepprg = "rg --vimgrep --smart-case --pcre2"
+-- allows lookaround :Rg ^from (?=.*Adapter)
+vim.opt.grepformat = "%f:%l:%c:%m,%f"
+
+vim.api.nvim_create_user_command("Rg", function(opts)
+  if opts.args ~= "" then
+    local result = vim
+      .system({
+        "rg",
+        "--vimgrep",
+        "--smart-case",
+        "--pcre2",
+        opts.args,
+      })
+      :wait()
+
+    if result.code == 0 then
+      vim.fn.setqflist({}, "r", {
+        title = "rg: " .. opts.args,
+        lines = vim.split(result.stdout, "\n", { trimempty = true }),
+      })
+      vim.cmd("copen")
+    end
+  end
+end, { nargs = "+" })
+
 vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.hlsearch = false
