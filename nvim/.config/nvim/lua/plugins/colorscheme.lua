@@ -8,7 +8,7 @@ return {
       white = "#E3DED7",
       darker_black = "#191828",
       black = "#1e1d2d", --  nvim bg
-      black2 = "#252434",
+      black2 = "NONE",
       one_bg = "#2d2c3c", -- real bg of onedark
       one_bg2 = "#363545",
       one_bg3 = "#3e3d4d",
@@ -40,7 +40,7 @@ return {
       folder_bg = "#8CA7BE",
       lavender = "#A6B0C3", -- Soft muted periwinkle (from indexed colors)
       -- Additional colors for diagnostics
-      bg_dark = "#1D2433", -- Primary background from Alacritty
+      bg_dark = "NONE", -- Primary background from Alacritty
       selection = "#364156", -- Selection background from Alacritty
       cursor_line = "#2D3343", -- Slightly lighter than background
     }
@@ -51,8 +51,8 @@ return {
       term_colors = true,
       dim_inactive = {
         enabled = false,
-        shade = "dark",
-        percentage = 0.15,
+        -- shade = "dark",
+        -- percentage = 0.15,
       },
       styles = {
         comments = { "italic" },
@@ -109,7 +109,7 @@ return {
     vim.api.nvim_set_hl(0, "@variable.builtin", {})
     vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
     vim.api.nvim_set_hl(0, "MatchParen", { fg = mycolors.red, bg = "#161927", bold = true })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#161927" })
+    vim.api.nvim_set_hl(0, "NormalFloat", {})
     vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#3e485a" })
     vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "#3e485a" })
     vim.api.nvim_set_hl(0, "NeoTreeStatusLineNC", { fg = "#3e485a" })

@@ -12,7 +12,7 @@ return {
 
     -- oil_config.setup {}
     oil_config.setup({
-      columns = { "icon" },
+      columns = { "icon", add_padding = true },
       keymaps = {
         [set_keys.prefix("v")] = { "actions.select", opts = { vertical = true } },
         [set_keys.prefix("x")] = { "actions.select", opts = { horizontal = true } },

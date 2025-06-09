@@ -5,6 +5,7 @@ return {
     local fzf = require("fzf-lua")
 
     fzf.setup({
+      fzf_colors = true,
       {
         "fzf-native",
         winopts = {
@@ -63,16 +64,14 @@ return {
       },
     })
 
-    local keymap = vim.keymap.set
+    local k = vim.keymap.set
 
-    keymap("n", "<M-b>", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
-    -- keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
-    -- keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
-    keymap("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
-    keymap("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
-    keymap("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
-    keymap("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
-    vim.keymap.set("n", "<leader>vc", function()
+    k("n", "<M-b>", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
+    k("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
+    k("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
+    k("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
+    k("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
+    k("n", "<leader>vc", function()
       require("fzf-lua").files({
         cwd = vim.fn.expand("~/.dotfiles"),
         prompt = "Dotfiles> ",
@@ -83,25 +82,17 @@ return {
         },
       })
     end, { desc = "Search dotfiles" })
-    -- keymap("n", "<leader>vs", fzf.dotfiles, { desc = "Seach dotfiles" })
-    keymap("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
-    keymap("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
-    keymap("n", "<M-g>", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    keymap("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
-    keymap("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
-    -- keymap("n", "<leader>fo", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    -- keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
-    keymap("n", "<leader>ft", function()
+    k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
+    k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
+    k("n", "<M-g>", fzf.live_grep, { desc = "[S]earch by [G]rep" })
+    k("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
+    k("n", "<leader>ft", function()
       fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
     end, { desc = "Find todos" })
-    -- keymap("n", "<leader>a", function()
-    --   fzf.lsp_document_symbols({
-    --     symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
-    --   })
-    -- end, { desc = "[S]each LSP document [S]ymbols" })
 
     -- find files
-    vim.keymap.set("n", "<C-f>", function()
+    k("n", "<C-f>", function()
       local current_file_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
         cwd = current_file_dir,
@@ -115,7 +106,7 @@ return {
     end, { desc = "Find files in current file's directory" })
 
     -- git files
-    vim.keymap.set({ "n", "x" }, "<M-f>", function()
+    k({ "n", "x" }, "<M-f>", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
         previewer = false,
@@ -128,7 +119,7 @@ return {
     end, { desc = "All git files including untracked" })
 
     -- oldfiles
-    vim.keymap.set("n", "<C-r>", function()
+    k("n", "<C-r>", function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Files> ",
         previewer = false,
@@ -147,7 +138,7 @@ return {
     end, { desc = "Recent files (no git)" })
 
     -- live grep
-    vim.keymap.set("n", "<M-g>", function()
+    k("n", "<M-g>", function()
       require("fzf-lua").live_grep({
         prompt = "Live Grep> ",
         -- previewer = false,
@@ -173,11 +164,11 @@ return {
       })
     end, { desc = "Live grep with rg" })
 
-    keymap("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
-    keymap("n", "<leader>s/", function()
+    k("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
+    k("n", "<leader>s/", function()
       fzf.live_grep({ buffers_only = true, prompt = "Live Grep in Open Files> " })
     end, { desc = "[S]earch [/] in Open Files" })
-    keymap("n", "<leader>/", function()
+    k("n", "<leader>/", function()
       fzf.blines({ previewer = false })
     end, { desc = "Fuzzily search in current buffer" })
   end,
@@ -210,3 +201,14 @@ return {
 --     },
 --   },
 -- }
+
+-- keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
+-- keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
+-- keymap("n", "<leader>vs", fzf.dotfiles, { desc = "Seach dotfiles" })
+-- keymap("n", "<leader>fo", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+-- keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
+-- keymap("n", "<leader>a", function()
+--   fzf.lsp_document_symbols({
+--     symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
+--   })
+-- end, { desc = "[S]each LSP document [S]ymbols" })
