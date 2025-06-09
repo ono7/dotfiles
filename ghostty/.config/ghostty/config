@@ -163,12 +163,12 @@ window-vsync = false
 # Primary colors
 foreground = #c5bfb8
 background = #171F2C
-cursor-color = ffffff
-cursor-text = 171f2c
+cursor-color = #ffffff
+cursor-text = #171f2c
 
 # Selection
-selection-background = 364156
-selection-foreground = e3ded7
+selection-background = #364156
+selection-foreground = #e3ded7
 
 # Normal colors (0-7)
 palette = 0=#2d3343
@@ -191,35 +191,5 @@ palette = 14=#a9c9c7
 palette = 15=#e3ded7
 
 # Selection
-selection-background = 364156
-selection-foreground = e3ded7
-
-# # Primary colors
-# foreground = #c2d0d9
-# background = #0f1419
-# cursor-color = #64ffda
-# cursor-text = #0f1419
-# # Selection
-# selection-background = #2d3748
-# selection-foreground = #e2e8f0
-# # Normal colors (0-7)
-# palette = 0=#1a202c
-# palette = 1=#fc8181
-# palette = 2=#68d391
-# palette = 3=#f6e05e
-# palette = 4=#63b3ed
-# palette = 5=#b794f6
-# palette = 6=#4fd1c7
-# palette = 7=#cbd5e0
-# # Bright colors (8-15)
-# palette = 8=#2d3748
-# palette = 9=#feb2b2
-# palette = 10=#9ae6b4
-# palette = 11=#faf089
-# palette = 12=#90cdf4
-# palette = 13=#d6bcfa
-# palette = 14=#81e6d9
-# palette = 15=#f7fafc
-# # Selection
-# selection-background = #2d3748
-# selection-foreground = #e2e8f0
+selection-background = #364156
+selection-foreground = #e3ded7
