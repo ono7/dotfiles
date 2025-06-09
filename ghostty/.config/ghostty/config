@@ -11,7 +11,7 @@ font-style = SemiBold
 font-style-bold = Bold
 font-style-italic = SemiBold Oblique
 
-font-size = 26
+font-size = 27
 font-feature = -calt, -liga, -dlig
 adjust-cell-height = 30%
 
@@ -23,12 +23,19 @@ mouse-hide-while-typing = true
 
 scrollback-limit = 4294967296
 
+# window settings
 window-inherit-working-directory = true
 window-theme = ghostty
 window-colorspace = "display-p3"
 window-save-state = always
+
+# init window size
+window-height = 28
+window-width = 82
+
 clipboard-read = allow
 copy-on-select = true
+
 macos-titlebar-style = transparent
 macos-option-as-alt = true
 
@@ -36,7 +43,6 @@ clipboard-paste-bracketed-safe = true
 clipboard-paste-protection = false
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
-
 keybind = cmd+shift+r=reload_config
 
 # tabs and windows
