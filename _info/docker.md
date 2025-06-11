@@ -1,3 +1,7 @@
+## Add packages to container
+
+`apk add curl`
+
 ## install (ubuntu/wsl) standalone
 
 https://docs.docker.com/engine/install/ubuntu/

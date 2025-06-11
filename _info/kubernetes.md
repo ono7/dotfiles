@@ -1,5 +1,9 @@
 # k8s/kubernetes notes
 
+## add packages inside a container for troubleshooting
+
+`apk add curl`
+
 ## troubleshooting, pods
 
 ```pod.yml
