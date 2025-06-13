@@ -192,6 +192,21 @@ poetry_shell () {
   which python
 }
 
+fpass() {
+    local password
+    password=$(find ~/.password-store -name "*.gpg" | \
+               sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,' | \
+               fzf +m)
+    
+    if [[ -n "$password" ]]; then
+        # Use printf to handle any potential special characters safely
+        SSHPASS=$(pass show "$password" | head -n1)
+        export SSHPASS
+    fi
+}
+
+export HISTIGNORE="*SSHPASS*"
+
 function d () {
   if [[ -n $1 ]]; then
     dirs "$@"
