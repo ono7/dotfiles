@@ -68,6 +68,9 @@ keybind = alt+right=unbind
 # open config
 keybind = cmd+comma=unbind
 
+# disable full screen
+keybind = cmd+enter=unbind
+
 # {  key  =  "-",         mods  =  "Command",        action  =  "DecreaseFontSize"   },
 # {  key  =  "=",         mods  =  "Command",        action  =  "IncreaseFontSize"   },
 # {  key  =  "A",         mods  =  "Command",        chars   =  "\u0001"             },
