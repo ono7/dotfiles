@@ -1,6 +1,8 @@
 # course notes
 
-`apk add curl` - add packages to a container (from inside)
+`apk add curl` - add packages from inside a container
+
+##
 
 ## kube-scheduler
 
