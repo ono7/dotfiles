@@ -434,6 +434,9 @@ hi! link SpecialKey Comment
 hi! StatusLine guibg=#444d69
 hi! Visual guibg=#243d61
 hi! Normal guibg=NONE ctermbg=NONE
+
+set guicursor=
+
 ]===]
 
 return M
