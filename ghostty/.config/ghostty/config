@@ -161,6 +161,8 @@ keybind = ctrl+shift+v=paste_from_clipboard
 # reduce input latency (but may crash with display link)
 window-vsync = false
 
+macos-non-native-fullscreen = true
+
 # background-opacity = .95
 # background-blur = true
 
