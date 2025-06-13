@@ -119,12 +119,12 @@ endfunction
 
 inoremap <expr> <CR> <SID>smart_indent_ret()
 
-vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
-vnoremap " <esc>`>a"<esc>`<i"<esc>f"a
-vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a
-vnoremap { <esc>`>a}<esc>`<i{<esc>f}a
-vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a
+" vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+" vnoremap " <esc>`>a"<esc>`<i"<esc>f"a
+" vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+" vnoremap [ <esc>`>a]<esc>`<i[<esc>f]a
+" vnoremap { <esc>`>a}<esc>`<i{<esc>f}a
+" vnoremap ( <esc>`>a)<esc>`<i(<esc>f)a
 
 " clear hsl
 nnoremap <silent> <Esc> :nohlsearch<CR>:echo<CR>
@@ -213,20 +213,35 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
 nnoremap <c-s> :bro oldfiles<CR>
 
-if executable('rg')
-    set grepprg=rg\ --no-heading\ --color=never\ --smart-case\ --vimgrep\ -g\ '!.git'
-endif
+" Set ripgrep as the grep program
+set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+set grepformat=%f:%l:%c:%m,%f
 
-nnoremap <D-m> :lua ToggleMaximize()<CR>
+" Create Rg command
+command! -nargs=+ Rg call RgSearch(<q-args>)
 
-function! ToggleMaximize()
-    if exists('t:maximized') && t:maximized
-        wincmd =
-        let t:maximized = 0
-    else
-        wincmd |
-        wincmd _
-        let t:maximized = 1
+function! RgSearch(args)
+    if a:args != ""
+        " Execute ripgrep and capture output
+        let cmd = 'rg --vimgrep --smart-case --pcre2 ' . shellescape(a:args)
+        let output = system(cmd)
+        
+        " Check if ripgrep succeeded
+        if v:shell_error == 0
+            " Split output into lines and filter empty lines
+            let lines = filter(split(output, '\n'), 'v:val != ""')
+            
+            " Set quickfix list
+            call setqflist([], 'r', {
+                \ 'title': 'rg: ' . a:args,
+                \ 'lines': lines
+                \ })
+            
+            " Open quickfix window
+            copen
+        else
+            echo "No matches found"
+        endif
     endif
 endfunction
 
