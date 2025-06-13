@@ -139,7 +139,7 @@ vim.opt.fileformats = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 vim.opt.number = true
 
-vim.opt.messagesopt = "wait:100,history:500"
+vim.opt.messagesopt = "wait:1000,history:500"
 vim.opt.numberwidth = 3
 vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
