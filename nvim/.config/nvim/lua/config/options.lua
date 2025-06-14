@@ -179,6 +179,7 @@ vim.opt.ttimeoutlen = 50
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
 vim.opt.wildmode = "longest:full,full"
+vim.opt.wildignorecase = true
 vim.opt.updatetime = 300
 vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 

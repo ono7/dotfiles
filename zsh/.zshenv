@@ -272,7 +272,7 @@ fi
 
 alias vim='vim -u /tmp/rc$$'
 alias vi='vim -u /tmp/rc$$'
-cat > /tmp/rc$$ << 'EOF'
+  cat > /tmp/rc$$ << 'EOF'
 set nocompatible
 filetype plugin indent on
 syntax off
@@ -286,6 +286,10 @@ set autoread
 set hidden
 set tabstop=2
 set sw=2
+set wildmenu
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore+=**/__pycache__/**,**/venv/**,**/.venv/**,**/.git/**
 set ignorecase
 set incsearch
 set laststatus=1
@@ -302,6 +306,8 @@ set notitle
 set relativenumber
 set shortmess=atcIoOsT
 set timeout ttimeout
+set splitbelow
+set splitright
 set fileformats=unix
 set autoindent
 set guicursor=
@@ -381,7 +387,9 @@ hi! clear ModeMsg
 hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
-hi! StatusLine guibg=#444d69
+hi! link VertSplit Comment
+hi! clear StatusLine
+hi! clear StatusLineNC
 hi! Visual guibg=#243d61
 hi! Normal guibg=NONE ctermbg=NONE
 EOF
