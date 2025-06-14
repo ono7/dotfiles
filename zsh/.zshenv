@@ -308,6 +308,8 @@ set shortmess=atcIoOsT
 set timeout ttimeout
 set fillchars+=vert:│
 set fillchars+=stl:─
+set fillchars+=diff:╱
+" set statusline=%{repeat('─',winwidth('.'))}
 set splitbelow
 set splitright
 set fileformats=unix
