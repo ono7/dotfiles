@@ -14,7 +14,6 @@ inoremap <M-C-U> <nop>
 
 let mapleader = " "
 
-" let g:loaded_matchparen = 1
 
 let g:loaded_matchit = 1
 let g:loaded_logiPat = 1
@@ -67,26 +66,11 @@ inoremap <expr> <enter> <sid>indent_ret()
 inoremap <C-a> <Esc>^i
 inoremap <C-e> <End>
 
-noremap <D-a> ^
-noremap <D-e> $
-
-" For insert mode
-inoremap <D-a> <Esc>^i
-inoremap <D-e> <End>
-
-" For command mode
-cnoremap <D-a> <Home>
-cnoremap <D-e> <End>
-
 " Shift-> to indent last pasted text to the right
 nnoremap > mz`[V`]>`z
 
 " Shift-< to indent last pasted text to the left
 nnoremap < mz`[V`]<`z
-
-" macos
-nnoremap <D-o> <C-o>
-nnoremap <D-i> <C-i>
 
 function! CopyMatches(reg)
   let hits = []
@@ -150,7 +134,6 @@ vnoremap P "0P
 vnoremap d "0d
 
 inoremap <C-c> <Esc>
-inoremap <D-c> <Esc>
 
 " change local cd per buffer
 nnoremap <leader>cd :lcd %:h<CR>
@@ -179,10 +162,6 @@ vnoremap y ygv<Esc>
 
 " paste matches indentation
 nnoremap p p=`]
-
-" leave unnamed alone when changing text
-nnoremap c "ac
-nnoremap C "aC
 
 nnoremap ' `
 nnoremap ma mA

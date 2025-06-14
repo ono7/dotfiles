@@ -359,6 +359,7 @@ vim.keymap.set("n", "<C-t>", function()
     vim.cmd("copen")
   end
 end, { desc = "Toggle quickfix list" })
+
 -- using mini.pairs
 -- - these table and keymap below go together
 -- local pair_map_2 = {

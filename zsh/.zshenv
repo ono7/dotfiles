@@ -244,7 +244,7 @@ gpg_backup () {
   [ -z $1 ] && echo "provide a key.." && return
   gpg --export-secret-keys --armor "${1}" > private.key
   gpg --export --armor "${1}" > public.key
-  
+
   echo "gpg --import private.key"
   echo "gpg --import public.key"
   echo "# set trust level"
@@ -254,3 +254,149 @@ gpg_backup () {
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
+
+
+## remote vim setup ##
+vims() {
+cat << 'SETUP_END'
+unset HISTFILE
+set -o vi
+stty -ixon
+
+if [[ -n "$ZSH_VERSION" ]]; then
+    setopt NO_HIST_SAVE
+    setopt NO_HIST_STORE
+else
+    set +o history
+fi
+
+alias vim='vim -u /tmp/my-vimrc-$$'
+alias vi='vim -u /tmp/my-vimrc-$$'
+cat > /tmp/my-vimrc-$$ << 'EOF'
+set nocompatible
+filetype plugin indent on
+syntax off
+
+set viminfo='30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$$
+
+set t_Co=8
+let &fcs='eob: '
+set path+=**
+set autoread
+set hidden
+set tabstop=2
+set sw=2
+set ignorecase
+set incsearch
+set laststatus=1
+set display+=lastline
+set encoding=utf-8
+set nohlsearch
+set magic
+set noshowcmd
+set nowrap
+set number
+set completeopt=longest
+set pumheight=10
+set notitle
+set relativenumber
+set shortmess=atcIoOsT
+set timeout ttimeout
+set fileformats=unix
+set autoindent
+set guicursor=
+set tags=./tags,tags;~
+set backspace=indent,eol,start
+set nobackup nowritebackup noswapfile
+set nojoinspaces
+
+set undolevels=999
+if !isdirectory($HOME."/.vim/undo")
+    call mkdir($HOME."/.vim/undo", "p", 0700)
+endif
+set undodir=~/.vim/undo
+set undofile
+
+cnoreabbrev qq qa!
+
+nnoremap > mz`[V`]>`z
+nnoremap < mz`[V`]<`z
+
+xnoremap H <gv
+xnoremap L >gv
+
+nnoremap <c-j> <C-W><C-J>
+nnoremap <c-k> <C-W><C-K>
+nnoremap <c-l> <C-W><C-L>
+nnoremap <c-h> <C-W><C-H>
+
+nnoremap v <c-v>
+inoremap <C-c> <Esc>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+vnoremap y ygv<Esc>
+nnoremap p p=`]
+nnoremap Y y$
+nnoremap D d$
+nnoremap cp yap<S-}>p
+nnoremap U <c-r>
+nnoremap <c-e> g_
+
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
+
+cnoremap <C-A> <Home>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+if has('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
+
+augroup _quickfix
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup END
+
+fun! <SID>TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$$//e
+    call winrestview(l:save)
+endfun
+
+augroup _write
+  autocmd!
+  autocmd BufWritePre * silent! :retab!
+  autocmd BufWritePre * call <SID>TrimWhitespace()
+augroup END
+
+hi! clear Error
+hi! clear ModeMsg
+hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
+hi! link LineNr Comment
+hi! link SpecialKey Comment
+hi! StatusLine guibg=#444d69
+hi! Visual guibg=#243d61
+hi! Normal guibg=NONE ctermbg=NONE
+EOF
+trap 'rm -f /tmp/my-vimrc-$$; rm -rf ~/.vim/undo' EXIT
+for i in {1..2}; do fc -R /dev/null; done
+
+if [[ -n "$ZSH_VERSION" ]]; then
+    # export HISTFILE=~/.zsh_history
+    fc -P
+else
+    # export HISTFILE=~/.bash_history
+    set -o history
+fi
+
+echo "Vim setup complete! Vi mode enabled."
+SETUP_END
+for i in {1..2}; do fc -R /dev/null; done
+}
