@@ -306,6 +306,8 @@ set notitle
 set relativenumber
 set shortmess=atcIoOsT
 set timeout ttimeout
+set fillchars+=vert:│
+set fillchars+=stl:─
 set splitbelow
 set splitright
 set fileformats=unix
