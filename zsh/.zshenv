@@ -270,9 +270,9 @@ else
     set +o history
 fi
 
-alias vim='vim -u /tmp/my-vimrc-$$'
-alias vi='vim -u /tmp/my-vimrc-$$'
-cat > /tmp/my-vimrc-$$ << 'EOF'
+alias vim='vim -u /tmp/rc$$'
+alias vi='vim -u /tmp/rc$$'
+cat > /tmp/rc$$ << 'EOF'
 set nocompatible
 filetype plugin indent on
 syntax off
@@ -385,7 +385,7 @@ hi! StatusLine guibg=#444d69
 hi! Visual guibg=#243d61
 hi! Normal guibg=NONE ctermbg=NONE
 EOF
-trap 'rm -f /tmp/my-vimrc-$$; rm -rf ~/.vim/undo' EXIT
+trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
 for i in {1..2}; do fc -R /dev/null; done
 
 if [[ -n "$ZSH_VERSION" ]]; then
