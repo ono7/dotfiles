@@ -27,6 +27,8 @@ bind -m vi-insert "\C-w.":backward-kill-word
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+export HISTIGNORE="ls*:cat*:*AWS*:*SECRET*:*SSHPASS*"
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 

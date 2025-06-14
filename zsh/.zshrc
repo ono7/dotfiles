@@ -193,19 +193,39 @@ poetry_shell () {
 }
 
 fpass() {
-    local password
+    local password edit=0 clipboard=0
+    
+    # Parse options
+    while getopts "ec" opt; do
+        case $opt in
+            e) edit=1 ;;
+            c) clipboard=1 ;;
+            \?) echo "Usage: fpass [-e] [-c]" >&2; return 1 ;;
+        esac
+    done
+    
+    # Get password selection
     password=$(find ~/.password-store -name "*.gpg" | \
                sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,' | \
                fzf +m)
     
     if [[ -n "$password" ]]; then
-        # Use printf to handle any potential special characters safely
-        SSHPASS=$(pass show "$password" | head -n1)
-        export SSHPASS
+        if [[ $edit -eq 1 ]]; then
+            # Edit mode
+            pass edit "$password"
+        elif [[ $clipboard -eq 1 ]]; then
+            # Clipboard mode
+            pass -c "$password"
+        else
+            # Default: export to SSHPASS
+            SSHPASS=$(pass show "$password" | head -n1)
+            # intentional space to ignore pattern
+              export SSHPASS
+        fi
     fi
 }
 
-export HISTIGNORE="*SSHPASS*"
+export HISTORY_IGNORE="(ls|cat|AWS|SECRET|SSHPASS)"
 
 function d () {
   if [[ -n $1 ]]; then
