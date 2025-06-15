@@ -268,8 +268,14 @@ else
     set +o history
 fi
 
-alias vim='vim -u /tmp/rc$$'
-alias vi='vim -u /tmp/rc$$'
+if command -v nvim >/dev/null 2>&1; then
+    alias vim='nvim -u /tmp/rc$$'
+    alias vi='nvim -u /tmp/rc$$'
+else
+    alias vim='vim -u /tmp/rc$$'
+    alias vi='vim -u /tmp/rc$$'
+fi
+
   cat > /tmp/rc$$ << 'EOF'
 set nocompatible
 filetype plugin indent on
@@ -410,14 +416,14 @@ hi! clear MatchParen
 hi! MatchParen term=reverse cterm=reverse gui=reverse
 hi! clear Error
 hi! clear ModeMsg
-hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
+hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! clear StatusLine
 hi! clear StatusLineNC
 hi! Visual guibg=#243d61
-hi! Normal guibg=NONE ctermbg=NONE
+hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 EOF
 
 trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
