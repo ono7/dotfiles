@@ -327,6 +327,8 @@ endif
 set undodir=~/.vim/undo
 set undofile
 
+map Q <Nop>
+
 cnoreabbrev qq qa!
 
 nnoremap > mz`[V`]>`z
@@ -335,10 +337,10 @@ nnoremap < mz`[V`]<`z
 xnoremap H <gv
 xnoremap L >gv
 
-nnoremap <c-j> <C-W><C-J>
-nnoremap <c-k> <C-W><C-K>
-nnoremap <c-l> <C-W><C-L>
-nnoremap <c-h> <C-W><C-H>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k  
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
 
 nnoremap v <c-v>
 inoremap <C-c> <Esc>
@@ -366,6 +368,19 @@ if has('unnamedplus')
 else
   set clipboard=unnamed
 endif
+
+augroup FormatPrg
+  autocmd!
+  if executable("black")
+    autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("gofmt")
+    autocmd FileType go setlocal formatprg=gofmt
+  endif
+  if executable("prettier")
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
+  endif
+augroup END
 
 augroup _quickfix
   autocmd!
