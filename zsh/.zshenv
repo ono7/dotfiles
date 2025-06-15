@@ -341,7 +341,8 @@ set showbreak=↪
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
-set complete-=i
+" set complete-=i
+set complete=.,w,b 
 set smarttab
 set formatoptions+=j
 set nrformats-=octal
