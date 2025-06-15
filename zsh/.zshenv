@@ -255,8 +255,6 @@ if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
-
-## remote vim setup ##
 vims() {
 cat << 'SETUP_END'
 unset HISTFILE
@@ -400,7 +398,10 @@ endfun
 
 augroup _write
   autocmd!
+
+  " remove empty lines at the end of the file
   autocmd BufWritePre * :%s#\($\n\s*\)\+\%$##e
+
   autocmd BufWritePre * silent! :retab!
   autocmd BufWritePre * call <SID>TrimWhitespace()
 augroup END
