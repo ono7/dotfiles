@@ -292,6 +292,8 @@ endif
 
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+else
+  set grepgrg=grep\ -HRIn\ $*\ .
 endif
 
 set t_Co=8
@@ -299,6 +301,7 @@ let &fcs='eob: '
 set path+=**
 set autoread
 set hidden
+set mouse=
 set tabstop=2
 set sw=2
 set wildmenu
@@ -333,8 +336,8 @@ set tags=./tags,tags;~
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set nojoinspaces
-set breakindent       " preserve indentation on wrapped lines
-set showbreak=↪\      " show character for wrapped lines
+set breakindent
+set showbreak=↪
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
@@ -369,6 +372,8 @@ endif
 map Q <Nop>
 
 cnoreabbrev qq qa!
+
+nnoremap <M-g> :copen<bar>silent grep
 
 nnoremap > mz`[V`]>`z
 nnoremap < mz`[V`]<`z
