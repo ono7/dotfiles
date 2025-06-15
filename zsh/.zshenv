@@ -277,11 +277,18 @@ else
 fi
 
   cat > /tmp/rc$$ << 'EOF'
+
+" 🐇 Follow the white Rabbit...
+
 set nocompatible
 filetype plugin indent on
 syntax off
 
-set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+if has("nvim")
+  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+else
+  set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+endif
 
 set t_Co=8
 let &fcs='eob: '
@@ -375,6 +382,12 @@ if has('unnamedplus')
 else
   set clipboard=unnamed
 endif
+
+augroup _read
+  autocmd!
+  " restore last known position
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
 
 augroup FormatPrg
   autocmd!
