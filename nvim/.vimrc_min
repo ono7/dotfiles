@@ -1,0 +1,196 @@
+" 🐇 Follow the white Rabbit...
+
+set nocompatible
+filetype plugin indent on
+syntax off
+
+if has("nvim")
+  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+else
+  set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set ttyfast
+endif
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+else
+  set grepgrg=grep\ -HRIn\ $*\ .
+endif
+
+set t_Co=8
+let &fcs='eob: '
+set path+=**
+set autoread
+set hidden
+set mouse=
+set tabstop=2
+set sw=2
+set wildmenu
+set wildmode=longest:full,full
+set wildignorecase
+set wildignore+=**/__pycache__/**,**/venv/**,**/.venv/**,**/.git/**
+set ignorecase
+set incsearch
+set laststatus=1
+set display+=lastline
+set encoding=utf-8
+set nohlsearch
+set magic
+set noshowcmd
+set nowrap
+set number
+set completeopt=longest
+set pumheight=10
+set notitle
+set relativenumber
+set shortmess=atcIoOsT
+set timeout ttimeout
+set fillchars+=vert:│
+set fillchars+=stl:─
+set fillchars+=diff:╱
+set splitbelow
+set splitright
+set fileformats=unix
+set autoindent
+set guicursor=
+set tags=./tags,tags;~
+set backspace=indent,eol,start
+set nobackup nowritebackup noswapfile
+set nojoinspaces
+set breakindent
+set showbreak=↪
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=2
+set complete-=i
+set smarttab
+set formatoptions+=j
+set nrformats-=octal
+
+set undolevels=999
+if !isdirectory($HOME."/.vim/undo")
+    call mkdir($HOME."/.vim/undo", "p", 0700)
+endif
+set undodir=~/.vim/undo
+set undofile
+
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+
+if has('langmap') && exists('+langremap') && &langremap
+  set nolangremap
+endif
+
+if empty(mapcheck('<C-U>', 'i'))
+  inoremap <C-U> <C-G>u<C-U>
+endif
+
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+map Q <Nop>
+
+cnoreabbrev qq qa!
+
+nnoremap <M-g> :copen<bar>silent grep
+
+nnoremap > mz`[V`]>`z
+nnoremap < mz`[V`]<`z
+
+xnoremap H <gv
+xnoremap L >gv
+
+" make . this work with many lines
+vnoremap . :norm.<CR>
+
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k  
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+
+nnoremap v <c-v>
+inoremap <C-c> <Esc>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+vnoremap y ygv<Esc>
+nnoremap p p=`]
+nnoremap Y y$
+nnoremap D d$
+nnoremap cp yap<S-}>p
+nnoremap U <c-r>
+nnoremap <c-e> g_
+
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
+
+cnoremap <C-A> <Home>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+if has('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
+
+augroup _read
+  autocmd!
+  " restore last known position
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+augroup FormatPrg
+  autocmd!
+  if executable("black")
+    autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("terraform")
+    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
+  endif
+  if executable("gofmt")
+    autocmd FileType go setlocal formatprg=gofmt
+  endif
+  if executable("prettier")
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
+  endif
+augroup END
+
+augroup _quickfix
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup END
+
+fun! <SID>TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$$//e
+    call winrestview(l:save)
+endfun
+
+augroup _write
+  autocmd!
+
+  " remove empty lines at the end of the file
+  autocmd BufWritePre * :%s#\($\n\s*\)\+\%$##e
+
+  autocmd BufWritePre * silent! :retab!
+  autocmd BufWritePre * call <SID>TrimWhitespace()
+augroup END
+
+hi! clear MatchParen
+hi! MatchParen term=reverse cterm=reverse gui=reverse
+hi! clear Error
+hi! clear ModeMsg
+hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+hi! link LineNr Comment
+hi! link SpecialKey Comment
+hi! link VertSplit Comment
+hi! clear StatusLine
+hi! clear StatusLineNC
+hi! Visual guibg=#243d61
+hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
