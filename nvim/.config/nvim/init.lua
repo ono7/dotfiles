@@ -5,6 +5,7 @@
 * view all compilers included with vim
 :e $VIMRUNTIME/compiler
 :compiler go
+:make % or :make
 
 * plain vim setup for remote systems
 alias vim='vim -c "let mapleader=\" \" | set nobackup nowritebackup noswapfile | set clipboard=unnamedplus | set number relativenumber | set ignorecase smartcase nohlsearch | set autoindent expandtab shiftwidth=2 | set laststatus=0 | set shortmess+=I | nnoremap <leader>w :w<cr> | nnoremap <leader>d :bd!<cr> | nnoremap <c-h> <C-W><C-H> | nnoremap <c-j> <C-W><C-J> | nnoremap <c-k> <C-W><C-K> | nnoremap <c-l> <C-W><C-L> | nnoremap <silent> <Esc> :nohlsearch<CR>"'
