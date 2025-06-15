@@ -277,7 +277,6 @@ else
 fi
 
   cat > /tmp/rc$$ << 'EOF'
-
 " 🐇 Follow the white Rabbit...
 
 set nocompatible
@@ -288,6 +287,11 @@ if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
 else
   set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set ttyfast
+endif
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
 endif
 
 set t_Co=8
@@ -329,6 +333,15 @@ set tags=./tags,tags;~
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set nojoinspaces
+set breakindent       " preserve indentation on wrapped lines
+set showbreak=↪\      " show character for wrapped lines
+set scrolloff=1
+set sidescroll=1
+set sidescrolloff=2
+set complete-=i
+set smarttab
+set formatoptions+=j
+set nrformats-=octal
 
 set undolevels=999
 if !isdirectory($HOME."/.vim/undo")
@@ -336,6 +349,22 @@ if !isdirectory($HOME."/.vim/undo")
 endif
 set undodir=~/.vim/undo
 set undofile
+
+if !empty(&viminfo)
+  set viminfo^=!
+endif
+
+if has('langmap') && exists('+langremap') && &langremap
+  set nolangremap
+endif
+
+if empty(mapcheck('<C-U>', 'i'))
+  inoremap <C-U> <C-G>u<C-U>
+endif
+
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
 
 map Q <Nop>
 
@@ -392,6 +421,9 @@ augroup FormatPrg
   autocmd!
   if executable("black")
     autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("terraform")
+    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
   endif
   if executable("gofmt")
     autocmd FileType go setlocal formatprg=gofmt
