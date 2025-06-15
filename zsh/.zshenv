@@ -277,7 +277,7 @@ set nocompatible
 filetype plugin indent on
 syntax off
 
-set viminfo='30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$$
+set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
 
 set t_Co=8
 let &fcs='eob: '
@@ -336,6 +336,9 @@ nnoremap < mz`[V`]<`z
 
 xnoremap H <gv
 xnoremap L >gv
+
+" make . this work with many lines
+vnoremap . :norm.<CR>
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k  
@@ -397,10 +400,13 @@ endfun
 
 augroup _write
   autocmd!
+  autocmd BufWritePre * :%s#\($\n\s*\)\+\%$##e
   autocmd BufWritePre * silent! :retab!
   autocmd BufWritePre * call <SID>TrimWhitespace()
 augroup END
 
+hi! clear MatchParen
+hi! MatchParen term=reverse cterm=reverse gui=reverse
 hi! clear Error
 hi! clear ModeMsg
 hi! Comment ctermfg=8 ctermbg=NONE guifg=DarkGrey guibg=NONE
@@ -412,7 +418,9 @@ hi! clear StatusLineNC
 hi! Visual guibg=#243d61
 hi! Normal guibg=NONE ctermbg=NONE
 EOF
+
 trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
+
 for i in {1..2}; do fc -R /dev/null; done
 
 if [[ -n "$ZSH_VERSION" ]]; then
