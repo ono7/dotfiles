@@ -293,7 +293,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
 else
-  set grepgrg=grep\ -HRIn\ $*\ .
+  set grepgrg=grep\ -nHIRE \ $*\ .
 endif
 
 set t_Co=8
@@ -342,7 +342,7 @@ set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
 " set complete-=i
-set complete=.,w,b 
+set complete=.,w,b
 set smarttab
 set formatoptions+=j
 set nrformats-=octal
@@ -374,10 +374,14 @@ map Q <Nop>
 
 cnoreabbrev qq qa!
 
-nnoremap <M-g> :copen<bar>silent grep
 
-nnoremap > mz`[V`]>`z
-nnoremap < mz`[V`]<`z
+function! Rg(args) abort
+  execute "silent! grep!" shellescape(a:args)
+  cwindow
+  redraw!
+endfunction
+command -nargs=+ -complete=file Rg call Rg(<q-args>)
+nnoremap <M-g> :Rg<space>
 
 xnoremap H <gv
 xnoremap L >gv
@@ -386,7 +390,7 @@ xnoremap L >gv
 vnoremap . :norm.<CR>
 
 nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k  
+nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
@@ -410,12 +414,6 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-
-if has('unnamedplus')
-  set clipboard=unnamedplus
-else
-  set clipboard=unnamed
-endif
 
 augroup _read
   autocmd!
