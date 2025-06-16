@@ -374,7 +374,6 @@ map Q <Nop>
 
 cnoreabbrev qq qa!
 
-
 function! Rg(args) abort
   execute "silent! grep!" shellescape(a:args)
   cwindow
