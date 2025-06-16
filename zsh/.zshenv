@@ -10,6 +10,7 @@ alias dc="docker compose "
 alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .venv | fzf)'
 alias sshe='sshpass -e ssh '
+alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.State}}\t{{.Status}}"'
 
 golinux () {
   [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return
