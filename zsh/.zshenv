@@ -421,6 +421,11 @@ augroup _read
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
+augroup end
+
 augroup FormatPrg
   autocmd!
   if executable("black")

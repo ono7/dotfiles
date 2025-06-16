@@ -398,8 +398,8 @@ augroup END
 
 augroup _resize
   autocmd!
-  autocmd VimResized * :wincmd =
-augroup END
+  autocmd vimresized * :wincmd =
+augroup end
 
 augroup _quickfix
   autocmd!
