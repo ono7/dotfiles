@@ -462,7 +462,7 @@ augroup _quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
-augroup END
+augroup end
 
 augroup FormatPrg
   autocmd!
@@ -665,7 +665,7 @@ augroup _quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
-augroup END
+augroup end
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
