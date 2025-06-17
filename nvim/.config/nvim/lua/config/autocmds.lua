@@ -253,6 +253,10 @@ local function optimize_large_file(bufnr)
   vim.notify("Large file detecte\nOptimizations applied..")
 end
 
+vim.cmd([[
+  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
+]])
+
 -- Setup autocmds
 local function setup()
   vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })

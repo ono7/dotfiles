@@ -292,7 +292,7 @@ else
 endif
 
 if executable("rg")
-  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
   set grepgrg=grep\ -nHIRE \ $*\ .
 endif
@@ -528,7 +528,7 @@ else
 endif
 
 if executable("rg")
-  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
   set grepgrg=grep\ -nHIRE \ $*\ .
 endif
