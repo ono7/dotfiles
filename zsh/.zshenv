@@ -419,7 +419,10 @@ augroup _read
   autocmd!
   " restore last known position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
+augroup end
+
+" 10MB
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
 
 augroup _resize
   autocmd!
@@ -440,14 +443,14 @@ augroup FormatPrg
   if executable("prettier")
     autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
   endif
-augroup END
+augroup end
 
 augroup _quickfix
   autocmd!
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
-augroup END
+augroup end
 
 fun! <SID>TrimWhitespace()
     let l:save = winsaveview()
@@ -463,7 +466,7 @@ augroup _write
 
   autocmd BufWritePre * silent! :retab!
   autocmd BufWritePre * call <SID>TrimWhitespace()
-augroup END
+augroup end
 
 command! Mktags !ctags -R .
 
@@ -508,9 +511,9 @@ for i in {1..2}; do fc -R /dev/null; done
 vimm() {
   cat << 'SETUP_END'
 
-alias v='vim -u ~/.myvimrc'
+alias v='vim -u ~/.myrc'
 
-  cat > ~/.myvimrc << 'EOF'
+  cat > ~/.myrc << 'EOF'
 " 🐇 Follow the white Rabbit...
 
 set nocompatible
@@ -545,12 +548,13 @@ endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 nnoremap <M-g> :Rg<space>
 
+set t_Co=8
 set path+=**
 set sw=2 ts=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
-set scrolloff=3 sidescrolloff=5
+set scrolloff=3 sidescrolloff=5 nowrap
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set fillchars+=vert:│
@@ -587,6 +591,9 @@ inoremap <C-e> <End>
 
 xnoremap H <gv
 xnoremap L >gv
+
+" 10MB
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
