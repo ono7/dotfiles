@@ -383,6 +383,22 @@ endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 nnoremap <M-g> :Rg<space>
 
+function! ToggleQuickfixList()
+  let qf_exists = 0
+  for win in getwininfo()
+    if win.quickfix == 1
+      let qf_exists = 1
+      break
+    endif
+  endfor
+  if qf_exists == 1
+    cclose
+  else
+    copen
+  endif
+endfunction
+nnoremap <C-t> :call ToggleQuickfixList()<CR>
+
 xnoremap H <gv
 xnoremap L >gv
 
@@ -552,6 +568,22 @@ function! Rg(args) abort
 endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 nnoremap <M-g> :Rg<space>
+
+function! ToggleQuickfixList()
+  let qf_exists = 0
+  for win in getwininfo()
+    if win.quickfix == 1
+      let qf_exists = 1
+      break
+    endif
+  endfor
+  if qf_exists == 1
+    cclose
+  else
+    copen
+  endif
+endfunction
+nnoremap <C-t> :call ToggleQuickfixList()<CR>
 
 set t_Co=8
 set path+=**
