@@ -397,6 +397,7 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
+nnoremap gp `[v`]
 
 nnoremap v <c-v>
 inoremap <C-c> <Esc>
@@ -586,6 +587,7 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
+nnoremap gp `[v`]
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
