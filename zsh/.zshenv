@@ -325,7 +325,7 @@ set relativenumber
 set shortmess=atcIoOsT
 set timeout ttimeout
 set fillchars+=vert:│
-set fillchars+=stl:─
+" set fillchars+=stl:─
 set fillchars+=diff:╱
 set splitbelow
 set splitright
@@ -607,7 +607,7 @@ set scrolloff=3 sidescrolloff=5 nowrap
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set fillchars+=vert:│
-set fillchars+=stl:─
+" set fillchars+=stl:─
 set fillchars+=diff:╱
 set showbreak=↪
 set splitbelow splitright
