@@ -599,6 +599,8 @@ hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
+hi! clear Error
+hi! clear ModeMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 
