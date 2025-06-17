@@ -655,9 +655,13 @@ xnoremap L >gv
 " 10MB
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
 
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
+augroup end
+
 augroup _quickfix
   autocmd!
-  " auto open quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
