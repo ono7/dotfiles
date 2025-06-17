@@ -342,11 +342,17 @@ set showbreak=↪
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
-" set complete-=i
 set complete=.,w,b
 set smarttab
 set formatoptions+=j
 set nrformats-=octal
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus
+  else
+    set clipboard=unnamed
+  endif
+endif
 
 set undolevels=999
 if !isdirectory($HOME."/.vim/undo")
@@ -397,7 +403,7 @@ function! ToggleQuickfixList()
     copen
   endif
 endfunction
-nnoremap <C-t> :call ToggleQuickfixList()<CR>
+nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
 xnoremap H <gv
 xnoremap L >gv
@@ -583,7 +589,7 @@ function! ToggleQuickfixList()
     copen
   endif
 endfunction
-nnoremap <C-t> :call ToggleQuickfixList()<CR>
+nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
 set t_Co=8
 set path+=**
@@ -604,6 +610,13 @@ set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus
+  else
+    set clipboard=unnamed
+  endif
+endif
 
 command! Mktags !ctags -R .
 
