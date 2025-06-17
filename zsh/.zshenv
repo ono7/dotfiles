@@ -521,6 +521,7 @@ hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment 
+hi! link WinSeparator Comment 
 hi! link StatusLineNC Comment 
 EOF
 
@@ -672,6 +673,7 @@ hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment 
+hi! link WinSeparator Comment 
 hi! link StatusLineNC Comment 
 
 EOF
