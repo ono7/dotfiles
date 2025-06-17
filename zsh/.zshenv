@@ -353,6 +353,14 @@ if has('clipboard')
   endif
 endif
 
+set wildignore+=**/.git/**
+set wildignore+=**/__pycache__/**
+set wildignore+=**/.ruff_cache/**
+set wildignore+=**/site-packages/**
+set wildignore+=**/node_modules/**
+set wildignore+=.tags
+set wildignore+=tags
+
 set undolevels=999
 if !isdirectory($HOME."/.vim/undo")
     call mkdir($HOME."/.vim/undo", "p", 0700)
@@ -520,9 +528,9 @@ hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
-hi! link MsgSeparator Comment 
-hi! link WinSeparator Comment 
-hi! link StatusLineNC Comment 
+hi! link MsgSeparator Comment
+hi! link WinSeparator Comment
+hi! link StatusLineNC Comment
 EOF
 
 trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
@@ -625,6 +633,14 @@ if has('clipboard')
   endif
 endif
 
+set wildignore+=**/.git/**
+set wildignore+=**/__pycache__/**
+set wildignore+=**/.ruff_cache/**
+set wildignore+=**/site-packages/**
+set wildignore+=**/node_modules/**
+set wildignore+=.tags
+set wildignore+=tags
+
 command! Mktags !ctags -R .
 
 cnoreabbrev qq qa!
@@ -676,9 +692,9 @@ hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
-hi! link MsgSeparator Comment 
-hi! link WinSeparator Comment 
-hi! link StatusLineNC Comment 
+hi! link MsgSeparator Comment
+hi! link WinSeparator Comment
+hi! link StatusLineNC Comment
 
 EOF
 trap 'rm -rf ~/.vim/undo' EXIT

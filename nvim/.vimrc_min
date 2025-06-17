@@ -75,6 +75,14 @@ if has('clipboard')
   endif
 endif
 
+set wildignore+=**/.git/**
+set wildignore+=**/__pycache__/**
+set wildignore+=**/.ruff_cache/**
+set wildignore+=**/site-packages/**
+set wildignore+=**/node_modules/**
+set wildignore+=.tags
+set wildignore+=tags
+
 command! Mktags !ctags -R .
 
 cnoreabbrev qq qa!
@@ -115,7 +123,7 @@ augroup _quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
-augroup END
+augroup end
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
@@ -126,6 +134,6 @@ hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
-hi! link MsgSeparator Comment 
-hi! link WinSeparator Comment 
-hi! link StatusLineNC Comment 
+hi! link MsgSeparator Comment
+hi! link WinSeparator Comment
+hi! link StatusLineNC Comment
