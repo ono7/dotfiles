@@ -154,8 +154,8 @@ follow = true
     plus-style = "#A2CFBF"
     
     # Yellow background with black text ONLY for changed parts
-    minus-emph-style = "#000000 #D4B97E"
-    plus-emph-style = "#000000 #D4B97E"
+    minus-emph-style = "#171F2C #D4B97E"
+    plus-emph-style = "#171F2C #D4B97E"
     
     # Increase word diff detection to catch more changes
     word-diff-regex = "[^[:space:]]+"
