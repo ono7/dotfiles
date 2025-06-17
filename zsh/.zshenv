@@ -257,7 +257,7 @@ if [ -f "$HOME/.cargo/env" ]; then
 fi
 
 vims() {
-cat << 'SETUP_END'
+  cat << 'SETUP_END'
 unset HISTFILE
 set -o vi
 stty -ixon
@@ -465,6 +465,8 @@ augroup _write
   autocmd BufWritePre * call <SID>TrimWhitespace()
 augroup END
 
+command! Mktags !ctags -R .
+
 let g:netrw_banner = 0        " disable banner
 let g:netrw_liststyle = 3     " tree view
 let g:netrw_browse_split = 4  " open in previous window
@@ -481,7 +483,8 @@ hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! clear StatusLine
 hi! clear StatusLineNC
-hi! Visual guibg=#243d61
+" hi! Visual guibg=#243d61
+hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 EOF
 
@@ -500,4 +503,99 @@ fi
 echo "Vim setup complete! Vi mode enabled."
 SETUP_END
 for i in {1..2}; do fc -R /dev/null; done
+}
+
+vimm() {
+  cat << 'SETUP_END'
+
+alias v='vim -u ~/.myvimrc'
+
+  cat > ~/.myvimrc << 'EOF'
+" 🐇 Follow the white Rabbit...
+
+set nocompatible
+filetype plugin indent on
+syntax off
+
+if has("nvim")
+  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+else
+  set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set ttyfast
+endif
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2
+else
+  set grepgrg=grep\ -nHIRE \ $*\ .
+endif
+
+set undolevels=999
+if !isdirectory($HOME."/.vim/undo")
+    call mkdir($HOME."/.vim/undo", "p", 0700)
+endif
+set undodir=~/.undo
+set undofile
+
+function! Rg(args) abort
+  execute "silent! grep!" shellescape(a:args)
+  cwindow
+  redraw!
+endfunction
+command -nargs=+ -complete=file Rg call Rg(<q-args>)
+nnoremap <M-g> :Rg<space>
+
+set path+=**
+set sw=2 ts=2
+set lazyredraw hidden undolevels=1000
+set incsearch ignorecase smartcase autoindent smartindent
+set number relativenumber
+set scrolloff=3 sidescrolloff=5
+set backspace=indent,eol,start
+set nobackup nowritebackup noswapfile
+set fillchars+=vert:│
+set fillchars+=stl:─
+set fillchars+=diff:╱
+set showbreak=↪
+set splitbelow splitright
+set fileformats=unix
+set guicursor=
+set tags=./tags,tags;~
+set shortmess=atcIoOsT
+set laststatus=1
+
+command! Mktags !ctags -R .
+
+cnoreabbrev qq qa!
+
+map Q <Nop>
+
+nnoremap ,d :bd!<cr>
+nnoremap ,w :w!<cr>
+
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+
+cnoremap <C-A> <Home>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+xnoremap H <gv
+xnoremap L >gv
+
+hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+hi! link LineNr Comment
+hi! link SpecialKey Comment
+hi! link VertSplit Comment
+hi! Visual term=reverse cterm=reverse gui=reverse
+hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+
+EOF
+trap 'rm -rf ~/.vim/undo' EXIT
+SETUP_END
 }
