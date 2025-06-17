@@ -314,7 +314,6 @@ set incsearch
 set laststatus=1
 set display+=lastline
 set encoding=utf-8
-set nohlsearch
 set magic
 set noshowcmd
 set nowrap
@@ -412,6 +411,7 @@ xnoremap L >gv
 vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
+nnoremap <silent> <space><space> :set nohls<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -455,6 +455,14 @@ augroup _resize
   autocmd!
   autocmd vimresized * :wincmd =
 augroup end
+
+augroup _quickfix
+  autocmd!
+  " auto open quickfix
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup END
 
 augroup FormatPrg
   autocmd!
@@ -503,19 +511,17 @@ let g:netrw_browse_split = 4  " open in previous window
 let g:netrw_altv = 1          " open splits to the right
 let g:netrw_winsize = 25      " 25% width
 
-hi! clear MatchParen
-hi! MatchParen term=reverse cterm=reverse gui=reverse
+hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+hi! link LineNr Comment
 hi! clear Error
 hi! clear ModeMsg
-hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+hi! Visual term=reverse cterm=reverse gui=reverse
+hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
 hi! link VertSplit Comment
-hi! clear StatusLine
-hi! clear StatusLineNC
-" hi! Visual guibg=#243d61
-hi! Visual term=reverse cterm=reverse gui=reverse
-hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+hi! link MsgSeparator Comment 
+hi! link StatusLineNC Comment 
 EOF
 
 trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
@@ -625,6 +631,7 @@ cnoreabbrev qq qa!
 map Q <Nop>
 
 nnoremap <space>a ggVG
+nnoremap <silent> <space><space> :set nohls<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -647,14 +654,25 @@ xnoremap L >gv
 " 10MB
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
 
+augroup _quickfix
+  autocmd!
+  " auto open quickfix
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup END
+
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
-hi! link SpecialKey Comment
-hi! link VertSplit Comment
 hi! clear Error
 hi! clear ModeMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+hi! link LineNr Comment
+hi! link SpecialKey Comment
+hi! link VertSplit Comment
+hi! link MsgSeparator Comment 
+hi! link StatusLineNC Comment 
 
 EOF
 trap 'rm -rf ~/.vim/undo' EXIT
