@@ -294,7 +294,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-  set grepgrg=grep\ -nHIRE \ $*\ .
+  set grepprg=grep\ -nHIRE \ $*\ .
 endif
 
 set t_Co=8
@@ -388,6 +388,10 @@ xnoremap L >gv
 
 " make . this work with many lines
 vnoremap . :norm.<CR>
+
+nnoremap <space>a ggVG
+nnoremap ,d :bd!<cr>
+nnoremap ,w :w!<cr>
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -530,7 +534,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-  set grepgrg=grep\ -nHIRE \ $*\ .
+  set grepprg=grep\ -nHIRE \ $*\ .
 endif
 
 set undolevels=999
@@ -574,6 +578,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+nnoremap <space>a ggVG
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
