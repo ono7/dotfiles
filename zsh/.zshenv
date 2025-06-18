@@ -424,7 +424,7 @@ xnoremap L >gv
 vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
-nnoremap <silent> <space><space> :set nohls<cr>
+nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -657,7 +657,7 @@ cnoreabbrev qq qa!
 map Q <Nop>
 
 nnoremap <space>a ggVG
-nnoremap <silent> <space><space> :set nohls<cr>
+nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
