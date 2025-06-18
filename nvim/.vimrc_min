@@ -51,6 +51,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
+set foldenable foldmethod=indent foldlevelstart=99
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
@@ -128,7 +129,7 @@ xnoremap H <gv
 xnoremap L >gv
 
 " 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
 augroup _resize
   autocmd!
@@ -151,6 +152,7 @@ hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
+hi! link Folded Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment

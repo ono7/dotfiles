@@ -297,35 +297,28 @@ endif
 set t_Co=8
 let &fcs='eob: '
 set path+=**
-set autoread
-set hidden
+set autoread hidden
 set mouse=
-set tabstop=2
-set sw=2
+set ts=2 sw=2
+set foldenable foldmethod=indent foldlevelstart=99
 set wildmenu
 set wildmode=longest:full,full
 set wildignorecase
 set wildignore+=**/__pycache__/**,**/venv/**,**/.venv/**,**/.git/**
-set ignorecase
-set incsearch
+set ignorecase incsearch
 set laststatus=1
 set display+=lastline
 set encoding=utf-8
-set magic
-set noshowcmd
-set nowrap
-set number
+set magic noshowcmd nowrap
+set number relativenumber
 set completeopt=longest
 set pumheight=10
 set notitle
-set relativenumber
 set shortmess=atcIoOsT
 set timeout ttimeout
 set fillchars+=vert:│
-" set fillchars+=stl:─
 set fillchars+=diff:╱
-set splitbelow
-set splitright
+set splitbelow splitright
 set fileformats=unix
 set autoindent
 set guicursor=
@@ -335,9 +328,7 @@ set nobackup nowritebackup noswapfile
 set nojoinspaces
 set breakindent
 set showbreak=↪
-set scrolloff=1
-set sidescroll=1
-set sidescrolloff=2
+set scrolloff=1 sidescrolloff=2
 set complete=.,w,b
 set smarttab
 set formatoptions+=j
@@ -542,6 +533,7 @@ hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
+hi! link Folded Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
@@ -625,6 +617,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
+set foldenable foldmethod=indent foldlevelstart=99
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
@@ -725,6 +718,7 @@ hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link SpecialKey Comment
+hi! link Folded Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
