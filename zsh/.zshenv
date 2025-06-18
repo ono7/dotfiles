@@ -68,7 +68,6 @@ gp () {
   fi
 }
 
-
 ga () {
   # Check for untracked files
   mydir=$PWD
@@ -112,7 +111,6 @@ gac () {
   fi
   git commit
 }
-
 
 dotp () {
     my_dir=$PWD
@@ -229,7 +227,6 @@ banner () {
   printf "%${span}s\n" "$title"
   printf "%${COLUMNS}s\n" | tr " " "*"
 }
-
 
 gpg_delete_key () {
     [ -z $1 ] && echo "no key provided" && return
@@ -717,7 +714,6 @@ augroup _quickfix
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
-
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
