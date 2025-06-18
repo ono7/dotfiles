@@ -35,6 +35,7 @@ type CloneResponse struct {
 
 type ClonePayload struct {
 	Summary            string `json:"summary"`
+	Description        string `json:"description"`
 	IncludeAttachments bool   `json:"includeAttachments"`
 }
 
@@ -75,6 +76,7 @@ func (j *JiraClone) CloneIssue(issueKey string, title string) error {
 
 	clonePayload := ClonePayload{
 		Summary:            title,
+		Description:        title, // Set description to the same value as title
 		IncludeAttachments: false,
 	}
 
@@ -198,7 +200,10 @@ func main() {
 	if len(os.Args) < 3 {
 		fmt.Println("Usage: jiraclone <issue-key-number> <title>")
 		fmt.Printf("\nor\n\n")
-		fmt.Println("while read line; do ./jiraclone <issue-key-number> \"${line}\"; done < issues.txt")
+		fmt.Println("while read line; do ./jiraclone <issue-key-number> \"${line}\"; done < file.txt")
+        fmt.Println()
+		fmt.Println("A file.txt may contain lines that will be used as the new issue title and description")
+		fmt.Println("lines that start with # or empty lines will be ignored")
 		os.Exit(1)
 	}
 
