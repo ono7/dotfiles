@@ -545,6 +545,7 @@ hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
+hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
 EOF
 
@@ -627,11 +628,11 @@ set sw=2 ts=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
+set magic noshowcmd nowrap
 set scrolloff=3 sidescrolloff=5 nowrap
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set fillchars+=vert:│
-" set fillchars+=stl:─
 set fillchars+=diff:╱
 set showbreak=↪
 set splitbelow splitright
@@ -727,6 +728,7 @@ hi! link SpecialKey Comment
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
+hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
 
 EOF
