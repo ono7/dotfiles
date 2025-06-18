@@ -59,7 +59,7 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set("n", "<space><space>", ":noh<cr>", { desc = "Switch to alternate file" })
+vim.keymap.set("n", "<space><space>", ":noh<cr>", silent)
 -- vim.keymap.set("n", "<leader>b", ":buffer ", { desc = "Switch buffer by name" })
 
 -- Select entire buffer content

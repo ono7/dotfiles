@@ -107,7 +107,7 @@ command -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 vim.opt.hidden = true
 vim.opt.history = 1000
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 -- vim.opt.inccommand = "nosplit"

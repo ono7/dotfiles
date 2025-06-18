@@ -164,7 +164,7 @@ return {
       })
     end, { desc = "Live grep with rg" })
 
-    k("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
+    -- k("n", "<leader><leader>", fzf.buffers, { desc = "Find existing buffers" })
     k("n", "<leader>s/", function()
       fzf.live_grep({ buffers_only = true, prompt = "Live Grep in Open Files> " })
     end, { desc = "[S]earch [/] in Open Files" })
