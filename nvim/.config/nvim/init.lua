@@ -72,11 +72,11 @@ vim.opt.mouse = "a"
 vim.opt.guicursor = ""
 
 -- require("old_plugins.jira-base")
--- require("jira.jira")
--- require("jira.jira-move")
--- require("jira.jira-fetch-issues")
--- require("jira.jira-fetch-issues-empty")
--- require("jira.jira-clone").setup()
+require("jira.jira")
+require("jira.jira-move")
+require("jira.jira-fetch-issues")
+require("jira.jira-fetch-issues-empty")
+require("jira.jira-clone").setup()
 
 -- vim.opt.completeopt = { "menu" }
 vim.opt.completeopt = { "menu", "menuone" }
