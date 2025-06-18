@@ -254,7 +254,7 @@ local function optimize_large_file(bufnr)
 end
 
 vim.cmd([[
-  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
+  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 ]])
 
 -- Setup autocmds

@@ -471,7 +471,7 @@ augroup _read
 augroup end
 
 " 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
 augroup _resize
   autocmd!
@@ -702,7 +702,7 @@ xnoremap H <gv
 xnoremap L >gv
 
 " 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile | endif
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
 augroup _resize
   autocmd!
