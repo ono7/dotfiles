@@ -412,6 +412,23 @@ function! ToggleQuickfixList()
 endfunction
 nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+function s:remove_pair() abort
+  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
+  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
+endfunction
+inoremap <expr> <bs> <sid>remove_pair()
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
+
 xnoremap H <gv
 xnoremap L >gv
 
@@ -653,6 +670,23 @@ nnoremap <silent> <space><space> :set nohls<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+function s:remove_pair() abort
+  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
+  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
+endfunction
+inoremap <expr> <bs> <sid>remove_pair()
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
+
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
@@ -683,6 +717,7 @@ augroup _quickfix
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
+
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
