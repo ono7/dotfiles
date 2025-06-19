@@ -8,76 +8,74 @@ working_directory = "None"
 [colors]
 draw_bold_text_with_bright_colors = false
 
-#### Good for OLED ####
 [colors.primary]
-# background = "#171F2C"         # Deepened navy for better OLED blacks
-# foreground = "#D6CFC7"         # Slightly less bright antique paper
+# background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
+# foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
 
 foreground = "#c5bfb8"
 background = "#171F2C"
 
-dim_foreground = "#6D778F"     # Deeper blue-gray
-bright_foreground = "#B9C2E4"  # Less bright lavender-tinted white
+dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
+bright_foreground = "#c7d2f8"  # Enhanced bright lavender (was #cad3f5)
 
 [colors.cursor]
-cursor = "#A49990"            # Deeper muted foreground for cursor
-text = "#171F2C"
+cursor = "#ffffff"             # Enhanced pure white (was #FFFFFF)
+text = "#151f2e"               # Enhanced cursor text (was #171F2C)
 
 [colors.vi_mode_cursor]
-cursor = "#A49990"            # Deeper muted foreground for cursor
-text = "#171F2C"
+cursor = "#b6ad9f"             # Enhanced muted cursor (was #B4ADA0)
+text = "#1b2335"               # Enhanced cursor text (was #1D2433)
 
 [colors.search.matches]
-foreground = "#171F2C"
-background = "#8E95B3"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.search.focused_match]
-foreground = "#171F2C"
-background = "#8BC184"
+foreground = "#24273a"
+background = "#a6da95"
 
 [colors.footer_bar]
-foreground = "#171F2C"
-background = "#8E95B3"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.hints.start]
-foreground = "#171F2C"
-background = "#D5BC8B"
+foreground = "#24273a"
+background = "#eed49f"
 
 [colors.hints.end]
-foreground = "#171F2C"
-background = "#8E95B3"
+foreground = "#24273a"
+background = "#a5adcb"
 
 [colors.selection]
-# text = "#171F2C"
-background = "#2D364A"
+background = "#354157"         # Enhanced selection (was #364156)
 
 [colors.normal]
-black = "#242A38"         # Deeper than original
-red = "#B38585"           # Richer dusty rose with less brightness
-green = "#779C8F"         # Deeper sage green
-yellow = "#BFA46C"        # Richer amber
-blue = "#7591A8"          # Deeper steel blue
-magenta = "#9A82A0"       # Deeper lavender
-cyan = "#7E9F9D"          # Deeper teal
-white = "#B8B1A7"         # Deeper cream
+black = "#2c3344"              # Enhanced black (was #2D3343)
+red = "#c89696"                # Enhanced dusty rose (was #C49A9A) - 1.18x boost
+green = "#86c1af"              # Enhanced sage green (was #8CBBAD) - 1.25x boost 🌟
+yellow = "#dabb78"             # Enhanced amber (was #D4B97E)
+blue = "#88a7c2"               # Enhanced steel blue (was #8CA7BE)
+magenta = "#b294b9"            # Enhanced lavender (was #B097B6) - 1.18x boost
+cyan = "#8fb9b7"               # Enhanced teal (was #93B5B3) - 1.25x boost 🌟
+white = "#cac2b7"              # Enhanced cream (was #C9C2B8)
 
 [colors.bright]
-black = "#323C4D"     # Deeper gray-blue
-red = "#C19999"       # Richer dusty rose
-green = "#8CBBA9"     # Richer sage
-yellow = "#CBB683"    # Richer amber
-blue = "#8DA5B7"      # Richer steel blue
-magenta = "#AD97B0"   # Richer lavender
-cyan = "#91B4B1"      # Richer teal
-white = "#D6CFC7"     # Same as new foreground
+black = "#3d485b"              # Enhanced medium gray-blue (was #3E485A)
+red = "#d8acac"                # Enhanced bright rose (was #D5AFAF) - 1.18x boost
+green = "#9cd5c1"              # Enhanced bright sage (was #A2CFBF) - 1.25x boost 🌟
+yellow = "#e7cc91"             # Enhanced bright amber (was #E1CA97)
+blue = "#a1bcd1"               # Enhanced bright blue (was #A4BCCE)
+magenta = "#c6adca"            # Enhanced bright lavender (was #C4AFC8) - 1.18x boost
+cyan = "#a5cdcb"               # Enhanced bright teal (was #A9C9C7) - 1.25x boost 🌟
+white = "#e4ded6"              # Enhanced bright white (was #E3DED7)
 
 [[colors.indexed_colors]]
 index = 16
-color = "#A19275"  # Deeper muted tan/bronze
+color = "#b9a688"              # Enhanced tan/bronze (was #B6A58B)
 
 [[colors.indexed_colors]]
 index = 17
-color = "#8F99AC"  # Deeper muted periwinkle
+color = "#a4afc5"              # Enhanced periwinkle (was #A6B0C3)
 
 [cursor]
 blink_interval = 200
@@ -135,6 +133,7 @@ bindings = [
 {  key  =  "Back",   mods  =  "Control",        chars   =  "\u0017"             },
 {  key  =  "F",      mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
 {  key  =  "H",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "E",      mods  =  "Control",        action  =  "ReceiveChar"        },
 {  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
 # fix c-i in neovim for jumps
 { key = "I", mods = "Control", chars = "\u001b[105;5u" },
@@ -144,7 +143,7 @@ bindings = [
 {  key  =  "Space",  mods  =  "Control|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
 {  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
-{  key  =  "W",      mods  =  "command|Shift",  action  =  "Quit"               },
+{  key  =  "W",      mods  =  "Control|Shift",  action  =  "Quit"               },
 ]
 
 [mouse]
@@ -172,7 +171,7 @@ dynamic_title = true
 opacity = 1
 blur = true # does not work in windows?
 startup_mode = "Maximized"
-option_as_alt = "both"
+# option_as_alt = "both"
 
 [window.dimensions]
 columns = 82
