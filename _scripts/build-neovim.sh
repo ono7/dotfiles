@@ -2,10 +2,6 @@
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
 
-# build optimization... if things start acting weird this probably caused it..
-export CFLAGS="-O3 -march=native -mtune=native"
-export CXXFLAGS="-O3 -march=native -mtune=native"
-
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
@@ -32,13 +28,13 @@ if [[ "$ARCH" == "arm64" ]]; then
   export CFLAGS="-O3 -march=native -mtune=native -flto"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto"
   export LDFLAGS="-flto"
-	log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
+  log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export LDFLAGS="-flto"
-	log "Building for Linux (x86_64) with CPU optimizations"
+  log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
 log "Cleaning artifacts..."
@@ -81,7 +77,6 @@ fi
 #   exit 1
 # fi
 
-
 # Build with optimizations
 if ! make CMAKE_BUILD_TYPE=Release \
   CMAKE_INSTALL_PREFIX="$HOME/.local" \
@@ -114,7 +109,7 @@ log "Make sure $HOME/.local/bin is in \$PATH"
 which nvim || echo "nvim not found in PATH"
 
 echo ""
-echo "Built for ${BUILDFOR} ${ARCH}"
+echo "Neovim built for platform ${ARCH}"
 echo "With compiler CFLAGS: ${CFLAGS}"
 echo ""
 exit 0

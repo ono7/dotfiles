@@ -55,7 +55,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --enable-terminal \
     --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim"
-  BUILDFOR="MacOS"
 else
   sudo apt update
   sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses5-dev libncursesw5-dev libncurses-dev gettext python3-dev libpython3-dev ruby-dev liblua5.4-dev libperl-dev tcl-dev
@@ -73,7 +72,6 @@ else
     --prefix="$HOME/.local/vim" \
     --enable-gui=no \
     --enable-fail-if-missing
-  BUILDFOR="Linux"
 fi
 
 make -j"$(nproc)"
@@ -89,7 +87,7 @@ mkdir -p ~/.vim/pack/plugins/start
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 
 echo ""
-echo "Built for ${BUILDFOR} ${ARCH}"
+echo "Vim built for platform ${ARCH}"
 echo "With compiler CFLAGS: ${CFLAGS}"
 echo ""
 exit 0
