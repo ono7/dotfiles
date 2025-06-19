@@ -430,7 +430,8 @@ nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap <C-f> :browse oldfiles<CR>
 
-xnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 
 nnoremap ,d :bd!<cr>
@@ -707,7 +708,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap <C-f> :browse oldfiles<CR>
 
-xnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 
 cnoremap <C-A> <Home>
