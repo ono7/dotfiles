@@ -49,7 +49,7 @@ endfunction
 nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
 set t_Co=8
-set path+=**
+set path=.,**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
