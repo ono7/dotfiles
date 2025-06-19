@@ -530,6 +530,7 @@ hi! link LineNr Comment
 hi! clear Error
 hi! clear Pmenu
 hi! clear ModeMsg
+hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
@@ -720,6 +721,7 @@ hi! link LineNr Comment
 hi! clear Error
 hi! clear Pmenu
 hi! clear ModeMsg
+hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
