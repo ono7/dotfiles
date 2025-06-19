@@ -301,8 +301,7 @@ set autoread hidden
 set mouse=
 set ts=2 sw=2
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
-set wildmenu
-set wildmode=longest:full,full
+set wildmenu wildmode=longest:full,full pumheight=10 wildoptions=pum wildignorecase
 set wildignorecase
 set wildignore+=**/__pycache__/**,**/venv/**,**/.venv/**,**/.git/**
 set ignorecase incsearch
@@ -644,7 +643,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
-set wildmenu wildmode=longest:full,full pumheight=10 wildoptions=pum
+set wildmenu wildmode=longest:full,full pumheight=10 wildoptions=pum wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
