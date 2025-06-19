@@ -827,13 +827,6 @@ hi! link WinSeparator Comment
 hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
 
-" Highlight trailing whitespace, but not when typing at end of line
-augroup TrailingWhitespace
-  autocmd!
-  autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
-augroup end
-highlight TrailingWhitespace ctermbg=red guibg=red
-
 EOF
 trap 'rm -rf ~/.vim-undo' EXIT
 SETUP_END
