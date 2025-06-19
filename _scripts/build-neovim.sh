@@ -32,13 +32,13 @@ if [[ "$ARCH" == "arm64" ]]; then
   export CFLAGS="-O3 -march=native -mtune=native -flto"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto"
   export LDFLAGS="-flto"
-	log "Building for Apple Silicon $(ARCH) with CPU optimizations"
+	log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export LDFLAGS="-flto"
-  log "Building for Linux x86_64 with CPU optimizations"
+	log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
 log "Cleaning artifacts..."
