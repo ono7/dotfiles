@@ -8,27 +8,17 @@ deactivate
 git clone https://github.com/vim/vim.git
 cd vim
 
-# Detect architecture and set optimization flags
-ARCH=$(uname -m)
-if [[ "$ARCH" == "arm64" ]]; then
-    # Apple Silicon optimizations (M1/M2/M3/M4)
-    export CFLAGS="-O3 -march=native -mtune=native -flto"
-    export CXXFLAGS="-O3 -march=native -mtune=native -flto"
-    export LDFLAGS="-flto"
-    echo "Building for Apple Silicon with optimizations"
-elif [[ "$ARCH" == "x86_64" ]]; then
-    # x86_64 optimizations
-    export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-    export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-    export LDFLAGS="-flto"
-    echo "Building for x86_64 with optimizations"
+if grep -q "avx2" /proc/cpuinfo; then
+  VECTOR_FLAGS="-msse4.2 -mavx2"
+elif grep -q "sse4_2" /proc/cpuinfo; then
+  VECTOR_FLAGS="-msse4.2"
 else
-    # Fallback for other architectures
-    export CFLAGS="-O3"
-    export CXXFLAGS="-O3"
-    export LDFLAGS=""
-    echo "Building for $ARCH with basic optimizations"
+  VECTOR_FLAGS=""
 fi
+
+export CFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
+export CXXFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
+export LDFLAGS="-flto"
 
 # Use Homebrew's Python directly
 ./configure \
@@ -52,4 +42,6 @@ make && make install
 mkdir -p ~/.vim/pack/plugins/start
 
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+
+echo "Built with $CFLAGS"
 ```

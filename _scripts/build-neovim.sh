@@ -66,26 +66,39 @@ fi
 # fi
 
 # Detect architecture and set optimization flags
-ARCH=$(uname -m)
-if [[ "$ARCH" == "arm64" ]]; then
-  # Apple Silicon optimizations (M1/M2/M3/M4)
-  export CFLAGS="-O3 -march=native -mtune=native -flto"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
-  export LDFLAGS="-flto"
-  log "Building for Apple Silicon with optimizations"
-elif [[ "$ARCH" == "x86_64" ]]; then
-  # x86_64 optimizations
-  export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-  export LDFLAGS="-flto"
-  log "Building for x86_64 with optimizations"
+# ARCH=$(uname -m)
+# if [[ "$ARCH" == "arm64" ]]; then
+#   # Apple Silicon optimizations (M1/M2/M3/M4)
+#   export CFLAGS="-O3 -march=native -mtune=native -flto"
+#   export CXXFLAGS="-O3 -march=native -mtune=native -flto"
+#   export LDFLAGS="-flto"
+#   log "Building for Apple Silicon with optimizations"
+# elif [[ "$ARCH" == "x86_64" ]]; then
+#   # x86_64 optimizations
+#   export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+#   export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+#   export LDFLAGS="-flto"
+#   log "Building for x86_64 with optimizations"
+# else
+#   # Fallback for other architectures
+#   export CFLAGS="-O3"
+#   export CXXFLAGS="-O3"
+#   export LDFLAGS=""
+#   log "Building for $ARCH with basic optimizations"
+# fi
+
+# Auto-detect optimal flags
+if grep -q "avx2" /proc/cpuinfo; then
+  VECTOR_FLAGS="-msse4.2 -mavx2"
+elif grep -q "sse4_2" /proc/cpuinfo; then
+  VECTOR_FLAGS="-msse4.2"
 else
-  # Fallback for other architectures
-  export CFLAGS="-O3"
-  export CXXFLAGS="-O3"
-  export LDFLAGS=""
-  log "Building for $ARCH with basic optimizations"
+  VECTOR_FLAGS=""
 fi
+
+export CFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
+export CXXFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
+export LDFLAGS="-flto"
 
 # Build with optimizations
 if ! make CMAKE_BUILD_TYPE=Release \
@@ -118,4 +131,5 @@ log "Build complete"
 log "Make sure $HOME/.local/bin is in \$PATH"
 which nvim || echo "nvim not found in PATH"
 
+echo "Built with $CFLAGS"
 exit 0
