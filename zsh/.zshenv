@@ -656,6 +656,7 @@ if exists('+wildoptions')
   endtry
 endif
 
+set wildignore+=**/tmp/**
 set wildignore+=**/.git/**
 set wildignore+=**/__pycache__/**
 set wildignore+=**/.ruff_cache/**
