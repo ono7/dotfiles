@@ -427,7 +427,7 @@ vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
-nnoremap <M-r> :browse oldfiles<CR>
+nnoremap <C-r> :browse oldfiles<CR>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -441,7 +441,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap v <c-v>
 inoremap <C-c> <Esc>
 
-nnoremap <M-r> :browse oldfiles<CR>
+nnoremap <C-r> :browse oldfiles<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
@@ -594,10 +594,10 @@ else
 endif
 
 set undolevels=999
-if !isdirectory($HOME."/.vim/undo")
-    call mkdir($HOME."/.vim/undo", "p", 0700)
+if !isdirectory($HOME."/.vim-undo")
+    call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
-set undodir=~/.vim/undo
+set undodir=~/.vim-undo
 set undofile
 
 function! Rg(args) abort
