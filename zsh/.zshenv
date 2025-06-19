@@ -373,6 +373,7 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 endif
 
 map Q <Nop>
+nnoremap U <c-r>
 
 cnoreabbrev qq qa!
 
@@ -561,8 +562,8 @@ for i in {1..2}; do fc -R /dev/null; done
 vimm() {
   cat << 'SETUP_END'
 
-if [ -f /usr/local/bin/vim ]; then
-  alias v='/usr/local/bin/vim -u ~/.myrc'
+if [ -f $HOME/.local/vim/bin/vim ]; then
+  alias v='~/.local/vim/bin/vim -u ~/.myrc'
 else
   alias v='vim -u ~/.myrc'
 fi
@@ -660,6 +661,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+nnoremap U <c-r>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>

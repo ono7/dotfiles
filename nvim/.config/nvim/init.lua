@@ -2,6 +2,8 @@
 
 --[[
 
+http://vimcasts.org/categories/git/
+
 * view all compilers included with vim
 :e $VIMRUNTIME/compiler
 :compiler go

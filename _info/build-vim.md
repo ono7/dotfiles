@@ -27,8 +27,7 @@ export LDFLAGS="-flto"
     --enable-cscope \
     --enable-terminal \
     --with-compiledby="ono7" \
-    --prefix=/usr/local
+    --prefix=$HOME/.local/vim
 
-make
-sudo make install
+make && make install
 ```

@@ -127,8 +127,8 @@ alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias vim='nvim -n'
 alias vi='nvim -n'
-if [ -f /usr/local/bin/vim ]; then
-  alias v='/usr/local/bin/vim -u ~/.myrc'
+if [ -f $HOME/.local/vim/bin/vim ]; then
+  alias v='~/.local/vim/bin/vim -u ~/.myrc'
 else
   alias v='vim -u ~/.myrc'
 fi
