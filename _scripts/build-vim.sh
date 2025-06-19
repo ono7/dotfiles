@@ -27,8 +27,7 @@ export CFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
 export CXXFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
 export LDFLAGS="-flto"
 
-rm -rf ~/nvim
-rm -rf "$HOME/.local/bin/nvim"
+rm -rf "$HOME/.local/vim"
 
 git clone https://github.com/vim/vim.git ~/vim
 cd ~/vim
