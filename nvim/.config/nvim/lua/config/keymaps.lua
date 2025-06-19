@@ -290,10 +290,10 @@ vim.keymap.set("n", "<Leader>m", function()
 end)
 
 -- Ensure sessions directory exists
-local sessions_dir = vim.fn.expand("~/vim/sessions")
-if vim.fn.isdirectory(sessions_dir) == 0 then
-  vim.fn.mkdir(sessions_dir, "p")
-end
+-- local sessions_dir = vim.fn.expand("~/vim/sessions")
+-- if vim.fn.isdirectory(sessions_dir) == 0 then
+--   vim.fn.mkdir(sessions_dir, "p")
+-- end
 
 -- Auto-save session for current directory
 vim.keymap.set("n", "<leader>ss", function()
