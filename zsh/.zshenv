@@ -300,7 +300,7 @@ set path+=**
 set autoread hidden
 set mouse=
 set ts=2 sw=2
-set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0
+set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set wildmenu
 set wildmode=longest:full,full
 set wildignorecase
@@ -617,7 +617,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
-set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0
+set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
