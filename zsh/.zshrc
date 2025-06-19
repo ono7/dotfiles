@@ -200,7 +200,7 @@ poetry_shell () {
 
 fpass() {
     local password edit=0 clipboard=0
-    
+
     # Parse options
     while getopts "ec" opt; do
         case $opt in
@@ -209,12 +209,12 @@ fpass() {
             \?) echo "Usage: fpass [-e] [-c]" >&2; return 1 ;;
         esac
     done
-    
+
     # Get password selection
     password=$(find ~/.password-store -name "*.gpg" | \
                sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,' | \
                fzf +m)
-    
+
     if [[ -n "$password" ]]; then
         if [[ $edit -eq 1 ]]; then
             # Edit mode
@@ -632,4 +632,3 @@ if command -v starship &>/dev/null; then
 else
   echo "starship not installed"
 fi
-
