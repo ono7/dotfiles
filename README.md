@@ -10,6 +10,8 @@ make install
 # removes ssh stow link ~/.ssh/config
 stow -D ssh
 
+stow nvim
+
 # update go-deps
 make go-deps
 ```
