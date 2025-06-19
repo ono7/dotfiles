@@ -39,6 +39,7 @@ type CloneResponse struct {
 type ClonePayload struct {
 	Summary            string `json:"summary"`
 	Description        string `json:"description"`
+	Customfield_10031  string `json:"customfield_10031"` // Acceptance Criteria field
 	IncludeAttachments bool   `json:"includeAttachments"`
 }
 
@@ -47,7 +48,6 @@ type CloneResult struct {
 	Title   string
 	Success bool
 	Error   error
-	NewKey  string
 }
 
 // New creates a new JiraClone instance
@@ -95,6 +95,7 @@ func (j *JiraClone) CloneIssue(issueKey string, title string) (*CloneResult, err
 	clonePayload := ClonePayload{
 		Summary:            title,
 		Description:        title, // Set description to the same value as title
+		Customfield_10031:  "",    // Set acceptance criteria to empty string
 		IncludeAttachments: false,
 	}
 
@@ -148,7 +149,6 @@ func (j *JiraClone) CloneIssue(issueKey string, title string) (*CloneResult, err
 	}
 
 	result.Success = true
-	result.NewKey = cloneResponse.Key
 	return result, nil
 }
 
@@ -289,7 +289,7 @@ func (j *JiraClone) ProcessTitlesConcurrently(issueKey string, titles []string, 
 	for result := range resultsChan {
 		if result.Success {
 			successCount++
-			fmt.Printf("✅ SUCCESS: '%s' -> %s\n", result.Title, result.NewKey)
+			fmt.Printf("✅ SUCCESS: '%s'\n", result.Title)
 		} else {
 			errorCount++
 			fmt.Printf("❌ ERROR: '%s' -> %v\n", result.Title, result.Error)
