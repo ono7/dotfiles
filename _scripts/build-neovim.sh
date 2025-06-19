@@ -60,7 +60,39 @@ else
   exit 1
 fi
 
-if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local"; then
+# if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local"; then
+#   log "Error while building neovim"
+#   exit 1
+# fi
+
+# Detect architecture and set optimization flags
+ARCH=$(uname -m)
+if [[ "$ARCH" == "arm64" ]]; then
+  # Apple Silicon optimizations (M1/M2/M3/M4)
+  export CFLAGS="-O3 -march=native -mtune=native -flto"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
+  export LDFLAGS="-flto"
+  log "Building for Apple Silicon with optimizations"
+elif [[ "$ARCH" == "x86_64" ]]; then
+  # x86_64 optimizations
+  export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export LDFLAGS="-flto"
+  log "Building for x86_64 with optimizations"
+else
+  # Fallback for other architectures
+  export CFLAGS="-O3"
+  export CXXFLAGS="-O3"
+  export LDFLAGS=""
+  log "Building for $ARCH with basic optimizations"
+fi
+
+# Build with optimizations
+if ! make CMAKE_BUILD_TYPE=Release \
+  CMAKE_INSTALL_PREFIX="$HOME/.local" \
+  CMAKE_C_FLAGS="$CFLAGS" \
+  CMAKE_CXX_FLAGS="$CXXFLAGS" \
+  CMAKE_EXE_LINKER_FLAGS="$LDFLAGS"; then
   log "Error while building neovim"
   exit 1
 fi
@@ -72,7 +104,6 @@ if ! make install; then
   log "Error while installing neovim"
   exit 1
 fi
-
 
 log "remove matchparen.vim....."
 # this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing

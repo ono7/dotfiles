@@ -30,4 +30,9 @@ export LDFLAGS="-flto"
     --prefix=$HOME/.local/vim
 
 make && make install
+
+## install fugitive
+mkdir -p ~/.vim/pack/plugins/start
+
+git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 ```
