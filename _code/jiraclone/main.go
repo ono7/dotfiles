@@ -197,13 +197,20 @@ func (j *JiraClone) JiraCloneCommand(args []string) error {
 
 // Main function for the CLI tool
 func main() {
+	helptext := `
+        Usage: 
+
+            jiraclone <issue-key-number> <title>
+
+        shell loop:
+
+            while read line; do ./jiraclone <issue-key-number> "${line}"; done < file.txt
+
+        A file.txt may contain lines that will be used as the new issue title
+        and description lines that start with # or empty lines will be ignored.
+    `
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: jiraclone <issue-key-number> <title>")
-		fmt.Printf("\nor\n\n")
-		fmt.Println("while read line; do ./jiraclone <issue-key-number> \"${line}\"; done < file.txt")
-        fmt.Println()
-		fmt.Println("A file.txt may contain lines that will be used as the new issue title and description")
-		fmt.Println("lines that start with # or empty lines will be ignored")
+		fmt.Print(helptext)
 		os.Exit(1)
 	}
 
