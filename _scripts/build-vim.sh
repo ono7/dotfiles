@@ -87,6 +87,8 @@ mkdir -p ~/.vim/pack/plugins/start
 
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 
+echo ""
 echo "Built for ${BUILDFOR} ${ARCH}"
 echo "With compiler CFLAGS: ${CFLAGS}"
+echo ""
 exit 0
