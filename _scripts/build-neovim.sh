@@ -25,6 +25,22 @@ cleanup() {
 
 trap cleanup EXIT
 
+# Detect architecture and set optimization flags
+ARCH=$(uname -m)
+if [[ "$ARCH" == "arm64" ]]; then
+  # Apple Silicon optimizations (M1/M2/M3/M4)
+  export CFLAGS="-O3 -march=native -mtune=native -flto"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
+  export LDFLAGS="-flto"
+	log "Building for Apple Silicon $(ARCH) with CPU optimizations"
+elif [[ "$ARCH" == "x86_64" ]]; then
+  # x86_64 optimizations
+  export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export LDFLAGS="-flto"
+  log "Building for Linux x86_64 with CPU optimizations"
+fi
+
 log "Cleaning artifacts..."
 log "Downloading neovim"
 curl -LO "https://github.com/neovim/neovim/archive/refs/tags/${TAG}.tar.gz"
@@ -65,21 +81,6 @@ fi
 #   exit 1
 # fi
 
-# Detect architecture and set optimization flags
-ARCH=$(uname -m)
-if [[ "$ARCH" == "arm64" ]]; then
-  # Apple Silicon optimizations (M1/M2/M3/M4)
-  export CFLAGS="-O3 -march=native -mtune=native -flto"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
-  export LDFLAGS="-flto"
-  log "Building for Apple Silicon with optimizations"
-elif [[ "$ARCH" == "x86_64" ]]; then
-  # x86_64 optimizations
-  export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
-  export LDFLAGS="-flto"
-  log "Building for x86_64 with optimizations"
-fi
 
 # Build with optimizations
 if ! make CMAKE_BUILD_TYPE=Release \

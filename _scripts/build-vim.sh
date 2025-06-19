@@ -23,13 +23,13 @@ if [[ "$ARCH" == "arm64" ]]; then
   export CFLAGS="-O3 -march=native -mtune=native -flto"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto"
   export LDFLAGS="-flto"
-  log "Building for Apple Silicon with optimizations"
+	log "Building for Apple Silicon ($ARCH) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export LDFLAGS="-flto"
-  log "Building for x86_64 with optimizations"
+	log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
 rm -rf "$HOME/.local/vim"
@@ -87,5 +87,5 @@ mkdir -p ~/.vim/pack/plugins/start
 
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 
-log "Built for $BUILDFOR with $CFLAGS"
+log "Built for $BUILDFOR ($ARCH) with CFLAGS: $CFLAGS"
 exit 0
