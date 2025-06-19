@@ -737,6 +737,29 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
 
+" Create autocommand group for filetype settings
+augroup FileTypeSettings
+  autocmd!
+
+  " Python - 4 spaces
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+  " TypeScript/JavaScript/JSON/YAML - 2 spaces
+  autocmd FileType typescript,javascript,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Go - 4-width tabs
+  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Shell scripts - 2 spaces
+  autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Makefiles - tabs (required)
+  autocmd FileType make setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Jinja templates - 2 spaces
+  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup END
+
 augroup FormatPrg
   autocmd!
   if executable("black")
