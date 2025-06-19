@@ -426,6 +426,7 @@ vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
+nnoremap <M-r> :browse oldfiles<CR>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -433,11 +434,13 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
-nnoremap gp `[v`]
+" nnoremap gp `[v`]
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap v <c-v>
 inoremap <C-c> <Esc>
 
+nnoremap <M-r> :browse oldfiles<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
@@ -668,6 +671,8 @@ nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
+vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
+
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 
@@ -689,7 +694,8 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
-nnoremap gp `[v`]
+" nnoremap gp `[v`]
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
