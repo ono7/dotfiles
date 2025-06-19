@@ -113,5 +113,6 @@ log "Build complete"
 log "Make sure $HOME/.local/bin is in \$PATH"
 which nvim || echo "nvim not found in PATH"
 
-echo "Built with $CFLAGS"
+echo "Built for ${BUILDFOR} ${ARCH}"
+echo "With compiler CFLAGS: ${CFLAGS}"
 exit 0
