@@ -103,6 +103,11 @@ neovim:
 	@touch ~/.workspaces
 	@bash ./_scripts/build-neovim.sh
 
+vim:
+	@echo $(BANNER)
+	@mkdir -p ~/.local/bin
+	@bash ./_scripts/build-vim.sh
+
 mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh

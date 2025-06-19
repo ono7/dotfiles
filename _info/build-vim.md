@@ -3,6 +3,38 @@
 ```
 deactivate
 
+sudo apt update
+sudo apt install -y \
+    build-essential \
+    git \
+    make \
+    autoconf \
+    automake \
+    cmake \
+    pkg-config
+
+sudo apt install -y \
+    libncurses5-dev \
+    libncursesw5-dev \
+    libtinfo-dev \
+    gettext
+
+sudo apt install -y \
+    libncurses5-dev \
+    libncursesw5-dev \
+    libtinfo-dev \
+    gettext
+
+sudo apt install -y \
+    python3-dev \
+    python3-distutils \
+    libpython3-dev \
+    ruby-dev \
+    lua5.2-dev \
+    liblua5.2-dev \
+    libperl-dev \
+    tcl-dev
+
 git clone https://github.com/vim/vim.git
 cd vim
 
