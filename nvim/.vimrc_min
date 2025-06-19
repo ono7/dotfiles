@@ -51,7 +51,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
-set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0
+set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
@@ -90,6 +90,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+nnoremap U <c-r>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
@@ -143,12 +144,28 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
 
+augroup FormatPrg
+  autocmd!
+  if executable("black")
+    autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("terraform")
+    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
+  endif
+  if executable("gofmt")
+    autocmd FileType go setlocal formatprg=gofmt
+  endif
+  if executable("prettier")
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
+  endif
+augroup end
+
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! clear Error
-hi! clear ErrorMsg
 hi! clear Pmenu
 hi! clear ModeMsg
+hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE

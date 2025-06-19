@@ -716,6 +716,22 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
 
+augroup FormatPrg
+  autocmd!
+  if executable("black")
+    autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("terraform")
+    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
+  endif
+  if executable("gofmt")
+    autocmd FileType go setlocal formatprg=gofmt
+  endif
+  if executable("prettier")
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
+  endif
+augroup end
+
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! clear Error
