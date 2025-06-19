@@ -356,7 +356,6 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-
 if !empty(&viminfo)
   set viminfo^=!
 endif
@@ -643,7 +642,7 @@ nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 set t_Co=8
 set path+=**
 set sw=2 ts=2
-set wildmenu wildmode=longest:full,full pumheight=10 wildoptions=pum wildignorecase
+set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
@@ -662,12 +661,33 @@ set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
+
+if exists('+wildoptions')
+  try
+    set wildoptions=pum
+    set pumheight=10
+  catch
+    set wildmenu
+    set wildmode=longest:full,full
+  endtry
+endif
+
 if has('clipboard') && !empty($DISPLAY)
   if has('unnamedplus')
     set clipboard=unnamedplus
   else
     set clipboard=unnamed
   endif
+endif
+
+if exists('+wildoptions')
+  try
+    set wildoptions=pum
+    set pumheight=10
+  catch
+    set wildmenu
+    set wildmode=longest:full,full
+  endtry
 endif
 
 set wildignore+=**/.git/**
