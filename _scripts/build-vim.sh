@@ -23,13 +23,13 @@ if [[ "$ARCH" == "arm64" ]]; then
   export CFLAGS="-O3 -march=native -mtune=native -flto"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto"
   export LDFLAGS="-flto"
-	log "Building for Apple Silicon ($ARCH) with CPU optimizations"
+  log "Building for Apple Silicon ($ARCH) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
   export LDFLAGS="-flto"
-	log "Building for Linux (x86_64) with CPU optimizations"
+  log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
 rm -rf "$HOME/.local/vim"
@@ -53,12 +53,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --with-ruby-command="$(which ruby)" \
     --enable-cscope \
     --enable-terminal \
-    --with-compiledby="ono7" \
+    --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim"
   BUILDFOR="MacOS"
 else
   sudo apt update
   sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses5-dev libncursesw5-dev libncurses-dev gettext python3-dev libpython3-dev ruby-dev liblua5.4-dev libperl-dev tcl-dev
+  sudo apt install -y libx11-dev libxtst6 libxt-dev libxmu-dev
   ./configure \
     --with-features=huge \
     --enable-multibyte \
@@ -68,7 +69,7 @@ else
     --enable-rubyinterp=yes \
     --enable-cscope \
     --enable-terminal \
-    --with-compiledby="ono7" \
+    --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim" \
     --enable-gui=no \
     --enable-fail-if-missing
