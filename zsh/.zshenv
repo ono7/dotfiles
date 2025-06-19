@@ -428,7 +428,11 @@ vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
-nnoremap <C-b> :browse oldfiles<CR>
+nnoremap <C-f> :browse oldfiles<CR>
+
+xnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -701,7 +705,10 @@ nnoremap <C-h> <C-W>h
 " nnoremap gp `[v`]
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-nnoremap <C-b> :browse oldfiles<CR>
+nnoremap <C-f> :browse oldfiles<CR>
+
+xnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
