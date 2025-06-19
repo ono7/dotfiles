@@ -64,7 +64,6 @@ else
     --enable-python3interp=yes \
     --with-python3-config-dir="$(python3-config --configdir)" \
     --enable-perlinterp=yes \
-    --enable-luainterp=yes \
     --enable-rubyinterp=yes \
     --enable-cscope \
     --enable-terminal \
