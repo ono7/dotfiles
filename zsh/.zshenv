@@ -333,7 +333,7 @@ set complete=.,w,b
 set smarttab
 set formatoptions+=j
 set nrformats-=octal
-if has('clipboard')
+if has('clipboard') && !empty($DISPLAY)
   if has('unnamedplus')
     set clipboard=unnamedplus
   else
@@ -350,11 +350,12 @@ set wildignore+=.tags
 set wildignore+=tags
 
 set undolevels=999
-if !isdirectory($HOME."/.vim/undo")
-    call mkdir($HOME."/.vim/undo", "p", 0700)
+if !isdirectory($HOME."/.vim-undo")
+    call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
-set undodir=~/.vim/undo
+set undodir=~/.vim-undo
 set undofile
+
 
 if !empty(&viminfo)
   set viminfo^=!
@@ -546,7 +547,7 @@ hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
 EOF
 
-trap 'rm -f /tmp/rc$$; rm -rf ~/.vim/undo' EXIT
+trap 'rm -f /tmp/rc$$; rm -rf ~/.vim-undo' EXIT
 
 for i in {1..2}; do fc -R /dev/null; done
 
@@ -596,7 +597,7 @@ set undolevels=999
 if !isdirectory($HOME."/.vim/undo")
     call mkdir($HOME."/.vim/undo", "p", 0700)
 endif
-set undodir=~/.undo
+set undodir=~/.vim/undo
 set undofile
 
 function! Rg(args) abort
@@ -643,7 +644,7 @@ set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
-if has('clipboard')
+if has('clipboard') && !empty($DISPLAY)
   if has('unnamedplus')
     set clipboard=unnamedplus
   else
@@ -757,6 +758,6 @@ hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
 
 EOF
-trap 'rm -rf ~/.vim/undo' EXIT
+trap 'rm -rf ~/.vim-undo' EXIT
 SETUP_END
 }
