@@ -262,7 +262,7 @@ endif
 
 set t_Co=8
 let &fcs='eob: '
-set path=.,**
+set path=.,,**
 set autoread hidden
 set mouse=
 set ts=2 sw=2
@@ -606,7 +606,7 @@ endfunction
 nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
 set t_Co=8
-set path=.,**
+set path=.,,**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
