@@ -57,7 +57,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   BUILDFOR="MacOS"
 else
   sudo apt update
-  sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses-dev libtinfo-dev gettext python3-dev libpython3-dev ruby-dev lua5.2-dev liblua5.2-dev libperl-dev tcl-dev
+  sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses5-dev libncursesw5-dev libncurses-dev gettext python3-dev python3-distutils libpython3-dev ruby-dev liblua5.3-dev libperl-dev tcl-dev
   ./configure \
     --with-features=huge \
     --enable-multibyte \
