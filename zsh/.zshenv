@@ -517,6 +517,17 @@ fun! <SID>TrimWhitespace()
     call winrestview(l:save)
 endfun
 
+" Save cursor position
+  let l:save_cursor = getcurpos()
+
+  " Fixes ^M chars from Windows copy-pastes and removes trailing spaces
+  keeppatterns %s/\v\s*\r+$|\s+$//e
+
+  " Write file with backup
+  write ++p
+
+  " Restore cursor position
+  call setpos('.', l:save_cursor)
 augroup _write
   autocmd!
 
@@ -730,6 +741,28 @@ augroup _resize
   autocmd vimresized * :wincmd =
 augroup end
 
+function! s:CleanAndSave()
+  let l:save = winsaveview()
+
+  " Remove trailing whitespace and Windows ^M characters
+  keeppatterns %s/\v\s*\r+$|\s+$//e
+
+  " Remove empty lines at the end of the file
+  keeppatterns %s#\($\n\s*\)\+\%$##e
+
+  " Convert tabs to spaces (if expandtab is set)
+  if &expandtab
+    retab!
+  endif
+
+  call winrestview(l:save)
+endfunction
+
+augroup CleanOnWrite
+  autocmd!
+  autocmd BufWritePre * call s:CleanAndSave()
+augroup END
+
 augroup _quickfix
   autocmd!
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
@@ -793,6 +826,13 @@ hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
 hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
+
+" Highlight trailing whitespace, but not when typing at end of line
+augroup TrailingWhitespace
+  autocmd!
+  autocmd BufWinEnter * match TrailingWhitespace /\s\+$/
+augroup end
+highlight TrailingWhitespace ctermbg=red guibg=red
 
 EOF
 trap 'rm -rf ~/.vim-undo' EXIT
