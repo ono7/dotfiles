@@ -348,6 +348,7 @@ set wildignore+=**/site-packages/**
 set wildignore+=**/node_modules/**
 set wildignore+=.tags
 set wildignore+=tags
+set timeout timeoutlen=300 ttimeout ttimeoutlen=50
 
 set undolevels=999
 if !isdirectory($HOME."/.vim-undo")
@@ -427,7 +428,7 @@ vnoremap . :norm.<CR>
 
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
-nnoremap <C-r> :browse oldfiles<CR>
+nnoremap <C-b> :browse oldfiles<CR>
 nnoremap ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 
@@ -439,9 +440,9 @@ nnoremap <C-h> <C-W>h
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap v <c-v>
+nnoremap U <c-r>
 inoremap <C-c> <Esc>
 
-nnoremap <C-r> :browse oldfiles<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
@@ -632,6 +633,7 @@ set lazyredraw hidden undolevels=1000
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
 set magic noshowcmd nowrap
+set timeout timeoutlen=300 ttimeout ttimeoutlen=50
 set scrolloff=3 sidescrolloff=5 nowrap
 set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
@@ -666,6 +668,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
@@ -697,6 +700,8 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 " nnoremap gp `[v`]
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+nnoremap <C-b> :browse oldfiles<CR>
 
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
