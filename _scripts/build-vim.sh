@@ -34,6 +34,7 @@ fi
 
 rm -rf "$HOME/.local/vim"
 rm -rf "$HOME/vim"
+rm -rf "$HOME/.vim"
 
 git clone https://github.com/vim/vim.git ~/vim
 cd ~/vim
