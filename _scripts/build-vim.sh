@@ -79,5 +79,10 @@ if ! make install; then
   exit 1
 fi
 
+log "Installing fugitive"
+mkdir -p ~/.vim/pack/plugins/start
+
+git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+
 log "Built for $BUILDFOR with $CFLAGS"
 exit 0
