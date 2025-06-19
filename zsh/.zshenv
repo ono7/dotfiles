@@ -1,7 +1,5 @@
 export ZK_NOTEBOOK_DIR="$HOME/notes"
-# alias f='fd -tf'
 alias l='less -R '
-alias m='more '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
 alias pret="prettier --parser "
 alias vil="/usr/bin/vi"
@@ -98,11 +96,6 @@ ga () {
   git commit
 }
 
-gap () {
-  ga "$@"
-  gp
-}
-
 gac () {
   if [ "$#" -eq 0 ]; then
     git add -p
@@ -155,14 +148,6 @@ gco () {
 }
 
 alias gf='git fetch --all'
-alias afk="open /System/Library/CoreServices/ScreenSaverEngine.app"
-
-# deletes merged branches
-# alias gdm="git branch --merged | grep -Pv '(^\*|master|main)' | xargs git branch -d"
-alias gdm="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs echo"
-alias gdmr="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs git branch -d"
-alias gitrm="git fetch -p && git branch -vv | grep ': gone]' | a | xargs git branch -D"
-alias gdmrr="git branch --merged | grep -Pv '(^\*|master|main|production|development)' | sed 's/\+//' | xargs git worktree remove"
 
 # git follow a file history gfh nvim/init.lua
 alias gfh="git log --follow -p"
@@ -171,7 +156,6 @@ alias gfh="git log --follow -p"
 # alias gl="git log --graph --abbrev=10 --pretty=format:'%Cred%h%Creset%Cgreen(%ar)%C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s ' --abbrev-commit"
 alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias glb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:green)(%(committerdate:relative))%(color:reset) %(contents:subject)'"
-alias gpu='git pull'
 alias gr='git reflog '
 alias gs='git status '
 
@@ -208,24 +192,6 @@ a () {
 # open other modified files in a repo
 gitm () {
   $EDITOR $(git ls-files --modified --others --exclude-standard) $@ || return
-}
-
-cdt () {
-  # will display the 2nd and 3rd colums of text, but allow fzf to select the first to pass to the cd command
-  selected_dir=$(git worktree list | fzf --select-1 --layout=reverse --info=inline --with-nth=2,3)
-  if [ -n "$selected_dir" ]; then
-    cd $(echo $selected_dir | a)
-  fi
-}
-
-banner () {
-  title="$@"
-  COLUMNS=$(tput cols)
-  title_size=${#title}
-  span=$(( (COLUMNS + title_size) / 2 ))
-  printf "%${COLUMNS}s\n" | tr " " "*"
-  printf "%${span}s\n" "$title"
-  printf "%${COLUMNS}s\n" | tr " " "*"
 }
 
 gpg_delete_key () {
