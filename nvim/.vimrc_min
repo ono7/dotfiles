@@ -21,7 +21,7 @@ set undolevels=999
 if !isdirectory($HOME."/.vim/undo")
     call mkdir($HOME."/.vim/undo", "p", 0700)
 endif
-set undodir=~/.vim/undo
+set undodir=~/.undo
 set undofile
 
 function! Rg(args) abort
@@ -68,7 +68,7 @@ set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
-if has('clipboard') && !empty($DISPLAY)
+if has('clipboard')
   if has('unnamedplus')
     set clipboard=unnamedplus
   else
