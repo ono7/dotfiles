@@ -32,7 +32,7 @@ export CGO_ENABLED=0
 export EDITOR=vim
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export MANPAGER='nvim +Man!'
+# export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
 # OS-specific settings (only run what's needed)
