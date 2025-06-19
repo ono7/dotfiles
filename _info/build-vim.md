@@ -3,15 +3,32 @@
 ## MacOS
 
 ```bash
-# Deactivate your virtualenv first
 deactivate
 
 git clone https://github.com/vim/vim.git
 cd vim
 
-export CFLAGS="-O3 -march=native -mtune=native -flto"
-export CXXFLAGS="-O3 -march=native -mtune=native -flto"
-export LDFLAGS="-flto"
+# Detect architecture and set optimization flags
+ARCH=$(uname -m)
+if [[ "$ARCH" == "arm64" ]]; then
+    # Apple Silicon optimizations (M1/M2/M3/M4)
+    export CFLAGS="-O3 -march=native -mtune=native -flto"
+    export CXXFLAGS="-O3 -march=native -mtune=native -flto"
+    export LDFLAGS="-flto"
+    echo "Building for Apple Silicon with optimizations"
+elif [[ "$ARCH" == "x86_64" ]]; then
+    # x86_64 optimizations
+    export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+    export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+    export LDFLAGS="-flto"
+    echo "Building for x86_64 with optimizations"
+else
+    # Fallback for other architectures
+    export CFLAGS="-O3"
+    export CXXFLAGS="-O3"
+    export LDFLAGS=""
+    echo "Building for $ARCH with basic optimizations"
+fi
 
 # Use Homebrew's Python directly
 ./configure \
