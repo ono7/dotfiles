@@ -106,6 +106,7 @@ alias cds='cd $(fd -td | fzf)'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias clear="clear -x"
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 
 # Add an "alert" alias for long running commands.  Use like so:

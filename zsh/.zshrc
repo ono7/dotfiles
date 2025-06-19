@@ -124,6 +124,7 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 alias ll="ls -loah"
+alias clear="clear -x"
 alias vil='vim -u ~/.vimrc_min'
 alias vim='nvim -n'
 alias vi='nvim -n'
