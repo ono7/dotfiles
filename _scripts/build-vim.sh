@@ -15,17 +15,20 @@ cleanup() {
 
 trap cleanup EXIT
 
-if grep -q "avx2" /proc/cpuinfo; then
-  VECTOR_FLAGS="-msse4.2 -mavx2"
-elif grep -q "sse4_2" /proc/cpuinfo; then
-  VECTOR_FLAGS="-msse4.2"
-else
-  VECTOR_FLAGS=""
+ARCH=$(uname -m)
+if [[ "$ARCH" == "arm64" ]]; then
+  # Apple Silicon optimizations (M1/M2/M3/M4)
+  export CFLAGS="-O3 -march=native -mtune=native -flto"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
+  export LDFLAGS="-flto"
+  log "Building for Apple Silicon with optimizations"
+elif [[ "$ARCH" == "x86_64" ]]; then
+  # x86_64 optimizations
+  export CFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export CXXFLAGS="-O3 -march=native -mtune=native -flto -msse4.2 -mavx2"
+  export LDFLAGS="-flto"
+  log "Building for x86_64 with optimizations"
 fi
-
-export CFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
-export CXXFLAGS="-O3 -march=native -mtune=native -flto $VECTOR_FLAGS"
-export LDFLAGS="-flto"
 
 rm -rf "$HOME/.local/vim"
 
@@ -50,6 +53,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --prefix="$HOME/.local/vim"
   BUILDFOR="MacOS"
 else
+  sudo apt update
+  sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses5-dev libncursesw5-dev libtinfo-dev libncurses-dev gettext python3-dev python3-distutils libpython3-dev ruby-dev lua5.2-dev liblua5.2-dev libperl-dev tcl-dev
   ./configure \
     --with-features=huge \
     --enable-multibyte \
