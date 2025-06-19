@@ -561,7 +561,11 @@ for i in {1..2}; do fc -R /dev/null; done
 vimm() {
   cat << 'SETUP_END'
 
-alias v='vim -u ~/.myrc'
+if [ -f /usr/local/bin/vim ]; then
+  alias v='/usr/local/bin/vim -u ~/.myrc'
+else
+  alias v='vim -u ~/.myrc'
+fi
 
   cat > ~/.myrc << 'EOF'
 " 🐇 Follow the white Rabbit...

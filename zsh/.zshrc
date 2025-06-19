@@ -127,7 +127,11 @@ alias ll="ls -loah"
 alias vil='vim -u ~/.vimrc_min'
 alias vim='nvim -n'
 alias vi='nvim -n'
-alias v='vim -u ~/.myrc'
+if [ -f /usr/local/bin/vim ]; then
+  alias v='/usr/local/bin/vim -u ~/.myrc'
+else
+  alias v='vim -u ~/.myrc'
+fi
 alias vio=/usr/bin/vi
 alias k='kubectl '
 # alias vl='vim -c \"normal '0\" -c "bn" -c \"bd\"'
