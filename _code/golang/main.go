@@ -1,3 +1,25 @@
+// # Build the tool
+// go build -o text2hex text2hex.go
+//
+// # Basic text to hex (default little-endian)
+// echo "ABC" | ./text2hex
+// # Output: b"\x41\x42\x43\x0a"
+//
+// # Convert numbers to hex
+// echo "65 66 67" | ./text2hex -n
+// # Output: b"\x41\x42\x43"
+//
+// # 32-bit little-endian numbers
+// echo "0x41424344" | ./text2hex -n -w 4
+// # Output: b"\x44\x43\x42\x41"
+//
+// # Big-endian mode
+// echo "0x41424344" | ./text2hex -n -w 4 -be
+// # Output: b"\x41\x42\x43\x44"
+//
+// # Custom prefix/suffix for different languages
+// echo "test" | ./text2hex -p "\\x" -s ""
+// # Output: \x74\x65\x73\x74\x0a
 package main
 
 import (
