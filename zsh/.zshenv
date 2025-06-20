@@ -768,6 +768,12 @@ endfunction
 " 10MB
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
+augroup _read
+  autocmd!
+  " restore last known position
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup end
+
 augroup _resize
   autocmd!
   autocmd vimresized * :wincmd =

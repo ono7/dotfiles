@@ -7,7 +7,7 @@ syntax off
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
 else
-  set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
 endif
 
@@ -202,6 +202,12 @@ endfunction
 
 " 10MB
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+
+augroup _read
+  autocmd!
+  " restore last known position
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup end
 
 augroup _resize
   autocmd!
