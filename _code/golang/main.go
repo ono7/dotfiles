@@ -35,7 +35,7 @@ import (
 func main() {
 	var (
 		bigEndian    = flag.Bool("be", false, "Use big-endian byte order")
-		littleEndian = flag.Bool("le", true, "Use little-endian byte order (default)")
+		// littleEndian = flag.Bool("le", true, "Use little-endian byte order (default)")
 		wordSize     = flag.Int("w", 1, "Word size in bytes (1, 2, 4, 8)")
 		prefix       = flag.String("p", "b\"", "Prefix for output")
 		suffix       = flag.String("s", "\"", "Suffix for output")
