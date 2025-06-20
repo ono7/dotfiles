@@ -7,7 +7,7 @@ if vim.opt.diff:get() then
   vim.opt.numberwidth = 1
   vim.opt.number = true
   vim.opt.cmdheight = 2
-  vim.opt.diffopt = "filler,context:0,internal,algorithm:histogram,indent-heuristic"
+  vim.opt.diffopt = "filler,context:2,internal,algorithm:histogram,indent-heuristic"
   vim.opt.laststatus = 3
   m("n", "]", "]c", opt)
   m("n", "[", "[c", opt)
