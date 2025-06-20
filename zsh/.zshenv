@@ -350,6 +350,7 @@ function! Rg(args) abort
 endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 nnoremap <M-g> :Rg<space>
+nnoremap g  :Rg<space>
 
 function! ToggleQuickfixList()
   let qf_exists = 0
@@ -697,6 +698,16 @@ function! CopyMatches(reg)
 endfunction
 command! -register Cm call CopyMatches(<q-reg>)
 
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! PasteOver()
+     let s:restore_reg = @"
+     return "p@=RestoreRegister()\<cr>"
+endfunction
+vnoremap <silent> <expr> p PasteOver()
+
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
@@ -705,6 +716,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap <C-f> :browse oldfiles<CR>
+nnoremap r :browse oldfiles<CR>
 
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
