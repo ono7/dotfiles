@@ -117,6 +117,7 @@ map Q <Nop>
 
 nnoremap v <c-v>
 nnoremap U <c-r>
+nnoremap Y yg_
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
