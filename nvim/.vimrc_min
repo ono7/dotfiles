@@ -39,7 +39,7 @@ set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set fillchars+=vert:│
 set fillchars+=diff:╱
-set showbreak=↪
+let &showbreak="↪ "
 set splitbelow splitright
 set fileformats=unix
 set guicursor=

@@ -299,7 +299,7 @@ set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set nojoinspaces
 set breakindent
-set showbreak=↪
+let &showbreak="↪ "
 set scrolloff=1 sidescrolloff=2
 set complete=.,w,b
 set smarttab
