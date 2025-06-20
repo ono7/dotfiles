@@ -10,6 +10,13 @@ alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclud
 alias sshe='sshpass -e ssh '
 alias dockerps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.State}}\t{{.Status}}"'
 
+
+mycolors() {
+for i in {0..15}; do
+    echo "$(tput setaf $i)Color $i: ████████$(tput sgr0) ($(tput setaf $i)■■■■■■■■$(tput sgr0))"
+done
+}
+
 golinux () {
   [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return
   env GOOS=linux GOARCH=amd64 go build $@
@@ -669,6 +676,9 @@ nnoremap <C-h> <C-W>h
 " nnoremap gp `[v`]
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+nnoremap <M-r> :browse oldfiles<CR>
+nnoremap r :browse oldfiles<CR>
+
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
@@ -813,11 +823,17 @@ hi! link LineNr Comment
 hi! clear Error
 hi! clear Pmenu
 hi! clear ModeMsg
+hi! clear DiffDelete
+hi! clear FoldColumn
+hi! DiffChange term=bold ctermbg=NONE guibg=NONE
+hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
+hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
+hi! link DiffDelete Comment
 hi! link SpecialKey Comment
 hi! link Folded Comment
 hi! link VertSplit Comment
