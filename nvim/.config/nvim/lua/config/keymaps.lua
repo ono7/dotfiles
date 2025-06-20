@@ -132,7 +132,7 @@ vim.keymap.set("v", ".", ":norm .<cr>", opt)
 vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
 
 vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
-vim.keymap.set("n", "Y", "y$", opt)
+vim.keymap.set("n", "Y", "yg_", opt)
 vim.keymap.set("n", "U", "<c-r>", opt)
 
 vim.keymap.set("n", "<C-y>", function()

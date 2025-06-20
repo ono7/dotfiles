@@ -582,30 +582,6 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-function! Rg(args) abort
-  execute "silent! grep!" shellescape(a:args)
-  cwindow
-  redraw!
-endfunction
-command -nargs=+ -complete=file Rg call Rg(<q-args>)
-nnoremap <M-g> :Rg<space>
-
-function! ToggleQuickfixList()
-  let qf_exists = 0
-  for win in getwininfo()
-    if win.quickfix == 1
-      let qf_exists = 1
-      break
-    endif
-  endfor
-  if qf_exists == 1
-    cclose
-  else
-    copen
-  endif
-endfunction
-nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
-
 set t_Co=8
 set path=.,,**
 set sw=2 ts=2
@@ -674,6 +650,7 @@ map Q <Nop>
 
 nnoremap v <c-v>
 nnoremap U <c-r>
+nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
@@ -684,6 +661,52 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
+" nnoremap gp `[v`]
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+
+cnoremap <C-A> <Home>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+xnoremap H <gv
+xnoremap L >gv
+
+function! Rg(args) abort
+  execute "silent! grep!" shellescape(a:args)
+  cwindow
+  redraw!
+endfunction
+command -nargs=+ -complete=file Rg call Rg(<q-args>)
+nnoremap <M-g> :Rg<space>
+nnoremap g  :Rg<space>
+
+function! ToggleQuickfixList()
+  let qf_exists = 0
+  for win in getwininfo()
+    if win.quickfix == 1
+      let qf_exists = 1
+      break
+    endif
+  endfor
+  if qf_exists == 1
+    cclose
+  else
+    copen
+  endif
+endfunction
+nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
 
 function s:remove_pair() abort
   let pair = getline('.')[ col('.')-2 : col('.')-1 ]
@@ -709,38 +732,6 @@ function! PasteOver()
 endfunction
 vnoremap <silent> <expr> p PasteOver()
 
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-l> <C-W>l
-nnoremap <C-h> <C-W>h
-" nnoremap gp `[v`]
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-nnoremap <C-f> :browse oldfiles<CR>
-nnoremap r :browse oldfiles<CR>
-
-xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
-xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
-xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-
-cnoremap <C-A> <Home>
-cnoremap <C-h> <Left>
-cnoremap <C-l> <Right>
-
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-
-xnoremap H <gv
-xnoremap L >gv
-
-" 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
-
-augroup _resize
-  autocmd!
-  autocmd vimresized * :wincmd =
-augroup end
-
 function! s:CleanAndSave()
   let l:save = winsaveview()
 
@@ -757,6 +748,14 @@ function! s:CleanAndSave()
 
   call winrestview(l:save)
 endfunction
+
+" 10MB
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
+augroup end
 
 augroup CleanOnWrite
   autocmd!
@@ -826,7 +825,6 @@ hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
 hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
-
 EOF
 trap 'rm -rf ~/.vim-undo' EXIT
 SETUP_END

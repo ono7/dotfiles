@@ -24,31 +24,6 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-function! Rg(args) abort
-  execute "silent! grep!" shellescape(a:args)
-  cwindow
-  redraw!
-endfunction
-command -nargs=+ -complete=file Rg call Rg(<q-args>)
-nnoremap <M-g> :Rg<space>
-nnoremap g  :Rg<space>
-
-function! ToggleQuickfixList()
-  let qf_exists = 0
-  for win in getwininfo()
-    if win.quickfix == 1
-      let qf_exists = 1
-      break
-    endif
-  endfor
-  if qf_exists == 1
-    cclose
-  else
-    copen
-  endif
-endfunction
-nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
-
 set t_Co=8
 set path=.,,**
 set sw=2 ts=2
@@ -117,6 +92,7 @@ map Q <Nop>
 
 nnoremap v <c-v>
 nnoremap U <c-r>
+nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
@@ -127,30 +103,6 @@ vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-
-function s:remove_pair() abort
-  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
-  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
-endfunction
-inoremap <expr> <bs> <sid>remove_pair()
-
-function! CopyMatches(reg)
-  let hits = []
-  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
-  let reg = empty(a:reg) ? '+' : a:reg
-  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
-endfunction
-command! -register Cm call CopyMatches(<q-reg>)
-
-function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
-endfunction
-function! PasteOver()
-     let s:restore_reg = @"
-     return "p@=RestoreRegister()\<cr>"
-endfunction
-vnoremap <silent> <expr> p PasteOver()
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -176,13 +128,54 @@ inoremap <C-e> <End>
 xnoremap H <gv
 xnoremap L >gv
 
-" 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+function! Rg(args) abort
+  execute "silent! grep!" shellescape(a:args)
+  cwindow
+  redraw!
+endfunction
+command -nargs=+ -complete=file Rg call Rg(<q-args>)
+nnoremap <M-g> :Rg<space>
+nnoremap g  :Rg<space>
 
-augroup _resize
-  autocmd!
-  autocmd vimresized * :wincmd =
-augroup end
+function! ToggleQuickfixList()
+  let qf_exists = 0
+  for win in getwininfo()
+    if win.quickfix == 1
+      let qf_exists = 1
+      break
+    endif
+  endfor
+  if qf_exists == 1
+    cclose
+  else
+    copen
+  endif
+endfunction
+nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
+
+function s:remove_pair() abort
+  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
+  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
+endfunction
+inoremap <expr> <bs> <sid>remove_pair()
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
+
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! PasteOver()
+     let s:restore_reg = @"
+     return "p@=RestoreRegister()\<cr>"
+endfunction
+vnoremap <silent> <expr> p PasteOver()
 
 function! s:CleanAndSave()
   let l:save = winsaveview()
@@ -200,6 +193,14 @@ function! s:CleanAndSave()
 
   call winrestview(l:save)
 endfunction
+
+" 10MB
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
+augroup end
 
 augroup CleanOnWrite
   autocmd!
