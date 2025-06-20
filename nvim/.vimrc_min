@@ -41,12 +41,17 @@ set fillchars+=vert:│
 set fillchars+=diff:╱
 set showbreak=↪
 set splitbelow splitright
-set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic
 set fileformats=unix
 set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
+
+try
+  set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic
+catch
+  set diffopt=filler,context:3,internal
+endtry
 
 if exists('+wildoptions')
   try

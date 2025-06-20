@@ -612,6 +612,12 @@ set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
 
+try
+  set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic
+catch
+  set diffopt=filler,context:3,internal
+endtry
+
 if exists('+wildoptions')
   try
     set wildoptions=pum
