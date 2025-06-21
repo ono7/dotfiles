@@ -585,7 +585,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-	set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 set undolevels=999
@@ -808,7 +808,7 @@ augroup FileTypeSettings
   autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
   " TypeScript/JavaScript/JSON/YAML - 2 spaces
-  autocmd FileType typescript,javascript,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
   " Go - 4-width tabs
   autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
@@ -849,7 +849,9 @@ hi! DiffChange term=bold ctermbg=NONE guibg=NONE
 hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
 hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! clear ErrorMsg
+hi! clear MatchParen
 hi! Visual term=reverse cterm=reverse gui=reverse
+hi! MatchParen term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! PmenuSel term=reverse cterm=reverse gui=reverse
 hi! Pmenu term=reverse cterm=reverse gui=reverse
