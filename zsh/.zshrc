@@ -578,6 +578,11 @@ unsetopt LIST_AMBIGUOUS
 setopt AUTO_LIST
 setopt COMBINING_CHARS
 
+# glob expansion *test<tab>
+setopt glob_complete
+setopt no_case_glob
+setopt numeric_glob_sort
+
 # Run the setup function
 setup_keys
 
