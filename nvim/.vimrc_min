@@ -4,8 +4,14 @@ set nocompatible
 filetype plugin indent on
 syntax off
 
+let mapleader = " "
+
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  packadd cfilter
+  set inccommand=nosplit
+  set pumheight=10 pumblend=0
+  tnoremap <c-[> <C-\><C-n>
 else
   set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
@@ -100,6 +106,8 @@ nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
+nnoremap D d$
+nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>

@@ -557,9 +557,11 @@ vimm() {
   cat << 'SETUP_END'
 
 if [ -f $HOME/.local/vim/bin/vim ]; then
-  alias v='~/.local/vim/bin/vim -u ~/.myrc'
+  # alias v='~/.local/vim/bin/vim -u ~/.myrc'
+  alias v='~/.local/vim/bin/vim'
 else
-  alias v='vim -u ~/.myrc'
+  # alias v='vim -u ~/.myrc'
+  alias v='vim'
 fi
 
   cat > ~/.myrc << 'EOF'
