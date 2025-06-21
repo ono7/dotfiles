@@ -572,14 +572,14 @@ syntax off
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
 else
-  set viminfo='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
 endif
 
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-	set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 set undolevels=999
@@ -604,7 +604,7 @@ set backspace=indent,eol,start
 set nobackup nowritebackup noswapfile
 set fillchars+=vert:│
 set fillchars+=diff:╱
-set showbreak=↪
+let &showbreak="↪ "
 set splitbelow splitright
 set fileformats=unix
 set guicursor=
@@ -833,7 +833,6 @@ augroup end
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! clear Error
-hi! clear Pmenu
 hi! clear ModeMsg
 hi! clear DiffDelete
 hi! clear FoldColumn
@@ -843,6 +842,9 @@ hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
+hi! PmenuSel term=reverse cterm=reverse gui=reverse
+hi! Pmenu term=reverse cterm=reverse gui=reverse
+hi! clear Pmenu
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link DiffDelete Comment

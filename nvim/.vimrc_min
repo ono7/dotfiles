@@ -268,7 +268,6 @@ augroup end
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! clear Error
-hi! clear Pmenu
 hi! clear ModeMsg
 hi! clear DiffDelete
 hi! clear FoldColumn
@@ -278,6 +277,9 @@ hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! clear ErrorMsg
 hi! Visual term=reverse cterm=reverse gui=reverse
 hi! Search term=reverse cterm=reverse gui=reverse
+hi! PmenuSel term=reverse cterm=reverse gui=reverse
+hi! Pmenu term=reverse cterm=reverse gui=reverse
+hi! clear Pmenu
 hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link DiffDelete Comment
