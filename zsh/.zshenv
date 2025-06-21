@@ -557,11 +557,9 @@ vimm() {
   cat << 'SETUP_END'
 
 if [ -f $HOME/.local/vim/bin/vim ]; then
-  # alias v='~/.local/vim/bin/vim -u ~/.myrc'
-  alias v='~/.local/vim/bin/vim'
+  alias v='~/.local/vim/bin/vim -u ~/.myrc'
 else
-  # alias v='vim -u ~/.myrc'
-  alias v='vim'
+  alias v='vim -u ~/.myrc'
 fi
 
   cat > ~/.myrc << 'EOF'
@@ -571,8 +569,14 @@ set nocompatible
 filetype plugin indent on
 syntax off
 
+let mapleader = " "
+
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  packadd cfilter
+  set inccommand=nosplit
+  set pumheight=10 pumblend=0
+  tnoremap <c-[> <C-\><C-n>
 else
   set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
@@ -581,7 +585,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+	set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 set undolevels=999
@@ -667,6 +671,8 @@ nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
+nnoremap D d$
+nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
