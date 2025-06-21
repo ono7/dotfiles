@@ -700,6 +700,7 @@ xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 cnoremap <C-A> <Home>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
+cnoremap <C-h> <BS>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
