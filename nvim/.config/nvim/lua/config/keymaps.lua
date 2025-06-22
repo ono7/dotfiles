@@ -13,7 +13,19 @@ vim.keymap.set("n", "<M-e>", "")
 
 -- show current function or class
 vim.cmd([[
-  nnoremap <M-a> :echo getline(search('\v^[[:alpha:]$_]', "bn", 1, 100))<CR>
+cnoremap <c-a> <Home>
+cnoremap <c-b> <left>
+cnoremap <c-e> <end>
+cnoremap <c-f> <right>
+" cnoremap <c-h> <BS>
+cnoremap <c-h> <Left>
+cnoremap <c-l> <Right>
+
+" <m-b>
+cnoremap <esc>b <s-left>
+" <m-f>
+cnoremap <esc>f <s-right>
+cnoremap <esc><backspace> <c-w>
 ]])
 
 vim.keymap.set("n", "<space>", "")
