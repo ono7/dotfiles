@@ -55,6 +55,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --enable-terminal \
     --disable-netbeans \
     --disable-rightleft \
+    --disable-balloon-eval-term \
     --disable-arabic \
     --disable-title \
     --with-compiledby="${USER}" \
@@ -77,6 +78,7 @@ else
     --disable-netbeans \
     --disable-arabic \
     --disable-title \
+    --disable-balloon-eval-term \
     --disable-rightleft \
     --enable-gui=no \
     --enable-fail-if-missing
