@@ -71,9 +71,6 @@ setopt interactivecomments
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_MINUS
-setopt extended_glob
-setopt glob_dots
-setopt numeric_glob_sort
 setopt autocd
 
 # History options
@@ -579,6 +576,7 @@ setopt AUTO_LIST
 setopt COMBINING_CHARS
 
 # glob expansion *test<tab>
+setopt extended_glob
 setopt glob_complete
 setopt no_case_glob
 setopt numeric_glob_sort
