@@ -291,7 +291,7 @@ set timeout ttimeout
 set fillchars+=vert:│
 set fillchars+=diff:╱
 set splitbelow splitright
-set fileformats=unix
+set fileformats=unix fileformat=unix
 set autoindent
 set guicursor=
 set tags=./tags,tags;~
@@ -612,7 +612,7 @@ set fillchars+=vert:│
 set fillchars+=diff:╱
 let &showbreak="↪ "
 set splitbelow splitright
-set fileformats=unix
+set fileformats=unix fileformat=unix
 set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT

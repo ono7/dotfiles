@@ -150,6 +150,7 @@ vim.opt.mousemodel = "extend"
 vim.opt.mouse = "n"
 vim.opt.nrformats = "bin,hex"
 vim.opt.fileformats = "unix"
+vim.opt.fileformat = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 vim.opt.number = true
 
