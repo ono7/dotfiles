@@ -84,7 +84,7 @@ if ! make CMAKE_BUILD_TYPE=Release \
   CMAKE_CXX_FLAGS="$CXXFLAGS" \
   ENABLE_LTO=ON \
   MIN_LOG_LEVEL=3 \
-  "${JEMALLOC_FLAG:-}" \
+  ${JEMALLOC_FLAG:-} \
   CMAKE_EXE_LINKER_FLAGS="$LDFLAGS"; then
   log "Error while building neovim"
   exit 1
