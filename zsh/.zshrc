@@ -43,6 +43,7 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   # Create a sentinel file and check for its existence
   if [[ ! -f "$HOME/.macos_defaults_set" ]]; then
     defaults write -g ApplePressAndHoldEnabled -bool false
+    defaults delete -g ApplePressAndHoldEnabled
     defaults write -g InitialKeyRepeat -int 10
     defaults write -g KeyRepeat -int 1
     defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
