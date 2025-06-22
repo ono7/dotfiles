@@ -707,6 +707,11 @@ cnoremap <c-f> <right>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
+" <m-b>
+cnoremap <esc>b <s-left>
+" <m-f>
+cnoremap <esc>f <s-right>
+
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
