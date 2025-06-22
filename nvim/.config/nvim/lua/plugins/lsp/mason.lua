@@ -51,6 +51,8 @@ return {
           "terraformls",
           -- "delve",
         },
+        auto_update = false, -- Disable auto-update for faster startup
+        run_on_start = false,
       })
     end,
   },
