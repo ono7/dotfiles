@@ -711,6 +711,7 @@ cnoremap <c-l> <Right>
 cnoremap <esc>b <s-left>
 " <m-f>
 cnoremap <esc>f <s-right>
+cnoremap <esc><backspace> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
