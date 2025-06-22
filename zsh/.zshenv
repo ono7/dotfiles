@@ -851,7 +851,7 @@ hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! clear ErrorMsg
 hi! clear MatchParen
 hi! Visual term=reverse cterm=reverse gui=reverse
-hi! MatchParen term=reverse cterm=reverse gui=reverse
+hi! MatchParen guibg=#384057 ctermbg=8
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! PmenuSel term=reverse cterm=reverse gui=reverse
 hi! Pmenu term=reverse cterm=reverse gui=reverse
