@@ -53,6 +53,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --with-ruby-command="$(which ruby)" \
     --enable-cscope \
     --enable-terminal \
+    --disable-netbeans \
+    --disable-rightleft \
+    --disable-arabic \
+    --disable-title \
     --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim"
 else
@@ -70,6 +74,10 @@ else
     --enable-terminal \
     --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim" \
+    --disable-netbeans \
+    --disable-arabic \
+    --disable-title \
+    --disable-rightleft \
     --enable-gui=no \
     --enable-fail-if-missing
 fi
