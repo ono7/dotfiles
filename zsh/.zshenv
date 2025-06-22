@@ -634,11 +634,13 @@ if exists('+wildoptions')
   endtry
 endif
 
-if has('clipboard') && !empty($DISPLAY)
-  if has('unnamedplus')
-    set clipboard=unnamedplus
-  else
-    set clipboard=unnamed
+if has('clipboard')
+  if has('mac') || !empty($DISPLAY)
+    if has('unnamedplus')
+      set clipboard=unnamedplus
+    else
+      set clipboard=unnamed
+    endif
   endif
 endif
 
