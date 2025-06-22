@@ -35,7 +35,7 @@ set path=.,,**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
-set lazyredraw hidden undolevels=1000
+set lazyredraw hidden undolevels=1000 updatetime=300
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber
 set magic noshowcmd nowrap

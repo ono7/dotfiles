@@ -11,33 +11,6 @@ vim.keymap.set("i", "<M-e>", "")
 vim.keymap.set("i", "<M-C-U>", "")
 vim.keymap.set("n", "<M-e>", "")
 
--- show current function or class
-vim.cmd([[
-cnoremap <c-a> <Home>
-cnoremap <c-b> <left>
-cnoremap <c-e> <end>
-cnoremap <c-f> <right>
-" cnoremap <c-h> <BS>
-cnoremap <c-h> <Left>
-cnoremap <c-l> <Right>
-
-" <m-b>
-cnoremap <esc>b <s-left>
-" <m-f>
-cnoremap <esc>f <s-right>
-cnoremap <esc><backspace> <c-w>
-
-function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
-endfunction
-function! PasteOver()
-     let s:restore_reg = @"
-     return "p@=RestoreRegister()\<cr>"
-endfunction
-vnoremap <silent> <expr> p PasteOver()
-]])
-
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
@@ -332,6 +305,33 @@ vim.keymap.set("n", "<C-t>", function()
     vim.cmd("copen")
   end
 end, { desc = "Toggle quickfix list" })
+
+-- show current function or class
+vim.cmd([[
+cnoremap <c-a> <Home>
+cnoremap <c-b> <left>
+cnoremap <c-e> <end>
+cnoremap <c-f> <right>
+" cnoremap <c-h> <BS>
+cnoremap <c-h> <Left>
+cnoremap <c-l> <Right>
+
+" <m-b>
+cnoremap <esc>b <s-left>
+" <m-f>
+cnoremap <esc>f <s-right>
+cnoremap <esc><backspace> <c-w>
+
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! PasteOver()
+     let s:restore_reg = @"
+     return "p@=RestoreRegister()\<cr>"
+endfunction
+vnoremap <silent> <expr> p PasteOver()
+]])
 
 -- using mini.pairs
 -- - these table and keymap below go together
