@@ -571,6 +571,8 @@ syntax off
 
 let mapleader = " "
 
+let g:loaded_matchparen = 1
+
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
   packadd cfilter
