@@ -45,7 +45,6 @@ cnoremap <esc>f <s-right>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap {<CR> {<CR>}<ESC>O
 
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'

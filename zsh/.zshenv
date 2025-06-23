@@ -726,7 +726,7 @@ cnoremap <esc><backspace> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-inoremap {<CR> {<CR>}<ESC>O
+" inoremap {<CR> {<CR>}<ESC>O
 
 function! Rg(args) abort
   execute "silent! grep!" shellescape(a:args)
