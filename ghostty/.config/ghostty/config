@@ -133,7 +133,6 @@ keybind = cmd+e=text:\x05
 keybind = cmd+f=text:\x06
 keybind = cmd+g=text:\x07
 keybind = cmd+h=text:\x08
-# keybind = cmd+i=text:\x09
 keybind = cmd+i=text:\x1b[105;5u
 keybind = cmd+j=text:\x0a
 keybind = cmd+k=text:\x0b

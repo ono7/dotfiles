@@ -108,7 +108,6 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-noremap <TAB> %
 nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <c-r> :browse oldfiles<CR>

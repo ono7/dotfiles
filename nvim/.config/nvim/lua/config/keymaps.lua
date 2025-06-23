@@ -54,7 +54,6 @@ nnoremap <space>a ggVG
 nnoremap U <c-r>
 nnoremap v <c-v>
 nnoremap Y yg_
-noremap <TAB> %
 
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
 vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
