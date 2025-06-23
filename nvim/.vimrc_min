@@ -155,6 +155,7 @@ cnoremap <esc><backspace> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap {<CR> {<CR>}<ESC>O
 
 xnoremap H <gv
 xnoremap L >gv
