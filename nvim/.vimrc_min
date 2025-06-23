@@ -133,10 +133,8 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
-" nnoremap gp `[v`]
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n :e ~/notest.md<cr>
-
 nnoremap <M-r> :browse oldfiles<CR>
 nnoremap r :browse oldfiles<CR>
 
@@ -153,13 +151,11 @@ cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
 cnoremap <c-f> <right>
-" cnoremap <c-h> <BS>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
-" <m-b>
+" use M-x
 cnoremap <esc>b <s-left>
-" <m-f>
 cnoremap <esc>f <s-right>
 cnoremap <esc><backspace> <c-w>
 

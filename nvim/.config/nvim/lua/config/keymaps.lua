@@ -24,7 +24,6 @@ vim.keymap.set("i", "<M-e>", "<End>", silent)
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
--- vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[
 
 command! Mktags !ctags -R .
@@ -33,21 +32,6 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-noremap <TAB> %
-nnoremap v <c-v>
-nnoremap U <c-r>
-nnoremap Y yg_
-nnoremap D d$
-nnoremap <silent> ,d :bd!<cr>
-nnoremap <space>a ggVG
-nnoremap <silent> <space><space> :noh<cr>
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
-vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-xnoremap H <gv
-xnoremap L >gv
-
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
@@ -55,16 +39,29 @@ cnoremap <c-f> <right>
 " cnoremap <c-h> <BS>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
-
-" <m-b>
-cnoremap <esc>b <s-left>
-" <m-f>
-cnoremap <esc>f <s-right>
 cnoremap <esc><backspace> <c-w>
+cnoremap <esc>b <s-left>
+cnoremap <esc>f <s-right>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap {<CR> {<CR>}<ESC>O
+
+nnoremap D d$
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap <silent> ,d :bd!<cr>
+nnoremap <silent> <space><space> :noh<cr>
+nnoremap <space>a ggVG
+nnoremap U <c-r>
+nnoremap v <c-v>
+nnoremap Y yg_
+noremap <TAB> %
+
+vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+xnoremap H <gv
+xnoremap L >gv
+xnoremap y ygv<Esc>
 
 function! CopyMatches(reg)
   let hits = []
@@ -166,13 +163,6 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Quick paragraph operations
-vim.keymap.set("n", "<leader>yp", "yap", { desc = "Yank paragraph" })
-
---- text navigation improvement
-vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
-vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
 
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
