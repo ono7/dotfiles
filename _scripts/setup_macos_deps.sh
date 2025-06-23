@@ -6,18 +6,6 @@ log() {
 
 log "$0"
 
-if type brew &>/dev/null; then
-  brew install ansifilter wget tree go rar clang-format zoxide grep netcat stow
-  brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl tmux universal-ctags mtr lua ninja rust
-  brew install bpytop pinentry-mac llvm git-delta rename zk direnv gron
-  brew install golang delve sqlite shfmt sshs act kitty shellcheck rlwrap btop
-  brew install --cask alacritty
-  ln -fs "$(brew --prefix)"/opt/llvm/bin/lldb-vscode "$(brew --prefix)"/bin/
-else
-  log "Install homebrew first!"
-  exit 1
-fi
-
 # Disable prompting to use new exteral drives as Time Machine volume
 # defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 

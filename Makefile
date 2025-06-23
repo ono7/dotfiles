@@ -1,9 +1,9 @@
 SHELL := /bin/bash
 
-export PATH := $(HOME)/.fzf/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
+export PATH := $(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
 
 
-.PHONY: install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -30,8 +30,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps neovim fzf starship done
-mac: mac-deps clean stow nvm go-deps fzf starship neovim done
+linux: linux-deps homebrew brew-deps clean stow nvm go-deps neovim fzf starship done
+mac: mac-deps homebrew brew-deps clean stow nvm go-deps fzf starship neovim done
 
 clean:
 	@echo $(BANNER)
@@ -71,6 +71,14 @@ stow:
 # 	stow -D ssh
 # 	@cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
 
+homebrew:
+	@echo $(BANNER)
+	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+brew-deps:
+	@echo $(BANNER)
+	@bash ./_scripts/setup_brew_packages.sh
+
 fzf:
 	@echo $(BANNER)
 	@rm -rf ~/.fzf
@@ -84,8 +92,8 @@ nvm:
 
 shell:
 	@echo $(BANNER)
-	$$(which fzf) || return
-	sudo usermod -s $$(which fzf) $$USER
+	$$(which zsh) || return
+	sudo usermod -s $$(which zsh) $$USER
 
 starship:
 	@echo $(BANNER)
