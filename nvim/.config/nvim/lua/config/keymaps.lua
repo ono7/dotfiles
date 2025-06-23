@@ -24,9 +24,6 @@ vim.keymap.set("n", "<M-e>", "")
 vim.keymap.set("n", "<space>", "")
 vim.g.mapleader = " "
 
--- change paste behaviour
-vim.keymap.set({ "n", "x" }, "<leader>p", [["0p]], { desc = "paste from yank register" })
-
 --- core keymaps ---
 vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
 vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)
@@ -38,8 +35,104 @@ vim.keymap.set("i", "<M-e>", "<End>", silent)
 vim.g.loaded_matchit = 1
 
 -- vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
-vim.cmd([[vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a]])
-vim.cmd([[vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a]])
+vim.cmd([[
+vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
+vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+cnoremap <c-a> <Home>
+cnoremap <c-b> <left>
+cnoremap <c-e> <end>
+cnoremap <c-f> <right>
+" cnoremap <c-h> <BS>
+cnoremap <c-h> <Left>
+cnoremap <c-l> <Right>
+
+" <m-b>
+cnoremap <esc>b <s-left>
+" <m-f>
+cnoremap <esc>f <s-right>
+cnoremap <esc><backspace> <c-w>
+
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap {<CR> {<CR>}<ESC>O
+
+xnoremap H <gv
+xnoremap L >gv
+
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! PasteOver()
+     let s:restore_reg = @"
+     return "p@=RestoreRegister()\<cr>"
+endfunction
+vnoremap <silent> <expr> p PasteOver()
+
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+
+function! s:CleanAndSave()
+  let l:save = winsaveview()
+
+  " Remove trailing whitespace and Windows ^M characters
+  keeppatterns %s/\v\s*\r+$|\s+$//e
+
+  " Remove empty lines at the end of the file
+  keeppatterns %s#\($\n\s*\)\+\%$##e
+
+  " Convert tabs to spaces (if expandtab is set)
+  if &expandtab
+    retab!
+  endif
+
+  call winrestview(l:save)
+endfunction
+
+augroup CleanOnWrite
+  autocmd!
+  autocmd BufWritePre * call s:CleanAndSave()
+augroup end
+
+augroup FileTypeSettings
+  autocmd!
+
+  " Python - 4 spaces
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+  " TypeScript/JavaScript/JSON/YAML - 2 spaces
+  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Go - 4-width tabs
+  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Shell scripts - 2 spaces
+  autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Makefiles - tabs (required)
+  autocmd FileType make setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Jinja templates - 2 spaces
+  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup end
+
+augroup FormatPrg
+  autocmd!
+  if executable("black")
+    autocmd FileType python setlocal formatprg=black\ --quiet\ -
+  endif
+  if executable("terraform")
+    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
+  endif
+  if executable("gofmt")
+    autocmd FileType go setlocal formatprg=gofmt
+  endif
+  if executable("prettier")
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
+  endif
+augroup end
+]])
+
+vim.keymap.set("n", "<TAB>", "%", opt)
 
 ---
 vim.keymap.set("n", "<leader>dt", function()
@@ -54,8 +147,6 @@ end)
 
 --- macros
 vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
-
-vim.keymap.set("n", "<TAB>", "%", opt)
 
 -- Move within visual lines
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -228,30 +319,6 @@ vim.keymap.set("n", "<leader>%", function()
   vim.fn.setreg("+", path)
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
-
-vim.cmd([[
-function! s:CleanAndSave()
-  let l:save = winsaveview()
-
-  " Remove trailing whitespace and Windows ^M characters
-  keeppatterns %s/\v\s*\r+$|\s+$//e
-
-  " Remove empty lines at the end of the file
-  keeppatterns %s#\($\n\s*\)\+\%$##e
-
-  " Convert tabs to spaces (if expandtab is set)
-  if &expandtab
-    retab!
-  endif
-
-  call winrestview(l:save)
-endfunction
-
-augroup CleanOnWrite
-  autocmd!
-  autocmd BufWritePre * call s:CleanAndSave()
-augroup end
-]])
 
 vim.keymap.set("n", ",w", function()
   if not check_buf(0) then
