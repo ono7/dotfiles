@@ -14,7 +14,7 @@ vim.g.loaded_matchparen = 1
 vim.g.matchparen_timeout = 20
 vim.g.matchparen_insert_timeout = 20
 
-vim.opt.fsync = false
+-- vim.opt.fsync = false
 vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
@@ -32,12 +32,10 @@ vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
--- vim.opt.fillchars:append({ fold = "·" })
 
 vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 vim.opt.foldcolumn = "0"
 
 _G.better_fold_text = function()
@@ -89,28 +87,6 @@ endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
--- vim.api.nvim_create_user_command("Rg", function(opts)
---   if opts.args ~= "" then
---     local result = vim
---       .system({
---         "rg",
---         "--vimgrep",
---         "--smart-case",
---         "--pcre2",
---         opts.args,
---       })
---       :wait()
---
---     if result.code == 0 then
---       vim.fn.setqflist({}, "r", {
---         title = "rg: " .. opts.args,
---         lines = vim.split(result.stdout, "\n", { trimempty = true }),
---       })
---       vim.cmd("copen")
---     end
---   end
--- end, { nargs = "+" })
-
 vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.hlsearch = true
@@ -121,7 +97,6 @@ vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
--- vim.opt.jumpoptions:append({ "view", "stack" })
 
 vim.opt.laststatus = 0
 vim.opt.ruler = true
@@ -131,21 +106,6 @@ vim.opt.showmode = true
 vim.cmd([[
 set statusline=%{repeat('─',winwidth('.'))}
 ]])
-
--- replaces the standard :find function with fd
-function Fd(file_pattern, _)
-  -- if first char is * then fuzzy search
-  if file_pattern:sub(1, 1) == "*" then
-    file_pattern = file_pattern:gsub(".", ".*%0") .. ".*"
-  end
-  local cmd = 'fd  --color=never --full-path --type file --hidden --exclude=".git" --exclude="deps" "'
-    .. file_pattern
-    .. '"'
-  local result = vim.fn.systemlist(cmd)
-  return result
-end
-
--- vim.opt.findfunc = "v:lua.Fd"
 
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
@@ -159,14 +119,12 @@ vim.opt.fileformat = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 vim.opt.number = true
 
--- vim.opt.messagesopt = "wait:1000,history:500"
 vim.opt.numberwidth = 3
 vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = true
 vim.opt.complete = ".,w,b"
--- vim.opt.shortmess = "aoOstTWICcF" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
 vim.opt.showmatch = false
@@ -207,7 +165,6 @@ vim.opt.whichwrap = vim.opt.whichwrap + "h,l,<,>,[,]"
 
 vim.opt.suffixesadd = { ".md", ".js", ".ts", ".tsx", "lua" }
 
--- vim.opt.sessionoptions:remove({ "buffers", "folds" })
 vim.opt.sessionoptions = { "buffers", "curdir" }
 vim.opt.wrap = false
 vim.opt.wrapscan = true
