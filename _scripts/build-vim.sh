@@ -2,8 +2,6 @@
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
 
-deactivate
-
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
@@ -95,6 +93,13 @@ log "Installing fugitive"
 mkdir -p ~/.vim/pack/plugins/start
 
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+
+log "remove matchparen.vim....."
+# this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
+find ~/.local/vim -name 'matchparen.vim' -exec rm -f {} \;
+if [ $? != 0 ]; then
+  log "error finding matchparen.vim"
+fi
 
 echo ""
 echo "Vim built for platform ${ARCH}"

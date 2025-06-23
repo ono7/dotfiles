@@ -98,12 +98,12 @@ if ! make install; then
   exit 1
 fi
 
-# log "remove matchparen.vim....."
+log "remove matchparen.vim....."
 # this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
-# find ~/.local/share/nvim -name 'matchparen.vim' -exec rm -f {} \;
-# if [ $? != 0 ]; then
-#   log "error finding matchparen.vim"
-# fi
+find ~/.local/share/nvim -name 'matchparen.vim' -exec rm -f {} \;
+if [ $? != 0 ]; then
+  log "error finding matchparen.vim"
+fi
 
 log "Neovim installed successfully in $HOME/.local/bin/nvim"
 log "Build complete"
