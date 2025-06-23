@@ -4,7 +4,7 @@ set nocompatible
 filetype plugin indent on
 syntax off
 
-let mapleader = " "
+let mapleader = "\<Space>"
 
 let g:loaded_matchparen = 1
 let g:matchparen_timeout = 20
@@ -108,12 +108,14 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+noremap <TAB> %
 nnoremap v <c-v>
 nnoremap U <c-r>
+nnoremap <leader>b ^
 nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$
-nnoremap <leader>cd :lcd %:h<CR>
+nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap ,d :bd!<cr>
