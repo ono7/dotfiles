@@ -9,9 +9,6 @@ http://vimcasts.org/categories/git/
 :compiler go
 :make % or :make
 
-* plain vim setup for remote systems
-alias vim='vim -c "let mapleader=\" \" | set nobackup nowritebackup noswapfile | set clipboard=unnamedplus | set number relativenumber | set ignorecase smartcase nohlsearch | set autoindent expandtab shiftwidth=2 | set laststatus=0 | set shortmess+=I | nnoremap <leader>w :w<cr> | nnoremap <leader>d :bd!<cr> | nnoremap <c-h> <C-W><C-H> | nnoremap <c-j> <C-W><C-J> | nnoremap <c-k> <C-W><C-K> | nnoremap <c-l> <C-W><C-L> | nnoremap <silent> <Esc> :nohlsearch<CR>"'
-
 * == auto indent
 * insert mode: c-t and c-d to indent/unindent a line that is not in the corret indent level
 * set dir to current open file, :cd %:h
@@ -60,7 +57,6 @@ require("config.commands")
 require("config.autocmds")
 require("config.lsp").setup()
 require("config.neovide")
-
 require("utils.help-lookup").setup()
 
 --- these two worktogether
@@ -68,23 +64,12 @@ require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
-vim.opt.mouse = "a"
-
--- block cursor
-vim.opt.guicursor = ""
-
 -- require("old_plugins.jira-base")
-require("jira.jira")
-require("jira.jira-move")
-require("jira.jira-fetch-issues")
-require("jira.jira-fetch-issues-empty")
-require("jira.jira-clone").setup()
-
--- vim.opt.completeopt = { "menu" }
-vim.opt.completeopt = { "menu", "menuone" }
-
--- . = this buffer, w = from other windows, b = other loaded buffers
-vim.opt.complete = { ".", "w", "b" }
+-- require("jira.jira")
+-- require("jira.jira-move")
+-- require("jira.jira-fetch-issues")
+-- require("jira.jira-fetch-issues-empty")
+-- require("jira.jira-clone").setup()
 
 -- local function smart_completion()
 --   if vim.fn.pumvisible() == 1 then
@@ -117,5 +102,9 @@ vim.opt.complete = { ".", "w", "b" }
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
--- disable blinking cursor
 vim.opt.guicursor:append("a:blinkon0")
+vim.opt.mouse = "a"
+vim.opt.guicursor = ""
+vim.opt.completeopt = { "menu", "menuone" }
+-- . = this buffer, w = from other windows, b = other loaded buffers
+vim.opt.complete = { ".", "w", "b" }

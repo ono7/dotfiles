@@ -50,6 +50,7 @@ end
 
 -- Base highlights
 hl("Normal", { fg = colors.white, bg = "NONE" }) -- Use terminal background
+hl("NormalNC", { fg = colors.white, bg = "NONE" }) -- Use terminal background
 hl("NormalFloat", { bg = colors.float_bg })
 hl("FloatBorder", { fg = colors.comment, bold = true })
 

@@ -116,6 +116,7 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeStatusLineNC", { fg = "#3e485a" })
 
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
     vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#313244", bold = true })
     vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
     vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#4e5574" })
@@ -169,6 +170,7 @@ return {
     -- CursorLine for tini-diagnostics background (using Alacritty background)
     vim.api.nvim_set_hl(0, "CursorLine", { bg = mycolors.bg_dark })
     vim.api.nvim_set_hl(0, "CursorLineNr", {})
+    vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
 
     -- NonText for diagnostic arrows in tini-diagnostics
     vim.api.nvim_set_hl(0, "NonText", { fg = "#3E485A" })
