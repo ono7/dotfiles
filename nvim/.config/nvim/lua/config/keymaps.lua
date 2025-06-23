@@ -219,16 +219,36 @@ vim.keymap.set("n", "<leader>%", function()
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
+vim.cmd([[
+function! s:CleanAndSave()
+  let l:save = winsaveview()
+
+  " Remove trailing whitespace and Windows ^M characters
+  keeppatterns %s/\v\s*\r+$|\s+$//e
+
+  " Remove empty lines at the end of the file
+  keeppatterns %s#\($\n\s*\)\+\%$##e
+
+  " Convert tabs to spaces (if expandtab is set)
+  if &expandtab
+    retab!
+  endif
+
+  call winrestview(l:save)
+endfunction
+
+augroup CleanOnWrite
+  autocmd!
+  autocmd BufWritePre * call s:CleanAndSave()
+augroup end
+]])
+
 vim.keymap.set("n", ",w", function()
   if not check_buf(0) then
     print("save me first!")
     return
   end
-  local save_cursor = vim.fn.getcurpos()
-  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
-  -- this might cause issues with oil.nvim
   vim.cmd([[:write ++p]])
-  vim.fn.setpos(".", save_cursor)
 end, silent)
 
 vim.keymap.set("n", "<leader>w", function()
@@ -236,11 +256,7 @@ vim.keymap.set("n", "<leader>w", function()
     print("save me first!")
     return
   end
-  local save_cursor = vim.fn.getcurpos()
-  vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
-  -- this might cause issues with oil.nvim
   vim.cmd([[:write ++p]])
-  vim.fn.setpos(".", save_cursor)
 end, silent)
 
 vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/

@@ -589,7 +589,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+	set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 set undolevels=999
@@ -676,7 +676,6 @@ map Q <Nop>
 noremap <TAB> %
 nnoremap v <c-v>
 nnoremap U <c-r>
-nnoremap <leader>b ^
 nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$
@@ -721,6 +720,7 @@ cnoremap <esc><backspace> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+inoremap {<CR> {<CR>}<ESC>O
 
 xnoremap H <gv
 xnoremap L >gv
@@ -808,7 +808,7 @@ augroup end
 augroup CleanOnWrite
   autocmd!
   autocmd BufWritePre * call s:CleanAndSave()
-augroup END
+augroup end
 
 augroup _quickfix
   autocmd!
@@ -838,7 +838,7 @@ augroup FileTypeSettings
 
   " Jinja templates - 2 spaces
   autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-augroup END
+augroup end
 
 augroup FormatPrg
   autocmd!
