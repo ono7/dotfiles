@@ -23,7 +23,9 @@ vim.schedule(function()
   -- scheduled to decrease start time
   vim.opt.clipboard = "unnamedplus"
 end)
+
 vim.opt.cursorcolumn = false
+vim.opt.guicursor = ""
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
 vim.o.diffopt = "internal,filler,closeoff,linematch:60"
@@ -114,7 +116,6 @@ vim.opt.history = 1000
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
--- vim.opt.inccommand = "nosplit"
 vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
@@ -189,7 +190,8 @@ vim.opt.swapfile = false
 vim.opt.synmaxcol = 10 -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false -- remove timeout for partially typed commands
+-- vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = true -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = "%t"
@@ -197,6 +199,7 @@ vim.opt.ttimeout = true -- disable for indefinite wait time
 vim.opt.ttimeoutlen = 50
 vim.opt.undodir = os.getenv("HOME") .. "/.nvim_undo"
 vim.opt.undofile = true
+vim.opt.undolevels = 1000
 vim.opt.wildmode = "longest:full,full"
 vim.opt.wildignorecase = true
 vim.opt.updatetime = 300
@@ -209,6 +212,7 @@ vim.opt.sessionoptions = { "buffers", "curdir" }
 vim.opt.wrap = false
 vim.opt.wrapscan = true
 vim.opt.writebackup = false
+vim.opt.backup = false
 vim.opt.lazyredraw = true
 vim.g.markdown_fold_style = "nested"
 
