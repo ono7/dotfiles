@@ -580,7 +580,7 @@ if has("nvim")
   packadd cfilter
   set inccommand=nosplit
   set pumheight=10 pumblend=0
-  tnoremap <c-[> <C-\><C-n>
+  tnoremap jj <C-\><C-n>
 else
   set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
@@ -589,7 +589,7 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 else
-	set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
 set undolevels=999
@@ -682,13 +682,17 @@ nnoremap D d$
 nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
-nnoremap ,d :bd!<cr>
+nnoremap <silent> ,d :bd!<cr>
 nnoremap ,w :w!<cr>
-
-vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
+nnoremap cp yap<S-}>p
+nnoremap J mzJ`z
 
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+" TODO add these
+" vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
+" vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -696,13 +700,19 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 " nnoremap gp `[v`]
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap <silent> <leader>n :e ~/notest.md<cr>
 
 nnoremap <M-r> :browse oldfiles<CR>
 nnoremap r :browse oldfiles<CR>
 
+vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
+vnoremap . :norm .<cr>
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+xnoremap H <gv
+xnoremap L >gv
+xnoremap <silent> y ygv<Esc>
 
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
@@ -721,9 +731,6 @@ cnoremap <esc><backspace> <c-w>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap {<CR> {<CR>}<ESC>O
-
-xnoremap H <gv
-xnoremap L >gv
 
 function! Rg(args) abort
   execute "silent! grep!" shellescape(a:args)

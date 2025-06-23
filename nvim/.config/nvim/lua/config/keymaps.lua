@@ -41,7 +41,6 @@ nnoremap D d$
 nnoremap <silent> ,d :bd!<cr>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
-nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
@@ -146,6 +145,8 @@ augroup FormatPrg
     autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
   endif
 augroup end
+
+packadd cfilter
 ]])
 
 ---
@@ -170,8 +171,6 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "<leader>yp", "yap", { desc = "Yank paragraph" })
 
 --- text navigation improvement
-vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
-vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
 vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
 
@@ -187,13 +186,6 @@ vim.keymap.set("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
-
---- ex/command mode bindings
-vim.keymap.set("c", "<C-a>", "<Home>", opt)
-vim.keymap.set("c", "<C-e>", "<End>", opt)
-vim.keymap.set("c", "<C-h>", "<Left>", opt)
-vim.keymap.set("c", "<C-l>", "<Right>", opt)
-vim.keymap.set("c", "<C-b>", "<S-left>", opt)
 
 vim.keymap.set("n", "<D-i>", "<c-i>", opt)
 vim.keymap.set("n", "<D-o>", "<c-o>", opt)
@@ -329,8 +321,6 @@ vim.keymap.set("n", "<leader>w", function()
   vim.cmd([[:write ++p]])
 end, silent)
 
-vim.cmd([[ packadd cfilter ]]) -- quicklist filter :cfitler[!] /expression/
-
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
@@ -393,33 +383,6 @@ vim.keymap.set("n", "<C-t>", function()
     vim.cmd("copen")
   end
 end, { desc = "Toggle quickfix list" })
-
--- show current function or class
-vim.cmd([[
-cnoremap <c-a> <Home>
-cnoremap <c-b> <left>
-cnoremap <c-e> <end>
-cnoremap <c-f> <right>
-" cnoremap <c-h> <BS>
-cnoremap <c-h> <Left>
-cnoremap <c-l> <Right>
-
-" <m-b>
-cnoremap <esc>b <s-left>
-" <m-f>
-cnoremap <esc>f <s-right>
-cnoremap <esc><backspace> <c-w>
-
-function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
-endfunction
-function! PasteOver()
-     let s:restore_reg = @"
-     return "p@=RestoreRegister()\<cr>"
-endfunction
-vnoremap <silent> <expr> p PasteOver()
-]])
 
 -- using mini.pairs
 -- - these table and keymap below go together
