@@ -4,16 +4,6 @@ local silent = { noremap = true, silent = true }
 
 local neovide_or_macos = require("utils.keys")
 
-vim.cmd([[
-function! CopyMatches(reg)
-  let hits = []
-  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
-  let reg = empty(a:reg) ? '+' : a:reg
-  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
-endfunction
-command! -register Cm call CopyMatches(<q-reg>)
-]])
-
 --- nop ---
 vim.keymap.set("n", "ZZ", "")
 vim.keymap.set("n", "ZQ", "")
@@ -36,8 +26,29 @@ vim.g.loaded_matchit = 1
 
 -- vim.cmd([[vnoremap ' <esc>`>a'<esc>`<i'<esc>f'a]])
 vim.cmd([[
+
+command! Mktags !ctags -R .
+
+cnoreabbrev qq qa!
+
+map Q <Nop>
+
+noremap <TAB> %
+nnoremap v <c-v>
+nnoremap U <c-r>
+nnoremap Y yg_
+nnoremap D d$
+nnoremap <silent> ,d :bd!<cr>
+nnoremap <space>a ggVG
+nnoremap <silent> <space><space> :noh<cr>
+nnoremap <leader>cd :lcd %:p:h<CR>
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
 vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+xnoremap H <gv
+xnoremap L >gv
+
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
@@ -56,8 +67,13 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap {<CR> {<CR>}<ESC>O
 
-xnoremap H <gv
-xnoremap L >gv
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
 
 function! RestoreRegister()
     let @" = s:restore_reg
@@ -132,8 +148,6 @@ augroup FormatPrg
 augroup end
 ]])
 
-vim.keymap.set("n", "<TAB>", "%", opt)
-
 ---
 vim.keymap.set("n", "<leader>dt", function()
   if vim.diagnostic.is_enabled() then
@@ -152,33 +166,17 @@ vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set("n", "<space><space>", ":noh<cr>", silent)
--- vim.keymap.set("n", "<leader>b", ":buffer ", { desc = "Switch buffer by name" })
-
--- Select entire buffer content
-vim.keymap.set("n", "<leader>a", "ggVG", { desc = "Select all" })
-
 -- Quick paragraph operations
 vim.keymap.set("n", "<leader>yp", "yap", { desc = "Yank paragraph" })
 
 --- text navigation improvement
-vim.keymap.set("n", "0", "^", silent)
 vim.keymap.set("i", "<c-e>", "<c-o>$", silent)
 vim.keymap.set("i", "<c-a>", "<c-o>^", silent)
 vim.keymap.set("i", "<M-f>", "<C-o>w", opt)
 vim.keymap.set("i", "<M-b>", "<C-o>b", opt)
 
---- visual select last paste
-vim.keymap.set("n", "gp", "`[v`]", silent)
-
 --- keep cursor in same position when yanking in visual
 vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
-
-vim.keymap.set("x", "<", "<gv", silent)
-vim.keymap.set("x", ">", ">gv", silent)
-
--- Bind the function to a key mapping
-vim.keymap.set("n", ",d", "<cmd>bd!<cr>", silent)
 
 -- notes
 vim.keymap.set("n", "<leader>n", ":e ~/notes.md<cr>", silent)
@@ -186,9 +184,6 @@ vim.keymap.set("n", "<leader>n", ":e ~/notes.md<cr>", silent)
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 vim.keymap.set("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
-
---- visual block by default
-vim.keymap.set({ "n" }, "v", "<c-v>")
 
 --- copy block
 vim.keymap.set("n", "cp", "yap<S-}>p", opt)
@@ -225,8 +220,6 @@ vim.keymap.set("v", ".", ":norm .<cr>", opt)
 vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
 
 vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
-vim.keymap.set("n", "Y", "yg_", opt)
-vim.keymap.set("n", "U", "<c-r>", opt)
 
 vim.keymap.set("n", "<C-y>", function()
   if vim.t.maximized then
