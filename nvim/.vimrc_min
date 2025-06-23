@@ -6,7 +6,9 @@ syntax off
 
 let mapleader = " "
 
-let g:loaded_matchparen = 1
+" let g:loaded_matchparen = 1
+let g:matchparen_timeout = 20
+let g:matchparen_insert_timeout = 20
 
 if has("nvim")
   set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
