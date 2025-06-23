@@ -111,7 +111,6 @@ map Q <Nop>
 noremap <TAB> %
 nnoremap v <c-v>
 nnoremap U <c-r>
-nnoremap <leader>b ^
 nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$

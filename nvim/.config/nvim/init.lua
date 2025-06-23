@@ -84,7 +84,6 @@ require("jira.jira-clone").setup()
 vim.opt.completeopt = { "menu", "menuone" }
 
 -- . = this buffer, w = from other windows, b = other loaded buffers
--- vim.opt.complete = { ".", "w", "b", "u" }
 vim.opt.complete = { ".", "w", "b" }
 
 -- local function smart_completion()
