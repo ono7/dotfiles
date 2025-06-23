@@ -21,7 +21,8 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt remove -y nano
 # sudo apt install rename zoxide git-delta stow rlwrap -y
-sudo apt install -y build-essential git libssl-dev curl tree zsh silversearcher-ag \
+sudo apt install -y build-essential procps curl file git
+sudo apt install -y libssl-dev tree zsh silversearcher-ag \
   fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck gron
 # sudo apt install python3 python3.12 python3.12-pip python3.12-venv socat -y
 
