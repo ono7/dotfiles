@@ -488,6 +488,14 @@ function setup_keys() {
 
 bindkey "^R" fzf-history-widget
 
+# install homebrew on linux and macos
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
