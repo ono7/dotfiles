@@ -299,13 +299,12 @@ set laststatus=1
 
 try
   tnoremap jj <C-\><C-n>
-catch
 endtry
 
 try
   set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic
 catch
-  set diffopt=filler,context:3,internal
+  set diffopt=filler,context:3
 endtry
 
 if exists('+wildoptions')
@@ -376,7 +375,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n :e ~/notest.md<cr>
 nnoremap <M-r> :browse oldfiles<CR>
-nnoremap r :browse oldfiles<CR>
+nnoremap <esc>r :browse oldfiles<CR>
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 
@@ -434,7 +433,7 @@ function! Rg(args) abort
 endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 nnoremap <M-g> :Rg<space>
-nnoremap g  :Rg<space>
+nnoremap <esc>g :Rg<space>
 
 function! ToggleQuickfixList()
   let qf_exists = 0
