@@ -164,6 +164,21 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 " inoremap {<CR> {<CR>}<ESC>O
 
+function Osc52yank()
+  "last yanked commnad
+  let buffer=system('base64', @0)
+  " remove new line from base64 encoding
+  let buffer=substitute(buffer, "\n", "", "")
+  let buffer='\e]52;c;'.buffer.'\e\'
+  silent exe "!echo -ne ".shellescape(buffer).
+        \ "> ".shellescape('/dev/tty')
+endfunction
+
+augroup Yank
+  autocmd!
+  autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
+augroup end
+
 function! Rg(args) abort
   execute "silent! grep!" shellescape(a:args)
   cwindow
