@@ -168,18 +168,17 @@ if exists('$SSH_TTY')
   function! Osc52yank()
     " Get the current TTY device
     let tty_device = system('tty')
-    let tty_device = substitute(tty_device, '\n$', '', '')
+    let tty_device = substitute(tty_device, "\n", "", "")
 
-    " Encode the yanked text in base64
-    let buffer = system('base64 -w 0', @0)
-    let buffer = substitute(buffer, '\n$', '', '')
+    " Base64 encode the yanked text
+    let buffer = system('base64', @0)
+    let buffer = substitute(buffer, "\n", "", "")
 
-    " Construct OSC 52 sequence
-    let osc52 = printf("\033]52;c;%s\033\\", buffer)
+    " Create OSC 52 sequence
+    let buffer = '\e]52;c;' . buffer . '\e\'
 
-    " Write directly to TTY using printf instead of echo
-    call system(printf('printf %%s %s > %s',
-          \ shellescape(osc52), shellescape(tty_device)))
+    " Use printf instead of echo for better handling of special chars
+    silent exe "!printf %s " . shellescape(buffer) . " > " . shellescape(tty_device)
   endfunction
 
   augroup Yank
