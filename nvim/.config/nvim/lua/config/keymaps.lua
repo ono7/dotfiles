@@ -144,6 +144,28 @@ augroup FormatPrg
   endif
 augroup end
 
+if exists('$SSH_TTY')
+  function! Osc52yank()
+    " Base64 encode the yanked text
+    if len(@0) > 100000
+      return
+    endif
+    let buffer = system('base64 -w 0', @0)
+    let buffer = substitute(buffer, '\n', '', 'g')
+
+    " Write to a temp file to avoid shell escaping issues
+    let temp_file = tempname()
+    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp_file, 'b')
+    call system('cat ' . shellescape(temp_file) . ' > /dev/tty')
+    call delete(temp_file)
+  endfunction
+
+  augroup Yank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
+  augroup end
+endif
+
 packadd cfilter
 ]])
 

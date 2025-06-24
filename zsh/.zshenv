@@ -405,10 +405,12 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 " inoremap {<CR> {<CR>}<ESC>O
 
-
 if exists('$SSH_TTY')
   function! Osc52yank()
     " Base64 encode the yanked text
+    if len(@0) > 100000
+      return
+    endif
     let buffer = system('base64 -w 0', @0)
     let buffer = substitute(buffer, '\n', '', 'g')
 
