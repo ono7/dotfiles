@@ -165,17 +165,21 @@ inoremap <C-e> <End>
 " inoremap {<CR> {<CR>}<ESC>O
 
 if exists('$SSH_TTY')
-  function Osc52yank()
+  function! Osc52yank()
     " Get the current TTY device
     let tty_device = system('tty')
-    let tty_device = substitute(tty_device, "\n", "", "")
-    "last yanked commnad
-    let buffer=system('base64', @0)
-    " remove new line from base64 encoding
-    let buffer=substitute(buffer, "\n", "", "")
-    let buffer='\e]52;c;'.buffer.'\e\'
-    silent exe "!echo -ne ".shellescape(buffer).
-          \ "> ".shellescape(tty_device)
+    let tty_device = substitute(tty_device, '\n$', '', '')
+
+    " Encode the yanked text in base64
+    let buffer = system('base64 -w 0', @0)
+    let buffer = substitute(buffer, '\n$', '', '')
+
+    " Construct OSC 52 sequence
+    let osc52 = printf("\033]52;c;%s\033\\", buffer)
+
+    " Write directly to TTY using printf instead of echo
+    call system(printf('printf %%s %s > %s',
+          \ shellescape(osc52), shellescape(tty_device)))
   endfunction
 
   augroup Yank
