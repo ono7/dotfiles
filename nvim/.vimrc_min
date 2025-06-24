@@ -164,23 +164,25 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 " inoremap {<CR> {<CR>}<ESC>O
 
-function Osc52yank()
-  " Get the current TTY device
-  let tty_device = system('tty')
-  let tty_device = substitute(tty_device, "\n", "", "")
-  "last yanked commnad
-  let buffer=system('base64', @0)
-  " remove new line from base64 encoding
-  let buffer=substitute(buffer, "\n", "", "")
-  let buffer='\e]52;c;'.buffer.'\e\'
-  silent exe "!echo -ne ".shellescape(buffer).
-        \ "> ".shellescape(tty_device)
-endfunction
+if exists('$SSH_TTY')
+  function Osc52yank()
+    " Get the current TTY device
+    let tty_device = system('tty')
+    let tty_device = substitute(tty_device, "\n", "", "")
+    "last yanked commnad
+    let buffer=system('base64', @0)
+    " remove new line from base64 encoding
+    let buffer=substitute(buffer, "\n", "", "")
+    let buffer='\e]52;c;'.buffer.'\e\'
+    silent exe "!echo -ne ".shellescape(buffer).
+          \ "> ".shellescape(tty_device)
+  endfunction
 
-augroup Yank
-  autocmd!
-  autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
-augroup end
+  augroup Yank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
+  augroup end
+endif
 
 function! Rg(args) abort
   execute "silent! grep!" shellescape(a:args)
