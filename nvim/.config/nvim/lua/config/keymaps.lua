@@ -55,6 +55,9 @@ nnoremap U <c-r>
 nnoremap v <c-v>
 nnoremap Y yg_
 
+nnoremap <esc>k <cmd>cprev<cr>
+nnoremap <esc>j <cmd>cnext<cr>
+
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
 vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 xnoremap H <gv

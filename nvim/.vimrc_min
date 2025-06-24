@@ -124,10 +124,6 @@ nnoremap J mzJ`z
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 
-" TODO add these
-" vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
-" vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
-
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
@@ -136,6 +132,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n :e ~/notest.md<cr>
 nnoremap <M-r> :browse oldfiles<CR>
 nnoremap r :browse oldfiles<CR>
+nnoremap <esc>k <cmd>cprev<cr>
+nnoremap <esc>j <cmd>cnext<cr>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . :norm .<cr>
