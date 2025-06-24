@@ -15,7 +15,6 @@ if has("nvim")
   packadd cfilter
   set inccommand=nosplit
   set pumheight=10 pumblend=0
-  tnoremap jj <C-\><C-n>
 else
   set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
@@ -56,6 +55,11 @@ set guicursor=
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
+
+try
+  tnoremap jj <C-\><C-n>
+catch
+endtry
 
 try
   set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic

@@ -348,17 +348,6 @@ vim.keymap.set("n", "<Leader>m", function()
   vim.api.nvim_win_set_buf(0, buf)
 end)
 
-vim.keymap.set("n", "<leader>sd", function()
-  local project_name = vim.fn.getcwd():match("([^/]+)$")
-  local session_path = sessions_dir .. "/" .. project_name .. ".vim"
-  if vim.fn.filereadable(session_path) == 1 then
-    vim.fn.delete(session_path)
-    print("Session deleted: " .. session_path)
-  else
-    print("No session file found: " .. session_path)
-  end
-end, { desc = "Delete session" })
-
 -- Toggle quickfix list
 vim.keymap.set("n", "<C-t>", function()
   local qf_exists = false
