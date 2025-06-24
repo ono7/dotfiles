@@ -169,7 +169,6 @@ if exists('$SSH_TTY')
   function! Osc52yank()
     " Base64 encode the yanked text
     if len(@0) > 100000
-      print("OSC52: too big to copy")
       return
     endif
     let buffer = system('base64 -w 0', @0)
