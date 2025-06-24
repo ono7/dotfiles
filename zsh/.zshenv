@@ -404,7 +404,7 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 " inoremap {<CR> {<CR>}<ESC>O
 
-if exists('$SSH_TTY')
+if exists('$SSH_TTY') || $UID == 0
   function! Osc52yank()
     " Base64 encode the yanked text
     if len(@0) > 100000
