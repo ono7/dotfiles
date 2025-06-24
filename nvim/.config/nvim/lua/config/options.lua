@@ -19,10 +19,6 @@ vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
 vim.opt.breakindent = true
-vim.schedule(function()
-  -- scheduled to decrease start time
-  vim.opt.clipboard = "unnamedplus"
-end)
 
 vim.opt.cursorcolumn = false
 vim.opt.guicursor = ""

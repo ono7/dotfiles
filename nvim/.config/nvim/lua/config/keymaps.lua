@@ -144,6 +144,16 @@ augroup FormatPrg
   endif
 augroup end
 
+if has('clipboard')
+  if has('mac') || !empty($DISPLAY)
+    if has('unnamedplus')
+      set clipboard=unnamedplus
+    else
+      set clipboard=unnamed
+    endif
+  endif
+endif
+
 if exists('$SSH_TTY')
   function! Osc52yank()
     " Base64 encode the yanked text
