@@ -167,11 +167,15 @@ inoremap <C-e> <End>
 
 if exists('$SSH_TTY')
   function! Osc52yank()
-    let tty_device = system('tty')
-    let tty_device = substitute(tty_device, "\n", "", "")
-    let buffer = system('base64', @0)
-    let buffer = substitute(buffer, "\n", "", "")
-    call system('printf "\e]52;c;' . buffer . '\e\\" >'.tty_device)
+    " Base64 encode the yanked text
+    let buffer = system('base64 -w 0', @0)
+    let buffer = substitute(buffer, '\n', '', 'g')
+
+    " Write to a temp file to avoid shell escaping issues
+    let temp_file = tempname()
+    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp_file, 'b')
+    call system('cat ' . shellescape(temp_file) . ' > /dev/tty')
+    call delete(temp_file)
   endfunction
 
   augroup Yank
