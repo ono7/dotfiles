@@ -63,9 +63,9 @@ try
 endtry
 
 try
-  set diffopt=filler,context:3,internal,algorithm:histogram,indent-heuristic
+  set diffopt=filler,context:5,internal,algorithm:histogram,indent-heuristic
 catch
-  set diffopt=filler,context:3
+  set diffopt=filler,context:5
 endtry
 
 if exists('+wildoptions')
@@ -314,9 +314,16 @@ hi! clear Error
 hi! clear ModeMsg
 hi! clear DiffDelete
 hi! clear FoldColumn
+hi! clear SignColumn
+hi! clear CursorLineFold
+hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
+hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
+hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
+hi! clear DiffAdd
 hi! DiffChange term=bold ctermbg=NONE guibg=NONE
 hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
+" hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
+hi! DiffAdd term=bold gui=bold ctermfg=12 ctermbg=NONE guibg=NONE guifg=#93b5b3
 hi! clear ErrorMsg
 hi! clear MatchParen
 hi! Visual term=reverse cterm=reverse gui=reverse

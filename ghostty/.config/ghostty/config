@@ -193,9 +193,11 @@ palette = 7=#c9c2b8
 # Bright colors (8-15)
 palette = 8=#3e485a
 palette = 9=#d5afaf
-palette = 10=#a2cfbf
+# palette = 10=#a2cfbf
+palette = 10=#ceeac8
 palette = 11=#e1ca97
-palette = 12=#a4bcce
+# palette = 12=#a4bcce
+palette = 12=#2b3b55
 palette = 13=#c4afc8
 palette = 14=#a9c9c7
 palette = 15=#e3ded7
