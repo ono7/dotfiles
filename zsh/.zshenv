@@ -241,12 +241,10 @@ stty -ixon
   cat > ~/.myrc << 'EOF'
 SETUP_END
 
-# Insert the contents of your ~/.vimrc here
+# use my vimrc
 cat ~/.vimrc
 
 cat << 'SETUP_END'
-
-" Additional temporary settings for vimm()
 if !isdirectory($HOME."/.vim-undo")
     call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
