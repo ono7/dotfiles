@@ -4,8 +4,8 @@ vim.g.maplocalleader = " "
 vim.opt.background = "dark"
 
 -- vim.opt.path:append({ "**" })
-vim.opt.path = ".,,**"
-vim.opt_local.path = ".,,**"
+vim.opt.path = ".,**"
+vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
 
 vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
