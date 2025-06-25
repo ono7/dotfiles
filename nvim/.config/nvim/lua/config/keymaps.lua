@@ -35,7 +35,6 @@ map Q <Nop>
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
-cnoremap <c-f> <right>
 " cnoremap <c-h> <BS>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
