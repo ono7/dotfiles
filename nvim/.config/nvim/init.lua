@@ -1,13 +1,6 @@
 --- 🐇 Follow the white Rabbit...
 
 --[[
-
-* show all commits for a file
-git log <path/filename>
-
-* show all commits for a file and diff
-git log -p <path/filename>
-
 http://vimcasts.org/categories/git/
 
 * view all compilers included with vim

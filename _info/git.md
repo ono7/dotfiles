@@ -1,3 +1,23 @@
+## show commit trail for file
+
+- show all commits for a file
+  git log <path/filename>
+
+- show all commits for a file and diff
+  git log -p <path/filename>
+
+## Discard ALL changes - files, additions, everything
+
+git reset --hard HEAD
+
+## Unstage everything (but keep changes in working directory)
+
+git reset HEAD
+
+## Unstage specific file
+
+git restore --staged path/to/file.js
+
 ## reset remote with current branch
 
 `git push origin main --force`
