@@ -250,6 +250,11 @@ vimgd() {
     fi
 }
 
+cdf() {
+  local file
+  file=$(fd --type f | fzf --preview 'head -100 {}') && cd "$(dirname "$file")"
+}
+
 function d () {
   if [[ -n $1 ]]; then
     dirs "$@"

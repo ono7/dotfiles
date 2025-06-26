@@ -58,6 +58,7 @@ nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 
 nnoremap <leader>d :%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>td :e ~/todo.md<CR>
 
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
 vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a

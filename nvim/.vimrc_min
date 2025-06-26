@@ -120,6 +120,7 @@ nnoremap <c-r> :browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$
 nnoremap <leader>cd :lcd %:p:h<CR>
+nnoremap <leader>td :e ~/todo.md<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
 nnoremap <silent> ,d :bd!<cr>
