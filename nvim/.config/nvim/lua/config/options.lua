@@ -171,7 +171,6 @@ vim.opt.backup = false
 vim.opt.lazyredraw = true
 vim.g.markdown_fold_style = "nested"
 
-vim.g.loaded_netwr = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0

@@ -309,7 +309,11 @@ augroup FormatPrg
 augroup end
 
 let g:netrw_keepdir = 0
+" let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
+" Remove the complex SSH options
+
 let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
+let g:netrw_ssh_cmd = "ssh"
 
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
