@@ -231,6 +231,25 @@ fpass() {
 
 export HISTORY_IGNORE="(ls|cat|AWS|SECRET|SSHPASS)"
 
+# alias nvimdiff='vim -d'
+vimgd() {
+    if [[ "$#" == 2 ]]; then
+        local ref=${1}
+        local gitrelfp=${2}
+        gitfullfp=$(git ls-files --full-name $gitrelfp)
+        fname=$(basename ${gitrelfp})
+        tmpfname=/tmp/$(sed "s/\//-/g" <<< $ref)-$fname
+        git show $ref:$gitfullfp > $tmpfname
+        vim -d $tmpfname $gitrelfp -c "setlocal nomodifiable"  # RO ref buffer
+    else
+        echo "usage: vimdg <ref|branch|commit> <relative-file-path>"
+        echo "vimgd feat-branch file.yaml"
+        echo "vimgd origin/master file.yaml"
+        echo "vimgd 91a89847a9 file.yaml"
+        echo "vimgd HEAD~3 file.yaml"
+    fi
+}
+
 function d () {
   if [[ -n $1 ]]; then
     dirs "$@"
