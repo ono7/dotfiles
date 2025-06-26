@@ -308,6 +308,9 @@ augroup FormatPrg
   endif
 augroup end
 
+let g:netrw_keepdir = 0
+let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
+
 hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
 hi! link LineNr Comment
 hi! clear Error
@@ -322,7 +325,6 @@ hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
 hi! clear DiffAdd
 hi! DiffChange term=bold ctermbg=NONE guibg=NONE
 hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-" hi! DiffAdd term=bold ctermbg=2 ctermfg=0 guifg=#000000 guibg=#93b5b3
 hi! DiffAdd term=bold gui=bold ctermfg=12 ctermbg=NONE guibg=NONE guifg=#93b5b3
 hi! clear ErrorMsg
 hi! clear MatchParen
