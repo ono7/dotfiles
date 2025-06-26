@@ -33,7 +33,7 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-set t_Co=8
+set t_Co=256
 set path=.,**
 setlocal path=.,**
 
@@ -63,9 +63,10 @@ try
 endtry
 
 try
-  set diffopt=filler,context:5,internal,algorithm:histogram,indent-heuristic
+  " set diffopt=vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic
+  set diffopt=vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff
 catch
-  set diffopt=filler,context:5
+  set diffopt=vertical,filler,context:5
 endtry
 
 if exists('+wildoptions')
@@ -309,9 +310,6 @@ augroup FormatPrg
 augroup end
 
 let g:netrw_keepdir = 0
-" let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
-" Remove the complex SSH options
-
 let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
 let g:netrw_ssh_cmd = "ssh"
 
@@ -327,9 +325,11 @@ hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
 hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
 hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
 hi! clear DiffAdd
-hi! DiffChange term=bold ctermbg=NONE guibg=NONE
+" hi! DiffChange term=bold ctermbg=0 guibg=NONE
+hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
 hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-hi! DiffAdd term=bold gui=bold ctermfg=12 ctermbg=NONE guibg=NONE guifg=#93b5b3
+hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
+hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
 hi! clear ErrorMsg
 hi! clear MatchParen
 hi! Visual term=reverse cterm=reverse gui=reverse

@@ -26,7 +26,8 @@ vim.opt.cursorcolumn = false
 vim.opt.guicursor = ""
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
-vim.o.diffopt = "internal,filler,closeoff,linematch:60"
+-- vim.o.diffopt = "internal,filler,closeoff,linematch:60"
+vim.opt.diffopt = "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
