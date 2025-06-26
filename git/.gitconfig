@@ -68,12 +68,12 @@
   sort = -committerdate
 
 [merge]
-  tool = nvimdiff4
+  tool = vimdiff
   prompt = false
   conflictstyle = diff3
 
-[mergetool "nvimdiff4"]
-  cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "vimdiff"]
+  cmd = vim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool]
   keepBackup = false
