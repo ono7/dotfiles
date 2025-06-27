@@ -123,6 +123,7 @@ nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <leader>td :e ~/todo.md<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> :noh<cr>
+nnoremap gm :Git commit % -m ""<Left>
 nnoremap <silent> ,d :bd!<cr>
 nnoremap ,w :w!<cr>
 nnoremap cp yap<S-}>p
