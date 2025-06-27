@@ -53,7 +53,8 @@ func (pm *PingMonitor) tcpPing() bool {
 }
 
 func (pm *PingMonitor) monitor() {
-	ticker := time.NewTicker(5 * time.Second)
+	// TODO(jlima): make this time a constant
+	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
 
 	for range ticker.C {
@@ -103,7 +104,7 @@ func main() {
 
 	// Log startup
 	logger.Println("Network monitor started - monitoring 8.8.8.8 and 100.64.0.1")
-	logger.Println("Pinging every 5 seconds. Press Ctrl+C to stop.")
+	logger.Println("Pinging every 1 seconds. Press Ctrl+C to stop.")
 
 	// TODO(jlima): make this take arglist instead of static
 	monitor1 := NewPingMonitor("8.8.8.8", logger)
