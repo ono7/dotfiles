@@ -26,7 +26,7 @@ vim.g.loaded_matchit = 1
 
 vim.cmd([[
 
-command! Mktags !ctags -R .
+command! Mktags call system('ctags -R .')
 
 cnoreabbrev qq qa!
 
