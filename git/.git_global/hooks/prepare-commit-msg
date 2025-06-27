@@ -23,4 +23,5 @@
 # docs     (changes to documentation)
 # test     (adding or refactoring tests; no production code change)
 # chore    (updating grunt tasks etc; no production code change)
+#
 # EOF
