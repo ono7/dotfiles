@@ -28,7 +28,6 @@ http://vimcasts.org/categories/git/
 * CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
 * :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg 0
 * use :b <part of buffer name><tab> to find open tags
-
 ]]
 
 vim.loader.enable(true)
