@@ -8,6 +8,9 @@ http://vimcasts.org/categories/git/
 :compiler go
 :make % or :make
 
+fugitive:
+  stage and commits file all at once :G commit % -m "abc"
+
 * add all go files to arg list, :args **/*.go
 
 * == auto indent
