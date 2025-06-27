@@ -108,7 +108,7 @@ set wildignore+=**/node_modules/**
 set wildignore+=.tags
 set wildignore+=tags
 
-command! Mktags !ctags -R .
+command! Mktags call system('ctags -R .')
 
 cnoreabbrev qq qa!
 
