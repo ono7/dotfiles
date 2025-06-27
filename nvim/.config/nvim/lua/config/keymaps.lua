@@ -56,6 +56,7 @@ nnoremap Y yg_
 
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
+nnoremap gm :Git commit % -m ""<Left>
 
 nnoremap <leader>d :%bdelete\|edit#\|bdelete#<CR>
 nnoremap <leader>td :e ~/todo.md<CR>
