@@ -80,7 +80,7 @@ M.setup = function()
   end, { desc = "Open float" })
 
   vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover({ borders })
+    vim.lsp.buf.hover({ border = "rounded" })
   end, { desc = "Open documentation" })
 
   --- completion ---
