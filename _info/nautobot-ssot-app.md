@@ -1,5 +1,14 @@
 ## django
 
+## select related to save on db quieres when looking up foreign keys
+
+https://www.youtube.com/watch?v=mO-pfdJpnBA
+
+`Device.objects.all().select_related('interfaces')` you can inspect the Device model to
+figure out what foreign keys are available and minimize the number of queries
+
+this create a inner join which is much faster than individual queries
+
 ## access nautobot inside a container using cookiecutter template
 
 `invoke nbshell`
