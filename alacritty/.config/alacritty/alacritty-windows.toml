@@ -136,6 +136,7 @@ bindings = [
 {  key  =  "E",      mods  =  "Control",        action  =  "ReceiveChar"        },
 {  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
 # fix c-i in neovim for jumps
+
 { key = "I", mods = "Control", chars = "\u001b[105;5u" },
 {  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
 { key = "Q", mods = "Control", action = "ReceiveChar" },
