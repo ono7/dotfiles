@@ -108,6 +108,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias clear="clear -x"
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
+alias ts='date +%Y%m%d-%H%M%S'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

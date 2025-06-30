@@ -11,7 +11,7 @@ font-style = SemiBold
 font-style-bold = Bold
 font-style-italic = SemiBold Oblique
 
-font-size = 27
+font-size = 25
 font-feature = -calt, -liga, -dlig
 adjust-cell-height = 30%
 

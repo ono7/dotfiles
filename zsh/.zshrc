@@ -146,6 +146,8 @@ alias less='less -R'
 alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
+alias ts='date +%Y%m%d-%H%M%S'
+
 # Directory movement aliases
 alias -- -='cd -'
 alias 0='cd -0'
