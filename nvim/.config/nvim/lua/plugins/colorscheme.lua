@@ -225,16 +225,8 @@ return {
     vim.api.nvim_set_hl(0, "@label.markdown", { fg = "#2f3041" })
     vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.red })
     vim.api.nvim_set_hl(0, "@keyword.operator", { fg = mycolors.red })
-<<<<<<< Updated upstream
     vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#E3DED7" })
     vim.api.nvim_set_hl(0, "@function.method", { italic = false })
-||||||| Stash base
-    vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#E3DED7" })
-    vim.api.nvim_set_hl(0, "@function.method", { italic = true })
-=======
-    -- vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#E3DED7" })
-    vim.api.nvim_set_hl(0, "@function.method", { italic = false })
->>>>>>> Stashed changes
     vim.api.nvim_set_hl(0, "@string.yaml", {})
     vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
     vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
