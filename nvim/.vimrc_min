@@ -33,7 +33,7 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-set t_Co=256
+set t_Co=8
 set path=.,**
 setlocal path=.,**
 
