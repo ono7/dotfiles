@@ -167,7 +167,7 @@ shell = "wsl.exe ~"
 
 [window]
 decorations = "full"
-dynamic_padding = false
+dynamic_padding = true
 dynamic_title = true
 opacity = 1
 blur = true # does not work in windows?
