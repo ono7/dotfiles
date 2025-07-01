@@ -152,6 +152,7 @@ bindings = [
 {  key  =  "Q",         mods  =  "Command",  action  =  "None"     },
 {  key  =  "Q",         mods  =  "Command",  chars   =  "\u0011"   },
 {  key  =  "R",         mods  =  "Command",  chars   =  "\u0012"   },
+{  key  =  "T",         mods  =  "Command",  chars   =  "\u0014"   },
 {  key  =  "Y",         mods  =  "Command",        chars   =  "\u0019"             },
 # {  key  =  "Y",         mods  =  "Command",  Action   =  "ReceiveChar"   },
 {  key  =  "RBracket",  mods  =  "Command",  chars   =  "\u001d"   },
@@ -160,7 +161,6 @@ bindings = [
 {  key  =  "Backslash", mods  =  "Command",        chars   =  "\u001c"             },
 {  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
-{  key  =  "T",         mods  =  "Command",        action  =  "ReceiveChar"               },
 {  key  =  "V",         mods  =  "Command",  chars  =  "\u0016"              },
 {  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
 {  key  =  "W",         mods  =  "command|Shift",  action  =  "Quit"               },
@@ -212,4 +212,3 @@ lines = 28
 [window.padding]
 x = 5
 y = 5
-
