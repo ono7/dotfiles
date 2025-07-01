@@ -32,11 +32,6 @@ vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 
-vim.opt.foldenable = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldcolumn = "0"
-
 _G.better_fold_text = function()
   local line = vim.fn.getline(vim.v.foldstart)
   local line_count = vim.v.foldend - vim.v.foldstart + 1
@@ -62,7 +57,14 @@ vim.opt.fillchars:append({ fold = " " })
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
 vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 2
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+
+vim.opt.foldnestmax = 1
+vim.opt.foldmethod = "indent"
+
 vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
