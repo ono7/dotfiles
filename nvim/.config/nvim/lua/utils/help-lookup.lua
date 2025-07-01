@@ -68,11 +68,11 @@ function M.setup()
     google_search(true)
   end
 
-  vim.keymap.set("n", "H", normal_search, { noremap = true, silent = true })
-  vim.keymap.set("v", "H", function()
-    vim.cmd('normal! "vy')
-    visual_search()
-  end, { noremap = true, silent = true })
+  -- vim.keymap.set("n", "H", normal_search, { noremap = true, silent = true })
+  -- vim.keymap.set("v", "H", function()
+  --   vim.cmd('normal! "vy')
+  --   visual_search()
+  -- end, { noremap = true, silent = true })
 end
 
 return M
