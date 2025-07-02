@@ -14,31 +14,26 @@ crontab
 
 `0 4 * * * /usr/bin/rsync -rPavh /home/jlima/containers 100.64.0.50:~/lan5-containers-backup`
 
-this is jsut an example should not be used in production systems
-
 ```sh
 #!/bin/bash
-# rsync script, see crontab -l, will connect over ssh using ansible-prod-user
-# account and use sudo for the rest, will log to rsync.log only if there is an
-# error during the process
-servers=(1.1.1.2 1.1.1.3)
+# this is jsut an example should not be used in production systems
+servers=(1.1.1.1 1.1.1.2)
 
-echo "Starting rsync process at $(date)"
-echo "Target servers: ${servers[*]}"
-echo "----------------------------------------"
+log() {
+  printf '[ %s ] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" | tee >> ~/rsync.log
+}
+
+log "Starting rsync process"
+log "Target servers: ${servers[*]}"
 
 for server in "${servers[@]}"; do
-    echo "Processing server: $server"
+    log "Processing server: $server"
 
-    if sudo /usr/bin/rsync -rahv --partial --delete --stats --rsync-path="sudo rsync" -e "ssh -i ~/.ssh/server.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" /opt/netdevops/os-upgrades/images ansible-prod-user@$server:/opt/netdevops/os-upgrades/; then
-        echo "✓ SUCCESS: rsync job for $server completed"
-        echo "$(date) - rsync job for $server success" >> ~/rsync.log
+    if sudo /usr/bin/rsync -rahv --partial --delete --stats --rsync-path="sudo rsync" -e "ssh -i ~/.ssh/server.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" /opt/netdevops/os-upgrades/images $USER@$server:/opt/netdevops/os-upgrades/ >> rsync.log; then
+        log "✓ SUCCESS: rsync job for $server completed"
     else
-        echo "✗ FAILED: rsync job for $server failed"
-        echo "$(date) - rsync job for $server failed" >> ~/rsync.log
+        log "✗ FAILED: rsync job for $server failed"
     fi
-    echo "----------------------------------------"
 done
-
-echo "rsync process completed at $(date)"
+log "rsync process completed"
 ```
