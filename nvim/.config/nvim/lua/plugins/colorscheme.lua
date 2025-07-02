@@ -171,7 +171,7 @@ return {
 
     -- CursorLine for tini-diagnostics background (using Alacritty background)
     vim.api.nvim_set_hl(0, "CursorLine", { bg = mycolors.bg_dark })
-    vim.api.nvim_set_hl(0, "CursorLineNr", {})
+    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = mycolors.yellow2 })
     vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
 
     -- NonText for diagnostic arrows in tini-diagnostics
