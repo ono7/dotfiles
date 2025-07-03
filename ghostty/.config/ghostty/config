@@ -27,6 +27,7 @@ scrollback-limit = 4294967296
 window-inherit-working-directory = true
 window-theme = ghostty
 window-colorspace = "display-p3"
+minimun-contrast = 2
 window-save-state = always
 
 # init window size

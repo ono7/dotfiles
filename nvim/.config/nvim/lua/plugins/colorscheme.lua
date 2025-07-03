@@ -181,7 +181,7 @@ return {
     vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = mycolors.blue })
     vim.api.nvim_set_hl(0, "Boolean", {})
     vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.red, bold = false })
-    vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.red, italic = false, bold = false })
+    vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.red, italic = true, bold = false })
     vim.api.nvim_set_hl(0, "@keyword.return", { fg = mycolors.red })
     vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.red, bold = false })
     vim.api.nvim_set_hl(0, "Include", { fg = mycolors.red, bold = true })
