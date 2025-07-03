@@ -24,7 +24,7 @@ return {
       green = "#82a382", -- More saturated sage green
       vibrant_green = "#9cbf9c", -- More saturated bright sage
       nord_blue = "#7f9bb8",
-      blue = "#6b829e", -- Harmonized blue
+      blue = "#7f9bb8", -- Harmonized blue
       yellow = "#d4b883", -- Warm amber yellow
       yellow2 = "#eac99e", -- Brighter warm yellow
       sun = "#eac99e",
