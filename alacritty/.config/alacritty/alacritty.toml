@@ -111,7 +111,7 @@ family = "IosevkaTerm Nerd Font Mono"
 style = "Bold"
 
 [font.offset]
-x = 1
+x = 2
 y = 11
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
