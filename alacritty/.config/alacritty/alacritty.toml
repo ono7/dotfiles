@@ -9,73 +9,70 @@ working_directory = "None"
 # Generated using saturation enhancement algorithm
 
 [colors.primary]
-# background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
-# foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
-
-foreground = "#c5bfb8"
-background = "#171F2C"
-
-dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
-bright_foreground = "#c7d2f8"  # Enhanced bright lavender (was #cad3f5)
+background = "#171F2C"         # Ghostty background
+foreground = "#c5bfb8"         # Ghostty foreground
+dim_foreground = "#a5a098"     # Dimmed version
+bright_foreground = "#e3ded7"  # Ghostty bright white
 
 [colors.cursor]
-cursor = "#ffffff"             # Enhanced pure white (was #FFFFFF)
-text = "#151f2e"               # Enhanced cursor text (was #171F2C)
+cursor = "#ffffff"             # Ghostty cursor-color
+text = "#171f2c"               # Ghostty cursor-text
 
 [colors.vi_mode_cursor]
-cursor = "#b6ad9f"             # Enhanced muted cursor (was #B4ADA0)
-text = "#1b2335"               # Enhanced cursor text (was #1D2433)
+cursor = "#c49a9a"             # Using red from palette
+text = "#171f2c"               # Background for contrast
 
 [colors.search.matches]
-foreground = "#24273a"
-background = "#a5adcb"
+foreground = "#171f2c"         # Background color
+background = "#8ca7be"         # Blue from palette
 
 [colors.search.focused_match]
-foreground = "#24273a"
-background = "#a6da95"
+foreground = "#171f2c"
+background = "#d4b97e"         # Yellow from palette
 
 [colors.footer_bar]
-foreground = "#24273a"
-background = "#a5adcb"
+foreground = "#171f2c"
+background = "#8ca7be"
 
 [colors.hints.start]
-foreground = "#24273a"
-background = "#eed49f"
+foreground = "#171f2c"
+background = "#e1ca97"         # Bright yellow
 
 [colors.hints.end]
-foreground = "#24273a"
-background = "#a5adcb"
+foreground = "#171f2c"
+background = "#8ca7be"
 
 [colors.selection]
-background = "#354157"         # Enhanced selection (was #364156)
+background = "#364156"         # Ghostty selection-background
+foreground = "#e3ded7"         # Ghostty selection-foreground
 
 [colors.normal]
-black = "#2c3344"              # Enhanced black (was #2D3343)
-red = "#c89696"                # Enhanced dusty rose (was #C49A9A) - 1.18x boost
-green = "#86c1af"              # Enhanced sage green (was #8CBBAD) - 1.25x boost 🌟
-yellow = "#dabb78"             # Enhanced amber (was #D4B97E)
-blue = "#88a7c2"               # Enhanced steel blue (was #8CA7BE)
-magenta = "#b294b9"            # Enhanced lavender (was #B097B6) - 1.18x boost
-cyan = "#8fb9b7"               # Enhanced teal (was #93B5B3) - 1.25x boost 🌟
-white = "#cac2b7"              # Enhanced cream (was #C9C2B8)
+black = "#2d3343"              # Ghostty palette 0
+red = "#c49a9a"                # Ghostty palette 1
+green = "#8cbbad"              # Ghostty palette 2
+yellow = "#d4b97e"             # Ghostty palette 3
+blue = "#8ca7be"               # Ghostty palette 4
+magenta = "#b097b6"            # Ghostty palette 5
+cyan = "#93b5b3"               # Ghostty palette 6
+white = "#c9c2b8"              # Ghostty palette 7
 
 [colors.bright]
-black = "#3d485b"              # Enhanced medium gray-blue (was #3E485A)
-red = "#d8acac"                # Enhanced bright rose (was #D5AFAF) - 1.18x boost
-green = "#9cd5c1"              # Enhanced bright sage (was #A2CFBF) - 1.25x boost 🌟
-yellow = "#e7cc91"             # Enhanced bright amber (was #E1CA97)
-blue = "#a1bcd1"               # Enhanced bright blue (was #A4BCCE)
-magenta = "#c6adca"            # Enhanced bright lavender (was #C4AFC8) - 1.18x boost
-cyan = "#a5cdcb"               # Enhanced bright teal (was #A9C9C7) - 1.25x boost 🌟
-white = "#e4ded6"              # Enhanced bright white (was #E3DED7)
+black = "#3e485a"              # Ghostty palette 8
+red = "#d5afaf"                # Ghostty palette 9
+green = "#ceeac8"              # Ghostty palette 10
+yellow = "#e1ca97"             # Ghostty palette 11
+blue = "#121821"               # Ghostty palette 12
+magenta = "#c4afc8"            # Ghostty palette 13
+cyan = "#a9c9c7"               # Ghostty palette 14
+white = "#e3ded7"              # Ghostty palette 15
 
 [[colors.indexed_colors]]
 index = 16
-color = "#b9a688"              # Enhanced tan/bronze (was #B6A58B)
+color = "#d4b97e"              # Yellow accent
 
 [[colors.indexed_colors]]
 index = 17
-color = "#a4afc5"              # Enhanced periwinkle (was #A6B0C3)
+color = "#b097b6"              # Magenta accent
 
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
