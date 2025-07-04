@@ -162,6 +162,7 @@ xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 xnoremap H <gv
 xnoremap L >gv
 xnoremap <silent> y ygv<Esc>
+xnoremap Q :norm @q<CR>
 
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
