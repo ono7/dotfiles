@@ -88,6 +88,7 @@ if exists('+wildoptions')
   endtry
 endif
 
+
 if has('clipboard')
   if has('mac') || !empty($DISPLAY)
     if has('unnamedplus')
@@ -320,6 +321,8 @@ augroup FormatPrg
   endif
   autocmd FileType markdown setlocal fo+=n fo+=t fo+=j conceallevel=2
 augroup end
+
+set formatoptions-=r formatoptions-=o formatoptions-=c
 
 let g:netrw_keepdir = 0
 let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"

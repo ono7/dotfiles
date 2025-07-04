@@ -67,7 +67,7 @@ vim.opt.foldmethod = "indent"
 
 vim.g.markdown_folding = 1 -- enable markdown folding
 
-vim.opt.formatoptions = "qljr" -- TODO: overwritten in my_cmds.lua
+vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 -- vim.opt.formatoptions = "c1lqjr"
 
 -- allows lookaround :Rg ^from (?=.*Adapter)
