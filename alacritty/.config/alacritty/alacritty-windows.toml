@@ -119,7 +119,7 @@ family = "IosevkaTerm Nerd Font Mono"
 style = "Bold"
 
 [font.offset]
-x = 1
+x = 2
 y = 11
 
 [keyboard]
