@@ -9,70 +9,71 @@ working_directory = "None"
 # Generated using saturation enhancement algorithm
 
 [colors.primary]
-background = "#171F2C"         # Ghostty background
-foreground = "#c5bfb8"         # Ghostty foreground
-dim_foreground = "#a5a098"     # Dimmed version
-bright_foreground = "#e3ded7"  # Ghostty bright white
+background = "#171F2C"         # Default background (index 257)
+foreground = "#D6CFC7"         # Default foreground (index 256)
+dim_foreground = "#4A5563"     # Bright black for dimmed text
+bright_foreground = "#F2EDE7"  # Bright white
 
 [colors.cursor]
-cursor = "#ffffff"             # Ghostty cursor-color
-text = "#171f2c"               # Ghostty cursor-text
+# cursor = "#D6CFC7"             # Default cursor color (same as foreground)
+cursor = "#ffffff"             # Default cursor color (same as foreground)
+text = "#171F2C"               # Background for cursor text
 
 [colors.vi_mode_cursor]
-cursor = "#c49a9a"             # Using red from palette
-text = "#171f2c"               # Background for contrast
+cursor = "#C47B7B"             # Red from suckless palette
+text = "#171F2C"               # Background for contrast
 
 [colors.search.matches]
-foreground = "#171f2c"         # Background color
-background = "#8ca7be"         # Blue from palette
+foreground = "#171F2C"         # Background color for contrast
+background = "#7B9FC4"         # Blue from suckless palette
 
 [colors.search.focused_match]
-foreground = "#171f2c"
-background = "#d4b97e"         # Yellow from palette
+foreground = "#171F2C"
+background = "#D4B171"         # Yellow from suckless palette
 
 [colors.footer_bar]
-foreground = "#171f2c"
-background = "#8ca7be"
+foreground = "#171F2C"
+background = "#7B9FC4"         # Blue from suckless palette
 
 [colors.hints.start]
-foreground = "#171f2c"
-background = "#e1ca97"         # Bright yellow
+foreground = "#171F2C"
+background = "#F0D195"         # Bright yellow from suckless palette
 
 [colors.hints.end]
-foreground = "#171f2c"
-background = "#8ca7be"
+foreground = "#171F2C"
+background = "#7B9FC4"         # Blue from suckless palette
 
 [colors.selection]
-background = "#364156"         # Ghostty selection-background
-foreground = "#e3ded7"         # Ghostty selection-foreground
+background = "#4A5563"         # Bright black for selection
+foreground = "#F2EDE7"         # Bright white for selected text
 
 [colors.normal]
-black = "#2d3343"              # Ghostty palette 0
-red = "#c49a9a"                # Ghostty palette 1
-green = "#8cbbad"              # Ghostty palette 2
-yellow = "#d4b97e"             # Ghostty palette 3
-blue = "#8ca7be"               # Ghostty palette 4
-magenta = "#b097b6"            # Ghostty palette 5
-cyan = "#93b5b3"               # Ghostty palette 6
-white = "#c9c2b8"              # Ghostty palette 7
+black = "#2A3441"              # Suckless palette 0
+red = "#C47B7B"                # Suckless palette 1
+green = "#7BA05B"              # Suckless palette 2
+yellow = "#D4B171"             # Suckless palette 3
+blue = "#7B9FC4"               # Suckless palette 4
+magenta = "#A67BC4"            # Suckless palette 5
+cyan = "#7BC4B5"               # Suckless palette 6
+white = "#D6CFC7"              # Suckless palette 7
 
 [colors.bright]
-black = "#3e485a"              # Ghostty palette 8
-red = "#d5afaf"                # Ghostty palette 9
-green = "#ceeac8"              # Ghostty palette 10
-yellow = "#e1ca97"             # Ghostty palette 11
-blue = "#121821"               # Ghostty palette 12
-magenta = "#c4afc8"            # Ghostty palette 13
-cyan = "#a9c9c7"               # Ghostty palette 14
-white = "#e3ded7"              # Ghostty palette 15
+black = "#4A5563"              # Suckless palette 8
+red = "#E8A3A3"                # Suckless palette 9
+green = "#9BC278"              # Suckless palette 10
+yellow = "#F0D195"             # Suckless palette 11
+blue = "#A3C7E8"               # Suckless palette 12
+magenta = "#C7A3E8"            # Suckless palette 13
+cyan = "#A3E8D4"               # Suckless palette 14
+white = "#F2EDE7"              # Suckless palette 15
 
 [[colors.indexed_colors]]
 index = 16
-color = "#d4b97e"              # Yellow accent
+color = "#D4B171"              # Yellow accent
 
 [[colors.indexed_colors]]
 index = 17
-color = "#b097b6"              # Magenta accent
+color = "#A67BC4"              # Magenta accent
 
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
