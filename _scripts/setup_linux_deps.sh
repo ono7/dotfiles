@@ -4,60 +4,170 @@ log() {
   printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
-log "$0"
+detect_distro() {
+  if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    echo "$ID"
+  elif [ -f /etc/arch-release ]; then
+    echo "arch"
+  elif [ -f /etc/debian_version ]; then
+    echo "debian"
+  else
+    echo "unknown"
+  fi
+}
 
-if [ "$(uname)" != 'Linux' ]; then
-  log 'I only run on Linux..'
-  exit 1
-fi
+install_arch_packages() {
+  log "setting up Arch Linux dependencies (pacman)"
 
-log "setting up locale"
-sudo locale-gen "en_US.UTF-8"
+  # Update package database
+  sudo pacman -Sy
 
-log 'setting up linux dependencies (apt/python)'
+  # Install base development tools and dependencies
+  sudo pacman -S --needed --noconfirm base-devel procps curl file git
 
-sudo apt-add-repository ppa:git-core/ppa -y
-sudo apt update
-sudo apt -y upgrade
-sudo apt remove -y nano
-# sudo apt install rename zoxide git-delta stow rlwrap -y
-sudo apt install -y build-essential procps curl file git
-sudo apt install -y libssl-dev tree zsh silversearcher-ag \
-  fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck gron
-# sudo apt install python3 python3.12 python3.12-pip python3.12-venv socat -y
+  # Install additional tools
+  sudo pacman -S --needed --noconfirm openssl tree zsh the_silver_searcher \
+    fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck
 
-# install python3.11
-# sudo add-apt-repository ppa:deadsnakes/ppa
-# sudo apt update
-# sudo apt install python3.11 -y
+  # Install gron from AUR (if yay is available) or skip with warning
+  if command -v yay &> /dev/null; then
+    yay -S --needed --noconfirm gron
+  elif command -v paru &> /dev/null; then
+    paru -S --needed --noconfirm gron
+  else
+    log "Warning: gron not installed (requires AUR helper like yay or paru)"
+  fi
 
-# if type snap &>/dev/null; then
-#   log "installing snap packages"
-#   sudo snap install go --classic
-#   sudo snap install universal-ctags btop
-#   sudo snap install --edge starship
-# fi
+  # Remove nano if installed
+  sudo pacman -R --noconfirm nano 2>/dev/null || true
+}
 
-# log "installing delta git pager"
+install_debian_packages() {
+  log "setting up Debian/Ubuntu dependencies (apt)"
 
-# ARCH=$(uname -m)
-# DELTA_VERSION="0.18.1"
+  # Add git PPA for latest git version
+  sudo apt-add-repository ppa:git-core/ppa -y
+  sudo apt update
+  sudo apt -y upgrade
+
+  # Remove nano
+  sudo apt remove -y nano
+
+  # Install base development tools
+  sudo apt install -y build-essential procps curl file git
+
+  # Install additional tools
+  sudo apt install -y libssl-dev tree zsh silversearcher-ag \
+    fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck gron
+}
+
+setup_locale() {
+  local distro="$1"
+
+  case "$distro" in
+    arch|manjaro|endeavouros)
+      log "setting up locale (Arch)"
+      # Arch uses different locale setup
+      if ! grep -q "^en_US.UTF-8" /etc/locale.gen; then
+        sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+        sudo locale-gen
+      fi
+      ;;
+    ubuntu|debian|pop|mint)
+      log "setting up locale (Debian/Ubuntu)"
+      sudo locale-gen "en_US.UTF-8"
+      ;;
+    *)
+      log "Unknown distribution, skipping locale setup"
+      ;;
+  esac
+}
+
+main() {
+  log "$0"
+
+  if [ "$(uname)" != 'Linux' ]; then
+    log 'I only run on Linux..'
+    exit 1
+  fi
+
+  local distro
+  distro=$(detect_distro)
+  log "Detected distribution: $distro"
+
+  setup_locale "$distro"
+
+  case "$distro" in
+    arch|manjaro|endeavouros)
+      install_arch_packages
+      ;;
+    ubuntu|debian|pop|mint)
+      install_debian_packages
+      ;;
+    *)
+      log "Unsupported distribution: $distro"
+      log "This script supports Arch Linux and Debian/Ubuntu-based distributions"
+      exit 1
+      ;;
+  esac
+
+  log "Dependencies installation completed for $distro"
+}
+
+# Uncommented sections from your original script for reference:
+# You can uncomment and adapt these as needed
+
+# install_python() {
+#   local distro="$1"
+#   case "$distro" in
+#     arch|manjaro|endeavouros)
+#       sudo pacman -S --needed --noconfirm python python-pip
+#       ;;
+#     ubuntu|debian|pop|mint)
+#       sudo apt install python3 python3-pip python3-venv socat -y
+#       # For specific Python versions:
+#       # sudo add-apt-repository ppa:deadsnakes/ppa
+#       # sudo apt update
+#       # sudo apt install python3.11 -y
+#       ;;
+#   esac
+# }
+
+# install_snap_packages() {
+#   if type snap &>/dev/null; then
+#     log "installing snap packages"
+#     sudo snap install go --classic
+#     sudo snap install universal-ctags btop
+#     sudo snap install --edge starship
+#   fi
+# }
+
+# install_delta() {
+#   log "installing delta git pager"
+#   ARCH=$(uname -m)
+#   DELTA_VERSION="0.18.1"
 #
-# mkdir -p ~/local/bin
-# rm -rf ~/local/bin/delta
+#   mkdir -p ~/local/bin
+#   rm -rf ~/local/bin/delta
 #
-# rm -f delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
-# curl -sL -O https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+#   rm -f delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+#   curl -sL -O https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
 #
-# tar xzvf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
-# cp delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu/delta ~/local/bin/delta
-# rm -rf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu*
+#   tar xzvf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu.tar.gz
+#   cp delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu/delta ~/local/bin/delta
+#   rm -rf delta-${DELTA_VERSION}-${ARCH}-unknown-linux-gnu*
 #
-# if [[ -f ~/local/bin/delta ]]; then
-#   log "delta installed successfully"
-# else
-#   log "delta installation failed"
-# fi
+#   if [[ -f ~/local/bin/delta ]]; then
+#     log "delta installed successfully"
+#   else
+#     log "delta installation failed"
+#   fi
+# }
 
-# log "installing direnv"
-# curl -sfL https://direnv.net/install.sh | bash
+# install_direnv() {
+#   log "installing direnv"
+#   curl -sfL https://direnv.net/install.sh | bash
+# }
+
+main "$@"
