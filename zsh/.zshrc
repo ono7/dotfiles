@@ -127,9 +127,9 @@ alias vil='vim -u ~/.vimrc_min'
 alias vim='nvim -n'
 alias vi='nvim -n'
 if [ -f $HOME/.local/vim/bin/vim ]; then
-  alias v='~/.local/vim/bin/vim -u ~/.myrc'
+  alias v='~/.local/vim/bin/vim -u ~/.vimrc'
 else
-  alias v='vim -u ~/.myrc'
+  alias v='vim -u ~/.vimrc'
 fi
 alias vio=/usr/bin/vi
 alias k='kubectl '
