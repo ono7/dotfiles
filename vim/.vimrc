@@ -177,7 +177,7 @@ cnoremap <esc><backspace> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-" inoremap {<CR> {<CR>}<ESC>O
+inoremap <C-BS> <C-w>
 
 if exists('$SSH_TTY') || $UID == 0
   function! Osc52yank()
@@ -262,7 +262,6 @@ function! s:CleanAndSave()
   endif
   call winrestview(l:save)
 endfunction
-
 " 10MB
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
