@@ -336,6 +336,7 @@ hi! clear DiffDelete
 hi! clear FoldColumn
 hi! clear SignColumn
 hi! clear CursorLineFold
+hi! link CursorLine Normal
 hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
 hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
 hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
