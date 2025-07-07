@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
-
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
@@ -15,7 +14,28 @@ cleanup() {
 
 trap cleanup EXIT
 
+# Function to detect package manager and install dependencies
+install_dependencies() {
+  if command -v pacman &>/dev/null; then
+    log "Detected Arch Linux - installing dependencies with pacman"
+    sudo pacman -Syu --needed --noconfirm \
+      base-devel git cmake pkgconf ncurses python ruby lua perl tcl \
+      libx11 libxtst libxt libxmu
+  elif command -v apt &>/dev/null; then
+    log "Detected Debian/Ubuntu - installing dependencies with apt"
+    sudo apt update
+    sudo apt install -y \
+      build-essential git make autoconf automake cmake pkg-config \
+      libncurses5-dev libncursesw5-dev libncurses-dev gettext \
+      python3-dev libpython3-dev ruby-dev liblua5.4-dev libperl-dev tcl-dev \
+      libx11-dev libxtst6 libxt-dev libxmu-dev
+  else
+    log "Warning: Could not detect package manager. Assuming dependencies are installed."
+  fi
+}
+
 ARCH=$(uname -m)
+
 if [[ "$ARCH" == "arm64" ]]; then
   # Apple Silicon optimizations (M1/M2/M3/M4)
   export CFLAGS="-O3 -march=native -mtune=native -flto"
@@ -39,6 +59,7 @@ cd ~/vim
 
 # Check if the system is macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
+  log "Configuring for macOS"
   ./configure \
     --with-features=huge \
     --enable-multibyte \
@@ -59,9 +80,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --with-compiledby="${USER}" \
     --prefix="$HOME/.local/vim"
 else
-  sudo apt update
-  sudo apt install -y build-essential git make autoconf automake cmake pkg-config libncurses5-dev libncursesw5-dev libncurses-dev gettext python3-dev libpython3-dev ruby-dev liblua5.4-dev libperl-dev tcl-dev
-  sudo apt install -y libx11-dev libxtst6 libxt-dev libxmu-dev
+  # Install dependencies for Linux systems
+  install_dependencies
+
+  log "Configuring for Linux"
   ./configure \
     --with-features=huge \
     --enable-multibyte \
@@ -91,7 +113,6 @@ fi
 
 log "Installing fugitive"
 mkdir -p ~/.vim/pack/plugins/start
-
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 
 log "remove matchparen.vim....."
