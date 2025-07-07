@@ -1,0 +1,15 @@
+-- return {
+--   cmd = { "ruff", "server" },
+--   filetypes = { "python" },
+--   root_markers = { "pyproject.toml", "ruff.toml", "venv", "requirements.txt", "setup.py", ".git" },
+--   settings = {
+--     organizeImports = true,
+--     lint = {
+--       enable = true,
+--     },
+--     format = {
+--       enable = true,
+--     },
+--   },
+--   single_file_support = true,
+-- }

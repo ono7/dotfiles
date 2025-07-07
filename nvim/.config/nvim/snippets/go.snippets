@@ -1,0 +1,107 @@
+extends todo
+
+snippet h "header" b
+  // Author:  Jose Lima (`getenv('USER')`)
+  ${0}
+
+# snippet h "header" b
+#   // Author:  Jose Lima (`getenv('USER')`)
+#   // Date:    `strftime("%Y-%m-%d  %H:%M")`
+#   ${0}
+
+snippet c "block comment" w
+  /*
+    ${0:${VISUAL}}
+  */
+
+snippet e "error" w
+	if err != nil {
+	    ${0}
+	}
+
+snippet myerror "error" w
+	if err != nil {
+	    ${0|log.Fatal(err),return|}
+	}
+
+snippet hf "http handler func" w
+  func ${1}(w *http.ResponseWriter, r *http.Request) {
+    ${0}
+  }
+
+snippet ok "check ok" b
+  if ${1:val, ok} := ${2}; !${1/\v\S+\s+(\S+)/\1/} {
+    ${0}
+  } else {
+  }
+
+snippet ife "error" w
+  if ${1} := ${0}${VISUAL}; ${1/\v(\S+)\s+(\S+)/\2/} != nil {
+  }
+
+snippet ifn "not error" w
+  if !${0} {
+  }
+
+snippet if "if statement" b
+  if ${0} {
+    ${VISUAL}
+  }
+
+snippet gof "annonymous go func" b
+		go func(${0}) {
+      ${VISUAL}
+		}()
+
+snippet for "for statement" b
+  for ${0} {
+    ${VISUAL}
+  }
+
+snippet v "shorthand variable declaration" w
+  ${1} := ${2}
+
+snippet fori "for int loop" w
+  for ${1:i} := 0; $1 < ${2:count}; $1${3:++} {
+    ${0:${VISUAL}}
+  }
+
+snippet forr "for range loop" w
+  for ${1:e} := range ${2:collection} {
+    ${0:${VISUAL}}
+  }
+
+snippet test "test function" b
+  func Test${1:name}(t *testing.T) {
+    ${0:${VISUAL}}
+
+snippet func "test function" b
+  func ${1}(${2}) (${0:error}) {
+    ${VISUAL}
+  }
+
+snippet decoder "json decoder" b
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		log.Fatalf("Error in JSON decoder %v", err)
+	}
+
+snippet pretty "json pretty printer" b
+  func PrettyPrinter(m any) {
+    if m == nil {
+      log.Fatal("PrettyPrinter: Empty data structure")
+    }
+    prettyJSON, err := json.MarshalIndent(m, "", "  ")
+    if err != nil {
+      log.Fatalf("Failed to generate pretty JSON: %v", err)
+    }
+    fmt.Println(string(prettyJSON))
+  }
+
+snippet cleanstring "clean spaces in a string" b
+  func cleanString(s string) string {
+      return strings.Join(strings.FieldsFunc(s, func(r rune) bool {
+          return unicode.IsSpace(r) || r == '\n' || r == '\t'
+      }), " ")
+  }

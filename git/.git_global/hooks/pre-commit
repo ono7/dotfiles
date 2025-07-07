@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+echo "Running global hooks..."
+echo "$0"
+PATH="/usr/local/bin:$PATH"
+if type lint-staged >/dev/null 2>&1; then
+  # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  if [ -f .lintstagedrc ]; then
+    echo "✔ Using local lintstagedrc"
+    # lint-staged --concurrent false -r || exit 1
+  else
+    echo "! Using global lintstagedrc"
+    # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  fi
+else
+  echo "lint-staged not installed: npm install lint-staged -g"
+  exit 1
+fi
+
+exclude_dirs="${EXCLUDE_DIRS:-static/node_modules/pico static/htmx static/hyperscript}"
+# Check if there are any changes in the repo
+if [[ -n $(git status --porcelain) ]]; then
+  echo "Changes detected, running ctags..."
+  if ! git ls-files | grep -v -E "^(${exclude_dirs// /|})" |
+    # ctags --exclude=priv/**/* --exclude={*.md,*.vim,*.toml,.vimrc,*.json} --exclude=.git --exclude=node_modules/**/* --tag-relative -L - -f"$$.tags"; then
+    ctags -R --exclude=@"$HOME"/.ctagsignore --tag-relative -L - -f"$$.tags"; then
+
+    echo "ctags command failed. Check if ctags is installed and the file patterns are correct."
+    exit 1
+  fi
+  mv "$$.tags" "tags"
+  echo "ctags generated successfully."
+fi
+
+if [ -f .git/hooks/pre-commit ]; then
+  if ! .git/hooks/pre-commit "$@"; then
+    echo "local pre-commit hook failed"
+    exit 1
+  fi
+fi

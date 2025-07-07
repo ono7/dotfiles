@@ -1,0 +1,19 @@
+set show-mode-in-prompt on
+set editing-mode vi
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Reduce this even further for minimal lag
+set keyseq-timeout 10
+
+# Disable bracketed paste 
+set enable-bracketed-paste off
+
+# Add these for faster completion/interaction
+set completion-query-items 0
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set bell-style none
+set completion-ignore-case on
+set page-completions off

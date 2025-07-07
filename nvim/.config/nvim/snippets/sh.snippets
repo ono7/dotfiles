@@ -1,0 +1,146 @@
+extends todo
+
+snippet h "header" b
+  #!/usr/bin/env bash
+  #  Jose Lima (`getenv('USER')`)
+  #  `strftime("%Y-%m-%d %H:%M")`
+
+  # bash ${0}
+  # case insensitive match
+  # shopt -s nocasematch
+  # extended pattern match (a|b)$, ^a b$ [0-9]
+  # shopt -s extglob
+
+  set -Eeuo pipefail
+
+  cleanup () {
+    echo "done!"
+  }
+
+  log () {
+      printf '\n[%s] - %s\n\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
+  }
+
+  trap cleanup EXIT
+
+snippet log "logging function for bash" b
+  log () {
+      printf '[%s] - %s\n' "\$(date '+%Y-%m-%d %H:%M:%S')" "\$*"
+  }
+
+snippet h1 "optional header for cicd script" b
+  #!/usr/bin/env bash
+  #
+  # Author: Jose Lima (`getenv('USER')`)
+
+  set -Eeuo pipefail
+  trap cleanup SIGINT SIGTERM ERR EXIT
+
+  cleanup () {
+    trap - SIGINT SIGTERM ERR EXIT
+    # script cleanup here
+    echo 'clean up done'
+    kill 0
+  }
+
+  msg() {
+    echo -e "**************************************** ${1-} ****************************************"
+  }
+
+  err_msg() {
+    echo >&2 -e "[Error] ${1-}"
+  }
+  ${0}
+
+snippet set "set basic script options for pipelines" b
+  set -Eeuo pipefail
+
+snippet if "if statement" b
+  if [[ $1 ]]; then
+    ${0:${VISUAL}}
+  fi
+
+snippet elif "else if statement" b
+  elif [[ $1 ]]; then
+    ${0:${VISUAL}}
+
+snippet wh "while loop" b
+  while [[ $1 ]]; do
+    ${0:${VISUAL}}
+  done
+
+snippet until "until loop" b
+  until [[ $1 ]]; do
+    ${0:${VISUAL}}
+  done
+
+snippet for "for loop"
+  for ${1};do
+  ${0}
+  done
+
+snippet banner "create banner" b
+  banner () {
+    title="$@"
+    COLUMNS=\$(tput cols)
+    title_size=\${#title}
+    span=$(( (COLUMNS + title_size) / 2 ))
+    printf "%\${COLUMNS}s\n" | tr " " "*"
+    printf "%\${span}s\n" "\$title"
+    printf "%\${COLUMNS}s\n" | tr " " "*"
+  }
+
+snippet docker "docker build" b
+  #!/bin/bash
+  # Author:  Jose Lima (`getenv('USER')`)
+
+  # Exit on any error
+  set -e
+
+  # Define variables
+  IMAGE_NAME="registry.com/image-name"
+  TAG="production"
+  FULL_IMAGE_NAME="${IMAGE_NAME}:${TAG}"
+
+  # Source environment variables
+  if [ ! -f ~/.env ]; then
+    echo "Error: ~/.env file not found"
+    exit 1
+  fi
+
+  # shellcheck source=/dev/null
+  . ~/.env
+
+  # Verify SFTP_PASS exists
+  if [ -z "${SFTP_PASS}" ]; then
+    echo "Error: SFTP_PASS not set in ~/.env"
+    exit 1
+  fi
+
+  echo "Building image ${FULL_IMAGE_NAME}..."
+
+  # Build the image
+  if ! podman build \
+    --tls-verify=false \
+    --secret id=pw,src=/tmp/secret \
+    --build-arg SFTP_PASSWORD="${SFTP_PASS}" \
+    --platform linux/amd64 \
+    --tag "${FULL_IMAGE_NAME}" \
+    .; then
+    echo "Error: Build failed"
+    exit 1
+  fi
+
+  # secret will need to mounted in Dockerfile
+  # RUN --mount=type=secret,id=pw export PW=$(cat /run/secrets/pw) \
+  # echo $PW && other shell tasks here..
+
+  echo "Build successful. Pushing image..."
+
+  # Push the image
+  if ! podman push "${FULL_IMAGE_NAME}"; then
+    echo "Error: Push failed"
+    exit 1
+  fi
+
+  echo "Successfully built and pushed ${FULL_IMAGE_NAME}"

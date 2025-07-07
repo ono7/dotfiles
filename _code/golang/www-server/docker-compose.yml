@@ -1,0 +1,11 @@
+---
+services:
+  www:
+    image: test/net-www:production
+    container_name: net-www
+    volumes:
+      - ./images:/app/images
+      - ./logs:/app/logs
+    ports:
+      - 0.0.0.0:443:2022/tcp
+    restart: unless-stopped

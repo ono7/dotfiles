@@ -1,0 +1,37 @@
+# basic gitignore
+
+__pycache__/
+venv/
+build/
+worktree/
+worktrees/
+
+# we need this for RipGrep/fzf to filter properly (telescope)
+.git/
+
+.pytest_cache/
+.DS_Store
+.virtualenvs
+.vim
+.netrwhist
+
+tags
+
+.helix/
+.ignore
+*.log
+1.sh
+.env
+2.sh
+1.yml
+2.yml
+1.cfg
+2.cfg
+vtags
+*.pyc
+*.egg-info/
+*.cache
+priv/
+vault.key
+my_creds.py
+profile.log

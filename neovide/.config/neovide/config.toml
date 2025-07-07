@@ -1,0 +1,21 @@
+# fork = false
+# frame = "full"
+frame = "transparent"
+# idle = true
+maximized = false
+# mouse-cursor-icon = "arrow"
+# neovim-bin = "/Users/jlima/.local/bin/nvim" # in reality found dynamically on $PATH if unset
+no-multigrid = false
+srgb = true
+tabs = true
+theme = "dark"
+title-hidden = true
+vsync = true
+wsl = false
+
+[font]
+# Will use the bundled Fira Code Nerd Font by default
+normal = { family = "SF Mono", style = "Medium" } 
+size = 22
+# best for macos...
+hinting = "none"

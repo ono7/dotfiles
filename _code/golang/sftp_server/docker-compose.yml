@@ -1,0 +1,12 @@
+services:
+  sftp:
+    image: sftp-server:latest
+    container_name: sftp-server
+    environment:
+      - SFTP_USER=test
+      - SFTP_PASS=test
+    volumes:
+      - ./images:/images
+    ports:
+      - 127.0.0.1:2022:2022/tcp
+    restart: unless-stopped

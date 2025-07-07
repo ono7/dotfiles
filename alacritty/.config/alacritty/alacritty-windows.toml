@@ -1,0 +1,183 @@
+# WSL alacritty location
+# /mnt/c/Users/jl78/AppData/Roaming/alacritty/alacritty.toml
+
+[general]
+live_config_reload = true
+working_directory = "None"
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.primary]
+# background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
+# foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
+
+foreground = "#c5bfb8"
+background = "#171F2C"
+
+dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
+bright_foreground = "#c7d2f8"  # Enhanced bright lavender (was #cad3f5)
+
+[colors.cursor]
+cursor = "#ffffff"             # Enhanced pure white (was #FFFFFF)
+text = "#151f2e"               # Enhanced cursor text (was #171F2C)
+
+[colors.vi_mode_cursor]
+cursor = "#b6ad9f"             # Enhanced muted cursor (was #B4ADA0)
+text = "#1b2335"               # Enhanced cursor text (was #1D2433)
+
+[colors.search.matches]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.search.focused_match]
+foreground = "#24273a"
+background = "#a6da95"
+
+[colors.footer_bar]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.hints.start]
+foreground = "#24273a"
+background = "#eed49f"
+
+[colors.hints.end]
+foreground = "#24273a"
+background = "#a5adcb"
+
+[colors.selection]
+background = "#354157"         # Enhanced selection (was #364156)
+
+[colors.normal]
+black = "#2c3344"              # Enhanced black (was #2D3343)
+red = "#c89696"                # Enhanced dusty rose (was #C49A9A) - 1.18x boost
+green = "#86c1af"              # Enhanced sage green (was #8CBBAD) - 1.25x boost 🌟
+yellow = "#dabb78"             # Enhanced amber (was #D4B97E)
+blue = "#88a7c2"               # Enhanced steel blue (was #8CA7BE)
+magenta = "#b294b9"            # Enhanced lavender (was #B097B6) - 1.18x boost
+cyan = "#8fb9b7"               # Enhanced teal (was #93B5B3) - 1.25x boost 🌟
+white = "#cac2b7"              # Enhanced cream (was #C9C2B8)
+
+[colors.bright]
+black = "#3d485b"              # Enhanced medium gray-blue (was #3E485A)
+red = "#d8acac"                # Enhanced bright rose (was #D5AFAF) - 1.18x boost
+green = "#9cd5c1"              # Enhanced bright sage (was #A2CFBF) - 1.25x boost 🌟
+yellow = "#e7cc91"             # Enhanced bright amber (was #E1CA97)
+blue = "#a1bcd1"               # Enhanced bright blue (was #A4BCCE)
+magenta = "#c6adca"            # Enhanced bright lavender (was #C4AFC8) - 1.18x boost
+cyan = "#a5cdcb"               # Enhanced bright teal (was #A9C9C7) - 1.25x boost 🌟
+white = "#e4ded6"              # Enhanced bright white (was #E3DED7)
+
+[[colors.indexed_colors]]
+index = 16
+color = "#b9a688"              # Enhanced tan/bronze (was #B6A58B)
+
+[[colors.indexed_colors]]
+index = 17
+color = "#a4afc5"              # Enhanced periwinkle (was #A6B0C3)
+
+[cursor]
+blink_interval = 200
+blink_timeout = 0
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "Never"
+shape = "Block"
+
+[debug]
+log_level = "Off"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+[env]
+# TERM = "xterm-256color"
+LC_CTYPE = "en_US.UTF-8"
+
+[font]
+size = 18.0
+
+[font.normal]
+# family = "SF Mono"
+# family = "FiraMono Nerd Font Mono"
+
+# family = "SFMono Nerd Font"
+# style = "Medium"
+
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold"
+
+[font.italic]
+family = "IosevkaTerm Nerd Font Mono"
+# family = "FiraMono Nerd Font Mono"
+style = "SemiBold Oblique"
+#
+[font.bold]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Bold"
+
+[font.offset]
+x = 1
+y = 11
+
+[keyboard]
+bindings = [
+{  key  =  "-",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "=",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "-",      mods  =  "Control",        action  =  "DecreaseFontSize"   },
+{  key  =  "=",      mods  =  "Control",        action  =  "IncreaseFontSize"   },
+{  key  =  "A",      mods  =  "Control",        chars   =  "\u0001"             },
+{  key  =  "Back",   mods  =  "Alt",            chars   =  "\u0017"             },
+{  key  =  "Back",   mods  =  "Control",        chars   =  "\u0017"             },
+{  key  =  "F",      mods  =  "Control|Shift",  action  =  "ToggleFullscreen"   },
+{  key  =  "H",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "E",      mods  =  "Control",        action  =  "ReceiveChar"        },
+{  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
+# fix c-i in neovim for jumps
+
+{ key = "I", mods = "Control", chars = "\u001b[105;5u" },
+{  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
+{ key = "Q", mods = "Control", action = "ReceiveChar" },
+# {  key  =  "Q",      mods  =  "Control",        action  =  "None"               },
+{  key  =  "Space",  mods  =  "Control|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
+{  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
+{  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
+{  key  =  "W",      mods  =  "Control|Shift",  action  =  "Quit"               },
+]
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Right"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[terminal]
+shell = "wsl.exe ~"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1
+blur = true # does not work in windows?
+startup_mode = "Maximized"
+# option_as_alt = "both"
+
+[window.dimensions]
+columns = 82
+lines = 28
+
+[window.padding]
+x = 5
+y = 5

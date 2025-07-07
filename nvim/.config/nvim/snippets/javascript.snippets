@@ -1,0 +1,28 @@
+extends todo
+
+# snippet h "header" b
+#   // Author:  Jose Lima (`getenv('USER')`)
+#   // Date:    `strftime("%Y-%m-%d  %H:%M")`
+#   ${0}
+
+snippet h "header" b
+  // Author:  Jose Lima (`getenv('USER')`)
+  ${0}
+
+snippet log "console" w
+  console.log(${0:${VISUAL}})
+  
+snippet func "function" w
+  function $1($2) {
+    ${0:${VISUAL}}
+  }
+
+snippet for "for loop" w
+  for (let ${1:i} = 0; ${1} ${2:cond}; ${1}++ ) {
+    $0
+  }
+
+snippet while "while loop" w
+  while (${2:true}) {
+    $0
+  }

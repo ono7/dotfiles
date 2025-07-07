@@ -1,0 +1,77 @@
+extends todo
+
+snippet h "header" w
+  # Jose Lima (`getenv('USER')`)
+  # `strftime("%Y-%m-%d %H:%M")`
+
+snippet simple "Makefile Simple" w
+  .PHONY: lint
+
+  lint-%:
+    npx eslint $*
+  # Usage: make lint-filename.js
+
+snippet make "Makefile" w
+  BINARY_NAME := ${1}
+  OUTPUT_DIR := ${2}
+  BUILD_DIR := build
+
+  RED := \033[0;31m
+  GREEN := \033[0;32m
+  YELLOW := \033[0;33m
+  RESET := \033[0m
+
+  all: build
+  test: testing
+
+  build:
+    @echo "$(GREEN)building...$(RESET)"
+    @mkdir -p $(BUILD_DIR)
+    @go build -o $(BUILD_DIR)/$(BINARY_NAME)
+
+  debug:
+    @echo "$(GREEN)building with symbols for debugging...$(RESET)"
+	  go build -gcflags="all=-N -l" -o $(BUILD_DIR)/$(BINARY_NAME)-debug
+
+  install:
+    @echo "$(GREEN)installing binaries to $(OUTPUT_DIR)...$(RESET)"
+    @cp $(BUILD_DIR)/$(BINARY_NAME) $(OUTPUT_DIR)/$(BINARY_NAME)
+
+  clean:
+    @echo "$(RED)deleting built and installed binaries...$(RESET)"
+    @rm -f $(BUILD_DIR)/$(BINARY_NAME)
+    @rm -f $(BUILD_DIR)/$(BINARY_NAME)-debug
+  ifdef OUTPUT_DIR
+    @rm -f $(OUTPUT_DIR)/$(BINARY_NAME)
+  endif
+
+  testing:
+    @echo "$(GREEN)Running tests suite...$(RESET)"
+    @cd $(BUILD_DIR);./$(BINARY_NAME)
+
+  .PHONY: all build install clean testing
+
+snippet basic "basic makefile" w
+  BUILD_DIR := build
+  .PHONY: run test
+
+  build:
+    @mkdir -p $(BUILD_DIR)
+
+  test:
+    @python -m pytest test/
+
+snippet go "build basic go app" w
+  BUILD_DIR := build
+
+  .PHONY: run test build
+
+  build:
+    # @mkdir -p $(BUILD_DIR)
+    @env GOOS=linux GOARCH=arm64 go build
+
+  run:
+    @docker run --rm -p 8080:8080 -v .:/app -v ./http-files:/http-files ubuntu:latest ./app/main
+
+  test:
+    @go test

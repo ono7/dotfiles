@@ -1,0 +1,48 @@
+---
+# re-generate png files
+# for i in $(fd -tf conf peer*)
+# do
+# echo "$i"
+# qrencode -t png -s 5 -o `basename $i`.png < $i
+# done
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - SERVERURL=abc.com
+      - SERVERPORT=51820
+      - PEERS=josePhone,joseLaptop,joseLaptop2,joseTablet,shilohPhone,shilohLaptop,emmaTablet,emmaPhone,emmaLaptop,colbyLaptop,colbyPhone,colbyTablet
+      - PEERDNS=100.64.0.1
+      - INTERNAL_SUBNET=100.64.125.0
+      - ALLOWEDIPS=0.0.0.0/0
+      - LOG_CONFS=true
+    volumes:
+      - ./config:/config
+    ports:
+      - 100.64.0.50:51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+# this is the systemd service file needed
+# /etc/systemd/system/wireguard.service
+# [Unit]
+# Description=Wireguard service
+# After=docker.service
+# Requires=docker.service
+#
+# [Service]
+# Type=oneshot
+# RemainAfterExit=yes
+# ExecStart=/bin/bash -c "docker compose -f /root/docker-compose-wireguard.yml up --detach"
+# ExecStop=/bin/bash -c "docker compose -f /root/docker-compose-wireguard.yml stop"
+#
+# [Install]
+# WantedBy=multi-user.target

@@ -1,0 +1,246 @@
+# see more settings options https://sw.kovidgoyal.net/kitty/conf/
+
+############## THEME SETTINGS #################
+
+# include gruvbox-material-hard-dark.conf
+include catppuccine-mocha.conf
+
+############## FONT SETTINGS #################
+
+# https://github.com/tonsky/FiraCode?tab=readme-ov-file
+# font_family      FiraCode Retina
+
+# font_family       MonolisaNoLiga Nerd Font Medium Regular
+# font_family       MonolisaNoLiga Nerd Font Regular
+# font_family       IosevkaTerm Nerd Font Mono
+# font_family       IosevkaTerm Nerd Font
+# bold_font         auto
+# italic_font       auto
+# bold_italic_font  auto
+
+# see firacode github for alt codes :)
+# font_features FiraCode-Nerd-Font-MonoRegular +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Nerd-Font-MonoLight +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Nerd-Font-MonoRetina +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Nerd-Font-MonoMedium +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Nerd-Font-MonoBold +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Nerd-Font-MonoSemiBold +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+
+# font_features FiraCode-Regular +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Light +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Retina +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Medium +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-Bold +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+# font_features FiraCode-SemiBold +cv06 +cv01 +cv02 +ss01 +ss03 +ss08 +cv14
+
+############## TAB SETTINGS #################
+
+tab_bar_edge bottom
+tab_bar_margin_width 10
+tab_bar_margin_height 15 0
+tab_fade 0
+tab_bar_style powerline
+
+# tab_title_template grabs title from shell
+tab_title_template "{title}"
+
+# angled, slanted, round
+tab_powerline_style slanted
+tab_title_template "{title.lower()}"
+
+# tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title}"
+
+############## SHELL SETTINGS #################
+
+shell_integration enabled no-title
+
+# do not change cursor
+shell_integration no-cursor
+
+shell /bin/zsh --login
+# term xterm-kitty
+
+############## REMOTE SETTINGS #################
+
+allow_remote_control yes
+listen_on none
+
+############## WINDOW SETTINGS #################
+
+cursor_shape block
+cursor_blink_interval 0
+# cursor_trail 1
+
+scrollback_lines 5000
+remember_window_size yes
+window_border_width 0
+window_margin_width 0
+window_padding_width 0
+map alt+shift+r window_resize
+hide_window_decorations titlebar-only
+confirm_os_window_close 1
+placement_strategy center
+
+enable_audio_bell no
+visual_bell_duration 0.0
+
+clipboard_control write-clipboard write-primary read-clipboard
+
+background_opacity 0.85
+background_blur 35
+
+# 0.25
+cursor_blink_interval 0.25
+
+# 9999
+cursor_stop_blinking_after 0
+# scrollback_pager_history_size 2
+
+############## PERFORMANCE SETTINGS #################
+
+input_delay 0
+repaint_delay 2
+sync_to_monitor no
+wayland_enable_ime no
+
+############## MOUSE SETTINGS #############
+
+mouse_hide_wait 3.0
+copy_on_select yes
+
+# right click to paste
+mouse_map right press ungrabbed paste_selection_or_clipboard
+
+# fixes URL issues...?
+mouse_map left click ungrabbed no-op
+
+# none, straight, double, curly, dotted, dashed
+url_style dotted
+
+############## MACOS SETTINGS #############
+
+# macos_colorspace srgb
+macos_colorspace displayp3
+macos_quit_when_last_window_closed yes
+macos_option_as_alt yes
+macos_show_window_title_in none
+
+############## KEYMAP SETTINGS #################
+
+# clear default bindings to this point
+clear_all_shortcuts yes
+# map command+t no_op
+
+map cmd+equal change_font_size all +1.0
+map cmd+minus change_font_size all -1.0
+map cmd+0 change_font_size all 0
+
+
+### WINDOW BINDINGS ###
+
+# map cmd+shift+. next_tab
+# map cmd+shift+, previous_tab
+
+# windows
+
+draw_minimal_borders yes
+window_border_width 0.1pt
+macos_traditional_fullscreen yes
+
+# map cmd+shift+n new_window_with_cwd
+map cmd+shift+enter new_window_with_cwd
+# map cmd+8 combine : toggle_layout stack : next_window
+map cmd+8 toggle_layout stack
+map cmd+shift+f toggle_fullscreen
+map cmd+shift+k next_window
+map cmd+shift+j previous_window
+map cmd+shift+d close_window
+
+# tabs
+map cmd+shift+t new_tab_with_cwd
+map cmd+shift+l next_tab
+map cmd+shift+h previous_tab
+map cmd+shift+w close_tab
+map cmd+shift+n set_tab_title
+map cmd+1 goto_tab 1
+map cmd+2 goto_tab 2
+map cmd+3 goto_tab 3
+map cmd+4 goto_tab 4
+map cmd+5 goto_tab 5
+map alt+q quit
+
+# scrollback buffer
+map cmd+shift+p launch --stdin-source=@screen_scrollback --type=overlay nvim
+map cmd+shift+b show_scrollback
+
+# shell/vim
+map cmd+c send_text all \x03
+map cmd+v send_text all \x16
+
+# vim terminal
+map cmd+/ send_key ctrl+_
+
+map cmd+n send_key ctrl+n
+map cmd+p send_key ctrl+p
+map cmd+i send_key ctrl+i
+map cmd+o send_key ctrl+o
+map cmd+j send_key ctrl+j
+map cmd+k send_key ctrl+k
+map cmd+y send_key ctrl+y
+map cmd+l send_key ctrl+l
+map cmd+h send_key ctrl+h
+map cmd+g send_key ctrl+g
+map cmd+a send_key ctrl+a
+map cmd+x send_key ctrl+x
+map cmd+d send_key ctrl+d
+map cmd+f send_key ctrl+f
+map cmd+s send_key ctrl+s
+map cmd+t send_key alt+t
+map cmd+e send_key ctrl+e
+map cmd+q send_key ctrl+q
+map cmd+w send_key alt+w
+map cmd+\ send_key ctrl+\
+map cmd+z send_key ctrl+z
+map cmd+] send_key ctrl+]
+map cmd+[ send_key ctrl+[
+map cmd+space send_key ctrl+space
+
+# tmux
+map cmd+b send_key ctrl+b
+map cmd+m send_text all \x1bZ
+
+paste_actions quote-urls-at-prompt,filter
+map cmd+shift+v paste_from_clipboard
+# del word
+map cmd+backspace send_text all \x17
+# del line
+map alt+backspace send_text all \x15
+
+# kitty config
+map f1 show_kitty_doc conf
+map cmd+shift+r load_config_file
+
+map cmd+d send_text all \x04
+
+# vim
+map alt+i send_key cmd+space
+
+# mac
+map opt+cmd+h hide_macos_other_apps
+map opt+cmd+m hide_macos_app
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="Iosevka Custom"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS
+
+
+# macos_thicken_font 0.5
+disable_ligatures always
+
+font_size 23.0
+adjust_line_height 140%
+

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+# Only add the list of changed files if this is not an amend or merge commit
+if [ -z "$COMMIT_SOURCE" ]; then
+  # Get the list of changed files
+  # CHANGED_FILES=$(git diff --cached --name-status | sed 's/^/# /')
+  CHANGED_FILES=$(git diff --cached --name-status | head -n 10)
+
+  "$COMMIT_MSG_FILE" <<EOF
+$CHANGED_FILES
+EOF
+fi

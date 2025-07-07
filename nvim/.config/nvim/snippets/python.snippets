@@ -1,0 +1,133 @@
+extends todo
+
+snippet h "header" b
+  #!/usr/bin/env python3
+  """${1}
+  Jose Lima (`getenv('USER')`)
+  `strftime("%Y-%m-%d  %H:%M")`
+  ${2:${VISUAL}}
+  """
+  ${0}
+
+snippet db "removed debug" b
+  from remote_pdb import RemotePdb
+  print("--------- DEBUG BREAKPOINT ---------")
+  RemotePdb('0.0.0.0', 444${0:4}).set_trace()
+
+snippet de "removed debug" b
+  try:
+    ${0:${VISUAL}}
+  except:
+    from remote_pdb import RemotePdb
+    print("--------- DEBUG BREAKPOINT ---------")
+    RemotePdb('0.0.0.0', 4444).set_trace()
+
+snippet dl "debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
+  import pdb;pdb.set_trace()
+
+snippet st "debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
+  import pdb;pdb.set_trace()
+
+snippet rst "remote debug" b
+  print("--------- DEBUG BREAKPOINT ---------")
+  import rpdb;rpdb.set_trace()
+
+snippet doc "docstring" b
+  """${0}"""
+
+snippet filter "ansible filter" b
+  def ${1}(${2}):
+    ${0}
+    return
+
+
+  class FilterModule:
+    def filters(self):
+      return {"${1}": ${1}}
+
+snippet logging "logger for python"
+  import logging
+  from os import getenv
+
+  # Logger configuration
+  _log = logging.getLogger(__name__)
+  _handler = logging.StreamHandler()
+  _formatter = logging.Formatter(
+    "%(asctime)s %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+  )
+  _handler.setFormatter(_formatter)
+  _log.addHandler(_handler)
+  _log.propagate = True
+
+  # Set log level based on DEBUG environment variable
+  debugLevel = int(getenv("DEBUG", "1"))
+  if debugLevel == 2:
+    _log.setLevel(logging.DEBUG)
+  if debugLevel == 1:
+    _log.setLevel(logging.INFO)
+  else:
+    # Remove all handlers
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    _log.setLevel(logging.INFO)
+
+  _log.info("init...")${0}
+
+
+snippet apilog "logger for api"
+  import logging
+  from requests.cookies import cookielib
+
+  ${1}_log = logging.getLogger(__name__)
+
+  ${1}_formatter = logging.Formatter(
+      "%(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+  )
+  ${1}_handler = logging.StreamHandler()
+  ${1}_handler.setFormatter(${1}_formatter)
+
+  # set debug level
+  _debuglevel = 2
+
+  # get other module loggers
+  urllib3_log = logging.getLogger("requests.packages.urllib3")
+  urllib3_retry_log = logging.getLogger("urllib3.util.retry")
+  cookie_log = logging.getLogger("http.cookiejar")
+
+
+  # remove existing handlers
+  ${1}_log.handlers = []
+  urllib3_log.handlers = []
+  urllib3_retry_log.handlers = []
+  cookie_log.handlers = []
+
+  if _debuglevel == 2:
+      # TODO(jlima): this can problably be removed
+      cookie_log.addHandler(${1}_handler)
+      cookie_log.setLevel(logging.DEBUG)
+      # cookielib.debug = False
+      ${1}_log.addHandler(${1}_handler)
+      ${1}_log.setLevel(logging.DEBUG)
+
+  ${1}_log.debug("TEST MSG")
+
+  """
+  other examples
+
+  if not sensitive:
+      try:
+          api_log.debug('RESPONSE HEADERS: %s\n', json.dumps(
+              json.loads(text_type(response.headers)), indent=4))
+      except ValueError:
+          api_log.debug('RESPONSE HEADERS: %s\n', text_type(response.headers))
+      try:
+          api_log.debug('RESPONSE: %s\n', json.dumps(response.json(), indent=4))
+      except ValueError:
+          api_log.debug('RESPONSE: %s\n', text_type(response.text))
+  else:
+      api_log.debug('RESPONSE NOT LOGGED (sensitive content)')
+
+  api_log.debug("Error, non-200 response received: %s", response.status_code)
+  """

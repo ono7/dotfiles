@@ -1,0 +1,23 @@
+extends todo
+
+snippet lint "lint configuration" b
+  {
+    "*.{yml,yaml}": ["yamllint", "ansible-lint --offline"],
+    "!(node_modules/**/*)*.py": [
+      "ruff check"
+    ],
+    "*.py": ["python -m pytest tests/"],
+    "*.sh": [ "shellcheck -e SC1090 -e SC2164 -S warning -a -x" ]
+  }
+
+snippet dev "dev container" b
+  {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "ghcr.io/devcontainers/features/nix:1": {},
+      "ghcr.io/devcontainers/features/git:1": {},
+      "ghcr.io/devcontainers/features/go:1": {},
+      "ghcr.io/devcontainers/features/node:1": {},
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    }
+  }

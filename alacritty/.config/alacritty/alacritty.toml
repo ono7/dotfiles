@@ -1,0 +1,211 @@
+[general]
+
+# import = ["./cappuccine-mocha.toml"]
+
+live_config_reload = true
+working_directory = "None"
+
+# Enhanced Alacritty color theme - optimized for sRGB to look closer to P3
+# Generated using saturation enhancement algorithm
+
+[colors.primary]
+background = "#171F2C"         # Ghostty background
+foreground = "#c5bfb8"         # Ghostty foreground
+dim_foreground = "#a5a098"     # Dimmed version
+bright_foreground = "#e3ded7"  # Ghostty bright white
+
+[colors.cursor]
+cursor = "#ffffff"             # Ghostty cursor-color
+text = "#171f2c"               # Ghostty cursor-text
+
+[colors.vi_mode_cursor]
+cursor = "#c49a9a"             # Using red from palette
+text = "#171f2c"               # Background for contrast
+
+[colors.search.matches]
+foreground = "#171f2c"         # Background color
+background = "#8ca7be"         # Blue from palette
+
+[colors.search.focused_match]
+foreground = "#171f2c"
+background = "#d4b97e"         # Yellow from palette
+
+[colors.footer_bar]
+foreground = "#171f2c"
+background = "#8ca7be"
+
+[colors.hints.start]
+foreground = "#171f2c"
+background = "#e1ca97"         # Bright yellow
+
+[colors.hints.end]
+foreground = "#171f2c"
+background = "#8ca7be"
+
+[colors.selection]
+background = "#364156"         # Ghostty selection-background
+foreground = "#e3ded7"         # Ghostty selection-foreground
+
+[colors.normal]
+black = "#2d3343"              # Ghostty palette 0
+red = "#c49a9a"                # Ghostty palette 1
+green = "#8cbbad"              # Ghostty palette 2
+yellow = "#d4b97e"             # Ghostty palette 3
+blue = "#8ca7be"               # Ghostty palette 4
+magenta = "#b097b6"            # Ghostty palette 5
+cyan = "#93b5b3"               # Ghostty palette 6
+white = "#c9c2b8"              # Ghostty palette 7
+
+[colors.bright]
+black = "#3e485a"              # Ghostty palette 8
+red = "#d5afaf"                # Ghostty palette 9
+green = "#ceeac8"              # Ghostty palette 10
+yellow = "#e1ca97"             # Ghostty palette 11
+blue = "#121821"               # Ghostty palette 12
+magenta = "#c4afc8"            # Ghostty palette 13
+cyan = "#a9c9c7"               # Ghostty palette 14
+white = "#e3ded7"              # Ghostty palette 15
+
+[[colors.indexed_colors]]
+index = 16
+color = "#d4b97e"              # Yellow accent
+
+[[colors.indexed_colors]]
+index = 17
+color = "#b097b6"              # Magenta accent
+
+[terminal]
+# osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
+osc52 = "OnlyCopy"
+
+[cursor]
+
+[debug]
+log_level = "Off"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+# transparency may not work with this enabled in linux
+# prefer_egl = true
+
+[env]
+
+# infocmp -L alacritty alacritty-direct
+TERM = "alacritty"
+
+[font]
+size = 26.0
+
+[font.normal]
+
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold"
+
+[font.italic]
+family = "IosevkaTerm Nerd Font Mono"
+style = "SemiBold Oblique"
+
+[font.bold]
+family = "IosevkaTerm Nerd Font Mono"
+style = "Bold"
+
+[font.offset]
+x = 2
+y = 11
+
+# https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
+
+[keyboard]
+bindings = [
+{  key  =  "-",         mods  =  "Command",        action  =  "DecreaseFontSize"   },
+{  key  =  "=",         mods  =  "Command",        action  =  "IncreaseFontSize"   },
+{  key  =  "A",         mods  =  "Command",        chars   =  "\u0001"             },
+{  key  =  "Back",      mods  =  "Alt",            chars   =  "\u0017"             },
+{  key  =  "Back",      mods  =  "Command",        chars   =  "\u0017"             },
+{  key  =  "W",         mods  =  "Command",        chars   =  "\u0017"             },
+{  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
+{  key  =  "C",         mods  =  "Command",        chars   =  "\u0003"             },
+{  key  =  "D",         mods  =  "Command",        chars   =  "\u0004"             },
+{  key  =  "E",         mods  =  "Command",        chars   =  "\u0005"             },
+{  key  =  "F",         mods  =  "Command",        chars   =  "\u0006"             },
+{  key  =  "F",         mods  =  "Command|Shift",  action  =  "ToggleFullscreen"   },
+{  key  =  "G",         mods  =  "Command",        chars   =  "\u0007"             },
+{  key  =  "H",         mods  =  "Command",        chars   =  "\u0008"             },
+{  key  =  "H",         mods  =  "Command",        action   =  "ReceiveChar"             },
+{  key  =  "H",         mods  =  "Command|Shift",  action  =  "SelectPreviousTab"  },
+# {  key  =  "I",         mods  =  "Command",        chars   =  "\u0009"             },
+{ key = "I", mods = "Command", chars = "\u001b[105;5u" },
+{  key  =  "J",         mods  =  "Command",        chars   =  "\u000a"             },
+{  key  =  "K",         mods  =  "Command",        chars   =  "\u000b"             },
+{  key  =  "K",         mods  =  "Command|Shift",  chars   =  "\u000c"             },
+{  key  =  "L",         mods  =  "Command",        chars   =  "\u000c"             },
+{  key  =  "L",         mods  =  "Command|Shift",  action  =  "SelectNextTab"      },
+{  key  =  "LBracket",  mods  =  "Command",  chars   =  "\u001b"   },
+{  key  =  "N",         mods  =  "Command",  chars   =  "\u000e"   },
+{  key  =  "M",         mods  =  "Command",  chars   =  "\u001bZ"  },
+{  key  =  "O",         mods  =  "Command",  chars   =  "\u000f"   },
+{  key  =  "P",         mods  =  "Command",  chars   =  "\u0010"   },
+{  key  =  "Q",         mods  =  "Command",  action  =  "None"     },
+{  key  =  "Q",         mods  =  "Command",  chars   =  "\u0011"   },
+{  key  =  "R",         mods  =  "Command",  chars   =  "\u0012"   },
+{  key  =  "T",         mods  =  "Command",  chars   =  "\u0014"   },
+{  key  =  "Y",         mods  =  "Command",        chars   =  "\u0019"             },
+# {  key  =  "Y",         mods  =  "Command",  Action   =  "ReceiveChar"   },
+{  key  =  "RBracket",  mods  =  "Command",  chars   =  "\u001d"   },
+{  key  =  "S",         mods  =  "Command",        chars   =  "\u0013"             },
+{  key  =  "Slash",     mods  =  "Command",        chars   =  "\u001f"             },
+{  key  =  "Backslash", mods  =  "Command",        chars   =  "\u001c"             },
+{  key  =  "Space",     mods  =  "Command|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
+{  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
+{  key  =  "V",         mods  =  "Command",  chars  =  "\u0016"              },
+{  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
+{  key  =  "W",         mods  =  "command|Shift",  action  =  "Quit"               },
+{  key  =  "X",         mods  =  "Command",        chars   =  "\u0018"             },
+{  key  =  "Z",         mods  =  "Command",        chars   =  "\u001A"             },
+{  key  =  "1",         mods  =  "Command",        action  =  "SelectTab1"},
+{  key  =  "2",         mods  =  "Command",        action  =  "SelectTab2"},
+{  key  =  "3",         mods  =  "Command",        action  =  "SelectTab3"},
+{  key  =  "4",         mods  =  "Command",        action  =  "SelectTab4"},
+{  key  =  "5",         mods  =  "Command",        action  =  "SelectTab5"},
+{  key  =  "6",         mods  =  "Command",        action  =  "SelectTab6"},
+{  key  =  "T",         mods  =  "Command|Shift",  action  =  "CreateNewTab"       },
+]
+
+[mouse]
+hide_when_typing = true
+bindings = [
+  {  action  =  "PasteSelection",  mouse  =  "Middle"  }
+]
+
+[scrolling]
+history = 5000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+
+[terminal.shell]
+args = ["--login"]
+program = "/bin/zsh"
+
+[window]
+# decoration options: None, Transparent, Full, Buttonless
+decorations = "Transparent"
+dynamic_padding = true
+# dynamic_title = false
+# opacity = 0.90
+# blur = true
+# decorations_theme_variant = "Dark"
+
+position = "None"
+startup_mode = "Windowed"
+option_as_alt = "both"
+
+[window.dimensions]
+columns = 82
+lines = 28
+
+[window.padding]
+x = 5
+y = 5

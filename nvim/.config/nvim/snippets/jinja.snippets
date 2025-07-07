@@ -1,0 +1,58 @@
+extends html, todo
+
+snippet jh "header" w
+  #jinja2: lstrip_blocks: "true", trim_blocks: "true"
+  {#
+      Author: Jose Lima (`getenv('USER')`)
+      ${0}
+  #}
+
+# Date:   `strftime("%Y-%m-%d %H:%M")`
+
+snippet strip "strip spaces and fix indent blocks" b
+  #jinja2: lstrip_blocks: "true", trim_blocks: "true"
+
+snippet b "block" w
+  {%${0}%}
+
+snippet set "set" w
+  {% set ${0} %}
+
+snippet bc "block comment" w
+  {#
+    ${0:${VISUAL}}
+  #}
+
+# snippet jc "block comment" w
+#   {# ${0:${VISUAL}} #}
+
+snippet jr "Raw block" w
+  {% raw %} ${0:${VISUAL}} {% endraw %}
+
+snippet jb "block" w
+  {% ${0} %}
+    ${VISUAL}
+  {% end${0/\v(\w+).*/\1/g} %}
+
+snippet jv "variable inside curly" w
+   {{ ${0:${VISUAL}} }}
+
+snippet jelif "if statement" w
+  {% if ${0} %}
+    ${VISUAL}
+  {% else %}
+  {% endif %}
+
+snippet if "if statement" w
+  {% if ${0} %}
+    ${VISUAL}
+  {% endif %}
+snippet macro "macro" b
+  {%- macro ${1}() %}
+  ${0:${VISUAL}}
+  {%- endmacro -%}
+
+snippet for "if statement" w
+  {% for ${0} %}
+    ${VISUAL}
+  {% endfor %}

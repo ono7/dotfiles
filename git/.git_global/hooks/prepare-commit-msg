@@ -1,0 +1,26 @@
+# #!/bin/sh
+# COMMIT_MSG_FILE=$1
+# COMMIT_SOURCE=$2
+# SHA1=$3
+
+# Remove everything from the commit message file
+# echo '' >"$COMMIT_MSG_FILE"
+
+# Get the list of staged files
+# STAGED_FILES=$(git status --porcelain | head -n 10)
+
+# Add the list of staged files to the commit message
+# echo "$STAGED_FILES" | sed 's/^/    /' >>"$COMMIT_MSG_FILE"
+# echo "$STAGED_FILES" >>"$COMMIT_MSG_FILE"
+
+# Add content to the bottom
+# cat <<EOF >>"$COMMIT_MSG_FILE"
+# Type can be
+# feat     (new feature)
+# fix      (bug fix)
+# refactor (refactoring production code)
+# style    (formatting, missing semi colons, etc; no code change)
+# docs     (changes to documentation)
+# test     (adding or refactoring tests; no production code change)
+# chore    (updating grunt tasks etc; no production code change)
+# EOF

@@ -1,0 +1,68 @@
+extends html, jinja, todo
+
+priority 100
+
+snippet h "head" w
+  ---
+  title: ${1}
+  tags: [${2}]
+  ---
+
+  ${0}
+
+snippet todo "todo" w
+  - TODO: ${0:${VISUAL}}
+snippet fix "fix" w
+  - FIXME: ${0:${VISUAL}}
+snippet fix "bug" w
+  - BUG: ${0:${VISUAL}}
+snippet note "note" w
+  - NOTE: ${0:${VISUAL}}
+
+
+snippet c "code block" w
+	\`\`\`${1}
+	${0:${VISUAL}}
+	\`\`\`
+
+snippet ti "tag inline" w
+  <${1}>${0:${VISUAL}}</${1/\v(\w+).*/\1/g}>
+
+snippet h1 "h1 heading, centered" w
+  <h1 align="center">${0:${VISUAL}}</h1>
+
+snippet h2 "h2 heading, centered" w
+  <h2 align="${1|center,left,right|}">${VISUAL}${0}</h2>
+
+snippet h3 "h3 heading, centered" w
+  <h3 align="${1|center,left,right|}">${VISUAL}${0}</h3>
+
+snippet h4 "h4 heading, centered" w
+  <h4 align="${1|center,left,right|}">${VISUAL}${0}</h4>
+
+snippet h5 "h5 heading, centered" w
+  <h5 align="${1|center,left,right|}">${VISUAL}${0}</h5>
+
+snippet ta "tag" w
+  <${1}>
+    ${0:${VISUAL}}
+  </${1/\v(\w+).*/\1/g}>
+
+# snippet img "image html" w
+#   <p align="center">
+#     <img width="${2:500}" title="${4:image}" src="${0}"><br>
+#   </p>
+
+snippet cimg "image centered" w
+  <center>
+    <img align="${1|left,right|}" width="${2:500}" height="${3:400}" alt="${4:image}" src="${0}">
+  </center>
+
+snippet img "insert html image link" b
+   <img align="${0:left}" width="${2:500}" title="" src="${1:name}">
+
+snippet details "creates details section" w
+  <details>
+  <summary>${1:click to expand}</summary>
+  ${0: blah blah blah}
+  </details>

@@ -1,0 +1,8 @@
+Makefile
+backups.md
+README.md
+.gitignore
+.git
+
+# ignore any file or directory that starts with _
+_.*

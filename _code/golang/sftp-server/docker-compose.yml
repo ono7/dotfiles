@@ -1,0 +1,18 @@
+---
+services:
+  sftp:
+    image: test.repo.com/net-sftp:production
+    container_name: net-sftp
+    volumes:
+      - ./images:/app/images
+      - ./logs:/app/logs
+    ports:
+      - 0.0.0.0:443:2022/tcp
+    restart: unless-stopped
+    environment:
+      SFTP_USER: niceuser
+      SFTP_PASS: secure...
+      SSH_KEY: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        blah blah blah
+        -----END OPENSSH PRIVATE KEY-----

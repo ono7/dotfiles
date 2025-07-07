@@ -1,0 +1,25 @@
+extends todo
+
+snippet h "header" b
+  # Author:  Jose Lima (`getenv('USER')`)
+  ${0}
+
+# snippet h "header" b
+#   # Author:  Jose Lima (`getenv('USER')`)
+#   # Date:    `strftime("%Y-%m-%d %H:%M")`
+#   ${0}
+
+snippet new "main run file"
+
+  FROM golang:1.21-alpine
+
+  RUN mkdir -p /app/images
+
+  WORKDIR /app
+
+  COPY linux-server .linux-server
+
+  EXPOSE 2022
+
+  # jail this process inside the /app directory
+  CMD ["chroot", "/app", "./.linux-server"]

@@ -1,0 +1,47 @@
+snippet vim "modeline, see h: modeline" w
+  vim: foldlevel=0
+snippet da "date" w
+	`strftime("%Y-%m-%d")`
+snippet ddate "date" w
+	`strftime("%B %d, %Y")`
+snippet diso "date" w
+	`strftime("%Y-%m-%dT%H:%M:%S")`
+snippet time "time" w
+	`strftime("%H:%M")`
+snippet dt "date and time" w
+	`strftime("%Y-%m-%d %H:%M")`
+
+snippet c "code block" w
+	\`\`\`${1}
+	${0:${VISUAL}}
+	\`\`\`
+
+snippet ft "filetype" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+
+# snippet todo "todo" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet fix "fix" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` FIXME: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet fix "bug" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` BUG: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet note "note" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` NOTE: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+
+# snippet todo "todo" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet fix "fix" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` FIXME(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet bug "bug" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` BUG(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet note "note" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` NOTE(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+
+# snippet d "done" w
+#   ✅ DONE: `strftime("%Y-%m-%d %H:%M")` ${0:${VISUAL}}
+
+snippet u "inserts username from env" w
+  (`$USER`)$0
+
+# snippet note_example "note" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]) : '#'` NOTE(`$USER`) `strftime("%Y-%m-%d")` : ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1] : ''`

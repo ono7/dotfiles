@@ -1,0 +1,89 @@
+[colors.primary]
+# nice color override
+# background = "#1e1e2e"
+# foreground = "#cdd6f4"
+
+# base00 = "#1e1d2d",
+# base01 = "#282737",
+# base02 = "#2f2e3e",
+# base03 = "#383747",
+# base04 = "#414050",
+# base05 = "#bfc6d4",
+# base06 = "#ccd3e1",
+# base07 = "#d9e0ee",
+# base08 = "#f38ba8",
+# base09 = "#f8bd96",
+# base0A = "#fae3b0",
+# base0B = "#abe9b3",
+# base0C = "#89dceb",
+# base0D = "#89b4fa",
+# base0E = "#cba6f7",
+# base0F = "#f38ba8",
+
+# background = "#1b1f31"
+# background = "#1a1f32"
+background = "#021527"
+foreground = "#a8b5d1"
+
+dim_foreground = "#bac2de"
+bright_foreground = "#cdd6f4"
+
+[colors.cursor]
+text = "#1e1e2e"
+cursor = "#a9d0f0"
+
+[colors.vi_mode_cursor]
+text = "#1e1e2e"
+cursor = "#b4befe"
+
+[colors.search.matches]
+foreground = "#1e1e2e"
+background = "#a6adc8"
+
+[colors.search.focused_match]
+foreground = "#1e1e2e"
+background = "#a6e3a1"
+
+[colors.footer_bar]
+foreground = "#1e1e2e"
+background = "#a6adc8"
+
+[colors.hints.start]
+foreground = "#1e1e2e"
+background = "#f9e2af"
+
+[colors.hints.end]
+foreground = "#1e1e2e"
+background = "#a6adc8"
+
+[colors.selection]
+text = "#1e1e2e"
+background = "#f5e0dc"
+
+[colors.normal]
+black = "#4c4f69"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#cba6f7"
+cyan = "#89dceb"
+white = "#bac2de"
+
+[colors.bright]
+black = "#4c4f69"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#cba6f7"
+cyan = "#89dceb"
+white = "#8c8fa1"
+
+[[colors.indexed_colors]]
+index = 16
+color = "#fab387"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#f5e0dc"

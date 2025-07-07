@@ -1,0 +1,233 @@
+# Starship configuration - Elegant rounded style matching your Alacritty colors
+# Save this as ~/.config/starship.toml
+
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$rust\
+$golang\
+$php\
+$python\
+$docker_context\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+# OS Symbol - subtle, no background
+[os]
+style = "fg:#8CA7BE"
+disabled = false
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# Username - clean, minimal
+[username]
+show_always = false
+style_user = "fg:#D4B97E"
+style_root = "fg:#C49A9A bold"
+format = "[$user]($style)[@](fg:#8087a2)"
+
+# Hostname - only when SSH
+[hostname]
+ssh_only = true
+style = "fg:#8CA7BE"
+format = "[$hostname]($style) "
+
+[directory]
+style = "fg:#E3DED7 bold"
+format = "[  $path]($style) "
+truncation_length = 3  # Show 3 full levels, abbreviate the rest
+truncate_to_repo = false
+truncation_symbol = '…/'
+fish_style_pwd_dir_length = 1  # Show only first character of each truncated dir
+read_only = " 󰌾"
+read_only_style = "fg:#C49A9A"
+
+[directory.substitutions]
+"Documents" = "󰈙 Docs"
+"Downloads" = "󰈙 Downloads"
+"Music" = "󰝚 Music"
+"Pictures" = "  Pictures"
+"Developer" = "󰲋 Dev"
+"~" = "󰋜 ~"
+
+# Git Branch - clean and minimal
+[git_branch]
+symbol = ""
+style = "fg:#8CBBAD"
+format = "[on $symbol$branch]($style)"
+
+# Git Status - clean indicators
+[git_status]
+style = "fg:#C49A9A"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = "⚡"
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+up_to_date = ""
+untracked = "?${count} "
+stashed = " s"
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+
+# Language/Tool Indicators - floating style
+[nodejs]
+symbol = " "
+style = "fg:#8CBBAD"
+format = "[( $symbol$version )]($style)"
+
+[rust]
+symbol = " "
+style = "fg:#C49A9A"
+format = "[( $symbol$version )]($style)"
+
+[golang]
+symbol = " "
+style = "fg:#93B5B3"
+format = "[( $symbol$version )]($style)"
+
+[php]
+symbol = " "
+style = "fg:#B097B6"
+format = "[( $symbol$version )]($style)"
+
+[python]
+symbol = "🐍 "
+style = "fg:#D4B97E"
+format = '[( $symbol$version)]($style)'
+
+[env_var.VIRTUAL_ENV]
+symbol = "🔸"
+style = "fg:#D4B97E"
+format = "<[$symbol]>($style)"
+detect_extensions = ['py', 'ipynb', 'pyc', 'pyd', 'pyo', 'pyw', 'pyz']
+detect_files = ['requirements.txt', 'pyproject.toml', 'Pipfile', '.python-version']
+# Starship automatically detects virtual environments via VIRTUAL_ENV, CONDA_DEFAULT_ENV, etc.
+
+[docker_context]
+symbol = " "
+style = "fg:#8CA7BE"
+format = "[( $symbol$context )]($style)"
+
+# Package version - subtle
+[package]
+style = "fg:#C9C2B8"
+format = "[( 📦 $version )]($style)"
+
+# Command duration - only show if > 2 seconds
+[cmd_duration]
+min_time = 2000
+style = "fg:#8087a2 italic"
+format = "[( $duration )]($style)"
+
+# Line break
+[line_break]
+disabled = false
+
+# Character - elegant arrows
+[character]
+disabled = false
+success_symbol = "[╰─❯](bold fg:#8CBBAD)"
+error_symbol = "[╰─❯](bold fg:#C49A9A)"
+vimcmd_symbol = "[╰─⦿](bold fg:#D4B97E)"
+vimcmd_replace_one_symbol = "[╰─⦿](bold fg:#B097B6)"
+vimcmd_replace_symbol = "[╰─⦿](bold fg:#B097B6)"
+vimcmd_visual_symbol = "[╰─⦿](bold fg:#93B5B3)"
+
+# Time - only show on right side if needed
+[time]
+disabled = true
+time_format = "%R"
+style = "fg:#8087a2"
+format = "[🕐 $time]($style)"
+
+# Battery - clean indicators
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 30
+style = "bold fg:#C49A9A"
+
+[[battery.display]]
+threshold = 60
+style = "fg:#D4B97E"
+
+[[battery.display]]
+threshold = 100
+style = "fg:#8CBBAD"
+
+# Status - minimal error display
+[status]
+style = "fg:#C49A9A"
+symbol = "✗"
+success_symbol = ""
+format = "[$symbol$int]($style) "
+map_symbol = true
+disabled = false
+
+# Cloud services - subtle when present
+[aws]
+symbol = "☁️  "
+style = "fg:#D4B97E"
+format = "[($symbol$profile )]($style)"
+
+[azure]
+disabled = false
+format = "[($symbol$subscription )]($style)"
+symbol = "☁️  "
+style = "fg:#8CA7BE"
+
+[gcloud]
+symbol = "☁️  "
+style = "fg:#C49A9A"
+format = "[($symbol$project )]($style)"
+
+# Kubernetes - when relevant
+[kubernetes]
+symbol = "⛵ "
+style = "fg:#93B5B3"
+format = "[($symbol$context )]($style)"
+disabled = false
+
+# Jobs indicator
+[jobs]
+symbol = "⚙️ "
+style = "fg:#D4B97E"
+number_threshold = 1
+format = "[$symbol$number]($style) "

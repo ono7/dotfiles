@@ -1,0 +1,3 @@
+# this should be wireguard tunnel int
+ext_if="utun5"
+nat on $ext_if inet from ! ($ext_if) to any -> ($ext_if)
