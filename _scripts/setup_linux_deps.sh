@@ -27,6 +27,7 @@ install_arch_packages() {
   sudo pacman -S --needed --noconfirm base-devel procps curl file git
 
   # Install additional tools
+  sudo pacman -S --needed --noconfirm docker foot
   sudo pacman -S --needed --noconfirm openssl tree zsh the_silver_searcher \
     fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck
 
