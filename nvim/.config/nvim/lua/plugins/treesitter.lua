@@ -60,6 +60,8 @@ return {
           "css",
           "dockerfile",
           "gitignore",
+          "cpp",
+          "c",
           "go",
           "html",
           "javascript",
