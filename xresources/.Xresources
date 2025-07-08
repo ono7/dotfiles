@@ -1,0 +1,52 @@
+! urxvt colorscheme configuration
+! Add this to your ~/.Xresources file
+
+! Enable Unicode support
+URxvt.utf8: true
+
+! Font configuration with nerd font support
+URxvt.font: xft:IosevkaTerm NF:pixelsize=36
+
+! URxvt.font: xft:IosevkaTerm NF:pixelsize=37:antialias=true:autohint=false
+! URxvt.boldFont: xft:IosevkaTerm NF:bold:pixelsize=37:antialias=true:autohint=false
+! URxvt.italicFont: xft:IosevkaTerm NF:italic:pixelsize=37:antialias=true:autohint=false
+
+
+! Font spacing
+URxvt.letterSpace: 1
+URxvt.lineSpace: 2
+
+! Remove scrollbar
+URxvt.scrollBar: false
+
+! Clipboard support - enable Ctrl+Shift+C/V
+URxvt.perl-ext-common: default,clipboard,url-select
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.autocopy: true
+
+! Color scheme
+! Normal colors
+URxvt.color0:  #2A3441
+URxvt.color1:  #C47B7B
+URxvt.color2:  #7BA05B
+URxvt.color3:  #D4B171
+URxvt.color4:  #7B9FC4
+URxvt.color5:  #A67BC4
+URxvt.color6:  #7BC4B5
+URxvt.color7:  #D6CFC7
+
+! Bright colors
+URxvt.color8:  #4A5563
+URxvt.color9:  #E8A3A3
+URxvt.color10: #9BC278
+URxvt.color11: #F0D195
+URxvt.color12: #A3C7E8
+URxvt.color13: #C7A3E8
+URxvt.color14: #A3E8D4
+URxvt.color15: #F2EDE7
+
+! Default colors
+URxvt.foreground: #D6CFC7
+URxvt.background: #171F2C
+URxvt.cursorColor: #D6CFC7
