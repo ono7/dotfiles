@@ -7,9 +7,9 @@ if type lint-staged >/dev/null 2>&1; then
   if [ -f .lintstagedrc ]; then
     echo "✔ Using local lintstagedrc"
     # lint-staged --concurrent false -r || exit 1
-  else
-    echo "! Using global lintstagedrc"
-    # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
+  # else
+  #   echo "! Using global lintstagedrc"
+  #   # lint-staged --concurrent false -r --config ~/.lintstagedrc || exit 1
   fi
 else
   echo "lint-staged not installed: npm install lint-staged -g"
