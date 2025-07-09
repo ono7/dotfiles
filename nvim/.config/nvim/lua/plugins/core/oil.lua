@@ -61,6 +61,7 @@ return {
 
     -- local binding = vim.loop.os_uname().sysname == "Darwin" and "<M-\\>" or "<C-\\>"
     local binding = "<M-\\>"
-    vim.keymap.set("n", binding, require("oil").toggle_float)
+    -- vim.keymap.set("n", binding, require("oil").toggle_float({ close = true }))
+    vim.keymap.set("n", binding, "<CMD>Oil<CR>")
   end,
 }
