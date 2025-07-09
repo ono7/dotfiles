@@ -17,6 +17,7 @@ export PATH="/opt/homebrew/sbin:/usr/local/sbin:$PATH"
 if type stow &>/dev/null; then
   stow bash
   stow ctags
+  stow aerospace
   stow gdb
   stow git
   stow nvim

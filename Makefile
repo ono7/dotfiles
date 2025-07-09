@@ -41,6 +41,7 @@ clean:
 	rm -f ~/.alacritty-windows.toml
 	rm -f ~/.bashrc
 	rm -f ~/.sqliterc
+	rm -f ~/.aerospace
 	rm -f ~/.zshrc
 	rm -rf ~/.dlv
 	rm -f ~/.zshenv
