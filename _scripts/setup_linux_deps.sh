@@ -29,12 +29,13 @@ install_arch_packages() {
   # Install additional tools
   sudo pacman -S --needed --noconfirm docker foot
   sudo pacman -S --needed --noconfirm openssl tree zsh the_silver_searcher \
-    fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck
+    fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck \
+    rlwrap pass
 
   # Install gron from AUR (if yay is available) or skip with warning
-  if command -v yay &> /dev/null; then
+  if command -v yay &>/dev/null; then
     yay -S --needed --noconfirm gron
-  elif command -v paru &> /dev/null; then
+  elif command -v paru &>/dev/null; then
     paru -S --needed --noconfirm gron
   else
     log "Warning: gron not installed (requires AUR helper like yay or paru)"
@@ -60,28 +61,29 @@ install_debian_packages() {
 
   # Install additional tools
   sudo apt install -y libssl-dev tree zsh silversearcher-ag \
-    fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck gron
+    fd-find unzip xclip ripgrep stow make sqlite3 wget shfmt shellcheck gron \
+    rlwrap pass
 }
 
 setup_locale() {
   local distro="$1"
 
   case "$distro" in
-    arch|manjaro|endeavouros)
-      log "setting up locale (Arch)"
-      # Arch uses different locale setup
-      if ! grep -q "^en_US.UTF-8" /etc/locale.gen; then
-        sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-        sudo locale-gen
-      fi
-      ;;
-    ubuntu|debian|pop|mint)
-      log "setting up locale (Debian/Ubuntu)"
-      sudo locale-gen "en_US.UTF-8"
-      ;;
-    *)
-      log "Unknown distribution, skipping locale setup"
-      ;;
+  arch | manjaro | endeavouros)
+    log "setting up locale (Arch)"
+    # Arch uses different locale setup
+    if ! grep -q "^en_US.UTF-8" /etc/locale.gen; then
+      sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+      sudo locale-gen
+    fi
+    ;;
+  ubuntu | debian | pop | mint)
+    log "setting up locale (Debian/Ubuntu)"
+    sudo locale-gen "en_US.UTF-8"
+    ;;
+  *)
+    log "Unknown distribution, skipping locale setup"
+    ;;
   esac
 }
 
@@ -100,17 +102,17 @@ main() {
   setup_locale "$distro"
 
   case "$distro" in
-    arch|manjaro|endeavouros)
-      install_arch_packages
-      ;;
-    ubuntu|debian|pop|mint)
-      install_debian_packages
-      ;;
-    *)
-      log "Unsupported distribution: $distro"
-      log "This script supports Arch Linux and Debian/Ubuntu-based distributions"
-      exit 1
-      ;;
+  arch | manjaro | endeavouros)
+    install_arch_packages
+    ;;
+  ubuntu | debian | pop | mint)
+    install_debian_packages
+    ;;
+  *)
+    log "Unsupported distribution: $distro"
+    log "This script supports Arch Linux and Debian/Ubuntu-based distributions"
+    exit 1
+    ;;
   esac
 
   log "Dependencies installation completed for $distro"
