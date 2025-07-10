@@ -30,7 +30,8 @@ install_arch_packages() {
   sudo pacman -S --needed --noconfirm docker foot
   sudo pacman -S --needed --noconfirm openssl tree zsh the_silver_searcher \
     fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck \
-    rlwrap pass autotiling
+    rlwrap pass wl-clipboard
+  sudo pacman -S autotiling xdg-desktop-portal xdg-desktop-portal-wlr --needed
 
   temp1=$PWD
   git clone https://aur.archlinux.org/yay-bin.git ~/yay
