@@ -32,6 +32,14 @@ install_arch_packages() {
     fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck \
     rlwrap pass
 
+  temp1=$PWD
+  git clone https://aur.archlinux.org/yay-bin.git ~/yay
+  cd ~/yay
+  sudo pacman -S base-devel
+  makepkg -si
+  cd $temp1
+  rm -rf ~/yay
+
   # Install gron from AUR (if yay is available) or skip with warning
   if command -v yay &>/dev/null; then
     yay -S --needed --noconfirm gron
