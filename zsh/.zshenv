@@ -1,3 +1,9 @@
+# make GTK apps scale better in hires monitors
+export QT_SCALE_FACTOR=2
+
+# use monitor DPI
+export QT_WAYLAND_FORCE_DPI=physical
+
 export ZK_NOTEBOOK_DIR="$HOME/notes"
 alias l='less -R '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
