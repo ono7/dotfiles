@@ -6,6 +6,15 @@
 
 set $mod Mod1
 
+# set this for proper wayland support
+exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr &
+exec --no-startup-id /usr/lib/xdg-desktop-portal
+
+# automatic tiling, 2 = master stack use --help
+exec autotiling -l 2
+
 # exec systemctl --user set-environment QT_SCALE_FACTOR=2
 # exec systemctl --user import-environment QT_SCALE_FACTOR
 # exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 2.0
