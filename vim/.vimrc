@@ -171,9 +171,9 @@ cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
 " use M-x
-cnoremap <esc>b <s-left>
-cnoremap <esc>f <s-right>
-cnoremap <esc><backspace> <c-w>
+cnoremap <M-b>b <s-left>
+cnoremap <M-f> <s-right>
+cnoremap <A-BS> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>

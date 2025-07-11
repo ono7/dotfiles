@@ -38,9 +38,6 @@ cnoremap <c-e> <end>
 " cnoremap <c-h> <BS>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
-cnoremap <esc><backspace> <c-w>
-cnoremap <esc>b <s-left>
-cnoremap <esc>f <s-right>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
