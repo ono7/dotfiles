@@ -27,7 +27,7 @@ scrollback-limit = 4294967296
 window-inherit-working-directory = true
 window-theme = ghostty
 window-colorspace = "display-p3"
-minimum-contrast = 3
+# minimum-contrast = 3
 window-save-state = always
 
 # init window size
@@ -123,8 +123,9 @@ macos-non-native-fullscreen = true
 foreground = #c5bfb8
 # background = #171F2C
 # background = #101820
-background = #0e1f25
-# background = #00141a
+# background = #0e1f25
+# background = #121a21
+background = #1a2b34
 cursor-color = #ffffff
 cursor-text = #171f2c
 
