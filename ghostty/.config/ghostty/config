@@ -121,7 +121,10 @@ macos-non-native-fullscreen = true
 
 # Primary colors
 foreground = #c5bfb8
-background = #171F2C
+# background = #171F2C
+# background = #101820
+background = #0e1f25
+# background = #00141a
 cursor-color = #ffffff
 cursor-text = #171f2c
 
