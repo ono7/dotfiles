@@ -1,6 +1,44 @@
 if vim.env.TERM_PROGRAM == "Apple_Terminal" then
   vim.opt.termguicolors = false
-  vim.cmd([[set t_Co=16]])
+  vim.cmd([[
+  set t_Co=16
+  hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+  hi! link LineNr Comment
+  hi! clear Error
+  hi! clear ModeMsg
+  hi! clear DiffDelete
+  hi! clear FoldColumn
+  hi! clear SignColumn
+  hi! clear CursorLineFold
+  hi! link CursorLine Normal
+  hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
+  hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
+  hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
+  hi! clear DiffAdd
+  " hi! DiffChange term=bold ctermbg=0 guibg=NONE
+  hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
+  hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
+  hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
+  hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
+  hi! clear ErrorMsg
+  hi! clear MatchParen
+  hi! Visual term=reverse cterm=reverse gui=reverse
+  hi! MatchParen guibg=#384057 ctermbg=8
+  hi! Search term=reverse cterm=reverse gui=reverse
+  hi! PmenuSel term=reverse cterm=reverse gui=reverse
+  hi! Pmenu term=reverse cterm=reverse gui=reverse
+  hi! clear Pmenu
+  hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+  hi! link LineNr Comment
+  hi! link DiffDelete Comment
+  hi! link SpecialKey Comment
+  hi! link Folded Comment
+  hi! link VertSplit Comment
+  hi! link MsgSeparator Comment
+  hi! link WinSeparator Comment
+  hi! link EndOfBuffer Comment
+  hi! link StatusLineNC Comment
+  ]])
   return {}
 else
   return {
