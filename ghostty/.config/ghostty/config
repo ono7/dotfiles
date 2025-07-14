@@ -114,8 +114,8 @@ window-vsync = false
 
 macos-non-native-fullscreen = true
 
-# background-opacity = .95
-# background-blur = true
+background-opacity = .95
+background-blur = true
 
 # colorscheme
 
