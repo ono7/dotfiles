@@ -195,8 +195,8 @@ program = "/bin/zsh"
 decorations = "Transparent"
 dynamic_padding = true
 # dynamic_title = false
-# opacity = 0.90
-# blur = true
+opacity = 0.90
+blur = true
 # decorations_theme_variant = "Dark"
 
 position = "None"
