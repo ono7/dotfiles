@@ -20,6 +20,7 @@ if vim.g.neovide then
   vim.g.neovide_frame_no_title = true
 
   vim.g.neovide_window_blurred = true
+  vim.g.neovide_opacity = 0.90
   vim.g.neovide_confirm_quit = true
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
