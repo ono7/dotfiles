@@ -142,7 +142,7 @@ else
       vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = mycolors.red, bold = true })
       vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#2d3a44" })
       vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
-      vim.api.nvim_set_hl(0, "Visual", { bg = "#2d3a44" })
+      vim.api.nvim_set_hl(0, "Visual", { bg = "#7ec9d8", fg = "#1a1f26" })
       vim.api.nvim_set_hl(0, "LineNr", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "Search", { bg = "#2d3a44" })
       vim.api.nvim_set_hl(0, "StatusLine", {})
