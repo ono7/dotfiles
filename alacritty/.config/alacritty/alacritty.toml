@@ -9,7 +9,8 @@ working_directory = "None"
 # Generated using saturation enhancement algorithm
 
 [colors.primary]
-background = "#1b2330"         # Default background (index 257)
+# background = "#1b2330"         # Default background (index 257)
+background = "#1d3340"
 foreground = "#D6CFC7"         # Default foreground (index 256)
 dim_foreground = "#4A5563"     # Bright black for dimmed text
 bright_foreground = "#F2EDE7"  # Bright white
