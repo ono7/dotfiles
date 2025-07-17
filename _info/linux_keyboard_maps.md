@@ -20,3 +20,7 @@ keycode 66 = Escape
 
 Although for the second part YMMV, since not all display managers run
 ~/.Xmodmap. You may need to add xmodmap .Xmodmap to .xinitrc on some of them.
+
+## temp set escape to capslock
+
+`sudo echo "keycode 58 = Escape" | sudo loadkeys -`
