@@ -66,11 +66,11 @@ return {
 
     local k = vim.keymap.set
 
-    k("n", "<M-b>", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
-    k("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
-    k("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
-    k("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
-    k("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
+    k("n", "<leader>b", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
+    -- k("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
+    -- k("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
+    -- k("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
+    -- k("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
     k("n", "<leader>vc", function()
       require("fzf-lua").files({
         cwd = vim.fn.expand("~/.dotfiles"),
@@ -84,7 +84,7 @@ return {
     end, { desc = "Search dotfiles" })
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
-    k("n", "<M-g>", fzf.live_grep, { desc = "[S]earch by [G]rep" })
+    k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
     k("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
     k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
     k("n", "<leader>ft", function()
@@ -106,7 +106,7 @@ return {
     end, { desc = "Find files in current file's directory" })
 
     -- git files
-    k({ "n", "x" }, "<M-f>", function()
+    k({ "n", "x" }, "<leader>ff", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
         previewer = false,
@@ -138,7 +138,7 @@ return {
     end, { desc = "Recent files (no git)" })
 
     -- live grep
-    k("n", "<M-g>", function()
+    k("n", "<leader>g", function()
       require("fzf-lua").live_grep({
         prompt = "Live Grep> ",
         -- previewer = false,

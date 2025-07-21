@@ -23,6 +23,7 @@ return {
           "gopls",
           "isort",
           "black",
+          "clangd",
           "stylua",
           "shellcheck",
           "sqlfmt",

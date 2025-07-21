@@ -65,7 +65,7 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 1
 vim.opt.foldmethod = "indent"
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 -- vim.opt.formatoptions = "c1lqjr"
@@ -146,11 +146,11 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10 -- for performace
+vim.opt.synmaxcol = 10           -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
 -- vim.opt.timeout = false -- remove timeout for partially typed commands
-vim.opt.timeout = true -- remove timeout for partially typed commands
+vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = "%t"
