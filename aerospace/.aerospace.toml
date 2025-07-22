@@ -193,6 +193,10 @@ end tell'
 if.app-id = 'com.apple.ActivityMonitor'
   run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+  run = 'layout floating'
+
 # make all windows float by default
 # [[on-window-detected]]
 #     check-further-callbacks = true
