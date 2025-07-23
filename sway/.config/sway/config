@@ -55,7 +55,7 @@ set $right l
 set $term foot
 
 # Your preferred application launcher
-set $menu wmenu-run
+set $menu rofi -show drun
 
 ### Output configuration
 #

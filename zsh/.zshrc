@@ -7,6 +7,9 @@ stty -ixon 2>/dev/null
 # export GPG_TTY=$(tty)
 export GPG_TTY="/dev/tty"
 
+# swaybar/rofi
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+
 ############## Essential environment variables ##############
 
 # export COLORTERM=truecolor

@@ -10,6 +10,9 @@ export LC_TYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+# swaybar/rofi
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+
 # If not running interactively, don't do anything
 case $- in
 *i*) ;;
