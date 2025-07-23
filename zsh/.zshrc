@@ -665,6 +665,10 @@ if ! infocmp -l -x | grep Smulx &> /dev/null; then
   fi
 fi
 
+if [ $(uname -n) == "arch" ]; then
+  alias p='pacman'
+fi
+
 
 ############## Starship prompt ##############
 
