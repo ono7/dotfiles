@@ -20,7 +20,7 @@ crontab
 servers=(1.1.1.1 1.1.1.2)
 
 log() {
-  printf '[ %s ] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" | tee >> ~/rsync.log
+  printf '[ %s ] - %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" | tee -a ~/rsync.log
 }
 
 log "Starting rsync process"
