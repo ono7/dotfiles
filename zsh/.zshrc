@@ -548,6 +548,15 @@ zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 # zstyle ':completion:*:corrections' format '%F{green}-- %d (errors: %e) --%f'
 
+# Load the menuselect keymap
+zmodload zsh/complist
+
+# set vi-style bindings for menu selection
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
 ############## Key bindings ##############
 
 ############## FZF configuration ##############
@@ -665,10 +674,22 @@ if ! infocmp -l -x | grep Smulx &> /dev/null; then
   fi
 fi
 
+# arch linux
 if [ $(uname -n) == "arch" ]; then
-  alias p='pacman'
+  alias p='sudo pacman'
+  # this function is necessary for the foot terminal to be able to open new terminal to cwd
+  autoload -U add-zsh-hook
+  function osc7-pwd() {
+    emulate -L zsh
+    setopt extendedglob
+    local LC_ALL=C
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+  }
+  function chpwd-osc7-pwd() {
+    (( ZSH_SUBSHELL )) || osc7-pwd
+  }
+  add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 fi
-
 
 ############## Starship prompt ##############
 
