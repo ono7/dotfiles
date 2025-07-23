@@ -584,9 +584,9 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 export FZF_DEFAULT_OPTS='
 --height 40%
 --border=rounded
---color=bg+:-1,bg:-1,spinner:#f5c2e7,hl:#a6e3a1
+--color=bg+:#252a3e,bg:-1,spinner:#f5c2e7,hl:#a6e3a1
 --color=fg:#D6CFC7,header:#94e2d5,info:#f9e2af,pointer:#f38ba8
---color=marker:#a6e3a1,fg+:#cdd6f4,prompt:#cba6f7,hl+:#a6e3a1
+--color=marker:#a6e3a1,fg+:-1,prompt:#cba6f7,hl+:#a6e3a1
 --color=border:#6c7086,separator:#45475a,scrollbar:#585b70'
 
 if command -v fd &>/dev/null; then
