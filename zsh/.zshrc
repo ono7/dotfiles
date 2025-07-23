@@ -660,19 +660,19 @@ export PATH="$PATH:/Users/jlima/.cache/lm-studio/bin"
 # remove control+t (fzf)
 bindkey -r '^T'
 
-if ! infocmp -l -x | grep Smulx &> /dev/null; then
-  echo "building .... ${TERM}"
-
-  infocmp > /tmp/${TERM}.ti
-  # Use sed to replace the smul capability with smul + Smulx
-  sed -i 's/smul=\\E\[4m,/smul=\\E\[4m, Smulx=\\E\[4:%p1%dm,/g' /tmp/${TERM}.ti
-  # Optionally compile the modified terminfo
-  tic -x /tmp/${TERM}.ti
-
-  if infocmp -l -x | grep Smulx &> /dev/null; then
-    echo "Undercurl support is now compiled and ready"
-  fi
-fi
+# if ! infocmp -l -x | grep Smulx &> /dev/null; then
+#   echo "building .... ${TERM}"
+#
+#   infocmp > /tmp/${TERM}.ti
+#   # Use sed to replace the smul capability with smul + Smulx
+#   sed -i 's/smul=\\E\[4m,/smul=\\E\[4m, Smulx=\\E\[4:%p1%dm,/g' /tmp/${TERM}.ti
+#   # Optionally compile the modified terminfo
+#   tic -x /tmp/${TERM}.ti
+#
+#   if infocmp -l -x | grep Smulx &> /dev/null; then
+#     echo "Undercurl support is now compiled and ready"
+#   fi
+# fi
 
 # arch linux
 if [ $(uname -n) == "arch" ]; then
