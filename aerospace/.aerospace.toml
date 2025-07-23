@@ -115,6 +115,7 @@ alt-6 = 'workspace 6'
 alt-m = 'workspace m'
 alt-c = 'workspace c'
 alt-w = 'workspace w'
+alt-w = 'workspace s'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -126,6 +127,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-m = 'move-node-to-workspace m'
 alt-shift-c = 'move-node-to-workspace c'
 alt-shift-w = 'move-node-to-workspace w'
+alt-shift-w = 'move-node-to-workspace s'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -167,15 +169,15 @@ end tell'
     if.workspace = 'workspace-name'
     if.during-aerospace-startup = true
     check-further-callbacks = true
-    run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
+    run = ['layout floating', 'move-node-to-workspace s']  # The callback itself
 
 [[on-window-detected]]
     if.app-id = 'com.google.Chrome'
-    run = 'move-node-to-workspace W' # mnemonics W - Web browser
+    run = 'move-node-to-workspace w' # mnemonics W - Web browser
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Safari'
-    run = 'move-node-to-workspace W' # mnemonics W - Web browser
+    run = 'move-node-to-workspace w' # mnemonics W - Web browser
 
 # [[on-window-detected]]
 #     if.app-id = 'org.alacritty'
@@ -183,7 +185,7 @@ end tell'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.MobileSMS'
-    run = 'move-node-to-workspace C'
+    run = 'move-node-to-workspace c'
 
 [[on-window-detected]]
   if.app-id = 'com.apple.Preview'
