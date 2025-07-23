@@ -573,13 +573,21 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # --color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
 # --color=border:#6D778F,separator:#323C4D,scrollbar:#7591A8'
 
+# export FZF_DEFAULT_OPTS='
+# --height 40%
+# --border=rounded
+# --color=bg+:-1,bg:-1,spinner:#9A82A0,hl:#8BC184
+# --color=fg:#D6CFC7,header:#7E9F9D,info:#BFA46C,pointer:#C19999
+# --color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
+# --color=border:#6D778F,separator:#323C4D,scrollbar:#7591A8'
+
 export FZF_DEFAULT_OPTS='
 --height 40%
 --border=rounded
---color=bg+:#2D364A,bg:#171F2C,spinner:#9A82A0,hl:#8BC184
---color=fg:#D6CFC7,header:#7E9F9D,info:#BFA46C,pointer:#C19999
---color=marker:#8BC184,fg+:#B9C2E4,prompt:#B9C2E4,hl+:#8BC184
---color=border:#6D778F,separator:#323C4D,scrollbar:#7591A8'
+--color=bg+:-1,bg:-1,spinner:#f5c2e7,hl:#a6e3a1
+--color=fg:#D6CFC7,header:#94e2d5,info:#f9e2af,pointer:#f38ba8
+--color=marker:#a6e3a1,fg+:#cdd6f4,prompt:#cba6f7,hl+:#a6e3a1
+--color=border:#6c7086,separator:#45475a,scrollbar:#585b70'
 
 if command -v fd &>/dev/null; then
   # TODO: revisit this and use ~/.config/fd/ignore
