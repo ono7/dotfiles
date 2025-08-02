@@ -85,11 +85,11 @@ return {
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    k("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
-    k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
-    k("n", "<leader>ft", function()
-      fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
-    end, { desc = "Find todos" })
+    -- k("n", "<leader>fd", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    -- k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
+    -- k("n", "<leader>ft", function()
+    --   fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
+    -- end, { desc = "Find todos" })
 
     -- find files
     k("n", "<C-f>", function()
