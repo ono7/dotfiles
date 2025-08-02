@@ -1,20 +1,25 @@
 snippet vim "modeline, see h: modeline" w
   vim: foldlevel=0
 snippet da "date" w
-	`strftime("%Y-%m-%d")`
+  `strftime("%Y-%m-%d")`
+snippet { "curly" w
+  {
+    ${0:${VISUAL}}
+  }
+
 snippet ddate "date" w
-	`strftime("%B %d, %Y")`
+  `strftime("%B %d, %Y")`
 snippet diso "date" w
-	`strftime("%Y-%m-%dT%H:%M:%S")`
+  `strftime("%Y-%m-%dT%H:%M:%S")`
 snippet time "time" w
-	`strftime("%H:%M")`
+  `strftime("%H:%M")`
 snippet dt "date and time" w
-	`strftime("%Y-%m-%d %H:%M")`
+  `strftime("%Y-%m-%d %H:%M")`
 
 snippet c "code block" w
-	\`\`\`${1}
-	${0:${VISUAL}}
-	\`\`\`
+  \`\`\`${1}
+  ${0:${VISUAL}}
+  \`\`\`
 
 snippet ft "filetype" w
   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
