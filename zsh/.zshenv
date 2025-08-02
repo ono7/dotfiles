@@ -196,7 +196,7 @@ tmux_log () {
   tmux capture-pane -S - \; save-buffer ~/tmux_log.txt
 }
 
-alias p='podman'
+# alias p='podman'
 
 a () {
   # super useful shortcut echo "this is a test" | a 2 -> "is"

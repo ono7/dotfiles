@@ -683,7 +683,7 @@ bindkey -r '^T'
 # fi
 
 # arch linux
-if [ $(uname -n) == "arch" ]; then
+if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacman &>/dev/null; then
   alias p='sudo pacman'
   # this function is necessary for the foot terminal to be able to open new terminal to cwd
   autoload -U add-zsh-hook
