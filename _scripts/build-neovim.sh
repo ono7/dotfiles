@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
-
+#  Updated for Arch Linux/Manjaro support
 set -e # Exit immediately if a command exits with a non-zero status.
 
 log() {
@@ -18,7 +18,6 @@ cleanup() {
   rm -rf "${TAG}.tar.gz"
   rm -rf "${DESTDIR}"
 }
-
 trap cleanup EXIT
 
 # Detect architecture and set optimization flags
@@ -41,8 +40,10 @@ log "Cleaning artifacts..."
 log "Downloading neovim"
 curl -LO "https://github.com/neovim/neovim/archive/refs/tags/${TAG}.tar.gz"
 tar xzf "${TAG}.tar.gz"
+
 log "Changing dirs"
 cd "${DESTDIR}"
+
 log "Cleaning build"
 make distclean || true
 make clean || true
@@ -58,6 +59,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
   fi
+# Check if the system is Arch Linux or Manjaro
+elif [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ] || command -v pacman >/dev/null 2>&1; then
+  log "Arch Linux/Manjaro detected. Installing packages..."
+  # Remove existing neovim if installed via pacman
+  sudo pacman -R neovim --noconfirm || true
+  # Install build dependencies
+  sudo pacman -S --needed --noconfirm base-devel cmake unzip ninja curl gettext
 # Check if the system is RHEL or Fedora
 elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ]; then
   log "RHEL or Fedora detected. Installing packages..."
@@ -68,28 +76,29 @@ elif [ -f /etc/debian_version ]; then
   sudo apt-get update
   sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
 else
-  log "Unsupported operating system. This script is intended for macOS, RHEL, Fedora, Ubuntu, or Debian systems only."
+  log "Unsupported operating system. This script is intended for macOS, Arch Linux, Manjaro, RHEL, Fedora, Ubuntu, or Debian systems only."
   exit 1
 fi
 
-# if ! make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local"; then
-#   log "Error while building neovim"
-#   exit 1
-# fi
+# Build with optimizations - using cmake directly for better control
+log "Building neovim with optimizations..."
+mkdir -p build
+cd build
 
-# Build with optimizations
-if ! make CMAKE_BUILD_TYPE=Release \
-  CMAKE_INSTALL_PREFIX="$HOME/.local" \
-  CMAKE_C_FLAGS="$CFLAGS" \
-  CMAKE_CXX_FLAGS="$CXXFLAGS" \
-  ENABLE_LTO=ON \
-  MIN_LOG_LEVEL=3 \
-  ${JEMALLOC_FLAG:-} \
-  CMAKE_EXE_LINKER_FLAGS="$LDFLAGS"; then
+cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX="$HOME/.local" \
+  -DCMAKE_C_FLAGS="$CFLAGS" \
+  -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+  -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+  -DENABLE_LTO=ON
+
+if ! make -j$(nproc); then
   log "Error while building neovim"
   exit 1
 fi
 
+# Clean up old installation
 rm -rf ~/nvim
 rm -rf "$HOME/.local/bin/nvim"
 
@@ -98,17 +107,20 @@ if ! make install; then
   exit 1
 fi
 
-log "remove matchparen.vim....."
-# this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
-find ~/.local/share/nvim -name 'matchparen.vim' -exec rm -f {} \;
-if [ $? != 0 ]; then
-  log "error finding matchparen.vim"
-fi
-
 log "Neovim installed successfully in $HOME/.local/bin/nvim"
 log "Build complete"
 log "Make sure $HOME/.local/bin is in \$PATH"
-which nvim || echo "nvim not found in PATH"
+
+# Check if nvim is in PATH
+if command -v nvim >/dev/null 2>&1; then
+  log "✓ nvim found in PATH: $(which nvim)"
+  log "✓ Version: $(nvim --version | head -1)"
+else
+  log "⚠ nvim not found in PATH. Add $HOME/.local/bin to your PATH:"
+  log "  echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.bashrc"
+  log "  # or for zsh:"
+  log "  echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.zshrc"
+fi
 
 echo ""
 echo "Neovim built for platform ${ARCH}"
