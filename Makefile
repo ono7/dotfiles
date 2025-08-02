@@ -117,6 +117,11 @@ vim:
 	@mkdir -p ~/.local/bin
 	@bash ./_scripts/build-vim.sh
 
+vim-user:
+	@echo $(BANNER)
+	@mkdir -p ~/.local/bin
+	@VIM_USER_INSTALL=1 bash ./_scripts/build-vim.sh
+
 mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh

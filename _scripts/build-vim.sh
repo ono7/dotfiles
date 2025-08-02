@@ -115,12 +115,12 @@ log "Installing fugitive"
 mkdir -p ~/.vim/pack/plugins/start
 git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
 
-log "remove matchparen.vim....."
+# log "remove matchparen.vim....."
 # this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
-find ~/.local/vim -name 'matchparen.vim' -exec rm -f {} \;
-if [ $? != 0 ]; then
-  log "error finding matchparen.vim"
-fi
+# find ~/.local/vim -name 'matchparen.vim' -exec rm -f {} \;
+# if [ $? != 0 ]; then
+#   log "error finding matchparen.vim"
+# fi
 
 echo ""
 echo "Vim built for platform ${ARCH}"
