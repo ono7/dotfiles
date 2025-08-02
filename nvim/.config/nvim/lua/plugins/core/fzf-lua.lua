@@ -106,7 +106,7 @@ return {
     end, { desc = "Find files in current file's directory" })
 
     -- git files
-    k({ "n", "x" }, "<leader>ff", function()
+    k({ "n", "x" }, "<leader>f", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
         previewer = false,

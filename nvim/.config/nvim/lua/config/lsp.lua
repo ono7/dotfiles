@@ -75,9 +75,9 @@ M.setup = function()
   -- vim.diagnostic.config({ virtual_text = { current_line = true } })
   -- vim.diagnostic.config({ virtual_text = false })
 
-  vim.keymap.set("n", "<leader>f", function()
-    vim.diagnostic.open_float(borders)
-  end, { desc = "Open float" })
+  -- vim.keymap.set("n", "<leader>f", function()
+  --   vim.diagnostic.open_float(borders)
+  -- end, { desc = "Open float" })
 
   vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover({ border = "rounded" })
