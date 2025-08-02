@@ -64,6 +64,10 @@ xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
 
+xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+
 
 function! CopyMatches(reg)
   let hits = []
@@ -349,10 +353,10 @@ end, silent)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-    or (open == "[" and close == "]")
-    or (open == "{" and close == "}")
-    or (open == "<" and close == ">")
-    or (open == close and (open == "'" or open == '"' or open == "`"))
+      or (open == "[" and close == "]")
+      or (open == "{" and close == "}")
+      or (open == "<" and close == ">")
+      or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 vim.keymap.set("i", "<BS>", function()
@@ -365,7 +369,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>" -- Normal backspace behavior
+    return "<BS>"       -- Normal backspace behavior
   end
 end, xpr)
 
