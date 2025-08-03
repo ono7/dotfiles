@@ -98,7 +98,7 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 26.0
+size = 23.0
 
 [font.normal]
 
@@ -163,7 +163,8 @@ bindings = [
 {  key  =  "Space",     mods  =  "Command",        chars   =  "\u0000"             },
 {  key  =  "V",         mods  =  "Command",  chars  =  "\u0016"              },
 {  key  =  "V",         mods  =  "Command|Shift",  action  =  "Paste"              },
-{  key  =  "W",         mods  =  "command|Shift",  action  =  "Quit"               },
+{  key  =  "V",         mods  =  "Control|Shift",  action  =  "Paste"              },
+{  key  =  "W",         mods  =  "Command|Shift",  action  =  "Quit"               },
 {  key  =  "X",         mods  =  "Command",        chars   =  "\u0018"             },
 {  key  =  "Z",         mods  =  "Command",        chars   =  "\u001A"             },
 {  key  =  "1",         mods  =  "Command",        action  =  "SelectTab1"},
