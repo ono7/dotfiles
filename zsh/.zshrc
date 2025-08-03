@@ -486,13 +486,19 @@ function setup_keys() {
     zle -N _d
     bindkey -s '^G' _d^M
 
-    # copy to clipboard
-    bindkey -M vicmd 'y' vi-yank-pbcopy
-    function vi-yank-pbcopy {
+    bindkey -M vicmd 'y' vi-yank-clipboard
+
+    function vi-yank-clipboard {
         zle vi-yank
-        echo "$CUTBUFFER" | pbcopy
+        if command -v pbcopy >/dev/null 2>&1; then
+            echo "$CUTBUFFER" | pbcopy
+        elif command -v wl-copy >/dev/null 2>&1; then
+            echo "$CUTBUFFER" | wl-copy
+        elif command -v xclip >/dev/null 2>&1; then
+            echo "$CUTBUFFER" | xclip -selection clipboard
+        fi
     }
-    zle -N vi-yank-pbcopy
+    zle -N vi-yank-clipboard
 
     # ci" in vi-mode
     autoload -U select-quoted
