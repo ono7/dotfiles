@@ -174,6 +174,7 @@ cnoremap <c-l> <Right>
 cnoremap <M-b>b <s-left>
 cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
+inoremap <C-BS> <c-w>
 
 inoremap <C-a> <Home>
 inoremap <C-e> <End>

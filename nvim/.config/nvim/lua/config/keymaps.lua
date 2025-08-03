@@ -280,6 +280,8 @@ vim.keymap.set("x", ",a", ":!column -t<cr>")
 vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
 vim.keymap.set("t", "<C-BS>", "\x17", { noremap = true })
 
+vim.keymap.set("i", "<C-BS>", "\x17", { noremap = true })
+
 -- pass <c-b> to through term for tmux
 vim.keymap.set("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
 vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
