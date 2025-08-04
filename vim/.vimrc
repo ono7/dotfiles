@@ -159,6 +159,11 @@ vnoremap . :norm .<cr>
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+xnoremap ( <esc>`>a)<esc>`<i(<esc>
+xnoremap [ <esc>`>a]<esc>`<i[<esc>
+xnoremap { <esc>`>a}<esc>`<i{<esc>
+xnoremap < <esc>`>a><esc>`<i<<esc>
+
 xnoremap H <gv
 xnoremap L >gv
 xnoremap <silent> y ygv<Esc>
