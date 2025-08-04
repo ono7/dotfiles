@@ -288,7 +288,7 @@ vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
-vim.keymap.set("t", "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
+vim.keymap.set("t", "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", "<D-e>", [[<c-e>]], silent)
 vim.keymap.set("t", "<D-d>", [[<c-d>]], silent)
@@ -297,8 +297,8 @@ vim.keymap.set("t", "<D-p>", [[<c-p>]], silent)
 vim.keymap.set("t", "<D-n>", [[<c-n>]], silent)
 vim.keymap.set("t", "<D-r>", [[<c-r>]], silent)
 
-vim.keymap.set({ "n" }, "<M-t>", ":T<CR>", silent)
-vim.keymap.set({ "i" }, "<M-t>", [[<c-\><c-n>:T<CR>]], silent)
+vim.keymap.set({ "n" }, "<C-t>", ":T<CR>", silent)
+vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
@@ -355,10 +355,10 @@ end, silent)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 vim.keymap.set("i", "<BS>", function()
@@ -371,7 +371,7 @@ vim.keymap.set("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
@@ -389,7 +389,7 @@ vim.keymap.set("n", "<Leader>m", function()
 end)
 
 -- Toggle quickfix list
-vim.keymap.set("n", "<C-t>", function()
+vim.keymap.set("n", "<M-t>", function()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win["quickfix"] == 1 then
