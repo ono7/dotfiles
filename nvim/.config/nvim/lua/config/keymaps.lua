@@ -287,7 +287,7 @@ vim.keymap.set("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
 vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
-vim.keymap.set("t", "jj", [[<c-\><c-n>]], silent)
+vim.keymap.set("t", "kk", [[<c-\><c-n>]], silent)
 vim.keymap.set("t", "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("t", "<D-e>", [[<c-e>]], silent)
