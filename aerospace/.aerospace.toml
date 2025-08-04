@@ -118,16 +118,21 @@ alt-w = 'workspace W'
 alt-s = 'workspace S'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-m = 'move-node-to-workspace M'
-alt-shift-c = 'move-node-to-workspace C'
-alt-shift-w = 'move-node-to-workspace W'
-alt-shift-s = 'move-node-to-workspace S'
+# changing this to array will allow us to move the window but also move to that
+
+# alt-shift-1 = 'move-node-to-workspace 1'
+
+alt-shift-1 = [ 'move-node-to-workspace 1', 'workspace 1']
+alt-shift-2 = [ 'move-node-to-workspace 2', 'workspace 2']
+alt-shift-3 = [ 'move-node-to-workspace 3', 'workspace 3']
+alt-shift-4 = [ 'move-node-to-workspace 4', 'workspace 4']
+alt-shift-5 = [ 'move-node-to-workspace 5', 'workspace 5']
+alt-shift-6 = [ 'move-node-to-workspace 6', 'workspace 6']
+alt-shift-m = [ 'move-node-to-workspace M', 'workspace M']
+alt-shift-c = [ 'move-node-to-workspace C', 'workspace C']
+alt-shift-w = [ 'move-node-to-workspace W', 'workspace W']
+alt-shift-s = [ 'move-node-to-workspace S', 'workspace S']
+
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
