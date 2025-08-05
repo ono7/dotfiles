@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export PATH := $(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
 
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -95,6 +95,10 @@ shell:
 	@echo $(BANNER)
 	$$(which zsh) || return
 	sudo usermod -s $$(which zsh) $$USER
+
+manjaro:
+	@echo $(BANNER)
+	@bash ./_scripts/manjaro.sh
 
 starship:
 	@echo $(BANNER)
