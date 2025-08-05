@@ -302,7 +302,7 @@ vim.keymap.set("t", "<D-n>", [[<c-n>]], silent)
 vim.keymap.set("t", "<D-r>", [[<c-r>]], silent)
 
 vim.keymap.set({ "n" }, "<C-t>", ":T<CR>", silent)
-vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+-- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
