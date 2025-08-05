@@ -1,0 +1,80 @@
+# jlima config @ ~/.config/sway/config
+# Read `man 5 sway` for a complete reference.
+
+# Mod1 = alt, Mod4 = win key
+# set $mod Mod1
+
+# styles - set the folder for your theme definition file
+# set $theme /usr/share/sway/themes/matcha-green
+set $theme /usr/share/sway/themes/dracula
+
+# theme variables
+include $theme/theme.conf
+
+# user theme variable can override the global theme
+include $HOME/.config/sway/definitions.d/theme.conf
+
+# global variables
+# include /etc/sway/definitions
+
+include ~/.config/sway/definitions
+
+# user variables can override global definitions
+include $HOME/.config/sway/definitions.d/*.conf
+
+include /etc/sway/inputs/*
+
+# enable modes
+# include /etc/sway/modes/*
+include ~/.config/sway/modes/*
+
+# only enable this if every app you use is compatible with wayland
+# xwayland disable
+
+# include additional configs e.g. to autostart applications
+include /etc/sway/config.d/*
+
+# user config
+include $HOME/.config/sway/config.d/*.conf
+
+# # Swap left Alt and left Ctrl
+# ctrl:swap_lalt_lctl
+#
+# # Swap right Alt and right Ctrl
+# ctrl:swap_ralt_rctl
+#
+# # Make left Alt act as Ctrl
+# altwin:meta_alt
+#
+# # Make Alt keys act as Ctrl, Win keys as Alt
+# altwin:ctrl_alt_win
+#
+# # Swap Alt and Win keys
+# altwin:swap_alt_win
+#
+# # Left Alt as Meta, left Meta as Ctrl, left Ctrl as Alt
+# altwin:meta_win
+
+# Configure your main keyboard specifically
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us
+    xkb_variant colemak
+    xkb_options caps:escape,altwin:ctrl_alt_win,ctrl:swap_ralt_rctl
+    repeat_delay 150
+    repeat_rate 50
+}
+
+input "6058:20564:ThinkPad_Extra_Buttons" {
+    xkb_layout us
+    xkb_variant colemak
+    xkb_options caps:escape,altwin:ctrl_alt_win,ctrl:swap_ralt_rctl
+    repeat_delay 150
+    repeat_rate 50
+}
+
+input type:touchpad {
+    accel_profile adaptive
+    pointer_accel 0.4
+    tap enabled
+    tap_button_map lrm
+}
