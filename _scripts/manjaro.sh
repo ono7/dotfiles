@@ -27,7 +27,10 @@ sudo pacman -R sworkstyle --noconfirm
 log installing sway for manjaro/arch
 
 rm -rf ~/.config/sway
+rm -rf ~/.config/foot
 
 cd ~/.dotfiles
 
 stow sway_manjaro
+stow foot
+stow starship
