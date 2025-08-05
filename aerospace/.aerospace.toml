@@ -204,6 +204,10 @@ if.app-id = 'com.apple.ActivityMonitor'
 if.app-id = 'com.apple.finder'
   run = 'layout floating'
 
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams'
+  run = ['layout floating', 'move-node-to-workspace C']
+
 # make all windows float by default
 # [[on-window-detected]]
 #     check-further-callbacks = true
