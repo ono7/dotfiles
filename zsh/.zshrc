@@ -690,7 +690,7 @@ bindkey -r '^T'
 
 # arch linux
 if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacman &>/dev/null; then
-  alias p='sudo pacman'
+  alias p='sudo pacman -Sy'
   # this function is necessary for the foot terminal to be able to open new terminal to cwd
   autoload -U add-zsh-hook
   function osc7-pwd() {
