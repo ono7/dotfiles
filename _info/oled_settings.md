@@ -11,3 +11,5 @@ Disable DSC compression on display in Adreneline
 - (disable DSC in Display settings) dramatic FPS improvement
 
 - set 360Hz in windows display adapter setting
+
+- Nvidia - do all scaling in GPU (this is under adjust image settings for the display)
