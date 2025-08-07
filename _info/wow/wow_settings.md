@@ -39,6 +39,65 @@ Fix overly saturated worl
 
 # nvidia control panel options for wow
 
+## Must haves
+
+1. Particle density (max)
+2. Projected textures (enabled)
+3. Texture resolution (max)
+4. Contrast (70% - 75%)
+
+## Graphics
+
+- Render Scale - 99% (or 91%) + FSR
+- Veritcal Sync - Disabled (on on MacOS)
+- Low latency - Nvidia Reflex + Boost
+- Anti-Aliasing - off
+- Camara FOV = 90/max
+
+## Base Game Quality 10
+
+- Shadow Quality = low
+- Liquid Detail = fair
+- Particle Density = Ultra
+- SSAO = disable
+- Depth Effects = disabled
+- Compute Effects = disabled
+- Outline mode = good
+- Texture Resolution = High
+- Spell Density = Essential
+- Projected Textures = Enabled
+- View distance = 3
+- Environmental Detail = 1
+- Ground Clutter = 1
+
+## Advanced
+
+- Triple Buffering (unchecked)
+- Texture filtering = 18x Anisotropic
+- Ray tracing = disabled
+- Resample Quaility = Fidelity
+- VRS Mode = Disabled
+- Graphics API = Dirextx12
+- Physical Interactions = None
+- Graphics card = Auto
+- Max foreground FPS (unchecked)
+- Max Background = 60
+- Target FPS (unchecked)
+- Resample Sharpness = 0
+- Contrast (75%)
+- Brightness %50 (default)
+- Gamma = 1
+
+## Compatability Settings
+
+- all checked
+
+## other settings
+
+- Disable friendly name plates
+
+## Old settings for nvidia control panel
+
 Image Scaling – Off
 Ambient Occlusion – Off
 Anisotropic Filtering – Off
