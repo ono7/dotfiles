@@ -6,10 +6,12 @@
 
 Turn off v-sync in game
 
-Disable DSC compression on display in Adreneline
+Disable HDCP Support in under display Adreneline
 
-- (disable DSC in Display settings) dramatic FPS improvement
+- (disable HDCP in Display settings) dramatic FPS improvement and reduced input lag
 
 - set 360Hz in windows display adapter setting
 
 - Nvidia - do all scaling in GPU (this is under adjust image settings for the display)
+
+- enable reflex Nvidia or input lag reduction for AMD
