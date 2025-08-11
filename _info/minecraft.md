@@ -1,3 +1,17 @@
+## strat
+
+16 wood blocks
+25 cobble stone
+40 coal
+4 iron
+5 food
+35 diamons
+
+Iron can be found at y16 oa y232 (mountains)
+Diamons y58 or y57
+
+Get enough iron for a pickaxe, shield and bucket if possible
+
 ## give bow
 
 ```
