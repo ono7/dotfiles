@@ -31,7 +31,8 @@ snippet log "logging function for bash" b
 snippet h1 "optional header for cicd script" b
   #!/usr/bin/env bash
   #
-  # Author: Jose Lima (`getenv('USER')`)
+  # Jose Lima (`getenv('USER')`)
+  # `strftime("%Y-%m-%d  %H:%M")`
 
   set -Eeuo pipefail
   trap cleanup SIGINT SIGTERM ERR EXIT

@@ -3,7 +3,8 @@ extends html, todo
 snippet jh "header" w
   #jinja2: lstrip_blocks: "true", trim_blocks: "true"
   {#
-      Author: Jose Lima (`getenv('USER')`)
+      Jose Lima (`getenv('USER')`)
+      `strftime("%Y-%m-%d %H:%M")`
       ${0}
   #}
 

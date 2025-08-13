@@ -6,12 +6,13 @@ extends todo
 #   ${0}
 
 snippet h "header" b
-  // Author:  Jose Lima (`getenv('USER')`)
+  // Jose Lima (`getenv('USER')`)
+  // `strftime("%Y-%m-%d  %H:%M")`
   ${0}
 
 snippet log "console" w
   console.log(${0:${VISUAL}})
-  
+
 snippet func "function" w
   function $1($2) {
     ${0:${VISUAL}}

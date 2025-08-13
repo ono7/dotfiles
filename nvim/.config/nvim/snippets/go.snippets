@@ -1,7 +1,8 @@
 extends todo
 
 snippet h "header" b
-  // Author:  Jose Lima (`getenv('USER')`)
+  // Jose Lima (`getenv('USER')`)
+  // `strftime("%Y-%m-%d  %H:%M")`
   ${0}
 
 # snippet h "header" b
@@ -15,14 +16,14 @@ snippet c "block comment" w
   */
 
 snippet e "error" w
-	if err != nil {
-	    ${0}
-	}
+  if err != nil {
+      ${0}
+  }
 
 snippet myerror "error" w
-	if err != nil {
-	    ${0|log.Fatal(err),return|}
-	}
+  if err != nil {
+      ${0|log.Fatal(err),return|}
+  }
 
 snippet hf "http handler func" w
   func ${1}(w *http.ResponseWriter, r *http.Request) {
@@ -49,9 +50,9 @@ snippet if "if statement" b
   }
 
 snippet gof "annonymous go func" b
-		go func(${0}) {
+    go func(${0}) {
       ${VISUAL}
-		}()
+    }()
 
 snippet for "for statement" b
   for ${0} {
@@ -82,10 +83,10 @@ snippet func "test function" b
 
 snippet decoder "json decoder" b
 
-	var result map[string]interface{}
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		log.Fatalf("Error in JSON decoder %v", err)
-	}
+  var result map[string]interface{}
+  if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+    log.Fatalf("Error in JSON decoder %v", err)
+  }
 
 snippet pretty "json pretty printer" b
   func PrettyPrinter(m any) {
