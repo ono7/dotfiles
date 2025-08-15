@@ -37,6 +37,7 @@ map Q <Nop>
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
+nnoremap <c-e> <end>
 " cnoremap <c-h> <BS>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
@@ -494,28 +495,165 @@ local function get_next_char()
   return next_char
 end
 
-k("i", '"', function()
-  local p, n = get_next_and_prev_chars()
-  if n == '"' then
-    return "<Right>"
-  elseif (p and p:match("%w")) or (n and n:match("%w")) then
-    return '"'
-  else
-    return '""<left>'
-  end
-end, { expr = true })
+-- k("i", '"', function()
+--   local p, n = get_next_and_prev_chars()
+--   if n == '"' then
+--     return "<Right>"
+--   elseif (p and p:match("%w")) or (n and n:match("%w")) then
+--     return '"'
+--   else
+--     return '""<left>'
+--   end
+-- end, { expr = true })
 
 -- Function to handle "'" (similar logic)
-k("i", "'", function()
-  local p, n = get_next_and_prev_chars()
-  if n == "'" then
-    return "<Right>"
-  elseif (p and p:match("%w")) or (n and n:match("%w")) then
-    return "'"
-  else
-    return "''<left>"
+-- k("i", "'", function()
+--   local p, n = get_next_and_prev_chars()
+--   if n == "'" then
+--     return "<Right>"
+--   elseif (p and p:match("%w")) or (n and n:match("%w")) then
+--     return "'"
+--   else
+--     return "''<left>"
+--   end
+-- end, { expr = true })
+
+--- Optimized character access functions ---
+local function get_cursor_context()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local prev_char = col > 0 and vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+  local next_char = vim.api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
+  return prev_char, next_char, row, col
+end
+
+-- Cached character type checks (faster than repeated pattern matching)
+local word_chars = {
+  a = true,
+  b = true,
+  c = true,
+  d = true,
+  e = true,
+  f = true,
+  g = true,
+  h = true,
+  i = true,
+  j = true,
+  k = true,
+  l = true,
+  m = true,
+  n = true,
+  o = true,
+  p = true,
+  q = true,
+  r = true,
+  s = true,
+  t = true,
+  u = true,
+  v = true,
+  w = true,
+  x = true,
+  y = true,
+  z = true,
+  A = true,
+  B = true,
+  C = true,
+  D = true,
+  E = true,
+  F = true,
+  G = true,
+  H = true,
+  I = true,
+  J = true,
+  K = true,
+  L = true,
+  M = true,
+  N = true,
+  O = true,
+  P = true,
+  Q = true,
+  R = true,
+  S = true,
+  T = true,
+  U = true,
+  V = true,
+  W = true,
+  X = true,
+  Y = true,
+  Z = true,
+  ["0"] = true,
+  ["1"] = true,
+  ["2"] = true,
+  ["3"] = true,
+  ["4"] = true,
+  ["5"] = true,
+  ["6"] = true,
+  ["7"] = true,
+  ["8"] = true,
+  ["9"] = true,
+  ["_"] = true,
+}
+
+local whitespace_chars = { [" "] = true, ["\t"] = true, ["\n"] = true, ["\r"] = true }
+local safe_next_chars = {
+  [")"] = true,
+  ["]"] = true,
+  ["}"] = true,
+  [">"] = true,
+  [" "] = true,
+  ["\t"] = true,
+  ["\n"] = true,
+  ["\r"] = true,
+  ['"'] = true,
+  ["'"] = true,
+  ["`"] = true,
+  [","] = true,
+  [";"] = true,
+  ["."] = true,
+  [""] = true,
+}
+
+-- Optimized character type checks
+local function is_word_char(char)
+  return word_chars[char] or false
+end
+
+local function is_whitespace(char)
+  return whitespace_chars[char] or false
+end
+
+local function should_autopair(next_char)
+  return safe_next_chars[next_char] or false
+end
+
+--- Enhanced quote handling with better context detection ---
+local function smart_quote_handler(quote_char)
+  return function()
+    local prev_char, next_char = get_cursor_context()
+
+    -- Jump over matching quote
+    if next_char == quote_char then
+      return "<Right>"
+    end
+
+    -- Don't autopair in the middle of words or after word characters
+    if is_word_char(prev_char) or is_word_char(next_char) then
+      return quote_char
+    end
+
+    -- Don't autopair after backslash (escaped quotes)
+    if prev_char == "\\" then
+      return quote_char
+    end
+
+    -- Auto-pair in safe contexts
+    return quote_char .. quote_char .. "<Left>"
   end
-end, { expr = true })
+end
+
+-- Apply smart quote handling
+k("i", '"', smart_quote_handler('"'), { expr = true })
+k("i", "'", smart_quote_handler("'"), { expr = true })
+k("i", "`", smart_quote_handler("`"), { expr = true })
 
 k("i", "[", function()
   local n = get_next_char()
@@ -555,15 +693,15 @@ k("i", "}", function()
 end, { expr = true })
 
 -- handle (
--- k("i", "(", function()
---   local n = get_next_char()
---   if r_pair_map[n] then
---     return "()<Left>"
---   elseif n ~= "" then
---     return "("
---   end
---   return "()<Left>"
--- end, { expr = true })
+k("i", "(", function()
+  local n = get_next_char()
+  if r_pair_map[n] then
+    return "()<Left>"
+  elseif n ~= "" then
+    return "("
+  end
+  return "()<Left>"
+end, { expr = true })
 
 k({ "i" }, ")", function()
   local n = get_next_char()
@@ -581,6 +719,48 @@ k("i", ">", function()
   return ">"
 end, { expr = true })
 
+--- Enhanced bracket handling with smarter detection ---
+local function smart_bracket_handler(open_bracket, close_bracket)
+  return function()
+    local prev_char, next_char = get_cursor_context()
+
+    -- Jump over matching closing bracket
+    if next_char == close_bracket and open_bracket ~= close_bracket then
+      return "<Right>"
+    end
+
+    -- Auto-pair when next char is safe or at end of line
+    if should_autopair(next_char) then
+      return open_bracket .. close_bracket .. "<Left>"
+    end
+
+    -- Don't auto-pair in middle of word
+    if is_word_char(next_char) then
+      return open_bracket
+    end
+
+    -- Default to auto-pair
+    return open_bracket .. close_bracket .. "<Left>"
+  end
+end
+
+-- Enhanced bracket mappings
+-- k("i", "(", smart_bracket_handler("(", ")"), { expr = true })
+-- k("i", "[", smart_bracket_handler("[", "]"), { expr = true })
+-- k("i", "{", smart_bracket_handler("{", "}"), { expr = true })
+
+local function closing_bracket_handler(close_bracket)
+  return function()
+    local _, next_char = get_cursor_context()
+    return next_char == close_bracket and "<Right>" or close_bracket
+  end
+end
+
+k("i", ")", closing_bracket_handler(")"), { expr = true })
+k("i", "]", closing_bracket_handler("]"), { expr = true })
+k("i", "}", closing_bracket_handler("}"), { expr = true })
+k("i", ">", closing_bracket_handler(">"), { expr = true })
+
 k("i", "<BS>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 
@@ -596,3 +776,29 @@ k("i", "<BS>", function()
   -- Check if we have a matching pair to delete
   return pair_map[prev_char] == next_char and "<del><c-h>" or "<bs>"
 end, xpr)
+
+local pair_map_2 = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+  ["<"] = ">",
+}
+
+k("i", "<enter>", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+  -- Guard against beginning of line
+  if col == 0 then
+    return "<CR>"
+  end
+
+  -- Get only the previous character using precise API call
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+
+  -- Check if previous char is an opening bracket
+  if pair_map_2[prev_char] then
+    return "<CR><Esc>O"
+  else
+    return "<CR>"
+  end
+end, { expr = true })
