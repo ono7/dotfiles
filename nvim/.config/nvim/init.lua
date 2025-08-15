@@ -112,6 +112,8 @@ vim.opt.completeopt = { "menu", "menuone" }
 -- . = this buffer, w = from other windows, b = other loaded buffers
 vim.opt.complete = { ".", "w", "b" }
 
+--- check to see what autocmds are running on the buffer
+--- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
     { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }

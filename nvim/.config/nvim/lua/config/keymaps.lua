@@ -693,15 +693,15 @@ k("i", "}", function()
 end, { expr = true })
 
 -- handle (
-k("i", "(", function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return "()<Left>"
-  elseif n ~= "" then
-    return "("
-  end
-  return "()<Left>"
-end, { expr = true })
+-- k("i", "(", function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return "()<Left>"
+--   elseif n ~= "" then
+--     return "("
+--   end
+--   return "()<Left>"
+-- end, { expr = true })
 
 k({ "i" }, ")", function()
   local n = get_next_char()
