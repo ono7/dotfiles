@@ -111,3 +111,23 @@ vim.opt.guicursor = ""
 vim.opt.completeopt = { "menu", "menuone" }
 -- . = this buffer, w = from other windows, b = other loaded buffers
 vim.opt.complete = { ".", "w", "b" }
+
+vim.api.nvim_create_user_command("CheckAutocommands", function()
+  local events =
+    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+
+  for _, event in ipairs(events) do
+    local autocmds = vim.api.nvim_get_autocmds({ event = event })
+    if #autocmds > 0 then
+      print("Event:", event, "- Count:", #autocmds)
+      for i, autocmd in ipairs(autocmds) do
+        if i <= 3 then
+          print("  ", autocmd.group or "no group", autocmd.desc or autocmd.command or "no desc")
+        elseif i == 4 then
+          print("  ... and", #autocmds - 3, "more")
+          break
+        end
+      end
+    end
+  end
+end, {})
