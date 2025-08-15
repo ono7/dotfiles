@@ -114,8 +114,8 @@ window-vsync = false
 
 macos-non-native-fullscreen = true
 
-background-opacity = .95
-background-blur = true
+# background-opacity = .95
+# background-blur = true
 
 # colorscheme
 
@@ -125,7 +125,9 @@ foreground = #c5bfb8
 # background = #101820
 # background = #0e1f25
 # background = #121a21
-background = #1a2b34
+# background = #1a2b34
+# background = #1a2b34
+background = #00141a
 cursor-color = #ffffff
 cursor-text = #171f2c
 

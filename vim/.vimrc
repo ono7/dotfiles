@@ -139,8 +139,11 @@ nnoremap ,w :w!<cr>
 nnoremap cp yap<S-}>p
 nnoremap J mzJ`z
 
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+" nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+" nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
