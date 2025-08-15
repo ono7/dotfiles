@@ -4,22 +4,24 @@ local silent = { noremap = true, silent = true }
 
 local neovide_or_macos = require("utils.keys")
 
---- nop ---
-vim.keymap.set("n", "ZZ", "")
-vim.keymap.set("n", "ZQ", "")
-vim.keymap.set("i", "<M-e>", "")
-vim.keymap.set("i", "<M-C-U>", "")
-vim.keymap.set("n", "<M-e>", "")
+local k = vim.keymap.set
 
-vim.keymap.set("n", "<space>", "")
+--- nop ---
+k("n", "ZZ", "")
+k("n", "ZQ", "")
+k("i", "<M-e>", "")
+k("i", "<M-C-U>", "")
+k("n", "<M-e>", "")
+
+k("n", "<space>", "")
 vim.g.mapleader = " "
 
 --- core keymaps ---
-vim.keymap.set("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
-vim.keymap.set("i", neovide_or_macos.prefix("e"), "<End>", silent)
+k("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
+k("i", neovide_or_macos.prefix("e"), "<End>", silent)
 
-vim.keymap.set("i", "<M-a>", "<ESC>^i", silent)
-vim.keymap.set("i", "<M-e>", "<End>", silent)
+k("i", "<M-a>", "<ESC>^i", silent)
+k("i", "<M-e>", "<End>", silent)
 
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
@@ -192,7 +194,7 @@ packadd cfilter
 ]])
 
 ---
-vim.keymap.set("n", "<leader>dt", function()
+k("n", "<leader>dt", function()
   if vim.diagnostic.is_enabled() then
     vim.diagnostic.enable(false)
     print("diags: disabled")
@@ -203,52 +205,52 @@ vim.keymap.set("n", "<leader>dt", function()
 end)
 
 --- macros
-vim.keymap.set("x", "Q", ":norm @q<CR>", opt)
+k("x", "Q", ":norm @q<CR>", opt)
 
 -- Move within visual lines
--- vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- k("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- k("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 --- keep cursor in same position when yanking in visual
-vim.keymap.set("x", "y", [[ygv<Esc>]], silent)
+k("x", "y", [[ygv<Esc>]], silent)
 
 -- notes
-vim.keymap.set("n", "<leader>n", ":e ~/notes.md<cr>", silent)
+k("n", "<leader>n", ":e ~/notes.md<cr>", silent)
 
 --- visual selection search ---
-vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-vim.keymap.set("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
+k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
+k("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
 
 --- copy block
-vim.keymap.set("n", "cp", "yap<S-}>p", opt)
+k("n", "cp", "yap<S-}>p", opt)
 
-vim.keymap.set("n", "<D-i>", "<c-i>", opt)
-vim.keymap.set("n", "<D-o>", "<c-o>", opt)
+k("n", "<D-i>", "<c-i>", opt)
+k("n", "<D-o>", "<c-o>", opt)
 
-vim.keymap.set("n", "<leader>cd", function()
+k("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")
   print("new lcd: " .. vim.fn.getcwd())
 end, { silent = true })
 
 -- Copy full file path
-vim.keymap.set("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
+k("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
 
 --- when using J keep cursor to the right
-vim.keymap.set({ "n", "v" }, "J", "mzJ`z")
+k({ "n", "v" }, "J", "mzJ`z")
 
 -- make dot work in visual mode
-vim.keymap.set("v", ".", ":norm .<cr>", opt)
+k("v", ".", ":norm .<cr>", opt)
 
 --- go ---
--- vim.keymap.set("n", "gt", ":GoTagAdd<cr>", silent)
--- vim.keymap.set("n", "gx", [[:sil !open <cWORD><cr>]], silent)
+-- k("n", "gt", ":GoTagAdd<cr>", silent)
+-- k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
-vim.keymap.set("n", "<leader>bd", ":%bd|e#<cr>", silent)
+k("n", "<leader>bd", ":%bd|e#<cr>", silent)
 
-vim.keymap.set("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
+k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
-vim.keymap.set("n", "<C-y>", function()
+k("n", "<C-y>", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
     vim.t.maximized = false
@@ -259,7 +261,7 @@ vim.keymap.set("n", "<C-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
-vim.keymap.set("t", "<D-y>", function()
+k("t", "<D-y>", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
     vim.t.maximized = false
@@ -270,7 +272,7 @@ vim.keymap.set("t", "<D-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
-vim.keymap.set("t", "<C-y>", function()
+k("t", "<C-y>", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
     vim.t.maximized = false
@@ -281,36 +283,36 @@ vim.keymap.set("t", "<C-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
-vim.keymap.set("x", ",a", ":!column -t<cr>")
+k("x", ",a", ":!column -t<cr>")
 
 --- terminal ---
-vim.keymap.set("t", "<M-BS>", "\x17", { noremap = true })
-vim.keymap.set("t", "<C-BS>", "\x17", { noremap = true })
+k("t", "<M-BS>", "\x17", { noremap = true })
+k("t", "<C-BS>", "\x17", { noremap = true })
 
-vim.keymap.set("i", "<C-BS>", "\x17", { noremap = true })
+k("i", "<C-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
-vim.keymap.set("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
-vim.keymap.set("t", "<M-b>", "<C-b>", { noremap = true })
+k("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
+k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
-vim.keymap.set("t", "kk", [[<c-\><c-n>]], silent)
-vim.keymap.set("t", "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+k("t", "kk", [[<c-\><c-n>]], silent)
+k("t", "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
-vim.keymap.set("t", "<D-e>", [[<c-e>]], silent)
-vim.keymap.set("t", "<D-d>", [[<c-d>]], silent)
-vim.keymap.set("t", "<D-c>", [[<c-c>]], silent)
-vim.keymap.set("t", "<D-p>", [[<c-p>]], silent)
-vim.keymap.set("t", "<D-n>", [[<c-n>]], silent)
-vim.keymap.set("t", "<D-r>", [[<c-r>]], silent)
+k("t", "<D-e>", [[<c-e>]], silent)
+k("t", "<D-d>", [[<c-d>]], silent)
+k("t", "<D-c>", [[<c-c>]], silent)
+k("t", "<D-p>", [[<c-p>]], silent)
+k("t", "<D-n>", [[<c-n>]], silent)
+k("t", "<D-r>", [[<c-r>]], silent)
 
-vim.keymap.set({ "n" }, "<C-t>", ":T<CR>", silent)
--- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+k({ "n" }, "<C-t>", ":T<CR>", silent)
+-- k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<cr>", opt)
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<cr>", opt)
+k("n", "<M-k>", "<cmd>cprev<cr>", opt)
+k("n", "<M-j>", "<cmd>cnext<cr>", opt)
 
--- vim.keymap.set("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
+-- k("n", "'d", [[:%bd |e# |bd#<cr>|'"]], silent)
 
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
@@ -334,16 +336,16 @@ local function clean_space_save()
   -- this is now handled by conform.nvim
 end
 
-vim.keymap.set("i", "<M-BS>", "\x17", { noremap = true })
+k("i", "<M-BS>", "\x17", { noremap = true })
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
-vim.keymap.set("n", "<leader>%", function()
+k("n", "<leader>%", function()
   local path = vim.fn.expand("%:p")
   vim.fn.setreg("+", path)
   print("File path copied to clipboard: " .. path)
 end, { noremap = true, silent = true, desc = "Copy file path to clipboard" })
 
-vim.keymap.set("n", ",w", function()
+k("n", ",w", function()
   if not check_buf(0) then
     print("save me first!")
     return
@@ -351,7 +353,7 @@ vim.keymap.set("n", ",w", function()
   vim.cmd([[:write ++p]])
 end, silent)
 
-vim.keymap.set("n", "<leader>w", function()
+k("n", "<leader>w", function()
   if not check_buf(0) then
     print("save me first!")
     return
@@ -368,7 +370,7 @@ local function is_pair(open, close)
     or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
-vim.keymap.set("i", "<BS>", function()
+k("i", "<BS>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   if col == 0 then
     return "<BS>" -- At the start of the line, just return a normal backspace
@@ -383,7 +385,7 @@ vim.keymap.set("i", "<BS>", function()
 end, xpr)
 
 -- captures :messages to buffer
-vim.keymap.set("n", "<Leader>m", function()
+k("n", "<Leader>m", function()
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
   vim.api.nvim_command("redir => g:message_capture")
@@ -396,7 +398,7 @@ vim.keymap.set("n", "<Leader>m", function()
 end)
 
 -- Toggle quickfix list
-vim.keymap.set("n", "<M-t>", function()
+k("n", "<M-t>", function()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win["quickfix"] == 1 then
@@ -421,7 +423,7 @@ end, silent)
 -- }
 --
 -- -- - optimized
--- vim.keymap.set("i", "<enter>", function()
+-- k("i", "<enter>", function()
 --   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 --   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
 --   local closing_char = pair_map_2[prev_char]
@@ -431,3 +433,166 @@ end, silent)
 --     return "<Enter>"
 --   end
 -- end, { expr = true })
+
+-----------  autopairs :)
+
+local pair_map = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+  ["<"] = ">",
+  ["'"] = "'",
+  ['"'] = '"',
+  ["`"] = "`",
+}
+
+--- used to insert both () if the next char is (
+local r_pair_map = {
+  [")"] = true,
+  ["]"] = true,
+  ["}"] = true,
+  [">"] = true,
+  [" "] = true,
+  ['"'] = true,
+  ["'"] = true,
+  ["`"] = true,
+}
+
+local all_pair_map = {}
+
+for _, v in ipairs(pair_map) do
+  table.insert(all_pair_map, v)
+end
+
+for _, v in ipairs(r_pair_map) do
+  table.insert(all_pair_map, v)
+end
+
+local is_quote = function(char)
+  return char == "'" or char == '"' or char == "`"
+end
+
+local is_bracket = function(char)
+  return char == "(" or char == "[" or char == "{" or char == "<"
+end
+
+local is_close_bracket = function(char)
+  return char == ")" or char == "]" or char == "}" or char == ">"
+end
+
+local function get_next_and_prev_chars()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0)) -- Cursor position is 0-indexed
+  --@param 0 is always the current buffer
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+  local next_char = vim.api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
+  return prev_char, next_char
+end
+
+local function get_next_char()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local next_char = vim.api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
+  return next_char
+end
+
+k("i", '"', function()
+  local p, n = get_next_and_prev_chars()
+  if n == '"' then
+    return "<Right>"
+  elseif (p and p:match("%w")) or (n and n:match("%w")) then
+    return '"'
+  else
+    return '""<left>'
+  end
+end, { expr = true })
+
+-- Function to handle "'" (similar logic)
+k("i", "'", function()
+  local p, n = get_next_and_prev_chars()
+  if n == "'" then
+    return "<Right>"
+  elseif (p and p:match("%w")) or (n and n:match("%w")) then
+    return "'"
+  else
+    return "''<left>"
+  end
+end, { expr = true })
+
+k("i", "[", function()
+  local n = get_next_char()
+  if r_pair_map[n] then
+    return "[]<Left>"
+  elseif n ~= "" then
+    return "["
+  end
+  return "[]<Left>"
+end, { expr = true })
+
+k("i", "]", function()
+  local n = get_next_char()
+  if n == "]" then
+    return "<Right>"
+  end
+  return "]"
+end, { expr = true })
+
+-- handle {}
+k("i", "{", function()
+  local n = get_next_char()
+  if r_pair_map[n] then
+    return "{}<Left>"
+  elseif n ~= "" then
+    return "{"
+  end
+  return "{}<Left>"
+end, { expr = true })
+
+k("i", "}", function()
+  local n = get_next_char()
+  if n == "}" then
+    return "<Right>"
+  end
+  return "}"
+end, { expr = true })
+
+-- handle (
+-- k("i", "(", function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return "()<Left>"
+--   elseif n ~= "" then
+--     return "("
+--   end
+--   return "()<Left>"
+-- end, { expr = true })
+
+k({ "i" }, ")", function()
+  local n = get_next_char()
+  if n == ")" then
+    return "<Right>"
+  end
+  return ")"
+end, { expr = true })
+
+k("i", ">", function()
+  local n = get_next_char()
+  if n == ">" then
+    return "<Right>"
+  end
+  return ">"
+end, { expr = true })
+
+k("i", "<BS>", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+  -- Guard against beginning of line
+  if col == 0 then
+    return "<bs>"
+  end
+
+  -- Get previous and next characters using precise API calls
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+  local next_char = vim.api.nvim_buf_get_text(0, row - 1, col, row - 1, col + 1, {})[1] or ""
+
+  -- Check if we have a matching pair to delete
+  return pair_map[prev_char] == next_char and "<del><c-h>" or "<bs>"
+end, xpr)
