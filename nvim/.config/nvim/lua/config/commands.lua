@@ -10,10 +10,23 @@ vim.api.nvim_create_user_command("T", function(opts)
     vim.cmd.split()
     vim.cmd.wincmd("J")
     vim.api.nvim_win_set_height(0, term_size)
+
+    -- Get the directory of the current file
+    local current_file = vim.api.nvim_buf_get_name(0)
+    local current_dir
+    if current_file ~= "" then
+      current_dir = vim.fn.fnamemodify(current_file, ":h")
+    else
+      current_dir = vim.fn.getcwd()
+    end
+
     vim.cmd.term()
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
     term_job_id = vim.b.terminal_job_id
+
+    -- Change to the current file's directory
+    vim.fn.chansend(term_job_id, "cd " .. vim.fn.shellescape(current_dir) .. "\n")
 
     if cmd ~= "" then
       vim.fn.chansend(term_job_id, cmd .. "\n")
@@ -25,7 +38,6 @@ vim.api.nvim_create_user_command("T", function(opts)
   local wins = vim.api.nvim_list_wins()
   local is_visible = false
   local cursor_pos
-
   for _, win in ipairs(wins) do
     if vim.api.nvim_win_get_buf(win) == terminal_buf then
       cursor_pos = vim.api.nvim_win_get_cursor(win)
@@ -41,11 +53,9 @@ vim.api.nvim_create_user_command("T", function(opts)
     vim.api.nvim_win_set_height(0, term_size)
     vim.api.nvim_win_set_buf(0, terminal_buf)
     terminal_win = vim.api.nvim_get_current_win()
-
     if cursor_pos then
       vim.api.nvim_win_set_cursor(terminal_win, cursor_pos)
     end
-
     if cmd ~= "" then
       vim.fn.chansend(term_job_id, cmd .. "\n")
     end
@@ -97,7 +107,7 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   repo = repo:gsub(".git$", "")
 
   local github_repo_url =
-      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+    string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
   local github_file_url = string.format(
     "%s/blob/%s/%s#L%s",
     vim.uri_encode(github_repo_url),
