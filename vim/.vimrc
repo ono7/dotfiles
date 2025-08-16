@@ -66,6 +66,10 @@ set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
+set iskeyword+=_,-
+
+
+
 
 try
   tnoremap jj <C-\><C-n>

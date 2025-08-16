@@ -78,6 +78,7 @@ xnoremap [ <esc>`>a]<esc>`<i[<esc>
 xnoremap { <esc>`>a}<esc>`<i{<esc>
 xnoremap < <esc>`>a><esc>`<i<<esc>
 
+set iskeyword+=_,-
 
 function! CopyMatches(reg)
   let hits = []
@@ -365,10 +366,10 @@ end, silent)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-    or (open == "[" and close == "]")
-    or (open == "{" and close == "}")
-    or (open == "<" and close == ">")
-    or (open == close and (open == "'" or open == '"' or open == "`"))
+      or (open == "[" and close == "]")
+      or (open == "{" and close == "}")
+      or (open == "<" and close == ">")
+      or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 k("i", "<BS>", function()
@@ -381,7 +382,7 @@ k("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>" -- Normal backspace behavior
+    return "<BS>"       -- Normal backspace behavior
   end
 end, xpr)
 

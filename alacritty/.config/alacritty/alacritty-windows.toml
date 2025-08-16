@@ -97,7 +97,7 @@ render_timer = false
 LC_CTYPE = "en_US.UTF-8"
 
 [font]
-size = 18.0
+size = 13.0
 
 [font.normal]
 # family = "SF Mono"
@@ -120,7 +120,7 @@ style = "Bold"
 
 [font.offset]
 x = 2
-y = 11
+y = 6
 
 [keyboard]
 bindings = [
@@ -141,6 +141,7 @@ bindings = [
 {  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
 { key = "Q", mods = "Control", action = "ReceiveChar" },
 # {  key  =  "Q",      mods  =  "Control",        action  =  "None"               },
+{  key  =  "Escape",      mods  =  "Control",        action  =  "None"               },
 {  key  =  "Space",  mods  =  "Control|Shift",  mode    =  "~Search",           action  =  "ToggleViMode"  },
 {  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
 {  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
