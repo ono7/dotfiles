@@ -64,10 +64,10 @@ vim.api.nvim_create_user_command("T", function(opts)
 end, { nargs = "*" })
 
 local opts = { silent = true }
-vim.keymap.set({ "n" }, "<C-t>", ":T<CR>", opts)
+vim.keymap.set({ "n" }, "<C-t>", "<cmd>T<CR>", opts)
 -- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], opts)
 
-vim.keymap.set({ "n" }, "<C-t>", ":T<CR>", opts)
+vim.keymap.set({ "n" }, "<C-t>", "<cmd>T<CR>", opts)
 -- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], opts)
 
 vim.api.nvim_create_user_command("Commit", function(opts)
@@ -107,7 +107,7 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   repo = repo:gsub(".git$", "")
 
   local github_repo_url =
-    string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
   local github_file_url = string.format(
     "%s/blob/%s/%s#L%s",
     vim.uri_encode(github_repo_url),

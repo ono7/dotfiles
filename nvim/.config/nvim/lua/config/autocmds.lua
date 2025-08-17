@@ -87,9 +87,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-          not (ft:match("commit") and ft:match("rebase"))
-          and last_known_line > 1
-          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+            not (ft:match("commit") and ft:match("rebase"))
+            and last_known_line > 1
+            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -122,8 +122,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 
 vim.cmd([[
 augroup _QuickFixOpen
-	autocmd!
-	" auto open quickfix when executing make!
+  autocmd!
+  " auto open quickfix when executing make!
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
@@ -253,9 +253,25 @@ local function optimize_large_file(bufnr)
   vim.notify("Large file detecte\nOptimizations applied..")
 end
 
-vim.cmd([[
-  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
-]])
+-- vim.cmd([[
+--   autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | NoMatchParen | endif
+-- ]])
+
+vim.api.nvim_create_autocmd("BufReadPre", {
+  pattern = "*",
+  callback = function()
+    local file = vim.fn.expand("<afile>")
+    local size = vim.fn.getfsize(file)
+
+    if size > 10000000 or size == -2 then
+      vim.opt_local.undofile = false
+      vim.opt_local.foldenable = false
+
+      -- Safely disable matchparen
+      pcall(vim.cmd, "NoMatchParen")
+    end
+  end,
+})
 
 -- Setup autocmds
 local function setup()

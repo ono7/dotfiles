@@ -12,9 +12,9 @@ vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 vim.opt.winbar = "%=%-.75F %-m"
 
-vim.g.loaded_matchparen = 1
-vim.g.matchparen_timeout = 20
-vim.g.matchparen_insert_timeout = 20
+-- vim.g.loaded_matchparen = 1
+vim.g.matchparen_timeout = 10
+vim.g.matchparen_insert_timeout = 10
 
 -- vim.opt.fsync = false
 vim.opt.autochdir = false

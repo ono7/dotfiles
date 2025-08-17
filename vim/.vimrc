@@ -276,7 +276,8 @@ function! s:CleanAndSave()
   call winrestview(l:save)
 endfunction
 " 10MB
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+"autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable noshowmatch | endif
 
 augroup _read
   autocmd!
