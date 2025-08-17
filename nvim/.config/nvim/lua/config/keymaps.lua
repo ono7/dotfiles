@@ -652,27 +652,27 @@ local function smart_quote_handler(quote_char)
 end
 
 -- Apply smart quote handling
-k("i", '"', smart_quote_handler('"'), { expr = true })
-k("i", "'", smart_quote_handler("'"), { expr = true })
-k("i", "`", smart_quote_handler("`"), { expr = true })
+-- k("i", '"', smart_quote_handler('"'), { expr = true })
+-- k("i", "'", smart_quote_handler("'"), { expr = true })
+-- k("i", "`", smart_quote_handler("`"), { expr = true })
 
-k("i", "[", function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return "[]<Left>"
-  elseif n ~= "" then
-    return "["
-  end
-  return "[]<Left>"
-end, { expr = true })
+-- k("i", "[", function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return "[]<Left>"
+--   elseif n ~= "" then
+--     return "["
+--   end
+--   return "[]<Left>"
+-- end, { expr = true })
 
-k("i", "]", function()
-  local n = get_next_char()
-  if n == "]" then
-    return "<Right>"
-  end
-  return "]"
-end, { expr = true })
+-- k("i", "]", function()
+--   local n = get_next_char()
+--   if n == "]" then
+--     return "<Right>"
+--   end
+--   return "]"
+-- end, { expr = true })
 
 -- handle {}
 k("i", "{", function()
@@ -685,13 +685,13 @@ k("i", "{", function()
   return "{}<Left>"
 end, { expr = true })
 
-k("i", "}", function()
-  local n = get_next_char()
-  if n == "}" then
-    return "<Right>"
-  end
-  return "}"
-end, { expr = true })
+-- k("i", "}", function()
+--   local n = get_next_char()
+--   if n == "}" then
+--     return "<Right>"
+--   end
+--   return "}"
+-- end, { expr = true })
 
 -- handle (
 -- k("i", "(", function()
@@ -712,13 +712,13 @@ k({ "i" }, ")", function()
   return ")"
 end, { expr = true })
 
-k("i", ">", function()
-  local n = get_next_char()
-  if n == ">" then
-    return "<Right>"
-  end
-  return ">"
-end, { expr = true })
+-- k("i", ">", function()
+--   local n = get_next_char()
+--   if n == ">" then
+--     return "<Right>"
+--   end
+--   return ">"
+-- end, { expr = true })
 
 --- Enhanced bracket handling with smarter detection ---
 local function smart_bracket_handler(open_bracket, close_bracket)

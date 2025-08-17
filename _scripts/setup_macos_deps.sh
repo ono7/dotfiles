@@ -45,6 +45,23 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 
+# Set fast key repeat rate (smaller number = faster repeat)
+defaults write -g KeyRepeat -int 1
+#
+## Set short delay until key repeat (smaller number = shorter delay)
+defaults write -g InitialKeyRepeat -int 10
+
+# Disable Finder animations
+defaults write com.apple.finder DisableAllAnimations -bool true
+killall Finder
+
+# Disable Dock autohide delay and animation
+defaults write com.apple.Dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -int 0
+
+# Disable Slow Keys accessibility feature (can cause delay)
+defaults write com.apple.universalaccess slowKeys -bool false
+
 # Set weekly software update checks
 # defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 7
 
@@ -76,3 +93,5 @@ defaults write com.apple.dock static-only -bool false
 
 # Disable startup sound
 # sudo nvram SystemAudioVolume=%01
+
+killall Dock
