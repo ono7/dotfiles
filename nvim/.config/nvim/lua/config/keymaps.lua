@@ -507,23 +507,23 @@ end
 --   end
 -- end, { expr = true })
 
-k("i", '"', function()
-  local n = get_next_char()
-  if n == '"' then
-    return "<Right>"
-  else
-    return '"'
-  end
-end, { expr = true })
+-- vim.keymap.set("i", '"', function()
+--   local n = get_next_char()
+--   if n == '"' then
+--     return "<Right>"
+--   else
+--     return '"'
+--   end
+-- end, { expr = true })
 
-k("i", "'", function()
-  local n = get_next_char()
-  if n == "'" then
-    return "<Right>"
-  else
-    return "'"
-  end
-end, { expr = true })
+-- k("i", "'", function()
+--   local n = get_next_char()
+--   if n == "'" then
+--     return "<Right>"
+--   else
+--     return "'"
+--   end
+-- end, { expr = true })
 
 --   elseif (p and p:match("%w")) or (n and n:match("%w")) then
 --     return '"'
@@ -700,15 +700,15 @@ end
 -- end, { expr = true })
 
 -- handle {}
-k("i", "{", function()
-  local n = get_next_char()
-  if r_pair_map[n] then
-    return "{}<Left>"
-  elseif n ~= "" then
-    return "{"
-  end
-  return "{}<Left>"
-end, { expr = true })
+-- k("i", "{", function()
+--   local n = get_next_char()
+--   if r_pair_map[n] then
+--     return "{}<Left>"
+--   elseif n ~= "" then
+--     return "{"
+--   end
+--   return "{}<Left>"
+-- end, { expr = true })
 
 -- k("i", "}", function()
 --   local n = get_next_char()
@@ -729,13 +729,13 @@ end, { expr = true })
 --   return "()<Left>"
 -- end, { expr = true })
 
-k({ "i" }, ")", function()
-  local n = get_next_char()
-  if n == ")" then
-    return "<Right>"
-  end
-  return ")"
-end, { expr = true })
+-- k({ "i" }, ")", function()
+--   local n = get_next_char()
+--   if n == ")" then
+--     return "<Right>"
+--   end
+--   return ")"
+-- end, { expr = true })
 
 -- k("i", ">", function()
 --   local n = get_next_char()
@@ -782,10 +782,10 @@ local function closing_bracket_handler(close_bracket)
   end
 end
 
-k("i", ")", closing_bracket_handler(")"), { expr = true })
-k("i", "]", closing_bracket_handler("]"), { expr = true })
-k("i", "}", closing_bracket_handler("}"), { expr = true })
-k("i", ">", closing_bracket_handler(">"), { expr = true })
+-- k("i", ")", closing_bracket_handler(")"), { expr = true })
+-- k("i", "]", closing_bracket_handler("]"), { expr = true })
+-- k("i", "}", closing_bracket_handler("}"), { expr = true })
+-- k("i", ">", closing_bracket_handler(">"), { expr = true })
 
 k("i", "<BS>", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -810,21 +810,22 @@ local pair_map_2 = {
   ["<"] = ">",
 }
 
-k("i", "<enter>", function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 
-  -- Guard against beginning of line
-  if col == 0 then
-    return "<CR>"
-  end
-
-  -- Get only the previous character using precise API call
-  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
-
-  -- Check if previous char is an opening bracket
-  if pair_map_2[prev_char] then
-    return "<CR><Esc>O"
-  else
-    return "<CR>"
-  end
-end, { expr = true })
+-- k("i", "<enter>", function()
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--
+--   -- Guard against beginning of line
+--   if col == 0 then
+--     return "<CR>"
+--   end
+--
+--   -- Get only the previous character using precise API call
+--   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+--
+--   -- Check if previous char is an opening bracket
+--   if pair_map_2[prev_char] then
+--     return "<CR><Esc>O"
+--   else
+--     return "<CR>"
+--   end
+-- end, { expr = true })
