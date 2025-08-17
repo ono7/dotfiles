@@ -79,6 +79,7 @@ xnoremap { <esc>`>a}<esc>`<i{<esc>
 xnoremap < <esc>`>a><esc>`<i<<esc>
 
 set iskeyword+=_,-
+set ttyfast
 
 function! CopyMatches(reg)
   let hits = []
