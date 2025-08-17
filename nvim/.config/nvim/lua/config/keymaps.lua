@@ -47,8 +47,8 @@ inoremap <C-e> <End>
 
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-nnoremap <silent> ,d :bd!<cr>
-nnoremap <silent> <space><space> :noh<cr>
+nnoremap <silent> ,d <cmd>bd!<cr>
+nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
 nnoremap v <c-v>
@@ -59,10 +59,10 @@ nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
-nnoremap gm :Git commit % -m ""<Left>
+nnoremap gm <cmd>Git commit % -m ""<Left>
 
-nnoremap <leader>d :%bdelete\|edit#\|bdelete#<CR>
-nnoremap <leader>td :e ~/todo.md<CR>
+nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
 vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
 vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
@@ -207,7 +207,7 @@ k("n", "<leader>dt", function()
 end)
 
 --- macros
-k("x", "Q", ":norm @q<CR>", opt)
+k("x", "Q", "<cmd>norm @q<CR>", opt)
 
 -- Move within visual lines
 -- k("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -217,7 +217,7 @@ k("x", "Q", ":norm @q<CR>", opt)
 k("x", "y", [[ygv<Esc>]], silent)
 
 -- notes
-k("n", "<leader>n", ":e ~/notes.md<cr>", silent)
+k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
@@ -235,20 +235,20 @@ k("n", "<leader>cd", function()
 end, { silent = true })
 
 -- Copy full file path
-k("n", "<leader>cp", ':let @+ = expand("%:p")<CR>', opt)
+k("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<CR>', opt)
 
 --- when using J keep cursor to the right
 k({ "n", "v" }, "J", "mzJ`z")
 
 -- make dot work in visual mode
-k("v", ".", ":norm .<cr>", opt)
+k("v", ".", "<cmd>norm .<cr>", opt)
 
 --- go ---
 -- k("n", "gt", ":GoTagAdd<cr>", silent)
 -- k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
-k("n", "<leader>bd", ":%bd|e#<cr>", silent)
+k("n", "<leader>bd", "<cmd>%bd|e#<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
@@ -285,7 +285,7 @@ k("t", "<C-y>", function()
   end
 end, { desc = "Toggle window maximize" })
 
-k("x", ",a", ":!column -t<cr>")
+k("x", ",a", "<cmd>!column -t<cr>")
 
 --- terminal ---
 k("t", "<M-BS>", "\x17", { noremap = true })
@@ -299,7 +299,7 @@ k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 k("t", "kk", [[<c-\><c-n>]], silent)
-k("t", "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+k("t", "<C-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)
@@ -308,7 +308,7 @@ k("t", "<D-p>", [[<c-p>]], silent)
 k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
-k({ "n" }, "<C-t>", ":T<CR>", silent)
+k({ "n" }, "<C-t>", "<cmd>T<CR>", silent)
 -- k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)
@@ -811,21 +811,21 @@ local pair_map_2 = {
 }
 
 
--- k("i", "<enter>", function()
---   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
---
---   -- Guard against beginning of line
---   if col == 0 then
---     return "<CR>"
---   end
---
---   -- Get only the previous character using precise API call
---   local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
---
---   -- Check if previous char is an opening bracket
---   if pair_map_2[prev_char] then
---     return "<CR><Esc>O"
---   else
---     return "<CR>"
---   end
--- end, { expr = true })
+k("i", "<enter>", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+  -- Guard against beginning of line
+  if col == 0 then
+    return "<CR>"
+  end
+
+  -- Get only the previous character using precise API call
+  local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1] or ""
+
+  -- Check if previous char is an opening bracket
+  if pair_map_2[prev_char] then
+    return "<CR><Esc>O"
+  else
+    return "<CR>"
+  end
+end, { expr = true })

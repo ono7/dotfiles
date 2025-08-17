@@ -130,16 +130,16 @@ map Q <Nop>
 
 nnoremap v <c-v>
 nnoremap U <c-r>
-nnoremap <c-r> :browse oldfiles<CR>
+nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$
-nnoremap <leader>cd :lcd %:p:h<CR>
-nnoremap <leader>td :e ~/todo.md<CR>
+nnoremap <leader>cd <cmd>lcd %:p:h<CR>
+nnoremap <leader>td <cmd>e ~/todo.md<CR>
 nnoremap <space>a ggVG
-nnoremap <silent> <space><space> :noh<cr>
-nnoremap gm :Git commit % -m ""<Left>
-nnoremap <silent> ,d :bd!<cr>
-nnoremap ,w :w!<cr>
+nnoremap <silent> <space><space> <cmd>noh<cr>
+nnoremap gm <cmd>Git commit % -m ""<Left>
+nnoremap <silent> ,d <cmd>bd!<cr>
+nnoremap ,w <cmd>w!<cr>
 nnoremap cp yap<S-}>p
 nnoremap J mzJ`z
 
@@ -153,15 +153,15 @@ nnoremap <C-h> <C-W>h
 nnoremap <c-e> <end>
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-nnoremap <silent> <leader>n :e ~/notest.md<cr>
+nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
 nnoremap <M-r> :browse oldfiles<CR>
 nnoremap <esc>r :browse oldfiles<CR>
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
-nnoremap <leader>d :%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
-vnoremap . :norm .<cr>
+vnoremap . <cmd>norm .<cr>
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
@@ -173,7 +173,7 @@ xnoremap < <esc>`>a><esc>`<i<<esc>
 xnoremap H <gv
 xnoremap L >gv
 xnoremap <silent> y ygv<Esc>
-xnoremap Q :norm @q<CR>
+xnoremap Q <cmd>norm @q<CR>
 
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
@@ -220,8 +220,8 @@ function! Rg(args) abort
   redraw!
 endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
-nnoremap <M-g> :Rg<space>
-nnoremap <esc>g :Rg<space>
+nnoremap <M-g> <cmd>Rg<space>
+nnoremap <esc>g <cmd>Rg<space>
 
 function! ToggleQuickfixList()
   let qf_exists = 0
@@ -237,7 +237,7 @@ function! ToggleQuickfixList()
     copen
   endif
 endfunction
-nnoremap <silent> <C-t> :call ToggleQuickfixList()<CR>
+nnoremap <silent> <C-t> <cmd>call ToggleQuickfixList()<CR>
 
 function s:remove_pair() abort
   let pair = getline('.')[ col('.')-2 : col('.')-1 ]
