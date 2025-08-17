@@ -507,6 +507,31 @@ end
 --   end
 -- end, { expr = true })
 
+k("i", '"', function()
+  local n = get_next_char()
+  if n == '"' then
+    return "<Right>"
+  else
+    return '"'
+  end
+end, { expr = true })
+
+k("i", "'", function()
+  local n = get_next_char()
+  if n == "'" then
+    return "<Right>"
+  else
+    return "'"
+  end
+end, { expr = true })
+
+--   elseif (p and p:match("%w")) or (n and n:match("%w")) then
+--     return '"'
+--   else
+--     return '""<left>'
+--   end
+-- end, { expr = true })
+
 -- Function to handle "'" (similar logic)
 -- k("i", "'", function()
 --   local p, n = get_next_and_prev_chars()

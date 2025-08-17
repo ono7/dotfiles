@@ -63,7 +63,7 @@ require("config.neovide")
 require("utils.help-lookup").setup()
 
 --- these two worktogether
-require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -116,7 +116,7 @@ vim.opt.complete = { ".", "w", "b" }
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
