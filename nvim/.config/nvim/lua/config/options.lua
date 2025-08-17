@@ -192,13 +192,7 @@ vim.opt.wildignore = {}
 -- General ignores (OS, editors, etc.)
 vim.opt.wildignore:append({
   "**/.DS_Store",
-  "**/Thumbs.db",
-  "**/Desktop.ini",
   "**/.git/**",
-  "**/.svn/**",
-  "**/.hg/**",
-  "**/.idea/**",
-  "**/.vscode/**",
   "**/*.tmp",
   "**/*.temp",
   "**/*.swp",
@@ -213,7 +207,6 @@ vim.opt.wildignore:append({
   "**/.cache/**",
   "**/build/**",
   "**/dist/**",
-  "**/out/**",
   "**/target/**",
   "**/coverage/**",
   "**/tmp/**",
@@ -221,7 +214,6 @@ vim.opt.wildignore:append({
   "**/.temp/**",
   "**/logs/**",
   "**/.logs/**",
-  "**/*.log",
 })
 
 -- Python-specific ignores
@@ -238,7 +230,6 @@ vim.opt.wildignore:append({
   "**/virtualenv/**",
   "**/.pytest_cache/**",
   "**/.coverage",
-  "**/htmlcov/**",
   "**/.tox/**",
   "**/*.egg-info/**",
   "**/*.egg/**",
@@ -248,35 +239,19 @@ vim.opt.wildignore:append({
   "**/site-packages/**",
   "**/*.pyc",
   "**/*.pyo",
-  "**/*.pyd",
-  "**/pip-log.txt",
-  "**/pip-delete-this-directory.txt",
 })
 
 -- JavaScript/TypeScript/Node.js ignores
 vim.opt.wildignore:append({
   "**/node_modules/**",
-  "**/npm-debug.log*",
-  "**/yarn-debug.log*",
-  "**/yarn-error.log*",
   "**/.npm/**",
   "**/.yarn/**",
   "**/package-lock.json",
   "**/yarn.lock",
   "**/pnpm-lock.yaml",
-  "**/.next/**",
-  "**/.nuxt/**",
-  "**/.output/**",
-  "**/.nyc_output/**",
-  "**/.parcel-cache/**",
-  "**/jspm_packages/**",
-  "**/bower_components/**",
-  "**/*.min.js",
-  "**/*.min.css",
   "**/.eslintcache",
   "**/.stylelintcache",
   "**/tsconfig.tsbuildinfo",
-  "**/.turbo/**",
 })
 
 -- Go ignores
