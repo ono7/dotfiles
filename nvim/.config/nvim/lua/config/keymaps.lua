@@ -372,25 +372,25 @@ end, silent)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-    or (open == "[" and close == "]")
-    or (open == "{" and close == "}")
-    or (open == "<" and close == ">")
-    or (open == close and (open == "'" or open == '"' or open == "`"))
+      or (open == "[" and close == "]")
+      or (open == "{" and close == "}")
+      or (open == "<" and close == ">")
+      or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
-k("i", "<BS>", function()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  if col == 0 then
-    return "<BS>" -- At the start of the line, just return a normal backspace
-  end
-  local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ""
-  local prev_char, next_char = chars:sub(1, 1), chars:sub(2, 2)
-  if is_pair(prev_char, next_char) then
-    return "<Del><C-h>" -- Delete both characters
-  else
-    return "<BS>" -- Normal backspace behavior
-  end
-end, xpr)
+-- k("i", "<BS>", function()
+--   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   if col == 0 then
+--     return "<BS>" -- At the start of the line, just return a normal backspace
+--   end
+--   local chars = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col + 1, {})[1] or ""
+--   local prev_char, next_char = chars:sub(1, 1), chars:sub(2, 2)
+--   if is_pair(prev_char, next_char) then
+--     return "<Del><C-h>" -- Delete both characters
+--   else
+--     return "<BS>" -- Normal backspace behavior
+--   end
+-- end, xpr)
 
 -- captures :messages to buffer
 k("n", "<Leader>m", function()
