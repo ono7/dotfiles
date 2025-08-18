@@ -11,7 +11,7 @@ vim.opt.shell = "zsh"
 vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 -- vim.opt.winbar = "%=%-.75F %-m"
-vim.opt.winbar = "%=%t"
+vim.opt.winbar = "%=%f"
 
 -- vim.g.loaded_matchparen = 1
 vim.g.matchparen_timeout = 10
