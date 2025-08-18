@@ -1,4 +1,4 @@
-local xpr = { noremap = true, expr = true }
+-- local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
@@ -370,13 +370,13 @@ k("n", "<leader>w", function()
 end, silent)
 
 --- Optimized pair matching functions
-local function is_pair(open, close)
-  return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
-end
+-- local function is_pair(open, close)
+--   return (open == "(" and close == ")")
+--       or (open == "[" and close == "]")
+--       or (open == "{" and close == "}")
+--       or (open == "<" and close == ">")
+--       or (open == close and (open == "'" or open == '"' or open == "`"))
+-- end
 
 -- k("i", "<BS>", function()
 --   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
