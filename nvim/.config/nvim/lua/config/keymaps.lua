@@ -59,7 +59,7 @@ nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
-nnoremap gm <cmd>Git commit % -m ""<Left>
+nnoremap gm :Git commit % -m ""<Left>
 
 nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
@@ -372,10 +372,10 @@ end, silent)
 --- Optimized pair matching functions
 local function is_pair(open, close)
   return (open == "(" and close == ")")
-      or (open == "[" and close == "]")
-      or (open == "{" and close == "}")
-      or (open == "<" and close == ">")
-      or (open == close and (open == "'" or open == '"' or open == "`"))
+    or (open == "[" and close == "]")
+    or (open == "{" and close == "}")
+    or (open == "<" and close == ">")
+    or (open == close and (open == "'" or open == '"' or open == "`"))
 end
 
 k("i", "<BS>", function()
@@ -388,7 +388,7 @@ k("i", "<BS>", function()
   if is_pair(prev_char, next_char) then
     return "<Del><C-h>" -- Delete both characters
   else
-    return "<BS>"       -- Normal backspace behavior
+    return "<BS>" -- Normal backspace behavior
   end
 end, xpr)
 
@@ -822,7 +822,7 @@ k("i", "<BS>", function()
     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
   end
 
-  local line = vim.fn.getline('.')
+  local line = vim.fn.getline(".")
   if col > #line then
     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
   end
