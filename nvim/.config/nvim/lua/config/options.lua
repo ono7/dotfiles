@@ -11,7 +11,20 @@ vim.opt.shell = "zsh"
 vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 -- vim.opt.winbar = "%=%-.75F %-m"
-vim.opt.winbar = "%=%f"
+-- vim.opt.winbar = "%=%f"
+
+function _G.winbar_path()
+  local filepath = vim.fn.expand("%:.") -- relative path
+  if filepath == "" then
+    return ""
+  end
+  if filepath:sub(1, #vim.env.HOME) == vim.env.HOME then
+    filepath = "~" .. filepath:sub(#vim.env.HOME + 1)
+  end
+  return filepath
+end
+
+vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
 
 -- vim.g.loaded_matchparen = 1
 vim.g.matchparen_timeout = 10
