@@ -64,6 +64,10 @@ fi
 rm -rf "$HOME/.local/vim"
 rm -rf "$HOME/.vim/pack"
 
+if [[ $(id -u) -eq 0 ]]; then
+  sudo rm -f /usr/bin/vim /usr/bin/vi /usr/bin/ex /usr/bin/view
+fi
+
 rm -rf "$HOME/vim"
 
 # Clone and build Vim
