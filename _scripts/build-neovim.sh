@@ -54,7 +54,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   log "macOS detected. Installing packages..."
   if command -v brew >/dev/null 2>&1; then
     brew uninstall --ignore-dependencies neovim || true
-    brew install ninja cmake gettext curl luv || true
+    brew install ninja cmake gettext curl || true
   else
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
@@ -89,15 +89,9 @@ log "Building neovim with optimizations..."
 
 log "cleaning left over artifacts"
 make distclean
-#
-# cmake .. \
-#   -DCMAKE_BUILD_TYPE=Release \
-#   -DCMAKE_INSTALL_PREFIX="$HOME/.local" \
-#   -DCMAKE_C_FLAGS="$CFLAGS" \
-#   -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
-#   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
-#   -DENABLE_LTO=ON
+
 # Build dependencies first
+# this will download and build all its defendencies
 mkdir -p .deps && cd .deps
 cmake ../cmake.deps/ -DUSE_BUNDLED=ON
 make -j$(nproc)
