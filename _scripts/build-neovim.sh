@@ -92,8 +92,17 @@ make distclean
 
 # Build dependencies first
 # this will download and build all its defendencies
+# mkdir -p .deps && cd .deps
+# cmake ../cmake.deps/ -DUSE_BUNDLED=ON
+# make -j$(nproc)
+# cd ..
+
 mkdir -p .deps && cd .deps
-cmake ../cmake.deps/ -DUSE_BUNDLED=ON
+cmake ../cmake.deps \
+  -DCMAKE_C_FLAGS="$CFLAGS" \
+  -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+  -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+  -DUSE_BUNDLED=ON
 make -j$(nproc)
 cd ..
 
