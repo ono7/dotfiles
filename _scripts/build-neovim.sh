@@ -86,9 +86,25 @@ fi
 
 # Build with optimizations - using cmake directly for better control
 log "Building neovim with optimizations..."
-mkdir -p build
-cd build
 
+log "cleaning left over artifacts"
+make distclean
+#
+# cmake .. \
+#   -DCMAKE_BUILD_TYPE=Release \
+#   -DCMAKE_INSTALL_PREFIX="$HOME/.local" \
+#   -DCMAKE_C_FLAGS="$CFLAGS" \
+#   -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+#   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+#   -DENABLE_LTO=ON
+# Build dependencies first
+mkdir -p .deps && cd .deps
+cmake ../cmake.deps/ -DUSE_BUNDLED=ON
+make -j$(nproc)
+cd ..
+
+# Then your existing build
+mkdir -p build && cd build
 cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX="$HOME/.local" \
@@ -96,6 +112,8 @@ cmake .. \
   -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
   -DENABLE_LTO=ON
+
+make -j$(nproc)
 
 if ! make -j$(nproc); then
   log "Error while building neovim"
