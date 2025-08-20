@@ -38,14 +38,10 @@ ARCH=$(uname -m)
 
 ARCH=$(uname -m)
 if [[ "$ARCH" == "arm64" ]]; then
-  # Apple Silicon optimizations (M1/M2/M3/M4)
-  # export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
-  # export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
-  # export LDFLAGS="-Wl,-O1 -flto"
+  export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
+  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
+  export LDFLAGS="-Wl,-O1 -flto"
 
-  export CFLAGS="-O3 -march=native -mtune=native -flto"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto"
-  export LDFLAGS="-flto"
   log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
