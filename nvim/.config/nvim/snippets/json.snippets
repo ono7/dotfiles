@@ -2,12 +2,8 @@ extends todo
 
 snippet lint "lint configuration" b
   {
-    "*.{yml,yaml}": ["yamllint", "ansible-lint --offline"],
-    "!(node_modules/**/*)*.py": [
-      "ruff check"
-    ],
-    "*.py": ["python -m pytest tests/"],
-    "*.sh": [ "shellcheck -e SC1090 -e SC2164 -S warning -a -x" ]
+    "*.{yml,yaml}": ["ansible-lint --offline"],
+    "*.py": ["ruff check"]
   }
 
 snippet dev "dev container" b
