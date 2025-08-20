@@ -61,13 +61,8 @@ elif [[ "$ARCH" == "x86_64" ]]; then
 fi
 
 # Clean up previous installations
-if [[ $(id -u) -eq 0 ]]; then
-  log "Backing up existing system vim (if present)"
-  [[ -f /usr/bin/vim ]] && cp /usr/bin/vim /usr/bin/vim.backup.$(date +%s) || true
-else
-  rm -rf "$HOME/.local/vim"
-  rm -rf "$HOME/.vim/pack"
-fi
+rm -rf "$HOME/.local/vim"
+rm -rf "$HOME/.vim/pack"
 
 rm -rf "$HOME/vim"
 
@@ -152,7 +147,6 @@ echo ""
 
 if [[ $(id -u) -eq 0 ]]; then
   echo "Vim is now available system-wide at: ${INSTALL_PREFIX}/bin/vim"
-  echo "Previous vim backup (if existed): /usr/bin/vim.backup.*"
 else
   echo "Vim is available at: ${INSTALL_PREFIX}/bin/vim"
   echo "Make sure ${INSTALL_PREFIX}/bin is in your PATH"
