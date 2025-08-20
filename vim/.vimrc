@@ -92,14 +92,22 @@ if exists('+wildoptions')
   endtry
 endif
 
+"if has('clipboard')
+"  if has('mac') || !empty($DISPLAY)
+"    if has('unnamedplus')
+"      set clipboard=unnamedplus
+"    else
+"      set clipboard=unnamed
+"    endif
+"  endif
+"endif
 
+" Optimized clipboard configuration with proper fallbacks
 if has('clipboard')
-  if has('mac') || !empty($DISPLAY)
-    if has('unnamedplus')
-      set clipboard=unnamedplus
-    else
-      set clipboard=unnamed
-    endif
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  elseif has('unnamed')
+    set clipboard=unnamed
   endif
 endif
 
