@@ -24,14 +24,14 @@ trap cleanup EXIT
 ARCH=$(uname -m)
 if [[ "$ARCH" == "arm64" ]]; then
   # Apple Silicon optimizations (M1/M2/M3/M4)
-  export CFLAGS="-O3 -march=native -mtune=native -flto -pipe -fPIC"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto -pipe -fPIC"
-  export LDFLAGS="-Wl,-O1, -Wl, -flto"
+  export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
+  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
+  export LDFLAGS="-Wl,-O1 -flto"
   log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
-  export CFLAGS="-O3 -march=native -mtune=native -flto -pipe -fPIC -msse4.2 -mavx2"
-  export CXXFLAGS="-O3 -march=native -mtune=native -flto -pipe -fPIC -msse4.2 -mavx2"
+  export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC -msse4.2 -mavx2"
+  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC -msse4.2 -mavx2"
   export LDFLAGS="-Wl,-O1,--as-needed,--gc-sections -s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
 fi
