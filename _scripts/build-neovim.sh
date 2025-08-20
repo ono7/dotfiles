@@ -24,15 +24,15 @@ trap cleanup EXIT
 ARCH=$(uname -m)
 if [[ "$ARCH" == "arm64" ]]; then
   # Apple Silicon optimizations (M1/M2/M3/M4)
-  export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
-  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC"
+  export CFLAGS="-O3 -march=native -mtune=native -pipe"
+  export CXXFLAGS="-O3 -march=native -mtune=native -pipe"
   export LDFLAGS="-Wl,-O1 -flto"
   log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
-  export CFLAGS="-O3 -march=native -mtune=native -pipe -fPIC -msse4.2 -mavx2"
-  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -fPIC -msse4.2 -mavx2"
-  export LDFLAGS="-Wl,-O1,--as-needed,--gc-sections -s -flto"
+  export CFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
+  export CXXFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
+  export LDFLAGS="-Wl,-O1,-s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
@@ -102,7 +102,8 @@ cmake ../cmake.deps \
   -DCMAKE_C_FLAGS="$CFLAGS" \
   -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
-  -DUSE_BUNDLED=ON
+  -DUSE_BUNDLED=ON \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
 make -j$(nproc)
 cd ..
 
@@ -114,7 +115,8 @@ cmake .. \
   -DCMAKE_C_FLAGS="$CFLAGS" \
   -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
-  -DENABLE_LTO=ON
+  -DENABLE_LTO=ON \
+  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
 
 make -j$(nproc)
 
