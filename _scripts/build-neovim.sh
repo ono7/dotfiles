@@ -54,7 +54,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   log "macOS detected. Installing packages..."
   if command -v brew >/dev/null 2>&1; then
     brew uninstall --ignore-dependencies neovim || true
-    brew install ninja cmake gettext curl || true
+    brew install ninja cmake gettext curl luv || true
   else
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
