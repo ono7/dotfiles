@@ -34,32 +34,50 @@ install_dependencies() {
   fi
 }
 
-ARCH=$(uname -m)
+# Determine installation type based on user privileges
+if [[ $(id -u) -eq 0 ]]; then
+  INSTALL_PREFIX="/usr"
+  INSTALL_TYPE="system-wide"
+  log "Root user detected - performing system-wide installation (prefix: ${INSTALL_PREFIX})"
+else
+  INSTALL_PREFIX="$HOME/.local/vim"
+  INSTALL_TYPE="user"
+  log "Regular user detected - performing user installation (prefix: ${INSTALL_PREFIX})"
+fi
 
 ARCH=$(uname -m)
+
+# Set compiler optimizations based on architecture
 if [[ "$ARCH" == "arm64" ]]; then
   export CFLAGS="-O3 -march=native -mtune=native -pipe"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe"
   export LDFLAGS="-Wl,-O1 -flto"
   log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
-  # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export LDFLAGS="-Wl,-O1,-s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
 fi
 
-rm -rf "$HOME/.local/vim"
-rm -rf "$HOME/vim"
-rm -rf "$HOME/.vim/pack"
+# Clean up previous installations
+if [[ $(id -u) -eq 0 ]]; then
+  log "Backing up existing system vim (if present)"
+  [[ -f /usr/bin/vim ]] && cp /usr/bin/vim /usr/bin/vim.backup.$(date +%s) || true
+else
+  rm -rf "$HOME/.local/vim"
+  rm -rf "$HOME/.vim/pack"
+fi
 
+rm -rf "$HOME/vim"
+
+# Clone and build Vim
 git clone https://github.com/vim/vim.git ~/vim
 cd ~/vim
 
-# Check if the system is macOS
+# Configure based on OS and installation type
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  log "Configuring for macOS"
+  log "Configuring for macOS (${INSTALL_TYPE} installation)"
   ./configure \
     --with-features=huge \
     --enable-multibyte \
@@ -78,12 +96,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --disable-arabic \
     --disable-title \
     --with-compiledby="${USER}" \
-    --prefix="$HOME/.local/vim"
+    --prefix="${INSTALL_PREFIX}"
 else
-  # Install dependencies for Linux systems
+  # Always install dependencies for Linux
   install_dependencies
 
-  log "Configuring for Linux"
+  log "Configuring for Linux (${INSTALL_TYPE} installation)"
   ./configure \
     --with-features=huge \
     --enable-multibyte \
@@ -94,7 +112,7 @@ else
     --enable-cscope \
     --enable-terminal \
     --with-compiledby="${USER}" \
-    --prefix="$HOME/.local/vim" \
+    --prefix="${INSTALL_PREFIX}" \
     --disable-netbeans \
     --disable-arabic \
     --disable-title \
@@ -104,26 +122,41 @@ else
     --enable-fail-if-missing
 fi
 
+# Build
+log "Building Vim with $(nproc) parallel jobs"
 make -j"$(nproc)"
 
+# Install
 if ! make install; then
   log "Error while installing vim"
   exit 1
 fi
 
-log "Installing fugitive"
-mkdir -p ~/.vim/pack/plugins/start
-git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+# Post-installation setup (only for user installs)
+if [[ $(id -u) -ne 0 ]]; then
+  log "Installing vim-fugitive plugin"
+  mkdir -p ~/.vim/pack/plugins/start
+  [[ -d ~/.vim/pack/plugins/start/vim-fugitive ]] && rm -rf ~/.vim/pack/plugins/start/vim-fugitive
+  git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+fi
 
-# log "remove matchparen.vim....."
-# this is for performace when typing, disabled matchparen.nvim for best results and no latency when typing
-# find ~/.local/vim -name 'matchparen.vim' -exec rm -f {} \;
-# if [ $? != 0 ]; then
-#   log "error finding matchparen.vim"
-# fi
+# Final status report
+echo ""
+echo "=============================================="
+echo "Vim successfully built and installed!"
+echo "Installation type: ${INSTALL_TYPE}"
+echo "Installation prefix: ${INSTALL_PREFIX}"
+echo "Platform: ${ARCH}"
+echo "Compiler flags: ${CFLAGS}"
+echo ""
 
-echo ""
-echo "Vim built for platform ${ARCH}"
-echo "With compiler CFLAGS: ${CFLAGS}"
-echo ""
+if [[ $(id -u) -eq 0 ]]; then
+  echo "Vim is now available system-wide at: ${INSTALL_PREFIX}/bin/vim"
+  echo "Previous vim backup (if existed): /usr/bin/vim.backup.*"
+else
+  echo "Vim is available at: ${INSTALL_PREFIX}/bin/vim"
+  echo "Make sure ${INSTALL_PREFIX}/bin is in your PATH"
+fi
+
+echo "=============================================="
 exit 0

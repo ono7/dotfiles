@@ -118,7 +118,9 @@ neovim:
 
 vim:
 	@echo $(BANNER)
-	@mkdir -p ~/.local/bin
+	@if [ "$(id -u)" != "0" ]; then \
+		mkdir -p ~/.local/bin; \
+	fi
 	@bash ./_scripts/build-vim.sh
 
 vim-user:
