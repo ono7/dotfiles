@@ -146,7 +146,6 @@ bindings = [
 {  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
 {  key  =  "W",      mods  =  "Control|Shift",  action  =  "Quit"               },
 # Map Ctrl+1,2,3,4 to Alt+1,2,3,4
-# used for harpoon.lua
 {  key  =  "Key1",   mods  =  "Control",        chars   =  "\u001b1"            },
 {  key  =  "Key2",   mods  =  "Control",        chars   =  "\u001b2"            },
 {  key  =  "Key3",   mods  =  "Control",        chars   =  "\u001b3"            },
