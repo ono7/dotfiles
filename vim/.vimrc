@@ -222,14 +222,14 @@ if exists('$SSH_TTY') || $UID == 0
   augroup end
 endif
 
-function! Rg(args) abort
-  execute "silent! grep!" shellescape(a:args)
-  cwindow
-  redraw!
-endfunction
-command -nargs=+ -complete=file Rg call Rg(<q-args>)
-nnoremap <M-g> <cmd>Rg<space>
-nnoremap <esc>g <cmd>Rg<space>
+"function! Rg(args) abort
+"  execute "silent! grep!" shellescape(a:args)
+"  cwindow
+"  redraw!
+"endfunction
+"command -nargs=+ -complete=file Rg call Rg(<q-args>)
+"nnoremap <M-g> <cmd>Rg<space>
+"nnoremap <esc>g <cmd>Rg<space>
 
 function! ToggleQuickfixList()
   let qf_exists = 0
