@@ -136,7 +136,6 @@ bindings = [
 {  key  =  "E",      mods  =  "Control",        action  =  "ReceiveChar"        },
 {  key  =  "H",      mods  =  "Control|Shift",  action  =  "SelectPreviousTab"  },
 # fix c-i in neovim for jumps
-
 { key = "I", mods = "Control", chars = "\u001b[105;5u" },
 {  key  =  "L",      mods  =  "Control|Shift",  action  =  "SelectNextTab"      },
 { key = "Q", mods = "Control", action = "ReceiveChar" },
@@ -146,6 +145,12 @@ bindings = [
 {  key  =  "Space",  mods  =  "Control",        chars   =  "\u0000"             },
 {  key  =  "V",      mods  =  "Control|Shift",  action  =  "Paste"              },
 {  key  =  "W",      mods  =  "Control|Shift",  action  =  "Quit"               },
+# Map Ctrl+1,2,3,4 to Alt+1,2,3,4
+# used for harpoon.lua
+{  key  =  "Key1",   mods  =  "Control",        chars   =  "\u001b1"            },
+{  key  =  "Key2",   mods  =  "Control",        chars   =  "\u001b2"            },
+{  key  =  "Key3",   mods  =  "Control",        chars   =  "\u001b3"            },
+{  key  =  "Key4",   mods  =  "Control",        chars   =  "\u001b4"            },
 ]
 
 [mouse]
