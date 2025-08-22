@@ -170,6 +170,9 @@ nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>
+
+nnoremap vi` /`<CR>lv/`<CR>h
+
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
 xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a

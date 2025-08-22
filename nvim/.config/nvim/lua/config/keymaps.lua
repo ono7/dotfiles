@@ -45,6 +45,8 @@ cnoremap <c-l> <Right>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
+nnoremap vi` /`<CR>lv/`<CR>h
+
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> ,d <cmd>bd!<cr>
@@ -64,8 +66,6 @@ nnoremap gm :Git commit % -m ""<Left>
 nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
-vnoremap ' <esc>`>a"<esc>`<i"<esc>f"a
-vnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
 xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
