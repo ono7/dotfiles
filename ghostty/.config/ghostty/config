@@ -100,6 +100,9 @@ keybind = cmd+v=text:\x16
 keybind = cmd+x=text:\x18
 keybind = cmd+y=text:\x19
 keybind = cmd+w=text:\x17
+# todo fix me
+keybind = cmd+9=text:\x1b1
+keybind = cmd+0=text:\x1b2
 keybind = cmd+backspace=text:\x17
 keybind = cmd+z=text:\x1a
 keybind = cmd+right_bracket=text:\x1d
