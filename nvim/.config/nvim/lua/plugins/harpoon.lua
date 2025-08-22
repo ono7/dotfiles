@@ -13,13 +13,10 @@ return {
       },
     })
 
-    vim.keymap.set("n", "mm", function()
+    vim.keymap.set("n", "ma", function()
       harpoon:list():add()
     end)
-    vim.keymap.set("n", "<C-m>", function()
-      harpoon.ui:toggle_quick_menu(harpoon:list())
-    end)
-    vim.keymap.set("n", "<D-m>", function()
+    vim.keymap.set("n", "mm", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end)
 
