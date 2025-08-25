@@ -4,10 +4,17 @@ remove this
 
 ## registry
 
+
+1. improved foreground proccess handling windows (better low input delay)
+2. best setting fo UDP packets
+3. disable tcp timestamps (lower overhead)
+
 ````
+
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d 0x28 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v FastSendDatagramThreshold /t REG_DWORD /d 65536 /f
 
-
+netsh int tcp set global timestamps=disabled
 ```
 ## remove bloatware
 
