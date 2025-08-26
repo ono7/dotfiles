@@ -1,5 +1,5 @@
 /*
-Author:  Jose Lima (jlima773)
+Author:  Jose Lima
 Date:    2024-09-06  11:31
 */
 package main
