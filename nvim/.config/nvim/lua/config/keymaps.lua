@@ -45,8 +45,6 @@ cnoremap <c-l> <Right>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
-nnoremap vi` /`<CR>lv/`<CR>h
-
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> ,d <cmd>bd!<cr>

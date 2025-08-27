@@ -68,9 +68,6 @@ set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
 set iskeyword+=_,-
 
-
-
-
 try
   tnoremap jj <C-\><C-n>
 endtry
@@ -170,8 +167,6 @@ nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>
-
-nnoremap vi` /`<CR>lv/`<CR>h
 
 xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
 xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
