@@ -24,6 +24,18 @@ function _G.winbar_path()
   return filepath
 end
 
+-- Undo configuration
+vim.opt.undodir = vim.env.HOME .. "/.undo"
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
+
+-- Create undo directory if it doesn't exist
+local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+
 vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
 
 -- vim.g.loaded_matchparen = 1
