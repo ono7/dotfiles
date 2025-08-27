@@ -34,7 +34,7 @@ else
   set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
 
-set undolevels=999
+set undolevels=999 undoreload=1000
 if !isdirectory($HOME."/.vim-undo")
     call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
@@ -48,7 +48,7 @@ setlocal path=.,**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
-set lazyredraw hidden undolevels=1000 updatetime=300
+set lazyredraw hidden updatetime=300
 set incsearch ignorecase smartcase autoindent smartindent
 set number relativenumber nocursorline
 set magic noshowcmd nowrap
