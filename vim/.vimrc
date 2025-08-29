@@ -254,7 +254,7 @@ inoremap <expr> <bs> <sid>remove_pair()
 function! CopyMatches(reg)
   let hits = []
   %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
-  let reg = empty(a:reg) ? '+' : a:reg
+  let reg = empty(a:reg) ? 'c' : a:reg
   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
 command! -register Cm call CopyMatches(<q-reg>)
