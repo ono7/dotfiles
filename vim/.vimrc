@@ -61,12 +61,20 @@ set fillchars+=diff:╱
 let &showbreak="↪ "
 set splitbelow splitright
 set fileformats=unix fileformat=unix
-set guicursor=
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
 set iskeyword+=_,-
+
+if has('win32') || has('win64')
+  set shellslash
+  set termguicolors
+  set shell=cmd
+  set shellcmdflag=/c
+  inoremap <C-H> <C-W>
+endif
 
 try
   tnoremap jj <C-\><C-n>
