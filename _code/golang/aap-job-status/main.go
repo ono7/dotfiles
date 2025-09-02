@@ -45,6 +45,7 @@ type JobDetail struct {
 	Job
 	Description string                 `json:"description"`
 	Artifacts   map[string]interface{} `json:"artifacts"`
+	rawResponse []byte                 // Store raw API response for debug output
 }
 
 type Template struct {
@@ -183,6 +184,60 @@ func (a *Api) ShowJobDetails(jobID int) {
 	a.displayJobDetails(job)
 }
 
+// RelaunchJob relaunches a job only if it's not currently running
+func (a *Api) RelaunchJob(jobID int) {
+	// First check the job status
+	job, err := a.fetchJobDetails(jobID)
+	if err != nil {
+		log.Fatal("failed to fetch job details:", err)
+	}
+
+	// Safety check - don't relaunch running jobs
+	if job.Status == "running" {
+		fmt.Printf("Job ID %d is currently running - cannot relaunch\n", jobID)
+		fmt.Printf("Job Name: %s\n", job.Name)
+		fmt.Printf("Status: %s\n", job.Status)
+		if !job.Started.IsZero() {
+			fmt.Printf("Started: %s\n", job.Started.Format("2006-01-02 15:04:05"))
+			fmt.Printf("Duration: %s\n", formatDuration(job.Job))
+		}
+		return
+	}
+
+	fmt.Printf("Relaunching Job ID %d: %s\n", jobID, job.Name)
+	fmt.Printf("Previous Status: %s\n", job.Status)
+
+	// Make the relaunch API call
+	relaunchURL := fmt.Sprintf("%s/api/v2/jobs/%d/relaunch/", a.baseURL, jobID)
+
+	resp, err := a.client.Post(relaunchURL, "application/json", nil)
+	if err != nil {
+		log.Fatal("failed to relaunch job:", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusCreated || resp.StatusCode == http.StatusOK {
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal("failed to read relaunch response:", err)
+		}
+
+		var relaunchResp map[string]interface{}
+		if err := json.Unmarshal(body, &relaunchResp); err != nil {
+			log.Fatal("failed to parse relaunch response:", err)
+		}
+
+		if newJobID, ok := relaunchResp["id"].(float64); ok {
+			fmt.Printf("Relaunch successful! New Job ID: %.0f\n", newJobID)
+		} else {
+			fmt.Println("Relaunch successful!")
+		}
+	} else {
+		body, _ := io.ReadAll(resp.Body)
+		fmt.Printf("Relaunch failed with status %d: %s\n", resp.StatusCode, string(body))
+	}
+}
+
 // fetchJobDetails retrieves detailed information for a specific job
 func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
 	url := fmt.Sprintf("%s/api/v2/jobs/%d/", a.baseURL, jobID)
@@ -206,6 +261,9 @@ func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
 	if err := json.Unmarshal(body, &job); err != nil {
 		return nil, err
 	}
+
+	// Store raw response for debug output later
+	job.rawResponse = body
 
 	return &job, nil
 }
@@ -257,8 +315,16 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 		}
 	}
 
-	// Get job output
+	// Get job output first
 	a.fetchAndDisplayJobOutput(job.ID)
+
+	// Always show raw API response at the bottom for debugging
+	if len(job.rawResponse) > 0 {
+		var prettyJSON interface{}
+		json.Unmarshal(job.rawResponse, &prettyJSON)
+		formattedJSON, _ := json.MarshalIndent(prettyJSON, "", "  ")
+		fmt.Printf("\n=== API RESPONSE ===\n%s\n=== END ===\n", string(formattedJSON))
+	}
 }
 
 // displayJobs formats and prints job information (for lists)
@@ -419,18 +485,21 @@ func printUsage() {
 	fmt.Println("  -j          Get all currently running jobs")
 	fmt.Println("  -t <n>   Get jobs by template name or ID")
 	fmt.Println("  -d <id>     Get detailed information for specific job ID")
+	fmt.Println("  -r <id>     Relaunch job (only if not currently running)")
 	fmt.Println("  -h          Show this help")
 	fmt.Println("\nExamples:")
 	fmt.Println("  go run main.go -j                    # All running jobs")
 	fmt.Println("  go run main.go -t \"Deploy Web App\"   # Jobs by template name")
 	fmt.Println("  go run main.go -t 42                 # Jobs by template ID")
 	fmt.Println("  go run main.go -d 1234               # Detailed job info")
+	fmt.Println("  go run main.go -r 1234               # Relaunch job 1234 (if not running)")
 }
 
 func main() {
 	getAllJobs := flag.Bool("j", false, "Get all currently running jobs")
 	getJobsByTemplate := flag.String("t", "", "Get jobs by template name or ID")
 	getJobDetails := flag.Int("d", 0, "Get detailed information for specific job ID")
+	relaunchJob := flag.Int("r", 0, "Relaunch job (only if not currently running)")
 	help := flag.Bool("h", false, "Show usage information")
 	flag.Parse()
 
@@ -459,6 +528,8 @@ func main() {
 
 	// Route based on flags
 	switch {
+	case *relaunchJob != 0:
+		aap.RelaunchJob(*relaunchJob)
 	case *getJobDetails != 0:
 		aap.ShowJobDetails(*getJobDetails)
 	case *getAllJobs:
