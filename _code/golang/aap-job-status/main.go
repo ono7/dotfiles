@@ -273,8 +273,7 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 	sep := strings.Repeat("*", 50)
 	fmt.Printf("%s Job Details %s\n", sep, sep)
 
-	fmt.Printf("\nJob ID: %d\n", job.ID)
-	fmt.Printf("Name: %s\n", job.Name)
+	fmt.Printf("%s, job: %d\n", job.Name, job.ID)
 	fmt.Printf("Status: %s\n", job.Status)
 	fmt.Printf("Template ID: %d\n", job.JobTemplate)
 	if job.JobTemplateName != "" {
@@ -339,8 +338,7 @@ func (a *Api) displayJobs(jobs []Job, title string) {
 
 	for _, job := range jobs {
 		duration := formatDuration(job)
-		fmt.Printf("\nJob ID: %d\n", job.ID)
-		fmt.Printf("Name: %s\n", job.Name)
+		fmt.Printf("%s job: %d\n", job.Name, job.ID)
 
 		// Get template name if we have it, otherwise just show ID
 		templateInfo := fmt.Sprintf("ID: %d", job.JobTemplate)
