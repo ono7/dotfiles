@@ -1,5 +1,8 @@
 ## dlv debugging
 
+- use runtime.Breakpoint() in code to trigger a break with if statements or
+other conditions
+
 b main.go:30
 
 - `display -a myVar` - displays the variable myVar everytime we step through the code, can add as many as needed
