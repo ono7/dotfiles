@@ -12,6 +12,7 @@ return {
         lua = { "stylua" },
         python = { "isort", "black" },
         yaml = { "prettier" },
+        ["yaml.ansible"] = { "ansible-lint" },
         javascript = { "prettier" },
         typescript = { "prettier" },
         css = { "prettier" },
