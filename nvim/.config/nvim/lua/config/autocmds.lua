@@ -1,13 +1,5 @@
 local create_augroup = vim.api.nvim_create_augroup
 
--- --- updates shada so that recent files can be used by Telescope oldfiles
--- vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
---   callback = function()
---     vim.cmd("wshada")
---   end,
---   group = create_augroup("highlight_yanked_text", { clear = true }),
--- })
-
 -- Optimize Conform.nvim for large files
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
   callback = function(args)
@@ -99,10 +91,6 @@ vim.api.nvim_create_autocmd("BufRead", {
   group = create_augroup("restore_cursor_position_on_enter", { clear = true }),
 })
 
--- redundant
--- vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
--- vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=co]] })
-
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     -- vim.opt.formatoptions:remove({ "c", "r", "o" })
@@ -139,16 +127,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- auto create dirs when saving files: use :w ++p
 
--- this breaks harpoon
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = "*",
---   callback = function()
---     local dir = vim.fn.expand("%:p:h")
---     vim.cmd("silent! lcd " .. dir)
---   end,
---   group = create_augroup("set_path_lcd", { clear = true }),
--- })
-
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.relativenumber = false
@@ -158,14 +136,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   group = create_augroup("set_buf_number_options", { clear = true }),
   desc = "Terminal Options",
 })
-
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---   pattern = { "text", "python", "go" },
---   callback = function()
---     vim.opt_local.wrap = true
---   end,
---   group = create_augroup("set_wrap", { clear = true }),
--- })
 
 -------------------- detect large files -------------------------
 
