@@ -5,61 +5,64 @@ function M.setup()
     return
   end
 
-  local pickers = require("telescope.pickers")
-  local finders = require("telescope.finders")
-  local conf = require("telescope.config").values
-  local actions = require("telescope.actions")
-  local action_state = require("telescope.actions.state")
-  local builtin = require("telescope.builtin")
+  local fzf = require("fzf-lua")
 
   local function zoxide_cd()
     local handle = io.popen("zoxide query -ls")
+    if not handle then
+      print("Error: Could not execute zoxide command")
+      return
+    end
+
     local result = handle:read("*a")
     handle:close()
 
     local items = {}
     for line in result:gmatch("[^\r\n]+") do
       local score, path = line:match("(%S+)%s+(.*)")
-      table.insert(items, { score = tonumber(score), path = path })
+      if score and path then
+        table.insert(items, { score = tonumber(score), path = path })
+      end
     end
 
+    -- Sort by score descending
     table.sort(items, function(a, b)
       return a.score > b.score
     end)
 
-    pickers
-      .new({}, {
-        prompt_title = "Zoxide Directories",
-        finder = finders.new_table({
-          results = items,
-          entry_maker = function(entry)
-            return {
-              value = entry,
-              display = entry.path,
-              ordinal = entry.path,
-            }
-          end,
-        }),
-        sorter = conf.generic_sorter({}),
-        attach_mappings = function(prompt_bufnr, map)
-          actions.select_default:replace(function()
-            actions.close(prompt_bufnr)
-            local selection = action_state.get_selected_entry()
-            vim.cmd("lcd " .. selection.value.path)
-            print("Changed to directory: " .. selection.value.path)
+    -- Convert to fzf entries (just the paths)
+    local entries = {}
+    for _, item in ipairs(items) do
+      table.insert(entries, item.path)
+    end
 
-            -- Open Telescope find_files in the selected directory
-            -- vim.defer_fn(function()
-            --   builtin.find_files({
-            --     cwd = selection.value.path,
-            --     prompt_title = "Find Files in " .. selection.value.path,
-            --   })
-            -- end, 100)
-          end)
-          return true
+    fzf.fzf_exec(entries, {
+      prompt = "Zoxide> ",
+      actions = {
+        ["default"] = function(selected)
+          if selected and selected[1] then
+            local path = selected[1]
+            vim.cmd("lcd " .. path)
+            print("Changed to directory: " .. path)
+          end
         end,
-      })
-      :find()
+        ["ctrl-f"] = function(selected)
+          if selected and selected[1] then
+            local path = selected[1]
+            vim.cmd("lcd " .. path)
+            print("Changed to directory: " .. path)
+            -- Open find_files in the selected directory
+            vim.defer_fn(function()
+              fzf.files({ cwd = path })
+            end, 100)
+          end
+        end,
+      },
+      winopts = {
+        title = " Zoxide Directories ",
+        title_pos = "center",
+      },
+    })
   end
 
   vim.api.nvim_create_user_command("ZoxideCD", zoxide_cd, {})
