@@ -5,6 +5,7 @@ if type brew &>/dev/null; then
   brew install tmux --HEAD
   brew install bpytop pinentry-mac llvm git-delta rename zk direnv gron
   brew install golang delve sqlite shfmt sshs act shellcheck rlwrap btop
+  brew install font-iosevka-term-nerd-font font-meslo-lg-nerd-font
   ln -fs "$(brew --prefix)"/opt/llvm/bin/lldb-vscode "$(brew --prefix)"/bin/
   # MacOS only
   if [[ $OSTYPE == "darwin"* ]]; then
