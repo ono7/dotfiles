@@ -291,6 +291,7 @@ k("t", "<M-BS>", "\x17", { noremap = true })
 k("t", "<C-BS>", "\x17", { noremap = true })
 
 k("i", "<C-BS>", "\x17", { noremap = true })
+k("c", "<C-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
 k("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
