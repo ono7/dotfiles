@@ -19,8 +19,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_frame_no_title = true
 
-  vim.g.neovide_window_blurred = true
-  vim.g.neovide_opacity = 0.90
+  -- vim.g.neovide_window_blurred = true
+  -- vim.g.neovide_opacity = 0.90
   vim.g.neovide_confirm_quit = true
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
@@ -39,7 +39,8 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.01) -- Changed from 1.25 to 1.1 for smaller decrease
   end)
 
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#171f2c", fg = "#c5bfb8" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
 
@@ -56,9 +57,9 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 end

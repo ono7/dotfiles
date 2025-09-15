@@ -91,11 +91,11 @@ function! RestoreRegister()
     let @" = s:restore_reg
     return ''
 endfunction
-function! PasteOver()
-     let s:restore_reg = @"
-     return "p@=RestoreRegister()\<cr>"
-endfunction
-vnoremap <silent> <expr> p PasteOver()
+"function! PasteOver()
+"     let s:restore_reg = @"
+"     return "p@=RestoreRegister()\<cr>"
+"endfunction
+"vnoremap <silent> <expr> p PasteOver()
 
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
 
