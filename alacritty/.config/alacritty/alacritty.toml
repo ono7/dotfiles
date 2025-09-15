@@ -126,6 +126,7 @@ bindings = [
 {  key  =  "A",         mods  =  "Command",        chars   =  "\u0001"             },
 {  key  =  "Back",      mods  =  "Alt",            chars   =  "\u0017"             },
 {  key  =  "Back",      mods  =  "Command",        chars   =  "\u0017"             },
+{  key  =  "Back",      mods  =  "Control",        chars   =  "\u0017"             },
 {  key  =  "W",         mods  =  "Command",        chars   =  "\u0017"             },
 {  key  =  "B",         mods  =  "Command",        chars   =  "\u0002"             },
 {  key  =  "C",         mods  =  "Command",        chars   =  "\u0003"             },
