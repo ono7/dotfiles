@@ -1,4 +1,4 @@
-opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = true }
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
