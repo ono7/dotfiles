@@ -64,7 +64,7 @@ require("config.neovide")
 require("utils.zoxide").setup()
 
 --- these two worktogether
-require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -117,7 +117,7 @@ vim.opt.complete = { ".", "w", "b" }
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -134,3 +134,10 @@ vim.api.nvim_create_user_command("CheckAutocommands", function()
     end
   end
 end, {})
+
+-- Ensure Go binaries are in PATH
+local go_bin_path = vim.fn.expand("$HOME/go/bin")
+local current_path = vim.env.PATH
+if not string.find(current_path, go_bin_path, 1, true) then
+  vim.env.PATH = go_bin_path .. ":" .. current_path
+end

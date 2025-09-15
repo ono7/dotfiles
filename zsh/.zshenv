@@ -4,6 +4,8 @@ export QT_SCALE_FACTOR=2
 # use monitor DPI
 export QT_WAYLAND_FORCE_DPI=physical
 
+export GOPATH=$HOME/go
+
 export ZK_NOTEBOOK_DIR="$HOME/notes"
 alias l='less -R '
 alias cdr='cd "$(git rev-parse --show-toplevel 2>/dev/null)"  &>/dev/null'
