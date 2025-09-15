@@ -17,8 +17,8 @@ snippet c "code block" w
   ${0:${VISUAL}}
   \`\`\`
 
-snippet ft "filetype" w
-  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet ft "filetype" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
 
 # snippet todo "todo" w
 #   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`

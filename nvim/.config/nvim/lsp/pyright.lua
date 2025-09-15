@@ -4,6 +4,7 @@ local function get_poetry_venv()
   if vim.v.shell_error == 0 and result ~= '' then
     return result
   end
+  vim.notify("pyright.lua: poetry.lock found, but poetry command not effective")
   return nil
 end
 
@@ -27,29 +28,42 @@ local function get_python_dir(root_dir)
 end
 
 local function activate_venv(root_dir)
-  -- Only activate if no virtual env is already active
-  if not vim.env.VIRTUAL_ENV or vim.env.VIRTUAL_ENV == '' then
-    local venv_dir = get_python_dir(root_dir)
+  local venv_dir = get_python_dir(root_dir)
 
-    if venv_dir then
-      -- Set VIRTUAL_ENV
-      vim.env.VIRTUAL_ENV = venv_dir
+  if venv_dir then
+    local current_venv = vim.env.VIRTUAL_ENV
 
-      -- Prepend venv/bin to PATH
-      local venv_bin = venv_dir .. "/bin:"
-      vim.env.PATH = venv_bin .. vim.env.PATH
-
-      -- Handle PYTHONHOME if set
-      if vim.env.PYTHONHOME then
-        vim.env.OLD_PYTHONHOME = vim.env.PYTHONHOME
-        vim.env.PYTHONHOME = nil
-      end
-
+    -- If same venv is already active, nothing to do
+    if current_venv == venv_dir then
       return venv_dir .. "/bin/python"
     end
-  else
-    -- Return existing venv python path
-    return vim.env.VIRTUAL_ENV .. "/bin/python"
+
+    -- Clean up previous venv from PATH if different venv was active
+    if current_venv and current_venv ~= '' then
+      local old_venv_bin = current_venv .. "/bin:"
+      vim.env.PATH = vim.env.PATH:gsub(vim.pesc(old_venv_bin), "")
+
+      -- Restore old PYTHONHOME if it was backed up
+      if vim.env.OLD_PYTHONHOME then
+        vim.env.PYTHONHOME = vim.env.OLD_PYTHONHOME
+        vim.env.OLD_PYTHONHOME = nil
+      end
+    end
+
+    -- Activate new venv
+    vim.env.VIRTUAL_ENV = venv_dir
+
+    -- Prepend new venv/bin to PATH
+    local venv_bin = venv_dir .. "/bin:"
+    vim.env.PATH = venv_bin .. vim.env.PATH
+
+    -- Handle PYTHONHOME
+    if vim.env.PYTHONHOME then
+      vim.env.OLD_PYTHONHOME = vim.env.PYTHONHOME
+      vim.env.PYTHONHOME = nil
+    end
+
+    return venv_dir .. "/bin/python"
   end
 
   return nil
