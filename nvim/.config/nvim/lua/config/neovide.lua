@@ -4,6 +4,8 @@ if vim.g.neovide then
   -- TODO: need to figure out how to start in home dir
   -- see ~/.config/neovide/config.toml for the rest
 
+  -- **** anything shell related for neovide should go into ~/.zprofile ****
+
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_cursor_trail_size = 0.01
