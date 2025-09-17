@@ -14,12 +14,3 @@ export PATH="/Users/$USER/.virtualenvs/prod3/bin:/Users/$USER/.nvm/versions/node
 export NVM_DIR="$HOME/.nvm"
 [ -f "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -f "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"
-
-
-############## Zoxide ##############
-
-if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
-else
-  echo "zoxide not installed..."
-fi
