@@ -8,7 +8,7 @@ vim.opt.path = ".,**"
 vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'30,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
+vim.opt.shada = "'20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 -- vim.opt.winbar = "%=%-.75F %-m"
 -- vim.opt.winbar = "%=%f"
@@ -91,7 +91,7 @@ vim.opt.foldnestmax = 1
 vim.opt.foldmethod = "indent"
 vim.opt.foldenable = true
 
-vim.g.markdown_folding = 1    -- enable markdown folding
+vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 -- vim.opt.formatoptions = "c1lqjr"
@@ -172,7 +172,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10           -- for performace
+vim.opt.synmaxcol = 10 -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
 -- vim.opt.timeout = false -- remove timeout for partially typed commands
