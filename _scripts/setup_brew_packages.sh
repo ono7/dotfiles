@@ -3,6 +3,7 @@ if type brew &>/dev/null; then
   brew install ansifilter wget tree go rar clang-format zoxide grep netcat stow
   brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl universal-ctags mtr lua ninja rust
   brew install tmux --HEAD
+  brew install npm
   brew install bpytop pinentry-mac llvm git-delta rename zk direnv gron
   brew install golang delve sqlite shfmt sshs act shellcheck rlwrap btop
   brew install font-iosevka-term-nerd-font font-meslo-lg-nerd-font
