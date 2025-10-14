@@ -298,7 +298,6 @@ k("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
 k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
-k("t", "kk", [[<c-\><c-n>]], silent)
 k("t", "<C-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("t", "<D-e>", [[<c-e>]], silent)
