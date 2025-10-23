@@ -2,8 +2,6 @@
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
-local neovide_or_macos = require("utils.keys")
-
 local k = vim.keymap.set
 
 --- nop ---
@@ -16,9 +14,52 @@ k("n", "<M-e>", "")
 k("n", "<space>", "")
 vim.g.mapleader = " "
 
---- core keymaps ---
-k("i", neovide_or_macos.prefix("a"), "<ESC>^i", silent)
-k("i", neovide_or_macos.prefix("e"), "<End>", silent)
+---- neovide overrides ----
+
+-- returns D of neovide in macos else C
+-- this allows for mapping other c-x bindbings
+local nv = require("utils.keys").prefix
+
+k("i", nv("a"), "<ESC>^i", silent)
+k("i", nv("e"), "<End>", silent)
+k("c", nv("a"), "<Home>", silent)
+k("c", nv("b"), "<Left>", silent)
+k("c", nv("e"), "<End>", silent)
+k("c", nv("h"), "<Left>", silent)
+k("c", nv("l"), "<Right>", silent)
+k("n", nv("e"), "<End>", silent)
+k("i", nv("a"), "<Home>", silent)
+k("i", nv("e"), "<End>", silent)
+
+k("i", nv("c"), "<Esc>", opt)
+
+k("n", nv("y"), function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
+k("t", nv("y"), function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle window maximize" })
+
+-- use this to override native maps
+if vim.fn.has("macunix") == 1 and vim.g.neovide then
+  k("i", "<D-p>", "<c-p>", silent)
+  k("i", "<D-n>", "<c-n>", silent)
+end
 
 k("i", "<M-a>", "<ESC>^i", silent)
 k("i", "<M-e>", "<End>", silent)
@@ -34,16 +75,16 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-cnoremap <c-a> <Home>
-cnoremap <c-b> <left>
-cnoremap <c-e> <end>
-nnoremap <c-e> <end>
-" cnoremap <c-h> <BS>
-cnoremap <c-h> <Left>
-cnoremap <c-l> <Right>
+" use nv() instead for neovide support
+" cnoremap <c-a> <Home>
+" cnoremap <c-b> <left>
+" cnoremap <c-e> <end>
+" nnoremap <c-e> <end>
+" cnoremap <c-h> <Left>
+" cnoremap <c-l> <Right>
 
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
+" inoremap <C-a> <Home>
+" inoremap <C-e> <End>
 
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -220,7 +261,6 @@ k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-k("i", neovide_or_macos.prefix("c"), "<Esc>", opt)
 
 --- copy block
 k("n", "cp", "yap<S-}>p", opt)
@@ -251,38 +291,16 @@ k("n", "<leader>bd", "<cmd>%bd|e#<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
-k("n", "<C-y>", function()
-  if vim.t.maximized then
-    vim.cmd("wincmd =")
-    vim.t.maximized = false
-  else
-    vim.cmd("wincmd |")
-    vim.cmd("wincmd _")
-    vim.t.maximized = true
-  end
-end, { desc = "Toggle window maximize" })
-
-k("t", "<D-y>", function()
-  if vim.t.maximized then
-    vim.cmd("wincmd =")
-    vim.t.maximized = false
-  else
-    vim.cmd("wincmd |")
-    vim.cmd("wincmd _")
-    vim.t.maximized = true
-  end
-end, { desc = "Toggle window maximize" })
-
-k("t", "<C-y>", function()
-  if vim.t.maximized then
-    vim.cmd("wincmd =")
-    vim.t.maximized = false
-  else
-    vim.cmd("wincmd |")
-    vim.cmd("wincmd _")
-    vim.t.maximized = true
-  end
-end, { desc = "Toggle window maximize" })
+-- k("t", "<C-y>", function()
+--   if vim.t.maximized then
+--     vim.cmd("wincmd =")
+--     vim.t.maximized = false
+--   else
+--     vim.cmd("wincmd |")
+--     vim.cmd("wincmd _")
+--     vim.t.maximized = true
+--   end
+-- end, { desc = "Toggle window maximize" })
 
 k("x", ",a", "<cmd>!column -t<cr>")
 
@@ -290,15 +308,16 @@ k("x", ",a", "<cmd>!column -t<cr>")
 k("t", "<M-BS>", "\x17", { noremap = true })
 k("t", "<C-BS>", "\x17", { noremap = true })
 
-k("i", "<C-BS>", "\x17", { noremap = true })
+k("i", nv("BS"), "\x17", { noremap = true })
 k("c", "<C-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
-k("t", neovide_or_macos.prefix("b"), "<C-b>", { noremap = true })
+k("t", nv("b"), "<C-b>", { noremap = true })
 k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
-k("t", "<C-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
+k("t", "kk", [[<c-\><c-n>]], silent)
+k("t", nv("t"), [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)
@@ -307,7 +326,7 @@ k("t", "<D-p>", [[<c-p>]], silent)
 k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
-k({ "n" }, "<C-t>", "<cmd>T<CR>", silent)
+k({ "n" }, nv("t"), "<cmd>T<CR>", silent)
 -- k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)

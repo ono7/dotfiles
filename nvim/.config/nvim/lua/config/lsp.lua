@@ -1,5 +1,8 @@
 local M = {}
 
+-- returns D as prefix is neovide and macos, else C
+local nv = require("utils.keys").prefix
+
 M.toggle_lsp_for_buffer = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ buffer = bufnr })
@@ -21,21 +24,6 @@ end
 vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for current buffer" })
 
 M.setup = function()
-  local silent = { noremap = true, silent = true }
-  local borders = {
-    source = "if_many",
-    border = {
-      "╭",
-      "─",
-      "╮",
-      "│",
-      "╯",
-      "─",
-      "╰",
-      "│",
-    },
-  }
-
   --- lsp config ---
   -- this will get merged with the lsp/*.lua files
   -- conviniently making some settings global
@@ -49,9 +37,6 @@ M.setup = function()
       },
     },
   })
-
-  -- get the lsp client resolved configuration
-  -- :lua P(vim.lsp.config.luals)
 
   -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
   -- configure under lsp/*.lua
@@ -69,15 +54,6 @@ M.setup = function()
     "cssls",
     "ruff",
   })
-
-  -- <C-d> for telescope diagnostics
-  -- replaced by tiny-inline-diagnostics.lua
-  -- vim.diagnostic.config({ virtual_text = { current_line = true } })
-  -- vim.diagnostic.config({ virtual_text = false })
-
-  -- vim.keymap.set("n", "<leader>f", function()
-  --   vim.diagnostic.open_float(borders)
-  -- end, { desc = "Open float" })
 
   vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover({ border = "rounded" })
@@ -114,7 +90,7 @@ M.setup = function()
   -- Setup completion when LSP attaches
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
-      vim.keymap.set("i", "<C-y>", function()
+      vim.keymap.set("i", nv("y"), function()
         vim.lsp.completion.get()
       end)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -132,20 +108,6 @@ M.setup = function()
       end
     end,
   })
-
-  --- disabled in favor of tiny-diagnostics plugin
-  -- vim.keymap.set("n", "[d", function()
-  --   -- goto prev
-  --   vim.diagnostic.jump({ count = -1, float = borders, wrap = true })
-  -- end, silent)
-  --
-  -- vim.keymap.set("n", "]d", function()
-  --   -- goto next
-  --   vim.diagnostic.jump({ count = 1, float = borders, wrap = true })
-  -- end, silent)
-
-  -- select first option in complete menu, works in cmp or without keywords
-  -- vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], silent)
 end
 
 M.no_lsp = function()

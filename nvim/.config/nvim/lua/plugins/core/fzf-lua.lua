@@ -4,6 +4,8 @@ return {
   config = function()
     local fzf = require("fzf-lua")
 
+    local nv = require("utils.keys").prefix
+
     fzf.setup({
       fzf_colors = true,
       {
@@ -92,7 +94,7 @@ return {
     -- end, { desc = "Find todos" })
 
     -- find files
-    k("n", "<C-f>", function()
+    k("n", nv("f"), function()
       local current_file_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
         cwd = current_file_dir,
@@ -119,7 +121,7 @@ return {
     end, { desc = "All git files including untracked" })
 
     -- oldfiles
-    k("n", "<C-r>", function()
+    k("n", nv("r"), function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Files> ",
         previewer = false,
