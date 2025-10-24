@@ -283,11 +283,11 @@ k({ "n", "v" }, "J", "mzJ`z")
 k("v", ".", "<cmd>norm .<cr>", opt)
 
 --- go ---
--- k("n", "gt", ":GoTagAdd<cr>", silent)
+k("n", "gt", ":GoTagAdd<cr>", silent)
 -- k("n", "gx", [[:sil !open <cWORD><cr>]], silent)
 
 --- file ---
-k("n", "<leader>bd", "<cmd>%bd|e#<cr>", silent)
+k("n", "<leader>da", "<cmd>%bd|e#<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
