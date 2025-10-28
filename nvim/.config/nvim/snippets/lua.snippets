@@ -1,9 +1,9 @@
 extends todo
 
 snippet fun "function" w
-	function ${1:name}(${2:params})
-		${0:$VISUAL}
-	end
+  function ${1:name}(${2:params})
+    ${0:$VISUAL}
+  end
 snippet module "module" b
   local M = {}
 
@@ -12,29 +12,27 @@ snippet module "module" b
     if M.loaded then
       return
     end
-		${0:$VISUAL}
+    ${0:$VISUAL}
     -- set the module as loaded, leave this be...
     M.loaded = true
   end
 
   return M
 
-
-
 snippet upcase "upcase" w
-	local ${1:var} = '${1/.*/\U\0/g}'
+  local ${1:var} = '${1/.*/\U\0/g}'
 
 snippet choices "choices" w
-	print('My favorite language is: ${1|JavaScript,Lua,Rust|}')
+  print('My favorite language is: ${1|JavaScript,Lua,Rust|}')
 
 snippet date "date" w
-	Current date is `strftime('%c')`
+  Current date is `strftime('%c')`
 
 # Custom tabstop order
 snippet repeat "repeat" w
-	repeat
-		${2:what}
-	while ${1:condition}
+  repeat
+    ${2:what}
+  while ${1:condition}
 
 snippet pcall "setup a pcall"
   local ${1/\v[-.]/_/g}_ok, ${1/\v[-.]/_/g} = pcall(require, "${1}")

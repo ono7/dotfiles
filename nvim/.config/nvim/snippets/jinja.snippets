@@ -8,7 +8,9 @@ snippet jh "header" w
       ${0}
   #}
 
-# Date:   `strftime("%Y-%m-%d %H:%M")`
+snippet ft "set vim filetype" b
+  ${0}
+  {# vim: ft=jinja #}
 
 snippet strip "strip spaces and fix indent blocks" b
   #jinja2: lstrip_blocks: "true", trim_blocks: "true"

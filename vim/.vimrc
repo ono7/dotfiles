@@ -50,6 +50,7 @@ set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden updatetime=300
 set incsearch ignorecase smartcase autoindent smartindent
+set nohlsearch
 set number relativenumber nocursorline
 set magic noshowcmd nowrap
 set timeout timeoutlen=300 ttimeout ttimeoutlen=50
@@ -380,7 +381,7 @@ hi! clear ErrorMsg
 hi! clear MatchParen
 " hi! Visual term=reverse cterm=reverse gui=reverse
 hi! MatchParen guibg=#384057 ctermbg=8
-hi! Search term=reverse cterm=reverse gui=reverse
+hi! Search guibg=white guifg=black ctermbg=15 ctermfg=0
 hi! PmenuSel term=reverse cterm=reverse gui=reverse
 hi! Pmenu term=reverse cterm=reverse gui=reverse
 hi! clear Pmenu
@@ -388,8 +389,10 @@ hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
 hi! link LineNr Comment
 hi! link DiffDelete Comment
 hi! link SpecialKey Comment
+hi! link CurSearch Search
+hi! link IncSearch Search
 hi! link Folded Comment
-hi! link Visual IncSearch
+hi! link Visual Search
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment

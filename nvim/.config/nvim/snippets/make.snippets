@@ -4,6 +4,10 @@ snippet h "header" w
   # Jose Lima (`getenv('USER')`)
   # `strftime("%Y-%m-%d %H:%M")`
 
+snippet hdt "header" w
+  # Jose Lima (`getenv('USER')`)
+  # `strftime("%Y-%m-%d %H:%M")`
+
 snippet simple "Makefile Simple" w
   .PHONY: lint
 
@@ -31,7 +35,7 @@ snippet make "Makefile" w
 
   debug:
     @echo "$(GREEN)building with symbols for debugging...$(RESET)"
-	  go build -gcflags="all=-N -l" -o $(BUILD_DIR)/$(BINARY_NAME)-debug
+    go build -gcflags="all=-N -l" -o $(BUILD_DIR)/$(BINARY_NAME)-debug
 
   install:
     @echo "$(GREEN)installing binaries to $(OUTPUT_DIR)...$(RESET)"
