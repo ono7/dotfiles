@@ -48,11 +48,11 @@ else
     priority = 1000,
     config = function()
       local mycolors = {
-        white = "#c5c0ae", -- Updated to match new foreground
+        white = "#c5c0ae",        -- Updated to match new foreground
         darker_black = "#141a22", -- Your darkest color
-        black = "#1a1f26", -- Updated warmer background
+        black = "#1a1f26",        -- Updated warmer background
         black2 = "NONE",
-        one_bg = "#252d38", -- Slightly lighter than background
+        one_bg = "#252d38",       -- Slightly lighter than background
         one_bg2 = "#2e3641",
         one_bg3 = "#373f4a",
         grey = "#5a6b85", -- Brightened for better comment readability
@@ -60,31 +60,31 @@ else
         grey_fg2 = "#687489",
         light_grey = "#6f7b8b",
         -- Updated to match improved Alacritty colors
-        red = "#bb7e78", -- More saturated earthy red
-        baby_pink = "#d59691", -- More saturated bright earthy red
+        red = "#bb7e78",           -- More saturated earthy red
+        baby_pink = "#d59691",     -- More saturated bright earthy red
         pink = "#d59691",
-        line = "#2d3a44", -- Warmer for lines like vertsplit
-        green = "#82a382", -- More saturated sage green
+        line = "#2d3a44",          -- Warmer for lines like vertsplit
+        green = "#82a382",         -- More saturated sage green
         vibrant_green = "#9cbf9c", -- More saturated bright sage
         nord_blue = "#7f9bb8",
-        blue = "#7f9bb8", -- Harmonized blue
-        yellow = "#d4b883", -- Warm amber yellow
-        yellow2 = "#eac99e", -- Brighter warm yellow
+        blue = "#7f9bb8",          -- Harmonized blue
+        yellow = "#d4b883",        -- Warm amber yellow
+        yellow2 = "#eac99e",       -- Brighter warm yellow
         sun = "#eac99e",
-        purple = "#9a7b9e", -- Muted lavender
-        purple2 = "#b396b8", -- Brighter muted lavender
+        purple = "#9a7b9e",        -- Muted lavender
+        purple2 = "#b396b8",       -- Brighter muted lavender
         dark_purple = "#9a7b9e",
-        teal = "#7a9e9b", -- Blue-green earth tone
-        orange = "#c69e69", -- Your warm tan accent
-        cyan = "#7a9e9b", -- Blue-green earth tone
+        teal = "#7a9e9b",          -- Blue-green earth tone
+        orange = "#c69e69",        -- Your warm tan accent
+        cyan = "#7a9e9b",          -- Blue-green earth tone
         statusline_bg = "#1f252e",
         lightbg = "#242c37",
         pmenu_bg = "#7a9b7e",
         folder_bg = "#6b829e",
-        lavender = "#8a9bb0", -- Soft blue-gray complement
+        lavender = "#8a9bb0",    -- Soft blue-gray complement
         -- Additional colors for diagnostics
-        bg_dark = "#141a22", -- Your darkest color for backgrounds
-        selection = "#2d3a44", -- Warmer selection background
+        bg_dark = "#141a22",     -- Your darkest color for backgrounds
+        selection = "#2d3a44",   -- Warmer selection background
         cursor_line = "#212730", -- Slightly lighter than background
       }
 
@@ -144,7 +144,8 @@ else
       vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
       vim.api.nvim_set_hl(0, "Visual", { bg = "#1C4474", fg = "#dedede" })
       vim.api.nvim_set_hl(0, "LineNr", { fg = "#5a6b85" })
-      vim.api.nvim_set_hl(0, "Search", { bg = "#ffffff" })
+      vim.api.nvim_set_hl(0, "Search", { link = "PmenuSel" })
+      vim.api.nvim_set_hl(0, "IncSearch", { link = "PmenuSel" })
       vim.api.nvim_set_hl(0, "StatusLine", {})
       vim.api.nvim_set_hl(0, "StatusLineNC", {})
       vim.api.nvim_set_hl(0, "@variable.builtin", {})
