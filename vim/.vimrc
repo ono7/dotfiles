@@ -378,7 +378,7 @@ hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
 hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
 hi! clear ErrorMsg
 hi! clear MatchParen
-hi! Visual term=reverse cterm=reverse gui=reverse
+" hi! Visual term=reverse cterm=reverse gui=reverse
 hi! MatchParen guibg=#384057 ctermbg=8
 hi! Search term=reverse cterm=reverse gui=reverse
 hi! PmenuSel term=reverse cterm=reverse gui=reverse
@@ -389,6 +389,7 @@ hi! link LineNr Comment
 hi! link DiffDelete Comment
 hi! link SpecialKey Comment
 hi! link Folded Comment
+hi! link Visual IncSearch
 hi! link VertSplit Comment
 hi! link MsgSeparator Comment
 hi! link WinSeparator Comment

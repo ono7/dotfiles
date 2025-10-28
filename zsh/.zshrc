@@ -37,8 +37,8 @@ typeset -U path PATH
 # kitty, alacritty use CPU instead of GPU
 # export LIBGL_ALWAYS_SOFTWARE=1
 
-# export KEYTIMEOUT=2
-export KEYTIMEOUT=1
+# export KEYTIMEOUT=1
+export KEYTIMEOUT=20
 export PASSWORD_STORE_CHARACTER_SET='[:alnum:]!&%^@{}[]()'
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
