@@ -136,6 +136,7 @@ vim.api.nvim_create_user_command("CheckAutocommands", function()
 end, {})
 
 -- Ensure Go binaries are in PATH
+
 local go_bin_path = vim.fn.expand("$HOME/go/bin")
 local current_path = vim.env.PATH
 if not string.find(current_path, go_bin_path, 1, true) then

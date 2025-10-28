@@ -1,12 +1,13 @@
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "VeryLazy", -- Or `LspAttach`
-  priority = 1000, -- needs to be loaded in first
+  priority = 1000,    -- needs to be loaded in first
   config = function()
     require("tiny-inline-diagnostic").setup({
       preset = "classic",
       transparent_bg = true, -- Set
       transparent_cursorline = true,
+      throttle = 100,
       hi = {
 
         -- this is the gutter
@@ -36,6 +37,7 @@ return {
     -- disable virtual text for this plugin to work (jlima)
     vim.diagnostic.config({
       virtual_text = false,
+      update_in_insert = false,
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "•",
