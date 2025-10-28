@@ -59,6 +59,7 @@ end, { desc = "Toggle window maximize" })
 if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("i", "<D-p>", "<c-p>", silent)
   k("i", "<D-n>", "<c-n>", silent)
+  k("i", "<D-t>", "<c-t>", silent)
 end
 
 k("i", "<M-a>", "<ESC>^i", silent)

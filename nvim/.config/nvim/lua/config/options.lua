@@ -91,7 +91,7 @@ vim.opt.foldnestmax = 1
 vim.opt.foldmethod = "indent"
 vim.opt.foldenable = true
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 -- vim.opt.formatoptions = "c1lqjr"
@@ -126,7 +126,7 @@ vim.opt.iskeyword:append("-")
 vim.opt.joinspaces = false
 
 vim.opt.laststatus = 0
-vim.opt.ruler = true
+vim.opt.ruler = false
 vim.opt.showcmd = false
 vim.opt.showmode = true
 
@@ -144,13 +144,13 @@ vim.opt.nrformats = "bin,hex"
 vim.opt.fileformats = "unix"
 vim.opt.fileformat = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
-vim.opt.number = true
 
 vim.opt.numberwidth = 3
 vim.opt.signcolumn = "yes:1"
 vim.opt.statuscolumn = "%l%s"
 vim.opt.pumheight = 5
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
+vim.opt.number = false
 vim.opt.complete = ".,w,b"
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
@@ -172,7 +172,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10 -- for performace
+vim.opt.synmaxcol = 10           -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
 -- vim.opt.timeout = false -- remove timeout for partially typed commands
