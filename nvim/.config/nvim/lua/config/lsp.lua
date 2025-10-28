@@ -62,7 +62,10 @@ M.setup = function()
   --- completion ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
-  vim.diagnostic.config({ update_in_insert = false })
+  vim.diagnostic.config({
+    update_in_insert = false,
+    virtual_text = false
+  })
 
   --- enable on enter
   vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter" }, {
