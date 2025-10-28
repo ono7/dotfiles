@@ -30,6 +30,14 @@ endif
 
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
+
+	function! Rg(args) abort
+		execute "silent! grep!" shellescape(a:args)
+		cwindow
+		redraw!
+	endfunction
+	command -nargs=+ -complete=file Rg call Rg(<q-args>)
+
 else
   set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
