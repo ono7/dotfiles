@@ -7,6 +7,7 @@ if vim.g.neovide then
   -- **** anything shell related for neovide should go into ~/.zprofile ****
 
   vim.api.nvim_set_hl(0, "Cursor", { bg = "#FF13F0" })
+  vim.opt.guicursor = "n-c-v-i:block-Cursor"
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_cursor_trail_size = 0.01

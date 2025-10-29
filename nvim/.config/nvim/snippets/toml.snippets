@@ -1,0 +1,18 @@
+snippet ruff "ruff config" b
+  line-length = 200
+  target-version = "py39"
+  exclude = [
+      "cases_update",
+      ".collections",
+      "./**/.collections/**",
+      "ruff.toml"
+  ]
+  force-exclude = true
+
+  [lint]
+  select = ["E", "F", "W", "I", "N", "Q", "RUF", "C90", "UP"]
+  mccabe = { max-complexity = 14 }
+
+  [lint.isort]
+  known-first-party = ["pytest_examples"]
+  ${0}
