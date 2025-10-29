@@ -104,7 +104,7 @@ nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
-nnoremap gm :Git commit % -m ""<Left>
+nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 nnoremap <leader>x <cmd>x<CR>
