@@ -43,6 +43,9 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.01) -- Changed from 1.25 to 1.1 for smaller decrease
   end)
 
+  -- unbind quit from neovide
+  -- vim.keymap.set({ "n", "i", "v", "t" }, "<D-q>", "")
+
   -- Terminal mode paste mapping
   vim.keymap.set("t", "<C-S-v>", '<C-\\><C-n>"+pi', { desc = "Paste in terminal mode" })
 
