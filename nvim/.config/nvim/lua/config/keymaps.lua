@@ -5,6 +5,8 @@ local silent = { noremap = true, silent = true }
 local k = vim.keymap.set
 
 --- nop ---
+
+k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
 k("n", "ZQ", "")
 k("i", "<M-e>", "")
@@ -63,6 +65,7 @@ if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("t", "<D-v>", "<c-v>", silent)
   k("t", "<D-s>", "<c-s>", silent)
   k("t", "<D-t>", "<c-t>", silent)
+  k("t", "<D-q>", "<c-q>", silent)
 end
 
 k("i", "<M-a>", "<ESC>^i", silent)
