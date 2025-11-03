@@ -61,8 +61,10 @@ end, { desc = "Toggle window maximize" })
 if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("i", "<D-p>", "<c-p>", silent)
   k("i", "<D-n>", "<c-n>", silent)
-  k("i", "<D-t>", "<c-t>", silent)
-  k("i", "<D-h>", "<c-h>", silent)
+  k("i", "<D-t>", "<c-t>", silent) -- line indention
+  k("i", "<D-u>", "<c-u>", silent) -- delete everything till end of line
+  k("i", "<D-h>", "<c-h>", silent) -- delete single char
+  k("i", "<D-w>", "<c-w>", silent)
   k("t", "<D-v>", "<c-v>", silent)
   k("t", "<D-s>", "<c-s>", silent)
   k("t", "<D-t>", "<c-t>", silent)
@@ -370,7 +372,9 @@ local function clean_space_save()
   end
 end
 
-k("i", "<M-BS>", "\x17", { noremap = true })
+-- k("i", "<M-BS>", "\x18", { noremap = true })
+k("i", "<M-BS>", "<C-u>", { noremap = true })
+-- k("i", "<M-BS>", "\x17", { noremap = true })
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
 -- k("n", "<leader>%", function()
