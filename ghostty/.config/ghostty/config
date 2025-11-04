@@ -131,8 +131,9 @@ foreground = #c5bfb8
 # background = #1a2b34
 # background = #1a2b34
 background = #00141a
-cursor-color = #ffffff
-cursor-text = #171f2c
+# cursor-color = #ffffff
+cursor-color = #e64edc
+cursor-text = #000000
 
 # Selection
 selection-background = #364156

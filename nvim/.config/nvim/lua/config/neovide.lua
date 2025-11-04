@@ -6,7 +6,7 @@ if vim.g.neovide then
 
   -- **** anything shell related for neovide should go into ~/.zprofile ****
 
-  vim.api.nvim_set_hl(0, "Cursor", { bg = "#FF13F0" })
+  vim.api.nvim_set_hl(0, "Cursor", { bg = "#e64edc" })
   vim.opt.guicursor = "n-c-v-i:block-Cursor"
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.07
@@ -69,9 +69,9 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
 end
