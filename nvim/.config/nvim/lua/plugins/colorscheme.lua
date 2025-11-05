@@ -60,7 +60,7 @@ else
         grey_fg2 = "#687489",
         light_grey = "#6f7b8b",
         -- Updated to match improved Alacritty colors
-        red = "#bb7e78",           -- More saturated earthy red
+        -- red = "#bb7e78",           -- More saturated earthy red
         baby_pink = "#d59691",     -- More saturated bright earthy red
         pink = "#d59691",
         line = "#2d3a44",          -- Warmer for lines like vertsplit
@@ -75,7 +75,8 @@ else
         purple2 = "#b396b8",       -- Brighter muted lavender
         dark_purple = "#9a7b9e",
         teal = "#7a9e9b",          -- Blue-green earth tone
-        orange = "#c69e69",        -- Your warm tan accent
+        -- orange = "#c69e69",        -- Your warm tan accent
+        red = "#c69e69",           -- Your warm tan accent
         cyan = "#7a9e9b",          -- Blue-green earth tone
         statusline_bg = "#1f252e",
         lightbg = "#242c37",

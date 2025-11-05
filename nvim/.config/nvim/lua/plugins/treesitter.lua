@@ -126,6 +126,26 @@ return {
         -- Be selective about other features
         incremental_selection = { enable = false }, -- If you don't use it
         textobjects = { enable = false },           -- If you don't use it
+        ensure_installed = {
+          "css",
+          "dockerfile",
+          "gitignore",
+          "cpp",
+          "c",
+          "go",
+          "html",
+          "javascript",
+          "json",
+          "jinja",
+          "lua",
+          "markdown",
+          "python",
+          "query",
+          "terraform",
+          "typescript",
+          "vim",
+          "yaml",
+        },
       })
     end
   }
