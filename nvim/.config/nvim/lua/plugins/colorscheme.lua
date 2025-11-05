@@ -206,6 +206,7 @@ else
       vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#bb7e78", bold = true })
       vim.api.nvim_set_hl(0, "Special", {})
       vim.api.nvim_set_hl(0, "String", {})
+      vim.api.nvim_set_hl(0, "@string", {})
       vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
       vim.api.nvim_set_hl(0, "@variable", {})
       vim.api.nvim_set_hl(0, "@property", {})
