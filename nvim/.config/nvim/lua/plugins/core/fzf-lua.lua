@@ -87,14 +87,17 @@ return {
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    k("n", nv("d"), fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    -- k("n", nv("d"), fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+
     -- k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
     -- k("n", "<leader>ft", function()
     --   fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
     -- end, { desc = "Find todos" })
 
     -- find files
-    k("n", nv("f"), function()
+    -- k("n", nv("f"), function()
+    k("n", "<c-f>", function()
       local current_file_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
         cwd = current_file_dir,
@@ -121,7 +124,8 @@ return {
     end, { desc = "All git files including untracked" })
 
     -- oldfiles
-    k("n", nv("r"), function()
+    -- k("n", nv("r"), function()
+    k("n", "<c-r>", function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Files> ",
         previewer = false,

@@ -20,61 +20,61 @@ vim.g.mapleader = " "
 
 -- returns D of neovide in macos else C
 -- this allows for mapping other c-x bindbings
-local nv = require("utils.keys").prefix
-
-k("i", nv("a"), "<ESC>^i", silent)
-k("i", nv("e"), "<End>", silent)
-k("c", nv("a"), "<Home>", silent)
-k("c", nv("b"), "<Left>", silent)
-k("c", nv("e"), "<End>", silent)
-k("c", nv("h"), "<Left>", silent)
-k("c", nv("l"), "<Right>", silent)
-k("n", nv("e"), "<End>", silent)
-k("i", nv("a"), "<Home>", silent)
-k("i", nv("e"), "<End>", silent)
-
-k("i", nv("c"), "<Esc>", opt)
-
-k("n", nv("y"), function()
-  if vim.t.maximized then
-    vim.cmd("wincmd =")
-    vim.t.maximized = false
-  else
-    vim.cmd("wincmd |")
-    vim.cmd("wincmd _")
-    vim.t.maximized = true
-  end
-end, { desc = "Toggle window maximize" })
-
-k("t", nv("y"), function()
-  if vim.t.maximized then
-    vim.cmd("wincmd =")
-    vim.t.maximized = false
-  else
-    vim.cmd("wincmd |")
-    vim.cmd("wincmd _")
-    vim.t.maximized = true
-  end
-end, { desc = "Toggle window maximize" })
-
--- use this to override native maps
-if vim.fn.has("macunix") == 1 and vim.g.neovide then
-  k("i", "<D-p>", "<c-p>", silent)
-  k("i", "<D-n>", "<c-n>", silent)
-  k("i", "<D-t>", "<c-t>", silent) -- line indention
-  k("i", "<D-u>", "<c-u>", silent) -- delete everything till end of line
-  k("i", "<D-h>", "<c-h>", silent) -- delete single char
-  k("i", "<D-w>", "<c-w>", silent)
-  k("i", "<D-x>", "<c-x>", silent)
-  k("i", "<D-o>", "<c-o>", silent)
-  k("i", "<D-y>", "<c-x><c-n>", silent)
-  -- k('i', '<D-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', silent)
-  k("i", "<D-v>", "<c-v>", silent)
-  k("t", "<D-v>", "<c-v>", silent)
-  k("t", "<D-s>", "<c-s>", silent)
-  k("t", "<D-t>", "<c-t>", silent)
-  k("t", "<D-q>", "<c-q>", silent)
-end
+-- local nv = require("utils.keys").prefix
+--
+-- k("i", nv("a"), "<ESC>^i", silent)
+-- k("i", nv("e"), "<End>", silent)
+-- k("c", nv("a"), "<Home>", silent)
+-- k("c", nv("b"), "<Left>", silent)
+-- k("c", nv("e"), "<End>", silent)
+-- k("c", nv("h"), "<Left>", silent)
+-- k("c", nv("l"), "<Right>", silent)
+-- k("n", nv("e"), "<End>", silent)
+-- k("i", nv("a"), "<Home>", silent)
+-- k("i", nv("e"), "<End>", silent)
+--
+-- k("i", nv("c"), "<Esc>", opt)
+--
+-- k("n", nv("y"), function()
+--   if vim.t.maximized then
+--     vim.cmd("wincmd =")
+--     vim.t.maximized = false
+--   else
+--     vim.cmd("wincmd |")
+--     vim.cmd("wincmd _")
+--     vim.t.maximized = true
+--   end
+-- end, { desc = "Toggle window maximize" })
+--
+-- k("t", nv("y"), function()
+--   if vim.t.maximized then
+--     vim.cmd("wincmd =")
+--     vim.t.maximized = false
+--   else
+--     vim.cmd("wincmd |")
+--     vim.cmd("wincmd _")
+--     vim.t.maximized = true
+--   end
+-- end, { desc = "Toggle window maximize" })
+--
+-- -- use this to override native maps
+-- if vim.fn.has("macunix") == 1 and vim.g.neovide then
+--   k("i", "<D-p>", "<c-p>", silent)
+--   k("i", "<D-n>", "<c-n>", silent)
+--   k("i", "<D-t>", "<c-t>", silent) -- line indention
+--   k("i", "<D-u>", "<c-u>", silent) -- delete everything till end of line
+--   k("i", "<D-h>", "<c-h>", silent) -- delete single char
+--   k("i", "<D-w>", "<c-w>", silent)
+--   k("i", "<D-x>", "<c-x>", silent)
+--   k("i", "<D-o>", "<c-o>", silent)
+--   k("i", "<D-y>", "<c-x><c-n>", silent)
+--   -- k('i', '<D-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', silent)
+--   k("i", "<D-v>", "<c-v>", silent)
+--   k("t", "<D-v>", "<c-v>", silent)
+--   k("t", "<D-s>", "<c-s>", silent)
+--   k("t", "<D-t>", "<c-t>", silent)
+--   k("t", "<D-q>", "<c-q>", silent)
+-- end
 
 k("i", "<c-y>", "<c-x><c-n>", silent)
 
@@ -325,17 +325,20 @@ k("x", ",a", "<cmd>!column -t<cr>")
 --- terminal ---
 k("t", "<M-BS>", "\x17", { noremap = true })
 k("t", "<C-BS>", "\x17", { noremap = true })
+k("i", "<C-BS>", "\x17", { noremap = true })
 
-k("i", nv("BS"), "\x17", { noremap = true })
+-- k("i", nv("BS"), "\x17", { noremap = true })
 k("c", "<C-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
-k("t", nv("b"), "<C-b>", { noremap = true })
+-- k("t", nv("b"), "<C-b>", { noremap = true })
+-- k("t", nv("b"), "<C-b>", { noremap = true })
 k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 k("t", "kk", [[<c-\><c-n>]], silent)
-k("t", nv("t"), [[<c-\><c-n><cmd>T<CR>]], silent)
+-- k("t", nv("t"), [[<c-\><c-n><cmd>T<CR>]], silent)
+k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)
@@ -344,8 +347,8 @@ k("t", "<D-p>", [[<c-p>]], silent)
 k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
-k({ "n" }, nv("t"), "<cmd>T<CR>", silent)
--- k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+-- k({ "n" }, nv("t"), "<cmd>T<CR>", silent)
+k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)
 k("n", "<M-j>", "<cmd>cnext<cr>", opt)

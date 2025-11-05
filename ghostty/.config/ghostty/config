@@ -1,15 +1,15 @@
 # UI related
 # cmd+shift+j (dump scroll back buffer)
 
-# font settings
-# font-family = SF Mono
-# font-family-bold = SF Mono Heavy
-# font-style = Medium
+font settings
+font-family = SF Mono
+font-family-bold = SF Mono Heavy
+font-style = Medium
 
-font-family = IosevkaTerm Nerd Font Mono
-font-style = SemiBold
-font-style-bold = Bold
-font-style-italic = SemiBold Oblique
+# font-family = IosevkaTerm Nerd Font Mono
+# font-style = SemiBold
+# font-style-bold = Bold
+# font-style-italic = SemiBold Oblique
 
 font-size = 25
 font-feature = -calt, -liga, -dlig
