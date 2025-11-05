@@ -31,12 +31,12 @@ endif
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
 
-	function! Rg(args) abort
-		execute "silent! grep!" shellescape(a:args)
-		cwindow
-		redraw!
-	endfunction
-	command -nargs=+ -complete=file Rg call Rg(<q-args>)
+  function! Rg(args) abort
+    execute "silent! grep!" shellescape(a:args)
+    cwindow
+    redraw!
+  endfunction
+  command -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 else
   set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
@@ -52,7 +52,6 @@ set undofile
 set t_Co=8
 set path=.,**
 setlocal path=.,**
-
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
@@ -209,6 +208,8 @@ cnoremap <M-b>b <s-left>
 cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
+inoremap <D-y> <c-y>
+inoremap <C-y> <c-y><c-n>
 " this is the same as c+backspace
 inoremap <C-H> <C-W>
 

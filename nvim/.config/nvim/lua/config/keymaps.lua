@@ -65,10 +65,14 @@ if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("i", "<D-u>", "<c-u>", silent) -- delete everything till end of line
   k("i", "<D-h>", "<c-h>", silent) -- delete single char
   k("i", "<D-w>", "<c-w>", silent)
+  k("i", "<D-x>", "<c-x>", silent)
+  k("i", "<D-o>", "<c-o>", silent)
+  k("i", "<D-y>", "<c-x><c-n>", silent)
+  k('i', '<D-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', silent)
+  k("i", "<D-v>", "<c-v>", silent)
   k("t", "<D-v>", "<c-v>", silent)
   k("t", "<D-s>", "<c-s>", silent)
   k("t", "<D-t>", "<c-t>", silent)
-  k("t", "<D-y>", "<c-y>", silent)
   k("t", "<D-q>", "<c-q>", silent)
 end
 

@@ -8,10 +8,11 @@ return {
     },
     completion = {
       documentation = { auto_show = true },
-      menu = { auto_show = false } -- This disables automatic completion
+      menu = { auto_show = false } -- This disables automatic completion, use manual trigger
     },
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      -- default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path' },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
