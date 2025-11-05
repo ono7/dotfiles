@@ -66,48 +66,12 @@ require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
--- require("old_plugins.jira-base")
--- require("jira.jira")
--- require("jira.jira-move")
--- require("jira.jira-fetch-issues")
--- require("jira.jira-fetch-issues-empty")
--- require("jira.jira-clone").setup()
-
--- local function smart_completion()
---   if vim.fn.pumvisible() == 1 then
---     -- If completion menu is visible, select next item
---     return "<C-n>"
---   else
---     -- If no menu is visible, trigger completion
---     return "<C-x><C-n>"
---   end
--- end
-
--- Map D-y or C-y to the smart completion function
--- if vim.fn.has("macunix") == 1 then
---   vim.api.nvim_set_keymap(
---     "i",
---     "<D-y>",
---     "v:lua.require('vim.lsp.util')._complete_done()",
---     { expr = true, noremap = true, silent = true }
---   )
---   vim.keymap.set("i", "<D-y>", function()
---     return smart_completion()
---   end, { expr = true, noremap = true, silent = true })
--- else
---   vim.keymap.set("i", "<C-y>", function()
---     return smart_completion()
---   end, { expr = true, noremap = true, silent = true })
--- end
-
 -- Optional: Add mappings for navigating the completion menu
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""
--- vim.opt.completeopt = { "menu", "menuone" }
--- vim.opt.complete = { ".", "w", "b" }
 
 --- check to see what autocmds are running on the buffer
 --- usefull for fixing performance issues or input issues
@@ -132,7 +96,6 @@ vim.api.nvim_create_user_command("CheckAutocommands", function()
 end, {})
 
 -- Ensure Go binaries are in PATH
-
 local go_bin_path = vim.fn.expand("$HOME/go/bin")
 local current_path = vim.env.PATH
 if not string.find(current_path, go_bin_path, 1, true) then
