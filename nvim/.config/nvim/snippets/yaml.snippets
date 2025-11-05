@@ -4,13 +4,11 @@ priority 1000
 
 snippet ft "filetype" b
   ${0}
+
   # vim: ft=yaml.ansible
 
 snippet h "header" b
   ---
-  # Jose Lima (`getenv('USER')`)
-  # `strftime("%Y-%m-%d  %H:%M")`
-
   - name: "${1}"
     hosts: ${2:localhost}
     gather_facts: false
