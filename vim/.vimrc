@@ -208,8 +208,8 @@ cnoremap <M-b>b <s-left>
 cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
-inoremap <D-y> <c-y>
-inoremap <C-y> <c-y><c-n>
+inoremap <D-y> <c-x><c-n>
+inoremap <C-y> <c-x><c-n>
 " this is the same as c+backspace
 inoremap <C-H> <C-W>
 
