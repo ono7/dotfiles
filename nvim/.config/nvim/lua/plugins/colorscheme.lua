@@ -248,6 +248,7 @@ else
 
       -- Updated Pmenu colors using improved scheme
       vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
+      vim.api.nvim_set_hl(0, "PmenuMatch", { link = "Conditional" })
       vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#d9d9d9", fg = "#141a22", bold = true })
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#9d9889" })

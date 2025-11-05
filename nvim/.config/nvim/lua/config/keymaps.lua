@@ -68,8 +68,11 @@ if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("t", "<D-v>", "<c-v>", silent)
   k("t", "<D-s>", "<c-s>", silent)
   k("t", "<D-t>", "<c-t>", silent)
+  k("t", "<D-y>", "<c-y>", silent)
   k("t", "<D-q>", "<c-q>", silent)
 end
+
+k("i", "<c-y>", "<c-x><c-n>", silent)
 
 k("i", "<M-a>", "<ESC>^i", silent)
 k("i", "<M-e>", "<End>", silent)
