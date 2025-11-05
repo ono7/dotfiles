@@ -1,4 +1,5 @@
 import logging
+
 from requests.cookies import cookielib
 
 api_logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ urllib3_retry_logger.handlers = []
 cookie_logger.handlers = []
 
 # set this to anything else and it does not print output
-_debuglevel = 2 
+_debuglevel = 2
 
 if _debuglevel == 2:
     cookie_logger.addHandler(api_handler)
