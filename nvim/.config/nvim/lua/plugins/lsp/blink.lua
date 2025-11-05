@@ -1,8 +1,14 @@
 return {
   'saghen/blink.cmp',
   version = '1.*',
+  ---@module 'blink.cmp'
+  ---@type blink.cmp.Config
   opts = {
-    keymap = { preset = 'default' },
+    keymap = {
+      preset = 'default',
+      ['<D-p>'] = { 'select_prev', 'fallback' },
+      ['<D-n>'] = { 'select_next', 'fallback' },
+    },
     appearance = {
       nerd_font_variant = 'mono'
     },

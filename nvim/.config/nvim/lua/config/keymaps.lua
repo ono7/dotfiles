@@ -68,7 +68,7 @@ if vim.fn.has("macunix") == 1 and vim.g.neovide then
   k("i", "<D-x>", "<c-x>", silent)
   k("i", "<D-o>", "<c-o>", silent)
   k("i", "<D-y>", "<c-x><c-n>", silent)
-  k('i', '<D-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', silent)
+  -- k('i', '<D-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', silent)
   k("i", "<D-v>", "<c-v>", silent)
   k("t", "<D-v>", "<c-v>", silent)
   k("t", "<D-s>", "<c-s>", silent)
