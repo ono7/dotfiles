@@ -348,7 +348,7 @@ k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
 -- k({ "n" }, nv("t"), "<cmd>T<CR>", silent)
-k({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
+k({ "n" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)
 k("n", "<M-j>", "<cmd>cnext<cr>", opt)
