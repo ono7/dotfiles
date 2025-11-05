@@ -5,24 +5,25 @@ return {
     local fzf = require("fzf-lua")
 
     local nv = require("utils.keys").prefix
+    local winopts = {
+      height = 0.85,
+      width = 0.80,
+      row = 0.35,
+      col = 0.50,
+      preview = {
+        default = "builtin",
+        layout = "flex",
+      },
+    }
 
     fzf.setup({
       fzf_colors = true,
-      winopts = {
-        height = 0.85,
-        width = 0.80,
-        row = 0.35,
-        col = 0.50,
-        preview = {
-          default = 'builtin',
-          layout = 'flex',
-        },
-      },
+      winopts = winopts,
       {
         "fzf-native",
-        winopts = {
-          -- -- preview = { default = "bat" },
-        },
+        -- winopts = {
+        --   -- -- preview = { default = "bat" },
+        -- },
       },
       previewers = {
         builtin = {
@@ -84,14 +85,13 @@ return {
     -- k("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
     -- k("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
     k("n", "<leader>vc", function()
+      winopts.title = " Dotfiles "
+      winopts.title_pos = "center"
       require("fzf-lua").files({
         cwd = vim.fn.expand("~/.dotfiles"),
+        winopts = winopts,
         prompt = "Dotfiles> ",
         previewer = false,
-        winopts = {
-          title = " Dotfiles ",
-          title_pos = "center",
-        },
       })
     end, { desc = "Search dotfiles" })
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
@@ -113,10 +113,12 @@ return {
         cwd = current_file_dir,
         prompt = "Files (current dir)> ",
         previewer = false,
-        winopts = {
-          title = " Files in " .. vim.fn.fnamemodify(current_file_dir, ":t") .. " ",
-          title_pos = "center",
-        },
+        winopts = function()
+          local opts = winopts
+          opts.title = " Files in " .. vim.fn.fnamemodify(current_file_dir, ":t") .. " "
+          opts.title_pos = "center"
+          return opts
+        end,
       })
     end, { desc = "Find files in current file's directory" })
 
@@ -126,10 +128,12 @@ return {
         prompt = "Git Files> ",
         previewer = false,
         git_command = "git ls-files --exclude-standard --cached --others",
-        winopts = {
-          title = " Git Files + Untracked ",
-          title_pos = "center",
-        },
+        winopts = function()
+          local opts = winopts
+          opts.title = " Git Files + Untracked "
+          opts.title_pos = "center"
+          return opts
+        end,
       })
     end, { desc = "All git files including untracked" })
 
@@ -146,10 +150,12 @@ return {
           "%.git/",
           "fugitive:",
         },
-        winopts = {
-          title = " Recent Files ",
-          title_pos = "center",
-        },
+        winopts = function()
+          local opts = winopts
+          opts.title = " Recent Files "
+          opts.title_pos = "center"
+          return opts
+        end,
       })
     end, { desc = "Recent files (no git)" })
 
@@ -173,10 +179,12 @@ return {
         }, " "),
         no_ignore = false,
         hidden = true,
-        winopts = {
-          title = " Live Grep ",
-          title_pos = "center",
-        },
+        winopts = function()
+          local opts = winopts
+          opts.title = " Live Grep "
+          opts.title_pos = "center"
+          return opts
+        end,
       })
     end, { desc = "Live grep with rg" })
 
