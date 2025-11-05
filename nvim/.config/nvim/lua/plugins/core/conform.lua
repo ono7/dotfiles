@@ -21,41 +21,20 @@ return {
         json = { "prettier" },
         markdown = { "prettier" },
         go = { "goimports", "goimports-reviser" },
-        -- graphql = { "prettier", stop_after_first = true },
       },
       formatters = {
         shfmt = {
           prepend_args = { "-i", "2" },
         },
       },
-      -- organize imports
-      -- format_on_save = function(bufnr)
-      --   if vim.bo.filetype == "python" then
-      --     _ = bufnr
-      --     vim.lsp.buf.code_action({
-      --       context = {
-      --         only = { "source.organizeImports.ruff" },
-      --         diagnostics = {},
-      --       },
-      --       apply = true,
-      --     })
-      --   end
-      -- end,
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
-        return { timeout_ms = 5000, lsp_format = "fallback" }
+        return { timeout_ms = 1000, lsp_format = "fallback" }
       end,
     })
-    -- vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-    --   conform.format({
-    --     lsp_fallback = true,
-    --     async = false,
-    --     timeout = 1000,
-    --   })
-    -- end)
     vim.api.nvim_create_user_command("FormatDisable", function(args)
       if args.bang then
         -- FormatDisable! will disable formatting just for this buffer

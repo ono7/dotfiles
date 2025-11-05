@@ -1,8 +1,5 @@
 local M = {}
 
--- returns D as prefix is neovide and macos, else C
-local nv = require("utils.keys").prefix
-
 M.toggle_lsp_for_buffer = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ buffer = bufnr })
@@ -89,39 +86,9 @@ M.setup = function()
       end
     end,
   })
-
-  -- Setup completion when LSP attaches
-  -- vim.api.nvim_create_autocmd("LspAttach", {
-  --   callback = function(ev)
-  --     vim.keymap.set("i", nv("y"), function()
-  --       vim.lsp.completion.get()
-  --     end)
-  --     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-  --     if not client then
-  --       return
-  --     end
-  --     if client.supports_method("textDocument/completion") then
-  --       client.server_capabilities.completionProvider.triggerCharacters = vim.split(".", "", true)
-  --       vim.lsp.completion.enable(true, client.id, ev.buf, {
-  --         autotrigger = false,
-  --         convert = function(item)
-  --           return { abbr = item.label:gsub("%b()", "") }
-  --         end,
-  --       })
-  --     end
-  --   end,
-  -- })
 end
 
 M.no_lsp = function()
-  -- vim.opt.completeopt = { "longest" }
-  -- vim.opt.complete = { ".", "w", "b", "u" }
-  -- Map Ctrl-Y to trigger completion and auto-select
-  -- if vim.loop.os_uname().sysname == "Darwin" then
-  --   vim.api.nvim_set_keymap("i", "<D-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
-  -- else
-  --   vim.api.nvim_set_keymap("i", "<C-y>", [[<C-n><c-p>]], { noremap = true, silent = true })
-  -- end
 end
 
 return M

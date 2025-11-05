@@ -139,145 +139,190 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 -------------------- detect large files -------------------------
 
-local M = {}
+-- local M = {}
+--
+-- -- Configure thresholds
+-- local MAX_FILE_SIZE = 1024 * 1024 -- 1MB
+-- local MAX_LINE_COUNT = 10000
+--
+-- -- Check if file is large
+-- local function is_large_file(bufnr)
+--   bufnr = bufnr or 0
+--
+--   -- Check file size
+--   local filename = vim.api.nvim_buf_get_name(bufnr)
+--   if filename == "" then
+--     return false
+--   end
+--
+--   local ok, stats = pcall(vim.loop.fs_stat, filename)
+--   if ok and stats and stats.size > MAX_FILE_SIZE then
+--     return true
+--   end
+--
+--   -- Check line count
+--   local line_count = vim.api.nvim_buf_line_count(bufnr)
+--   if line_count > MAX_LINE_COUNT then
+--     return true
+--   end
+--
+--   -- Check for CSV files (always treat as large)
+--   if filename:match("%.csv$") then
+--     return true
+--   end
+--
+--   return false
+-- end
+--
+-- -- Optimize buffer for large files
+-- local function optimize_large_file(bufnr)
+--   bufnr = bufnr or 0
+--
+--   -- Disable syntax highlighting
+--   vim.api.nvim_buf_set_option(bufnr, "syntax", "off")
+--
+--   -- Disable treesitter for this buffer
+--   local ts_config = require("nvim-treesitter.configs")
+--   if ts_config then
+--     vim.api.nvim_buf_set_var(bufnr, "ts_highlight", false)
+--   end
+--
+--   -- Disable LSP for this buffer
+--   vim.b[bufnr].large_file = true
+--
+--   -- Disable folding
+--   vim.api.nvim_buf_set_option(bufnr, "foldmethod", "manual")
+--   vim.api.nvim_buf_set_option(bufnr, "foldenable", false)
+--
+--   -- Disable swap file
+--   vim.api.nvim_buf_set_option(bufnr, "swapfile", false)
+--
+--   -- Reduce updatetime for this buffer
+--   vim.api.nvim_buf_set_option(bufnr, "updatetime", 4000)
+--
+--   -- Disable auto formatting
+--   vim.b[bufnr].disable_autoformat = true
+--
+--   -- Disable colorizer
+--   if pcall(require, "colorizer") then
+--     vim.api.nvim_buf_call(bufnr, function()
+--       vim.cmd("ColorizerDetachFromBuffer")
+--     end)
+--   end
+--
+--   -- Set lower synmaxcol for syntax highlighting (if any)
+--   vim.api.nvim_buf_set_option(bufnr, "synmaxcol", 200)
+--
+--   -- Disable cursorline/cursorcolumn
+--   vim.api.nvim_win_set_option(0, "cursorline", false)
+--   vim.api.nvim_win_set_option(0, "cursorcolumn", false)
+--
+--   -- Disable list mode (showing whitespace)
+--   vim.api.nvim_win_set_option(0, "list", false)
+--
+--   vim.notify("Large file detecte\nOptimizations applied..")
+-- end
 
--- Configure thresholds
+-- vim.api.nvim_create_autocmd("BufReadPre", {
+--   pattern = "*",
+--   callback = function()
+--     local file = vim.fn.expand("<afile>")
+--     local size = vim.fn.getfsize(file)
+--
+--     if size > 10000000 or size == -2 then
+--       vim.opt_local.undofile = false
+--       vim.opt_local.foldenable = false
+--
+--       -- Safely disable matchparen
+--       pcall(vim.cmd, "NoMatchParen")
+--     end
+--   end,
+-- })
+
+-- Consolidated large file optimization
 local MAX_FILE_SIZE = 1024 * 1024 -- 1MB
-local MAX_LINE_COUNT = 10000
-
--- Check if file is large
-local function is_large_file(bufnr)
-  bufnr = bufnr or 0
-
-  -- Check file size
-  local filename = vim.api.nvim_buf_get_name(bufnr)
-  if filename == "" then
-    return false
-  end
-
-  local ok, stats = pcall(vim.loop.fs_stat, filename)
-  if ok and stats and stats.size > MAX_FILE_SIZE then
-    return true
-  end
-
-  -- Check line count
-  local line_count = vim.api.nvim_buf_line_count(bufnr)
-  if line_count > MAX_LINE_COUNT then
-    return true
-  end
-
-  -- Check for CSV files (always treat as large)
-  if filename:match("%.csv$") then
-    return true
-  end
-
-  return false
-end
-
--- Optimize buffer for large files
-local function optimize_large_file(bufnr)
-  bufnr = bufnr or 0
-
-  -- Disable syntax highlighting
-  vim.api.nvim_buf_set_option(bufnr, "syntax", "off")
-
-  -- Disable treesitter for this buffer
-  local ts_config = require("nvim-treesitter.configs")
-  if ts_config then
-    vim.api.nvim_buf_set_var(bufnr, "ts_highlight", false)
-  end
-
-  -- Disable LSP for this buffer
-  vim.b[bufnr].large_file = true
-
-  -- Disable folding
-  vim.api.nvim_buf_set_option(bufnr, "foldmethod", "manual")
-  vim.api.nvim_buf_set_option(bufnr, "foldenable", false)
-
-  -- Disable swap file
-  vim.api.nvim_buf_set_option(bufnr, "swapfile", false)
-
-  -- Reduce updatetime for this buffer
-  vim.api.nvim_buf_set_option(bufnr, "updatetime", 4000)
-
-  -- Disable auto formatting
-  vim.b[bufnr].disable_autoformat = true
-
-  -- Disable colorizer
-  if pcall(require, "colorizer") then
-    vim.api.nvim_buf_call(bufnr, function()
-      vim.cmd("ColorizerDetachFromBuffer")
-    end)
-  end
-
-  -- Set lower synmaxcol for syntax highlighting (if any)
-  vim.api.nvim_buf_set_option(bufnr, "synmaxcol", 200)
-
-  -- Disable cursorline/cursorcolumn
-  vim.api.nvim_win_set_option(0, "cursorline", false)
-  vim.api.nvim_win_set_option(0, "cursorcolumn", false)
-
-  -- Disable list mode (showing whitespace)
-  vim.api.nvim_win_set_option(0, "list", false)
-
-  vim.notify("Large file detecte\nOptimizations applied..")
-end
-
--- vim.cmd([[
---   autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | NoMatchParen | endif
--- ]])
+local MAX_LINES = 10000
 
 vim.api.nvim_create_autocmd("BufReadPre", {
-  pattern = "*",
-  callback = function()
-    local file = vim.fn.expand("<afile>")
-    local size = vim.fn.getfsize(file)
+  group = vim.api.nvim_create_augroup("OptimizeBuffer", { clear = true }),
+  callback = function(args)
+    local bufnr = args.buf
+    local filename = vim.api.nvim_buf_get_name(bufnr)
 
-    if size > 10000000 or size == -2 then
-      vim.opt_local.undofile = false
-      vim.opt_local.foldenable = false
+    if filename == "" then return end
 
-      -- Safely disable matchparen
-      pcall(vim.cmd, "NoMatchParen")
+    local ok, stats = pcall(vim.loop.fs_stat, filename)
+    local is_large = false
+
+    if ok and stats and stats.size > MAX_FILE_SIZE then
+      is_large = true
+    elseif filename:match("%.csv$") then
+      is_large = true
+    end
+
+    if is_large then
+      vim.bo[bufnr].syntax = "off"
+      vim.bo[bufnr].swapfile = false
+      vim.bo[bufnr].undofile = false
+      vim.bo[bufnr].foldmethod = "manual"
+      vim.bo[bufnr].foldenable = false
+      vim.bo[bufnr].synmaxcol = 200
+      vim.b[bufnr].disable_autoformat = true
+      vim.b[bufnr].large_file = true
+
+      vim.schedule(function()
+        vim.diagnostic.enable(false, { bufnr = bufnr })
+        vim.notify("Large file detected. Optimizations applied.", vim.log.levels.INFO)
+      end)
     end
   end,
 })
 
--- Setup autocmds
-local function setup()
-  vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })
-
-  -- Check on buffer read
-  vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-    group = "LargeFileOptimization",
-    callback = function(args)
-      if is_large_file(args.buf) then
-        optimize_large_file(args.buf)
-      end
-    end,
-  })
-
-  -- Also check after buffer is loaded (for lazy loading scenarios)
-  vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    group = "LargeFileOptimization",
-    callback = function(args)
-      if is_large_file(args.buf) and not vim.b[args.buf].large_file then
-        optimize_large_file(args.buf)
-      end
-    end,
-  })
-end
-
--- Manual command to optimize current buffer
 vim.api.nvim_create_user_command("OptimizeLargeFile", function()
-  optimize_large_file()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+  local ok, stats = pcall(vim.loop.fs_stat, filename)
+  if ok and stats then
+    vim.b[bufnr].large_file = true
+    vim.notify("Buffer optimized for large file", vim.log.levels.INFO)
+  end
 end, {})
 
+-- -- Setup autocmds
+-- local function setup()
+--   vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })
+--
+--   -- Check on buffer read
+--   vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+--     group = "LargeFileOptimization",
+--     callback = function(args)
+--       if is_large_file(args.buf) then
+--         optimize_large_file(args.buf)
+--       end
+--     end,
+--   })
+--
+--   -- Also check after buffer is loaded (for lazy loading scenarios)
+--   vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+--     group = "LargeFileOptimization",
+--     callback = function(args)
+--       if is_large_file(args.buf) and not vim.b[args.buf].large_file then
+--         optimize_large_file(args.buf)
+--       end
+--     end,
+--   })
+-- end
+--
+-- -- Manual command to optimize current buffer
+-- vim.api.nvim_create_user_command("OptimizeLargeFile", function()
+--   optimize_large_file()
+-- end, {})
+
 -- Call setup
-setup()
-
-M.is_large_file = is_large_file
-M.optimize_large_file = optimize_large_file
-M.setup = setup
-
-return M
+-- setup()
+--
+-- M.is_large_file = is_large_file
+-- M.optimize_large_file = optimize_large_file
+-- M.setup = setup
+--
+-- return M

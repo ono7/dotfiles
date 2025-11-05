@@ -3,15 +3,11 @@ vim.g.maplocalleader = " "
 
 vim.opt.background = "dark"
 
--- vim.opt.path:append({ "**" })
 vim.opt.path = ".,**"
 vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
 
 vim.opt.shada = "'20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
-
--- vim.opt.winbar = "%=%-.75F %-m"
--- vim.opt.winbar = "%=%f"
 
 function _G.winbar_path()
   local filepath = vim.fn.expand("%:.") -- relative path
@@ -38,11 +34,9 @@ end
 
 vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
 
--- vim.g.loaded_matchparen = 1
 vim.g.matchparen_timeout = 10
 vim.g.matchparen_insert_timeout = 10
 
--- vim.opt.fsync = false
 vim.opt.autochdir = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
@@ -52,28 +46,29 @@ vim.opt.cursorcolumn = false
 vim.opt.guicursor = ""
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
--- vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 vim.opt.diffopt = "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff"
 vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
+
+vim.opt.fillchars:append({ fold = " " })
+
+-- Clear the Folded highlight group completely
+vim.api.nvim_set_hl(0, "Folded", {})
 
 _G.better_fold_text = function()
   local line = vim.fn.getline(vim.v.foldstart)
   local line_count = vim.v.foldend - vim.v.foldstart + 1
   local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
 
-  -- Clean up the line but keep most of its content
   line = line:gsub("^%s+", "")
 
-  -- Truncate if too long (adjust max length as needed)
   local max_length = 60
   local display_line = line
   if #line > max_length then
     display_line = line:sub(1, max_length) .. "..."
   end
 
-  -- Add the line count in brackets
   return indent .. "▶ " .. display_line .. " [" .. line_count .. " lines]"
 end
 
@@ -83,28 +78,18 @@ vim.opt.fillchars:append({ fold = " " })
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
 
--- start manual, the use treesitter
-vim.opt.foldmethod = "indent"
+-- Use treesitter folding from the start
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevelstart = 99
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 1
 vim.opt.foldenable = true
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    vim.schedule(function()
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    end)
-  end,
-})
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
--- vim.opt.formatoptions = "c1lqjr"
 
 -- allows lookaround :Rg ^from (?=.*Adapter)
 if vim.fn.executable("rg") == 1 then
@@ -182,11 +167,10 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 10 -- for performace
+vim.opt.synmaxcol = 200          -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
--- vim.opt.timeout = false -- remove timeout for partially typed commands
-vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = false          -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""

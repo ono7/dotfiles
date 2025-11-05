@@ -34,7 +34,7 @@ fugitive:
 ]]
 
 vim.loader.enable(true)
-vim.cmd([[syntax off]])
+
 vim.keymap.set("i", "<D-Space>", "<C-Space>", { silent = true })
 
 if vim.opt.termguicolors then
@@ -42,9 +42,6 @@ if vim.opt.termguicolors then
   vim.cmd([[let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"]])
   vim.cmd([[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]])
 end
-
-vim.g.syntax_on = false
-vim.opt.syntax = "off"
 
 require("config.options")
 require("config.keymaps")
@@ -107,12 +104,10 @@ require("utils.ruff")
 vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
-vim.opt.guicursor:append("a:blinkon0")
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""
-vim.opt.completeopt = { "menu", "menuone" }
--- . = this buffer, w = from other windows, b = other loaded buffers
-vim.opt.complete = { ".", "w", "b" }
+-- vim.opt.completeopt = { "menu", "menuone" }
+-- vim.opt.complete = { ".", "w", "b" }
 
 --- check to see what autocmds are running on the buffer
 --- usefull for fixing performance issues or input issues
