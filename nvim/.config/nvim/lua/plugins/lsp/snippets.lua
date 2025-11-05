@@ -29,7 +29,7 @@ return {
       mappings = {
         is = {
           ["<Tab>"] = "expand_or_advance",
-          ["<S-Tab>"] = "previous",
+          -- ["<S-Tab>"] = "previous",
         },
         x = {
           ["<leader>d"] = "cut_text",

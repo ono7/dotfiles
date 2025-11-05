@@ -5,23 +5,38 @@ return {
   ---@type blink.cmp.Config
   opts = {
     keymap = {
-      preset = "default",
-      ["<D-p>"] = { "select_prev", "fallback" },
-      ["<D-n>"] = { "select_next", "fallback" },
+      preset = "super-tab",
+      -- ["<C-y>"] = { "accept", "fallback" },
+      ["<c-y>"] = { "show_and_insert", "fallback" },
+      ["<C-e>"] = { "hide", "fallback" },
+      -- ["<CR>"] = { "accept", "fallback" },
     },
     appearance = {
       nerd_font_variant = "mono",
     },
     completion = {
-      documentation = { auto_show = true },
-      menu = { auto_show = false }, -- This disables automatic completion, use manual trigger
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 500,
+      },
+      menu = {
+        auto_show = false,
+        draw = {
+          -- columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+          columns = { { "label", "label_description", gap = 1 }, { "kind_icon" } },
+        },
+      },
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true, -- Changed from true to false
+        },
+      },
     },
     cmdline = { enabled = false },
     sources = {
-      -- default = { 'lsp', 'path', 'snippets', 'buffer' },
-      default = { "lsp", "path" },
+      default = { "lsp", "path", "buffer" },
     },
-    fuzzy = { implementation = "prefer_rust_with_warning" },
   },
   opts_extend = { "sources.default" },
 }

@@ -35,7 +35,10 @@ fugitive:
 
 vim.loader.enable(true)
 
-vim.keymap.set("i", "<D-Space>", "<C-Space>", { silent = true })
+vim.opt.completeopt = { "menu", "menuone" }
+vim.opt.complete = { ".", "w", "b" }
+
+-- vim.keymap.set("i", "<D-Space>", "<C-Space>", { silent = true })
 
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
