@@ -10,27 +10,27 @@ return {
       disable_when_zoomed = true, -- defaults to false
     })
 
-    vim.keymap.set("t", nv("h"), function()
+    vim.keymap.set("t", "<c-h>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateLeft()
     end)
-    vim.keymap.set("t", nv("j"), function()
+    vim.keymap.set("t", "<c-j>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateDown()
     end)
-    vim.keymap.set("t", nv("k"), function()
+    vim.keymap.set("t", "<c-k>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateUp()
     end)
-    vim.keymap.set("t", nv("l"), function()
+    vim.keymap.set("t", "<c-l>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateRight()
     end)
     -- else
-    vim.keymap.set("n", nv("h"), nvim_tmux_nav.NvimTmuxNavigateLeft)
-    vim.keymap.set("n", nv("j"), nvim_tmux_nav.NvimTmuxNavigateDown)
-    vim.keymap.set("n", nv("k"), nvim_tmux_nav.NvimTmuxNavigateUp)
-    vim.keymap.set("n", nv("l"), nvim_tmux_nav.NvimTmuxNavigateRight)
+    vim.keymap.set("n", "<c-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+    vim.keymap.set("n", "<c-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+    vim.keymap.set("n", "<c-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+    vim.keymap.set("n", "<c-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
     -- end
   end,
 }

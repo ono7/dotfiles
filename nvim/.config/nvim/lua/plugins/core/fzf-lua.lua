@@ -39,6 +39,12 @@ return {
           ["ctrl-q"] = "select-all+accept",
         },
       },
+      actions = {
+        files = {
+          ["default"] = require("fzf-lua.actions").file_edit,
+          ["ctrl-q"] = require("fzf-lua.actions").file_sel_to_qf,
+        },
+      },
       files = {
         fd_opts = "--type f --hidden --exclude node_modules --exclude .git --exclude .venv",
         -- -- previewer = "bat",
