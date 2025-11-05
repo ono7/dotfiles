@@ -8,6 +8,16 @@ return {
 
     fzf.setup({
       fzf_colors = true,
+      winopts = {
+        height = 0.85,
+        width = 0.80,
+        row = 0.35,
+        col = 0.50,
+        preview = {
+          default = 'builtin',
+          layout = 'flex',
+        },
+      },
       {
         "fzf-native",
         winopts = {
