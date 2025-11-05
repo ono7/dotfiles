@@ -83,6 +83,7 @@ keybind = cmd+f=text:\x06
 keybind = cmd+g=text:\x07
 keybind = cmd+h=text:\x08
 keybind = cmd+i=text:\x1b[105;5u
+keybind = ctrl+i=text:\x1b[105;5u
 keybind = cmd+j=text:\x0a
 keybind = cmd+k=text:\x0b
 keybind = cmd+l=text:\x0c
@@ -93,6 +94,7 @@ keybind = cmd+p=text:\x10
 keybind = cmd+q=text:\x11
 keybind = cmd+r=text:\x12
 keybind = cmd+left_bracket=text:\x1b
+keybind = ctrl+left_bracket=text:\x1b
 keybind = cmd+p=text:\x10
 keybind = cmd+r=text:\x12
 keybind = cmd+t=text:\x14
@@ -100,13 +102,20 @@ keybind = cmd+v=text:\x16
 keybind = cmd+x=text:\x18
 keybind = cmd+y=text:\x19
 keybind = cmd+w=text:\x17
+# keybind = ctrl+h=text:\x17
+keybind = cmd+backspace=text:\x17
+# keybind = ctrl+h=text:\x17
+# keybind = ctrl+backspace=text:\x1b[3;5~
+# keybind = ctrl+backspace=text:\u{17}
+# keybind = ctrl+backspace=text:\x17
+# keybind = ctrl+backspace=text:\x1b[127;5u
 # todo fix me
 keybind = cmd+9=text:\x1b1
 keybind = cmd+0=text:\x1b2
 keybind = cmd+backspace=text:\x17
-keybind = ctrl+backspace=text:\x17
 keybind = cmd+z=text:\x1a
 keybind = cmd+right_bracket=text:\x1d
+keybind = ctrl+right_bracket=text:\x1d
 keybind = super+shift+v=paste_from_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
 
