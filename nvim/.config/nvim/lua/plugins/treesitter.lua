@@ -142,6 +142,7 @@ return {
           "jinja",
           "lua",
           "markdown",
+          "markdown_inline",
           "python",
           "query",
           "terraform",

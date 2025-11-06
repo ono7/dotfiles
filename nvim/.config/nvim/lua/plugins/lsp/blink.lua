@@ -1,8 +1,15 @@
 return {
   "saghen/blink.cmp",
   version = "1.*",
-  ---@module 'blink.cmp'
-  ---@type blink.cmp.Config
+  dependencies = {
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      opts = {
+        ensure_installed = { "markdown", "markdown_inline" },
+      },
+    },
+  },
   opts = {
     keymap = {
       preset = "super-tab",
@@ -23,6 +30,10 @@ return {
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,
+        treesitter_highlighting = true, -- disable this if there is any stuttering or performance issues
+        window = {
+          border = "rounded",
+        },
       },
       menu = {
         auto_show = false,
