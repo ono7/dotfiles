@@ -6,7 +6,7 @@
 # font-family-bold = SF Mono Heavy
 # font-style = Medium
 
-# font-family = IosevkaTerm Nerd Font Mono
+font-family = IosevkaTerm Nerd Font Mono
 font-style = SemiBold
 font-style-bold = Bold
 font-style-italic = SemiBold Oblique

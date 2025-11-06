@@ -31,9 +31,7 @@ return {
         auto_show = true,
         auto_show_delay_ms = 500,
         treesitter_highlighting = true, -- disable this if there is any stuttering or performance issues
-        window = {
-          border = "rounded",
-        },
+        window = { border = "rounded" },
       },
       menu = {
         auto_show = false,

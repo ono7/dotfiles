@@ -49,9 +49,9 @@ M.setup = function()
 
   --- Keymaps ---
   --- this is handled by blink.cmp by default
-  -- vim.keymap.set("n", "K", function()
-  --   vim.lsp.buf.hover({ border = "rounded" })
-  -- end, { desc = "LSP: Hover documentation" })
+  vim.keymap.set("n", "K", function()
+    vim.lsp.buf.hover({ border = "rounded" })
+  end, { desc = "LSP: Hover documentation" })
 
   --- Completion options ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
