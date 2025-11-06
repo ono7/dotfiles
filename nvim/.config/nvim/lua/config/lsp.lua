@@ -2,41 +2,36 @@ local M = {}
 
 M.toggle_lsp_for_buffer = function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.get_clients({ buffer = bufnr })
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
   if #clients > 0 then
-    -- LSP is active, disable it
+    -- LSP is active, detach clients
     for _, client in ipairs(clients) do
-      client:stop()
+      vim.lsp.buf_detach_client(bufnr, client.id)
     end
-    vim.notify("LSP disabled for current buffer")
+    vim.notify("LSP disabled for current buffer", vim.log.levels.INFO)
   else
-    -- LSP is inactive, enable it
-    -- Re-enable by re-triggering filetype detection
+    -- LSP is inactive, re-attach via filetype
     local ft = vim.bo[bufnr].filetype
-    vim.cmd("set filetype=" .. ft)
-    vim.notify("LSP enabled for current buffer")
+    if ft ~= "" then
+      vim.bo[bufnr].filetype = ft
+      vim.notify("LSP enabled for current buffer", vim.log.levels.INFO)
+    else
+      vim.notify("No filetype set", vim.log.levels.WARN)
+    end
   end
 end
 
 vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for current buffer" })
 
 M.setup = function()
-  --- lsp config ---
-  -- this will get merged with the lsp/*.lua files
-  -- conviniently making some settings global
+  --- Global LSP configuration ---
   vim.lsp.config("*", {
     root_markers = { ".git" },
-    capabilities = {
-      textDocument = {
-        semanticTokens = {
-          multilineTokenSupport = true,
-        },
-      },
-    },
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
   })
 
-  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-  -- configure under lsp/*.lua
+  --- Enable LSP servers ---
   vim.lsp.enable({
     "gopls",
     "pyright",
@@ -52,43 +47,40 @@ M.setup = function()
     "ruff",
   })
 
+  --- Keymaps ---
   vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover({ border = "rounded" })
-  end, { desc = "Open documentation" })
+  end, { desc = "LSP: Hover documentation" })
 
-  --- completion ---
+  --- Completion options ---
   vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
+  --- Diagnostic configuration ---
   vim.diagnostic.config({
     update_in_insert = false,
-    virtual_text = false
+    virtual_text = false,
   })
 
-  --- enable on enter
-  vim.api.nvim_create_autocmd({ "BufReadPost", "BufEnter" }, {
-    callback = function()
-      vim.diagnostic.enable(true)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    callback = function()
-      if not vim.diagnostic.is_enabled() then
-        vim.diagnostic.enable(true)
-      end
-    end,
-  })
+  --- Diagnostic auto-management ---
+  local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
 
   vim.api.nvim_create_autocmd("InsertEnter", {
+    group = diagnostic_group,
     callback = function()
-      if vim.diagnostic.is_enabled() then
-        vim.diagnostic.enable(false)
-      end
+      vim.diagnostic.enable(false)
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
+    group = diagnostic_group,
+    callback = function()
+      vim.diagnostic.enable(true)
     end,
   })
 end
 
 M.no_lsp = function()
+  -- Placeholder for configs that don't need LSP
 end
 
 return M

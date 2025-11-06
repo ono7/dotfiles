@@ -9,10 +9,17 @@ snippet ft "set vim filetype" b
   ${0}
   # vim: ft=go
 
+# snippet h "header" b
+#   // Author:  Jose Lima (`getenv('USER')`)
+#   // Date:    `strftime("%Y-%m-%d  %H:%M")`
+#   ${0}
+
 snippet h "header" b
-  // Author:  Jose Lima (`getenv('USER')`)
-  // Date:    `strftime("%Y-%m-%d  %H:%M")`
-  ${0}
+  package ${1:main}
+
+  func main() {
+    ${0}
+  }
 
 snippet c "block comment" w
   /*
