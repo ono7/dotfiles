@@ -114,6 +114,9 @@ return {
             if filename:match("%.csv$") then
               return true
             end
+            if filename:match("%.py$") then
+              return true
+            end
 
             local line_count = vim.api.nvim_buf_line_count(buf)
             if line_count > 5000 then
