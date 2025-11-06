@@ -14,8 +14,12 @@ return {
     appearance = {
       nerd_font_variant = "mono",
     },
-    trigger = { mode = "manual" },
+    -- trigger = { mode = "manual" },
     completion = {
+      trigger = {
+        show_on_keyword = false,
+        show_on_trigger_character = false,
+      },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,

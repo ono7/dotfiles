@@ -108,7 +108,7 @@ else
           booleans = {},
           parameters = {},
           properties = {},
-          types = {},
+          types = { "italic" },
           operators = {},
         },
         color_overrides = {
@@ -142,7 +142,7 @@ else
       vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#9cbf9c", bold = true })
       vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = mycolors.red, bold = true })
       vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#2d3a44" })
-      vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
+      -- vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
       vim.api.nvim_set_hl(0, "Visual", { bg = "#1C4474", fg = "#dedede" })
       vim.api.nvim_set_hl(0, "LineNr", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "Search", { link = "PmenuSel" })
@@ -238,14 +238,14 @@ else
       vim.api.nvim_set_hl(0, "@label.markdown", { fg = "#252d38" })
       vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.red })
       vim.api.nvim_set_hl(0, "@keyword.operator", { fg = mycolors.red })
-      vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#c5c0ae" })
+      -- vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#c5c0ae" })
       vim.api.nvim_set_hl(0, "@function.method", { italic = false })
       vim.api.nvim_set_hl(0, "@string.yaml", {})
       vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
       vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
       vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
-      vim.api.nvim_set_hl(0, "@type.builtin", { link = "Normal" })
+      -- vim.api.nvim_set_hl(0, "@type.builtin", { link = "Normal" })
 
       -- Updated Pmenu colors using improved scheme
       vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
