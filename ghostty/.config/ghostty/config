@@ -1,7 +1,7 @@
 # UI related
 # cmd+shift+j (dump scroll back buffer)
 
-font settings
+# font settings
 font-family = SF Mono
 font-family-bold = SF Mono Heavy
 font-style = Medium
