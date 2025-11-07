@@ -149,6 +149,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+nnoremap ; :
 nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
