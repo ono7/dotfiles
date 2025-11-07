@@ -91,13 +91,20 @@ vim.api.nvim_create_autocmd("BufRead", {
   group = create_augroup("restore_cursor_position_on_enter", { clear = true }),
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   callback = function()
+--     -- vim.opt.formatoptions:remove({ "c", "r", "o" })
+--     vim.opt.formatoptions:remove({ "c", "o", "t" })
+--   end,
+--   group = create_augroup("remove_format_options", { clear = true }),
+--   desc = "Disable New Line Comment",
+-- })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("no_auto_comment", {}),
   callback = function()
-    -- vim.opt.formatoptions:remove({ "c", "r", "o" })
-    vim.opt.formatoptions:remove({ "c", "o", "t" })
-  end,
-  group = create_augroup("remove_format_options", { clear = true }),
-  desc = "Disable New Line Comment",
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
