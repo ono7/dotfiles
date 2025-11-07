@@ -440,7 +440,7 @@ vc () {
   python_version="${2:-python3}"
   $python_version --version
   $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
-  pip install jq yq pyright black pipdeptree debugpy pytest yamllint pre-commit pynvim rpdb pdbpp ruff python-dotenv -U
+  pip install jq yq pyright black pipdeptree debugpy pytest yamllint pre-commit pynvim rpdb pdbpp ruff python-dotenv remote_pdb -U
   echo ""
   echo ""
   echo "*************** :) *******************"
