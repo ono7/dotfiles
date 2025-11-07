@@ -724,5 +724,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv &>/dev/null; then
   eval "$(pyenv init -)"
 else
-  echo "pyenv not intalled, install with curl https://pyenv.run | bash"
+  echo "installing pyenv..."
+  curl https://pyenv.run | bash
+  eval "$(pyenv init -)"
 fi
