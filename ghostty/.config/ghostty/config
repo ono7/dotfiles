@@ -12,7 +12,9 @@ font-style-bold = Bold
 font-style-italic = SemiBold Oblique
 
 font-size = 22
-font-feature = -calt, -liga, -dlig
+# font-feature = -calt, -liga, -dlig
+# font-feature = -calt -liga -dlig -clig -hlig
+font-feature = ss01=0 ss02=0 ss03=0 ss04=0 ss05=0 -calt -liga -dlig
 adjust-cell-height = 30%
 
 shell-integration-features = no-cursor,sudo,no-title
