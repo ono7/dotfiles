@@ -7,6 +7,15 @@ function M.setup()
 
   local fzf = require("fzf-lua")
 
+  local function delete_all_buffers()
+    local buffers = vim.api.nvim_list_bufs()
+    for _, buf in ipairs(buffers) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+        vim.api.nvim_buf_delete(buf, { force = false })
+      end
+    end
+  end
+
   local function zoxide_cd()
     local handle = io.popen("zoxide query -ls")
     if not handle then
@@ -25,12 +34,10 @@ function M.setup()
       end
     end
 
-    -- Sort by score descending
     table.sort(items, function(a, b)
       return a.score > b.score
     end)
 
-    -- Convert to fzf entries (just the paths)
     local entries = {}
     for _, item in ipairs(items) do
       table.insert(entries, item.path)
@@ -42,6 +49,7 @@ function M.setup()
         ["default"] = function(selected)
           if selected and selected[1] then
             local path = selected[1]
+            delete_all_buffers()
             vim.cmd("lcd " .. path)
             print("Changed to directory: " .. path)
           end
@@ -49,9 +57,9 @@ function M.setup()
         ["ctrl-f"] = function(selected)
           if selected and selected[1] then
             local path = selected[1]
+            delete_all_buffers()
             vim.cmd("lcd " .. path)
             print("Changed to directory: " .. path)
-            -- Open find_files in the selected directory
             vim.defer_fn(function()
               fzf.files({ cwd = path })
             end, 100)
