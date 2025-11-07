@@ -709,3 +709,20 @@ else
   echo "starship not installed"
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+############### pyenv ###############
+
+# use:
+# # Install Python 3.11.5
+# pyenv install 3.11.5
+#
+# # Then set it as local
+# pyenv local 3.11.5
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv &>/dev/null; then
+  eval "$(pyenv init -)"
+else
+  echo "pyenv not intalled, install with curl https://pyenv.run | bash"
+fi
