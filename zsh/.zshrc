@@ -410,14 +410,15 @@ va () {
       source $(git rev-parse --show-toplevel)/venv/bin/activate
     fi
   else
-    source $HOME/.virtualenvs/prod3/bin/activate
+    # source $HOME/.virtualenvs/prod3/bin/activate
+    echo
   fi
   echo $(which python3)
 }
 
 vd () {
   deactivate 2>/dev/null
-  source $HOME/.virtualenvs/prod3/bin/activate
+  # source $HOME/.virtualenvs/prod3/bin/activate
   echo $(which python3)
 }
 
@@ -647,9 +648,9 @@ setopt ALWAYS_TO_END
 
 ############## Load virtual environment if it exists ##############
 
-if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
-  source ~/.virtualenvs/prod3/bin/activate
-fi
+# if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
+#   source ~/.virtualenvs/prod3/bin/activate
+# fi
 
 # Auto-detect and reactivate virtual environment in tmux
 if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
