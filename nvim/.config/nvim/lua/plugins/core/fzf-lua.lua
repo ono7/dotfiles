@@ -43,6 +43,7 @@ return {
         files = {
           ["default"] = require("fzf-lua.actions").file_edit,
           ["ctrl-q"] = require("fzf-lua.actions").file_sel_to_qf,
+          ["ctrl-v"] = require("fzf-lua.actions").file_vsplit,
         },
       },
       files = {
