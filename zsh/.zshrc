@@ -142,7 +142,6 @@ alias clear="clear -x"
 alias vil='vim -u ~/.vimrc_min'
 alias vim='nvim -n'
 alias vi='nvim -n'
-alias n='nvim -n'
 if [ -f $HOME/.local/vim/bin/vim ]; then
   alias v='~/.local/vim/bin/vim -u ~/.vimrc'
 else
