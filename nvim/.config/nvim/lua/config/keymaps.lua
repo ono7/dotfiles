@@ -41,6 +41,10 @@ cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
 " inoremap <C-a> <Home>
+" Make Ctrl-Backspace delete the entire word including special chars
+
+inoremap <C-BS> <C-w>
+inoremap <C-h> <C-w>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
@@ -247,7 +251,7 @@ k("x", ",a", "<cmd>!column -t<cr>")
 --- terminal ---
 k("t", "<M-BS>", "\x17", { noremap = true })
 k("t", "<C-BS>", "\x17", { noremap = true })
-k("i", "<C-BS>", "\x17", { noremap = true })
+-- k("i", "<C-BS>", "\x17", { noremap = true })
 
 -- k("i", nv("BS"), "\x17", { noremap = true })
 k("c", "<C-BS>", "\x17", { noremap = true })

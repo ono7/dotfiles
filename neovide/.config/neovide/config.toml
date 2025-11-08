@@ -19,6 +19,6 @@ wsl = false
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "SemiBold" }
 normal = { family = "Iosevka Custom", style = "SemiBold" }
 # features = { "IosevkaTerm Nerd Font Mono" = ["-calt", "-liga", "-dlig"] }
-size = 23
+size = 24
 # best for macos...
 # hinting = "none"
