@@ -214,7 +214,8 @@ inoremap <C-y> <c-x><c-n>
 " this is the same as c+backspace
 inoremap <C-H> <C-W>
 
-inoremap <C-a> <Home>
+inoremap <C-a> <C-o>^
+" inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
 inoremap <C-BS> <C-w>

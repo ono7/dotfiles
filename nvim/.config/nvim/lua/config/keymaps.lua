@@ -32,6 +32,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
@@ -39,7 +40,8 @@ nnoremap <c-e> <end>
 cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
-inoremap <C-a> <Home>
+" inoremap <C-a> <Home>
+inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
 nnoremap ; :

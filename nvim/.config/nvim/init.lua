@@ -37,6 +37,7 @@ vim.loader.enable(true)
 
 vim.opt.completeopt = { "menu", "menuone" }
 vim.opt.complete = { ".", "w", "b" }
+vim.cmd [[syntax off ]]
 
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
