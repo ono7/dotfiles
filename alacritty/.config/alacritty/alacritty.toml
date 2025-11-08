@@ -20,7 +20,7 @@ bright_foreground = "#F2EDE7"  # Bright white
 # cursor = "#D6CFC7"             # Default cursor color (same as foreground)
 # cursor = "#ffffff"             # Default cursor color (same as foreground)
 # cursor = "#FF13F0"
-cursor = "#e64edc"
+cursor = "#E288F7"
 
 text = "#171F2C"               # Background for cursor text
 
