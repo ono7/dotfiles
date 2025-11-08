@@ -11,7 +11,15 @@ function M.setup()
     local buffers = vim.api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do
       if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-        vim.api.nvim_buf_delete(buf, { force = false })
+        -- Skip terminal buffers or force delete them
+        local buftype = vim.bo[buf].buftype
+        if buftype == "terminal" then
+          vim.api.nvim_buf_delete(buf, { force = true })
+        else
+          -- Check if buffer is modified
+          local modified = vim.bo[buf].modified
+          vim.api.nvim_buf_delete(buf, { force = modified })
+        end
       end
     end
   end
