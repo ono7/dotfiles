@@ -107,3 +107,15 @@ vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
 
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
+
+vim.cmd('syntax on')
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    local ft = vim.bo.filetype
+    if ft ~= "markdown" and ft ~= "fugitive" and ft ~= "gitcommit" then
+      vim.cmd('setlocal syntax=off')
+    end
+  end
+})
