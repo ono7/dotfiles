@@ -150,6 +150,7 @@ cnoreabbrev qq qa!
 map Q <Nop>
 
 nnoremap ; :
+xnoremap ; :
 nnoremap v <c-v>
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
@@ -185,13 +186,13 @@ nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>
 
-xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
-xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
-xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-xnoremap ( <esc>`>a)<esc>`<i(<esc>
-xnoremap [ <esc>`>a]<esc>`<i[<esc>
-xnoremap { <esc>`>a}<esc>`<i{<esc>
-xnoremap < <esc>`>a><esc>`<i<<esc>
+xnoremap ' <esc>`>a'<esc>`<^i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<^i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<^i`<esc>f`a
+xnoremap ( <esc>`>a)<esc>`<^i(<esc>f)a
+xnoremap [ <esc>`>a]<esc>`<^i[<esc>f]a
+xnoremap { <esc>`>a}<esc>`<^i{<esc>f}a
+xnoremap < <esc>`>a><esc>`<^i<<esc>f>a
 
 xnoremap H <gv
 xnoremap L >gv
