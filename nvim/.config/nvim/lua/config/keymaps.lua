@@ -49,6 +49,7 @@ inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
 nnoremap ; :
+xnoremap ; :
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> ,d <cmd>bd!<cr>
@@ -73,13 +74,21 @@ xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
 
-xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
-xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
-xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-xnoremap ( <esc>`>a)<esc>`<i(<esc>
-xnoremap [ <esc>`>a]<esc>`<i[<esc>
-xnoremap { <esc>`>a}<esc>`<i{<esc>
-xnoremap < <esc>`>a><esc>`<i<<esc>
+" xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
+" xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
+" xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
+" xnoremap ( <esc>`>a)<esc>`<i(<esc>
+" xnoremap [ <esc>`>a]<esc>`<i[<esc>
+" xnoremap { <esc>`>a}<esc>`<i{<esc>
+" xnoremap < <esc>`>a><esc>`<i<<esc>
+
+xnoremap ' <esc>`>a'<esc>`<^i'<esc>f'a
+xnoremap " <esc>`>a"<esc>`<^i"<esc>f"a
+xnoremap ` <esc>`>a`<esc>`<^i`<esc>f`a
+xnoremap ( <esc>`>a)<esc>`<^i(<esc>f)a
+xnoremap [ <esc>`>a]<esc>`<^i[<esc>f]a
+xnoremap { <esc>`>a}<esc>`<^i{<esc>f}a
+xnoremap < <esc>`>a><esc>`<^i<<esc>f>a
 
 set iskeyword+=_,-
 set ttyfast
@@ -302,7 +311,7 @@ local function clean_space_save()
   end
 end
 
-k("i", "<M-BS>", "<C-u>", { noremap = true })
+-- k("i", "<M-BS>", "<C-u>", { noremap = true })
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
 k("n", ",w", function()
