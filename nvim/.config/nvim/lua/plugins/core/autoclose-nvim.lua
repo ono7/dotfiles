@@ -5,8 +5,8 @@ return {
   config = function()
     local config = {
       keys = {
-        ["("] = { escape = false, close = true, pair = "()" },
-        ["["] = { escape = false, close = true, pair = "[]" },
+        ["("] = { escape = false, close = false, pair = "()" },
+        ["["] = { escape = false, close = false, pair = "[]" },
         ["{"] = { escape = false, close = true, pair = "{}" },
 
         [">"] = { escape = true, close = false, pair = "<>" },
@@ -24,7 +24,7 @@ return {
         disable_when_touch = true,
         -- touch_regex = "[%w(%[{]",
         touch_regex = "[%w(%[{\"']",
-        pair_spaces = true,
+        pair_spaces = false, --- inserts spaces after typing, a space { | }
         auto_indent = true,
         disable_command_mode = false,
       },

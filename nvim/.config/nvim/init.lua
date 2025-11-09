@@ -104,3 +104,6 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 vim.opt.guicursor = "n-c-v-i:block-Cursor"
+
+
+vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
