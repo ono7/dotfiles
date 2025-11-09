@@ -1,5 +1,46 @@
 # notes
 
+## Debug when a function or method is called on a struct
+
+// this is probably the most useful way to debug and set breakpoints
+// this is case sensitive
+
+// bash: dlv debug main.go
+(dlv)>break main.MySlowReader.Read
+(dlv)> c
+
+## print code
+
+// list code centered around line 20
+list 20
+
+// reference a file and line number if we know what file we want to break on
+list main.go:10
+
+## conditional break points
+
+// Break only when specific conditions met
+dlv debug
+(dlv) break main.go:14
+(dlv) condition 1 m.pos == 5
+(dlv) continue
+
+## watch
+
+watch variable for changes
+
+```bash
+# Break when variable changes
+(dlv) break main.MySlowReader.Read
+(dlv) continue # this will pause at Read() call
+(dlv) watch -w m.pos  # Not all platforms support this, this will pause when m.pos changes -r, -w -rw flags
+# Alternative: manual checking
+(dlv) break main.go:14
+(dlv) condition 1 m.pos != m.pos@entry  # pseudocode
+```
+
+## keyboard shortcuts
+
 - ctrl-r works to search for old commands
 - install: `go install github.com/go-delve/delve/cmd/dlv@latest`
 
