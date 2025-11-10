@@ -113,8 +113,13 @@ vim.cmd('syntax on')
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
-    local ft = vim.bo.filetype
-    if ft ~= "markdown" and ft ~= "fugitive" and ft ~= "gitcommit" then
+    -- allow these to have syntax enabled always
+    local allowed = {
+      markdown = true,
+      fugitive = true,
+      gitcommit = true
+    }
+    if not allowed[vim.bo.filetype] then
       vim.cmd('setlocal syntax=off')
     end
   end
