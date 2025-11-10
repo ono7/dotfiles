@@ -229,12 +229,6 @@ inoremap <C-BS> <c-w>
 inoremap <D-y> <c-x><c-n>
 inoremap <C-y> <c-x><c-n>
 
-" Kill to end of line (like shell)
-inoremap <C-k> <C-o>D
-
-" Undo in insert mode
-inoremap <C-u> <C-o>u
-
 inoremap <C-a> <C-o>^
 " inoremap <C-a> <Home>
 inoremap <C-e> <End>

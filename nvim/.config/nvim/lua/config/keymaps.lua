@@ -48,12 +48,6 @@ inoremap <C-BS> <C-w>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
-" Kill to end of line (like shell)
-inoremap <C-k> <C-o>D
-
-" Undo in insert mode
-inoremap <C-u> <C-o>u
-
 nnoremap ; :
 xnoremap ; :
 nnoremap D d$
