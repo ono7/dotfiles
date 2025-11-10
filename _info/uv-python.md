@@ -1,5 +1,7 @@
 ## init project
 
+this will create all the files needed, including pyproject.toml and .venv
+
 `uv init my_project`
 
 or in the same dir
