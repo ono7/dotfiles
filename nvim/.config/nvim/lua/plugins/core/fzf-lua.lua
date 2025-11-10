@@ -180,6 +180,7 @@ return {
           "--smart-case",
           "-u",
           "--glob=!venv",
+          "--glob=!.venv",
           "--glob=!.collections",
           "--glob=!.git",
           "--glob=!tags",

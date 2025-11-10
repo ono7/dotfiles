@@ -10,7 +10,7 @@ end
 
 local function get_python_dir(root_dir)
   -- Priority 1: Local venv in project root
-  local local_venv = root_dir .. "/venv"
+  local local_venv = root_dir .. "/.venv"
   if vim.fn.isdirectory(local_venv) == 1 then
     local python_bin = local_venv .. "/bin/python"
     if vim.fn.executable(python_bin) == 1 then
@@ -72,7 +72,7 @@ end
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
-  root_markers = { "pyrightconfig.json", "pyproject.toml", "poetry.lock", "venv", "requirements.txt", "setup.py", ".git" },
+  root_markers = { "pyrightconfig.json", "pyproject.toml", "poetry.lock", ".venv", "venv", "requirements.txt", "setup.py", ".git" },
   on_attach = function(client, bufnr)
     local root_dir = client.config.root_dir or vim.fn.getcwd()
     local python_path = activate_venv(root_dir)

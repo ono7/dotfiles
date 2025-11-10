@@ -99,7 +99,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
+  pattern = { ".venv", "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
   callback = function()
     vim.diagnostic.enable(false)
   end,

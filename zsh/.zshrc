@@ -404,15 +404,15 @@ jira () {
 
 va () {
   if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
-    if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
-      # poetry_shell
-      echo implement
-    else
-      source $(git rev-parse --show-toplevel)/venv/bin/activate
-    fi
+    # if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
+    #   # poetry_shell
+    #   echo implement
+    # else
+      source $(git rev-parse --show-toplevel)/.venv/bin/activate
+    # fi
   else
     # source $HOME/.virtualenvs/prod3/bin/activate
-    echo
+    echo "no fallback python virtual env"
   fi
   echo $(which python3)
 }

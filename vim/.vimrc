@@ -195,10 +195,11 @@ function! WrapSelection(left, right)
     let end_pos = getpos('.')
 
     call setpos('.', end_pos)
-    execute "normal! a" . a:right . "\<esc>"
+    execute "normal! a" . a:right
     call setpos('.', start_pos)
-    execute "normal! i" . a:left . "\<esc>"
+    execute "normal! i" . a:left
     let @" = save_reg
+    startinsert
 endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
@@ -227,8 +228,12 @@ cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
 inoremap <D-y> <c-x><c-n>
 inoremap <C-y> <c-x><c-n>
-" this is the same as c+backspace
-inoremap <C-H> <C-W>
+
+" Kill to end of line (like shell)
+inoremap <C-k> <C-o>D
+
+" Undo in insert mode
+inoremap <C-u> <C-o>u
 
 inoremap <C-a> <C-o>^
 " inoremap <C-a> <Home>

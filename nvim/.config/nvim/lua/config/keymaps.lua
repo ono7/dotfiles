@@ -44,9 +44,15 @@ cnoremap <c-l> <Right>
 " Make Ctrl-Backspace delete the entire word including special chars
 
 inoremap <C-BS> <C-w>
-inoremap <C-h> <C-w>
+" inoremap <C-h> <C-w>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
+
+" Kill to end of line (like shell)
+inoremap <C-k> <C-o>D
+
+" Undo in insert mode
+inoremap <C-u> <C-o>u
 
 nnoremap ; :
 xnoremap ; :
@@ -91,10 +97,11 @@ function! WrapSelection(left, right)
     let end_pos = getpos('.')
 
     call setpos('.', end_pos)
-    execute "normal! a" . a:right . "\<esc>"
+    execute "normal! a" . a:right
     call setpos('.', start_pos)
-    execute "normal! i" . a:left . "\<esc>"
+    execute "normal! i" . a:left
     let @" = save_reg
+    startinsert
 endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
@@ -407,20 +414,20 @@ for _, v in ipairs(r_pair_map) do
 end
 
 --- does not use expression mapping that can cause latency overhead
-k("i", "<BS>", function()
-  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-  if col == 0 then
-    return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
-  end
-
-  local line = vim.fn.getline(".")
-  if col > #line then
-    return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
-  end
-
-  local prev_char = line:sub(col, col)
-  local next_char = line:sub(col + 1, col + 1)
-
-  local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
-end)
+-- k("i", "<BS>", function()
+--   local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   if col == 0 then
+--     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+--   end
+--
+--   local line = vim.fn.getline(".")
+--   if col > #line then
+--     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+--   end
+--
+--   local prev_char = line:sub(col, col)
+--   local next_char = line:sub(col + 1, col + 1)
+--
+--   local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
+--   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+-- end)
