@@ -186,13 +186,28 @@ nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>
 
-xnoremap ' <esc>`>a'<esc>`<^i'<esc>f'a
-xnoremap " <esc>`>a"<esc>`<^i"<esc>f"a
-xnoremap ` <esc>`>a`<esc>`<^i`<esc>f`a
-xnoremap ( <esc>`>a)<esc>`<^i(<esc>f)a
-xnoremap [ <esc>`>a]<esc>`<^i[<esc>f]a
-xnoremap { <esc>`>a}<esc>`<^i{<esc>f}a
-xnoremap < <esc>`>a><esc>`<^i<<esc>f>a
+function! WrapSelection(left, right)
+    let save_reg = @"
+    normal! `
+    call search('\S', 'c')
+    let start_pos = getpos('.')
+    normal! `>
+    let end_pos = getpos('.')
+
+    call setpos('.', end_pos)
+    execute "normal! a" . a:right . "\<esc>"
+    call setpos('.', start_pos)
+    execute "normal! i" . a:left . "\<esc>"
+    let @" = save_reg
+endfunction
+
+xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
+xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
+xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
+xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
+xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
+xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
 xnoremap H <gv
 xnoremap L >gv

@@ -403,9 +403,10 @@ jira () {
 }
 
 va () {
-  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/venv ]]; then
+  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
     if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
-      poetry_shell
+      # poetry_shell
+      echo implement
     else
       source $(git rev-parse --show-toplevel)/venv/bin/activate
     fi
@@ -422,13 +423,13 @@ vd () {
   echo $(which python3)
 }
 
-dev_env () {
-  python3 -m venv ~/.virtualenvs/prod3
-  source ~/.virtualenvs/bin/active
-  pip install -U pip wheel
-  pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
-  pip install jq yp
-}
+# dev_env () {
+#   python3 -m venv ~/.virtualenvs/prod3
+#   source ~/.virtualenvs/bin/active
+#   pip install -U pip wheel
+#   pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
+#   pip install jq yp
+# }
 
 vc () {
   deactivate 2>/dev/null
@@ -436,7 +437,7 @@ vc () {
   if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
     cd $(git rev-parse --show-toplevel)
   fi
-  venv_dir="${1:-venv}"
+  venv_dir="${1:-.venv}"
   python_version="${2:-python3}"
   $python_version --version
   $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
@@ -720,12 +721,12 @@ fi
 # # Then set it as local
 # pyenv local 3.11.5
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv &>/dev/null; then
-  eval "$(pyenv init -)"
-else
-  echo "installing pyenv..."
-  curl https://pyenv.run | bash
-  eval "$(pyenv init -)"
-fi
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# if command -v pyenv &>/dev/null; then
+#   eval "$(pyenv init -)"
+# else
+#   echo "installing pyenv..."
+#   curl https://pyenv.run | bash
+#   eval "$(pyenv init -)"
+# fi
