@@ -10,7 +10,14 @@ return {
       notify_no_formatters = true,
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black" },
+        -- python = { "isort", "black" },
+        python = function(bufnr)
+          if require("conform").get_formatter_info("ruff_format", bufnr).available then
+            return { "isort", "ruff_fix", "ruff_format" }
+          else
+            return { "isort", "black" }
+          end
+        end,
         yaml = { "prettier" },
         ["yaml.ansible"] = { "ansible-lint" },
         javascript = { "prettier" },
