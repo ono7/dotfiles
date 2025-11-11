@@ -117,7 +117,9 @@ vim.api.nvim_create_autocmd("FileType", {
     local allowed = {
       markdown = true,
       fugitive = true,
-      gitcommit = true
+      gitcommit = true,
+      toml = true,
+      config = true,
     }
     if not allowed[vim.bo.filetype] then
       vim.cmd('setlocal syntax=off')
