@@ -26,10 +26,10 @@ return {
           additional_vim_regex_highlighting = false, -- IMPORTANT: disable old system
         },
         indent = {
-          enable = true, -- Usually fine
+          enable = false, -- disable this seems buggy
 
           disable = function(lang, buf)
-            local max_filesize = 50 * 1024
+            local max_filesize = 500 * 1024
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
               return true
@@ -40,6 +40,10 @@ return {
               return true
             end
             if filename:match("%.py$") then
+              return true
+            end
+
+            if filename:match("%.go$") then
               return true
             end
 
@@ -73,6 +77,7 @@ return {
           "terraform",
           "typescript",
           "vim",
+          "vimdoc",
           "yaml",
         },
       })

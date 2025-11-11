@@ -124,3 +124,20 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end
 })
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "*",
+--   callback = function()
+--     local allowed = {
+--       markdown = true,
+--       vim = true,
+--       fugitive = true,
+--       gitcommit = true,
+--     }
+--     if not allowed[vim.bo.filetype] then
+--       vim.treesitter.stop() -- stop treesitter for this buffer
+--     end
+--   end
+-- })
+
+vim.cmd [[hi! link MatchParen TermCursor]]

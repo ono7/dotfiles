@@ -242,7 +242,7 @@ else
       -- vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#c5c0ae" })
       vim.api.nvim_set_hl(0, "@function.method", { italic = false })
       vim.api.nvim_set_hl(0, "@string.yaml", {})
-      vim.api.nvim_set_hl(0, "@type", { italic = true, fg = mycolors.white })
+      vim.api.nvim_set_hl(0, "@type", { italic = false, fg = mycolors.white })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
       vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
