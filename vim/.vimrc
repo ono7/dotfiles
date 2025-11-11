@@ -218,7 +218,7 @@ xnoremap Q <cmd>norm @q<CR>
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
-cnoremap <c-h> <Left>
+" cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
 " use M-x

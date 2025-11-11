@@ -58,13 +58,18 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   # Only run these settings if they haven't been set before
   # Create a sentinel file and check for its existence
   if [[ ! -f "$HOME/.macos_defaults_set" ]]; then
+    echo "setting macos defaults..."
     defaults write -g ApplePressAndHoldEnabled -bool false
+    defaults write -g ApplePressAndHoldEnabled -false
     defaults delete -g ApplePressAndHoldEnabled
     defaults write -g InitialKeyRepeat -int 10
-    defaults write -g KeyRepeat -int 1
     defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-    defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-    defaults -currentHost write -g AppleFontSmoothing -int 0
+    # Set key repeat rate (lower = faster, minimum 2)
+    defaults write -g KeyRepeat -int 2
+    # Set delay until repeat (lower = faster, minimum 15)
+    defaults write -g InitialKeyRepeat -int 15
+    # defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+    # defaults -currentHost write -g AppleFontSmoothing -int 0
     touch "$HOME/.macos_defaults_set"
   fi
 fi

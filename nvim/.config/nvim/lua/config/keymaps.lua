@@ -37,7 +37,7 @@ cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
 nnoremap <c-e> <end>
-cnoremap <c-h> <Left>
+" cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
 " inoremap <C-a> <Home>
