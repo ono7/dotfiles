@@ -7,7 +7,7 @@ this will create all the files needed, including pyproject.toml and .venv
 
 or in the same dir
 
-`uv init`
+`uv init --python=3.11.9`
 
 ## install python 3.11
 
