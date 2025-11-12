@@ -490,6 +490,7 @@ ct () {
 }
 
 # shift+tab
+# bindkey "^H" backward-kill-word
 function setup_keys() {
     bindkey -v
     bindkey "^E" end-of-line
@@ -498,7 +499,6 @@ function setup_keys() {
     bindkey "^O" accept-line-and-down-history
     bindkey "^P" up-line-or-history
     bindkey ' ' magic-space
-    bindkey "^H" backward-kill-word
     bindkey "^R" fzf-history-widget
     bindkey "^F" fzf-file-widget
     zle -N toggle

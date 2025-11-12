@@ -17,5 +17,3 @@ set show-all-if-unmodified on
 set bell-style none
 set completion-ignore-case on
 set page-completions off
-
-# "\C-H": backward-kill-word
