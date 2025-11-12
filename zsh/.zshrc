@@ -56,21 +56,10 @@ if [[ $OSTYPE == "linux-gnu"* ]]; then
    export TERSTRSTRSTST=0
 elif [[ $OSTYPE == "darwin"* ]]; then
   echo "..."
-  defaults write -g InitialKeyRepeat -int 10
+
   defaults write -g KeyRepeat -int 1
-  # Only run these settings if they haven't been set before
-  # Create a sentinel file and check for its existence
-  if [[ ! -f "$HOME/.macos_defaults_set" ]]; then
-    echo "setting macos defaults..."
-    defaults write -g ApplePressAndHoldEnabled -bool false
-    defaults write -g ApplePressAndHoldEnabled -false
-    defaults delete -g ApplePressAndHoldEnabled
-    defaults write -g InitialKeyRepeat -int 10
-    defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-    # defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
-    # defaults -currentHost write -g AppleFontSmoothing -int 0
-    touch "$HOME/.macos_defaults_set"
-  fi
+  defaults write -g InitialKeyRepeat -int 10
+  defaults write -g ApplePressAndHoldEnabled -bool false
 fi
 
 fw () {
