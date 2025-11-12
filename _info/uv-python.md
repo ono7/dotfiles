@@ -2,7 +2,8 @@
 
 this will create all the files needed, including pyproject.toml and .venv
 
-`uv init my_project`
+`uv python install 3.11.9`
+`uv init my_project --python=3.11.9`
 
 or in the same dir
 
