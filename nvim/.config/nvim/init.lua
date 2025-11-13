@@ -37,7 +37,7 @@ vim.loader.enable(true)
 
 vim.opt.completeopt = { "menu", "menuone" }
 vim.opt.complete = { ".", "w", "b" }
-vim.cmd [[syntax off ]]
+vim.cmd([[syntax off ]])
 
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
@@ -64,7 +64,7 @@ require("config.neovide")
 require("utils.zoxide").setup()
 
 --- these two worktogether
-require("utils.runner").setup()      -- runs anything :M <cmd> :)
+require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -79,7 +79,7 @@ vim.opt.guicursor = ""
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -105,27 +105,26 @@ if not string.find(current_path, go_bin_path, 1, true) then
 end
 vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
-
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
 
-vim.cmd('syntax on')
+vim.cmd("syntax off")
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    -- allow these to have syntax enabled always
-    local allowed = {
-      markdown = true,
-      fugitive = true,
-      gitcommit = true,
-      toml = true,
-      config = true,
-    }
-    if not allowed[vim.bo.filetype] then
-      vim.cmd('setlocal syntax=off')
-    end
-  end
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "*",
+--   callback = function()
+--     -- allow these to have syntax enabled always
+--     local allowed = {
+--       markdown = true,
+--       fugitive = true,
+--       gitcommit = true,
+--       toml = true,
+--       config = true,
+--     }
+--     if not allowed[vim.bo.filetype] then
+--       vim.cmd('setlocal syntax=off')
+--     end
+--   end
+-- })
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "*",
@@ -142,4 +141,4 @@ vim.api.nvim_create_autocmd("FileType", {
 --   end
 -- })
 
-vim.cmd [[hi! link MatchParen TermCursor]]
+vim.cmd([[hi! link MatchParen TermCursor]])

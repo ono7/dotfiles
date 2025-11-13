@@ -5,17 +5,18 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require('nvim-treesitter.configs').setup({
+      require("nvim-treesitter.configs").setup({
         highlight = {
-          enable = false,
+          enable = true,
           -- Only disable for truly massive files
           disable = function(lang, buf)
             -- only enable in markdown files, disable for everything else
             -- comment this block out to allow all fts to use highlight from TS
-            local filetype = vim.bo[buf].filetype
-            if filetype ~= 'markdown' then
-              return true
-            end
+
+            -- local filetype = vim.bo[buf].filetype
+            -- if filetype ~= "markdown" then
+            --   return true
+            -- end
 
             local max_filesize = 500 * 1024 -- 500 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -39,13 +40,13 @@ return {
             if filename:match("%.csv$") then
               return true
             end
-            if filename:match("%.py$") then
-              return true
-            end
-
-            if filename:match("%.go$") then
-              return true
-            end
+            -- if filename:match("%.py$") then
+            --   return true
+            -- end
+            --
+            -- if filename:match("%.go$") then
+            --   return true
+            -- end
 
             local line_count = vim.api.nvim_buf_line_count(buf)
             if line_count > 5000 then
@@ -57,7 +58,7 @@ return {
         },
         -- Be selective about other features
         incremental_selection = { enable = false }, -- If you don't use it
-        textobjects = { enable = false },           -- If you don't use it
+        textobjects = { enable = false }, -- If you don't use it
         ensure_installed = {
           "css",
           "dockerfile",
@@ -81,6 +82,6 @@ return {
           "yaml",
         },
       })
-    end
-  }
+    end,
+  },
 }
