@@ -66,7 +66,7 @@ nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
-nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+" nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
@@ -269,7 +269,6 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 k("n", "<leader>da", "<cmd>%bd|e#<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
-
 
 k("x", ",a", "<cmd>!column -t<cr>")
 
