@@ -9,22 +9,22 @@ working_directory = "None"
 draw_bold_text_with_bright_colors = false
 
 [colors.primary]
-# background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
-# foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
+# background = "#1c2434"
+# foreground = "#e4ded6"
 
 foreground = "#d9d2cb"
 background = "#171F2C"
 
-dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
-bright_foreground = "#c7d2f8"  # Enhanced bright lavender (was #cad3f5)
+dim_foreground = "#7e86a4"
+bright_foreground = "#c7d2f8"
 
 [colors.cursor]
-cursor = "#ffffff"             # Enhanced pure white (was #FFFFFF)
-text = "#151f2e"               # Enhanced cursor text (was #171F2C)
+cursor = "#E288F7"
+text = "#151f2e"
 
 [colors.vi_mode_cursor]
-cursor = "#b6ad9f"             # Enhanced muted cursor (was #B4ADA0)
-text = "#1b2335"               # Enhanced cursor text (was #1D2433)
+cursor = "#b6ad9f"
+text = "#1b2335"
 
 [colors.search.matches]
 foreground = "#24273a"
@@ -47,35 +47,35 @@ foreground = "#24273a"
 background = "#a5adcb"
 
 [colors.selection]
-background = "#354157"         # Enhanced selection (was #364156)
+background = "#354157"
 
 [colors.normal]
-black = "#2c3344"              # Enhanced black (was #2D3343)
-red = "#c89696"                # Enhanced dusty rose (was #C49A9A) - 1.18x boost
-green = "#86c1af"              # Enhanced sage green (was #8CBBAD) - 1.25x boost 🌟
-yellow = "#dabb78"             # Enhanced amber (was #D4B97E)
-blue = "#88a7c2"               # Enhanced steel blue (was #8CA7BE)
-magenta = "#b294b9"            # Enhanced lavender (was #B097B6) - 1.18x boost
-cyan = "#8fb9b7"               # Enhanced teal (was #93B5B3) - 1.25x boost 🌟
-white = "#cac2b7"              # Enhanced cream (was #C9C2B8)
+black = "#2c3344"
+red = "#c89696"
+green = "#86c1af"
+yellow = "#dabb78"
+blue = "#88a7c2"
+magenta = "#b294b9"
+cyan = "#8fb9b7"
+white = "#cac2b7"
 
 [colors.bright]
-black = "#3d485b"              # Enhanced medium gray-blue (was #3E485A)
-red = "#d8acac"                # Enhanced bright rose (was #D5AFAF) - 1.18x boost
-green = "#9cd5c1"              # Enhanced bright sage (was #A2CFBF) - 1.25x boost 🌟
-yellow = "#e7cc91"             # Enhanced bright amber (was #E1CA97)
-blue = "#a1bcd1"               # Enhanced bright blue (was #A4BCCE)
-magenta = "#c6adca"            # Enhanced bright lavender (was #C4AFC8) - 1.18x boost
-cyan = "#a5cdcb"               # Enhanced bright teal (was #A9C9C7) - 1.25x boost 🌟
-white = "#e4ded6"              # Enhanced bright white (was #E3DED7)
+black = "#3d485b"
+red = "#d8acac"
+green = "#9cd5c1"
+yellow = "#e7cc91"
+blue = "#a1bcd1"
+magenta = "#c6adca"
+cyan = "#a5cdcb"
+white = "#e4ded6"
 
 [[colors.indexed_colors]]
 index = 16
-color = "#b9a688"              # Enhanced tan/bronze (was #B6A58B)
+color = "#b9a688"
 
 [[colors.indexed_colors]]
 index = 17
-color = "#a4afc5"              # Enhanced periwinkle (was #A6B0C3)
+color = "#a4afc5"
 
 [cursor]
 blink_interval = 200
