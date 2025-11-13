@@ -79,9 +79,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-            not (ft:match("commit") and ft:match("rebase"))
-            and last_known_line > 1
-            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+          not (ft:match("commit") and ft:match("rebase"))
+          and last_known_line > 1
+          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -95,7 +95,7 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("no_auto_comment", {}),
   callback = function()
     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
@@ -135,7 +135,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   desc = "Terminal Options",
 })
 
--- Consolidated large file optimization
 local MAX_FILE_SIZE = 1024 * 1024 -- 1MB
 
 vim.api.nvim_create_autocmd("BufReadPre", {
@@ -143,33 +142,45 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(args)
     local bufnr = args.buf
     local filename = vim.api.nvim_buf_get_name(bufnr)
-
-    if filename == "" then return end
+    if filename == "" then
+      return
+    end
 
     local ok, stats = pcall(vim.loop.fs_stat, filename)
-    local is_large = false
+    local is_large = ok and stats and stats.size > MAX_FILE_SIZE or filename:match("%.csv$")
 
-    if ok and stats and stats.size > MAX_FILE_SIZE then
-      is_large = true
-    elseif filename:match("%.csv$") then
-      is_large = true
+    if not is_large then
+      return
     end
 
-    if is_large then
-      vim.bo[bufnr].syntax = "off"
-      vim.bo[bufnr].swapfile = false
-      vim.bo[bufnr].undofile = false
-      vim.bo[bufnr].foldmethod = "manual"
-      vim.bo[bufnr].foldenable = false
-      vim.bo[bufnr].synmaxcol = 200
-      vim.b[bufnr].disable_autoformat = true
-      vim.b[bufnr].large_file = true
+    -- Buffer-local optimizations
+    vim.bo[bufnr].syntax = "off"
+    vim.bo[bufnr].swapfile = false
+    vim.bo[bufnr].undofile = false
+    vim.bo[bufnr].synmaxcol = 200
+    vim.b[bufnr].disable_autoformat = true
+    vim.b[bufnr].large_file = true
+    vim.b[bufnr].lsp_ignore = true -- optional but very helpful
 
-      vim.schedule(function()
-        vim.diagnostic.enable(false, { bufnr = bufnr })
-        vim.notify("Large file detected. Optimizations applied.", vim.log.levels.INFO)
-      end)
-    end
+    -- Prevent expensive filetype plugins
+    vim.cmd("setlocal eventignore+=FileType")
+
+    -- Window-local optimizations
+    vim.schedule(function()
+      local win = vim.fn.bufwinid(bufnr)
+      if win ~= -1 then
+        vim.wo[win].foldmethod = "manual"
+        vim.wo[win].foldenable = false
+      end
+
+      -- Stop Treesitter
+      pcall(vim.treesitter.stop, bufnr)
+
+      -- Disable diagnostics
+      vim.diagnostic.enable(false, { bufnr = bufnr })
+
+      vim.notify("File optimizations applied.", vim.log.levels.INFO)
+    end)
   end,
 })
 

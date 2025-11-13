@@ -50,7 +50,7 @@ else
       require("catppuccin").setup({
         transparent_background = true,
         show_end_of_buffer = false,
-        term_colors = false,
+        term_colors = true,
         dim_inactive = {
           enabled = false,
         },
@@ -116,7 +116,7 @@ else
       vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "NeoTreeStatusLineNC", { fg = "#5a6b85" })
 
-      -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
       vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#5a6b85", bold = true })
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })

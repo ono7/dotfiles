@@ -11,8 +11,8 @@ working_directory = "None"
 [colors.primary]
 # background = "#1b2330"         # Default background (index 257)
 # background = "#1d3340"
-background = "#171c2d"
-foreground = "#D6CFC7"         # Default foreground (index 256)
+background = "#171f2c"
+foreground = "#d9d2cb"         # Default foreground (index 256)
 dim_foreground = "#4A5563"     # Bright black for dimmed text
 bright_foreground = "#F2EDE7"  # Bright white
 

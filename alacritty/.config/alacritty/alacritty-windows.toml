@@ -12,7 +12,7 @@ draw_bold_text_with_bright_colors = false
 # background = "#1c2434"         # Slightly enhanced navy (was #1D2433)
 # foreground = "#e4ded6"         # Enhanced antique paper (was #E3DED7)
 
-foreground = "#c5bfb8"
+foreground = "#d9d2cb"
 background = "#171F2C"
 
 dim_foreground = "#7e86a4"     # Enhanced subdued blue-gray (was #8087a2)
