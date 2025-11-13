@@ -30,10 +30,8 @@ function M.setup()
       print("Error: Could not execute zoxide command")
       return
     end
-
     local result = handle:read("*a")
     handle:close()
-
     local items = {}
     for line in result:gmatch("[^\r\n]+") do
       local score, path = line:match("(%S+)%s+(.*)")
@@ -41,16 +39,13 @@ function M.setup()
         table.insert(items, { score = tonumber(score), path = path })
       end
     end
-
     table.sort(items, function(a, b)
       return a.score > b.score
     end)
-
     local entries = {}
     for _, item in ipairs(items) do
       table.insert(entries, item.path)
     end
-
     fzf.fzf_exec(entries, {
       prompt = "Zoxide> ",
       actions = {
@@ -59,7 +54,12 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("lcd " .. path)
-            print("Changed to directory: " .. path)
+            vim.defer_fn(function()
+              fzf.files({
+                cwd = path,
+                previewer = false
+              })
+            end, 50)
           end
         end,
         ["ctrl-f"] = function(selected)
@@ -67,10 +67,12 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("lcd " .. path)
-            print("Changed to directory: " .. path)
             vim.defer_fn(function()
-              fzf.files({ cwd = path })
-            end, 100)
+              fzf.files({
+                cwd = path,
+                previewer = false
+              })
+            end, 50)
           end
         end,
       },
