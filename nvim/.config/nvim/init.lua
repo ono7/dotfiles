@@ -125,6 +125,30 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+vim.opt.showtabline = 1
+vim.opt.tabline = '%!v:lua.MyTabLine()'
+
+function _G.MyTabLine()
+  local s = ''
+  for i = 1, vim.fn.tabpagenr('$') do
+    local winnr = vim.fn.tabpagewinnr(i)
+    local bufnr = vim.fn.tabpagebuflist(i)[winnr]
+    local bufname = vim.fn.bufname(bufnr)
+    local filename = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
+
+    if i == vim.fn.tabpagenr() then
+      s = s .. '%#TabLineSel#'
+    else
+      s = s .. '%#TabLine#'
+    end
+
+    s = s .. ' ' .. i .. ':' .. filename .. ' '
+  end
+
+  s = s .. '%#TabLineFill#'
+  return s
+end
+
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "*",
 --   callback = function()

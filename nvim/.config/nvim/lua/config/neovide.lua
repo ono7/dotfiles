@@ -74,4 +74,14 @@ if vim.g.neovide then
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
+  -- Tab navigation (works in terminal and Neovide)
+  vim.keymap.set('n', '<C-1>', '1gt', opt)
+  vim.keymap.set('n', '<C-2>', '2gt', opt)
+  vim.keymap.set('n', '<C-3>', '3gt', opt)
+  vim.keymap.set('n', '<C-4>', '4gt', opt)
+  vim.keymap.set('n', '<C-5>', '5gt', opt)
+  vim.keymap.set('n', '<C-6>', '6gt', opt)
+  vim.keymap.set('n', '<C-7>', '7gt', opt)
+  vim.keymap.set('n', '<C-8>', '8gt', opt)
+  vim.keymap.set('n', '<C-9>', '9gt', opt)
 end

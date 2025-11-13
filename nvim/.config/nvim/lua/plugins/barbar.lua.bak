@@ -1,0 +1,22 @@
+-- In your lazy.nvim plugins or init.lua
+return {
+  'romgrk/barbar.nvim',
+  dependencies = {
+    'lewis6991/gitsigns.nvim',
+    'nvim-tree/nvim-web-devicons',
+  },
+  opts = {
+    animation = false,
+    auto_hide = true,
+    tabpages = true,
+    clickable = true,
+    icons = {
+      buffer_index = true, -- Show tab numbers
+      buffer_number = false,
+    },
+  },
+  init = function()
+    vim.g.barbar_auto_setup = false
+  end,
+  keys = false
+}
