@@ -128,6 +128,17 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.opt.showtabline = 1
 vim.opt.tabline = '%!v:lua.MyTabLine()'
 
+local opt = { noremap = true }
+vim.keymap.set('n', '<C-1>', '1gt', opt)
+vim.keymap.set('n', '<C-2>', '2gt', opt)
+vim.keymap.set('n', '<C-3>', '3gt', opt)
+vim.keymap.set('n', '<C-4>', '4gt', opt)
+vim.keymap.set('n', '<C-5>', '5gt', opt)
+vim.keymap.set('n', '<C-6>', '6gt', opt)
+vim.keymap.set('n', '<C-7>', '7gt', opt)
+vim.keymap.set('n', '<C-8>', '8gt', opt)
+vim.keymap.set('n', '<C-9>', '9gt', opt)
+
 function _G.MyTabLine()
   local s = ''
   for i = 1, vim.fn.tabpagenr('$') do
