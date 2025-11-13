@@ -94,6 +94,7 @@ else
       vim.api.nvim_set_hl(0, "diffAdded", { fg = "#9cbf9c", bold = true })
       vim.api.nvim_set_hl(0, "Comment", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
+      -- vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#89dceb" })
       vim.api.nvim_set_hl(0, "@punctuation.delimiter", {})
       -- vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = mycolors.red, bg = "none", bold = true })
       vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
