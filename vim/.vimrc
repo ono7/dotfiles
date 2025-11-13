@@ -183,7 +183,7 @@ nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 
 " nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
-nnoremap <leader>d <cmd>%bdelete!<CR>
+nnoremap <leader>d <cmd>bd!<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>

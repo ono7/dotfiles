@@ -67,7 +67,7 @@ nnoremap <esc>j <cmd>cnext<cr>
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 " nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
-nnoremap <leader>d <cmd>%bdelete!<CR>
+nnoremap <leader>d <cmd>bd!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
@@ -221,15 +221,15 @@ packadd cfilter
 ]])
 
 ---
-k("n", "<leader>dt", function()
-  if vim.diagnostic.is_enabled() then
-    vim.diagnostic.enable(false)
-    print("diags: disabled")
-  else
-    vim.diagnostic.enable(true)
-    print("diags: enabled")
-  end
-end)
+-- k("n", "<leader>dt", function()
+--   if vim.diagnostic.is_enabled() then
+--     vim.diagnostic.enable(false)
+--     print("diags: disabled")
+--   else
+--     vim.diagnostic.enable(true)
+--     print("diags: enabled")
+--   end
+-- end)
 
 --- macros
 k("x", "Q", "<cmd>norm @q<CR>", opt)
@@ -267,7 +267,7 @@ k("v", ".", "<cmd>norm .<cr>", opt)
 k("n", "gt", ":GoTagAdd<cr>", silent)
 
 --- file ---
-k("n", "<leader>da", "<cmd>%bd|e#<cr>", silent)
+-- k("n", "<leader>da", "<cmd>%bd|e#<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
