@@ -48,7 +48,7 @@ else
     priority = 1000,
     config = function()
       require("catppuccin").setup({
-        transparent_background = false,
+        transparent_background = true,
         show_end_of_buffer = false,
         term_colors = false,
         dim_inactive = {
