@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -11,10 +12,10 @@ func main() {
 	side := "a"
 	dir := filepath.Join(os.TempDir(), "go", side)
 	fmt.Println(dir)
-	cmd := exec.Command("env", "| grep", "test")
-	cmd.Env = []string{"test=yay"}
+	command := fmt.Sprintf("env | grep %s", "USER")
+	cmd := exec.Command("sh", "-c", command)
 	cmd.Stdout = os.Stdout
 	if err := cmd.Run(); err != nil {
-		panic(err)
+		log.Fatalf("error %v", err)
 	}
 }
