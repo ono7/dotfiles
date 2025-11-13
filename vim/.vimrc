@@ -181,7 +181,9 @@ nnoremap <M-r> :browse oldfiles<CR>
 nnoremap <esc>r :browse oldfiles<CR>
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
-nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+
+" nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>d <cmd>%bdelete!<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 vnoremap . <cmd>norm .<cr>

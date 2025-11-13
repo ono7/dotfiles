@@ -67,6 +67,7 @@ nnoremap <esc>j <cmd>cnext<cr>
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 " nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>d <cmd>%bdelete!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
