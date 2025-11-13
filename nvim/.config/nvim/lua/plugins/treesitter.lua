@@ -58,7 +58,7 @@ return {
         },
         -- Be selective about other features
         incremental_selection = { enable = false }, -- If you don't use it
-        textobjects = { enable = false }, -- If you don't use it
+        textobjects = { enable = false },           -- If you don't use it
         ensure_installed = {
           "css",
           "dockerfile",
@@ -75,6 +75,7 @@ return {
           "markdown_inline",
           "python",
           "query",
+          "gitcommit",
           "terraform",
           "typescript",
           "vim",
