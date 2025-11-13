@@ -149,8 +149,9 @@ macos-non-native-fullscreen = true
 
 background = #171f2c
 foreground = #d9d2cb
-cursor-color = #ff00c8
+cursor-color = #00f6ff
 cursor-text = #000000
+
 
 # Selection
 selection-background = #364156
