@@ -82,6 +82,7 @@ return {
           "vim",
           "vimdoc",
           "yaml",
+          "ini",
         },
       })
     end,
