@@ -2,6 +2,7 @@ local create_augroup = vim.api.nvim_create_augroup
 
 -- Optimize Conform.nvim for large files
 vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+  group = create_augroup("optimize_large_files", { clear = true }),
   callback = function(args)
     local bufnr = args.buf
     local filename = vim.api.nvim_buf_get_name(bufnr)
@@ -37,6 +38,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = create_augroup("js_comment_string_add", { clear = true }),
   pattern = "*.js",
   callback = function()
     vim.bo.commentstring = "// %s"
@@ -44,6 +46,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = create_augroup("ts_comment_string_add", { clear = true }),
   pattern = "typescriptreact",
   callback = function()
     vim.bo.commentstring = "// %s"
@@ -92,7 +95,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("no_auto_comment", {}),
+  group = vim.api.nvim_create_augroup("no_auto_comment", { clear = true }),
   callback = function()
     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   end,
@@ -183,13 +186,3 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     end)
   end,
 })
-
--- vim.api.nvim_create_user_command("OptimizeLargeFile", function()
---   local bufnr = vim.api.nvim_get_current_buf()
---   local filename = vim.api.nvim_buf_get_name(bufnr)
---   local ok, stats = pcall(vim.loop.fs_stat, filename)
---   if ok and stats then
---     vim.b[bufnr].large_file = true
---     vim.notify("Buffer optimized for large file", vim.log.levels.INFO)
---   end
--- end, {})

@@ -59,7 +59,7 @@ function M.setup()
                 cwd = path,
                 previewer = false
               })
-            end, 50)
+            end, 80)
           end
         end,
         ["ctrl-f"] = function(selected)
@@ -72,7 +72,7 @@ function M.setup()
                 cwd = path,
                 previewer = false
               })
-            end, 50)
+            end, 80)
           end
         end,
       },

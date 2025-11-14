@@ -110,6 +110,7 @@ vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = fal
 vim.cmd("syntax off")
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("disable_syntax", { clear = true }),
   pattern = "*",
   callback = function()
     -- allow these to have syntax enabled always
@@ -192,26 +193,5 @@ end
 --   end
 -- })
 
-
--- File to store last directory
-local last_dir_file = vim.fn.stdpath("data") .. "/last-dir"
-
--- Restore on startup
-local f = io.open(last_dir_file, "r")
-if f then
-  local dir = f:read("*l")
-  f:close()
-  if dir and vim.fn.isdirectory(dir) == 1 then
-    vim.cmd("cd " .. vim.fn.fnameescape(dir))
-  end
-end
-
--- Save on exit
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    local cwd = vim.fn.getcwd()
-    vim.fn.writefile({ cwd }, last_dir_file)
-  end,
-})
 
 vim.cmd([[hi! link MatchParen TermCursor]])
