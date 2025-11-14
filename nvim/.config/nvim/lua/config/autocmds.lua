@@ -79,9 +79,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-          not (ft:match("commit") and ft:match("rebase"))
-          and last_known_line > 1
-          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+            not (ft:match("commit") and ft:match("rebase"))
+            and last_known_line > 1
+            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -184,12 +184,12 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   end,
 })
 
-vim.api.nvim_create_user_command("OptimizeLargeFile", function()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local filename = vim.api.nvim_buf_get_name(bufnr)
-  local ok, stats = pcall(vim.loop.fs_stat, filename)
-  if ok and stats then
-    vim.b[bufnr].large_file = true
-    vim.notify("Buffer optimized for large file", vim.log.levels.INFO)
-  end
-end, {})
+-- vim.api.nvim_create_user_command("OptimizeLargeFile", function()
+--   local bufnr = vim.api.nvim_get_current_buf()
+--   local filename = vim.api.nvim_buf_get_name(bufnr)
+--   local ok, stats = pcall(vim.loop.fs_stat, filename)
+--   if ok and stats then
+--     vim.b[bufnr].large_file = true
+--     vim.notify("Buffer optimized for large file", vim.log.levels.INFO)
+--   end
+-- end, {})

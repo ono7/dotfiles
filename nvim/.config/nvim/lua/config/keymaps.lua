@@ -52,7 +52,7 @@ nnoremap ; :
 xnoremap ; :
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-nnoremap <silent> ,d <cmd>bd!<cr>
+nnoremap <silent> ,d <cmd>hide bd!<cr>
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
