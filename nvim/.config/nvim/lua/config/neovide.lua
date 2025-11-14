@@ -54,7 +54,10 @@ if vim.g.neovide then
   vim.keymap.set("t", "<D-S-v>", '<C-\\><C-n>"+pi', { desc = "Paste in terminal mode" })
 
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#171f2c", fg = "#d9d2cb" })
+
+  -- background = #1c2636
+  -- foreground = #e0ded8
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#1c2636", fg = "#e0ded8" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
 
