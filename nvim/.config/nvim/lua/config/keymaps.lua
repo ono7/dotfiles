@@ -243,6 +243,11 @@ k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
+--- copy diagnostic
+vim.keymap.set("n", "<leader>e", function()
+  vim.diagnostic.open_float(nil, { focus = true })
+end)
+
 --- copy block
 k("n", "cp", "yap<S-}>p", opt)
 
