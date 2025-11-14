@@ -77,6 +77,7 @@ return {
           "query",
           "gitcommit",
           "terraform",
+          "toml",
           "typescript",
           "vim",
           "vimdoc",
