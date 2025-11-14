@@ -52,7 +52,6 @@ nnoremap ; :
 xnoremap ; :
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-nnoremap <silent> ,d <cmd>hide bd!<cr>
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
@@ -66,8 +65,8 @@ nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
-" nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
-nnoremap <leader>d <cmd>bd!<CR>
+nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+nnoremap ,d <cmd>bd!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 

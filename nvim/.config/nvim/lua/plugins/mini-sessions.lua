@@ -1,5 +1,3 @@
---- restores vim to last working session with minimal fuzz or weird hacks
---- :q to save state
 return {
   "echasnovski/mini.sessions",
   version = false,
@@ -7,19 +5,23 @@ return {
     local sessions = require("mini.sessions")
 
     sessions.setup({
-      autoread = true,  -- auto-load last session when opening nvim without args
-      autowrite = true, -- auto-save session on exit
+      autoread = true,  -- auto-load last session when opening without args
+      autowrite = false, -- we handle saving ourselves
       directory = vim.fn.stdpath("data") .. "/sessions",
     })
 
-    -- Always load the *default* session if nvim starts with no file args
+    -- Load last session on empty launch
     if vim.fn.argc() == 0 then
       sessions.read("last")
     end
 
-    -- Save on exit
+    -- Save clean session on exit
     vim.api.nvim_create_autocmd("VimLeavePre", {
       callback = function()
+        -- 🔥 delete arglist so no stale files get written into the session
+        vim.cmd("argglobal")
+        vim.cmd("%argdel")
+
         sessions.write("last")
       end,
     })
