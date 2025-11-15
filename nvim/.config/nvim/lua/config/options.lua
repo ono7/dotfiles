@@ -9,6 +9,30 @@ vim.opt.shell = "zsh"
 
 vim.opt.shada = "'20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
+vim.opt.showtabline = 1
+vim.opt.tabline = "%!v:lua.MyTabLine()"
+
+function _G.MyTabLine()
+  local s = ""
+  for i = 1, vim.fn.tabpagenr("$") do
+    local winnr = vim.fn.tabpagewinnr(i)
+    local bufnr = vim.fn.tabpagebuflist(i)[winnr]
+    local bufname = vim.fn.bufname(bufnr)
+    local filename = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or "[No Name]"
+
+    if i == vim.fn.tabpagenr() then
+      s = s .. "%#TabLineSel#"
+    else
+      s = s .. "%#TabLine#"
+    end
+
+    s = s .. " " .. i .. ":" .. filename .. " "
+  end
+
+  s = s .. "%#TabLineFill#"
+  return s
+end
+
 function _G.winbar_path()
   local filepath = vim.fn.expand("%:.") -- relative path
   if filepath == "" then
@@ -86,8 +110,7 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 1
 vim.opt.foldenable = true
 
-
-vim.g.markdown_folding = 1    -- enable markdown folding
+vim.g.markdown_folding = 1 -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 
@@ -167,10 +190,10 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 200          -- for performace
+vim.opt.synmaxcol = 200 -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false          -- remove timeout for partially typed commands
+vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""

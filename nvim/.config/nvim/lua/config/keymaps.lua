@@ -240,6 +240,19 @@ packadd cfilter
 --   end
 -- end, { desc = "Delete all other buffers" })
 
+vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
+vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
+
+vim.keymap.set("n", "<C-1>", "1gt", opt)
+vim.keymap.set("n", "<C-2>", "2gt", opt)
+vim.keymap.set("n", "<C-3>", "3gt", opt)
+vim.keymap.set("n", "<C-4>", "4gt", opt)
+vim.keymap.set("n", "<C-5>", "5gt", opt)
+vim.keymap.set("n", "<C-6>", "6gt", opt)
+vim.keymap.set("n", "<C-7>", "7gt", opt)
+vim.keymap.set("n", "<C-8>", "8gt", opt)
+vim.keymap.set("n", "<C-9>", "9gt", opt)
+
 --- macros
 k("x", "Q", "<cmd>norm @q<CR>", opt)
 

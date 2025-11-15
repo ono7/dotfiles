@@ -89,10 +89,6 @@ require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
--- Optional: Add mappings for navigating the completion menu
-vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
-vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
-
 vim.opt.mouse = "a"
 vim.opt.guicursor = ""
 
@@ -124,6 +120,7 @@ local current_path = vim.env.PATH
 if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
+
 vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
@@ -131,56 +128,19 @@ vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = fal
 vim.cmd("syntax off")
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("disable_syntax", { clear = true }),
+  group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
   pattern = "*",
   callback = function()
     -- allow these to have syntax enabled always
     local allowed = {
       markdown = true,
       fugitive = true,
-      -- toml = true,
-      -- config = true,
     }
     if allowed[vim.bo.filetype] then
       vim.cmd("setlocal syntax=on")
     end
   end,
 })
-
-vim.opt.showtabline = 1
-vim.opt.tabline = "%!v:lua.MyTabLine()"
-
-local opt = { noremap = true }
-vim.keymap.set("n", "<C-1>", "1gt", opt)
-vim.keymap.set("n", "<C-2>", "2gt", opt)
-vim.keymap.set("n", "<C-3>", "3gt", opt)
-vim.keymap.set("n", "<C-4>", "4gt", opt)
-vim.keymap.set("n", "<C-5>", "5gt", opt)
-vim.keymap.set("n", "<C-6>", "6gt", opt)
-vim.keymap.set("n", "<C-7>", "7gt", opt)
-vim.keymap.set("n", "<C-8>", "8gt", opt)
-vim.keymap.set("n", "<C-9>", "9gt", opt)
-
-function _G.MyTabLine()
-  local s = ""
-  for i = 1, vim.fn.tabpagenr("$") do
-    local winnr = vim.fn.tabpagewinnr(i)
-    local bufnr = vim.fn.tabpagebuflist(i)[winnr]
-    local bufname = vim.fn.bufname(bufnr)
-    local filename = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or "[No Name]"
-
-    if i == vim.fn.tabpagenr() then
-      s = s .. "%#TabLineSel#"
-    else
-      s = s .. "%#TabLine#"
-    end
-
-    s = s .. " " .. i .. ":" .. filename .. " "
-  end
-
-  s = s .. "%#TabLineFill#"
-  return s
-end
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "*",
@@ -205,9 +165,6 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local no_syntax = {
       csv = true,
-      -- vim = true,
-      -- fugitive = true,
-      -- gitcommit = true,
     }
     if no_syntax[vim.bo.filetype] then
       vim.treesitter.stop() -- stop treesitter for this buffer
