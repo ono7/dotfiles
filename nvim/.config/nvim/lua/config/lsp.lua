@@ -28,7 +28,7 @@ M.setup = function()
   --- Global LSP configuration ---
   vim.lsp.config("*", {
     root_markers = { ".git" },
-    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    capabilities = require("blink.cmp").get_lsp_capabilities(),
   })
 
   --- Enable LSP servers ---

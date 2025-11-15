@@ -22,13 +22,17 @@ fugitive:
     :tab sall
     :argdo %s/test/Test/gc
 * :write ++p (creates directories if they dont exists)
+
 * neovim 0.11 defaults for lsp_attach
-* grn in Normal mode maps to vim.lsp.buf.rename()
-* grr in Normal mode maps to vim.lsp.buf.references()
-* gri in Normal mode maps to vim.lsp.buf.implementation()
-* gO in Normal mode maps to vim.lsp.buf.document_symbol()
-* gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
-* CTRL-S in Insert and Select mode maps to vim.lsp.buf.signature_help()
+
+"grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
+"gra" is mapped in Normal and Visual mode to |vim.lsp.buf.code_action()|
+"grr" is mapped in Normal mode to |vim.lsp.buf.references()|
+"gri" is mapped in Normal mode to |vim.lsp.buf.implementation()|
+"grt" is mapped in Normal mode to |vim.lsp.buf.type_definition()|
+"gO" is mapped in Normal mode to |vim.lsp.buf.document_symbol()|
+CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
+
 * :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg 0
 * use :b <part of buffer name><tab> to find open tags
 ]]
@@ -64,7 +68,7 @@ require("config.neovide")
 require("utils.zoxide").setup()
 
 --- these two worktogether
-require("utils.runner").setup()      -- runs anything :M <cmd> :)
+require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -79,7 +83,7 @@ vim.opt.guicursor = ""
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -121,43 +125,43 @@ vim.api.nvim_create_autocmd("FileType", {
       -- config = true,
     }
     if allowed[vim.bo.filetype] then
-      vim.cmd('setlocal syntax=on')
+      vim.cmd("setlocal syntax=on")
     end
-  end
+  end,
 })
 
 vim.opt.showtabline = 1
-vim.opt.tabline = '%!v:lua.MyTabLine()'
+vim.opt.tabline = "%!v:lua.MyTabLine()"
 
 local opt = { noremap = true }
-vim.keymap.set('n', '<C-1>', '1gt', opt)
-vim.keymap.set('n', '<C-2>', '2gt', opt)
-vim.keymap.set('n', '<C-3>', '3gt', opt)
-vim.keymap.set('n', '<C-4>', '4gt', opt)
-vim.keymap.set('n', '<C-5>', '5gt', opt)
-vim.keymap.set('n', '<C-6>', '6gt', opt)
-vim.keymap.set('n', '<C-7>', '7gt', opt)
-vim.keymap.set('n', '<C-8>', '8gt', opt)
-vim.keymap.set('n', '<C-9>', '9gt', opt)
+vim.keymap.set("n", "<C-1>", "1gt", opt)
+vim.keymap.set("n", "<C-2>", "2gt", opt)
+vim.keymap.set("n", "<C-3>", "3gt", opt)
+vim.keymap.set("n", "<C-4>", "4gt", opt)
+vim.keymap.set("n", "<C-5>", "5gt", opt)
+vim.keymap.set("n", "<C-6>", "6gt", opt)
+vim.keymap.set("n", "<C-7>", "7gt", opt)
+vim.keymap.set("n", "<C-8>", "8gt", opt)
+vim.keymap.set("n", "<C-9>", "9gt", opt)
 
 function _G.MyTabLine()
-  local s = ''
-  for i = 1, vim.fn.tabpagenr('$') do
+  local s = ""
+  for i = 1, vim.fn.tabpagenr("$") do
     local winnr = vim.fn.tabpagewinnr(i)
     local bufnr = vim.fn.tabpagebuflist(i)[winnr]
     local bufname = vim.fn.bufname(bufnr)
-    local filename = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
+    local filename = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or "[No Name]"
 
     if i == vim.fn.tabpagenr() then
-      s = s .. '%#TabLineSel#'
+      s = s .. "%#TabLineSel#"
     else
-      s = s .. '%#TabLine#'
+      s = s .. "%#TabLine#"
     end
 
-    s = s .. ' ' .. i .. ':' .. filename .. ' '
+    s = s .. " " .. i .. ":" .. filename .. " "
   end
 
-  s = s .. '%#TabLineFill#'
+  s = s .. "%#TabLineFill#"
   return s
 end
 
@@ -178,20 +182,19 @@ end
 --   end
 -- })
 
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "*",
---   callback = function()
---     local allowed = {
---       markdown = true,
---       vim = true,
---       fugitive = true,
---       gitcommit = true,
---     }
---     if not allowed[vim.bo.filetype] then
---       vim.treesitter.stop() -- stop treesitter for this buffer
---     end
---   end
--- })
-
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    local no_syntax = {
+      csv = true,
+      -- vim = true,
+      -- fugitive = true,
+      -- gitcommit = true,
+    }
+    if no_syntax[vim.bo.filetype] then
+      vim.treesitter.stop() -- stop treesitter for this buffer
+    end
+  end,
+})
 
 vim.cmd([[hi! link MatchParen TermCursor]])

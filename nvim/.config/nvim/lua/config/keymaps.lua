@@ -65,7 +65,7 @@ nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
-nnoremap <leader>d <cmd>%bdelete\|edit#\|bdelete#<CR>
+nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap ,d <cmd>bd!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
@@ -219,7 +219,6 @@ endif
 packadd cfilter
 ]])
 
----
 -- k("n", "<leader>dt", function()
 --   if vim.diagnostic.is_enabled() then
 --     vim.diagnostic.enable(false)
@@ -229,6 +228,17 @@ packadd cfilter
 --     print("diags: enabled")
 --   end
 -- end)
+
+--- delete all buffers except current one
+-- vim.keymap.set("n", "<leader>d", function()
+--   local cur = vim.api.nvim_get_current_buf()
+--
+--   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+--     if buf ~= cur and vim.api.nvim_buf_is_loaded(buf) then
+--       pcall(vim.api.nvim_buf_delete, buf, { force = true })
+--     end
+--   end
+-- end, { desc = "Delete all other buffers" })
 
 --- macros
 k("x", "Q", "<cmd>norm @q<CR>", opt)

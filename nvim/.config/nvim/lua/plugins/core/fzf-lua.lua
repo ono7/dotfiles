@@ -4,7 +4,6 @@ return {
   config = function()
     local fzf = require("fzf-lua")
 
-    local nv = require("utils.keys").prefix
     local winopts = {
       height = 0.85,
       width = 0.80,
@@ -35,15 +34,20 @@ return {
           ["ctrl-u"] = "preview-page-up",
           ["ctrl-d"] = "preview-page-down",
           ["ctrl-k"] = "up",
+          ["ctrl-a"] = "toggle-all",
           ["ctrl-j"] = "down",
           ["ctrl-q"] = "select-all+accept",
+          ["ctrl-w"] = "select-all+accept",
         },
       },
       actions = {
         files = {
-          ["default"] = require("fzf-lua.actions").file_edit,
-          ["ctrl-q"] = require("fzf-lua.actions").file_sel_to_qf,
-          ["ctrl-v"] = require("fzf-lua.actions").file_vsplit,
+          ["default"] = fzf.actions.file_edit,
+          ["ctrl-q"] = fzf.actions.file_sel_to_qf,
+          ["enter"] = fzf.actions.file_edit_or_qf,
+          ["ctrl-s"] = fzf.actions.file_split,
+          ["ctrl-v"] = fzf.actions.file_vsplit,
+          ["ctrl-t"] = fzf.actions.file_tabedit,
         },
       },
       files = {
@@ -87,10 +91,6 @@ return {
     local k = vim.keymap.set
 
     k("n", "<leader>b", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
-    -- k("n", "<leader>gc", fzf.git_commits, { desc = "Search [G]it [C]ommits" })
-    -- k("n", "<leader>gcf", fzf.git_bcommits, { desc = "Search [G]it [C]ommits for current [F]ile" })
-    -- k("n", "<leader>tgb", fzf.git_branches, { desc = "Search [G]it [B]ranches" })
-    -- k("n", "<leader>gs", fzf.git_status, { desc = "Search [G]it [S]tatus (diff view)" })
     k("n", "<leader>vc", function()
       winopts.title = " Dotfiles "
       winopts.title_pos = "center"
@@ -107,13 +107,7 @@ return {
     -- k("n", nv("d"), fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
     k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
-    -- k("n", "<leader>fr", fzf.resume, { desc = "[S]earch [R]esume" })
-    -- k("n", "<leader>ft", function()
-    --   fzf.grep({ cmd = "rg --column --line-number", search = "TODO", prompt = "Todos> " })
-    -- end, { desc = "Find todos" })
-
     -- find files
-    -- k("n", nv("f"), function()
     k("n", "<c-f>", function()
       local current_file_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
@@ -205,42 +199,3 @@ return {
     end, { desc = "Fuzzily search in current buffer" })
   end,
 }
--- return {
---   "ibhagwan/fzf-lua",
---   -- optional for icon support
---   -- dependencies = { "nvim-tree/nvim-web-devicons" },
---   -- or if using mini.icons/mini.nvim
---   dependencies = { "echasnovski/mini.icons" },
---   keymap = {
---     fzf = {
---       -- use cltr-q to select all items and convert to quickfix list
---       ["ctrl-q"] = "select-all+accept",
---     },
---   },
---   opts = {
---     oldfiles = {
---       include_current_session = true,
---     },
---     previewers = {
---       builtin = {
---         syntax_limit_b = 1024 * 100, -- 100KB
---       },
---     },
---     grep = {
---       rg_glob = true, -- enable glob parsing
---       glob_flag = "--iglob", -- case insensitive globs
---       glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
---     },
---   },
--- }
-
--- keymap("n", "<leader>fm", fzf.marks, { desc = "[S]earch [M]arks" })
--- keymap("n", "<leader>gf", fzf.git_files, { desc = "Search [G]it [F]iles" })
--- keymap("n", "<leader>vs", fzf.dotfiles, { desc = "Seach dotfiles" })
--- keymap("n", "<leader>fo", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
--- keymap("n", "<leader>qf", fzf.quickfix, { desc = "Show quick fix list" })
--- keymap("n", "<leader>a", function()
---   fzf.lsp_document_symbols({
---     symbol_types = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
---   })
--- end, { desc = "[S]each LSP document [S]ymbols" })

@@ -1,7 +1,7 @@
 local function get_poetry_venv()
-  local result = vim.fn.trim(vim.fn.system('poetry env info -p'))
+  local result = vim.fn.trim(vim.fn.system("poetry env info -p"))
   -- Check if command succeeded (poetry returns empty or error message if failed)
-  if vim.v.shell_error == 0 and result ~= '' then
+  if vim.v.shell_error == 0 and result ~= "" then
     return result
   end
   vim.notify("pyright.lua: poetry.lock found, but poetry command not effective")
@@ -39,7 +39,7 @@ local function activate_venv(root_dir)
     end
 
     -- Clean up previous venv from PATH if different venv was active
-    if current_venv and current_venv ~= '' then
+    if current_venv and current_venv ~= "" then
       local old_venv_bin = current_venv .. "/bin:"
       vim.env.PATH = vim.env.PATH:gsub(vim.pesc(old_venv_bin), "")
 
@@ -72,27 +72,46 @@ end
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
-  root_markers = { "pyrightconfig.json", "pyproject.toml", "poetry.lock", ".venv", "venv", "requirements.txt", "setup.py", ".git" },
-  on_attach = function(client, bufnr)
-    local root_dir = client.config.root_dir or vim.fn.getcwd()
+  root_markers = {
+    "pyrightconfig.json",
+    "pyproject.toml",
+    "poetry.lock",
+    ".venv",
+    "venv",
+    "requirements.txt",
+    "setup.py",
+    ".git",
+  },
+
+  on_new_config = function(config, root_dir)
     local python_path = activate_venv(root_dir)
 
     if python_path then
-      -- Update client settings
-      client.config.settings = client.config.settings or {}
-      client.config.settings.python = client.config.settings.python or {}
-      client.config.settings.python.pythonPath = python_path
-
-      -- Notify client of settings change
-      client.notify("workspace/didChangeConfiguration", {
-        settings = client.config.settings
-      })
+      config.settings = config.settings or {}
+      config.settings.python = config.settings.python or {}
+      config.settings.python.pythonPath = python_path
     end
   end,
+  -- on_attach = function(client, bufnr)
+  --   local root_dir = client.config.root_dir or vim.fn.getcwd()
+  --   local python_path = activate_venv(root_dir)
+  --
+  --   if python_path then
+  --     -- Update client settings
+  --     client.config.settings = client.config.settings or {}
+  --     client.config.settings.python = client.config.settings.python or {}
+  --     client.config.settings.python.pythonPath = python_path
+  --
+  --     -- Notify client of settings change
+  --     client.notify("workspace/didChangeConfiguration", {
+  --       settings = client.config.settings,
+  --     })
+  --   end
+  -- end,
   settings = {
     pyright = {
       autoImportCompletion = true,
-      disableOrganizeImports = true,
+      disableOrganizeImports = false,
     },
     python = {
       analysis = {

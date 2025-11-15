@@ -13,7 +13,7 @@ return {
   opts = {
     keymap = {
       preset = "super-tab",
-      -- ["<C-y>"] = { "accept", "fallback" },
+      -- ["<C-y>"] = { "show", "fallback" },
       ["<c-y>"] = { "show_and_insert", "fallback" },
       ["<C-e>"] = { "hide", "fallback" },
       -- ["<CR>"] = { "accept", "fallback" },

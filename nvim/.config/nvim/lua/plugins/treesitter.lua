@@ -36,10 +36,10 @@ return {
               return true
             end
 
-            local filename = vim.api.nvim_buf_get_name(buf)
-            if filename:match("%.csv$") then
-              return true
-            end
+            -- local filename = vim.api.nvim_buf_get_name(buf)
+            -- if filename:match("%.csv$") then
+            --   return true
+            -- end
             -- if filename:match("%.py$") then
             --   return true
             -- end
@@ -58,7 +58,7 @@ return {
         },
         -- Be selective about other features
         incremental_selection = { enable = false }, -- If you don't use it
-        textobjects = { enable = false },           -- If you don't use it
+        textobjects = { enable = false }, -- If you don't use it
         ensure_installed = {
           "css",
           "dockerfile",
