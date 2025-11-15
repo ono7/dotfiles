@@ -35,6 +35,14 @@ CTRL-S is mapped in Insert mode to |vim.lsp.buf.signature_help()|
 
 * :s/foo/<Ctrl-R>0/g | replace with contents of unnamed reg 0
 * use :b <part of buffer name><tab> to find open tags
+
+redirect vim command output to registers
+
+:redir @" | messages | redir end
+:redir @a | execute 'lua =vim.lsp.get_clients()[1].server_capabilities.codeActionProvider' | redir END
+:let @" = system('python3 ' . expand('%') . '--test=20')
+
+in normal mode paste the contents to a buffer -> ""p
 ]]
 
 vim.loader.enable(true)
@@ -182,6 +190,7 @@ end
 --   end
 -- })
 
+--- disable
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
@@ -193,6 +202,8 @@ vim.api.nvim_create_autocmd("FileType", {
     }
     if no_syntax[vim.bo.filetype] then
       vim.treesitter.stop() -- stop treesitter for this buffer
+      vim.cmd([[setlocal syntax=OFF]])
+      vim.notify("Optimized buffer")
     end
   end,
 })

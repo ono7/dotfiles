@@ -1,5 +1,9 @@
 extends todo
 
+snippet main "insert if name check" b
+  if __name__ == "__main__":
+    ${0}
+
 snippet h "header" b
   #!/usr/bin/env python3
   """${1}${2:${VISUAL}}"""
