@@ -1,8 +1,6 @@
 snippet vim "modeline, see h: modeline" w
   vim: foldlevel=0
 
-snippet ft "filetype" b
-  # vim: ft=${0}
 
 snippet da "date" w
   `strftime("%Y-%m-%d")`
@@ -20,6 +18,10 @@ snippet c "code block" w
   \`\`\`${1}
   ${0:${VISUAL}}
   \`\`\`
+
+# this should live down here so that modeline is not triggered
+snippet ft "filetype" b
+  # vim: ft=${0}
 
 # snippet ft "filetype" w
 #   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` vim:ft=${0}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`

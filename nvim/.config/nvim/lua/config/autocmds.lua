@@ -1,5 +1,17 @@
 local create_augroup = vim.api.nvim_create_augroup
 
+local ft_overrides = {
+  ["*.cfg"] = "ini",
+}
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "SessionLoadPost" }, {
+  group = vim.api.nvim_create_augroup("ftOverrides", { clear = true }),
+  pattern = vim.tbl_keys(ft_overrides),
+  callback = function(ev)
+    vim.bo[ev.buf].filetype = ft_overrides[ev.match]
+  end,
+})
+
 -- Optimize Conform.nvim for large files
 -- vim.api.nvim_create_autocmd({ "BufReadPre" }, {
 --   group = create_augroup("optimize_large_files", { clear = true }),
