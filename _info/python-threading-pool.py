@@ -2,6 +2,7 @@
 """multithreading using pool example"""
 
 from multiprocessing import Pool
+from typing import Any, Callable
 
 
 def expensive_func(n: int) -> int:

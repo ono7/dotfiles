@@ -14,9 +14,9 @@ return {
     keymap = {
       preset = "super-tab",
       -- ["<C-y>"] = { "show", "fallback" },
-      ["<c-y>"] = { "show_and_insert", "fallback" },
+      ["<c-y>"] = { "show_and_insert", "accept", "fallback" },
       ["<C-e>"] = { "hide", "fallback" },
-      -- ["<CR>"] = { "accept", "fallback" },
+      ["<CR>"] = { "accept", "fallback" },
     },
     appearance = {
       nerd_font_variant = "mono",
