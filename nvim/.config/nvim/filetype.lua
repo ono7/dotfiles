@@ -34,8 +34,26 @@ vim.filetype.add({
     tfstate = "json",
     hcl = "terraform",
     asm = "nasm",
+    cfg = "ini",
     es6 = "javascript",
     mts = "typescript",
     cts = "typescript",
   },
+})
+
+--- force overrides
+
+local ft_overrides = {
+  ["*.cfg"] = "ini",
+  -- add any future forced overrides here
+}
+
+local grp = vim.api.nvim_create_augroup("ForceFiletypeOverrides", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = grp,
+  pattern = vim.tbl_keys(ft_overrides),
+  callback = function(ev)
+    vim.bo[ev.buf].filetype = ft_overrides[ev.match]
+  end,
 })

@@ -1,30 +1,30 @@
 local create_augroup = vim.api.nvim_create_augroup
 
 -- Optimize Conform.nvim for large files
-vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-  group = create_augroup("optimize_large_files", { clear = true }),
-  callback = function(args)
-    local bufnr = args.buf
-    local filename = vim.api.nvim_buf_get_name(bufnr)
-
-    -- Skip formatting for large files
-    local ok, stats = pcall(vim.loop.fs_stat, filename)
-    if ok and stats and stats.size > (1024 * 1024) then -- 1MB
-      vim.b[bufnr].disable_autoformat = true
-    end
-
-    -- Skip formatting for files with many lines
-    local line_count = vim.api.nvim_buf_line_count(bufnr)
-    if line_count > 5000 then
-      vim.b[bufnr].disable_autoformat = true
-    end
-
-    -- Always skip CSV files
-    if filename:match("%.csv$") then
-      vim.b[bufnr].disable_autoformat = true
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+--   group = create_augroup("optimize_large_files", { clear = true }),
+--   callback = function(args)
+--     local bufnr = args.buf
+--     local filename = vim.api.nvim_buf_get_name(bufnr)
+--
+--     -- Skip formatting for large files
+--     local ok, stats = pcall(vim.loop.fs_stat, filename)
+--     if ok and stats and stats.size > (1024 * 1024) then -- 1MB
+--       vim.b[bufnr].disable_autoformat = true
+--     end
+--
+--     -- Skip formatting for files with many lines
+--     local line_count = vim.api.nvim_buf_line_count(bufnr)
+--     if line_count > 5000 then
+--       vim.b[bufnr].disable_autoformat = true
+--     end
+--
+--     -- Always skip CSV files
+--     if filename:match("%.csv$") then
+--       vim.b[bufnr].disable_autoformat = true
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = create_augroup("js_comment_string_add", { clear = true }),
-  pattern = "*.js",
+  pattern = "javascript",
   callback = function()
     vim.bo.commentstring = "// %s"
   end,
@@ -101,13 +101,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { ".venv", "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
-  callback = function()
-    vim.diagnostic.enable(false)
-  end,
-  group = create_augroup("disable_lsp_diags_for_folders", { clear = true }),
-})
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--   pattern = { ".venv", "venv", "static/html", "static/pico", "**/node_modules/**", "node_modules", "/node_modules/*" },
+--   callback = function()
+--     vim.diagnostic.enable(false)
+--   end,
+--   group = create_augroup("disable_lsp_diags_for_folders", { clear = true }),
+-- })
 
 vim.cmd([[
 augroup _QuickFixOpen
