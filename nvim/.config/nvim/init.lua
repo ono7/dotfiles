@@ -42,7 +42,16 @@ redirect vim command output to registers
 :redir @a | execute 'lua =vim.lsp.get_clients()[1].server_capabilities.codeActionProvider' | redir END
 :let @" = system('python3 ' . expand('%') . '--test=20')
 
-in normal mode paste the contents to a buffer -> ""p
+better workflow:
+--- stores the output to a variable that can be assigned to a register
+
+:redir => m
+:do something
+:do something else
+:redir end
+:let @" = m
+
+then in normal mode: ""p
 ]]
 
 vim.loader.enable(true)
