@@ -1,6 +1,5 @@
 ---
 # dummy playbook for callback testing
-# vi: ft=yaml.ansible
 
 - name: "test"
   hosts: localhost
@@ -61,8 +60,8 @@
           ansible.builtin.debug:
             msg: |
               {{ output }}
-    # rescue:
+      # rescue:
     - name: This is the last task on this list
       ansible.builtin.debug:
-        msg: |
+         msg: |
           {{ output }}

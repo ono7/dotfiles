@@ -3,7 +3,7 @@ extends: default
 
 ignore:
   - all/this/directory/
-  - '*.template.yaml'
+  - "*.template.yaml"
   - venv/
   - backups/
 
@@ -11,6 +11,19 @@ rules:
   line-length:
     max: 120
     level: warning
+
   empty-lines:
     max: 1
     level: warning
+
+  comments:
+    min-spaces-from-content: 1
+
+  comments-indentation: false
+
+  braces:
+    max-spaces-inside: 1
+
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true

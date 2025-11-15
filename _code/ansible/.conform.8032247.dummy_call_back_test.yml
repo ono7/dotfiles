@@ -1,7 +1,5 @@
 ---
 # dummy playbook for callback testing
-# vi: ft=yaml.ansible
-
 - name: "test"
   hosts: localhost
   gather_facts: false
