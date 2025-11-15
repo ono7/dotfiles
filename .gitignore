@@ -1,5 +1,8 @@
 # basic gitignore
 
+# Ignore all Conform callback temp files
+.conform.*
+
 __pycache__/
 venv/
 dlv/

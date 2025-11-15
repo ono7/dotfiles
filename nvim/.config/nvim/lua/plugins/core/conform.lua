@@ -15,7 +15,7 @@ return {
           if require("conform").get_formatter_info("ruff_format", bufnr).available then
             return { "isort", "ruff_fix", "ruff_format" }
           else
-            return { "isort", "black" }
+            return { "isort", "ruff_fix", "black" }
           end
         end,
         yaml = { "prettier" },
