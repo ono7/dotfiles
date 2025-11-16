@@ -20,7 +20,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-  set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
+  set viminfo='100,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!

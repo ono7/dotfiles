@@ -7,7 +7,7 @@ vim.opt.path = ".,**"
 vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
+vim.opt.shada = "'100,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
 
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
@@ -245,3 +245,4 @@ vim.opt.titlestring = ""
 vim.opt.lazyredraw = true -- Don't redraw during macros
 vim.opt.redrawtime = 1500 -- Stop redraw attempts after 1.5s
 vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.smoothscroll = false -- disable for performance
