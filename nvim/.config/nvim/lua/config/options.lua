@@ -79,7 +79,7 @@ vim.opt.fillchars:append("stl: ")
 
 vim.opt.fillchars = {
   foldopen = "",
-  foldclose = "",
+  foldclose = "▶",
   fold = " ",
 }
 -- Clear the Folded highlight group completely
@@ -118,7 +118,7 @@ _G.better_fold_text = function()
 
   local count = finish - start + 1
   local bar = "▏" -- thin vertical bar
-  local icon = "" -- clean fold arrow
+  local icon = "▶" -- clean fold arrow
 
   return string.format("%s%s %s  %s%s", indent, bar, icon, line, "  · " .. count .. " lines")
 end
