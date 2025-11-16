@@ -1,4 +1,5 @@
 return {
+  -- opitimized config
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
