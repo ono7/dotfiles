@@ -7,7 +7,7 @@ vim.opt.path = ".,**"
 vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'100,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$"
+vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
 
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"

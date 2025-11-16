@@ -11,7 +11,7 @@ let g:matchparen_timeout = 20
 let g:matchparen_insert_timeout = 20
 
 if has("nvim")
-  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  set shada='100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
   packadd cfilter
   set inccommand=nosplit
   set pumheight=10 pumblend=0
@@ -20,7 +20,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-  set viminfo='100,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
+  set viminfo='100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!
