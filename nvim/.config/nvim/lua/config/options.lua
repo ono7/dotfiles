@@ -102,13 +102,15 @@ vim.opt.fillchars:append({ fold = " " })
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
 
--- Use treesitter folding from the start
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- Use manual folding (treesitter foldexpr causes input lag)
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldmethod = "manual"
 vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 1
-vim.opt.foldenable = true
+-- vim.opt.foldenable = true
+vim.opt.foldenable = false
 
 vim.g.markdown_folding = 1 -- enable markdown folding
 
@@ -197,3 +199,6 @@ vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""
+vim.opt.lazyredraw = true -- Don't redraw during macros
+vim.opt.redrawtime = 1500 -- Stop redraw attempts after 1.5s
+vim.opt.updatetime = 250 -- Faster CursorHold events

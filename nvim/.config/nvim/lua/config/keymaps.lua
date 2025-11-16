@@ -58,8 +58,11 @@ nnoremap U <c-r>
 nnoremap v <c-v>
 nnoremap Y yg_
 
-nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+" Simplified j/k mappings without automatic mark setting (reduces input lag)
+" nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
+" nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 nnoremap <esc>k <cmd>cprev<cr>
 nnoremap <esc>j <cmd>cnext<cr>

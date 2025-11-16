@@ -8,13 +8,8 @@ http://vimcasts.org/categories/git/
 :compiler go
 :make % or :make
 
-fugitive:
-  stage and commits file all at once :G commit % -m "abc"
-
 * add all go files to arg list, :args **/*.go
 
-* == auto indent
-* insert mode: c-t and c-d to indent/unindent a line that is not in the corret indent level
 * set dir to current open file, :cd %:h
 * add all files to buff for faster navigation :argadd **/*.py
   * apply commands to open args list
@@ -41,6 +36,9 @@ redirect vim command output to registers
 :redir @" | messages | redir end
 :redir @a | execute 'lua =vim.lsp.get_clients()[1].server_capabilities.codeActionProvider' | redir END
 :let @" = system('python3 ' . expand('%') . '--test=20')
+
+-- encode contents of a register and save them back to the register
+:let @" = system('base64', @")
 
 better workflow:
 --- stores the output to a variable that can be assigned to a register
