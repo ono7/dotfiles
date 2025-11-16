@@ -61,11 +61,13 @@ nnoremap Y yg_
 " Simplified j/k mappings without automatic mark setting (reduces input lag)
 " nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
 " nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-nnoremap <esc>k <cmd>cprev<cr>
-nnoremap <esc>j <cmd>cnext<cr>
+"nnoremap <esc>k <cmd>cprev<cr>
+"nnoremap <esc>j <cmd>cnext<cr>
+
 nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
@@ -106,7 +108,7 @@ xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
-xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
+" xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
 xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
 set iskeyword+=_,-

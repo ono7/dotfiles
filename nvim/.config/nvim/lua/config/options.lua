@@ -75,28 +75,57 @@ vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 
-vim.opt.fillchars:append({ fold = " " })
+-- vim.opt.fillchars:append({ fold = " " })
 
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+}
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
+--
+-- _G.better_fold_text = function()
+--   local line = vim.fn.getline(vim.v.foldstart)
+--   local line_count = vim.v.foldend - vim.v.foldstart + 1
+--   local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
+--
+--   line = line:gsub("^%s+", "")
+--
+--   local max_length = 60
+--   local display_line = line
+--   if #line > max_length then
+--     display_line = line:sub(1, max_length) .. "..."
+--   end
+--
+--   return indent .. "▶ " .. display_line .. " [" .. line_count .. " lines]"
+-- end
+
+-- vim.opt.foldtext = "v:lua.better_fold_text()"
 
 _G.better_fold_text = function()
-  local line = vim.fn.getline(vim.v.foldstart)
-  local line_count = vim.v.foldend - vim.v.foldstart + 1
-  local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
+  local start = vim.v.foldstart
+  local finish = vim.v.foldend
+  local line = vim.fn.getline(start)
 
+  local indent = string.rep(" ", vim.fn.indent(start))
   line = line:gsub("^%s+", "")
 
-  local max_length = 60
-  local display_line = line
-  if #line > max_length then
-    display_line = line:sub(1, max_length) .. "..."
+  local max = 60
+  if #line > max then
+    line = line:sub(1, max) .. "…"
   end
 
-  return indent .. "▶ " .. display_line .. " [" .. line_count .. " lines]"
+  local count = finish - start + 1
+  local bar = "▏" -- thin vertical bar
+  local icon = "" -- clean fold arrow
+
+  return string.format("%s%s %s  %s%s", indent, bar, icon, line, "  · " .. count .. " lines")
 end
 
 vim.opt.foldtext = "v:lua.better_fold_text()"
+vim.opt.fillchars:append({ fold = " " })
+
 vim.opt.fillchars:append({ fold = " " })
 
 -- Clear the Folded highlight group completely
@@ -111,6 +140,20 @@ vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 1
 -- vim.opt.foldenable = true
 vim.opt.foldenable = false
+
+vim.cmd([[
+function! ToggleFolding()
+  if &foldmethod ==# 'manual'
+    setlocal foldenable foldmethod=indent foldlevel=0
+    echo "Folding enabled, zk zj (jump folds)"
+  else
+    setlocal nofoldenable foldmethod=manual
+    echo "Folding disabled"
+  endif
+endfunction
+
+nnoremap <silent> gz :call ToggleFolding()<CR>
+]])
 
 vim.g.markdown_folding = 1 -- enable markdown folding
 

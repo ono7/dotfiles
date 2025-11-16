@@ -54,7 +54,6 @@ set path=.,**
 setlocal path=.,**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
-set foldenable foldmethod=indent foldlevelstart=99 foldlevel=0 foldnestmax=2
 set lazyredraw hidden updatetime=300
 set incsearch ignorecase smartcase autoindent smartindent
 set nohlsearch
@@ -166,8 +165,10 @@ nnoremap ,w <cmd>w!<cr>
 nnoremap cp yap<S-}>p
 nnoremap J mzJ`z
 
-nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
-nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+"nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
+"nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -179,8 +180,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
 nnoremap <M-r> :browse oldfiles<CR>
 nnoremap <esc>r :browse oldfiles<CR>
-nnoremap <esc>k <cmd>cprev<cr>
-nnoremap <esc>j <cmd>cnext<cr>
+
+"nnoremap <esc>k <cmd>cprev<cr>
+"nnoremap <esc>j <cmd>cnext<cr>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap <leader>d <cmd>bd!<CR>
@@ -268,6 +270,16 @@ endif
 "nnoremap <M-g> <cmd>Rg<space>
 "nnoremap <esc>g <cmd>Rg<space>
 
+function! ToggleFolding()
+  if &foldmethod ==# 'manual'
+    setlocal foldenable foldmethod=indent foldlevel=0
+    echo "Folding enabled, zk zj (jump folds)"
+  else
+    setlocal nofoldenable foldmethod=manual
+    echo "Folding disabled"
+  endif
+endfunction
+
 function! ToggleQuickfixList()
   let qf_exists = 0
   for win in getwininfo()
@@ -337,7 +349,7 @@ augroup end
 
 augroup CleanOnWrite
   autocmd!
-  autocmd BufWritePre * call s:CleanAndSave()
+  autocmd BufWritePre * if line('$') < 5000 | call s:CleanAndSave() | endif
 augroup end
 
 augroup _quickfix
