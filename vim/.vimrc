@@ -184,6 +184,9 @@ nnoremap <esc>r :browse oldfiles<CR>
 "nnoremap <esc>k <cmd>cprev<cr>
 "nnoremap <esc>j <cmd>cnext<cr>
 
+" clear hlsearch on esc
+nnoremap <silent> <Esc> :noh<CR><Esc>
+
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap <leader>d <cmd>bd!<CR>
 

@@ -12,6 +12,9 @@ vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
 
+-- Enable search highlight only while searching
+vim.opt.hlsearch = true
+
 function _G.MyTabLine()
   local s = ""
   for i = 1, vim.fn.tabpagenr("$") do
@@ -179,7 +182,7 @@ command -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 vim.opt.hidden = true
 vim.opt.history = 1000
-vim.opt.hlsearch = false
+-- vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = "nosplit"
