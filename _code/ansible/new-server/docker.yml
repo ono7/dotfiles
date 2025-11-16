@@ -10,7 +10,7 @@
 
   tasks:
     - name: Install Deps
-      ansible.builtin.yum:
+      ansible.builtin.dnf:
         name:
           - device-mapper-persistent-data
           - yum-utils
@@ -24,29 +24,28 @@
         dest: /etc/yum.repos.d/docer-ce.repo
       become: true
 
-    - name: Enable Docker Edge repo
-      ansible.builtin.ini_file:
-        dest: /etc/yum.repos.d/docer-ce.repo
-        section: "docker-ce-edge"
-        option: enabled
-        value: 0
-      become: true
+    # - name: Enable Docker Edge repo
+    #   ansible.builtin.ini_file:
+    #     section: "docker-ce-edge"
+    #     option: enabled
+    #     value: 0
+    #   become: true
 
-    - name: Enable Docker Test repo
-      ansible.builtin.ini_file:
-        dest: /etc/yum.repos.d/docer-ce.repo
-        section: "docker-ce-test"
-        option: enabled
-        value: 0
-      become: true
+    # - name: Enable Docker Test repo
+    #   ansible.builtin.ini_file:
+    #     dest: /etc/yum.repos.d/docer-ce.repo
+    #     section: "docker-ce-test"
+    #     option: enabled
+    #     value: 0
+    #   become: true
 
     - name: Remove old deps
-      ansible.builtin.shell: sudo dnf -y remove runc.x86_64
+      ansible.builtin.command: sudo dnf -y remove runc.x86_64
       become: true
       tags: docker
 
     - name: Install Docker
-      ansible.builtin.yum:
+      ansible.builtin.dnf:
         name: docker-ce
         state: latest
       become: true
