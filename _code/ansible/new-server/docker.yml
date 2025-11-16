@@ -1,6 +1,5 @@
 ---
 # vi: ft=yaml.ansible
-
 - name: Install docker
   gather_facts: false
   hosts: all
