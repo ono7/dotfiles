@@ -65,6 +65,8 @@ nnoremap Y yg_
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
+xnoremap p P
+
 " clear hlsearch on esc
 nnoremap <silent> <Esc> :noh<CR><Esc>
 
