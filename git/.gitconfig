@@ -4,139 +4,111 @@
     signingkey = 850FAC73
 
 [gpg]
-  program = gpg
+    program = gpg
 
 [commit]
-  gpgsign = true
+    gpgsign = true
 
 [tag]
-  gpgsign = true
-  sort = -taggerdate
+    gpgsign = true
+    sort = -taggerdate
 
 [core]
-  editor = nvim
-  mergeoptions = --no-edit
-  pager = delta
-  hookspath = ~/.git_global/hooks
-  compression = 9
-  whitespace = error
-  preloadindex = true
-  # MONITOR FOR PERFORMANCE ISSUES....
-  # check status: git fsmonitor--daemon status
-  untrackedCache = true
-  excludesfile = /Users/jlima/.gitignore_global
-  # fsmonitor = true
-
-[http]
-  sslVerify = false
-
-; [url "https://github.com/"]
-;   insteadOf = git://github.com/
-
-[credential]
-  helper = store
-
-[init]
-  defaultBranch = main
-  templatedir = ~/.git_templates
+    editor = nvim
+    mergeoptions = --no-edit
+    pager = delta
+    hookspath = ~/.git_global/hooks
+    compression = 9
+    whitespace = error
+    preloadindex = true
+    untrackedCache = true
+    excludesfile = ~/.gitignore_global
 
 [pull]
-# requires git > 2.6
-# `git rebase –abort` when we need to reset the changes
-  default = current
-  rebase = true
+    ff = only         # never auto-merge on pull
+    rebase = true     # always rebase instead of merge
+    autostash = true  # stash before rebase automatically
 
 [rebase]
-  # Stash and pop uncommitted changes on rebase
-  autostash = true
-  missingCommitCheck = warn
-  autosquash = true
-  updateRefs = true
+    autostash = true
+    autosquash = true
+    updateRefs = true
+    missingCommitCheck = warn
 
 [fetch]
-  prune = true
-  prunetags = true
-  fsckobjects = true
+    prune = true
+    prunetags = true
+    fsckobjects = true
 
 [transfer]
-  fsckobjects = true
+    fsckobjects = true
 
 [receive]
-  fsckobjects = true
+    fsckobjects = true
 
 [branch]
-  sort = -committerdate
+    sort = -committerdate
 
 [merge]
-  tool = vimdiff
-  prompt = false
-  conflictstyle = diff3
+    tool = vimdiff
+    prompt = false
+    conflictstyle = zdiff3   # best conflict view
 
 [mergetool "vimdiff"]
-  cmd = vim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+    cmd = vim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool]
-  keepBackup = false
-  prompt = false
+    keepBackup = false
+    prompt = false
 
 [push]
-  autoSetupRemote = true
-  default = current
- # create tags automatically
-  followTags = true
-
-  # push only the default branch
-  ; default = simple
+    autoSetupRemote = true
+    default = current
+    followTags = true
 
 [diff]
-  colorMoved = default
-  algorithm = patience
-  context = 4
-  renames = copies
-  interHunkContext = 10
+    colorMoved = default
+    algorithm = patience
+    context = 4
+    renames = copies
+    interHunkContext = 10
 
 [color]
-  ui = auto
+    ui = auto
 
 [alias]
-  co = checkout
-  br = branch
-  ci = commit
-  st = status
-  wt = worktree
-  unstage = reset HEAD --
-  last = log -1 HEAD
-  dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
-  update-hooks = !cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*
-  whatadded = log --diff-filter=A
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    wt = worktree
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
+    update-hooks = "!cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*"
+    whatadded = log --diff-filter=A
 
 [log]
-# follow file names in `git log` command even if they are renamed
-follow = true
+    follow = true
 
 [interactive]
-  diffFilter = delta --color-only
-  singleKey = true
+    diffFilter = delta --color-only
+    singleKey = true
 
 [status]
-  # Show untracked files, directories and files in untracked directories
-  branch = true
-  showStash = true
-  showUntrackedFiles = all
-  submoduleSummary = true
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+    submoduleSummary = true
 
 [delta]
     navigate = true
-    light = false
     side-by-side = true
-    # max-line-length 0
     line-numbers = true
     dark = true
 
-    # Blame palette using your color scheme's background variants
     blame-palette = "#191828 #1e1d2d #2d2c3c #363545 #3e3d4d"
 
-    # File and commit styling
     commit-decoration-style = none
     file-decoration-style = none
     file-style = "#E3DED7" bold
@@ -145,38 +117,29 @@ follow = true
     hunk-header-line-number-style = "#A6B0C3" bold
     hunk-header-style = file line-number syntax
 
-    # Line number styling using your color palette
     line-numbers-left-style = "#3A4057"
     line-numbers-right-style = "#3A4057"
     line-numbers-zero-style = "#3A4057"
 
-    # Brighter line numbers for changed lines
     line-numbers-minus-style = "#C49A9A" bold
     line-numbers-plus-style = "#8CBBAD" bold
 
-    # Subtle styling for added/removed lines matching your diff colors
     minus-style = "#C49A9A"
     plus-style = "#8CBBAD"
 
-    # Emphasized changes using your yellow with dark background
     minus-emph-style = "#1e1d2d" "#D4B97E"
     plus-emph-style = "#1e1d2d" "#D4B97E"
 
-    # Empty line markers colored to match your diff colors
     minus-empty-line-marker-style = "#C49A9A"
     plus-empty-line-marker-style = "#8CBBAD"
 
-    # Enhanced word diff detection
     word-diff-regex = "[^[:space:]]+"
 
-    # Whitespace errors
     whitespace-error-style = "#D4B97E" reverse
 
-    # Line number format
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"
 
-    # Map styles to match your color scheme
     map-styles = \
         bold purple => "#B097B6", \
         bold blue => "#8CA7BE", \
@@ -184,5 +147,6 @@ follow = true
         bold yellow => "#D4B97E", \
         bold green => "#8CBBAD", \
         bold red => "#C49A9A"
+
 [rerere]
-  enabled = true
+    enabled = true

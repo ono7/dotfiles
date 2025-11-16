@@ -76,6 +76,7 @@ return {
           "python",
           "query",
           "gitcommit",
+          "git_config",
           "terraform",
           "toml",
           "typescript",
