@@ -7,3 +7,4 @@ vim.opt_local.suffixesadd:append(".yml")
 vim.opt_local.suffixesadd:append(".yaml")
 vim.opt_local.makeprg = "yamllint --f parsable %"
 vim.opt_local.errorformat = "%f:%l:%c: %m"
+vim.opt_local.formatoptions:remove({ "c", "r", "o" })

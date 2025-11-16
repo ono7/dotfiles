@@ -167,8 +167,8 @@ nnoremap J mzJ`z
 
 "nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
 "nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
+nnoremap j gj
+nnoremap k gk
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k

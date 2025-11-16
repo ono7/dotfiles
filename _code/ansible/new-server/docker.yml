@@ -1,6 +1,8 @@
 ---
+# vi: ft=yaml.ansible
+
 - name: Install docker
-  gather_facts: No
+  gather_facts: false
   hosts: all
   become: true
   become_method: ansible.builtin.sudo

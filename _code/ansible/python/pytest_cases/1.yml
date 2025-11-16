@@ -1,6 +1,5 @@
 ---
-# Author: Jose Lima
-# Date: 2023-07-20 16:29 CST
+# vi: ft=yaml.ansible
 
 - name: "Test"
   hosts: localhost
