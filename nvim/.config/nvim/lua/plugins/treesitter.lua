@@ -1,5 +1,3 @@
--- Keep Treesitter enabled, but optimize it
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -59,33 +57,8 @@ return {
         -- Be selective about other features
         incremental_selection = { enable = false }, -- If you don't use it
         textobjects = { enable = false }, -- If you don't use it
-        auto_install = true,
-        ensure_installed = {
-          -- "css",
-          -- "dockerfile",
-          -- "gitignore",
-          -- "cpp",
-          -- "c",
-          -- "go",
-          -- "html",
-          -- "javascript",
-          -- "json",
-          -- "jinja",
-          -- "lua",
-          -- "markdown",
-          -- "markdown_inline",
-          -- "python",
-          -- "query",
-          -- "gitcommit",
-          -- "git_config",
-          -- "terraform",
-          -- "toml",
-          -- "typescript",
-          -- "vim",
-          -- "vimdoc",
-          -- "yaml",
-          -- "ini",
-        },
+        auto_install = true, -- let treesitter figure this out...2025-11-15 20:33
+        ensure_installed = {},
       })
     end,
   },
