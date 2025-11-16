@@ -170,6 +170,7 @@ else
       -- vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
       vim.api.nvim_set_hl(0, "@variable", {})
       vim.api.nvim_set_hl(0, "@property", {})
+      vim.api.nvim_set_hl(0, "@property.yaml", { link = "CursorLineNr" })
       vim.api.nvim_set_hl(0, "Operator", {})
       vim.api.nvim_set_hl(0, "Number", {})
       vim.api.nvim_set_hl(0, "@constant.builtin", {})

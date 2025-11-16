@@ -8,6 +8,7 @@ return {
         local name = vim.api.nvim_buf_get_name(buf)
         local ok, st = pcall(vim.loop.fs_stat, name)
         if ok and st and st.size > 500 * 1024 then
+          vim.notify("file too large, optimizing")
           return true
         end
         return false

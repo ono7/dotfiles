@@ -125,20 +125,20 @@ vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = fal
 
 vim.cmd("syntax on")
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
-  pattern = "*",
-  callback = function()
-    -- allow these to have syntax enabled always
-    local allowed = {
-      markdown = true,
-      fugitive = true,
-    }
-    if allowed[vim.bo.filetype] then
-      vim.cmd("setlocal syntax=on")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
+--   pattern = "*",
+--   callback = function()
+--     -- allow these to have syntax enabled always
+--     local allowed = {
+--       markdown = true,
+--       fugitive = true,
+--     }
+--     if allowed[vim.bo.filetype] then
+--       vim.cmd("setlocal syntax=on")
+--     end
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "*",

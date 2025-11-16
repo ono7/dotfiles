@@ -26,7 +26,7 @@ vim.filetype.add({
     gohtml = "html",
     j2 = "jinja",
     conf = "config",
-    -- yml = "yaml.ansible",
+    yml = "yaml",
     -- yaml = "yaml.ansible",
     md = "markdown",
     ts = "typescript",
