@@ -3,62 +3,40 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
+      local function too_large(buf)
+        local name = vim.api.nvim_buf_get_name(buf)
+        local ok, st = pcall(vim.loop.fs_stat, name)
+        if ok and st and st.size > 500 * 1024 then
+          return true
+        end
+        return false
+      end
+
+      local function too_many_lines(buf)
+        return vim.api.nvim_buf_line_count(buf) > 5000
+      end
+
       require("nvim-treesitter.configs").setup({
+        auto_install = true, -- on-demand parser installation
+        ensure_installed = {}, -- empty = no manual list
+
         highlight = {
           enable = true,
-          -- Only disable for truly massive files
-          disable = function(lang, buf)
-            -- only enable in markdown files, disable for everything else
-            -- comment this block out to allow all fts to use highlight from TS
-
-            -- local filetype = vim.bo[buf].filetype
-            -- if filetype ~= "markdown" then
-            --   return true
-            -- end
-
-            local max_filesize = 500 * 1024 -- 500 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
+          disable = function(_, buf)
+            return too_large(buf)
           end,
-          additional_vim_regex_highlighting = false, -- IMPORTANT: disable old system
+          additional_vim_regex_highlighting = false,
         },
+
         indent = {
-          enable = false, -- disable this seems buggy
-
-          disable = function(lang, buf)
-            local max_filesize = 500 * 1024
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-
-            -- local filename = vim.api.nvim_buf_get_name(buf)
-            -- if filename:match("%.csv$") then
-            --   return true
-            -- end
-            -- if filename:match("%.py$") then
-            --   return true
-            -- end
-            --
-            -- if filename:match("%.go$") then
-            --   return true
-            -- end
-
-            local line_count = vim.api.nvim_buf_line_count(buf)
-            if line_count > 5000 then
-              return true
-            end
-
-            return false
+          enable = false,
+          disable = function(_, buf)
+            return too_large(buf) or too_many_lines(buf)
           end,
         },
-        -- Be selective about other features
-        incremental_selection = { enable = false }, -- If you don't use it
-        textobjects = { enable = false }, -- If you don't use it
-        auto_install = true, -- let treesitter figure this out...2025-11-15 20:33
-        ensure_installed = {},
+
+        incremental_selection = { enable = false },
+        textobjects = { enable = false },
       })
     end,
   },
