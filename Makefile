@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export PATH := $(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
 
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -30,8 +30,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps homebrew brew-deps clean stow nvm go-deps neovim vim fzf starship done
-mac: mac-deps homebrew brew-deps clean stow nvm go-deps fzf starship vim neovim done
+linux: linux-deps homebrew brew-deps clean stow nvm go-deps uv neovim vim fzf starship done
+mac: mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim done
 
 clean:
 	@echo $(BANNER)
@@ -85,6 +85,15 @@ fzf:
 	@rm -rf ~/.fzf
 	@git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	@~/.fzf/install --all
+
+uv:
+	@echo $(BANNER)
+	@curl -LsSf https://astral.sh/uv/install.sh | sh
+	@uv tool install black
+	@uv tool install ansible-core
+	@uv tool install ansible-lint
+	@uv tool install isort
+	@uv tool install ruff
 
 nvm:
 	@echo $(BANNER)
