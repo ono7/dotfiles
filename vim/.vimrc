@@ -68,6 +68,7 @@ set fillchars+=diff:╱
 let &showbreak="↪ "
 set splitbelow splitright
 set fileformats=unix fileformat=unix
+set matchtime=0
 set guicursor=n-v-c:block-Cursor/lCursor-blinkon0
 set tags=./tags,tags;~
 set shortmess=atcIoOsT

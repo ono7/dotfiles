@@ -221,6 +221,7 @@ vim.opt.complete = ".,w,b"
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
 vim.opt.showmatch = false
+vim.opt.matchtime = 0
 vim.opt.showtabline = 0
 vim.opt.scrollback = 1000
 vim.opt.sidescrolloff = 5
