@@ -15,10 +15,10 @@ wsl = false
 
 [font]
 # Will use the bundled Fira Code Nerd Font by default
-# normal = { family = "SF Mono", style = "Medium" }
+normal = { family = "SF Mono Terminal", style = "Medium" }
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "SemiBold" }
-normal = { family = "Iosevka Custom", style = "SemiBold" }
+# normal = { family = "Iosevka Custom", style = "SemiBold" }
 # features = { "IosevkaTerm Nerd Font Mono" = ["-calt", "-liga", "-dlig"] }
-size = 23
+size = 22
 # best for macos...
 # hinting = "none"

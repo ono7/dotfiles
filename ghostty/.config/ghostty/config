@@ -15,18 +15,23 @@
 # font-style-bold = Bold
 # font-style-italic = SemiBold Oblique
 
-font-family = Iosevka Custom
-font-style = SemiBold
-font-style-bold = SemiBold Oblique
-font-style-italic = SemiBold Italic
+# font-family = Iosevka Custom
+# font-style = SemiBold
+# font-style-bold = SemiBold Oblique
+# font-style-italic = SemiBold Italic
+
+font-family = SF Mono Terminal
+font-style = Semibold
+# font-style-bold = SemiBold Oblique
+# font-style-italic = SemiBold Italic
 
 # font-family = IosevkaTerm Nerd Font Mono
 # font-style = SemiBold
 # font-style-bold = Bold
 # font-style-italic = SemiBold Oblique
 
-font-size = 24
-adjust-cell-height = 30%
+font-size = 22
+adjust-cell-height = 15%
 
 shell-integration-features = no-cursor,sudo,no-title
 

@@ -103,20 +103,24 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 23.0
+size = 22.0
 
 [font.normal]
+family = "SF Mono Terminal"
+style = "Medium"
 
-family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold"
 
-[font.italic]
-family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold Oblique"
-
-[font.bold]
-family = "IosevkaTerm Nerd Font Mono"
-style = "Bold"
+#
+# family = "IosevkaTerm Nerd Font Mono"
+# style = "SemiBold"
+#
+# [font.italic]
+# family = "IosevkaTerm Nerd Font Mono"
+# style = "SemiBold Oblique"
+#
+# [font.bold]
+# family = "IosevkaTerm Nerd Font Mono"
+# style = "Bold"
 
 [font.offset]
 x = 2
