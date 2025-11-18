@@ -13,19 +13,22 @@ log "$0"
 # defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 
 # Hide hard drives on desktop
-# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 
 # Hide removable media hard drives on desktop
-# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 # Hide mounted servers on desktop
-# defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
 
 # Hide icons on desktop
 # defaults write com.apple.finder CreateDesktop -bool false
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Group windows by application in Mission Control
+defaults write com.apple.dock expose-group-apps -bool true
 
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
@@ -52,7 +55,7 @@ defaults write -g KeyRepeat -int 1
 defaults write -g InitialKeyRepeat -int 10
 
 # Disable Finder animations
-defaults write com.apple.finder DisableAllAnimations -bool true
+# defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Disable Dock autohide delay and animation
@@ -60,7 +63,7 @@ killall Finder
 # defaults write com.apple.dock autohide-time-modifier -int 0
 
 # Disable Slow Keys accessibility feature (can cause delay)
-# defaults write com.apple.universalaccess slowKeys -bool false
+defaults write com.apple.universalaccess slowKeys -bool false
 
 # Set weekly software update checks
 # defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 7
@@ -83,15 +86,28 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # defaults write com.apple.dock static-only -bool false
 
 # Set Dock autohide
-# defaults write com.apple.dock autohide -bool true
-# defaults write com.apple.dock largesize -float 128
-# defaults write com.apple.dock "minimize-to-application" -bool true
-# defaults write com.apple.dock tilesize -float 32
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock largesize -float 74
+defaults write com.apple.dock "minimize-to-application" -int 1
+defaults write com.apple.dock tilesize -float 54
+
+# finder, default to list view
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# save screenshots to desktop
+mkdir -p ~/Desktop/screenshots
+defaults write com.apple.screencapture location ~/Desktop/screenshots
 
 # Secondary click in external mouse
 # defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"
 
+# trackpad tap-to-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
+# safari full url
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
 # Disable startup sound
-# sudo nvram SystemAudioVolume=%01
+sudo nvram SystemAudioVolume=%01
 
 killall Dock
