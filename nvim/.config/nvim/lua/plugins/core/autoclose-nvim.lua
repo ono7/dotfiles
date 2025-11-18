@@ -26,7 +26,7 @@ return {
         touch_regex = "[%w(%[{\"']",
         pair_spaces = false, --- inserts spaces after typing, a space { | }
         auto_indent = true,
-        disable_command_mode = false,
+        disable_command_mode = true,
       },
     }
     require("autoclose").setup(config)
