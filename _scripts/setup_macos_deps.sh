@@ -56,11 +56,11 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Disable Dock autohide delay and animation
-defaults write com.apple.Dock autohide-delay -float 0
-defaults write com.apple.dock autohide-time-modifier -int 0
+# defaults write com.apple.Dock autohide-delay -float 0
+# defaults write com.apple.dock autohide-time-modifier -int 0
 
 # Disable Slow Keys accessibility feature (can cause delay)
-defaults write com.apple.universalaccess slowKeys -bool false
+# defaults write com.apple.universalaccess slowKeys -bool false
 
 # Set weekly software update checks
 # defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 7
@@ -80,7 +80,7 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # Have the Dock show only active apps
 # defaults write com.apple.dock static-only -bool true
-defaults write com.apple.dock static-only -bool false
+# defaults write com.apple.dock static-only -bool false
 
 # Set Dock autohide
 # defaults write com.apple.dock autohide -bool true

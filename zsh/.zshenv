@@ -1,3 +1,5 @@
+# vim: ft=bash
+
 # make GTK apps scale better in hires monitors
 export QT_SCALE_FACTOR=2
 
@@ -19,30 +21,29 @@ alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclud
 alias sshe='sshpass -e ssh '
 alias dockerps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.State}}\t{{.Status}}"'
 
-
 mycolors() {
-for i in {0..15}; do
+  for i in {0..15}; do
     echo "$(tput setaf $i)Color $i: ████████$(tput sgr0) ($(tput setaf $i)■■■■■■■■$(tput sgr0))"
-done
+  done
 }
 
-golinux () {
-  [ -z $1 ] && echo "builds go binary for linux\nUse: golinux -o app main.go" && return
-  env GOOS=linux GOARCH=amd64 go build $@
+golinux() {
+  [ -z "$1" ] && printf "builds go binary for linux\nUse: golinux -o app main.go" && return
+  env GOOS=linux GOARCH=amd64 go build "$@"
 }
 
 [ -f "/etc/os-release" ] && cat /etc/os-release | grep "buntu" &>/dev/null && export skip_global_compinit=1
 
-mem () {
+mem() {
   [ -z "$1" ] && echo "shows memory used by PID, enter a PID" && return
-  ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' ';
+  ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' '
 }
 
-jsondiff () {
-  delta <(jq --sort-keys . $1) <(jq --sort-keys . $2)
+jsondiff() {
+  delta <(jq --sort-keys . "$1") <(jq --sort-keys . "$2")
 }
 
-brewit () {
+brewit() {
   brew update &&
     brew upgrade &&
     brew autoremove &&
@@ -50,7 +51,7 @@ brewit () {
     brew doctor
 }
 
-extract () {
+extract() {
   if [ -f "$1" ]; then
     case "$1" in
     *.tar.bz2) tar vxjf "$1" ;;
@@ -71,18 +72,18 @@ extract () {
   fi
 }
 
-gp () {
+gp() {
   printf '\n********* %s ********\n\n' "checking for updates"
   git pull
   printf '\n********* %s ********\n\n' "pushing pending changes"
   git push
-  if [ ! -z $PROJECT_ID ]; then
+  if [ ! -z "$PROJECT_ID" ]; then
     printf '\n********* %s ********\n\n' "upgating project..."
     [ -f ~/aap-project-update.sh ] && bash -c ~/aap-project-update.sh
   fi
 }
 
-ga () {
+ga() {
   # Check for untracked files
   mydir=$PWD
   untracked_files=$(git status --porcelain | grep '^??' | cut -c4-)
@@ -98,7 +99,7 @@ ga () {
     if [[ $user_input =~ ^[Yy]$ ]]; then
       cdr
       git add -A
-      cd $mydir
+      cd "$mydir" || return
       echo "Added all untracked files."
     fi
   fi
@@ -112,7 +113,7 @@ ga () {
   git commit
 }
 
-gac () {
+gac() {
   if [ "$#" -eq 0 ]; then
     git add -p
   else
@@ -121,33 +122,33 @@ gac () {
   git commit
 }
 
-dotp () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    cd $my_dir
+dotp() {
+  my_dir=$PWD
+  cd ~/.dotfiles || return
+  git pull
+  cd "$my_dir" || return
 }
 
-dotc () {
-    my_dir=$PWD
-    cd ~/.dotfiles
-    git pull
-    git add .
-    # f=$(git status --porcelain | cut -c4- | head -n 4)
-    # more_changes=$(git status --porcelain | sed -n 5p)
-    # [ -n "$more_changes" ] && f="$f ..."
-    # git commit "-m updates -> ${f//$'\n'/ }"
-    # git commit
-    git commit
-    git push
-    cd $my_dir
+dotc() {
+  my_dir=$PWD
+  cd "$HOME/.dotfiles" || return
+  git pull
+  git add .
+  # f=$(git status --porcelain | cut -c4- | head -n 4)
+  # more_changes=$(git status --porcelain | sed -n 5p)
+  # [ -n "$more_changes" ] && f="$f ..."
+  # git commit "-m updates -> ${f//$'\n'/ }"
+  # git commit
+  git commit
+  git push
+  cd "$my_dir" || return
 }
 
-gc () {
-    git pull
-    git add .
-    git commit
-    git push
+gc() {
+  git pull
+  git add .
+  git commit
+  git push
 }
 # alias gc='git commit '
 
@@ -155,12 +156,12 @@ alias gd='git diff '
 alias gds='git diff --staged'
 
 # shows tags for release reports
-release () {
+release() {
   git for-each-ref --format="%(refname:short) (%(creatordate:short)): %(contents:subject)%0a%(contents:body)" refs/tags
 }
 
-gco () {
-  git checkout $@
+gco() {
+  git checkout "$@"
 }
 
 alias gf='git fetch --all'
@@ -176,55 +177,55 @@ alias glb="git for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) 
 alias gr='git reflog '
 alias gs='git status '
 
-gw () {
-  if [ $# -eq 0 ]; then  # Check if no arguments were provided
+gw() {
+  if [ $# -eq 0 ]; then # Check if no arguments were provided
     git worktree list
   else
     git worktree "$@"
   fi
 }
 
-gwa () {
+gwa() {
   git worktree add "$@"
 }
 
-gwr () {
+gwr() {
   git worktree remove "$@"
 }
 
 alias gwl='git worktree list'
 alias gwr='git worktree remove '
 
-tmux_log () {
+tmux_log() {
   tmux capture-pane -S - \; save-buffer ~/tmux_log.txt
 }
 
 # alias p='podman'
 
-a () {
+a() {
   # super useful shortcut echo "this is a test" | a 2 -> "is"
   awk -v field="${1:-1}" '{print $field}'
 }
 
 # open other modified files in a repo
-gitm () {
-  $EDITOR $(git ls-files --modified --others --exclude-standard) $@ || return
+gitm() {
+  $EDITOR "$(git ls-files --modified --others --exclude-standard)" "$@" || return
 }
 
-gpg_delete_key () {
-    [ -z $1 ] && echo "no key provided" && return
-    echo "Deleting secret key..."
-    gpg --delete-secret-key "$1"
+gpg_delete_key() {
+  [ -z "$1" ] && echo "no key provided" && return
+  echo "Deleting secret key..."
+  gpg --delete-secret-key "$1"
 
-    echo "Deleting public key..."
-    gpg --delete-key "$1"
+  echo "Deleting public key..."
+  gpg --delete-key "$1"
 }
 
-gpg_backup () {
+gpg_backup() {
   gpg --list-keys --keyid-format SHORT
-  [ -z $1 ] && echo "provide a key.." && return
-  gpg --export-secret-keys --armor "${1}" > private.key
-  gpg --export --armor "${1}" > public.key
+  [ -z "$1" ] && echo "provide a key.." && return
+  gpg --export-secret-keys --armor "${1}" >private.key
+  gpg --export --armor "${1}" >public.key
 
   echo "gpg --import private.key"
   echo "gpg --import public.key"
@@ -237,7 +238,7 @@ if [ -f "$HOME/.cargo/env" ]; then
 fi
 
 vimm() {
-  cat << 'SETUP_END'
+  cat <<'SETUP_END'
 
 if [ -f $HOME/.local/vim/bin/vim ]; then
   alias v='~/.local/vim/bin/vim -u ~/.myrc'
@@ -251,10 +252,10 @@ stty -ixon
   cat > ~/.myrc << 'EOF'
 SETUP_END
 
-# use my vimrc
-cat ~/.vimrc
+  # use my vimrc
+  cat ~/.vimrc
 
-cat << 'SETUP_END'
+  cat <<'SETUP_END'
 if !isdirectory($HOME."/.vim-undo")
     call mkdir($HOME."/.vim-undo", "p", 0700)
 endif

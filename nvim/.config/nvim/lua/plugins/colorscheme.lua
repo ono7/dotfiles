@@ -1,4 +1,5 @@
-if vim.env.TERM_PROGRAM == "Apple_Terminal" then
+-- if vim.env.TERM_PROGRAM == "Apple_Terminal" then
+if vim.env.TERM_PROGRAM == "otherfake stub" then
   vim.opt.termguicolors = false
   vim.cmd([[
   set t_Co=16

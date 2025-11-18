@@ -1,3 +1,6 @@
+# vim: ft=bash
+# shellcheck shell=bash disable=SC2039,SC2296
+
 # Uncomment next line to start profiling
 # zmodload zsh/zprof
 
@@ -546,7 +549,8 @@ fi
 
 # only run compinit once a day
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n "${ZDOTDIR}/.zcompdump(#qN.mh+24)" ]]; then
+  echo "compinit, init.."
   compinit
 else
   compinit -C
@@ -706,23 +710,3 @@ else
   echo "starship not installed"
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-############### pyenv ###############
-
-# use:
-# # Install Python 3.11.5
-# pyenv install 3.11.5
-#
-# # Then set it as local
-# pyenv local 3.11.5
-
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# if command -v pyenv &>/dev/null; then
-#   eval "$(pyenv init -)"
-# else
-#   echo "installing pyenv..."
-#   curl https://pyenv.run | bash
-#   eval "$(pyenv init -)"
-# fi
