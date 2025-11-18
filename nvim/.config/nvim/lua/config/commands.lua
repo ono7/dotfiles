@@ -1,90 +1,90 @@
+local opts = { silent = true }
+
 local terminal_buf = nil
 local terminal_win = nil
 local term_job_id = nil
 local term_size = 12
 
+local last_win = nil
+local last_cursor = nil
+
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
 
-  if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-    vim.cmd.split()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, term_size)
+  -- Save editor window + cursor
+  local function save_editor_pos()
+    last_win = vim.api.nvim_get_current_win()
+    last_cursor = vim.api.nvim_win_get_cursor(0)
+  end
 
-    -- Get the directory of the current file
-    local current_file = vim.api.nvim_buf_get_name(0)
-    local current_dir
-    if current_file ~= "" then
-      current_dir = vim.fn.fnamemodify(current_file, ":h")
-    else
-      current_dir = vim.fn.getcwd()
+  -- Restore previous editor window + cursor
+  local function restore_editor_pos()
+    if last_win and vim.api.nvim_win_is_valid(last_win) then
+      vim.api.nvim_set_current_win(last_win)
+      if last_cursor then
+        pcall(vim.api.nvim_win_set_cursor, last_win, last_cursor)
+      end
     end
+  end
+
+  ---------------------------------------------------------------------------
+  -- CREATE NEW TERMINAL
+  ---------------------------------------------------------------------------
+  if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+    save_editor_pos()
+
+    -- Create bottom terminal without shifting current window
+    vim.cmd("botright " .. term_size .. "split")
+
+    local current_file = vim.api.nvim_buf_get_name(0)
+    local current_dir = current_file ~= "" and vim.fn.fnamemodify(current_file, ":h") or vim.fn.getcwd()
 
     vim.cmd.term()
+
     terminal_buf = vim.api.nvim_get_current_buf()
     terminal_win = vim.api.nvim_get_current_win()
     term_job_id = vim.b.terminal_job_id
 
-    -- Change to the current file's directory
     vim.fn.chansend(term_job_id, "cd " .. vim.fn.shellescape(current_dir) .. "\n")
-
     if cmd ~= "" then
       vim.fn.chansend(term_job_id, cmd .. "\n")
     end
+
     vim.cmd("startinsert")
     return
   end
 
+  ---------------------------------------------------------------------------
+  -- TERMINAL EXISTS → TOGGLE
+  ---------------------------------------------------------------------------
+
   local wins = vim.api.nvim_list_wins()
-  local is_visible = false
-  local cursor_pos
   for _, win in ipairs(wins) do
     if vim.api.nvim_win_get_buf(win) == terminal_buf then
-      cursor_pos = vim.api.nvim_win_get_cursor(win)
+      -- HIDE terminal
       vim.api.nvim_win_hide(win)
-      is_visible = true
-      break
+      restore_editor_pos()
+      return
     end
   end
 
-  if not is_visible then
-    vim.cmd.split()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, term_size)
-    vim.api.nvim_win_set_buf(0, terminal_buf)
-    terminal_win = vim.api.nvim_get_current_win()
-    if cursor_pos then
-      vim.api.nvim_win_set_cursor(terminal_win, cursor_pos)
-    end
-    if cmd ~= "" then
-      vim.fn.chansend(term_job_id, cmd .. "\n")
-    end
-    vim.cmd("startinsert")
+  ---------------------------------------------------------------------------
+  -- SHOW EXISTING TERMINAL
+  ---------------------------------------------------------------------------
+  save_editor_pos()
+
+  vim.cmd("botright " .. term_size .. "split")
+  vim.api.nvim_win_set_buf(0, terminal_buf)
+  terminal_win = vim.api.nvim_get_current_win()
+
+  if cmd ~= "" then
+    vim.fn.chansend(term_job_id, cmd .. "\n")
   end
+
+  vim.cmd("startinsert")
 end, { nargs = "*" })
 
-local opts = { silent = true }
-vim.keymap.set({ "n" }, "<C-t>", "<cmd>T<CR>", opts)
--- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], opts)
-
-vim.keymap.set({ "n" }, "<C-t>", "<cmd>T<CR>", opts)
--- vim.keymap.set({ "i" }, "<C-t>", [[<c-\><c-n>:T<CR>]], opts)
-
-vim.api.nvim_create_user_command("Commit", function(opts)
-  local diff_cmd = opts.args ~= "" and "head~" .. opts.args or "--staged"
-  vim.cmd("r!git diff " .. diff_cmd)
-  vim.cmd("normal! ggVG")
-end, {
-  nargs = "?", -- Makes the argument optional
-})
-
-vim.api.nvim_create_user_command("A", function()
-  vim.cmd([[WorkspacesAdd]])
-end, {})
-
-vim.api.nvim_create_user_command("R", function()
-  vim.cmd([[WorkspacesRemove]])
-end, {})
+vim.keymap.set("n", "<C-t>", "<cmd>T<CR>", opts)
 
 ---Call `:GitOpen dev` to open the file on the `dev` branch
 vim.api.nvim_create_user_command("GitOpen", function(opts)
