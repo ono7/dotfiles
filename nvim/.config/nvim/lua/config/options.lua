@@ -3,6 +3,9 @@ vim.g.maplocalleader = " "
 
 vim.opt.background = "dark"
 
+-- Don't store terminal buffers in sessions
+vim.opt.sessionoptions:remove("terminal")
+
 vim.opt.path = ".,**"
 vim.opt_local.path = ".,**"
 vim.opt.shell = "zsh"
@@ -158,7 +161,7 @@ endfunction
 nnoremap <silent> gz :call ToggleFolding()<CR>
 ]])
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 
@@ -239,14 +242,14 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 200 -- for performace
+vim.opt.synmaxcol = 200          -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = false          -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""
-vim.opt.lazyredraw = true -- Don't redraw during macros
-vim.opt.redrawtime = 1500 -- Stop redraw attempts after 1.5s
-vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.lazyredraw = true    -- Don't redraw during macros
+vim.opt.redrawtime = 1500    -- Stop redraw attempts after 1.5s
+vim.opt.updatetime = 250     -- Faster CursorHold events
 vim.opt.smoothscroll = false -- disable for performance
