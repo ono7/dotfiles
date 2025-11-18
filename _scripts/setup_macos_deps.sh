@@ -107,6 +107,13 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 # safari full url
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
+# faster input
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 10
+
+# disable press and hold characters
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 # Disable startup sound
 sudo nvram SystemAudioVolume=%01
 
