@@ -20,8 +20,6 @@ export GOPATH=$HOME/go
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 
-# export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
-
 # Clean PATH building - detect actual OS, not mixed environment
 if grep -q Microsoft /proc/version 2>/dev/null; then
     # We're in WSL - use Linux-appropriate paths only
@@ -419,14 +417,6 @@ vd () {
   echo $(which python3)
 }
 
-# dev_env () {
-#   python3 -m venv ~/.virtualenvs/prod3
-#   source ~/.virtualenvs/bin/active
-#   pip install -U pip wheel
-#   pip install debugpy black mdformat pipdeptree rpdb ipython ipdb dns yamllint ansible ansible-lint
-#   pip install jq yp
-# }
-
 vc () {
   deactivate 2>/dev/null
   my_dir=$PWD
@@ -580,8 +570,6 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 ############## FZF configuration ##############
 
-# export FZF_DEFAULT_OPTS='--height 40% --no-preview'
-
 export FZF_DEFAULT_OPTS='
 --height 40%
 --border=rounded
@@ -646,10 +634,6 @@ setopt ALWAYS_TO_END
 
 ############## Load virtual environment if it exists ##############
 
-# if [[ -f ~/.virtualenvs/prod3/bin/activate && -z $VIRTUAL_ENV ]]; then
-#   source ~/.virtualenvs/prod3/bin/activate
-# fi
-
 # Auto-detect and reactivate virtual environment in tmux
 if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
   if [ -f "$VIRTUAL_ENV/bin/activate" ]; then
@@ -657,7 +641,6 @@ if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
   fi
 fi
 
-# [[ $? == 0 ]] && clear -x && fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
@@ -710,3 +693,5 @@ else
   echo "starship not installed"
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
