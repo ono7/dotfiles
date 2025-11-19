@@ -5,83 +5,71 @@
 live_config_reload = true
 working_directory = "None"
 
-# Enhanced Alacritty color theme - optimized for sRGB to look closer to P3
-# Generated using saturation enhancement algorithm
-
 [colors.primary]
-# background = "#1b2330"         # Default background (index 257)
-# background = "#1d3340"
-# background = "#171f2c"
-# foreground = "#d9d2cb"         # Default foreground (index 256)
-background = "#1c2636"
-foreground = "#e0ded8"
-dim_foreground = "#4A5563"     # Bright black for dimmed text
-bright_foreground = "#F2EDE7"  # Bright white
+background = "#141824"
+foreground = "#CBCEBC"
+dim_foreground = "#707a8c"
+bright_foreground = "#ffffff"
 
 [colors.cursor]
-# cursor = "#D6CFC7"             # Default cursor color (same as foreground)
-# cursor = "#ffffff"             # Default cursor color (same as foreground)
-# cursor = "#FF13F0"
 cursor = "#00f6ff"
-
-text = "#171F2C"               # Background for cursor text
+text = "#141824"
 
 [colors.vi_mode_cursor]
-cursor = "#C47B7B"             # Red from suckless palette
-text = "#171F2C"               # Background for contrast
-
-[colors.search.matches]
-foreground = "#171F2C"         # Background color for contrast
-background = "#7B9FC4"         # Blue from suckless palette
-
-[colors.search.focused_match]
-foreground = "#171F2C"
-background = "#D4B171"         # Yellow from suckless palette
-
-[colors.footer_bar]
-foreground = "#171F2C"
-background = "#7B9FC4"         # Blue from suckless palette
-
-[colors.hints.start]
-foreground = "#171F2C"
-background = "#F0D195"         # Bright yellow from suckless palette
-
-[colors.hints.end]
-foreground = "#171F2C"
-background = "#7B9FC4"         # Blue from suckless palette
+cursor = "#ff4057"
+text = "#141824"
 
 [colors.selection]
-background = "#4A5563"         # Bright black for selection
-foreground = "#F2EDE7"         # Bright white for selected text
+background = "#3d424d"
+foreground = "#CBCEBC"
+
+[colors.search.matches]
+foreground = "#141824"
+background = "#ffcc66"
+
+[colors.search.focused_match]
+foreground = "#141824"
+background = "#ffd580"
+
+[colors.footer_bar]
+foreground = "#141824"
+background = "#95e6cb"
+
+[colors.hints.start]
+foreground = "#141824"
+background = "#ffcc66"
+
+[colors.hints.end]
+foreground = "#141824"
+background = "#95e6cb"
 
 [colors.normal]
-black = "#2A3441"              # Suckless palette 0
-red = "#C47B7B"                # Suckless palette 1
-green = "#7BA05B"              # Suckless palette 2
-yellow = "#D4B171"             # Suckless palette 3
-blue = "#7B9FC4"               # Suckless palette 4
-magenta = "#A67BC4"            # Suckless palette 5
-cyan = "#7BC4B5"               # Suckless palette 6
-white = "#D6CFC7"              # Suckless palette 7
+black   = "#191e2a"
+red     = "#ed8274"
+green   = "#a6cc70"
+yellow  = "#fad07b"
+blue    = "#95e6cb"
+magenta = "#cfbafa"
+cyan    = "#95e6cb"
+white   = "#c7c7c7"
 
 [colors.bright]
-black = "#4A5563"              # Suckless palette 8
-red = "#E8A3A3"                # Suckless palette 9
-green = "#9BC278"              # Suckless palette 10
-yellow = "#F0D195"             # Suckless palette 11
-blue = "#A3C7E8"               # Suckless palette 12
-magenta = "#C7A3E8"            # Suckless palette 13
-cyan = "#A3E8D4"               # Suckless palette 14
-white = "#F2EDE7"              # Suckless palette 15
+black   = "#686868"
+red     = "#f28779"
+green   = "#bae67e"
+yellow  = "#ffd580"
+blue    = "#95e6cb"
+magenta = "#d4bfff"
+cyan    = "#95e6cb"
+white   = "#ffffff"
 
 [[colors.indexed_colors]]
 index = 16
-color = "#D4B171"              # Yellow accent
+color = "#ffcc66"
 
 [[colors.indexed_colors]]
 index = 17
-color = "#A67BC4"              # Magenta accent
-
+color = "#cfbafa"
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "CopyPaste"
@@ -103,12 +91,14 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 22.0
+size = 24.0
 
 [font.normal]
-family = "SF Mono Terminal"
-style = "Medium"
+# family = "SF Mono Terminal"
+# style = "Medium"
 
+family = "Iosevka Custom"
+style = "Medium"
 
 #
 # family = "IosevkaTerm Nerd Font Mono"
@@ -208,8 +198,8 @@ program = "/bin/zsh"
 decorations = "Transparent"
 dynamic_padding = true
 # dynamic_title = false
-opacity = 0.90
-blur = true
+# opacity = 0.90
+# blur = true
 # decorations_theme_variant = "Dark"
 
 position = "None"

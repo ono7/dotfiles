@@ -15,13 +15,14 @@
 # font-style-bold = Bold
 # font-style-italic = SemiBold Oblique
 
-# font-family = Iosevka Custom
-# font-style = SemiBold
+font-family = Iosevka Custom
+font-style = Medium
 # font-style-bold = SemiBold Oblique
 # font-style-italic = SemiBold Italic
 
-font-family = SF Mono Terminal
-font-style = Semibold
+# font-family = SF Mono Terminal
+# font-style = Semibold
+
 # font-style-bold = SemiBold Oblique
 # font-style-italic = SemiBold Italic
 
