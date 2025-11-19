@@ -82,7 +82,7 @@ return {
         ["--tiebreak"] = "index",
       },
       defaults = {
-        git_icons = true,
+        git_icons = false,
         file_icons = true,
         color_icons = true,
       },
