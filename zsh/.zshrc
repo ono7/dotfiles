@@ -683,7 +683,7 @@ if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacma
   add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 fi
 
-[ -f $HOME/root-ca.crt ] && export SSL_CERT_FILE="$HOME/root-ca.crt"
+# [ -f $HOME/root-ca.crt ] && export SSL_CERT_FILE="$HOME/root-ca.crt"
 
 ############## Starship prompt ##############
 
