@@ -24,13 +24,15 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_frame_no_title = true
+  -- wider text
 
   -- vim.g.neovide_window_blurred = true
   -- vim.g.neovide_opacity = 0.90
   vim.g.neovide_confirm_quit = true
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
-  vim.opt.linespace = 10
+  vim.opt.linespace = 20
+  vim.g.neovide_text_gap = 4
 
   --- change font size with
   local change_scale_factor = function(delta)
@@ -74,10 +76,10 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set("n", "<C-1>", "1gt", opt)
