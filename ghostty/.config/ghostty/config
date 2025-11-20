@@ -16,11 +16,11 @@
 # font-style-italic = SemiBold Oblique
 
 font-family = Iosevka Custom
-font-style = Medium Extended
-
+font-style = Medium
 
 font-size = 22
 adjust-cell-height = 10%
+adjust-cell-width = 5%
 
 shell-integration-features = no-cursor,sudo,no-title
 
