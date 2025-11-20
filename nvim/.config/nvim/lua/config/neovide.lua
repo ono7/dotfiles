@@ -58,7 +58,8 @@ if vim.g.neovide then
 
   -- background = #1c2636
   -- foreground = #e0ded8
-  vim.api.nvim_set_hl(0, "Normal", { bg = "#1c2636", fg = "#e0ded8" })
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1c2636", fg = "#e0ded8" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "#0A0E14", fg = "#B3B1AD" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
 
@@ -75,10 +76,10 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set("n", "<C-1>", "1gt", opt)

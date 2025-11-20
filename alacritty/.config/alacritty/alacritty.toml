@@ -5,71 +5,29 @@
 live_config_reload = true
 working_directory = "None"
 
+# Default colors
 [colors.primary]
-background = "#141824"
-foreground = "#CBCEBC"
-dim_foreground = "#707a8c"
-bright_foreground = "#ffffff"
+background = '#0A0E14'
+foreground = '#B3B1AD'
 
-[colors.cursor]
-cursor = "#00f6ff"
-text = "#141824"
-
-[colors.vi_mode_cursor]
-cursor = "#ff4057"
-text = "#141824"
-
-[colors.selection]
-background = "#3d424d"
-foreground = "#CBCEBC"
-
-[colors.search.matches]
-foreground = "#141824"
-background = "#ffcc66"
-
-[colors.search.focused_match]
-foreground = "#141824"
-background = "#ffd580"
-
-[colors.footer_bar]
-foreground = "#141824"
-background = "#95e6cb"
-
-[colors.hints.start]
-foreground = "#141824"
-background = "#ffcc66"
-
-[colors.hints.end]
-foreground = "#141824"
-background = "#95e6cb"
-
+# Normal colors
 [colors.normal]
-black   = "#191e2a"
-red     = "#ed8274"
-green   = "#a6cc70"
-yellow  = "#fad07b"
-blue    = "#95e6cb"
-magenta = "#cfbafa"
-cyan    = "#95e6cb"
-white   = "#c7c7c7"
+black   = '#01060E'
+red     = '#EA6C73'
+green   = '#91B362'
+yellow  = '#F9AF4F'
+blue    = '#53BDFA'
+magenta = '#FAE994'
+cyan    = '#90E1C6'
+white   = '#C7C7C7'
 
+# Bright colors
 [colors.bright]
-black   = "#686868"
-red     = "#f28779"
-green   = "#bae67e"
-yellow  = "#ffd580"
-blue    = "#95e6cb"
-magenta = "#d4bfff"
-cyan    = "#95e6cb"
-white   = "#ffffff"
+black   = '#686868'
+red     = '#F07178'
+green   = '#C2D94C'
+yellow  = '#FFB454'
 
-[[colors.indexed_colors]]
-index = 16
-color = "#ffcc66"
-
-[[colors.indexed_colors]]
-index = 17
-color = "#cfbafa"
 [terminal]
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "CopyPaste"
