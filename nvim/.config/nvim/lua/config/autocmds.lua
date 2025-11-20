@@ -160,3 +160,37 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     end)
   end,
 })
+
+
+-- Cache of project roots we've already entered this session
+local seen_projects = {}
+
+local function find_git_root(path)
+  local dir = vim.fn.fnamemodify(path, ":p:h")
+  local prev = ""
+  while dir ~= prev do
+    if vim.fn.isdirectory(dir .. "/.git") == 1 then
+      return dir
+    end
+    prev = dir
+    dir = vim.fn.fnamemodify(dir, ":h")
+  end
+  return nil
+end
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    local file = vim.api.nvim_buf_get_name(args.buf)
+    if file == "" then return end
+
+    local root = find_git_root(file)
+    if not root then return end
+
+    -- Only do this once per project per session
+    if seen_projects[root] then return end
+    seen_projects[root] = true
+
+    -- Window-local directory change
+    vim.cmd("lcd " .. vim.fn.fnameescape(root))
+  end,
+})
