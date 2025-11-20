@@ -62,6 +62,8 @@ if vim.g.neovide then
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "#0A0E14", fg = "#B3B1AD" })
   vim.api.nvim_set_hl(0, "Normal", { bg = "#0A0E14", fg = "#A9A9A6" })
 
+  vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
+
   -- Map Cmd+g to Ctrl+g in multiple modes
 
   vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")
