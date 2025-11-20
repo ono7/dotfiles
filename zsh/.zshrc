@@ -617,9 +617,9 @@ fi
 
 ############## NVM configuration ##############
 
-export NVM_DIR="$HOME/.nvm"
-[ -f "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -f "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"
+# export NVM_DIR="$HOME/.nvm"
+# [ -f "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# [ -f "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"
 
 ############## Zoxide ##############
 
@@ -708,6 +708,6 @@ if command -v starship &>/dev/null; then
 else
   echo "starship not installed"
 fi
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
