@@ -55,6 +55,7 @@ else
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "None" },
           SignColumn = { bg = "None" },
+          Question = { fg = "#7DAA52" },
           Folded = { bg = "None" },
           FoldColumn = { bg = "None" },
           CursorLine = { bg = "None" },
