@@ -139,39 +139,31 @@ macos-non-native-fullscreen = true
 
 # colorscheme
 
+# Ghostty colorscheme converted from Alacritty
+
 # Primary colors
+background = 0a0e14
+foreground = b3b1ad
 
-background = #171f2c
-foreground = #d9d2cb
-cursor-color = #00f6ff
-cursor-text = #000000
+# Normal colors
+palette = 0=#01060e
+palette = 1=#ea6c73
+palette = 2=#7daa52
+palette = 3=#f9af4f
+palette = 4=#53bdfa
+palette = 5=#fae994
+palette = 6=#90e1c6
+palette = 7=#c7c7c7
 
-
-# Selection
-selection-background = #364156
-selection-foreground = #e3ded7
-
-# Normal colors (0-7)
-palette = 0=#2d3343
-palette = 1=#c49a9a
-palette = 2=#8cbbad
-palette = 3=#d4b97e
-palette = 4=#8ca7be
-palette = 5=#b097b6
-palette = 6=#93b5b3
-palette = 7=#c9c2b8
-
-# Bright colors (8-15)
-palette = 8=#3e485a
-palette = 9=#d5afaf
-# palette = 10=#a2cfbf
-palette = 10=#ceeac8
-palette = 11=#e1ca97
-palette = 12=#121821
-palette = 13=#c4afc8
-palette = 14=#a9c9c7
-palette = 15=#e3ded7
-
+# Bright colors
+palette = 8=#686868
+palette = 9=#f07178
+palette = 10=#7daa52
+palette = 11=#ffb454
+palette = 12=#53bdfa
+palette = 13=#fae994
+palette = 14=#90e1c6
+palette = 15=#c7c7c7
 # Selection
 selection-background = #364156
 selection-foreground = #e3ded7

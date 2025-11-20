@@ -58,6 +58,7 @@ else
           Question = { fg = "#7DAA52" },
           Comment = { fg = "#2d3239", italic = false },
           Folded = { bg = "None" },
+          EndOfBuffer = { link = "Comment" },
           FoldColumn = { bg = "None" },
           CursorLine = { bg = "None" },
           CursorColumn = { bg = "None" },

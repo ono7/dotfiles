@@ -136,23 +136,23 @@ vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
 
-vim.cmd("syntax off")
+vim.cmd("syntax on")
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
-  pattern = "*",
-  callback = function()
-    -- allow these to have syntax enabled always
-    local allowed = {
-      markdown = true,
-      fugitive = true,
-      gitcommit = true,
-    }
-    if allowed[vim.bo.filetype] then
-      vim.cmd("setlocal syntax=on")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
+--   pattern = "*",
+--   callback = function()
+--     -- allow these to have syntax enabled always
+--     local allowed = {
+--       markdown = true,
+--       fugitive = true,
+--       gitcommit = true,
+--     }
+--     if allowed[vim.bo.filetype] then
+--       vim.cmd("setlocal syntax=on")
+--     end
+--   end,
+-- })
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "*",
@@ -181,7 +181,7 @@ vim.api.nvim_create_autocmd("FileType", {
     if no_syntax[vim.bo.filetype] then
       vim.treesitter.stop() -- stop treesitter for this buffer
       vim.cmd([[setlocal syntax=OFF]])
-      vim.notify("Optimized buffer")
+      vim.notify("All syntax off")
     end
   end,
 })
