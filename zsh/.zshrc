@@ -397,7 +397,9 @@ jira () {
 }
 
 va () {
-  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
+  if [[ -d .venv ]]; then
+    source .venv/bin/activate
+  elif [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
     # if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
     #   # poetry_shell
     #   echo implement

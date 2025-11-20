@@ -3,6 +3,10 @@
 --[[
 http://vimcasts.org/categories/git/
 
+find detected root dir
+
+lua print(vim.lsp.get_clients({bufnr=0})[1].config.root_dir)
+
 * view all compilers included with vim
 :e $VIMRUNTIME/compiler
 :compiler go
