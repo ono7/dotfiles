@@ -51,12 +51,12 @@ else
         mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
-          Normal = { bg = "None" },
+          Normal = { bg = "None", fg = "#A9A9A6" },
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "None" },
           SignColumn = { bg = "None" },
           Question = { fg = "#7DAA52" },
-          Comment = { fg = "#454D58" },
+          Comment = { fg = "#2d3239", italic = false },
           Folded = { bg = "None" },
           FoldColumn = { bg = "None" },
           CursorLine = { bg = "None" },
