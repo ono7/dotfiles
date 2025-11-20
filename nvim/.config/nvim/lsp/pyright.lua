@@ -8,9 +8,11 @@ end
 
 local function get_python_path(root_dir)
   -- Priority 1: Local .venv
+
   if not root_dir then
     return
   end
+
   local local_venv = root_dir .. "/.venv"
   if vim.fn.isdirectory(local_venv) == 1 then
     local python_bin = local_venv .. "/bin/python"
