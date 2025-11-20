@@ -19,11 +19,15 @@ wsl = false
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 
-normal = { family = "Iosevka Custom", style = "Medium" }
+normal = { family = "Iosevka Custom", style = "SemiBold" }
 
 # features = { "IosevkaTerm Nerd Font Mono" = ["-calt", "-liga", "-dlig"] }
 size = 24
-width = 1.5
+width = 1
 
 # best for macos...
 hinting = "none"
+
+[box-drawing]
+# "font-glyph", "native" or "selected-native"
+mode = "native"

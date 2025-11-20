@@ -31,8 +31,7 @@ if vim.g.neovide then
   vim.g.neovide_confirm_quit = true
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
-  vim.opt.linespace = 20
-  vim.g.neovide_text_gap = 4
+  vim.opt.linespace = 10
 
   --- change font size with
   local change_scale_factor = function(delta)
