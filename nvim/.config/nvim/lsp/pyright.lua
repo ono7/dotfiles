@@ -43,6 +43,7 @@ return {
     local python_path = get_python_path(root_dir)
 
     if python_path then
+      vim.notify("PYTHON:\n" .. python_path)
       client.config.settings.python.pythonPath = python_path
       client.notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,

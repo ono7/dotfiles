@@ -43,6 +43,7 @@ return {
     local python_path = get_python_path(root_dir)
 
     if python_path then
+      vim.notify("PYTHON:\n" .. python_path)
       local venv_dir = vim.fn.fnamemodify(python_path, ":h:h")
       local ansible_path = venv_dir .. "/bin/ansible"
       local ansible_lint_path = venv_dir .. "/bin/ansible-lint"
