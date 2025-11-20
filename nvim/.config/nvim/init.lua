@@ -54,6 +54,15 @@ better workflow:
 :let @" = m
 
 then in normal mode: ""p
+
+excellent way to make changes without crashing out completely
+
+local ok, _ = pcall(vim.cmd, 'colorscheme ayu')
+if not ok then
+  vim.cmd 'colorscheme default' -- if the above fails, then use default
+  vim.notify("colorscheme ayu failed")
+end
+
 ]]
 
 vim.loader.enable(true)
