@@ -1,43 +1,5 @@
 local create_augroup = vim.api.nvim_create_augroup
 
-local ft_overrides = {
-  ["*.cfg"] = "ini",
-}
-
-vim.api.nvim_create_autocmd({ "BufReadPost", "SessionLoadPost" }, {
-  group = vim.api.nvim_create_augroup("ftOverrides", { clear = true }),
-  pattern = vim.tbl_keys(ft_overrides),
-  callback = function(ev)
-    vim.bo[ev.buf].filetype = ft_overrides[ev.match]
-  end,
-})
-
--- Optimize Conform.nvim for large files
--- vim.api.nvim_create_autocmd({ "BufReadPre" }, {
---   group = create_augroup("optimize_large_files", { clear = true }),
---   callback = function(args)
---     local bufnr = args.buf
---     local filename = vim.api.nvim_buf_get_name(bufnr)
---
---     -- Skip formatting for large files
---     local ok, stats = pcall(vim.loop.fs_stat, filename)
---     if ok and stats and stats.size > (1024 * 1024) then -- 1MB
---       vim.b[bufnr].disable_autoformat = true
---     end
---
---     -- Skip formatting for files with many lines
---     local line_count = vim.api.nvim_buf_line_count(bufnr)
---     if line_count > 5000 then
---       vim.b[bufnr].disable_autoformat = true
---     end
---
---     -- Always skip CSV files
---     if filename:match("%.csv$") then
---       vim.b[bufnr].disable_autoformat = true
---     end
---   end,
--- })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()

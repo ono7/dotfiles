@@ -1,6 +1,7 @@
 ---
 # Author: Jose Lima
 # Date: 2023-07-31 18:27 CST
+# vi: ft=yaml.ansible
 
 - name: "Testing go mod"
   hosts: localhost
