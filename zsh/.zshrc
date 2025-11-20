@@ -540,10 +540,24 @@ if type brew &>/dev/null; then
 fi
 
 # only run compinit once a day
+# autoload -Uz compinit
+# if [[ -n "${ZDOTDIR}/.zcompdump(#qN.mh+48)" ]]; then
+#   echo "compinit, init.."
+#   compinit
+# else
+#   compinit -C
+# fi
+
 autoload -Uz compinit
-if [[ -n "${ZDOTDIR}/.zcompdump(#qN.mh+24)" ]]; then
-  echo "compinit, init.."
+
+# .zcompdump path
+local dump=${ZDOTDIR:-$HOME}/.zcompdump
+
+# Run compinit only if dump is missing OR older than 24 hours
+if [[ ! -f $dump || $dump -nt ${dump}.timestamp ]]; then
   compinit
+  echo "compinit..."
+  touch ${dump}.timestamp
 else
   compinit -C
 fi
