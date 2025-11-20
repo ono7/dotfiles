@@ -97,12 +97,12 @@ size = 24.0
 # family = "SF Mono Terminal"
 # style = "Medium"
 
-family = "Iosevka Custom"
-style = "Medium"
+# family = "Iosevka Custom"
+# style = "Medium Extended"
 
 #
-# family = "IosevkaTerm Nerd Font Mono"
-# style = "SemiBold"
+family = "IosevkaTerm Nerd Font Mono"
+style = "Medium"
 #
 # [font.italic]
 # family = "IosevkaTerm Nerd Font Mono"
@@ -113,8 +113,8 @@ style = "Medium"
 # style = "Bold"
 
 [font.offset]
-x = 2
-y = 11
+x = 3
+y = 10
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 

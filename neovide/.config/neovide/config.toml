@@ -23,5 +23,6 @@ normal = { family = "Iosevka Custom", style = "Medium Extended" }
 
 # features = { "IosevkaTerm Nerd Font Mono" = ["-calt", "-liga", "-dlig"] }
 size = 24
+width = 1.5
 # best for macos...
 # hinting = "none"
