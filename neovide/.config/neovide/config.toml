@@ -1,4 +1,4 @@
-# fork = false
+fork = true
 # frame = "full"
 frame = "transparent"
 # idle = true
@@ -40,6 +40,13 @@ style = "Medium Bold Semi-Extended"
 
 family = "Iosevka Custom"
 style = "Medium Italic Semi-Extended"
+
+[box-drawing]
+# "font-glyph", "native" or "selected-native"
+mode = "font-glyph"
+
+[box-drawing.sizes]
+default = [2, 4]  # Thin and thick values respectively, for all sizes
 
 # normal = {}
 
