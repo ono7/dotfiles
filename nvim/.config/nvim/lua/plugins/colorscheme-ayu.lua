@@ -48,10 +48,12 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
-          Normal = { bg = "None", fg = "#A9A9A6" },
+
+          Normal = { bg = "#151F2D", fg = "#BEBEBC" },
+
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "None" },
           SignColumn = { bg = "None" },
@@ -186,6 +188,7 @@ else
       vim.api.nvim_set_hl(0, "@type", { link = "Question" })
       -- vim.api.nvim_set_hl(0, "@type.builtin", { link = "Normal" })
 
+      vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
       -- Updated Pmenu colors using improved scheme
       -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
       -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
