@@ -60,10 +60,11 @@ else
           Question = { fg = "#9aae46" },
           Todo = { fg = "#d35a63" },
           -- Comment = { fg = "#2d3239", italic = false },
-          Comment = { italic = false },
+          Comment = { fg = "#3D4249", italic = false },
           Folded = { bg = "None" },
           EndOfBuffer = { link = "Comment" },
           FoldColumn = { bg = "None" },
+          LineNr = { fg = "#2A2F38" },
           CursorLine = { bg = "None" },
           CursorColumn = { bg = "None" },
           WinBar = { bg = "None" },
@@ -147,7 +148,7 @@ else
       vim.api.nvim_set_hl(0, "@property", {})
       vim.api.nvim_set_hl(0, "@property.yaml", { link = "LspDiagnosticsError" })
       vim.api.nvim_set_hl(0, "Operator", {})
-      vim.api.nvim_set_hl(0, "Number", {})
+      -- vim.api.nvim_set_hl(0, "Number", {})
       vim.api.nvim_set_hl(0, "@constant.builtin", {})
       vim.api.nvim_set_hl(0, "@function.builtin", {})
       vim.api.nvim_set_hl(0, "ModeMsg", {})
