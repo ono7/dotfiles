@@ -29,7 +29,7 @@ hinting = "none"
 [[font.normal]]
 
 family = "Iosevka Custom"
-style = "Medium Extended"
+style = "Medium Semi-Extended"
 
 [[font.bold]]
 
