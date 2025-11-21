@@ -33,9 +33,17 @@ style = "Medium Semi-Extended"
 
 [[font.bold]]
 
+family = "Iosevka Custom"
+style = "Medium Bold Semi-Extended"
+
+[[font.italic]]
+
+family = "Iosevka Custom"
+style = "Medium Italic Semi-Extended"
+
 # normal = {}
 
 # features = { "IosevkaTerm Nerd Font Mono" = ["-calt", "-liga", "-dlig"] }
 # [box-drawing]
-# "font-glyph", "native" or "selected-native"
-# mode = "native"
+# # "font-glyph", "native" or "selected-native"
+# mode = "font-glyph"
