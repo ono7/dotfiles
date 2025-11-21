@@ -48,14 +48,17 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
           Normal = { bg = "None", fg = "#A9A9A6" },
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "None" },
           SignColumn = { bg = "None" },
-          Question = { fg = "#7DAA52" },
+          -- Question = { fg = "#7DAA52" },
+          -- Question = { fg = "#9aae46" },
+          Question = { fg = "#9aae46" },
+          Todo = { fg = "#d35a63" },
           Comment = { fg = "#2d3239", italic = false },
           Folded = { bg = "None" },
           EndOfBuffer = { link = "Comment" },
@@ -63,6 +66,7 @@ else
           CursorLine = { bg = "None" },
           CursorColumn = { bg = "None" },
           WinBar = { bg = "None" },
+          Statement = { fg = "#d27a3b" },
           VertSplit = { bg = "None" },
           ["@punctuation.bracket"] = { link = "Todo" },
           Cursor = { bg = "#00f6ff" },
