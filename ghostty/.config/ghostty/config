@@ -16,11 +16,11 @@
 # font-style-italic = SemiBold Oblique
 
 font-family = Iosevka Custom
-font-style = Medium
+font-style = Medium Semi-Extended
 
 font-size = 22
 adjust-cell-height = 10%
-adjust-cell-width = 5%
+# adjust-cell-width = 5%
 
 shell-integration-features = no-cursor,sudo,no-title
 
@@ -142,8 +142,8 @@ macos-non-native-fullscreen = true
 # Ghostty colorscheme converted from Alacritty
 
 # Primary colors
-background = 0a0e14
-foreground = b3b1ad
+background = #151F2D
+foreground = #BEBEBC
 
 # Normal colors
 palette = 0=#01060e
