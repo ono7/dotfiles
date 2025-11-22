@@ -71,88 +71,54 @@ else
           CursorColumn = { bg = "None" },
           WinBar = { bg = "None" },
           Statement = { fg = "#d27a3b" },
-          VertSplit = { bg = "none" },
+          VertSplit = { link = "Normal" },
           WinSeparator = { bg = "none" },
           Visual = { bg = "#1E2E45" },
           ["@punctuation.bracket"] = { link = "Todo" },
           Cursor = { bg = "#00f6ff" },
         },
+
       })
-      vim.cmd([[colorscheme ayu-dark]])
       -- Updated highlights using new color scheme
+      vim.cmd([[colorscheme ayu-dark]])
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b396b8", bold = true, italic = false })
       vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
       vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
       vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
       vim.api.nvim_set_hl(0, "@text.note", { link = "Normal" })
       vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
-      -- vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#212730" })
-      -- vim.api.nvim_set_hl(0, "@text.uri", { fg = "#9d9889", undercurl = true })
-      -- vim.api.nvim_set_hl(0, "WinBar", { fg = "#9d9889" })
-      -- vim.api.nvim_set_hl(0, "FzfLuaTitle", { fg = mycolors.vibrant_green })
       vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#5a6b85", bg = "none" })
       vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2d3a44", bold = false })
       vim.api.nvim_set_hl(0, "DiffChange", {})
-      -- vim.api.nvim_set_hl(0, "DiffText", { bg = mycolors.yellow2, fg = "#141a22", bold = false })
       vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#9cbf9c", bold = true })
       vim.api.nvim_set_hl(0, "diffAdded", { fg = "#9cbf9c", bold = true })
-      -- vim.api.nvim_set_hl(0, "Comment", { fg = "#5a6b85" })
-      -- vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#f38ba8" })
-      -- vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#89dceb" })
       vim.api.nvim_set_hl(0, "@punctuation.delimiter", {})
-      -- vim.api.nvim_set_hl(0, "TelescopeTitle", { fg = mycolors.red, bg = "none", bold = true })
-      -- vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { link = "Title" })
-      -- vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#9cbf9c", bold = true })
-      -- vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = mycolors.red, bold = true })
-      -- vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#2d3a44" })
-      -- vim.api.nvim_set_hl(0, "@type", { fg = mycolors.blue, bold = true })
-      -- vim.api.nvim_set_hl(0, "Visual", { bg = "#1C4474", fg = "#dedede" })
-      -- vim.api.nvim_set_hl(0, "LineNr", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "Search", { link = "PmenuSel" })
       vim.api.nvim_set_hl(0, "IncSearch", { link = "PmenuSel" })
       vim.api.nvim_set_hl(0, "StatusLine", {})
       vim.api.nvim_set_hl(0, "StatusLineNC", {})
       vim.api.nvim_set_hl(0, "@variable.builtin", {})
       vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
-      -- vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true })
       vim.api.nvim_set_hl(0, "NormalFloat", {})
-      -- vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#5a6b85" })
-      -- vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "#5a6b85" })
-      -- vim.api.nvim_set_hl(0, "NeoTreeStatusLineNC", { fg = "#5a6b85" })
-
-      vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-      -- vim.api.nvim_set_hl(0, "cmpBorder", { fg = "#5a6b85", bold = true })
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
-      -- vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#6f7b8b" })
-
       vim.api.nvim_set_hl(0, "cmpDoc", {})
-
       vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
-
-      -- NonText for diagnostic arrows
       vim.api.nvim_set_hl(0, "NonText", { fg = "#5a6b85" })
-
       vim.api.nvim_set_hl(0, "MoreMsg", {})
-
-      -- LSP-specific highlights
       vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError", { link = "DiagnosticError" })
       vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultWarning", { link = "DiagnosticWarn" })
       vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultInformation", { link = "DiagnosticInfo" })
       vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultHint", { link = "DiagnosticHint" })
-
-      -- Rest of original highlights updated with new colors
       vim.api.nvim_set_hl(0, "diffAdded", { fg = "#82a382", bold = true })
       vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#bb7e78", bold = true })
       vim.api.nvim_set_hl(0, "Special", {})
       vim.api.nvim_set_hl(0, "String", {})
       vim.api.nvim_set_hl(0, "@string", {})
-      -- vim.api.nvim_set_hl(0, "@punctuation.bracket", {})
       vim.api.nvim_set_hl(0, "@variable", {})
       vim.api.nvim_set_hl(0, "@property", {})
       vim.api.nvim_set_hl(0, "@property.yaml", { link = "LspDiagnosticsError" })
       vim.api.nvim_set_hl(0, "Operator", {})
-      -- vim.api.nvim_set_hl(0, "Number", {})
       vim.api.nvim_set_hl(0, "@constant.builtin", {})
       vim.api.nvim_set_hl(0, "@function.builtin", {})
       vim.api.nvim_set_hl(0, "ModeMsg", {})
@@ -166,38 +132,13 @@ else
       vim.api.nvim_set_hl(0, "@constructor", {})
       vim.api.nvim_set_hl(0, "@constructor.python", {})
       vim.api.nvim_set_hl(0, "@string.documentation", {})
-      -- vim.api.nvim_set_hl(0, "@nospell.markdown_inline", { fg = mycolors.blue })
       vim.api.nvim_set_hl(0, "Boolean", {})
-      -- vim.api.nvim_set_hl(0, "Repeat", { fg = mycolors.red, bold = false })
-      -- vim.api.nvim_set_hl(0, "@keyword.function", { fg = mycolors.red, italic = false, bold = false })
-      -- vim.api.nvim_set_hl(0, "@keyword.return", { fg = mycolors.red })
-      -- vim.api.nvim_set_hl(0, "Conditional", { fg = mycolors.red, bold = false })
-      -- vim.api.nvim_set_hl(0, "Include", { fg = mycolors.red, bold = true })
-      -- vim.api.nvim_set_hl(0, "Keyword", { fg = mycolors.red, bold = false })
-      -- vim.api.nvim_set_hl(0, "@function.builtin", { fg = mycolors.red, italic = false })
-      -- vim.api.nvim_set_hl(0, "Exception", { fg = mycolors.red })
-      -- vim.api.nvim_set_hl(0, "@label.markdown", { fg = "#252d38" })
-      -- vim.api.nvim_set_hl(0, "@property.yaml", { fg = mycolors.red })
-      -- vim.api.nvim_set_hl(0, "@keyword.operator", { fg = mycolors.red })
-      -- vim.api.nvim_set_hl(0, "@type.builtin", { fg = "#c5c0ae" })
       vim.api.nvim_set_hl(0, "@function.method", { italic = false })
       vim.api.nvim_set_hl(0, "@string.yaml", {})
-      -- vim.api.nvim_set_hl(0, "@type", { italic = false, fg = mycolors.white })
-      -- vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "Visual" })
-      -- vim.api.nvim_set_hl(0, "BlinkCmpScrollBarGutter", { bg = "none" })
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
       vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
       vim.api.nvim_set_hl(0, "@type", { link = "Question" })
-      -- vim.api.nvim_set_hl(0, "@type.builtin", { link = "Normal" })
-
       vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
-      -- Updated Pmenu colors using improved scheme
-      -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
-      -- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#141a22", fg = "#c5c0ae" })
-      -- vim.api.nvim_set_hl(0, "PmenuMatch", { link = "Conditional" })
-      -- vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#d9d9d9", fg = "#141a22", bold = true })
-      -- vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#5a6b85" })
-      -- vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#9d9889" })
     end,
   }
 end
