@@ -397,13 +397,13 @@ jira () {
 }
 
 va () {
+  deactivate || echo ".."
   if [[ -d .venv ]]; then
-    # source .venv/bin/activate
     source .venv/bin/activate 2>/dev/null || source ../.venv/bin/activate 2>/dev/null
   elif [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
       source $(git rev-parse --show-toplevel)/.venv/bin/activate || source ../$(git rev-parse --show-toplevel)/.venv/bin/activate
   else
-    echo "no fallback python virtual env"
+    echo "no python env found.."
     return 1
   fi
   echo $(which python3)

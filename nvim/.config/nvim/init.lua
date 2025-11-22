@@ -70,13 +70,14 @@ vim.loader.enable(true)
 
 vim.opt.completeopt = { "menu", "menuone" }
 vim.opt.complete = { ".", "w", "b" }
-vim.cmd([[syntax off ]])
 
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
   vim.cmd([[let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"]])
   vim.cmd([[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]])
 end
+
+vim.cmd("syntax on")
 
 require("config.options")
 require("config.keymaps")
@@ -137,7 +138,6 @@ vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
 
-vim.cmd("syntax on")
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
