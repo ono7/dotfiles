@@ -94,6 +94,7 @@ uv:
 	@uv tool install ansible-lint
 	@uv tool install isort
 	@uv tool install ruff
+	@uv tool install poetry
 
 nvm:
 	@echo $(BANNER)

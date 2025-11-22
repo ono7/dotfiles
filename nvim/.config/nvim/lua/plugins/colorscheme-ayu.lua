@@ -48,7 +48,7 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
 
@@ -71,7 +71,9 @@ else
           CursorColumn = { bg = "None" },
           WinBar = { bg = "None" },
           Statement = { fg = "#d27a3b" },
-          VertSplit = { bg = "None" },
+          VertSplit = { bg = "none" },
+          WinSeparator = { bg = "none" },
+          Visual = { bg = "#1E2E45" },
           ["@punctuation.bracket"] = { link = "Todo" },
           Cursor = { bg = "#00f6ff" },
         },

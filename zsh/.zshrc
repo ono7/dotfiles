@@ -398,43 +398,33 @@ jira () {
 
 va () {
   if [[ -d .venv ]]; then
-    source .venv/bin/activate
+    # source .venv/bin/activate
+    source .venv/bin/activate 2>/dev/null || source ../.venv/bin/activate 2>/dev/null
   elif [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
-    # if [ -f $(git rev-parse --show-toplevel)/pyproject.toml ]; then
-    #   # poetry_shell
-    #   echo implement
-    # else
-      source $(git rev-parse --show-toplevel)/.venv/bin/activate
-    # fi
+      source $(git rev-parse --show-toplevel)/.venv/bin/activate || source ../$(git rev-parse --show-toplevel)/.venv/bin/activate
   else
-    # source $HOME/.virtualenvs/prod3/bin/activate
     echo "no fallback python virtual env"
+    return 1
   fi
   echo $(which python3)
 }
 
 vd () {
-  deactivate 2>/dev/null
-  # source $HOME/.virtualenvs/prod3/bin/activate
+  deactivate && echo ".venv deactivated.."
   echo $(which python3)
 }
 
 vc () {
   deactivate 2>/dev/null
-  my_dir=$PWD
-  if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
-    cd $(git rev-parse --show-toplevel)
-  fi
-  venv_dir="${1:-.venv}"
-  python_version="${2:-python3}"
-  $python_version --version
-  $python_version -m venv $venv_dir && source $venv_dir/bin/activate && pip install pip wheel -U || exit 1
-  pip install jq yq pyright black pipdeptree debugpy pytest yamllint pre-commit pynvim rpdb pdbpp ruff python-dotenv remote_pdb -U
-  echo ""
-  echo ""
-  echo "*************** :) *******************"
-  which python
-  cd $my_dir
+  echo "use: vc --python 3.11.9"
+  uv venv --seed --python-preference managed "$@" && va
+}
+
+uv_poetry_install () {
+  # drop in replacement for poetry, uses uv to install packages but lets poetry handle the poetry.lock
+  # usefull for opensource repos like nautobot
+    uv pip install --no-deps -r <(POETRY_WARNINGS_EXPORT=false poetry export --without-hashes --with dev -f requirements.txt)
+    poetry install --only-root
 }
 
 _d () {
@@ -682,6 +672,18 @@ bindkey -r '^T'
 #   fi
 # fi
 
+
+# [ -f $HOME/root-ca.crt ] && export SSL_CERT_FILE="$HOME/root-ca.crt"
+
+############## Starship prompt ##############
+
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  echo "starship not installed"
+fi
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # arch linux
 if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacman &>/dev/null; then
   alias p='sudo pacman -Sy'
@@ -698,16 +700,5 @@ if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacma
   }
   add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 fi
-
-# [ -f $HOME/root-ca.crt ] && export SSL_CERT_FILE="$HOME/root-ca.crt"
-
-############## Starship prompt ##############
-
-if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
-else
-  echo "starship not installed"
-fi
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"

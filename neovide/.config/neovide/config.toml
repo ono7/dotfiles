@@ -43,7 +43,7 @@ style = "Medium Italic Semi-Extended"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"
-mode = "font-glyph"
+mode = "native"
 
 [box-drawing.sizes]
 default = [2, 4]  # Thin and thick values respectively, for all sizes
