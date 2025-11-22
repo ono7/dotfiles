@@ -67,7 +67,10 @@ if vim.g.neovide then
 
   -- unbind quit from neovide
   -- vim.keymap.set({ "n", "i", "v", "t" }, "<D-q>", "")
-
+  vim.g.neovide_padding_top = 10
+  vim.g.neovide_padding_bottom = 10
+  vim.g.neovide_padding_left = 10
+  vim.g.neovide_padding_right = 10
   -- Terminal mode paste mapping
   vim.keymap.set("t", "<C-S-v>", '<C-\\><C-n>"+pi', { desc = "Paste in terminal mode" })
 
