@@ -50,8 +50,9 @@ set undodir=~/.vim-undo
 set undofile
 
 set t_Co=8
-set path=.,**
-setlocal path=.,**
+" set path=.,**
+" setlocal path=.,**
+set path=.,**,**/.*/**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set lazyredraw hidden updatetime=300

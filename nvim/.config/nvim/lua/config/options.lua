@@ -6,8 +6,9 @@ vim.opt.background = "dark"
 -- Don't store terminal buffers in sessions
 vim.opt.sessionoptions:remove("terminal")
 
-vim.opt.path = ".,**"
-vim.opt_local.path = ".,**"
+-- vim.opt.path = ".,**"
+-- vim.opt_local.path = ".,**"
+vim.opt.path = ".,**,**/.*/**"
 vim.opt.shell = "zsh"
 
 vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
@@ -81,33 +82,15 @@ vim.opt.directory = "~/.tmp"
 vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
 vim.opt.fillchars:append("stl: ")
 
--- vim.opt.fillchars:append({ fold = " " })
 
 vim.opt.fillchars = {
   foldopen = "",
   foldclose = "▶",
   fold = " ",
 }
+
 -- Clear the Folded highlight group completely
 vim.api.nvim_set_hl(0, "Folded", {})
---
--- _G.better_fold_text = function()
---   local line = vim.fn.getline(vim.v.foldstart)
---   local line_count = vim.v.foldend - vim.v.foldstart + 1
---   local indent = string.rep(" ", vim.fn.indent(vim.v.foldstart))
---
---   line = line:gsub("^%s+", "")
---
---   local max_length = 60
---   local display_line = line
---   if #line > max_length then
---     display_line = line:sub(1, max_length) .. "..."
---   end
---
---   return indent .. "▶ " .. display_line .. " [" .. line_count .. " lines]"
--- end
-
--- vim.opt.foldtext = "v:lua.better_fold_text()"
 
 _G.better_fold_text = function()
   local start = vim.v.foldstart
