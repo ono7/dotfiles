@@ -1,57 +1,42 @@
 local M = {}
 
 function M.setup()
-  -- Store the previous directory
   local prev_dir = nil
   local at_root = false
 
-  -- Use your existing function to check if in git repo
-  local function is_git_repo()
-    local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
-    if handle then
-      local result = handle:read("*a")
-      handle:close()
-      return result:match("true")
-    end
-    return false
+  -- Return the project root according to Neovim’s built-in mechanism.
+  -- Documentation: :h vim.fs.root
+  local function get_project_root()
+    local buf = vim.api.nvim_get_current_buf()
+    local markers = { ".git", "pyproject.toml", "package.json", "Makefile" }
+    return vim.fs.root(buf, markers)
   end
 
-  -- Get git repo root path
-  local function get_git_root()
-    local handle = io.popen("git rev-parse --show-toplevel 2>/dev/null")
-    if handle then
-      local result = handle:read("*a")
-      handle:close()
-      return result:gsub("\n$", "") -- Remove trailing newline
-    end
-    return nil
-  end
-
-  -- Toggle between project root and previous directory
   local function toggle_project_dir()
-    -- Get current directory
-    local current_dir = vim.fn.getcwd()
+    local current_dir = vim.uv.cwd()
 
+    -- Toggle back to previous buffer-local cwd.
     if at_root and prev_dir then
-      -- We're at root, go back to previous directory
-      vim.cmd("cd " .. prev_dir)
-      print("Changed to: " .. prev_dir)
+      vim.cmd.lcd(prev_dir)
+      vim.notify("Changed to: " .. prev_dir, vim.log.levels.INFO)
       at_root = false
-    else
-      -- We're not at root, save current dir and go to root
-      if is_git_repo() then
-        prev_dir = current_dir
-        local root = get_git_root()
-        vim.cmd("cd " .. root)
-        print("Changed to git root: " .. root)
-        at_root = true
-      else
-        print("Not in a git repository")
-      end
+      return
     end
+
+    -- Find new root.
+    local root = get_project_root()
+    if not root then
+      vim.notify("No project root detected", vim.log.levels.WARN)
+      return
+    end
+
+    prev_dir = current_dir
+    vim.cmd.lcd(root)
+    vim.notify("Changed to project root: " .. root, vim.log.levels.INFO)
+    at_root = true
   end
 
-  -- Create the user command
   vim.api.nvim_create_user_command("Cd", toggle_project_dir, {})
 end
+
 return M
