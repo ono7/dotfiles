@@ -100,7 +100,7 @@ else
       vim.api.nvim_set_hl(0, "@variable.builtin", {})
       vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
       vim.api.nvim_set_hl(0, "NormalFloat", {})
-      vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NormalNC", { link = "Normal" })
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
       vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "SpellCap" })
       vim.api.nvim_set_hl(0, "cmpDoc", {})

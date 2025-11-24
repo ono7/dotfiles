@@ -90,6 +90,8 @@ return {
 
     local k = vim.keymap.set
 
+    vim.api.nvim_set_hl(0, "FzfLuaBackdrop", { link = "Normal" })
+
     k("n", "<leader>b", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
     k("n", "<leader>vc", function()
       winopts.title = " Dotfiles "
