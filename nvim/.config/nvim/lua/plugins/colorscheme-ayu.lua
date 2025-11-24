@@ -102,6 +102,7 @@ else
       vim.api.nvim_set_hl(0, "NormalFloat", {})
       vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "SpellCap" })
       vim.api.nvim_set_hl(0, "cmpDoc", {})
       vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
       vim.api.nvim_set_hl(0, "NonText", { fg = "#5a6b85" })

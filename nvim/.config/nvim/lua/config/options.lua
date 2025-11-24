@@ -79,14 +79,16 @@ vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
 vim.opt.diffopt = "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff"
 vim.opt.directory = "~/.tmp"
-vim.opt.fillchars = [[diff:╱,vert:│,eob: ,msgsep:‾]]
-vim.opt.fillchars:append("stl: ")
-
 
 vim.opt.fillchars = {
   foldopen = "",
   foldclose = "▶",
   fold = " ",
+  diff = "╱",
+  vert = "│",
+  eob = " ",
+  msgsep = "‾",
+  stl = " ",
 }
 
 -- Clear the Folded highlight group completely
@@ -115,11 +117,7 @@ end
 vim.opt.foldtext = "v:lua.better_fold_text()"
 vim.opt.fillchars:append({ fold = " " })
 
-vim.opt.fillchars:append({ fold = " " })
-
 -- Clear the Folded highlight group completely
-vim.api.nvim_set_hl(0, "Folded", {})
-
 -- Use manual folding (treesitter foldexpr causes input lag)
 -- vim.opt.foldmethod = "expr"
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
