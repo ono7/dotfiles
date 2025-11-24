@@ -42,6 +42,7 @@ redirect vim command output to registers
 :let @" = system('python3 ' . expand('%') . '--test=20')
 
 -- encode contents of a register and save them back to the register
+
 :let @" = system('base64', @")
 :let @* = execute("message")
 

@@ -197,10 +197,8 @@ vim.opt.fileformats = "unix"
 vim.opt.fileformat = "unix"
 vim.opt.nrformats = "bin,hex,alpha"
 
-vim.opt.numberwidth = 2
+vim.opt.numberwidth = 1
 vim.opt.signcolumn = "yes:1"
--- vim.opt.statuscolumn = "%l%s"
--- vim.opt.statuscolumn = "%=%{v:lnum}%s"
 vim.opt.statuscolumn = "%=%{v:relnum?v:relnum:v:lnum}%s"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = true

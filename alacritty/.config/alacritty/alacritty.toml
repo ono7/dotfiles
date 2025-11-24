@@ -49,14 +49,14 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 24.0
+size = 21.0
 
 [font.normal]
 # family = "SF Mono Terminal"
 # style = "Medium"
 
-family = "Iosevka Custom"
-style = "Medium"
+family = "MonoLisa Custom"
+style = "Regular"
 
 #
 # family = "IosevkaTerm Nerd Font Mono"
@@ -71,8 +71,8 @@ style = "Medium"
 # style = "Bold"
 
 [font.offset]
-x = 1
-y = 10
+x = 0
+y = 5
 
 # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
 

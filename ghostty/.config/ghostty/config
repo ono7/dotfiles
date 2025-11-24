@@ -15,10 +15,12 @@
 # font-style-bold = Bold
 # font-style-italic = SemiBold Oblique
 
-font-family = Iosevka Custom
-font-style = Medium Semi-Extended
+# font-family = Iosevka Custom
+# font-style = Semi-Extended
+font-family = SF Mono Terminal
+font-style = Regular
 
-font-size = 22
+font-size = 18
 adjust-cell-height = 10%
 # adjust-cell-width = 5%
 
@@ -39,7 +41,7 @@ window-save-state = always
 
 # init window size
 window-height = 28
-window-width = 82
+window-width = 200
 
 clipboard-read = allow
 copy-on-select = clipboard
