@@ -28,7 +28,7 @@ hinting = "none"
 
 [[font.normal]]
 
-family = "SF Mono"
+family = "SF Mono Terminal"
 style = "Medium"
 
 # family = "Iosevka Custom"
