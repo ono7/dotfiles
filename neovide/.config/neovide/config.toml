@@ -38,12 +38,12 @@ style = "Medium Extended"
 [[font.bold]]
 
 family = "Iosevka Custom"
-style = "Medium Bold Extended"
+# style = "Medium Bold Extended"
 
 [[font.italic]]
 
 family = "Iosevka Custom"
-style = "Medium Italic Extended"
+# style = "Medium Extended Italic"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"
