@@ -104,7 +104,6 @@ require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that trig
 require("utils.ruff")
 
 vim.opt.mouse = "a"
-vim.opt.guicursor = ""
 
 --- check to see what autocmds are running on the buffer
 --- usefull for fixing performance issues or input issues
@@ -135,7 +134,13 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 
-vim.opt.guicursor = "n-c-v-i:block-Cursor"
+-- vim.opt.guicursor = "n-c-v-i:block-Cursor"
+
+vim.opt.guicursor = table.concat({
+  "n-v-c:block-Cursor", -- block
+  "i:ver25-Cursor",     -- beam (vertical bar, 25% width)
+  "r-cr:hor20-Cursor",  -- optional: thinner cursor for replace modes
+}, ",")
 
 vim.api.nvim_set_hl(0, "MatchParen", { bg = "#5a6b85", bold = true, italic = false })
 

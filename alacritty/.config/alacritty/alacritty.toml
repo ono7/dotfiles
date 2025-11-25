@@ -32,7 +32,9 @@ yellow  = '#FFB454'
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "CopyPaste"
 
-[cursor]
+[colors.cursor]
+text = "#151f2e"
+cursor = "#00f6ff"
 
 [debug]
 log_level = "Off"

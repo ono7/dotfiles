@@ -53,7 +53,7 @@ else
         overrides = {
 
           Normal = { bg = "#151F2D", fg = "#BEBEBC" },
-
+          MatchParen = {},
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "none" },
           SignColumn = { bg = "none" },
@@ -104,7 +104,8 @@ else
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
       vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "SpellCap" })
       vim.api.nvim_set_hl(0, "cmpDoc", {})
-      vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
+      -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, "Cursor", { bg = "#00f6ff", fg = "#000000" }) -- electric cyan
       vim.api.nvim_set_hl(0, "NonText", { fg = "#5a6b85" })
       vim.api.nvim_set_hl(0, "MoreMsg", {})
       vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError", { link = "DiagnosticError" })
