@@ -48,12 +48,12 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
 
           Normal = { bg = "#151F2D", fg = "#BEBEBC" },
-          MatchParen = {},
+          MatchParen = { fg = "#000000", bg = "#ffffff" },
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "none" },
           SignColumn = { bg = "none" },
@@ -75,9 +75,7 @@ else
           WinSeparator = { bg = "none" },
           Visual = { bg = "#1E2E45" },
           ["@punctuation.bracket"] = { link = "Todo" },
-          Cursor = { bg = "#00f6ff" },
         },
-
       })
       -- Updated highlights using new color scheme
       vim.cmd([[colorscheme ayu-dark]])
