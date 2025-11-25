@@ -57,8 +57,8 @@ size = 21.0
 # family = "SF Mono Terminal"
 # style = "Medium"
 
-family = "MonoLisa Custom"
-style = "Regular"
+family = "Iosevka Custom"
+style = "Extended"
 
 #
 # family = "IosevkaTerm Nerd Font Mono"
@@ -171,8 +171,8 @@ columns = 82
 lines = 28
 
 [window.padding]
-x = 5
-y = 5
+x = 0
+y = 15
 
 [hints]
 

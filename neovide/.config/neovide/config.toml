@@ -19,7 +19,8 @@ wsl = false
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 edging = "antialias"
-size = 20
+height = 15
+size = 19
 width = 0
 
 # best for macos...
@@ -28,11 +29,11 @@ hinting = "none"
 
 [[font.normal]]
 
-family = "SF Mono Terminal"
-style = "Medium"
+# family = "SF Mono Terminal"
+# style = "Regular"
 
-# family = "Iosevka Custom"
-# style = "Medium Semi-Extended"
+family = "FiraCode Nerd Font Mono"
+style = "Regular"
 
 # [[font.bold]]
 #
