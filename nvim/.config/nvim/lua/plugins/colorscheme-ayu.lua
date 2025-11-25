@@ -70,7 +70,7 @@ else
           CursorLine = { bg = "none" },
           CursorColumn = { bg = "none" },
           WinBar = { bg = "none" },
-          Statement = { fg = "#d27a3b", italic = true },
+          Statement = { fg = "#d27a3b", italic = false },
           VertSplit = { link = "Normal" },
           WinSeparator = { bg = "none" },
           Visual = { bg = "#1E2E45" },
