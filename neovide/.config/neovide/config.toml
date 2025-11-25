@@ -20,7 +20,7 @@ wsl = false
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 edging = "antialias"
 height = 15
-size = 19
+size = 22
 width = 0
 
 # best for macos...
@@ -32,18 +32,18 @@ hinting = "none"
 # family = "SF Mono Terminal"
 # style = "Regular"
 
-family = "FiraCode Nerd Font Mono"
-style = "Regular"
+family = "Iosevka Custom"
+style = "Medium Extended"
 
-# [[font.bold]]
-#
-# family = "Iosevka Custom"
-# style = "Medium Bold Semi-Extended"
-#
-# [[font.italic]]
-#
-# family = "Iosevka Custom"
-# style = "Medium Italic Semi-Extended"
+[[font.bold]]
+
+family = "Iosevka Custom"
+style = "Medium Bold Extended"
+
+[[font.italic]]
+
+family = "Iosevka Custom"
+style = "Medium Italic Extended"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"
