@@ -12,6 +12,7 @@ main
 .dbg_history
 .pytest_cache/
 fact_cache/
+lazy-lock.json
 .DS_Store
 .virtualenvs
 .vim
