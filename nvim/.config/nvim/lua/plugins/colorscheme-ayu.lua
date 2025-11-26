@@ -48,7 +48,7 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
 
@@ -59,8 +59,10 @@ else
           SignColumn = { bg = "none" },
           -- Question = { fg = "#7DAA52" },
           -- Question = { fg = "#9aae46" },
-          String = { fg = "#9aae46" },
+          -- String = { fg = "#9aae46" }, -- more olive, less readable but still good
+          String = { fg = "#8ca64a" }, -- slightly brighter, but more readable
           Question = { fg = "#aad94c" },
+          Type = { fg = "#7aa7d8" },
           Todo = { fg = "#d35a63" },
           -- Comment = { fg = "#2d3239", italic = false },
           Comment = { fg = "#3D4249", italic = true },
@@ -138,7 +140,7 @@ else
       -- vim.api.nvim_set_hl(0, "@string.yaml", {})
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
       vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
-      vim.api.nvim_set_hl(0, "@type", { link = "Question" })
+      -- vim.api.nvim_set_hl(0, "@type", { link = "Question" })
       vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
     end,
   }
