@@ -48,7 +48,7 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
 
@@ -59,7 +59,8 @@ else
           SignColumn = { bg = "none" },
           -- Question = { fg = "#7DAA52" },
           -- Question = { fg = "#9aae46" },
-          Question = { fg = "#9aae46" },
+          String = { fg = "#9aae46" },
+          Question = { fg = "#aad94c" },
           Todo = { fg = "#d35a63" },
           -- Comment = { fg = "#2d3239", italic = false },
           Comment = { fg = "#3D4249", italic = true },
@@ -113,8 +114,8 @@ else
       vim.api.nvim_set_hl(0, "diffAdded", { fg = "#82a382", bold = true })
       vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#bb7e78", bold = true })
       vim.api.nvim_set_hl(0, "Special", {})
-      vim.api.nvim_set_hl(0, "String", {})
-      vim.api.nvim_set_hl(0, "@string", {})
+      -- vim.api.nvim_set_hl(0, "String", {})
+      -- vim.api.nvim_set_hl(0, "@string", {})
       vim.api.nvim_set_hl(0, "@variable", {})
       vim.api.nvim_set_hl(0, "@property", {})
       vim.api.nvim_set_hl(0, "@property.yaml", { link = "LspDiagnosticsError" })
@@ -123,7 +124,7 @@ else
       vim.api.nvim_set_hl(0, "@function.builtin", {})
       vim.api.nvim_set_hl(0, "ModeMsg", {})
       vim.api.nvim_set_hl(0, "Constant", {})
-      vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
+      -- vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
       vim.api.nvim_set_hl(0, "@variable.parameter", {})
       vim.api.nvim_set_hl(0, "@variable.member", {})
       vim.api.nvim_set_hl(0, "@parameter", {})
@@ -131,10 +132,10 @@ else
       vim.api.nvim_set_hl(0, "@markup.raw", {})
       vim.api.nvim_set_hl(0, "@constructor", {})
       vim.api.nvim_set_hl(0, "@constructor.python", {})
-      vim.api.nvim_set_hl(0, "@string.documentation", {})
+      -- vim.api.nvim_set_hl(0, "@string.documentation", {})
       vim.api.nvim_set_hl(0, "Boolean", {})
       vim.api.nvim_set_hl(0, "@function.method", { italic = false })
-      vim.api.nvim_set_hl(0, "@string.yaml", {})
+      -- vim.api.nvim_set_hl(0, "@string.yaml", {})
       vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
       vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
       vim.api.nvim_set_hl(0, "@type", { link = "Question" })

@@ -702,3 +702,6 @@ if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacma
 fi
 
 fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
