@@ -20,7 +20,7 @@ wsl = false
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 edging = "antialias"
 height = 15
-size = 22
+size = 23
 width = 0
 
 # best for macos...
@@ -38,12 +38,12 @@ style = "Medium Extended"
 [[font.bold]]
 
 family = "Iosevka Custom"
-# style = "Medium Bold Extended"
+style = "Bold Extended"
 
 [[font.italic]]
 
 family = "Iosevka Custom"
-# style = "Medium Extended Italic"
+style = "Medium Extended Italic"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"
