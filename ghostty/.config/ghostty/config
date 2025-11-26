@@ -15,10 +15,11 @@
 # font-style-bold = Bold
 # font-style-italic = SemiBold Oblique
 
-# font-family = Iosevka Custom
-# font-style = Semi-Extended
-font-family = SF Mono Terminal
-font-style = Regular
+font-family = Iosevka Custom
+font-style = Extended
+
+# font-family = SF Mono Terminal
+# font-style = Regular
 
 font-size = 18
 adjust-cell-height = 10%
