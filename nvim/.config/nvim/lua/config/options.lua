@@ -17,7 +17,7 @@ vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
 
 -- Enable search highlight only while searching
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 
 function _G.MyTabLine()
   local s = ""

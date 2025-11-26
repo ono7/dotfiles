@@ -99,7 +99,7 @@ require("config.neovide")
 require("utils.zoxide").setup()
 
 --- these two worktogether
-require("utils.runner").setup() -- runs anything :M <cmd> :)
+require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -109,7 +109,7 @@ vim.opt.mouse = "a"
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -134,13 +134,13 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 
--- vim.opt.guicursor = "n-c-v-i:block-Cursor"
+vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
-vim.opt.guicursor = table.concat({
-  "n-v-c:block-Cursor", -- block
-  "i:ver25-Cursor", -- beam (vertical bar, 25% width)
-  "r-cr:hor20-Cursor", -- optional: thinner cursor for replace modes
-}, ",")
+-- vim.opt.guicursor = table.concat({
+--   "n-v-c:block-Cursor", -- block
+--   "i:ver25-Cursor", -- beam (vertical bar, 25% width)
+--   "r-cr:hor20-Cursor", -- optional: thinner cursor for replace modes
+-- }, ",")
 
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),

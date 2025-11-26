@@ -190,7 +190,7 @@ nnoremap <esc>r :browse oldfiles<CR>
 xnoremap p "_dP
 
 " clear hlsearch on esc
-nnoremap <silent> <Esc> :noh<CR><Esc>
+" nnoremap <silent> <Esc> :noh<CR><Esc>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap <leader>d <cmd>bd!<CR>

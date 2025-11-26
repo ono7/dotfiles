@@ -69,7 +69,7 @@ nnoremap k gk
 xnoremap p "_dP
 
 " clear hlsearch on esc
-nnoremap <silent> <Esc> :noh<CR><Esc>
+" nnoremap <silent> <Esc> :noh<CR><Esc>
 
 "nnoremap <esc>k <cmd>cprev<cr>
 "nnoremap <esc>j <cmd>cnext<cr>
