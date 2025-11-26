@@ -10,7 +10,7 @@ srgb = true
 tabs = true
 theme = "dark"
 title-hidden = true
-vsync = true
+vsync = false
 wsl = false
 
 [font]
@@ -18,10 +18,9 @@ wsl = false
 # normal = { family = "SF Mono Terminal", style = "Medium" }
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
-edging = "antialias"
+# edging = "antialias"
 height = 15
 size = 23
-width = 0
 
 # best for macos...
 hinting = "none"

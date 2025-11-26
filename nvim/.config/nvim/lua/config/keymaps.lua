@@ -5,7 +5,6 @@ local silent = { noremap = true, silent = true }
 local k = vim.keymap.set
 
 --- nop ---
-
 k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
 k("n", "ZQ", "")
@@ -32,19 +31,13 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
 nnoremap <c-e> <end>
-" cnoremap <c-h> <Left>
 cnoremap <c-l> <Right>
 
-" inoremap <C-a> <Home>
-" Make Ctrl-Backspace delete the entire word including special chars
-
 inoremap <C-BS> <C-w>
-" inoremap <C-h> <C-w>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
@@ -57,10 +50,6 @@ nnoremap <space>a ggVG
 nnoremap U <c-r>
 nnoremap v <c-v>
 nnoremap Y yg_
-
-" Simplified j/k mappings without automatic mark setting (reduces input lag)
-" nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
-" nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 
 nnoremap j gj
 nnoremap k gk
@@ -87,14 +76,6 @@ nnoremap <leader>td <cmd>e ~/todo.md<CR>
 xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
-
-" xnoremap ' <esc>`>a'<esc>`<i'<esc>f'a
-" xnoremap " <esc>`>a"<esc>`<i"<esc>f"a
-" xnoremap ` <esc>`>a`<esc>`<i`<esc>f`a
-" xnoremap ( <esc>`>a)<esc>`<i(<esc>
-" xnoremap [ <esc>`>a]<esc>`<i[<esc>
-" xnoremap { <esc>`>a}<esc>`<i{<esc>
-" xnoremap < <esc>`>a><esc>`<i<<esc>
 
 function! WrapSelection(left, right)
     let save_reg = @"
@@ -136,7 +117,7 @@ function! RestoreRegister()
     return ''
 endfunction
 
-" autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
+ autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
 
 function! s:CleanAndSave()
   let l:save = winsaveview()
@@ -341,6 +322,35 @@ k({ "n" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)
 k("n", "<M-j>", "<cmd>cnext<cr>", opt)
 
+-- Toggle maximize the current window while remembering its size.
+local function toggle_maximize()
+  local win = vim.api.nvim_get_current_win()
+
+  -- See if this window has saved size
+  local ok, saved = pcall(vim.api.nvim_win_get_var, win, "saved_size")
+
+  if ok then
+    -- --- Restore ---
+    vim.api.nvim_win_set_height(win, saved.height)
+    vim.api.nvim_win_set_width(win, saved.width)
+    pcall(vim.api.nvim_win_del_var, win, "saved_size")
+  else
+    -- --- Save current and maximize ---
+    local height = vim.api.nvim_win_get_height(win)
+    local width = vim.api.nvim_win_get_width(win)
+
+    vim.api.nvim_win_set_var(win, "saved_size", {
+      height = height,
+      width = width,
+    })
+
+    vim.cmd("wincmd _") -- maximize height
+    vim.cmd("wincmd |") -- maximize width
+  end
+end
+
+vim.keymap.set({ "n", "t" }, "<C-y>", toggle_maximize, { silent = true })
+
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
   local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -386,20 +396,6 @@ k("n", "<leader>w", function()
   end
   vim.cmd([[:write ++p]])
 end, silent)
-
--- captures :messages to buffer
--- redir => m; messages ; redir end ; let @" = m
--- k("n", "<Leader>m", function()
---   local buf = vim.api.nvim_create_buf(false, true)
---   vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
---   vim.api.nvim_command("redir => g:message_capture")
---   vim.api.nvim_command("silent messages")
---   vim.api.nvim_command("redir END")
---   local lines = vim.split(vim.g.message_capture, "\n")
---   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
---   vim.api.nvim_command("vsplit")
---   vim.api.nvim_win_set_buf(0, buf)
--- end)
 
 -- Toggle quickfix list
 k("n", "<M-t>", function()
