@@ -1,0 +1,21 @@
+/* 1. Only hide *visual* banners – NOT script containers */
+div[class*="cookie"] .banner,
+div[class*="consent"] .banner,
+div[class*="gdpr"] .banner,
+#onetrust-banner-sdk,
+.cc-window,
+.cc-banner {
+  display: none !important;
+}
+
+/* 2. Do NOT hide the root consent containers */
+/* (No generic id*="cookie" or class*="cookie" selectors) */
+
+/* 3. Hide overlay scrims but keep containers alive */
+[class*="overlay"][class*="consent"],
+[class*="backdrop"][class*="consent"],
+#onetrust-consent-sdk,
+#onetrust-pc-sdk {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
