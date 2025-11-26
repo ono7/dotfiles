@@ -34,6 +34,8 @@ if vim.g.neovide then
 
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
 
+  vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
+
   vim.opt.linespace = 10
 
   vim.g.neovide_text_gamma = 0.8
@@ -101,10 +103,10 @@ if vim.g.neovide then
   vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
   vim.keymap.set("n", "<D-a>", "<C-a>")
 
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true })    -- Normal mode
+  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
   vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
   vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true })    -- Visual mode
+  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
   vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set("n", "<C-1>", "1gt", opt)
