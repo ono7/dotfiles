@@ -33,8 +33,14 @@ if vim.g.neovide then
   vim.g.neovide_profiler = false
 
   -- vim.opt.guifont = "SF Mono:h23:#h-none:Medium"
+  local uname = vim.loop.os_uname()
+  local is_wsl = uname.sysname == "Linux" and uname.release:lower():match("microsoft")
 
-  vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
+  if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
+    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h17"
+  else
+    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
+  end
 
   vim.opt.linespace = 10
 
