@@ -61,7 +61,7 @@ else
           -- Question = { fg = "#9aae46" },
           -- String = { fg = "#9aae46" }, -- more olive, less readable but still good
           -- String = { fg = "#8ca64a" }, -- slightly brighter, but more readable
-          String = { fg = "#788a4a" },
+          String = { fg = "#788a4a" }, -- this is more balance, less bright and very readable
           Question = { fg = "#aad94c" },
           Type = { fg = "#7aa7d8" },
           Todo = { fg = "#d35a63" },
