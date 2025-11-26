@@ -189,6 +189,9 @@ nnoremap <esc>r :browse oldfiles<CR>
 " xnoremap p P
 xnoremap p "_dP
 
+" make dot operator work in visual mode
+vnoremap . :norm! .
+
 " clear hlsearch on esc
 " nnoremap <silent> <Esc> :noh<CR><Esc>
 
