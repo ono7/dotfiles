@@ -3,7 +3,7 @@ SHELL := /bin/bash
 export PATH := $(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
 
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -31,7 +31,7 @@ detect-os:
 
 # the order of execution on this targets is important
 linux: linux-deps homebrew brew-deps clean stow nvm go-deps uv neovim vim fzf starship done
-mac: mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim done
 
 clean:
 	@echo $(BANNER)
@@ -143,6 +143,11 @@ vim-user:
 mac-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_macos_deps.sh
+
+mac-keybinds:
+	@echo $(BANNER)
+	mkdir -p ~/Library/KeyBindings
+	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
 
 # installs go dependencies
 go-deps:

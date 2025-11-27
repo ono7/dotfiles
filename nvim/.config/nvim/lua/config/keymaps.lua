@@ -43,6 +43,7 @@ inoremap <C-e> <End>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
+inoremap <C-v> <C-r>"
 
 nnoremap ; :
 xnoremap ; :
@@ -61,7 +62,7 @@ nnoremap k gk
 xnoremap p "_dP
 
 " make dot operator work in visual mode
-vnoremap . :norm! .
+xnoremap . :<C-u>normal! .<CR>
 
 " clear hlsearch on esc
 " nnoremap <silent> <Esc> :noh<CR><Esc>
