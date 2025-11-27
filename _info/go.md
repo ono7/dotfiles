@@ -267,8 +267,8 @@ Printf - allows formatting the string
 
 ```go
 var (
-	a = 2
-	b = 3.5
+  a = 2
+  b = 3.5
 )
 
 fmt.Printf("type: %18T, val : %8[1]v\n",a)
@@ -338,7 +338,6 @@ creates a map of integers with string values
 - use `_` to discard variables when unpacking
 
 - variables must begin with a letter or underscore
-
   - upper case, make it public (this applies to packages)
   - lower case, its private
 
@@ -399,18 +398,18 @@ fmt.Printf("resp: %v", strings.Join(response, ", ")
 ```go
 // myIntro returns a multiline string
 func myIntro() string {
-	return `this is a multiline string
-	that is returned
-	....`
+  return `this is a multiline string
+  that is returned
+  ....`
 }
 ```
 
 - string slices
 
 ```go
-	words := strings.Fields( // words becomes a slice [] aka list in python
-		"lazy cat jumps again and again and again",
-	)
+  words := strings.Fields( // words becomes a slice [] aka list in python
+    "lazy cat jumps again and again and again",
+  )
 ```
 
 ## go dap - debug adapter (dlv)
@@ -484,15 +483,15 @@ func myFunc() string {}  // declare a function that takes no parameters and retu
 
 ```go
 for {
-	fmt.Print("input --> ")
-	userInput, _ =  := reader.ReadString('\n')
-	response = := doctor.Response(userInput)
-	if userInput == "quit" {
-		break
-	} else {
-	//
-	}
-	fmt.Println(response)
+  fmt.Print("input --> ")
+  userInput, _ =  := reader.ReadString('\n')
+  response = := doctor.Response(userInput)
+  if userInput == "quit" {
+    break
+  } else {
+  //
+  }
+  fmt.Println(response)
 }
 ```
 
@@ -508,9 +507,9 @@ rand.Seed(time.Now().UnixNano()) //nano changes more frequently and provides a b
 ```go
 // {"page":"words","input":"","words":[]}
 type Words struct {
-	Page  string
-	Input string
-	Words []string // array of strings
+  Page  string
+  Input string
+  Words []string // array of strings
 }
 
 // annonymous struct
@@ -581,16 +580,16 @@ string literal` // nothing interpreted/interpolated
 
 ```go
 func main() {
-	score := 3
-	if score > 3 {
-		fmt.Println("score is greater than 3")
-	} else if score == 3 {
-		fmt.Println("score is equal to 3")
-	} else if score == 2 {
-		fmt.Println("score is meh (2)")
-	} else {
-		fmt.Println("score is less than 3")
-	}
+  score := 3
+  if score > 3 {
+    fmt.Println("score is greater than 3")
+  } else if score == 3 {
+    fmt.Println("score is equal to 3")
+  } else if score == 2 {
+    fmt.Println("score is meh (2)")
+  } else {
+    fmt.Println("score is less than 3")
+  }
 }
 ```
 
@@ -614,13 +613,13 @@ means that the value is not initialized yet
 import "fmt"
 
 func main() {
-	city := os.Args[1]
-	switch city {
-	case "Paris":
-		fmt.Println("France")
+  city := os.Args[1]
+  switch city {
+  case "Paris":
+    fmt.Println("France")
     v := "test, only avaliable inside here"
     fmt.Println(v)
-	case "Tokyo":
+  case "Tokyo":
     fmt.Println("Japan")
   default: // can live any where in the switch statement, order not important
     fmt.Println("this is the default clause")
@@ -641,7 +640,6 @@ switch true {  // switch type is bool
 ## data structures arrays, slices, string, maps, structs
 
 - arrays
-
   - collection of elements, indexable and fixed lenght
   - comparing arrays can be done when:
     - the type is the same
@@ -765,19 +763,15 @@ append(x, y...) // --> []int{1,2,3,4,5,6}, ellipses appends all elements of y to
 ## data types
 
 - slices
-
   - collection of elements indexable and dynamic in lenght
 
 - string internals
-
   - byte slices ascii & unicode used for encoding and decoding
 
 - maps
-
   - collection of indexable key-value pairs
 
 - struts
-
   - groups of different types of variables together
 
 ## standard libray
@@ -788,21 +782,21 @@ sort - used to sort slice
 
 ```go
 func main() {
-	msg := []byte{'h', 'e', 'l', 'l', 'o', 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K'}
+  msg := []byte{'h', 'e', 'l', 'l', 'o', 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K'}
 
-	l := len(msg)
+  l := len(msg)
 
-	const pageSize = 4
+  const pageSize = 4
 
-	for from := 0; from < l; from += pageSize {
-		to := from + pageSize
-		if to > l { // check if we are out of bounds or set to limit len(msg)
-			to = l
-		}
-		currentPage := msg[from:to]
+  for from := 0; from < l; from += pageSize {
+    to := from + pageSize
+    if to > l { // check if we are out of bounds or set to limit len(msg)
+      to = l
+    }
+    currentPage := msg[from:to]
     fmt.Println("Page ->> ", len(currentPage))
-		fmt.Println(currentPage)
-	}
+    fmt.Println(currentPage)
+  }
 }
 ```
 
@@ -818,7 +812,6 @@ func main() {
 
   - runes: are unicode code-points, they are simply called runes in Golang
     `104 = h` , 104 is the rune in go
-
     - rune literals are the actual characters `104 = h`, h is the rune leteral
 
 ## channels
@@ -833,3 +826,9 @@ varA := <- myCh  // save output from myCh to varA
 <- myCha // discards whatever comes out of the channel
 
 ```
+
+## modules
+
+- a module is typically a repo
+- each module can contain multiple packages
+- each package is one or more source files in a single directory
