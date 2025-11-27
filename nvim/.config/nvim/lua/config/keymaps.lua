@@ -43,7 +43,7 @@ inoremap <C-e> <End>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
-inoremap <C-v> <C-r>"
+inoremap <C-p> <C-r>"
 
 nnoremap ; :
 xnoremap ; :
