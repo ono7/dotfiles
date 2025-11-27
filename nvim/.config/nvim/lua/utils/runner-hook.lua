@@ -50,7 +50,7 @@ function P.setup()
 
     -- Schedule the print message
     vim.schedule(function()
-      vim.notify(string.format("CMD Hook: %s\nMonitoring %s for changes.", monitor_cmd, monitor_file))
+      vim.notify(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
     end)
 
     -- Execute the command immediately once
