@@ -42,6 +42,7 @@ http://vim.wikia.com/wiki/Best_Vim_Tips#Really_useful
 http://vim.wikia.com/wiki/Best_Vim_Tips
 ```
 
+```
 - use marks!!!
 
   - ma (marks a)
@@ -73,180 +74,188 @@ http://vim.wikia.com/wiki/Best_Vim_Tips
 
   * execute macro on entire file or line range
 
-  ```
+```
+
     :%normal @q
     % == entire buffer
     normal == execute normal command
     @q == macro
-  ```
 
-  - execute @q number of times:
+```
 
-  * 99999@q
+- execute @q number of times:
 
-  - remove trailing on buffer for any line
+* 99999@q
 
-  * %s/\s\+$//
+- remove trailing on buffer for any line
 
-  - the power of /g
+* %s/\s\+$//
 
-  - copy line that match a patter to register a
+- the power of /g
 
-  * :g/^x/y a
+- copy line that match a patter to register a
 
-  - copy(append) lines that match a patter to register a
+* :g/^x/y a
 
-  * :g/^x/y A
-  * :g/^x.\*/y A
+- copy(append) lines that match a patter to register a
 
-  - remove from file and (append) lines that match a patter to register a
+* :g/^x/y A
+* :g/^x.\*/y A
 
-  * :g/^x/d A
-  * :g/^x.\*/d A
+- remove from file and (append) lines that match a patter to register a
 
-  - clear register
+* :g/^x/d A
+* :g/^x.\*/d A
+
+- clear register
 
 * qbq ( clears b register using macro trick )
 
-  - let @b = '' ( also clears registers )
+- let @b = '' ( also clears registers )
 
-  * copy registers
+* copy registers
 
 * let @b = @a (copy contents of reg a into b)
 
-  - word boundary searches
+- word boundary searches
 
-  * :g/test\>/y b ( look for word ending in test and copy to b register )
-  * :g/\<test\>/y b ( look for word "test" and copy to b register )
+* :g/test\>/y b ( look for word ending in test and copy to b register )
+* :g/\<test\>/y b ( look for word "test" and copy to b register )
 
-  - Display context (5 lines) for all occurrences of a pattern.
+- Display context (5 lines) for all occurrences of a pattern.
 
-  * :g/pattern/z#.5
-    " Same, but with some beautification.
-  * :g/pattern/z#.5|echo "=========="
+* :g/pattern/z#.5
+  " Same, but with some beautification.
+* :g/pattern/z#.5|echo "=========="
 
-  - delete lines that do not match a pattern
+- delete lines that do not match a pattern
 
-  * :v/^x/d
-  * g!/pattern/d
+* :v/^x/d
+* g!/pattern/d
 
-  - delete blank lines
+- delete blank lines
 
-  * :g/^\s\*$/d
-  * :g/^\s\*$/d* (fast delete, use the * (black hole register))
+* :g/^\s\*$/d
+* :g/^\s\*$/d* (fast delete, use the * (black hole register))
 
-  - Copy all lines matching a pattern to end of file.
+- Copy all lines matching a pattern to end of file.
 
-  * :g/pattern/t$
+* :g/pattern/t$
 
-  - Move all lines matching a pattern to end of file.
+- Move all lines matching a pattern to end of file.
 
-  * :g/pattern/m$
+* :g/pattern/m$
 
-  - fast delete
+- fast delete
 
-  * :g/pattern/d* (* = black hole register, no action performed on match)
+* :g/pattern/d* (* = black hole register, no action performed on match)
 
-  - Run a macro on matching lines (example assuming a macro recorded as 'q'):
+- Run a macro on matching lines (example assuming a macro recorded as 'q'):
 
-    - :g/pattern/normal @q
+  - :g/pattern/normal @q
 
-      - sort lines
+    - sort lines
 
-      * :sort
+    * :sort
 
-      - delete duplicate lines and sort
+    - delete duplicate lines and sort
 
-      * :sort u
+    * :sort u
 
-      - sort using patterns
-        : sort /\a\a\a/ (sort by first 3 letters in line)
+    - sort using patterns
+      : sort /\a\a\a/ (sort by first 3 letters in line)
 
-      * see help :sort for more examples
+    * see help :sort for more examples
 
-      - sort using external program:
+    - sort using external program:
 
-      * :%!sort -k2r (field2 in reverse order)
+    * :%!sort -k2r (field2 in reverse order)
 
-      - sort csv using external program
+    - sort csv using external program
 
-      * %!sort -t 'ctrl-v tab' -k3 (ctrl-v tab inserts tab character, -k3 filters based on 3rd tab delimeter)
-      * %!sort -t '=' -k1f ( sort by = as delimeter, by first appearance, -f flag ignores case sensetivity)
+    * %!sort -t 'ctrl-v tab' -k3 (ctrl-v tab inserts tab character, -k3 filters based on 3rd tab delimeter)
+    * %!sort -t '=' -k1f ( sort by = as delimeter, by first appearance, -f flag ignores case sensetivity)
 
-      - make columns tabular using external columns program
+    - make columns tabular using external columns program
 
-  * %!columns -t
-  * 1,20!columns -t ( do it on a range line 1 to 20 )
-  * ,20!columns -t ( do it on range from current line to 20 )
+* %!columns -t
+* 1,20!columns -t ( do it on a range line 1 to 20 )
+* ,20!columns -t ( do it on range from current line to 20 )
 
 * ,$!columns -t (do it on range from current line to end of file)
 
-  - https://jordanelver.co.uk/blog/2014/03/12/sorting-columnds-of-text-in-vim-using-sort/
+- https://jordanelver.co.uk/blog/2014/03/12/sorting-columnds-of-text-in-vim-using-sort/
 
-  * change file encoding to utf8
+* change file encoding to utf8
 
-  - set fileencoding=utf8
-  - :w
+- set fileencoding=utf8
+- :w
 
-  * join lines with g/ search
+* join lines with g/ search
 
 * g/^memberOf/j (joins lines that start with memberOf)
 
-  - indent / re-indent entire document
+- indent / re-indent entire document
 
-  * G=gg
+* G=gg
 
-  - insert a range of numbers
+- insert a range of numbers
 
-  * :put range=(10,20) ( add a range of numbers between 10 and 20 )
+* :put range=(10,20) ( add a range of numbers between 10 and 20 )
 
-  * :for i in range(1,10) | put ='192.168.0.'.i | endfor
-    192.168.0.1
-    192.168.0.2
-    192.168.0.3
-    192.168.0.4
-    192.168.0.5
+* :for i in range(1,10) | put ='192.168.0.'.i | endfor
+  192.168.0.1
+  192.168.0.2
+  192.168.0.3
+  192.168.0.4
+  192.168.0.5
 
 * select first list of numbers, ctrl-v, then hit g ctrol-A (this addes numbers to selection +1)
 
-  - my_array[0] = 1;
-  - my_array[0] = 2;
-  - my_array[0] = 3;
-  - my_array[0] = 4;
-  - my_array[0] = 5;
-  - my_array[0] = 6;
+- my_array[0] = 1;
+- my_array[0] = 2;
+- my_array[0] = 3;
+- my_array[0] = 4;
+- my_array[0] = 5;
+- my_array[0] = 6;
 
-  - my_array[1] = 1;
-  - my_array[2] = 2;
-  - my_array[3] = 3;
-  - my_array[4] = 4;
-  - my_array[5] = 5;
-  - my_array[6] = 6;
+- my_array[1] = 1;
+- my_array[2] = 2;
+- my_array[3] = 3;
+- my_array[4] = 4;
+- my_array[5] = 5;
+- my_array[6] = 6;
 
-  * search and replace using very magic patterns | regex groups
+* search and replace using very magic patterns | regex groups
 
-  - %s/\v(\s+\d\d\d\s.\*)/#\1/g ( search for pattern, group and append
-    #+group1 to the search )
-  - 'm,'eg/\v^$/d (delete empty lines between mark m and e using very magic \v )
+- %s/\v(\s+\d\d\d\s.\*)/#\1/g ( search for pattern, group and append
+  #+group1 to the search )
+- 'm,'eg/\v^$/d (delete empty lines between mark m and e using very magic \v )
 
-  * search very magic
+* search very magic
 
-  - /\v<the> ( find lines that have start with only the words '^the ' )
+- /\v<the> ( find lines that have start with only the words '^the ' )
 
-  * convert file to dos/unix format
+* convert file to dos/unix format
 
-  - :set ff=unix to convert to Unix; use :set ff=dos to convert to Windows
+- :set ff=unix to convert to Unix; use :set ff=dos to convert to Windows
+```
 
 # Example for using a script file to change a name in several files:
 
 - Create a file "subs.vim" containing substitute commands and a :update
   command: >
+
+  ```vim
   :%s/Jones/Smith/g
   :%s/Allen/Peter/g
   :update
+  ```
 
 - Execute Vim on all files you want to change, and source the script for
   each argument: >
 
-vim \*.let
-]argdo source subs.vim
+```vim
+vim *.let
+argdo source subs.vim
+```

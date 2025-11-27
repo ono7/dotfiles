@@ -25,9 +25,12 @@ Overview: Read the package overview. It highlights that this package provides HT
 Index: Scroll down to the "Index" section. Notice there are types (Server, Request, ResponseWriter, etc.) and functions (ListenAndServe, HandleFunc, etc.). These are your building blocks.
 3. Understand http.Server
 
-Click on http.Server: This type represents an HTTP server. The documentation tells you about its fields:
+Click on http.Server: This type represents an HTTP server.
+The documentation tells you about its fields:
+
 Addr: The TCP address to listen on (e.g., ":8080").
 Handler: The handler to invoke for incoming HTTP requests.
+
 Note the Constructor: There's a http.NewServeMux() function. This will come in handy later.
 4. Decipher http.HandleFunc and http.ListenAndServe
 

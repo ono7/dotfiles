@@ -71,10 +71,10 @@ xnoremap . :<C-u>normal! .<CR>
 "nnoremap <esc>k <cmd>cprev<cr>
 "nnoremap <esc>j <cmd>cnext<cr>
 
- nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
+" nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 " includes filename in commit, but better to use git log --name-only
-" nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
+ nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap ,d <cmd>bd!<CR>
