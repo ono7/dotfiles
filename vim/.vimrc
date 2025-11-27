@@ -152,7 +152,7 @@ map Q <Nop>
 
 nnoremap ; :
 xnoremap ; :
-nnoremap v <c-v>
+" nnoremap v <c-v> " use c-q
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_

@@ -48,7 +48,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
-nnoremap v <c-v>
+" nnoremap v <c-v>
 nnoremap Y yg_
 
 nnoremap j gj

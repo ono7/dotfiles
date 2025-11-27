@@ -86,7 +86,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.cmd([[
 augroup _QuickFixOpen
   autocmd!
-  " auto open quickfix when executing make!
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6

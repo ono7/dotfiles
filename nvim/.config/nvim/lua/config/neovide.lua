@@ -1,14 +1,8 @@
 local opt = { noremap = true }
 
 if vim.g.neovide then
-  -- TODO: need to figure out how to start in home dir
-  -- see ~/.config/neovide/config.toml for the rest
-
   -- **** anything shell related for neovide should go into ~/.zprofile ****
 
-  -- vim.api.nvim_set_hl(0, "Cursor", { bg = "#E288F7" })
-  -- vim.api.nvim_set_hl(0, "Cursor", { bg = "#ff8f00" }) -- neon orange
-  -- vim.opt.guicursor = "n-c-v-i:block-Cursor"
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_cursor_trail_size = 0.01
@@ -59,6 +53,7 @@ if vim.g.neovide then
   vim.g.neovide_progress_bar_height = 5.0
   vim.g.neovide_progress_bar_animation_speed = 200.0
   vim.g.neovide_progress_bar_hide_delay = 0.2
+
   --- change font size with
   local change_scale_factor = function(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
@@ -83,37 +78,22 @@ if vim.g.neovide then
 
   vim.keymap.set("t", "<D-S-v>", '<C-\\><C-n>"+pi', { desc = "Paste in terminal mode" })
 
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1a1f32", fg = "#a8b5d1" })
-
-  -- background = #1c2636
-  -- foreground = #e0ded8
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#1c2636", fg = "#e0ded8" })
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#0A0E14", fg = "#B3B1AD" })
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "#0A0E14", fg = "#A9A9A6" })
-
   vim.api.nvim_set_hl(0, "Normal", { bg = "#151F2D", fg = "#BEBEBC" })
   vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
 
   -- Map Cmd+g to Ctrl+g in multiple modes
+  -- vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")
+  --
+  -- vim.keymap.set({ "c", "n", "i" }, "<D-p>", "<C-p>")
+  -- vim.keymap.set({ "c", "n", "i" }, "<D-n>", "<C-n>")
 
-  vim.keymap.set({ "i", "n", "v", "x" }, "<D-g>", "<C-g>")
+  -- Paste with Ctrl+Shift+V in all modes
+  vim.keymap.set('n', '<C-S-v>', '"+p', { noremap = true })
+  vim.keymap.set('i', '<C-S-v>', '<C-r>+', { noremap = true })
+  vim.keymap.set('c', '<C-S-v>', '<C-r>+', { noremap = true })
+  vim.keymap.set('v', '<C-S-v>', '"+p', { noremap = true })
+  vim.keymap.set('t', '<C-S-v>', '<C-\\><C-n>"+pi', { noremap = true })
 
-  vim.keymap.set({ "c", "n", "i" }, "<D-p>", "<C-p>")
-  vim.keymap.set({ "c", "n", "i" }, "<D-n>", "<C-n>")
-
-  -- Regular increment/decrement
-  vim.keymap.set("n", "<D-x>", "<c-x>", opt)
-
-  -- Visual mode increment/decrement
-  vim.keymap.set("x", "<D-a>", "g<C-a>", opt)
-  vim.keymap.set("x", "<D-x>", "g<C-x>", opt)
-  vim.keymap.set("n", "<D-a>", "<C-a>")
-
-  vim.keymap.set("n", "<D-V>", '"+p', { noremap = true }) -- Normal mode
-  vim.keymap.set("i", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("c", "<D-V>", "<C-R>+", { noremap = true }) -- Insert mode
-  vim.keymap.set("v", "<D-V>", '"+p', { noremap = true }) -- Visual mode
-  vim.keymap.set("t", "<D-V>", '<C-\\><C-N>"+pi', { noremap = true })
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set("n", "<C-1>", "1gt", opt)
   vim.keymap.set("n", "<C-2>", "2gt", opt)
