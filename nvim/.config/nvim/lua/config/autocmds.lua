@@ -83,14 +83,16 @@ vim.api.nvim_create_autocmd("FileType", {
 --   group = create_augroup("disable_lsp_diags_for_folders", { clear = true }),
 -- })
 
-vim.cmd([[
-augroup _QuickFixOpen
-  autocmd!
-  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  autocmd QuickFixCmdPost [^l]* cwindow 6
-  autocmd QuickFixCmdPost    l* lwindow 6
-augroup END
-]])
+-- open quickfix list automatically when there are items in it
+-- this is now hadled automatically by quicker.nvim plugin
+-- vim.cmd([[
+-- augroup _QuickFixOpen
+--   autocmd!
+--   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+--   autocmd QuickFixCmdPost [^l]* cwindow 6
+--   autocmd QuickFixCmdPost    l* lwindow 6
+-- augroup END
+-- ]])
 
 -- auto source snippets file
 vim.api.nvim_create_autocmd("BufWritePost", {
