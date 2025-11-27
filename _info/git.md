@@ -1,3 +1,10 @@
+## reset back without losing changes
+
+when multiple changes have been commited but not pushed, you can run
+`git reset --soft abcdx (abcdx = commit hash)` this will reset the commits and allow you to
+create a new commit with all changes or change the way it was commited
+altogether.
+
 ## show commit trail for file
 
 - show all commits for a file
