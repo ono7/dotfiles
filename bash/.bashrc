@@ -19,12 +19,14 @@ case $- in
 *) return ;;
 esac
 
-set -o vi
+# set -o vi
 bind -m vi-command ".":insert-last-argument
 bind -m vi-insert "\C-l.":clear-screen
 bind -m vi-insert "\C-a.":beginning-of-line
 bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
+bind '"\C-f": forward-word'
+bind '"\C-b": backward-word'
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options

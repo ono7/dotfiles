@@ -494,6 +494,9 @@ function setup_keys() {
     }
     zle -N vi-yank-clipboard
 
+    bindkey -M viins '^F' emacs-forward-word
+    bindkey -M viins '^B' backward-word
+
     # ci" in vi-mode
     autoload -U select-quoted
     zle -N select-quoted

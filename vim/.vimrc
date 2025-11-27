@@ -177,6 +177,8 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 nnoremap <c-e> <end>
+inoremap <C-f> <Esc>ea
+inoremap <C-b> <C-o>b
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
