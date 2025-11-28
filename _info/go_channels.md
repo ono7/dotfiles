@@ -1,6 +1,34 @@
 # channels
 
 ```go
+// range over channels, must close(ch)
+package main
+
+func concurrentFib(n int) []int {
+  ints := []int{}
+  intChan := make(chan int)
+
+  go fibonacci(n, intChan)
+  for item := range intChan {
+    ints = append(ints, item)
+  }
+  return ints
+
+}
+
+// don't touch below this line
+
+func fibonacci(n int, ch chan int) {
+  x, y := 0, 1
+  for i := 0; i < n; i++ {
+    ch <- x
+    x, y = y, x+y
+  }
+  close(ch)
+}
+```
+
+```go
 
 // check if channel is closed
 v, ok := <-ch
