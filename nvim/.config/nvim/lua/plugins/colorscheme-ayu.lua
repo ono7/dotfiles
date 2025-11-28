@@ -48,7 +48,7 @@ else
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set
         overrides = {
 
@@ -60,8 +60,8 @@ else
           -- Question = { fg = "#7DAA52" },
           -- Question = { fg = "#9aae46" },
           -- String = { fg = "#9aae46" }, -- more olive, less readable but still good
-          -- String = { fg = "#8ca64a" }, -- slightly brighter, but more readable
-          String = { fg = "#788a4a" }, -- this is more balance, less bright and very readable
+          String = { fg = "#8ca64a" }, -- slightly brighter, but more readable
+          -- String = { fg = "#788a4a" }, -- this is more balance, less bright and very readable
           Question = { fg = "#aad94c" },
           Type = { fg = "#7aa7d8" },
           Todo = { fg = "#d35a63" },
