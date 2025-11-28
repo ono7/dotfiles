@@ -162,7 +162,8 @@ nnoremap <leader>td <cmd>e ~/todo.md<CR>
 nnoremap <space>a ggVG
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap gm <cmd>Git commit % -m ""<Left>
-nnoremap <silent> ,d <cmd>bd!<cr>
+" close: closes a window (not a buffer..), allowing splits to work as intended
+nnoremap <silent> ,d <cmd>close!<cr>
 nnoremap ,w <cmd>w!<cr>
 nnoremap cp yap<S-}>p
 nnoremap J mzJ`z
