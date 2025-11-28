@@ -1,6 +1,40 @@
 # channels
 
 ```go
+// use empty structs when sending signals (not data)
+func downloadData() chan struct{} {
+  downloadDoneCh := make(chan struct{})
+
+  go func() {
+    fmt.Println("Downloading data file...")
+    time.Sleep(2 * time.Second) // simulate download time
+
+    // after the download is done, send a "signal" to the channel
+    downloadDoneCh <- struct{}{}
+  }()
+
+  return downloadDoneCh
+}
+
+func processData(downloadDoneCh chan struct{}) {
+  // any code here can run normally
+  fmt.Println("Preparing to process data...")
+
+  // block until `downloadData` sends the signal that it's done
+  <-downloadDoneCh
+
+  // any code here can assume that data download is complete
+  fmt.Println("Data download complete, starting data processing...")
+}
+
+processData(downloadData())
+// Downloading data file...
+// Preparing to process data...
+// Data download complete, starting data processing...
+
+```
+
+```go
 msgCh := make(chan string, 10)
 msgCh <- "a"
 msgCh <- "b"
