@@ -16,7 +16,12 @@ return {
     }
 
     fzf.setup({
-      fzf_colors = true,
+      win_bg = "Normal",
+      -- Define the highlight groups
+      fzf_colors = {
+        ["bg+"] = { "bg", "Visual" }, -- Selected line background
+        ["fg+"] = { "fg", "Normal" }, -- Selected line foreground
+      },
       winopts = winopts,
       {
         "fzf-native",
