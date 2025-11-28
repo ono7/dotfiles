@@ -77,7 +77,8 @@ xnoremap . :<C-u>normal! .<CR>
  nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
-nnoremap ,d <cmd>bd!<CR>
+" close: closes a window not a buffer, leaving splits working as intended
+nnoremap ,d <cmd>close!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
