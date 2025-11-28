@@ -1,5 +1,7 @@
 ## GO references
 
+slices, maps and channels are passed by reference by default
+
 ## build
 
 build for amd64 and run inside a container
