@@ -1,5 +1,5 @@
 -- Configuration file for the 'ayu' colorscheme with custom overrides.
--- Final, verified version implementing all aesthetic choices and color adjustments.
+-- Final, verified version implementing all aesthetic choices, including the FidgetBorder and FzfLua fixes.
 
 -- Conditional logic for terminals that don't support true color (termguicolors=false)
 if vim.env.TERM_PROGRAM == "otherfake stub" then
@@ -53,11 +53,14 @@ else
         overrides = {
           -- 1. CORE COLORS & COMFORT
           Normal = { bg = "#151F2D", fg = "#BEBEBC" },
-          MatchParen = { fg = "#151F2D", bg = "#BEBEBC" },
           Visual = { bg = "#1E2E45" },
 
           Comment = { fg = "#5F6C77", italic = true },
           LineNr = { fg = "#3A4555" },
+
+          FidgetBorder = { fg = "#151F2D", bg = "#151F2D" },
+          FzfLuaSelection = { bg = "#1E2E45" },
+          FzfLuaCursor = { bg = "#1E2E45" },
 
           -- 2. UTILITY & BACKGROUND ELEMENTS
           NormalFloat = { bg = "none" },
@@ -76,30 +79,28 @@ else
 
           -- 3. MINIMAL SYNTAX COLORS
           String = { fg = "#8ca64a" },
-          Special = { fg = "#C07035", italic = false },
-          Statement = { fg = "#D89F5C" },
+          Statement = { fg = "#C07035", italic = false },
           Type = { fg = "#7aa7d8" },
           Function = { fg = "#AABFD9" },
-
-          -- ADJUSTED: Special is now softer than default, but not brown
+          Special = { fg = "#D89F5C" },
 
           -- 4. ALERTS & MATCHING
           Question = { fg = "#aad94c" },
           Todo = { fg = "#d35a63" },
-
-          -- 5. DIFF & GIT
-          DiffDelete = { fg = "#2d3a44", bold = false },
-          DiffAdd = { fg = "#82a382", bold = true },
-          DiffChange = { fg = "#0F1724", bg = "#0F1724" },
+          MatchParen = { fg = "#000000", bg = "#AAD94C" },
           StatusLine = { bg = "none" },
           StatusLineNC = { bg = "none" },
-          StatusLineTerm = { bg = "none" },
-          StatusLineTermNC = { bg = "none" },
-          FzfLuaSelection = { bg = "#1E2E45" }, -- Your subtle blue background
-          FzfLuaCursor = { bg = "#1E2E45" },    -- Catch the cursor line as well
+
+          -- 5. DIFF & GIT (FINAL FIXES)
+          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" },  -- Subtle Blue-Green BG
+          DiffAdded = { link = "DiffAdd" },
+          DiffChange = {},                               -- Subtle Blue-Grey BG (Line Change)
+          DiffText = { fg = "#BEBEBC", bg = "#2A3245" }, -- Clear BG for Word Change
+          DiffDelete = { fg = "#222A38", bg = "none" },  -- **FIXED**: Deleted text is dark and very subtle
+          DiffRemoved = { fg = "#d35a63", bg = "none" },
+
           -- 6. RESET/NEUTRAL GROUPS (Your explicit overrides to limit color)
           Operator = { link = "Normal" },
-          ModeMsg = { link = "Normal" },
 
           -- NEUTRALIZE PUNCTUATION GROUPS
           Delimiter = { link = "Normal" },
@@ -111,7 +112,6 @@ else
           ["@variable.field"] = { fg = "#AABFD9" },
           ["@parameter"] = { fg = "#AABFD9" },
 
-          -- Your Explicit Tree-sitter resets
           ["@variable.parameter"] = { link = "Normal" },
           ["@variable.member"] = { link = "Normal" },
           ["@variable"] = { link = "Normal" },
