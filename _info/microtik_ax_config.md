@@ -5,7 +5,6 @@
 5180-5240
 5500-5560
 5260-5320
-```
 
 
 
@@ -24,3 +23,4 @@ add country="United States" name=common-conf security=common-auth ssid=CenturyLi
 /interface wifiwave2
 set [ find default-name=wifi1 ] channel=ch-2ghz configuration=common-conf configuration.mode=ap disabled=no
 set [ find default-name=wifi2 ] channel=ch-5ghz configuration=common-conf configuration.mode=ap .ssid=CenturyLink1940 disabled=no
+```
