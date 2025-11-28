@@ -190,5 +190,3 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
-
--- vim.cmd([[hi! link MatchParen Cursor]])
