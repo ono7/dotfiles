@@ -53,6 +53,9 @@ else
         overrides = {
           -- 1. CORE COLORS & COMFORT
           Normal = { bg = "#151F2D", fg = "#BEBEBC" },
+          MatchParen = { fg = "#151F2D", bg = "#BEBEBC" },
+          ModeMsg = { link = "Normal" },
+          MoreMsg = { link = "Normal" },
           Visual = { bg = "#1E2E45" },
 
           Comment = { fg = "#5F6C77", italic = true },
@@ -64,7 +67,8 @@ else
 
           -- 2. UTILITY & BACKGROUND ELEMENTS
           NormalFloat = { bg = "none" },
-          CursorLine = { bg = "none" },
+          -- CursorLine = { bg = "none" },
+          CursorLine = { link = "Visual" },
           CursorColumn = { bg = "none" },
           ColorColumn = { bg = "none" },
           SignColumn = { bg = "none" },
@@ -87,7 +91,6 @@ else
           -- 4. ALERTS & MATCHING
           Question = { fg = "#aad94c" },
           Todo = { fg = "#d35a63" },
-          MatchParen = { fg = "#000000", bg = "#AAD94C" },
           StatusLine = { bg = "none" },
           StatusLineNC = { bg = "none" },
 
