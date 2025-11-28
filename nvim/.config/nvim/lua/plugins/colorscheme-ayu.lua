@@ -62,9 +62,6 @@ else
           LineNr = { fg = "#3A4555" },
 
           FidgetBorder = { fg = "#151F2D", bg = "#151F2D" },
-          -- FzfLuaSelection = { bg = "#1E2E45" },
-          FzfLuaSelection = { link = "Visual" },
-          FzfLuaCursor = { link = "Visual" },
 
           -- 2. UTILITY & BACKGROUND ELEMENTS
           NormalFloat = { bg = "none" },
