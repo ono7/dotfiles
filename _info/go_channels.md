@@ -1,6 +1,17 @@
 # channels
 
 ```go
+
+// check if channel is closed
+v, ok := <-ch
+if !ok {
+    // channel is closed, no more values
+    // do something else or exit...
+}
+
+```
+
+```go
 // use empty structs when sending signals (not data)
 func downloadData() chan struct{} {
   downloadDoneCh := make(chan struct{})
