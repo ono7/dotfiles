@@ -21,6 +21,29 @@ return {
       fzf_colors = {
         ["bg+"] = { "bg", "Visual" }, -- Selected line background
         ["fg+"] = { "fg", "Normal" }, -- Selected line foreground
+
+        -- other notes for future reference
+        -- ["fg"]          = { "fg", "CursorLine" },
+        -- ["bg"]          = { "bg", "Normal" },
+        -- ["hl"]          = { "fg", "Comment" },
+
+        -- THIS determines the selected line background
+        -- It says: "Use the 'bg' color from the 'Visual' highlight group for fzf's 'bg+'"
+        -- ["bg+"] = { "bg", "Visual" },
+
+        -- THIS determines the text color of the selected line
+        -- ["fg+"] = { "fg", "Visual" },
+
+        -- THIS determines the highlight of the MATCHED text on the selected line
+        -- ["hl+"] = { "fg", "Special" },
+
+        -- ["info"]        = { "fg", "PreProc" },
+        -- ["prompt"]      = { "fg", "Conditional" },
+        -- ["pointer"]     = { "fg", "Exception" },
+        -- ["marker"]      = { "fg", "Keyword" },
+        -- ["spinner"]     = { "fg", "Label" },
+        -- ["header"]      = { "fg", "Comment" },
+        -- ["gutter"]      = { "bg", "Normal" },
       },
       winopts = winopts,
       {
