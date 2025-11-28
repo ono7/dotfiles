@@ -31,7 +31,7 @@ if vim.g.neovide then
   local is_wsl = uname.sysname == "Linux" and uname.release:lower():match("microsoft")
 
   if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
-    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h17"
+    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   else
     vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
   end
@@ -88,11 +88,11 @@ if vim.g.neovide then
   -- vim.keymap.set({ "c", "n", "i" }, "<D-n>", "<C-n>")
 
   -- Paste with Ctrl+Shift+V in all modes
-  vim.keymap.set('n', '<C-S-v>', '"+p', { noremap = true })
-  vim.keymap.set('i', '<C-S-v>', '<C-r>+', { noremap = true })
-  vim.keymap.set('c', '<C-S-v>', '<C-r>+', { noremap = true })
-  vim.keymap.set('v', '<C-S-v>', '"+p', { noremap = true })
-  vim.keymap.set('t', '<C-S-v>', '<C-\\><C-n>"+pi', { noremap = true })
+  vim.keymap.set("n", "<C-S-v>", '"+p', { noremap = true })
+  vim.keymap.set("i", "<C-S-v>", "<C-r>+", { noremap = true })
+  vim.keymap.set("c", "<C-S-v>", "<C-r>+", { noremap = true })
+  vim.keymap.set("v", "<C-S-v>", '"+p', { noremap = true })
+  vim.keymap.set("t", "<C-S-v>", '<C-\\><C-n>"+pi', { noremap = true })
 
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set("n", "<C-1>", "1gt", opt)
