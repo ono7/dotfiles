@@ -1,4 +1,4 @@
-# slices
+# slices (passed by reference)
 
 different ways to access a slice
 
