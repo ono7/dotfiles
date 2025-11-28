@@ -1,148 +1,154 @@
--- if vim.env.TERM_PROGRAM == "Apple_Terminal" then
+-- Configuration file for the 'ayu' colorscheme with custom overrides.
+-- Final, verified version implementing all aesthetic choices and color adjustments.
+
+-- Conditional logic for terminals that don't support true color (termguicolors=false)
 if vim.env.TERM_PROGRAM == "otherfake stub" then
   vim.opt.termguicolors = false
+  -- [Cterm overrides remain here as they cannot be moved to the Lua overrides table]
   vim.cmd([[
-  set t_Co=16
-  hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
-  hi! link LineNr Comment
-  hi! clear Error
-  hi! clear ModeMsg
-  hi! clear DiffDelete
-  hi! clear FoldColumn
-  hi! clear SignColumn
-  hi! clear CursorLineFold
-  hi! link CursorLine Normal
-  hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
-  hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
-  hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
-  hi! clear DiffAdd
-  " hi! DiffChange term=bold ctermbg=0 guibg=NONE
-  hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
-  hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-  hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
-  hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
-  hi! clear ErrorMsg
-  hi! clear MatchParen
-  hi! Visual term=reverse cterm=reverse gui=reverse
-  hi! MatchParen guibg=#384057 ctermbg=8
-  hi! Search term=reverse cterm=reverse gui=reverse
-  hi! PmenuSel term=reverse cterm=reverse gui=reverse
-  hi! Pmenu term=reverse cterm=reverse gui=reverse
-  hi! clear Pmenu
-  hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
-  hi! link LineNr Comment
-  hi! link DiffDelete Comment
-  hi! link SpecialKey Comment
-  hi! link Folded Comment
-  hi! link VertSplit Comment
-  hi! link MsgSeparator Comment
-  hi! link WinSeparator Comment
-  hi! link EndOfBuffer Comment
-  hi! link StatusLineNC Comment
+    set t_Co=16
+    hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+    hi! link LineNr Comment
+    hi! clear Error
+    hi! clear ModeMsg
+    hi! clear DiffDelete
+    hi! clear FoldColumn
+    hi! clear SignColumn
+    hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
+    hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
+    hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
+    hi! clear DiffAdd
+    hi! DiffChange ctermbg=52 ctermfg=NONE guibg=#3a1e1e guifg=NONE
+    hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
+    hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
+    hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
+    hi! clear ErrorMsg
+    hi! clear MatchParen
+    hi! Visual term=reverse cterm=reverse gui=reverse
+    hi! MatchParen guibg=#384057 ctermbg=8
+    hi! Search term=reverse cterm=reverse gui=reverse
+    hi! PmenuSel term=reverse cterm=reverse gui=reverse
+    hi! Pmenu term=reverse cterm=reverse gui=reverse
+    hi! clear Pmenu
+    hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+    hi! link LineNr Comment
+    hi! link DiffDelete Comment
+    hi! link SpecialKey Comment
+    hi! link Folded Comment
+    hi! link VertSplit Comment
+    hi! link MsgSeparator Comment
+    hi! link WinSeparator Comment
+    hi! link EndOfBuffer Comment
+    hi! link StatusLineNC Comment
   ]])
   return {}
 else
+  -- True color (termguicolors) configuration
   return {
     "Shatur/neovim-ayu",
     lazy = false,
     priority = 1000,
     config = function()
       require("ayu").setup({
-        mirage = false,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
-        terminal = true, -- Set
         overrides = {
-
+          -- 1. CORE COLORS & COMFORT
           Normal = { bg = "#151F2D", fg = "#BEBEBC" },
-          MatchParen = { fg = "#000000", bg = "#ffffff" },
+          MatchParen = { fg = "#151F2D", bg = "#BEBEBC" },
+          Visual = { bg = "#1E2E45" },
+
+          Comment = { fg = "#5F6C77", italic = true },
+          LineNr = { fg = "#3A4555" },
+
+          -- 2. UTILITY & BACKGROUND ELEMENTS
           NormalFloat = { bg = "none" },
-          ColorColumn = { bg = "none" },
-          SignColumn = { bg = "none" },
-          -- Question = { fg = "#7DAA52" },
-          -- Question = { fg = "#9aae46" },
-          -- String = { fg = "#9aae46" }, -- more olive, less readable but still good
-          String = { fg = "#8ca64a" }, -- slightly brighter, but more readable
-          -- String = { fg = "#788a4a" }, -- this is more balance, less bright and very readable
-          Question = { fg = "#aad94c" },
-          Type = { fg = "#7aa7d8" },
-          Todo = { fg = "#d35a63" },
-          -- Comment = { fg = "#2d3239", italic = false },
-          Comment = { fg = "#3D4249", italic = true },
-          Folded = { bg = "none" },
-          EndOfBuffer = { fg = "#151f2d", bg = "none" },
-          FoldColumn = { bg = "none" },
-          LineNr = { fg = "#2A2F38" },
           CursorLine = { bg = "none" },
           CursorColumn = { bg = "none" },
-          WinBar = { bg = "none" },
-          Statement = { fg = "#d27a3b", italic = false },
+          ColorColumn = { bg = "none" },
+          SignColumn = { bg = "none" },
+          Folded = { bg = "none" },
+          FoldColumn = { bg = "none" },
+          EndOfBuffer = { fg = "#151f2d", bg = "none" },
+
           VertSplit = { link = "Normal" },
-          WinSeparator = { bg = "none" },
-          Visual = { bg = "#1E2E45" },
-          ["@punctuation.bracket"] = { link = "Todo" },
+          WinSeparator = { link = "Normal" },
+          WinBar = { bg = "none" },
+          WinBarNC = { fg = "#5a6b85", bg = "none" },
+
+          -- 3. MINIMAL SYNTAX COLORS
+          String = { fg = "#8ca64a" },
+          Special = { fg = "#C07035", italic = false },
+          Statement = { fg = "#D89F5C" },
+          Type = { fg = "#7aa7d8" },
+          Function = { fg = "#AABFD9" },
+
+          -- ADJUSTED: Special is now softer than default, but not brown
+
+          -- 4. ALERTS & MATCHING
+          Question = { fg = "#aad94c" },
+          Todo = { fg = "#d35a63" },
+
+          -- 5. DIFF & GIT
+          DiffDelete = { fg = "#2d3a44", bold = false },
+          DiffAdd = { fg = "#82a382", bold = true },
+          DiffChange = { fg = "#0F1724", bg = "#0F1724" },
+          StatusLine = { bg = "none" },
+          StatusLineNC = { bg = "none" },
+          StatusLineTerm = { bg = "none" },
+          StatusLineTermNC = { bg = "none" },
+          FzfLuaSelection = { bg = "#1E2E45" }, -- Your subtle blue background
+          FzfLuaCursor = { bg = "#1E2E45" },    -- Catch the cursor line as well
+          -- 6. RESET/NEUTRAL GROUPS (Your explicit overrides to limit color)
+          Operator = { link = "Normal" },
+          ModeMsg = { link = "Normal" },
+
+          -- NEUTRALIZE PUNCTUATION GROUPS
+          Delimiter = { link = "Normal" },
+          ["@punctuation.bracket"] = { fg = "#BEBEBC" },
+          ["@punctuation.delimiter"] = { fg = "#BEBEBC" },
+          ["@operator"] = { fg = "#BEBEBC" },
+
+          -- 7. TREE-SITTER / FINE-GRAINED
+          ["@variable.field"] = { fg = "#AABFD9" },
+          ["@parameter"] = { fg = "#AABFD9" },
+
+          -- Your Explicit Tree-sitter resets
+          ["@variable.parameter"] = { link = "Normal" },
+          ["@variable.member"] = { link = "Normal" },
+          ["@variable"] = { link = "Normal" },
+          ["@property"] = { link = "Normal" },
+          ["@function.builtin"] = { link = "Normal" },
+          ["@constant.builtin"] = { link = "Normal" },
+
+          ["@property.yaml"] = { link = "LspDiagnosticsError" },
+          ["@module"] = { link = "Normal" },
+          ["@markup.raw"] = { link = "Normal" },
+          ["@constructor"] = { link = "Normal" },
+          ["@constructor.python"] = { link = "Normal" },
+          ["@function.method"] = { italic = false },
+
+          ["@lsp.typedecl"] = { fg = "#7aa7d8" },
+          ["@lsp.type.comment"] = { fg = "#5F6C77", italic = true },
+
+          NonText = { fg = "#5a6b85" },
+          FloatBorder = { link = "Comment", bold = true },
+          Search = { link = "Visual" },
+          IncSearch = { link = "Visual" },
+          NormalNC = { link = "Normal" },
         },
       })
-      -- Updated highlights using new color scheme
+
+      -- Load the colorscheme AFTER the overrides are set
       vim.cmd([[colorscheme ayu-dark]])
+
+      -- External hlset calls (These must remain external)
+      vim.api.nvim_set_hl(0, "Cursor", { bg = "#00f6ff", fg = "#000000" })
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b396b8", bold = true, italic = false })
-      vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
+
+      -- Explicit Link commands (kept external for clarity and stability)
       vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
       vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
       vim.api.nvim_set_hl(0, "@text.note", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "Function", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "WinBarNC", { fg = "#5a6b85", bg = "none" })
-      vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#2d3a44", bold = false })
-      vim.api.nvim_set_hl(0, "DiffChange", {})
-      vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#9cbf9c", bold = true })
-      vim.api.nvim_set_hl(0, "diffAdded", { fg = "#9cbf9c", bold = true })
-      vim.api.nvim_set_hl(0, "@punctuation.delimiter", {})
-      vim.api.nvim_set_hl(0, "Search", { link = "PmenuSel" })
-      vim.api.nvim_set_hl(0, "IncSearch", { link = "PmenuSel" })
-      vim.api.nvim_set_hl(0, "StatusLine", {})
-      vim.api.nvim_set_hl(0, "StatusLineNC", {})
-      vim.api.nvim_set_hl(0, "@variable.builtin", {})
-      vim.api.nvim_set_hl(0, "NeoTreeNormal", {})
-      vim.api.nvim_set_hl(0, "NormalFloat", {})
-      vim.api.nvim_set_hl(0, "NormalNC", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment", bold = true })
-      vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "SpellCap" })
-      vim.api.nvim_set_hl(0, "cmpDoc", {})
-      -- vim.api.nvim_set_hl(0, "Cursor", { fg = "#ffffff" })
-      vim.api.nvim_set_hl(0, "Cursor", { bg = "#00f6ff", fg = "#000000" }) -- electric cyan
-      vim.api.nvim_set_hl(0, "NonText", { fg = "#5a6b85" })
-      vim.api.nvim_set_hl(0, "MoreMsg", {})
-      vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultError", { link = "DiagnosticError" })
-      vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultWarning", { link = "DiagnosticWarn" })
-      vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultInformation", { link = "DiagnosticInfo" })
-      vim.api.nvim_set_hl(0, "LspDiagnosticsDefaultHint", { link = "DiagnosticHint" })
-      vim.api.nvim_set_hl(0, "diffAdded", { fg = "#82a382", bold = true })
-      vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#bb7e78", bold = true })
-      vim.api.nvim_set_hl(0, "Special", {})
-      -- vim.api.nvim_set_hl(0, "String", {})
-      -- vim.api.nvim_set_hl(0, "@string", {})
-      vim.api.nvim_set_hl(0, "@variable", {})
-      vim.api.nvim_set_hl(0, "@property", {})
-      vim.api.nvim_set_hl(0, "@property.yaml", { link = "LspDiagnosticsError" })
-      vim.api.nvim_set_hl(0, "Operator", {})
-      vim.api.nvim_set_hl(0, "@constant.builtin", {})
-      vim.api.nvim_set_hl(0, "@function.builtin", {})
-      vim.api.nvim_set_hl(0, "ModeMsg", {})
-      vim.api.nvim_set_hl(0, "Constant", {})
-      -- vim.api.nvim_set_hl(0, "@string.special.path.gitignore", {})
-      vim.api.nvim_set_hl(0, "@variable.parameter", {})
-      vim.api.nvim_set_hl(0, "@variable.member", {})
-      vim.api.nvim_set_hl(0, "@parameter", {})
-      vim.api.nvim_set_hl(0, "@module", {})
-      vim.api.nvim_set_hl(0, "@markup.raw", {})
-      vim.api.nvim_set_hl(0, "@constructor", {})
-      vim.api.nvim_set_hl(0, "@constructor.python", {})
-      -- vim.api.nvim_set_hl(0, "@string.documentation", {})
-      vim.api.nvim_set_hl(0, "Boolean", {})
-      vim.api.nvim_set_hl(0, "@function.method", { italic = false })
-      -- vim.api.nvim_set_hl(0, "@string.yaml", {})
-      vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
-      vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "Visual" })
-      -- vim.api.nvim_set_hl(0, "@type", { link = "Question" })
-      vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
     end,
   }
 end
