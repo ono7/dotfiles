@@ -1,5 +1,21 @@
 # channels
 
+- using select to listen for multiple channels
+
+```go
+select {
+case i, ok := <-chInts:
+  if ok {
+    fmt.Println(i)
+  }
+case s, ok := <-chStrings:
+  if ok {
+    fmt.Println(s)
+  }
+}
+
+```
+
 ```go
 // range over channels, must close(ch)
 package main
