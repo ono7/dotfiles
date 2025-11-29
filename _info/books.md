@@ -1,3 +1,8 @@
+# what every programmer should should know about memory
+
+- Ulrich Drepper (redhat)
+- this is just a great pdf to checkout
+
 # Computer Systems: A Programmer's Perspective (Pearson+)
 
 - must have some `c` or `c++` background
