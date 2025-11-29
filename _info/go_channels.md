@@ -1,5 +1,9 @@
 # channels
 
+- time.Tick() is a standard library function that returns a channel that sends a value on a given interval.
+- time.After() sends a value once after the duration has passed.
+- time.Sleep() blocks the current goroutine for the specified duration of time.
+
 - using select to listen for multiple channels
 
 ```go
@@ -12,6 +16,19 @@ case s, ok := <-chStrings:
   if ok {
     fmt.Println(s)
   }
+// can also be used to exit when channel is closed
+case s, ok := <-chStrings:
+  if !ok {
+    return // or exit some how
+  }
+case <-chOther:
+    // event received; value ignored
+    // sometimes we want to ignore the value of a channel
+case _ := <-chOther2:
+    // use the _ blank identifier to ignore
+default:
+  // The default case in a select statement executes immediately if no other
+  // channel has a value ready. A default case stops the select statement from blocking.
 }
 
 ```
