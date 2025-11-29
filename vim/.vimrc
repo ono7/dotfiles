@@ -58,7 +58,8 @@ set wildmenu wildmode=longest:full,full wildignorecase
 set lazyredraw hidden updatetime=300
 set incsearch ignorecase smartcase autoindent smartindent
 set nohlsearch
-set number relativenumber nocursorline
+set nonumber norelativenumber nocursorline
+set ruler
 set magic noshowcmd nowrap
 set timeout timeoutlen=300 ttimeout ttimeoutlen=50
 set scrolloff=3 sidescrolloff=5 nowrap
