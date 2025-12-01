@@ -28,3 +28,17 @@ func checkPermission(p Perm) error {
 }
 
 ```
+
+## kind of a enum, but not really, just a sequence of numbers
+
+```go
+type emailStatus int
+
+const (
+  emailBounced emailStatus = iota
+  emailInvalid
+  emailDelivered
+  emailOpened
+)
+
+```
