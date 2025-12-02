@@ -56,9 +56,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-            not (ft:match("commit") and ft:match("rebase"))
-            and last_known_line > 1
-            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+          not (ft:match("commit") and ft:match("rebase"))
+          and last_known_line > 1
+          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -115,37 +115,51 @@ vim.api.nvim_create_autocmd("TermOpen", {
   desc = "Terminal Options",
 })
 
-local MAX_FILE_SIZE = 1024 * 1024 -- 1MB
+local MAX_FILE_SIZE = 1024 * 1024 -- 1MB (1 MiB)
 
-vim.api.nvim_create_autocmd("BufReadPre", {
-  group = vim.api.nvim_create_augroup("OptimizeBuffer", { clear = true }),
+-- Create or clear the AutoGroup
+local group_id = vim.api.nvim_create_augroup("OptimizeBuffer", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
+  group = group_id,
   callback = function(args)
     local bufnr = args.buf
     local filename = vim.api.nvim_buf_get_name(bufnr)
-    if filename == "" then
-      return
+
+    if filename == "" or vim.b[bufnr].large_file then
+      return -- Skip if no name or already optimized
     end
 
-    local ok, stats = pcall(vim.loop.fs_stat, filename)
-    local is_large = ok and stats and stats.size > MAX_FILE_SIZE or filename:match("%.csv$")
+    local is_large = false
+
+    -- 1. Check for CSV filetype (fast path)
+    if filename:match("%.csv$") then
+      is_large = true
+    else
+      -- 2. Check file size using pcall for safety
+      local ok, stats = pcall(vim.loop.fs_stat, filename)
+      if ok and stats and stats.size then
+        is_large = stats.size > MAX_FILE_SIZE
+      end
+    end
 
     if not is_large then
-      return
+      return -- Not a large file, exit
     end
 
-    -- Buffer-local optimizations
+    -- --- Apply Buffer-Local Optimizations (Synchronous) ---
+
     vim.bo[bufnr].syntax = "off"
     vim.bo[bufnr].swapfile = false
     vim.bo[bufnr].undofile = false
     vim.bo[bufnr].synmaxcol = 200
     vim.b[bufnr].disable_autoformat = true
-    vim.b[bufnr].large_file = true
-    vim.b[bufnr].lsp_ignore = true -- optional but very helpful
+    vim.b[bufnr].large_file = true      -- Mark as optimized
+    vim.b[bufnr].lsp_ignore = true
 
-    -- Prevent expensive filetype plugins
-    vim.cmd("setlocal eventignore+=FileType")
+    -- --- Apply Window-Local/Async Optimizations (Scheduled) ---
+    -- Must be scheduled to run *after* the current event finishes
 
-    -- Window-local optimizations
     vim.schedule(function()
       local win = vim.fn.bufwinid(bufnr)
       if win ~= -1 then
@@ -159,12 +173,10 @@ vim.api.nvim_create_autocmd("BufReadPre", {
       -- Disable diagnostics
       vim.diagnostic.enable(false, { bufnr = bufnr })
 
-      vim.notify("File optimizations applied.", vim.log.levels.INFO)
+      vim.notify("Large file optimizations applied.", vim.log.levels.INFO)
     end)
   end,
 })
-
-
 -- Cache of project roots we've already entered this session
 local seen_projects = {}
 
@@ -184,13 +196,19 @@ end
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function(args)
     local file = vim.api.nvim_buf_get_name(args.buf)
-    if file == "" then return end
+    if file == "" then
+      return
+    end
 
     local root = find_git_root(file)
-    if not root then return end
+    if not root then
+      return
+    end
 
     -- Only do this once per project per session
-    if seen_projects[root] then return end
+    if seen_projects[root] then
+      return
+    end
     seen_projects[root] = true
 
     -- Window-local directory change

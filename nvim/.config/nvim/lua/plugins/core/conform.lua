@@ -37,6 +37,7 @@ return {
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          vim.notify("Conform: disable, using standard: write method")
           return
         end
         return { timeout_ms = 1000, lsp_format = "fallback" }
