@@ -154,8 +154,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
     vim.bo[bufnr].undofile = false
     vim.bo[bufnr].synmaxcol = 200
     vim.b[bufnr].disable_autoformat = true
-    vim.b[bufnr].large_file = true      -- Mark as optimized
+    vim.b[bufnr].large_file = true -- Mark as optimized
     vim.b[bufnr].lsp_ignore = true
+
+    if pcall(require, "matchparen") then
+      require("matchparen").disable(bufnr)
+    end
 
     -- --- Apply Window-Local/Async Optimizations (Scheduled) ---
     -- Must be scheduled to run *after* the current event finishes
