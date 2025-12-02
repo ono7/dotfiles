@@ -35,6 +35,13 @@ fi
 
 typeset -U path PATH
 
+
+if command -v nvim > /dev/null 2>&1; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
 # kitty, alacritty use CPU instead of GPU
 # export LIBGL_ALWAYS_SOFTWARE=1
 
@@ -46,7 +53,6 @@ export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export CGO_ENABLED=0
-export EDITOR=vim
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 # export MANPAGER='nvim +Man!'

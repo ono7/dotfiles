@@ -169,6 +169,12 @@ if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
   fi
 fi
 
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
 alias gd='git diff'
 alias gs='git status'
 
@@ -290,7 +296,6 @@ alias vim=nvim
 alias vi=nvim
 alias v=nvim
 alias vil=vim
-export EDITOR=nvim
 
 export FZF_DEFAULT_OPTS='--height 40% --no-preview'
 
