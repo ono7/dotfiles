@@ -131,9 +131,20 @@ return {
     k("n", "<leader>b", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
     -- k("n", "<leader>z", fzf.zoxide, { desc = "change projects using zoxide and fzflua" })
 
-    k("n", "<leader>z", function()
-      require("fzf-lua").zoxide({ previewer = false })
-    end)
+    -- k("n", "<leader>z", function()
+    --   require("fzf-lua").zoxide({ previewer = false })
+    -- end)
+
+    k("n", "<leader>vc", function()
+      winopts.title = " Dotfiles "
+      winopts.title_pos = "center"
+      require("fzf-lua").files({
+        cwd = vim.fn.expand("~/.dotfiles"),
+        winopts = winopts,
+        prompt = "Dotfiles> ",
+        previewer = false,
+      })
+    end, { desc = "Search dotfiles" })
 
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
