@@ -46,15 +46,22 @@ return {
         -- ["gutter"]      = { "bg", "Normal" },
       },
       winopts = winopts,
-      {
-        "fzf-native",
-        -- winopts = {
-        --   -- -- preview = { default = "bat" },
-        -- },
-      },
+      -- {
+      --   "fzf-native",
+      --   -- winopts = {
+      --   --   -- -- preview = { default = "bat" },
+      --   -- },
+      -- },
       previewers = {
         builtin = {
           syntax_limit_b = 1024 * 100, -- 100KB
+        },
+      },
+      -- this should work with others as well to disable previews
+      -- previews are enabled because we are injecting the builtin previewers above
+      zoxide = {
+        winopts = {
+          preview = { hidden = true },
         },
       },
       keymap = {
@@ -113,6 +120,7 @@ return {
         git_icons = false,
         file_icons = true,
         color_icons = true,
+        formatter = "path.filename_first",
       },
     })
 
@@ -121,16 +129,12 @@ return {
     vim.api.nvim_set_hl(0, "FzfLuaBackdrop", { link = "Normal" })
 
     k("n", "<leader>b", fzf.buffers, { desc = "[S]earch existing [B]uffers" })
-    k("n", "<leader>vc", function()
-      winopts.title = " Dotfiles "
-      winopts.title_pos = "center"
-      require("fzf-lua").files({
-        cwd = vim.fn.expand("~/.dotfiles"),
-        winopts = winopts,
-        prompt = "Dotfiles> ",
-        previewer = false,
-      })
-    end, { desc = "Search dotfiles" })
+    -- k("n", "<leader>z", fzf.zoxide, { desc = "change projects using zoxide and fzflua" })
+
+    k("n", "<leader>z", function()
+      require("fzf-lua").zoxide({ previewer = false })
+    end)
+
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
