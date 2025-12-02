@@ -316,7 +316,7 @@ k("c", "<C-BS>", "\x17", { noremap = true })
 k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
-k("t", "kk", [[<c-\><c-n>]], silent)
+k("t", "<c-q>", [[<c-\><c-n>]], silent)
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("t", "<D-e>", [[<c-e>]], silent)
