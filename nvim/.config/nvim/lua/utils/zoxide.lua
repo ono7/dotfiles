@@ -54,7 +54,7 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("tcd " .. path)
-            vim.notify(path)
+            vim.notify("cwd: \n" .. path)
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
@@ -68,7 +68,7 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("tcd " .. path)
-            vim.notify(path)
+            vim.notify("cwd: \n" .. path)
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
