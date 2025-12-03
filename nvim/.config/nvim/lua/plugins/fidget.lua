@@ -76,7 +76,7 @@ return {
         configs = {
           default = vim.tbl_extend("force", require("fidget.notification").default_config, {
             ttl = 2.5,
-            timeout = 0.7,
+            timeout = 2,
 
             -- icon set per level (big visual upgrade)
             icon = "✨",
