@@ -121,22 +121,19 @@ end
 vim.opt.foldtext = "v:lua.better_fold_text()"
 vim.opt.fillchars:append({ fold = " " })
 
--- Clear the Folded highlight group completely
--- Use manual folding (treesitter foldexpr causes input lag)
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldmethod = "manual"
 vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
-vim.opt.foldnestmax = 1
+vim.opt.foldnestmax = 2
 -- vim.opt.foldenable = true
 vim.opt.foldenable = false
 
 vim.cmd([[
 function! ToggleFolding()
   if &foldmethod ==# 'manual'
-    setlocal foldenable foldmethod=indent foldlevel=0
-    echo "Folding enabled, zk zj (jump folds)"
+    " indent-based folding, show level 1 (classes), fold level 2+ (methods)
+    setlocal foldmethod=indent foldenable foldlevel=1
+    echo "Folding enabled (methods folded, classes open)"
   else
     setlocal nofoldenable foldmethod=manual
     echo "Folding disabled"
