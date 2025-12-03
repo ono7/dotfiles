@@ -44,7 +44,7 @@ inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
 inoremap <C-p> <C-r>"
-nnoremap <C-n> <cmd>tabnew<cr>
+" nnoremap <C-n> <cmd>tabnew<cr>
 
 nnoremap ; :
 xnoremap ; :

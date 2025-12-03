@@ -115,72 +115,73 @@ vim.api.nvim_create_autocmd("TermOpen", {
   desc = "Terminal Options",
 })
 
-local MAX_FILE_SIZE = 1024 * 1024 -- 1MB (1 MiB)
+-- local MAX_FILE_SIZE = 1024 * 1024 -- 1MB (1 MiB)
+--
+-- -- Create or clear the AutoGroup
+-- local group_id = vim.api.nvim_create_augroup("OptimizeBuffer", { clear = true })
+--
+-- vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
+--   group = group_id,
+--   callback = function(args)
+--     local bufnr = args.buf
+--     local filename = vim.api.nvim_buf_get_name(bufnr)
+--
+--     if filename == "" or vim.b[bufnr].large_file then
+--       return -- Skip if no name or already optimized
+--     end
+--
+--     local is_large = false
+--
+--     -- 1. Check for CSV filetype (fast path)
+--     if filename:match("%.csv$") then
+--       is_large = true
+--     else
+--       -- 2. Check file size using pcall for safety
+--       local ok, stats = pcall(vim.loop.fs_stat, filename)
+--       if ok and stats and stats.size then
+--         is_large = stats.size > MAX_FILE_SIZE
+--       end
+--     end
+--
+--     if not is_large then
+--       return -- Not a large file, exit
+--     end
+--
+--     -- --- Apply Buffer-Local Optimizations (Synchronous) ---
+--
+--     vim.bo[bufnr].syntax = "off"
+--     vim.bo[bufnr].swapfile = false
+--     vim.bo[bufnr].undofile = false
+--     vim.bo[bufnr].synmaxcol = 200
+--     vim.b[bufnr].disable_autoformat = true
+--     vim.b[bufnr].large_file = true -- Mark as optimized
+--     vim.b[bufnr].lsp_ignore = true
+--
+--     if pcall(require, "matchparen") then
+--       require("matchparen").disable(bufnr)
+--     end
+--
+--     -- --- Apply Window-Local/Async Optimizations (Scheduled) ---
+--     -- Must be scheduled to run *after* the current event finishes
+--
+--     vim.schedule(function()
+--       local win = vim.fn.bufwinid(bufnr)
+--       if win ~= -1 then
+--         vim.wo[win].foldmethod = "manual"
+--         vim.wo[win].foldenable = false
+--       end
+--
+--       -- Stop Treesitter
+--       pcall(vim.treesitter.stop, bufnr)
+--
+--       -- Disable diagnostics
+--       vim.diagnostic.enable(false, { bufnr = bufnr })
+--
+--       vim.notify("Large file optimizations applied.", vim.log.levels.INFO)
+--     end)
+--   end,
+-- })
 
--- Create or clear the AutoGroup
-local group_id = vim.api.nvim_create_augroup("OptimizeBuffer", { clear = true })
-
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
-  group = group_id,
-  callback = function(args)
-    local bufnr = args.buf
-    local filename = vim.api.nvim_buf_get_name(bufnr)
-
-    if filename == "" or vim.b[bufnr].large_file then
-      return -- Skip if no name or already optimized
-    end
-
-    local is_large = false
-
-    -- 1. Check for CSV filetype (fast path)
-    if filename:match("%.csv$") then
-      is_large = true
-    else
-      -- 2. Check file size using pcall for safety
-      local ok, stats = pcall(vim.loop.fs_stat, filename)
-      if ok and stats and stats.size then
-        is_large = stats.size > MAX_FILE_SIZE
-      end
-    end
-
-    if not is_large then
-      return -- Not a large file, exit
-    end
-
-    -- --- Apply Buffer-Local Optimizations (Synchronous) ---
-
-    vim.bo[bufnr].syntax = "off"
-    vim.bo[bufnr].swapfile = false
-    vim.bo[bufnr].undofile = false
-    vim.bo[bufnr].synmaxcol = 200
-    vim.b[bufnr].disable_autoformat = true
-    vim.b[bufnr].large_file = true -- Mark as optimized
-    vim.b[bufnr].lsp_ignore = true
-
-    if pcall(require, "matchparen") then
-      require("matchparen").disable(bufnr)
-    end
-
-    -- --- Apply Window-Local/Async Optimizations (Scheduled) ---
-    -- Must be scheduled to run *after* the current event finishes
-
-    vim.schedule(function()
-      local win = vim.fn.bufwinid(bufnr)
-      if win ~= -1 then
-        vim.wo[win].foldmethod = "manual"
-        vim.wo[win].foldenable = false
-      end
-
-      -- Stop Treesitter
-      pcall(vim.treesitter.stop, bufnr)
-
-      -- Disable diagnostics
-      vim.diagnostic.enable(false, { bufnr = bufnr })
-
-      vim.notify("Large file optimizations applied.", vim.log.levels.INFO)
-    end)
-  end,
-})
 -- Cache of project roots we've already entered this session
 local seen_projects = {}
 

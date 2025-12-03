@@ -96,7 +96,7 @@ require("config.autocmds")
 require("config.lsp").setup()
 require("config.neovide")
 -- require("utils.help-lookup").setup()
-require("utils.zoxide").setup()
+require("utils.zoxide").setup() -- use fzflua zoxide..
 
 --- these two worktogether
 require("utils.runner").setup() -- runs anything :M <cmd> :)

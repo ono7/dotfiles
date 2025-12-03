@@ -58,9 +58,9 @@ function M.setup()
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
-                previewer = false
+                previewer = false,
               })
-            end, 80)
+            end, 120)
           end
         end,
         ["ctrl-f"] = function(selected)
@@ -72,7 +72,7 @@ function M.setup()
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
-                previewer = false
+                previewer = false,
               })
             end, 80)
           end
@@ -81,6 +81,11 @@ function M.setup()
       winopts = {
         title = " Zoxide Directories ",
         title_pos = "center",
+        width = 0.9, -- Use 90% of screen width
+        height = 0.9, -- Use 90% of screen height
+      },
+      fzf_opts = {
+        ["--scheme"] = "path",
       },
     })
   end

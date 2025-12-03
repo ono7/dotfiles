@@ -16,6 +16,7 @@ return {
 
     vim.keymap.set("n", "ma", function()
       harpoon:list():add()
+      vim.notify("harpoon: added")
     end, opts)
     vim.keymap.set("n", "mm", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
