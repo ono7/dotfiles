@@ -25,27 +25,27 @@ return {
         ignore = {},
 
         display = {
-          render_limit      = 7,
-          done_ttl          = 2,
-          done_icon         = "✔",
-          done_style        = "DiagnosticSignOk",
+          render_limit = 7,
+          done_ttl = 2.5,
+          done_icon = "✔",
+          done_style = "DiagnosticSignOk",
 
           -- keep your behavior exactly
-          progress_ttl      = math.huge,
+          progress_ttl = math.huge,
 
           -- smoother braille spinner
-          progress_icon     = { pattern = "dots", period = 1 },
+          progress_icon = { pattern = "dots", period = 1 },
 
-          progress_style    = "WarningMsg",
-          group_style       = "Directory", -- better contrast
-          icon_style        = "Comment",   -- muted icon color
+          progress_style = "WarningMsg",
+          group_style = "Directory", -- better contrast
+          icon_style = "Comment", -- muted icon color
 
-          priority          = 30,
-          skip_history      = true,
+          priority = 30,
+          skip_history = true,
 
-          format_message    = require("fidget.progress.display").default_format_message,
+          format_message = require("fidget.progress.display").default_format_message,
 
-          format_annote     = function(msg)
+          format_annote = function(msg)
             return msg.title
           end,
 
@@ -53,7 +53,7 @@ return {
             return tostring(group)
           end,
 
-          overrides         = {
+          overrides = {
             rust_analyzer = { name = "rust-analyzer" },
           },
         },
@@ -74,19 +74,15 @@ return {
         override_vim_notify = true,
 
         configs = {
-          default = vim.tbl_extend(
-            "force",
-            require("fidget.notification").default_config,
-            {
-              ttl = 2,
-              timeout = 0.8,
+          default = vim.tbl_extend("force", require("fidget.notification").default_config, {
+            ttl = 2.5,
+            timeout = 0.7,
 
-              -- icon set per level (big visual upgrade)
-              icon = "✨",
+            -- icon set per level (big visual upgrade)
+            icon = "✨",
 
-              icon_style = "Title",
-            }
-          ),
+            icon_style = "Title",
+          }),
         },
 
         view = {
