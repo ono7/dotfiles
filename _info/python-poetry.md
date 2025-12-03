@@ -13,9 +13,13 @@ reinstall poetry, use python3 or python3.11 etc
 
 `poetry python install 3.11.11`
 
+better yet, use uv to install them
+
 # use in a new project
 
-`poetry env use 3.11.11`
+`poetry env use 3.11.11` - use python 3.11.11 on this venv
+`poetry env list`
+`poetry env remove /a/b/c/python (value from poetry list)`
 
 ```bash
 poetry_shell () {
