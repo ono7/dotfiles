@@ -25,7 +25,7 @@ return {
         -- Options related to how LSP progress messages are displayed as notifications
         display = {
           render_limit = 7, -- How many LSP messages to show at once
-          done_ttl = 3, -- How long a message should persist after completion
+          done_ttl = 2, -- How long a message should persist after completion
           done_icon = "✔", -- Icon shown when all LSP progress tasks are complete
           done_style = "DiagnosticSignOk", -- Highlight group for completed LSP tasks
           progress_ttl = math.huge, -- How long a message should persist when in progress
@@ -93,13 +93,13 @@ return {
         window = {
           -- normal_hl = "Label", -- Base highlight group in the notification window
           normal_hl = "Normal", -- Base highlight group in the notification window
-          winblend = 0,         -- Background color opacity in the notification window
-          border = "none",      -- Border around the notification window
+          winblend = 40,        -- Background color opacity in the notification window
+          border = "rounded",   -- Border around the notification window
           zindex = 45,          -- Stacking priority of the notification window
           max_width = 0,        -- Maximum width of the notification window
           max_height = 0,       -- Maximum height of the notification window
-          x_padding = 0,        -- Padding from right edge of window boundary
-          y_padding = 0,        -- Padding from bottom edge of window boundary
+          x_padding = 1,        -- Padding from right edge of window boundary
+          y_padding = 1,        -- Padding from bottom edge of window boundary
           align = "bottom",     -- How to align the notification window "top, bottom"
           relative = "editor",  -- What the notification window position is relative to
         },
@@ -108,10 +108,10 @@ return {
       -- Options related to integrating with other plugins
       integration = {
         ["nvim-tree"] = {
-          enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
+          enable = false, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
         },
         ["xcodebuild-nvim"] = {
-          enable = true, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
+          enable = false, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
         },
       },
 

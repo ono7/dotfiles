@@ -18,7 +18,7 @@ function M.setup()
     -- Toggle back to previous buffer-local cwd.
     if at_root and prev_dir then
       vim.cmd.lcd(prev_dir)
-      vim.notify("Changed to: " .. prev_dir, vim.log.levels.INFO)
+      vim.notify("cd: " .. prev_dir, vim.log.levels.INFO)
       at_root = false
       return
     end
@@ -32,7 +32,7 @@ function M.setup()
 
     prev_dir = current_dir
     vim.cmd.lcd(root)
-    vim.notify("Changed to project root: " .. root, vim.log.levels.INFO)
+    vim.notify("project root: " .. root, vim.log.levels.INFO)
     at_root = true
   end
 
