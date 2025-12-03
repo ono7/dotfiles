@@ -22,6 +22,7 @@ return {
         end,
         ignore = {}, -- List of LSP servers to ignore
 
+
         -- Options related to how LSP progress messages are displayed as notifications
         display = {
           render_limit = 7, -- How many LSP messages to show at once
@@ -64,10 +65,23 @@ return {
         poll_rate = 10,               -- How frequently to update and render notifications
         filter = vim.log.levels.INFO, -- Minimum notifications level
         history_size = 128,           -- Number of removed messages to retain in history
-        -- TODO: (jlima) 2024-12-08 22:06 testing override
         override_vim_notify = true,   -- Automatically override vim.notify() with Fidget
         -- How to configure notification groups when instantiated
-        configs = { default = require("fidget.notification").default_config },
+
+        -- configs = { default = require("fidget.notification").default_config },
+
+        configs = {
+          default = vim.tbl_extend("force",
+            require("fidget.notification").default_config,
+            {
+              ttl = 2, -- seconds a vim.notify message stays on screen
+              timeout = 3, -- fade-out time
+              icon = "✨", -- <- put it here
+              icon_style = "Title",
+            }
+          ),
+        },
+
         -- Conditionally redirect notifications to another backend
 
         -- redirect = function(msg, level, opts)
