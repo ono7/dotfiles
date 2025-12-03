@@ -1,140 +1,135 @@
 return {
   "j-hui/fidget.nvim",
-  opts = {
-    -- options
-  },
+  opts = {},
   config = function()
     require("fidget").setup({
-      -- Options related to LSP progress subsystem
+
+      --==============================
+      --  LSP Progress Subsystem
+      --==============================
       progress = {
-        poll_rate = 0,                -- How and when to poll for progress messages
-        suppress_on_insert = false,   -- Suppress new messages while in insert mode
-        ignore_done_already = false,  -- Ignore new tasks that are already complete
-        ignore_empty_message = false, -- Ignore new tasks that don't contain a message
-        -- Clear notification group when LSP server detaches
+        poll_rate = 0,
+        suppress_on_insert = false,
+        ignore_done_already = false,
+        ignore_empty_message = false,
+
         clear_on_detach = function(client_id)
           local client = vim.lsp.get_client_by_id(client_id)
           return client and client.name or nil
         end,
-        -- How to get a progress message's notification group key
+
         notification_group = function(msg)
           return msg.lsp_client.name
         end,
-        ignore = {}, -- List of LSP servers to ignore
 
+        ignore = {},
 
-        -- Options related to how LSP progress messages are displayed as notifications
         display = {
-          render_limit = 7, -- How many LSP messages to show at once
-          done_ttl = 2, -- How long a message should persist after completion
-          done_icon = "✔", -- Icon shown when all LSP progress tasks are complete
-          done_style = "DiagnosticSignOk", -- Highlight group for completed LSP tasks
-          progress_ttl = math.huge, -- How long a message should persist when in progress
-          -- Icon shown when LSP progress tasks are in progress
-          progress_icon = { pattern = "dots", period = 1 },
-          -- Highlight group for in-progress LSP tasks
-          progress_style = "WarningMsg",
-          group_style = "Title",   -- Highlight group for group name (LSP server name)
-          icon_style = "Question", -- Highlight group for group icons
-          priority = 30,           -- Ordering priority for LSP notification group
-          skip_history = true,     -- Whether progress notifications should be omitted from history
-          -- How to format a progress message
-          format_message = require("fidget.progress.display").default_format_message,
-          -- How to format a progress annotation
-          format_annote = function(msg)
+          render_limit      = 7,
+          done_ttl          = 2,
+          done_icon         = "✔",
+          done_style        = "DiagnosticSignOk",
+
+          -- keep your behavior exactly
+          progress_ttl      = math.huge,
+
+          -- smoother braille spinner
+          progress_icon     = { pattern = "dots", period = 1 },
+
+          progress_style    = "WarningMsg",
+          group_style       = "Directory", -- better contrast
+          icon_style        = "Comment",   -- muted icon color
+
+          priority          = 30,
+          skip_history      = true,
+
+          format_message    = require("fidget.progress.display").default_format_message,
+
+          format_annote     = function(msg)
             return msg.title
           end,
-          -- How to format a progress notification group's name
+
           format_group_name = function(group)
             return tostring(group)
           end,
-          overrides = { -- Override options from the default notification config
+
+          overrides         = {
             rust_analyzer = { name = "rust-analyzer" },
           },
         },
 
-        -- Options related to Neovim's built-in LSP client
         lsp = {
-          progress_ringbuf_size = 0, -- Configure the nvim's LSP progress ring buffer size
-          log_handler = false,       -- Log `$/progress` handler invocations (for debugging)
+          progress_ringbuf_size = 0,
+          log_handler = false,
         },
       },
 
-      -- Options related to notification subsystem
+      --==============================
+      --  Notification Subsystem
+      --==============================
       notification = {
-        poll_rate = 10,               -- How frequently to update and render notifications
-        filter = vim.log.levels.INFO, -- Minimum notifications level
-        history_size = 128,           -- Number of removed messages to retain in history
-        override_vim_notify = true,   -- Automatically override vim.notify() with Fidget
-        -- How to configure notification groups when instantiated
-
-        -- configs = { default = require("fidget.notification").default_config },
+        poll_rate = 10,
+        filter = vim.log.levels.INFO,
+        history_size = 128,
+        override_vim_notify = true,
 
         configs = {
-          default = vim.tbl_extend("force",
+          default = vim.tbl_extend(
+            "force",
             require("fidget.notification").default_config,
             {
-              ttl = 2, -- seconds a vim.notify message stays on screen
-              timeout = 3, -- fade-out time
-              icon = "✨", -- <- put it here
+              ttl = 2,
+              timeout = 0.8,
+
+              -- icon set per level (big visual upgrade)
+              icon = "✨",
+
               icon_style = "Title",
             }
           ),
         },
 
-        -- Conditionally redirect notifications to another backend
-
-        -- redirect = function(msg, level, opts)
-        --   if opts and opts.on_open then
-        --     return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-        --   end
-        -- end,
-
-        -- Options related to how notifications are rendered as text
         view = {
-          stack_upwards = false,   -- Display notification items from bottom to top
-          icon_separator = " ",    -- Separator between group name and icon
-          group_separator = "---", -- Separator between notification groups
-          -- Highlight group used for group separator
-          group_separator_hl = "Comment",
-          -- How to render notification messages
+          stack_upwards = true,
+          icon_separator = " ",
+          -- group_separator = "─",
+          group_separator = "·",
+          group_separator_hl = "NonText",
+
           render_message = function(msg, cnt)
             return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
           end,
         },
 
-        -- Options related to the notification window and buffer
         window = {
-          -- normal_hl = "Label", -- Base highlight group in the notification window
-          normal_hl = "Normal", -- Base highlight group in the notification window
-          winblend = 40,        -- Background color opacity in the notification window
-          border = "rounded",   -- Border around the notification window
-          zindex = 45,          -- Stacking priority of the notification window
-          max_width = 0,        -- Maximum width of the notification window
-          max_height = 0,       -- Maximum height of the notification window
-          x_padding = 1,        -- Padding from right edge of window boundary
-          y_padding = 1,        -- Padding from bottom edge of window boundary
-          align = "bottom",     -- How to align the notification window "top, bottom"
-          relative = "editor",  -- What the notification window position is relative to
+          normal_hl = "Normal",
+          winblend = 25, -- softer, cleaner
+          border = "rounded",
+          zindex = 45,
+          max_width = 0,
+          max_height = 0,
+          x_padding = 2,
+          y_padding = 2,
+          align = "bottom",
+          relative = "editor",
         },
       },
 
-      -- Options related to integrating with other plugins
+      --==============================
+      --  Integrations
+      --==============================
       integration = {
-        ["nvim-tree"] = {
-          enable = false, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
-        },
-        ["xcodebuild-nvim"] = {
-          enable = false, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
-        },
+        ["nvim-tree"] = { enable = false },
+        ["xcodebuild-nvim"] = { enable = false },
       },
 
-      -- Options related to logging
+      --==============================
+      --  Logging
+      --==============================
       logger = {
-        level = vim.log.levels.WARN, -- Minimum logging level
-        max_size = 5000,             -- Maximum log file size, in KB
-        float_precision = 0.01,      -- Limit the number of decimals displayed for floats
-        -- Where Fidget writes its logs to
+        level = vim.log.levels.WARN,
+        max_size = 5000,
+        float_precision = 0.01,
         path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
       },
     })
