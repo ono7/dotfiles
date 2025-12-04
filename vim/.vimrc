@@ -446,43 +446,129 @@ let g:netrw_keepdir = 0
 let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
 let g:netrw_ssh_cmd = "ssh"
 
-hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
-hi! link LineNr Comment
-hi! clear Error
-hi! clear ModeMsg
-hi! clear DiffDelete
-hi! clear FoldColumn
-hi! clear SignColumn
-hi! clear CursorLineFold
-hi! link CursorLine Normal
-hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
-hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
-hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
-hi! clear DiffAdd
-" hi! DiffChange term=bold ctermbg=0 guibg=NONE
-hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
-hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
-hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
-hi! clear ErrorMsg
-hi! clear MatchParen
-" hi! Visual term=reverse cterm=reverse gui=reverse
-hi! MatchParen guibg=#384057 ctermbg=8
-hi! Search guibg=white guifg=black ctermbg=15 ctermfg=0
-hi! PmenuSel term=reverse cterm=reverse gui=reverse
-hi! Pmenu term=reverse cterm=reverse gui=reverse
-hi! clear Pmenu
-hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
-hi! link LineNr Comment
-hi! link DiffDelete Comment
-hi! link SpecialKey Comment
-hi! link CurSearch Search
-hi! link IncSearch Search
-hi! link Folded Comment
-hi! link Visual Search
-hi! link VertSplit Comment
-hi! link MsgSeparator Comment
-hi! link WinSeparator Comment
-hi! link EndOfBuffer Comment
-hi! link StatusLineNC Comment
-hi! clear StatusLine
+" hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
+" hi! link LineNr Comment
+" hi! clear Error
+" hi! clear ModeMsg
+" hi! clear DiffDelete
+" hi! clear FoldColumn
+" hi! clear SignColumn
+" hi! clear CursorLineFold
+" hi! link CursorLine Normal
+" hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
+" hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
+" hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
+" hi! clear DiffAdd
+" " hi! DiffChange term=bold ctermbg=0 guibg=NONE
+" hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
+" hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
+" hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
+" hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
+" hi! clear ErrorMsg
+" hi! clear MatchParen
+" " hi! Visual term=reverse cterm=reverse gui=reverse
+" hi! MatchParen guibg=#384057 ctermbg=8
+" hi! Search guibg=white guifg=black ctermbg=15 ctermfg=0
+" hi! PmenuSel term=reverse cterm=reverse gui=reverse
+" hi! Pmenu term=reverse cterm=reverse gui=reverse
+" hi! clear Pmenu
+" hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
+" hi! link LineNr Comment
+" hi! link DiffDelete Comment
+" hi! link SpecialKey Comment
+" hi! link CurSearch Search
+" hi! link IncSearch Search
+" hi! link Folded Comment
+" hi! link Visual Search
+" hi! link VertSplit Comment
+" hi! link MsgSeparator Comment
+" hi! link WinSeparator Comment
+" hi! link EndOfBuffer Comment
+" hi! link StatusLineNC Comment
+" hi! clear StatusLine
+
+
+hi clear
+if exists("syntax_on")
+  syntax reset
+endif
+
+set background=dark
+
+" ---------------------------------------------------------
+" CORE UI
+" ---------------------------------------------------------
+
+" Normal text
+hi Normal        guifg=#BEBEBC guibg=#151F2D ctermfg=7  ctermbg=0
+hi NormalNC      guifg=#BEBEBC guibg=#151F2D ctermfg=7  ctermbg=0
+hi NormalFloat   guibg=NONE    ctermbg=NONE
+
+" Selections / Visual mode
+hi Visual        guibg=#1E2E45 guifg=NONE ctermbg=8 ctermfg=0
+
+" Matching parens
+hi MatchParen    guifg=#151F2D guibg=#BEBEBC ctermfg=0 ctermbg=7
+
+" Line numbers
+hi LineNr        guifg=#3A4555 ctermfg=8
+hi EndOfBuffer   guifg=#151F2D ctermfg=0
+
+" Cursor related
+hi CursorLine    guibg=#1E2E45 ctermbg=8
+hi CursorColumn  guibg=NONE     ctermbg=NONE
+hi ColorColumn   guibg=NONE     ctermbg=NONE
+
+" Window separators
+hi VertSplit     guifg=#BEBEBC guibg=#151F2D ctermfg=7 ctermbg=0
+hi WinSeparator  guifg=#BEBEBC guibg=#151F2D ctermfg=7 ctermbg=0
+
+" Sign / Fold columns
+hi SignColumn    guibg=NONE ctermbg=NONE
+hi FoldColumn    guibg=NONE ctermbg=NONE
+hi Folded        guibg=NONE ctermbg=NONE
+
+" Statusline
+hi StatusLine    guifg=#BEBEBC guibg=NONE ctermfg=7
+hi StatusLineNC  guifg=#5A6B85 guibg=NONE ctermfg=8
+
+" Winbar
+hi WinBar        guibg=NONE ctermbg=NONE
+hi WinBarNC      guifg=#5A6B85 guibg=NONE ctermfg=8
+
+" ---------------------------------------------------------
+" COMMENTS / TEXT
+" ---------------------------------------------------------
+
+hi Comment       guifg=#5F6C77 gui=italic cterm=italic ctermfg=8
+hi NonText       guifg=#5A6B85 ctermfg=8
+hi SpecialKey    guifg=#5F6C77 ctermfg=8
+
+" ---------------------------------------------------------
+" BASIC SYNTAX (minimal)
+" ---------------------------------------------------------
+
+hi String        guifg=#8CA64A ctermfg=2
+hi Statement     guifg=#D89F5C ctermfg=3
+hi Type          guifg=#7AA7D8 ctermfg=4
+hi Function      guifg=#AABFD9 ctermfg=6
+hi Special       guifg=#C07035 ctermfg=5
+
+" ---------------------------------------------------------
+" SEARCH / PROMPTS
+" ---------------------------------------------------------
+
+hi Search        guifg=#151F2D guibg=#1E2E45 ctermfg=0 ctermbg=8
+hi IncSearch     guifg=#151F2D guibg=#1E2E45 ctermfg=0 ctermbg=8
+
+hi Question      guifg=#AAD94C ctermfg=10
+hi Todo          guifg=#D35A63 ctermfg=1
+
+" ---------------------------------------------------------
+" DIFF (minimal)
+" ---------------------------------------------------------
+
+hi DiffAdd       guifg=#BEBEBC guibg=#1C2E2E ctermfg=7 ctermbg=0
+hi DiffChange    guifg=NONE    guibg=NONE ctermfg=NONE ctermbg=NONE
+hi DiffText      guifg=#BEBEBC guibg=#2A3245 ctermfg=7 ctermbg=8
+hi DiffDelete    guifg=#222A38 guibg=NONE ctermfg=0 ctermbg=NONE
