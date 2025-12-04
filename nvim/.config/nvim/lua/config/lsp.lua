@@ -63,21 +63,21 @@ M.setup = function()
   })
 
   --- Diagnostic auto-management ---
-  local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
+  -- local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
 
-  vim.api.nvim_create_autocmd("InsertEnter", {
-    group = diagnostic_group,
-    callback = function()
-      vim.diagnostic.enable(false)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
-    group = diagnostic_group,
-    callback = function()
-      vim.diagnostic.enable(true)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("InsertEnter", {
+  --   group = diagnostic_group,
+  --   callback = function()
+  --     vim.diagnostic.enable(false)
+  --   end,
+  -- })
+  --
+  -- vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
+  --   group = diagnostic_group,
+  --   callback = function()
+  --     vim.diagnostic.enable(true)
+  --   end,
+  -- })
 end
 
 M.no_lsp = function()

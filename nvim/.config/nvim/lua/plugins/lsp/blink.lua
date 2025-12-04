@@ -28,9 +28,9 @@ return {
         show_on_trigger_character = false,
       },
       documentation = {
-        auto_show = true,
+        auto_show = false,
         auto_show_delay_ms = 500,
-        treesitter_highlighting = true, -- disable this if there is any stuttering or performance issues
+        treesitter_highlighting = false, -- disable this if there is any stuttering or performance issues
         window = { border = "rounded" },
       },
       menu = {
