@@ -110,6 +110,7 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 " xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
 xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
+
 set iskeyword+=_,-
 set ttyfast
 
@@ -472,3 +473,15 @@ k("i", "<BS>", function()
   local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
 end)
+
+vim.keymap.set("i", "<CR>", function()
+  local col = vim.fn.col(".")
+  local line = vim.fn.getline(".")
+  local prev = col > 1 and line:sub(col - 1, col - 1) or ""
+
+  if prev == "{" then
+    return "<CR>}<Esc>O"
+  end
+
+  return "<CR>"
+end, { expr = true, noremap = true })
