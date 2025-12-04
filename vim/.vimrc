@@ -11,7 +11,7 @@ let g:matchparen_timeout = 20
 let g:matchparen_insert_timeout = 20
 
 if has("nvim")
-  set shada='100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
+  set shada='20,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
   packadd cfilter
   set inccommand=nosplit
   set pumheight=10 pumblend=0
@@ -20,7 +20,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-  set viminfo='100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
+  set viminfo='20,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!
@@ -49,9 +49,6 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-" set t_Co=16
-" set path=.,**
-" setlocal path=.,**
 set path=.,**,**/.*/**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
@@ -89,7 +86,7 @@ if has('win32') || has('win64')
 endif
 
 try
-  tnoremap jj <C-\><C-n>
+  tnoremap <c-x> <C-\><C-n>
 endtry
 
 try
@@ -109,24 +106,10 @@ if exists('+wildoptions')
   endtry
 endif
 
-"if has('clipboard')
-"  if has('mac') || !empty($DISPLAY)
-"    if has('unnamedplus')
-"      set clipboard=unnamedplus
-"    else
-"      set clipboard=unnamed
-"    endif
-"  endif
-"endif
-
-" Optimized clipboard configuration with proper fallbacks
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,unnamed
-  elseif has('unnamed')
-    set clipboard=unnamed
-  endif
+if has('mac')
+  set clipboard=unnamedplus
 endif
+
 
 if exists('+wildoptions')
   try
@@ -302,15 +285,6 @@ if exists('$SSH_TTY') || $UID == 0
   augroup end
 endif
 
-"function! Rg(args) abort
-"  execute "silent! grep!" shellescape(a:args)
-"  cwindow
-"  redraw!
-"endfunction
-"command -nargs=+ -complete=file Rg call Rg(<q-args>)
-"nnoremap <M-g> <cmd>Rg<space>
-"nnoremap <esc>g <cmd>Rg<space>
-
 function! ToggleFolding()
   if &foldmethod ==# 'manual'
     setlocal foldenable foldmethod=indent foldlevel=0
@@ -335,7 +309,45 @@ function! ToggleQuickfixList()
     copen
   endif
 endfunction
-nnoremap <silent> <C-t> <cmd>call ToggleQuickfixList()<CR>
+" nnoremap <silent> <C-t> <cmd>call ToggleQuickfixList()<CR>
+
+let g:term_buf = 0
+let g:term_win = 0
+
+function! ToggleTerminal()
+    if g:term_win > 0 && win_gotoid(g:term_win)
+        hide
+        let g:term_win = 0
+    else
+        if g:term_buf > 0 && bufexists(g:term_buf)
+            execute 'botright sbuffer' g:term_buf
+            call feedkeys("i", "n")
+        else
+            botright terminal
+            let g:term_buf = bufnr('%')
+        endif
+        let g:term_win = win_getid()
+    endif
+endfunction
+
+nnoremap <silent> <C-t> :call ToggleTerminal()<CR>
+tnoremap <silent> <C-t> <C-\><C-n>:call ToggleTerminal()<CR>
+
+let g:term_zoomed = 0
+
+function! ToggleTermZoom()
+    if g:term_zoomed
+        wincmd =
+        let g:term_zoomed = 0
+    else
+        resize
+        vertical resize
+        let g:term_zoomed = 1
+    endif
+endfunction
+
+tnoremap <silent> <C-y> <C-\><C-n>:call ToggleTermZoom()<CR>i
+
 
 function s:remove_pair() abort
   let pair = getline('.')[ col('.')-2 : col('.')-1 ]
@@ -373,15 +385,8 @@ function! s:CleanAndSave()
   endif
   call winrestview(l:save)
 endfunction
-" 10MB
-"autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable | endif
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable noshowmatch | endif
 
-augroup _read
-  autocmd!
-  " restore last known position
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup end
+autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable noshowmatch | endif
 
 augroup _resize
   autocmd!
@@ -400,9 +405,9 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
 
-" let g:pyindent_continue = "&sw"
-let g:pyindent_open_paren = "0"
-" let g:pyindent_nested_paren = "&sw"
+let g:pyindent_continue = '&sw'
+let g:pyindent_open_paren = '&sw'
+let g:pyindent_nested_paren = '&sw'
 
 augroup python_indent
   autocmd!
@@ -424,70 +429,26 @@ augroup FileTypeSettings
   autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup end
 
-augroup FormatPrg
-  autocmd!
-  if executable("black")
-    autocmd FileType python setlocal formatprg=black\ --quiet\ -
-  endif
-  if executable("terraform")
-    autocmd FileType terraform setlocal formatprg=terraform\ fmt\ -
-  endif
-  if executable("gofmt")
-    autocmd FileType go setlocal formatprg=gofmt
-  endif
-  if executable("prettier")
-    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss setlocal formatprg=prettier\ --stdin-filepath=%
-  endif
-  autocmd FileType markdown setlocal fo+=n fo+=t fo+=j conceallevel=2
-augroup end
+" Auto-format on save
+if executable('black')
+  autocmd BufWritePre *.py silent! execute '!black --quiet %' | edit!
+endif
+
+if executable('goimports')
+  autocmd BufWritePre *.go silent! execute '%!goimports'
+elseif executable('gofmt')
+  autocmd BufWritePre *.go silent! execute '%!gofmt'
+endif
+
+if executable('prettier')
+  autocmd BufWritePre *.md,*.json,*.yaml,*.yml,*.css,*.html,*.js,*.ts,*.jsx,*.tsx silent! execute '!prettier --write %' | edit!
+endif
 
 set formatoptions-=r formatoptions-=o formatoptions-=c
 
 let g:netrw_keepdir = 0
 let g:netrw_ssh_cmd = "ssh -o ControlMaster=auto -o ControlPath=/tmp/%r@%h:%p -o ControlPersist=5m"
 let g:netrw_ssh_cmd = "ssh"
-
-" hi! Comment ctermfg=8 ctermbg=NONE guifg=#384057 guibg=NONE
-" hi! link LineNr Comment
-" hi! clear Error
-" hi! clear ModeMsg
-" hi! clear DiffDelete
-" hi! clear FoldColumn
-" hi! clear SignColumn
-" hi! clear CursorLineFold
-" hi! link CursorLine Normal
-" hi! CursorLineFold guibg=NONE guifg=NONE ctermbg=NONE
-" hi! SignColumn guibg=NONE guifg=NONE ctermbg=NONE
-" hi! FoldColumn guibg=NONE guifg=NONE ctermbg=NONE
-" hi! clear DiffAdd
-" " hi! DiffChange term=bold ctermbg=0 guibg=NONE
-" hi! DiffChange ctermbg=52  ctermfg=NONE guibg=#3a1e1e guifg=NONE
-" hi! DiffText term=bold ctermbg=3 ctermfg=0 guifg=#000000 guibg=#e1ca97
-" hi! DiffAdd term=bold gui=bold ctermfg=14 ctermbg=NONE guibg=NONE guifg=#93b5b3
-" hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
-" hi! clear ErrorMsg
-" hi! clear MatchParen
-" " hi! Visual term=reverse cterm=reverse gui=reverse
-" hi! MatchParen guibg=#384057 ctermbg=8
-" hi! Search guibg=white guifg=black ctermbg=15 ctermfg=0
-" hi! PmenuSel term=reverse cterm=reverse gui=reverse
-" hi! Pmenu term=reverse cterm=reverse gui=reverse
-" hi! clear Pmenu
-" hi! Normal guibg=NONE guifg=NONE ctermbg=NONE
-" hi! link LineNr Comment
-" hi! link DiffDelete Comment
-" hi! link SpecialKey Comment
-" hi! link CurSearch Search
-" hi! link IncSearch Search
-" hi! link Folded Comment
-" hi! link Visual Search
-" hi! link VertSplit Comment
-" hi! link MsgSeparator Comment
-" hi! link WinSeparator Comment
-" hi! link EndOfBuffer Comment
-" hi! link StatusLineNC Comment
-" hi! clear StatusLine
-
 
 hi clear
 if exists("syntax_on")
