@@ -78,7 +78,7 @@ if vim.opt.termguicolors then
   vim.cmd([[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]])
 end
 
-vim.cmd("syntax on")
+vim.cmd("syntax off")
 
 require("config.options")
 require("config.keymaps")

@@ -5,17 +5,16 @@ if vim.g.neovide then
 
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.07
-  vim.g.neovide_cursor_trail_size = 0.01
+  vim.g.neovide_cursor_trail_size = 0.02
 
   vim.g.neovide_refresh_rate = 120
   vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
-  vim.g.neovide_cursor_smooth_blink = false
-  vim.g.neovide_cursor_smooth_blink = false
+  vim.g.neovide_cursor_smooth_blink = true
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_scroll_animation_length = 0.00
   vim.g.neovide_cursor_animate_in_insert_mode = true
-  vim.g.neovide_cursor_animate_command_line = false
+  vim.g.neovide_cursor_animate_command_line = true
   vim.g.neovide_frame_no_title = true
   -- wider text
 
