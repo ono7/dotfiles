@@ -49,7 +49,7 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-set t_Co=16
+" set t_Co=16
 " set path=.,**
 " setlocal path=.,**
 set path=.,**,**/.*/**
@@ -79,6 +79,7 @@ set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
 set iskeyword+=_,-
 
+ set termguicolors
 if has('win32') || has('win64')
   set shellslash
   set termguicolors
@@ -495,80 +496,87 @@ endif
 
 set background=dark
 
-" ---------------------------------------------------------
+" ===========================
 " CORE UI
-" ---------------------------------------------------------
+" ===========================
+hi Normal         guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+hi NormalNC       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+hi EndOfBuffer    guifg=#151F2D               ctermfg=234
+hi LineNr         guifg=#3A4555               ctermfg=240
+hi CursorLineNr   guifg=Yellow                ctermfg=11
+hi CursorLine     guibg=#1E2E45               ctermbg=237
+hi CursorColumn   guibg=#2A3240               ctermbg=240
+hi ColorColumn    guibg=#2A1A1A               ctermbg=52
+hi! clear VertSplit
+hi SignColumn     guifg=Cyan                  ctermfg=14
 
-" Normal text
-hi Normal        guifg=#BEBEBC guibg=#151F2D ctermfg=7  ctermbg=0
-hi NormalNC      guifg=#BEBEBC guibg=#151F2D ctermfg=7  ctermbg=0
-hi NormalFloat   guibg=NONE    ctermbg=NONE
+" ===========================
+" VISUAL / SEARCH
+" ===========================
+hi Visual         guifg=#BEBEBC guibg=#223E65 ctermfg=250 ctermbg=60
+hi Search         guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
+hi IncSearch      guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
+hi MatchParen     guifg=#151F2D guibg=#AABFD9 ctermfg=0 ctermbg=152
 
-" Selections / Visual mode
-hi Visual        guibg=#1E2E45 guifg=NONE ctermbg=8 ctermfg=0
+" ===========================
+" POPUP MENU (FIXED READABILITY)
+" ===========================
+hi Pmenu          guifg=#BEBEBC guibg=#1D2738 ctermfg=250 ctermbg=235
+hi PmenuSel       guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
+hi PmenuSbar      guibg=#3A4555               ctermbg=240
+hi PmenuThumb     guibg=#BEBEBC               ctermbg=250
+hi PmenuShadow    guifg=#5A6B85 guibg=#000000 ctermfg=240 ctermbg=0
 
-" Matching parens
-hi MatchParen    guifg=#151F2D guibg=#BEBEBC ctermfg=0 ctermbg=7
+" ===========================
+" MESSAGES / MODE / SPECIAL
+" ===========================
 
-" Line numbers
-hi LineNr        guifg=#3A4555 ctermfg=8
-hi EndOfBuffer   guifg=#151F2D ctermfg=0
+hi ErrorMsg guifg=#D35A63 guibg=NONE ctermfg=1 ctermbg=NONE
+hi Error    guifg=#D35A63 guibg=NONE ctermfg=1 ctermbg=NONE
+hi WarningMsg     guifg=#D89F5C               ctermfg=179
+hi MoreMsg        guifg=#BEBEBC               ctermfg=250
+hi ModeMsg        guifg=#BEBEBC               ctermfg=250
+hi Question       guifg=#AAD94C               ctermfg=10
+hi Title          guifg=#AABFD9               ctermfg=153
+hi Directory      guifg=Cyan                  ctermfg=14
+hi SpecialKey     guifg=Cyan                  ctermfg=81
+hi NonText        guifg=#5A6B85               ctermfg=12
 
-" Cursor related
-hi CursorLine    guibg=#1E2E45 ctermbg=8
-hi CursorColumn  guibg=NONE     ctermbg=NONE
-hi ColorColumn   guibg=NONE     ctermbg=NONE
+" ===========================
+" FOLDS
+" ===========================
+hi Folded         guifg=Cyan guibg=#2A3240    ctermfg=14 ctermbg=240
+hi FoldColumn     guifg=Cyan guibg=#2A3240    ctermfg=14 ctermbg=240
 
-" Window separators
-hi VertSplit     guifg=#BEBEBC guibg=#151F2D ctermfg=7 ctermbg=0
-hi WinSeparator  guifg=#BEBEBC guibg=#151F2D ctermfg=7 ctermbg=0
+" ===========================
+" DIFF (FLAT + MODERN)
+" ===========================
+hi DiffAdd        guifg=#BEBEBC guibg=#1C2E2E ctermfg=250 ctermbg=23
+hi DiffChange     guifg=#BEBEBC guibg=#223040 ctermfg=250 ctermbg=24
+hi DiffDelete     guifg=#222A38 guibg=#2A1A1A ctermfg=235 ctermbg=52
+hi DiffText       guifg=#FFFFFF guibg=#2A3245 ctermfg=15  ctermbg=60
 
-" Sign / Fold columns
-hi SignColumn    guibg=NONE ctermbg=NONE
-hi FoldColumn    guibg=NONE ctermbg=NONE
-hi Folded        guibg=NONE ctermbg=NONE
+" ===========================
+" SPELLING
+" ===========================
+hi SpellBad       guifg=#D35A63               ctermfg=1
+hi SpellCap       guifg=#7AA7D8               ctermfg=110
+hi SpellRare      guifg=#C07035               ctermfg=173
+hi SpellLocal     guifg=Cyan                  ctermfg=14
 
-" Statusline
-hi StatusLine    guifg=#BEBEBC guibg=NONE ctermfg=7
-hi StatusLineNC  guifg=#5A6B85 guibg=NONE ctermfg=8
-
-" Winbar
-hi WinBar        guibg=NONE ctermbg=NONE
-hi WinBarNC      guifg=#5A6B85 guibg=NONE ctermfg=8
-
-" ---------------------------------------------------------
-" COMMENTS / TEXT
-" ---------------------------------------------------------
-
-hi Comment       guifg=#5F6C77 gui=italic cterm=italic ctermfg=8
-hi NonText       guifg=#5A6B85 ctermfg=8
-hi SpecialKey    guifg=#5F6C77 ctermfg=8
-
-" ---------------------------------------------------------
-" BASIC SYNTAX (minimal)
-" ---------------------------------------------------------
-
-hi String        guifg=#8CA64A ctermfg=2
-hi Statement     guifg=#D89F5C ctermfg=3
-hi Type          guifg=#7AA7D8 ctermfg=4
-hi Function      guifg=#AABFD9 ctermfg=6
-hi Special       guifg=#C07035 ctermfg=5
-
-" ---------------------------------------------------------
-" SEARCH / PROMPTS
-" ---------------------------------------------------------
-
-hi Search        guifg=#151F2D guibg=#1E2E45 ctermfg=0 ctermbg=8
-hi IncSearch     guifg=#151F2D guibg=#1E2E45 ctermfg=0 ctermbg=8
-
-hi Question      guifg=#AAD94C ctermfg=10
-hi Todo          guifg=#D35A63 ctermfg=1
-
-" ---------------------------------------------------------
-" DIFF (minimal)
-" ---------------------------------------------------------
-
-hi DiffAdd       guifg=#BEBEBC guibg=#1C2E2E ctermfg=7 ctermbg=0
-hi DiffChange    guifg=NONE    guibg=NONE ctermfg=NONE ctermbg=NONE
-hi DiffText      guifg=#BEBEBC guibg=#2A3245 ctermfg=7 ctermbg=8
-hi DiffDelete    guifg=#222A38 guibg=NONE ctermfg=0 ctermbg=NONE
+" ===========================
+" SYNTAX (FLATTENED)
+" ===========================
+hi Comment        guifg=#5F6C77               ctermfg=240
+hi Constant       guifg=#FFA0A0               ctermfg=217
+hi String         guifg=#8CA64A               ctermfg=107
+hi Function       guifg=#AABFD9               ctermfg=153
+hi Statement      guifg=#D89F5C               ctermfg=179
+hi Type           guifg=#7AA7D8               ctermfg=110
+hi Special        guifg=#C07035               ctermfg=173
+hi Identifier     guifg=#40FFFF               ctermfg=51
+hi PreProc        guifg=#FF80FF               ctermfg=13
+hi Underlined     guifg=#80A0FF               ctermfg=75
+hi Ignore         guifg=#151F2D               ctermfg=234
+hi Error          guifg=#D35A63               ctermfg=1
+hi Todo           guifg=#D35A63 guibg=#3A6FB0 ctermfg=1 ctermbg=68

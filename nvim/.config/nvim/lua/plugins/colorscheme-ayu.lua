@@ -52,90 +52,97 @@ else
       require("ayu").setup({
         overrides = {
           -- 1. CORE COLORS & COMFORT
-          Normal = { bg = "#151F2D", fg = "#BEBEBC" },
-          MatchParen = { fg = "#151F2D", bg = "#BEBEBC" },
-          ModeMsg = { link = "Normal" },
-          MoreMsg = { link = "Normal" },
-          Visual = { bg = "#1E2E45" },
+          Normal                     = { bg = "#151F2D", fg = "#BEBEBC" },
+          MatchParen                 = { fg = "#151F2D", bg = "#BEBEBC" },
+          ModeMsg                    = { link = "Normal" },
+          MoreMsg                    = { link = "Normal" },
+          -- Visual = { bg = "#1E2E45" },
 
-          Comment = { fg = "#5F6C77", italic = true },
-          LineNr = { fg = "#3A4555" },
+          Visual                     = { bg = "#1F3350" },
 
-          FidgetBorder = { fg = "#151F2D", bg = "#151F2D" },
+          -- Visual = { bg = "#2C3B54" },
+
+          Comment                    = { fg = "#5F6C77", italic = true },
+          LineNr                     = { fg = "#3A4555" },
+
+          FidgetBorder               = { fg = "#151F2D", bg = "#151F2D" },
 
           -- 2. UTILITY & BACKGROUND ELEMENTS
-          NormalFloat = { bg = "none" },
+          NormalFloat                = { bg = "none" },
           -- CursorLine = { bg = "none" },
-          CursorLine = { link = "Visual" },
-          CursorColumn = { bg = "none" },
-          ColorColumn = { bg = "none" },
-          SignColumn = { bg = "none" },
-          Folded = { bg = "none" },
-          FoldColumn = { bg = "none" },
-          EndOfBuffer = { fg = "#151f2d", bg = "none" },
+          CursorLine                 = { link = "Visual" },
+          CursorColumn               = { bg = "none" },
+          ColorColumn                = { bg = "none" },
+          SignColumn                 = { bg = "none" },
+          Folded                     = { bg = "none" },
+          FoldColumn                 = { bg = "none" },
+          EndOfBuffer                = { fg = "#151f2d", bg = "none" },
 
-          VertSplit = { link = "Normal" },
-          WinSeparator = { link = "Normal" },
-          WinBar = { bg = "none" },
-          WinBarNC = { fg = "#5a6b85", bg = "none" },
+          VertSplit                  = { link = "Normal" },
+          WinSeparator               = { link = "Normal" },
+          WinBar                     = { bg = "none" },
+          WinBarNC                   = { fg = "#5a6b85", bg = "none" },
 
           -- 3. MINIMAL SYNTAX COLORS
-          String = { fg = "#8ca64a" },
-          Special = { fg = "#C07035", italic = false },
-          Statement = { fg = "#D89F5C" },
-          Type = { fg = "#7aa7d8" },
-          Function = { fg = "#AABFD9" },
+          String                     = { fg = "#8ca64a" },
+          Special                    = { fg = "#C07035", italic = false },
+          Statement                  = { fg = "#D89F5C" },
+          Type                       = { fg = "#7aa7d8" },
+          Function                   = { fg = "#AABFD9" },
 
           -- 4. ALERTS & MATCHING
-          Question = { fg = "#aad94c" },
-          Todo = { fg = "#d35a63" },
-          StatusLine = { bg = "none" },
-          StatusLineNC = { bg = "none" },
+          Question                   = { fg = "#aad94c" },
+          Todo                       = { fg = "#d35a63" },
+          StatusLine                 = { bg = "none" },
+          StatusLineNC               = { bg = "none" },
 
           -- 5. DIFF & GIT (FINAL FIXES)
-          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" }, -- Subtle Blue-Green BG
-          DiffAdded = { link = "DiffAdd" },
-          DiffChange = {}, -- Subtle Blue-Grey BG (Line Change)
-          DiffText = { fg = "#BEBEBC", bg = "#2A3245" }, -- Clear BG for Word Change
-          DiffDelete = { fg = "#222A38", bg = "none" }, -- **FIXED**: Deleted text is dark and very subtle
-          DiffRemoved = { fg = "#d35a63", bg = "none" },
+          DiffAdd                    = { fg = "#BEBEBC", bg = "#1C2E2E" }, -- Subtle Blue-Green BG
+          DiffAdded                  = { link = "DiffAdd" },
+          DiffChange                 = {},                                 -- Subtle Blue-Grey BG (Line Change)
+          DiffText                   = { fg = "#BEBEBC", bg = "#2A3245" }, -- Clear BG for Word Change
+          DiffDelete                 = { fg = "#222A38", bg = "none" },    -- **FIXED**: Deleted text is dark and very subtle
+          DiffRemoved                = { fg = "#d35a63", bg = "none" },
 
           -- 6. RESET/NEUTRAL GROUPS (Your explicit overrides to limit color)
-          Operator = { link = "Normal" },
+          Operator                   = { link = "Normal" },
 
           -- NEUTRALIZE PUNCTUATION GROUPS
-          Delimiter = { link = "Normal" },
-          ["@punctuation.bracket"] = { fg = "#BEBEBC" },
+          Delimiter                  = { link = "Normal" },
+          ["@punctuation.bracket"]   = { fg = "#BEBEBC" },
           ["@punctuation.delimiter"] = { fg = "#BEBEBC" },
-          ["@operator"] = { fg = "#BEBEBC" },
+          ["@operator"]              = { fg = "#BEBEBC" },
 
           -- 7. TREE-SITTER / FINE-GRAINED
-          ["@variable.field"] = { fg = "#AABFD9" },
-          ["@parameter"] = { fg = "#AABFD9" },
+          ["@variable.field"]        = { fg = "#AABFD9" },
+          ["@parameter"]             = { fg = "#AABFD9" },
 
-          ["@variable.parameter"] = { link = "Normal" },
-          ["@variable.member"] = { link = "Normal" },
-          ["@variable"] = { link = "Normal" },
-          ["@property"] = { link = "Normal" },
-          ["@function.builtin"] = { link = "Normal" },
-          ["@constant.builtin"] = { link = "Normal" },
+          ["@variable.parameter"]    = { link = "Normal" },
+          ["@variable.member"]       = { link = "Normal" },
+          ["@variable"]              = { link = "Normal" },
+          ["@property"]              = { link = "Normal" },
+          ["@function.builtin"]      = { link = "Normal" },
+          ["@constant.builtin"]      = { link = "Normal" },
 
-          ["@property.yaml"] = { link = "LspDiagnosticsError" },
-          ["@module"] = { link = "Normal" },
-          ["@markup.raw"] = { link = "Normal" },
-          ["@constructor"] = { link = "Normal" },
-          ["@constructor.python"] = { link = "Normal" },
-          ["@function.method"] = { italic = false },
+          ["@property.yaml"]         = { link = "LspDiagnosticsError" },
+          ["@module"]                = { link = "Normal" },
+          ["@markup.raw"]            = { link = "Normal" },
+          ["@constructor"]           = { link = "Normal" },
+          ["@constructor.python"]    = { link = "Normal" },
+          ["@function.method"]       = { italic = false },
 
-          ["@lsp.typedecl"] = { fg = "#7aa7d8" },
-          ["@lsp.type.comment"] = { fg = "#5F6C77", italic = true },
+          ["@lsp.typedecl"]          = { fg = "#7aa7d8" },
+          ["@lsp.type.comment"]      = { fg = "#5F6C77", italic = true },
 
-          NonText = { fg = "#5a6b85" },
-          FloatBorder = { link = "Comment", bold = true },
-          Search = { link = "Visual" },
-          IncSearch = { link = "Visual" },
-          NormalNC = { link = "Normal" },
-          SpecialKey = { fg = "#5F6C77" },
+          NonText                    = { fg = "#5a6b85" },
+          FloatBorder                = { link = "Comment", bold = true },
+          -- Search = { link = "Visual" },
+          -- IncSearch = { link = "Visual" },
+
+          Search                     = { fg = "#151F2D", bg = "#BEBEBC" },
+          IncSearch                  = { fg = "#151F2D", bg = "#BEBEBC" },
+          NormalNC                   = { link = "Normal" },
+          SpecialKey                 = { fg = "#5F6C77" },
         },
       })
 
