@@ -17,4 +17,8 @@ self.v1 + v2  # Vector addition
 
 ```
 
-One operator → many meanings → “overloading.”
+- Fix (mental model)
+  When you hear “overload,” think:
+  “This operator now handles more types than it originally did.”
+
+  One operator → many meanings → “overloading.”
