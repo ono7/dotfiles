@@ -476,13 +476,34 @@ k("i", "<BS>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
 end)
 
-vim.keymap.set("i", "<CR>", function()
-  local col = vim.fn.col(".")
-  local line = vim.fn.getline(".")
-  local prev = col > 1 and line:sub(col - 1, col - 1) or ""
+-- vim.keymap.set("i", "<CR>", function()
+--   local col = vim.fn.col(".")
+--   local line = vim.fn.getline(".")
+--   local prev = col > 1 and line:sub(col - 1, col - 1) or ""
+--
+--   if prev == "{" then
+--     return "<CR>}<Esc>O"
+--   end
+--   if prev == "[" then
+--     return "<CR>]<Esc>O"
+--   end
+--   if prev == "(" then
+--     return "<CR>)<Esc>O"
+--   end
+--
+--   return "<CR>"
+-- end, { expr = true, noremap = true })
 
-  if prev == "{" then
-    return "<CR>}<Esc>O"
+vim.keymap.set("i", "<CR>", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local col = cursor[2]
+  if col == 0 then return "<CR>" end
+
+  local char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, col - 1, cursor[1] - 1, col, {})[1]
+
+  if char == "{" or char == "[" or char == "(" then
+    local close = char == "{" and "}" or char == "[" and "]" or ")"
+    return "<CR>" .. close .. "<Esc>O"
   end
 
   return "<CR>"

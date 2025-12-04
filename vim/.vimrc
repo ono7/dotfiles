@@ -234,6 +234,25 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
 xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
+" smart bracket insert on {<cr> etc
+inoremap <expr> <CR> <SID>SmartEnter()
+
+function! s:SmartEnter()
+  let col = col('.')
+  if col == 1
+    return "\<CR>"
+  endif
+
+  let char = getline('.')[col - 2]
+
+  if char == '{' || char == '[' || char == '('
+    let close = char == '{' ? '}' : char == '[' ? ']' : ')'
+    return "\<CR>" . close . "\<Esc>O"
+  endif
+
+  return "\<CR>"
+endfunction
+
 xnoremap H <gv
 xnoremap L >gv
 xnoremap <silent> y ygv<Esc>
