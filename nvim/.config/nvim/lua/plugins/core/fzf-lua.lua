@@ -46,12 +46,6 @@ return {
         -- ["gutter"]      = { "bg", "Normal" },
       },
       winopts = winopts,
-      -- {
-      --   "fzf-native",
-      --   -- winopts = {
-      --   --   -- -- preview = { default = "bat" },
-      --   -- },
-      -- },
       previewers = {
         builtin = {
           syntax_limit_b = 1024 * 100, -- 100KB
@@ -77,9 +71,9 @@ return {
       },
       actions = {
         files = {
-          ["default"] = fzf.actions.file_edit,
+          ["default"] = fzf.actions.file_switch_or_edit,
           ["ctrl-q"] = fzf.actions.file_sel_to_qf,
-          ["enter"] = fzf.actions.file_edit_or_qf,
+          ["enter"] = fzf.actions.file_switch_or_edit,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,
           ["ctrl-t"] = fzf.actions.file_tabedit,

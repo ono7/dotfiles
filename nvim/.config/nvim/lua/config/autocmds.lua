@@ -56,9 +56,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-          not (ft:match("commit") and ft:match("rebase"))
-          and last_known_line > 1
-          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+            not (ft:match("commit") and ft:match("rebase"))
+            and last_known_line > 1
+            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -218,5 +218,24 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
     -- Window-local directory change
     vim.cmd("lcd " .. vim.fn.fnameescape(root))
+  end,
+})
+
+-- make scratch buffer more managable, this keeps fzflua from sending files that
+-- have been picked to the buffer list, instead they take stage
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    -- Only target [No Name] buffers
+    if vim.api.nvim_buf_get_name(buf) ~= "" then
+      return
+    end
+
+    -- Make it a true scratch buffer
+    vim.bo[buf].buftype   = "nofile" -- not a real file
+    vim.bo[buf].bufhidden = "hide"
+    vim.bo[buf].swapfile  = false    -- don't create swapfiles
+    vim.bo[buf].modified  = false    -- NEVER marked modified
   end,
 })

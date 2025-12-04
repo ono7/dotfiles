@@ -146,6 +146,7 @@ set wildignore+=.tags
 set wildignore+=tags
 
 command! Mktags call system('ctags -R .')
+command! D bd!
 
 cnoreabbrev qq qa!
 
