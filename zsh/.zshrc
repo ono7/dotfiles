@@ -75,6 +75,8 @@ fw () {
   fi
 }
 
+alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
+
 ############## Shell options ##############
 
 # Essential shell options (performance related)
@@ -440,7 +442,7 @@ _d () {
 
 # see ~/.config/fd/ignore
 vs () {
-  vim "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
+  n "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
 }
 
 fcd () {
