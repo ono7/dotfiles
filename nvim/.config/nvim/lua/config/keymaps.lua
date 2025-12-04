@@ -27,6 +27,7 @@ vim.cmd([[
 
 command! Mktags call system('ctags -R .')
 command! D bd!
+command! Da %bd!
 
 cnoreabbrev qq qa!
 
