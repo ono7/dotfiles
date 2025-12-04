@@ -65,6 +65,13 @@ if not ok then
   vim.notify("colorscheme ayu failed")
 end
 
+-- get help
+:set keywordprg=:help    " for vim help
+:set keywordprg=pydoc    " for Python
+:set keywordprg=man      " for Unix commands
+
+mv 1.{bak,py} (1.bak -> 1.py) move filenames in shell, requires file.(src,dest)
+
 ]]
 
 vim.loader.enable(true)

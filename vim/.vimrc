@@ -2,7 +2,7 @@
 
 set nocompatible
 filetype plugin indent on
-syntax off
+syntax on
 
 let mapleader = "\<Space>"
 
@@ -49,17 +49,18 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-set t_Co=8
+set t_Co=16
 " set path=.,**
 " setlocal path=.,**
 set path=.,**,**/.*/**
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set lazyredraw hidden updatetime=300
-set incsearch ignorecase smartcase autoindent smartindent
+set incsearch ignorecase smartcase autoindent cindent smartindent
 set nohlsearch
 set nonumber norelativenumber nocursorline
 set ruler
+set listchars=tab:→\ ,space:·,trail:•,extends:>,precedes:\
 set magic noshowcmd nowrap
 set timeout timeoutlen=300 ttimeout ttimeoutlen=50
 set scrolloff=3 sidescrolloff=5 nowrap
@@ -398,11 +399,18 @@ augroup _quickfix
   autocmd QuickFixCmdPost    l* lwindow 6
 augroup end
 
+" let g:pyindent_continue = "&sw"
+let g:pyindent_open_paren = "0"
+" let g:pyindent_nested_paren = "&sw"
+
+augroup python_indent
+  autocmd!
+  autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=8
+augroup END
+
 " Create autocommand group for filetype settings
 augroup FileTypeSettings
   autocmd!
-  " Python - 4 spaces
-  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
   " TypeScript/JavaScript/JSON/YAML - 2 spaces
   autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
   " Go - 4-width tabs
@@ -477,3 +485,4 @@ hi! link MsgSeparator Comment
 hi! link WinSeparator Comment
 hi! link EndOfBuffer Comment
 hi! link StatusLineNC Comment
+hi! clear StatusLine
