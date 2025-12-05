@@ -81,7 +81,7 @@ xnoremap . :<C-u>normal! .<CR>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 " close: closes a window not a buffer, leaving splits working as intended
-nnoremap ,d <cmd>close!<CR>
+nnoremap <c-w> <cmd>close!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
@@ -306,7 +306,7 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
-k("x", ",a", "<cmd>!column -t<cr>")
+-- k("x", ",a", "<cmd>!column -t<cr>")
 
 --- terminal ---
 k("t", "<M-BS>", "\x17", { noremap = true })
@@ -394,13 +394,13 @@ end
 -- k("i", "<M-BS>", "<C-u>", { noremap = true })
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
-k("n", ",w", function()
-  if not check_buf(0) then
-    print("save me first!")
-    return
-  end
-  vim.cmd([[:write ++p]])
-end, silent)
+-- k("n", ",w", function()
+--   if not check_buf(0) then
+--     print("save me first!")
+--     return
+--   end
+--   vim.cmd([[:write ++p]])
+-- end, silent)
 
 k("n", "<leader>w", function()
   if not check_buf(0) then
@@ -498,7 +498,9 @@ end)
 vim.keymap.set("i", "<CR>", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local col = cursor[2]
-  if col == 0 then return "<CR>" end
+  if col == 0 then
+    return "<CR>"
+  end
 
   local char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, col - 1, cursor[1] - 1, col, {})[1]
 
