@@ -48,8 +48,9 @@ inoremap <C-d> <C-o>D
 inoremap <C-p> <C-r>"
 " nnoremap <C-n> <cmd>tabnew<cr>
 
-nnoremap ; :
-xnoremap ; :
+"nnoremap ; :
+"nnoremap : ;
+"xnoremap ; :
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>

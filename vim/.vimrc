@@ -138,8 +138,10 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-nnoremap ; :
-xnoremap ; :
+" nnoremap ; :
+" nnoremap : ;
+
+" xnoremap ; :
 " nnoremap v <c-v> " use c-q
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>

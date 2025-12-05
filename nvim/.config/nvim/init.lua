@@ -72,6 +72,8 @@ end
 
 mv 1.{bak,py} (1.bak -> 1.py) move filenames in shell, requires file.(src,dest)
 
+use f,t,F,T vim, ; move forward (comma) move back
+
 ]]
 
 vim.loader.enable(true)
@@ -141,7 +143,7 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 
-vim.notify("🐇 Follow the white rabbit...")
+vim.notify("🐇 Follow the white rabbit...\nf,t,F,T (,;)")
 vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
 -- vim.opt.guicursor = table.concat({
