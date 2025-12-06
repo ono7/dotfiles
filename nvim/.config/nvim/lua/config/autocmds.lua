@@ -233,9 +233,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 
     -- Make it a true scratch buffer
-    vim.bo[buf].buftype   = "nofile" -- not a real file
     vim.bo[buf].bufhidden = "hide"
-    vim.bo[buf].swapfile  = false    -- don't create swapfiles
-    vim.bo[buf].modified  = false    -- NEVER marked modified
+    vim.bo[buf].swapfile  = false -- don't create swapfiles
+    vim.bo[buf].modified  = false -- NEVER marked modified
   end,
 })
