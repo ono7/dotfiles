@@ -45,9 +45,16 @@ inoremap <C-e> <End>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
-inoremap <C-p> <C-r>"
-" nnoremap <C-n> <cmd>tabnew<cr>
+" inoremap <C-p> <C-r>"
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
 
+" Deletion (insert mode)
+inoremap <C-d> <Del>
+" inoremap <C-h> <BS>
+inoremap <C-k> <C-o>D
+
+" nnoremap <C-n> <cmd>tabnew<cr>
 "nnoremap ; :
 "nnoremap : ;
 "xnoremap ; :

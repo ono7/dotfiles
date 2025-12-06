@@ -171,8 +171,17 @@ nnoremap <c-e> <end>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
-inoremap <C-p> <C-r>"
-nnoremap <C-n> <cmd>tabnew<cr>
+
+" inoremap <C-p> <C-r>"
+" nnoremap <C-n> <cmd>tabnew<cr>
+
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+
+" Deletion (insert mode)
+inoremap <C-d> <Del>
+" inoremap <C-h> <BS>
+inoremap <C-k> <C-o>D
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>

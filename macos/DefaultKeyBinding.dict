@@ -1,6 +1,8 @@
 {
     "^f" = "moveWordForward:";
     "^b" = "moveWordBackward:";
-    "^f" = "moveWordForward:";
-    "^b" = "moveWordBackward:";
+    "^@" = "setMark:";
+    "^w" = "deleteToMark:";
+    "^y" = "yank:";
+    "^w" = "deleteWordBackward:";
 }
