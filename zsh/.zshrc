@@ -76,6 +76,7 @@ fw () {
 }
 
 alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
+alias c="pbcopy"
 
 ############## Shell options ##############
 
