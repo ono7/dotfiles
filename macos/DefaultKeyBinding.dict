@@ -1,4 +1,6 @@
 {
     "^f" = "moveWordForward:";
     "^b" = "moveWordBackward:";
+    "^f" = "moveWordForward:";
+    "^b" = "moveWordBackward:";
 }
