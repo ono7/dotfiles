@@ -14,6 +14,7 @@ if type go &>/dev/null; then
   go install github.com/shurcooL/markdownfmt@latest
   go install github.com/moorereason/mdfmt@latest
   go install github.com/fatih/gomodifytags@latest
+  go install golang.org/x/tools/cmd/godoc@latest
   env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 else
   log "error: >>>>>>>>>>>>>>>>>>> go not installed <<<<<<<<<<<<<<<<<<<<"
