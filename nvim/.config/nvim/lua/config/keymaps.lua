@@ -62,16 +62,16 @@ inoremap <C-k> <C-o>D
 inoremap <C-y> <C-r>"
 
 " implements c-x c-x like emacs, uses marks to preserve line changes
-function! InsertSetMark() abort
-  normal! mz
-  echo "Mark set at line" line("'z") "col" col("'z")
-endfunction
-
-" Set mark in insert mode
-function! InsertSetMark() abort
-  normal! mz
-  echom "Mark set at line" line("'z") "col" col("'z")
-endfunction
+"function! InsertSetMark() abort
+"  normal! mz
+"  echo "Mark set at line" line("'z") "col" col("'z")
+"endfunction
+"
+"" Set mark in insert mode
+"function! InsertSetMark() abort
+"  normal! mz
+"  echom "Mark set at line" line("'z") "col" col("'z")
+"endfunction
 
 " Set mark in insert mode
 function! InsertSetMark() abort
@@ -106,6 +106,12 @@ nnoremap <space>a ggVG
 nnoremap U <c-r>
 
 " nnoremap v <c-v>
+
+vnoremap > >gv
+vnoremap < <gv
+
+" fix dot operator in visual select
+xnoremap . :<C-u>normal! .<CR>
 
 nnoremap Y yg_
 
@@ -156,7 +162,7 @@ xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 " xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
-xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
+" xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
 
 set iskeyword+=_,-
@@ -339,9 +345,6 @@ k("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<CR>', opt)
 
 --- when using J keep cursor to the right
 k({ "n", "v" }, "J", "mzJ`z")
-
--- make dot work in visual mode
-k("v", ".", "<cmd>norm .<cr>", opt)
 
 --- go ---
 k("n", "gt", ":GoTagAdd<cr>", silent)

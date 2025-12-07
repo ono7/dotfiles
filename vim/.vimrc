@@ -189,21 +189,10 @@ inoremap <C-k> <C-o>D
 " Yank (paste from default register)
 inoremap <C-y> <C-r>"
 
-" implements c-x c-x like emacs, uses marks to preserve line changes
-function! InsertSetMark() abort
-  normal! mz
-  echo "Mark set at line" line("'z") "col" col("'z")
-endfunction
-
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
-  echom "Mark set at line" line("'z") "col" col("'z")
-endfunction
-
-" Set mark in insert mode
-function! InsertSetMark() abort
-  normal! mz
+	echom "mark set"
 endfunction
 
 " Swap cursor with mark in insert mode
@@ -219,12 +208,23 @@ function! InsertSwapMark() abort
   " Jump to mark
   call setpos('.', mark_pos)
 
+	echom "mark jumped"
   " Update mark to old cursor position
   call setpos("'z", cur_pos)
 endfunction
 
-inoremap <c-space> <C-o>:call InsertSetMark()<CR>
+" for vim9
+inoremap <Nul> <C-o>:call InsertSetMark()<CR>
+" for neovim
+inoremap <C-Space> <C-o>:call InsertSetMark()<CR>
+" works on both
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
+
+vnoremap > >gv
+vnoremap < <gv
+
+" fix dot operator in visual select
+xnoremap . :<C-u>normal! .<CR>
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
@@ -247,7 +247,6 @@ nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 nnoremap <leader>d <cmd>bd!<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
-vnoremap . <cmd>norm .<cr>
 
 function! WrapSelection(left, right)
     let save_reg = @"
@@ -270,8 +269,8 @@ xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
-xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
-xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
+" xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
+" xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
 " smart bracket insert on {<cr> etc
 inoremap <expr> <CR> <SID>SmartEnter()
