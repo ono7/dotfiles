@@ -1,5 +1,22 @@
 # notes
 
+## debugging with --headless if input is required (stdin)
+
+`dlv --headless debug yourprogram.go`
+
+or
+
+`dlv --headless debug .`
+
+This will print something like this:
+
+API server listening at: 127.0.0.1:XYZ
+then in another terminal do:
+
+`dlv connect localhost:XYZ`
+
+on the first terminal we can input commands to stdin, on the second one we can debug!
+
 ## Debug when a function or method is called on a struct
 
 // this is probably the most useful way to debug and set breakpoints
