@@ -5,4 +5,7 @@
     "^w" = "deleteToMark:";
     "^y" = "yank:";
     "^w" = "deleteWordBackward:";
+    "^ " = "setMark:";       // Control–Space: set mark
+    "^w" = "deleteToMark:";  // Control–W: delete to mark
+    "^x" = "swapWithMark:"; // jumps the cursor back to where the mark was set, this is super useful
 }

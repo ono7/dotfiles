@@ -16,6 +16,7 @@ return {
       -- preset = "none",
       -- ["<C-y>"] = { "show", "fallback" },
       ["<c-s>"] = { "show_and_insert", "accept", "fallback" },
+      ["<C-Space>"] = false,
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
     },

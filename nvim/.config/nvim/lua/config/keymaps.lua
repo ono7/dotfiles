@@ -61,6 +61,28 @@ inoremap <C-k> <C-o>D
 " Yank (paste from default register)
 inoremap <C-y> <C-r>"
 
+" Set mark in insert mode
+function! InsertSetMark() abort
+  let b:markpos = getpos('.')
+endfunction
+
+" Swap cursor with mark in insert mode
+function! InsertSwapMark() abort
+  if !exists('b:markpos')
+    return
+  endif
+
+  let l:cur = getpos('.')
+  call setpos('.', b:markpos)
+  let b:markpos = l:cur
+endfunction
+
+" set mark
+inoremap <c-space> <C-o>:call InsertSetMark()<CR>
+
+" jump back to mark
+inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
+
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
