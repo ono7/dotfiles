@@ -150,7 +150,7 @@ else
       vim.cmd([[colorscheme ayu-dark]])
 
       -- External hlset calls (These must remain external)
-      vim.api.nvim_set_hl(0, "Cursor", { bg = "#00f6ff", fg = "#000000" })
+      vim.api.nvim_set_hl(0, "Cursor", { bg = "#00ff00", fg = "#151F2D" })
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b396b8", bold = true, italic = false })
 
       -- Explicit Link commands (kept external for clarity and stability)
