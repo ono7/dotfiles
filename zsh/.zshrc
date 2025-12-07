@@ -506,6 +506,12 @@ function setup_keys() {
     bindkey -M viins '^F' emacs-forward-word
     bindkey -M viins '^B' backward-word
 
+    # Ctrl-Space sets mark
+    bindkey "^@" set-mark-command
+
+    # Ctrl-x jumps back (swap mark + point)
+    bindkey "^X" exchange-point-and-mark
+
     # ci" in vi-mode
     autoload -U select-quoted
     zle -N select-quoted

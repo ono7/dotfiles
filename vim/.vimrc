@@ -189,26 +189,41 @@ inoremap <C-k> <C-o>D
 " Yank (paste from default register)
 inoremap <C-y> <C-r>"
 
+" implements c-x c-x like emacs, uses marks to preserve line changes
+function! InsertSetMark() abort
+  normal! mz
+  echo "Mark set at line" line("'z") "col" col("'z")
+endfunction
+
 " Set mark in insert mode
 function! InsertSetMark() abort
-  let b:markpos = getpos('.')
+  normal! mz
+  echom "Mark set at line" line("'z") "col" col("'z")
+endfunction
+
+" Set mark in insert mode
+function! InsertSetMark() abort
+  normal! mz
 endfunction
 
 " Swap cursor with mark in insert mode
 function! InsertSwapMark() abort
-  if !exists('b:markpos')
+  let mark_pos = getpos("'z")
+
+  if mark_pos[1] == 0
     return
   endif
 
-  let l:cur = getpos('.')
-  call setpos('.', b:markpos)
-  let b:markpos = l:cur
+  let cur_pos = getpos('.')
+
+  " Jump to mark
+  call setpos('.', mark_pos)
+
+  " Update mark to old cursor position
+  call setpos("'z", cur_pos)
 endfunction
 
-" set mark
 inoremap <c-space> <C-o>:call InsertSetMark()<CR>
-
-" jump back to mark
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'

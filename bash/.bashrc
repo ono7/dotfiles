@@ -27,6 +27,10 @@ bind -m vi-insert "\C-e.":end-of-line
 bind -m vi-insert "\C-w.":backward-kill-word
 bind '"\C-f": forward-word'
 bind '"\C-b": backward-word'
+# Ctrl-Space sets mark
+bind '"\C-@": set-mark'
+# Ctrl-x jumps back (exchange point and mark)
+bind '"\C-x": exchange-point-and-mark'
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
