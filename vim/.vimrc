@@ -170,7 +170,6 @@ nnoremap <C-h> <C-W>h
 nnoremap <c-e> <end>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
-inoremap <C-d> <C-o>D
 
 " inoremap <C-p> <C-r>"
 " nnoremap <C-n> <cmd>tabnew<cr>
@@ -178,10 +177,17 @@ inoremap <C-d> <C-o>D
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 
+
 " Deletion (insert mode)
 inoremap <C-d> <Del>
 " inoremap <C-h> <BS>
 inoremap <C-k> <C-o>D
+
+" Kill to end of line (store in register)
+inoremap <C-k> <C-o>D
+
+" Yank (paste from default register)
+inoremap <C-y> <C-r>"
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
@@ -266,7 +272,7 @@ cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
 inoremap <D-y> <c-x><c-n>
-inoremap <C-y> <c-x><c-n>
+inoremap <C-s> <c-x><c-n>
 
 inoremap <C-a> <C-o>^
 " inoremap <C-a> <Home>

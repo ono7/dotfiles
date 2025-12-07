@@ -1,4 +1,3 @@
--- local xpr = { noremap = true, expr = true }
 local opt = { noremap = true }
 local silent = { noremap = true, silent = true }
 
@@ -15,7 +14,7 @@ k("n", "<M-e>", "")
 k("n", "<space>", "")
 vim.g.mapleader = " "
 
-k("i", "<c-y>", "<c-x><c-n>", silent)
+k("i", "<c-s>", "<c-x><c-n>", silent)
 
 k("i", "<M-a>", "<ESC>^i", silent)
 k("i", "<M-e>", "<End>", silent)
@@ -33,6 +32,7 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+" this combines best of vim with the best of emacs which is available everywhere..
 cnoremap <c-a> <Home>
 cnoremap <c-b> <left>
 cnoremap <c-e> <end>
@@ -45,25 +45,30 @@ inoremap <C-e> <End>
 inoremap <C-f> <Esc>ea
 inoremap <C-b> <C-o>b
 inoremap <C-d> <C-o>D
-" inoremap <C-p> <C-r>"
+
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 
 " Deletion (insert mode)
 inoremap <C-d> <Del>
+
 " inoremap <C-h> <BS>
 inoremap <C-k> <C-o>D
 
-" nnoremap <C-n> <cmd>tabnew<cr>
-"nnoremap ; :
-"nnoremap : ;
-"xnoremap ; :
+" Kill to end of line (store in register)
+inoremap <C-k> <C-o>D
+
+" Yank (paste from default register)
+inoremap <C-y> <C-r>"
+
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
+
 " nnoremap v <c-v>
+
 nnoremap Y yg_
 
 nnoremap j gj
@@ -77,11 +82,6 @@ xnoremap . :<C-u>normal! .<CR>
 
 " clear hlsearch on esc
 " nnoremap <silent> <Esc> :noh<CR><Esc>
-
-"nnoremap <esc>k <cmd>cprev<cr>
-"nnoremap <esc>j <cmd>cnext<cr>
-
-" nnoremap gm :Git add % <bar> Git commit % -m ""<Left>
 
 " includes filename in commit, but better to use git log --name-only
  nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
@@ -255,8 +255,8 @@ packadd cfilter
 --   end
 -- end, { desc = "Delete all other buffers" })
 
-vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
-vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
+-- vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
+-- vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
 vim.keymap.set("n", "<C-1>", "1gt", opt)
 vim.keymap.set("n", "<C-2>", "2gt", opt)

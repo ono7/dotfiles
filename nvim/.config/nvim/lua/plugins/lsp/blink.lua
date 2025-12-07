@@ -15,7 +15,7 @@ return {
       preset = "super-tab",
       -- preset = "none",
       -- ["<C-y>"] = { "show", "fallback" },
-      ["<c-y>"] = { "show_and_insert", "accept", "fallback" },
+      ["<c-s>"] = { "show_and_insert", "accept", "fallback" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
     },
