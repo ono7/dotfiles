@@ -459,7 +459,7 @@ k("n", "<leader>w", function()
 end, silent)
 
 -- Toggle quickfix list
-k("n", "<M-t>", function()
+k("n", "<c-/>", function()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
     if win["quickfix"] == 1 then
