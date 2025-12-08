@@ -143,7 +143,7 @@ return {
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    -- k("n", nv("d"), fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
+    k("n", "<c-s>", fzf.lsp_document_symbols, { desc = "[S]earch [D]iagnostics" })
     k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
     -- find files

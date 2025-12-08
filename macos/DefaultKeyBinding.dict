@@ -1,11 +1,16 @@
 {
     "^f" = "moveWordForward:";
     "^b" = "moveWordBackward:";
-    "^@" = "setMark:";
-    "^w" = "deleteToMark:";
-    "^y" = "yank:";
+    "^@" = "setMark:"; // <c-space>
+    "^y" = "yank:"; // this is paste not copy, "<c-k>" will kill
     "^w" = "deleteWordBackward:";
     "^ " = "setMark:";       // Control–Space: set mark
     "^w" = "deleteToMark:";  // Control–W: delete to mark
-    "^x" = "swapWithMark:"; // jumps the cursor back to where the mark was set, this is super useful
+    "^x" = "swapWithMark:";
+    "^k" = "deleteToEndOfLine:";     // Kill line
+    "^d" = "deleteForward:";         // Delete char forward
+    "^h" = "deleteBackward:";        // Delete char backward (like backspace)
+    "^t" = "transpose:";             // Swap characters
+    "^/" = "undo:";                  // Undo
+    "^_" = "undo:";                  // Alternative undo
 }
