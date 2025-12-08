@@ -164,8 +164,10 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 " xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
 " xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
-set iskeyword+=_,-
+"set iskeyword+=_,-
+"set iskeyword+=-
 set ttyfast
 
 function! CopyMatches(reg)

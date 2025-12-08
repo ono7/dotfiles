@@ -74,7 +74,7 @@ set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
-set iskeyword+=_,-
+" set iskeyword+=_,-
 
  set termguicolors
 if has('win32') || has('win64')
@@ -192,7 +192,7 @@ inoremap <C-y> <C-r>"
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
-	echom "mark set"
+  echom "mark set"
 endfunction
 
 " Swap cursor with mark in insert mode
@@ -208,7 +208,7 @@ function! InsertSwapMark() abort
   " Jump to mark
   call setpos('.', mark_pos)
 
-	echom "mark jumped"
+  echom "mark jumped"
   " Update mark to old cursor position
   call setpos("'z", cur_pos)
 endfunction
