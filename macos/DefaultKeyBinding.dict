@@ -1,16 +1,55 @@
 {
-    "^f" = "moveWordForward:";
-    "^b" = "moveWordBackward:";
-    "^@" = "setMark:"; // <c-space>
-    "^y" = "yank:"; // this is paste not copy, "<c-k>" will kill
-    "^w" = "deleteWordBackward:";
-    "^ " = "setMark:";       // Control–Space: set mark
-    "^w" = "deleteToMark:";  // Control–W: delete to mark
+    // this has been normalized to be more like emacs
+    /* === CHARACTER MOVEMENT === */
+    "^f" = "moveForward:";
+    "^b" = "moveBackward:";
+    "^n" = "moveDown:";
+    "^p" = "moveUp:";
+
+    /* === WORD MOVEMENT === */
+    "~f" = "moveWordForward:";
+    "~b" = "moveWordBackward:";
+
+    /* === LINE MOVEMENT === */
+    "^a" = "moveToBeginningOfLine:";
+    "^e" = "moveToEndOfLine:";
+
+    /* === PARAGRAPH MOVEMENT === */
+    "~{" = "moveToBeginningOfParagraph:";
+    "~}" = "moveToEndOfParagraph:";
+
+    /* === DOCUMENT MOVEMENT === */
+    "~<" = "moveToBeginningOfDocument:";
+    "~>" = "moveToEndOfDocument:";
+    "^v" = "pageDown:";
+    "~v" = "pageUp:";
+
+    /* === DELETION === */
+    "^d" = "deleteForward:";
+    "^h" = "deleteBackward:";
+    "~d" = "deleteWordForward:";
+    "~^h" = "deleteWordBackward:"; // or just use option+bs
+    "^k" = "deleteToEndOfLine:";
+    "~k" = "deleteToEndOfParagraph:";
+
+    /* === MARK/KILL/YANK === */
+    "^@" = "setMark:";
+    "^ " = "setMark:";
+    "^w" = "deleteToMark:";
+    "^y" = "yank:";
     "^x" = "swapWithMark:";
-    "^k" = "deleteToEndOfLine:";     // Kill line
-    "^d" = "deleteForward:";         // Delete char forward
-    "^h" = "deleteBackward:";        // Delete char backward (like backspace)
-    "^t" = "transpose:";             // Swap characters
-    "^/" = "undo:";                  // Undo
-    "^_" = "undo:";                  // Alternative undo
+
+    /* === TRANSPOSE & UNDO === */
+    "^t" = "transpose:";
+
+    // "^/" = "undo:"; // this does not work
+    // "^_" = "undo:"; // this does not work
+
+    /* === CASE TRANSFORMATION === */
+    "~u" = "uppercaseWord:";
+    "~l" = "lowercaseWord:";
+    "~c" = "capitalizeWord:";
+
+    /* === LINE MANIPULATION === */
+    "^o" = "insertNewlineIgnoringFieldEditor:";
 }

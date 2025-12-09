@@ -476,14 +476,35 @@ ct () {
 # bindkey "^H" backward-kill-word
 function setup_keys() {
     bindkey -v
+    # === STANDARD EMACS/MACOS PARITY ===
     bindkey "^E" end-of-line
     bindkey "^A" beginning-of-line
     bindkey "^N" down-line-or-history
-    bindkey "^O" accept-line-and-down-history
     bindkey "^P" up-line-or-history
-    bindkey ' ' magic-space
+
+    # === CHARACTER MOVEMENT (Fixes the Word vs Char mismatch) ===
+    # Matches Vim <Right>/<Left> and macOS ^f/^b
+    bindkey -M viins '^F' forward-char
+    bindkey -M viins '^B' backward-char
+
+    # === WORD MOVEMENT (Parity with macOS ~f/~b) ===
+    # Note: Ensure your terminal sends Esc+f/b for Option-f/b
+    bindkey -M viins '^[f' emacs-forward-word  # Option-f
+    bindkey -M viins '^[b' backward-word       # Option-b
+
+    # === HISTORY & UTILS ===
+    bindkey ' ' magic-space        # Expands history (e.g. !$)
+    bindkey "^O" accept-line-and-down-history
+
+    # === MARKS (Parity with macOS ^@ / ^x) ===
+    bindkey "^@" set-mark-command
+    bindkey "^X" exchange-point-and-mark
+
+    # === FZF (Conflict Resolution) ===
     bindkey "^R" fzf-history-widget
-    bindkey "^F" fzf-file-widget
+    # Suggestion: Move File Widget to ^T to save ^F for navigation
+    # bindkey "^T" fzf-file-widget
+
     zle -N toggle
     bindkey '^Z' toggle
     zle -N _d
@@ -503,14 +524,6 @@ function setup_keys() {
     }
     zle -N vi-yank-clipboard
 
-    bindkey -M viins '^F' emacs-forward-word
-    bindkey -M viins '^B' backward-word
-
-    # Ctrl-Space sets mark
-    bindkey "^@" set-mark-command
-
-    # Ctrl-x jumps back (swap mark + point)
-    bindkey "^X" exchange-point-and-mark
 
     # ci" in vi-mode
     autoload -U select-quoted

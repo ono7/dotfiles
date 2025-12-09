@@ -14,10 +14,10 @@ k("n", "<M-e>", "")
 k("n", "<space>", "")
 vim.g.mapleader = " "
 
-k("i", "<c-s>", "<c-x><c-n>", silent)
+-- k("i", "<c-s>", "<c-x><c-n>", silent)
 
-k("i", "<M-a>", "<ESC>^i", silent)
-k("i", "<M-e>", "<End>", silent)
+-- k("i", "<M-a>", "<ESC>^i", silent)
+-- k("i", "<M-e>", "<End>", silent)
 
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
@@ -40,26 +40,62 @@ nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-w>
-inoremap <C-a> <C-o>^
-inoremap <C-e> <End>
-inoremap <C-f> <Esc>ea
-inoremap <C-b> <C-o>b
-inoremap <C-d> <C-o>D
 
+" --- Emacs Navigation Parity ---
+
+" Character motions
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 
-" Deletion (insert mode)
+" the alpha and the omega
+inoremap <C-a> <C-o>^
+inoremap <C-e> <End>
+
+"inoremap <M-f> <Esc>ea
+"inoremap <M-b> <C-o>b
+
+" === WORD MOVEMENT ===
+" ~f = moveWordForward (Emacs jumps to end of word)
+inoremap <M-f> <C-o>e<Right>
+" ~b = moveWordBackward
+inoremap <M-b> <C-o>b
+
+" === PARAGRAPH MOVEMENT ===
+" ~{ = Start of para / ~} = End of para
+inoremap <M-{> <C-o>{
+inoremap <M-}> <C-o>}
+
+" === DELETION ===
+" ^d = Delete Forward
 inoremap <C-d> <Del>
+" ^h = Delete Backward (Standard Backspace)
+inoremap <C-h> <BS>
 
-" inoremap <C-h> <BS>
-inoremap <C-k> <C-o>D
+" ~d = Delete Word Forward
+inoremap <M-d> <C-o>dw
+" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
+" Note: Mapped to Option-Backspace (<M-BS>) for convenience
+inoremap <M-BS> <C-w>
 
 " Kill to end of line (store in register)
 inoremap <C-k> <C-o>D
 
+" ~k = Kill to end of paragraph (Rough approximation)
+inoremap <M-k> <C-o>d}
+
 " Yank (paste from default register)
 inoremap <C-y> <C-r>"
+
+" === CASE TRANSFORMATION PARITY ===
+" Uppercase Word (Emacs M-u)
+" Logic: Exit insert -> Uppercase to end of word -> Append
+inoremap <M-u> <Esc>gUea
+
+" Lowercase Word (Emacs M-l)
+" Logic: Exit insert -> Lowercase to end of word -> Append
+inoremap <M-l> <Esc>guea
 
 " implements c-x c-x like emacs, uses marks to preserve line changes
 "function! InsertSetMark() abort
@@ -76,6 +112,7 @@ inoremap <C-y> <C-r>"
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
+  echom "mark set"
 endfunction
 
 " Swap cursor with mark in insert mode
