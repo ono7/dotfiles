@@ -62,6 +62,11 @@ inoremap <M-f> <C-o>e<Right>
 " ~b = moveWordBackward
 inoremap <M-b> <C-o>b
 
+" Send Escape+b/f to the shell when Alt-b/f is pressed
+" ~f, ~b
+tnoremap <M-b> <Esc>b
+tnoremap <M-f> <Esc>f
+
 " === PARAGRAPH MOVEMENT ===
 " ~{ = Start of para / ~} = End of para
 inoremap <M-{> <C-o>{
@@ -404,7 +409,7 @@ k("t", "<C-BS>", "\x17", { noremap = true })
 k("c", "<C-BS>", "\x17", { noremap = true })
 
 -- pass <c-b> to through term for tmux
-k("t", "<M-b>", "<C-b>", { noremap = true })
+-- k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 k("t", "<c-x>", [[<c-\><c-n>]], silent)
