@@ -19,18 +19,50 @@ case $- in
 *) return ;;
 esac
 
-# set -o vi
-bind -m vi-command ".":insert-last-argument
-bind -m vi-insert "\C-l.":clear-screen
-bind -m vi-insert "\C-a.":beginning-of-line
-bind -m vi-insert "\C-e.":end-of-line
-bind -m vi-insert "\C-w.":backward-kill-word
-bind '"\C-f": forward-word'
-bind '"\C-b": backward-word'
-# Ctrl-Space sets mark
-bind '"\C-@": set-mark'
-# Ctrl-x jumps back (exchange point and mark)
-bind '"\C-x": exchange-point-and-mark'
+set -o vi
+
+# bind -m vi-command ".":insert-last-argument
+# bind -m vi-insert "\C-l.":clear-screen
+# bind -m vi-insert "\C-a.":beginning-of-line
+# bind -m vi-insert "\C-e.":end-of-line
+# bind -m vi-insert "\C-w.":backward-kill-word
+# bind '"\C-f": forward-word'
+# bind '"\C-b": backward-word'
+# # Ctrl-Space sets mark
+# bind '"\C-@": set-mark'
+# # Ctrl-x jumps back (exchange point and mark)
+# bind '"\C-x": exchange-point-and-mark'
+# --- Character Movement (Fixes ^F/^B mapping) ---
+
+bind -m vi-insert '"\C-f": forward-char'
+bind -m vi-insert '"\C-b": backward-char'
+bind -m vi-insert '"\C-n": next-history'
+bind -m vi-insert '"\C-p": previous-history'
+bind -m vi-insert '"\C-a": beginning-of-line'
+bind -m vi-insert '"\C-e": end-of-line'
+
+# --- Option Key Movement (Matches Alacritty "Both" / Esc+Key) ---
+bind -m vi-insert '"\ef": forward-word'
+bind -m vi-insert '"\eb": backward-word'
+
+# --- Deletion ---
+# ^D to delete char (overrides EOF behavior in insert mode)
+bind -m vi-insert '"\C-d": delete-char'
+# Option-d to delete word forward
+bind -m vi-insert '"\ed": kill-word'
+# Option-Backspace to delete word backward
+# Note: \e\C-? covers most terminals sending Esc+Backspace
+bind -m vi-insert '"\e\C-?": backward-kill-word'
+bind -m vi-insert '"\e\177": backward-kill-word'
+
+# --- History & Utils ---
+# ^O to accept line (Run command)
+bind -m vi-insert '"\C-o": accept-line'
+
+# FZF Parity
+# In Bash, FZF defaults to ^T for files and ^R for history.
+# We just ensure ^T doesn't conflict with our navigation.
+bind -m vi-insert '"\C-t": " \C-u \C-a\C-k$(__fzf_select__)\e\C-e\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-f"'
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
