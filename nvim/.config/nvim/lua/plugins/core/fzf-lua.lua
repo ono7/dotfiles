@@ -224,6 +224,8 @@ return {
           local opts = winopts
           opts.title = " Live Grep "
           opts.title_pos = "center"
+          opts.width = 0.95 -- 95% of the editor width
+          opts.height = 0.95 -- 95% of the editor height
           return opts
         end,
       })

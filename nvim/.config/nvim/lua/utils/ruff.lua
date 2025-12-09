@@ -1,5 +1,8 @@
-vim.api.nvim_create_user_command("Ruf", function()
-  vim.fn.jobstart({ "ruff", "check", "--output-format=json", "." }, {
+vim.api.nvim_create_user_command("Ruf", function(opts)
+  local target = opts.fargs[1] or "."
+  target = vim.fn.expand(target)
+
+  vim.fn.jobstart({ "ruff", "check", "--output-format=json", target }, {
     stdout_buffered = true,
     on_stdout = function(_, data)
       if not data or #data == 0 then
@@ -18,7 +21,7 @@ vim.api.nvim_create_user_command("Ruf", function()
       for _, issue in ipairs(issues) do
         local short_filename = issue.filename:match("([^/]+/[^/]+)$") or issue.filename
         local bufnr = vim.fn.bufnr(issue.filename, true)
-        local code = issue.code or "SYNTAX" -- Handle null codes, this is not working
+        local code = issue.code or "SYNTAX"
         table.insert(qf_list, {
           bufnr = bufnr,
           filename = short_filename,
@@ -33,4 +36,4 @@ vim.api.nvim_create_user_command("Ruf", function()
       end
     end,
   })
-end, {})
+end, { nargs = "?" })
