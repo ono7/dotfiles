@@ -474,58 +474,67 @@ ct () {
 
 # shift+tab
 # bindkey "^H" backward-kill-word
-function setup_keys() {
-    bindkey -v
-    # === STANDARD EMACS/MACOS PARITY ===
-    bindkey "^E" end-of-line
-    bindkey "^A" beginning-of-line
-    bindkey "^N" down-line-or-history
-    bindkey "^P" up-line-or-history
 
-    # === CHARACTER MOVEMENT (Fixes the Word vs Char mismatch) ===
-    # Matches Vim <Right>/<Left> and macOS ^f/^b
+function setup_keys() {
+    # 1. Reset to Vi Mode (This clears previous keymaps!)
+    bindkey -v
+
+    # =======================================================
+    # VI INSERT MODE MAPPINGS (-M viins)
+    # =======================================================
+
+    # --- Standard Parity (Fixing your ^d issue) ---
+    bindkey -M viins '^D' delete-char             # Fixes Ctrl+D
+    bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
+    bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
+    bindkey -M viins '^U' kill-whole-line         # Unix standard
+    bindkey -M viins '^W' backward-kill-word      # Unix standard
+
+    # --- Character Movement (Vim/Emacs Parity) ---
     bindkey -M viins '^F' forward-char
     bindkey -M viins '^B' backward-char
+    bindkey -M viins '^N' down-line-or-history
+    bindkey -M viins '^P' up-line-or-history
+    bindkey -M viins '^A' beginning-of-line
+    bindkey -M viins '^E' end-of-line
 
-    # === WORD MOVEMENT (Parity with macOS ~f/~b) ===
-    # Note: Ensure your terminal sends Esc+f/b for Option-f/b
-    bindkey -M viins '^[f' emacs-forward-word  # Option-f
-    bindkey -M viins '^[b' backward-word       # Option-b
+    # --- Option Key Movement (Alacritty 'Both' sends Escape+Key) ---
+    # We use '\e' instead of '^[' to ensure syntax is correct
+    bindkey -M viins '\ef' emacs-forward-word    # Option-f
+    bindkey -M viins '\eb' backward-word         # Option-b
 
-    # === HISTORY & UTILS ===
-    bindkey ' ' magic-space        # Expands history (e.g. !$)
+    # --- Option Key Deletion (Parity with your macOS expectations) ---
+    bindkey -M viins '\ed' delete-word           # Option-d (Delete word forward)
+    bindkey -M viins '\e^?' backward-kill-word   # Option-Backspace (Delete word backward)
+
+    # =======================================================
+    # SEARCH & UTILS
+    # =======================================================
+    bindkey ' ' magic-space                      # History expansion on space
     bindkey "^O" accept-line-and-down-history
 
-    # === MARKS (Parity with macOS ^@ / ^x) ===
-    bindkey "^@" set-mark-command
-    bindkey "^X" exchange-point-and-mark
-
-    # === FZF (Conflict Resolution) ===
+    # --- FZF Integration ---
     bindkey "^R" fzf-history-widget
-    # Suggestion: Move File Widget to ^T to save ^F for navigation
-    # bindkey "^T" fzf-file-widget
+    # Map Ctrl+T to file search (Saving Ctrl+F for forward char)
+    bindkey "^T" fzf-file-widget
 
-    zle -N toggle
-    bindkey '^Z' toggle
-    zle -N _d
-    bindkey -s '^G' _d^M
+    # --- Zsh Autosuggestions ---
+    # Ensure Right Arrow accepts suggestion even in Vi Mode
+    bindkey -M viins '^[[C' autosuggest-accept
 
+    # --- Clipboard ---
     bindkey -M vicmd 'y' vi-yank-clipboard
-
     function vi-yank-clipboard {
         zle vi-yank
         if command -v pbcopy >/dev/null 2>&1; then
             echo "$CUTBUFFER" | pbcopy
         elif command -v wl-copy >/dev/null 2>&1; then
             echo "$CUTBUFFER" | wl-copy
-        elif command -v xclip >/dev/null 2>&1; then
-            echo "$CUTBUFFER" | xclip -selection clipboard
         fi
     }
     zle -N vi-yank-clipboard
 
-
-    # ci" in vi-mode
+    # --- Text Objects (ci", ci(, etc) ---
     autoload -U select-quoted
     zle -N select-quoted
     for m in visual viopp; do
@@ -534,7 +543,6 @@ function setup_keys() {
       done
     done
 
-    # ci{, ci(, di{ etc.. in vi-mode
     autoload -U select-bracketed
     zle -N select-bracketed
     for m in visual viopp; do
@@ -542,12 +550,7 @@ function setup_keys() {
         bindkey -M $m $c select-bracketed
       done
     done
-    bindkey '^[[Z' reverse-menu-complete
-    bindkey "^R" fzf-history-widget
 }
-
-bindkey "^R" fzf-history-widget
-
 # install homebrew on linux and macos
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
