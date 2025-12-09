@@ -1,5 +1,6 @@
 {
     // ~/Library/KeyBindings/DefaultKeyBinding.dict
+    // ~/.dotfiles/macos/DefaultKeyBinding.dict
 
     // this has been normalized to be more like emacs
     /* === CHARACTER MOVEMENT === */
@@ -46,7 +47,7 @@
 
     // "^/" = "undo:"; // this does not work
     // "^_" = "undo:"; // this does not work
-    "^- " = "undo:";      /* Ctrl + -         (Easier to type) */
+    "^-" = "undo:";      /* Ctrl + -         (Easier to type) */
     "^/" = "undo:";       /* Ctrl + /         (Matches common Emacs config) */
     "\037" = "undo:"; // sometimes this is needed in macos
 
