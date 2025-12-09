@@ -1,3 +1,22 @@
+## use docker registry mirrors
+
+This is usefull if 403 errors pop up when doing docker pull or building
+
+`"registry-mirrors": ["https://mirror.gcr.io"]`
+
+```json
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "registry-mirrors": ["https://mirror.gcr.io"]
+}
+```
+
 ## Add packages to container
 
 `apk add curl`
