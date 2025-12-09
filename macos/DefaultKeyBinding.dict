@@ -1,4 +1,6 @@
 {
+    // ~/Library/KeyBindings/DefaultKeyBinding.dict
+
     // this has been normalized to be more like emacs
     /* === CHARACTER MOVEMENT === */
     "^f" = "moveForward:";
@@ -44,6 +46,9 @@
 
     // "^/" = "undo:"; // this does not work
     // "^_" = "undo:"; // this does not work
+    "^- " = "undo:";      /* Ctrl + -         (Easier to type) */
+    "^/" = "undo:";       /* Ctrl + /         (Matches common Emacs config) */
+    "\037" = "undo:"; // sometimes this is needed in macos
 
     /* === CASE TRANSFORMATION === */
     "~u" = "uppercaseWord:";
