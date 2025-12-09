@@ -53,9 +53,6 @@ inoremap <C-f> <Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
-"inoremap <M-f> <Esc>ea
-"inoremap <M-b> <C-o>b
-
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
 inoremap <M-f> <C-o>e<Right>
@@ -101,18 +98,6 @@ inoremap <M-u> <Esc>gUea
 " Lowercase Word (Emacs M-l)
 " Logic: Exit insert -> Lowercase to end of word -> Append
 inoremap <M-l> <Esc>guea
-
-" implements c-x c-x like emacs, uses marks to preserve line changes
-"function! InsertSetMark() abort
-"  normal! mz
-"  echo "Mark set at line" line("'z") "col" col("'z")
-"endfunction
-"
-"" Set mark in insert mode
-"function! InsertSetMark() abort
-"  normal! mz
-"  echom "Mark set at line" line("'z") "col" col("'z")
-"endfunction
 
 " Set mark in insert mode
 function! InsertSetMark() abort

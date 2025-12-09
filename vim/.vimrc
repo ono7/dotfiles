@@ -138,6 +138,72 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
+" this combines best of vim with the best of emacs which is available everywhere..
+cnoremap <c-a> <Home>
+cnoremap <c-b> <left>
+cnoremap <c-e> <end>
+nnoremap <c-e> <end>
+cnoremap <c-l> <Right>
+
+inoremap <C-BS> <C-w>
+
+" --- Emacs Navigation Parity ---
+
+" Character motions
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+
+" the alpha and the omega
+inoremap <C-a> <C-o>^
+inoremap <C-e> <End>
+
+" === WORD MOVEMENT ===
+" ~f = moveWordForward (Emacs jumps to end of word)
+inoremap <M-f> <C-o>e<Right>
+" ~b = moveWordBackward
+inoremap <M-b> <C-o>b
+
+" Send Escape+b/f to the shell when Alt-b/f is pressed
+" ~f, ~b
+tnoremap <M-b> <Esc>b
+tnoremap <M-f> <Esc>f
+
+" === PARAGRAPH MOVEMENT ===
+" ~{ = Start of para / ~} = End of para
+inoremap <M-{> <C-o>{
+inoremap <M-}> <C-o>}
+
+" === DELETION ===
+" ^d = Delete Forward
+inoremap <C-d> <Del>
+" ^h = Delete Backward (Standard Backspace)
+inoremap <C-h> <BS>
+
+" ~d = Delete Word Forward
+inoremap <M-d> <C-o>dw
+" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
+" Note: Mapped to Option-Backspace (<M-BS>) for convenience
+inoremap <M-BS> <C-w>
+
+" Kill to end of line (store in register)
+inoremap <C-k> <C-o>D
+
+" ~k = Kill to end of paragraph (Rough approximation)
+inoremap <M-k> <C-o>d}
+
+" Yank (paste from default register)
+inoremap <C-y> <C-r>"
+
+" === CASE TRANSFORMATION PARITY ===
+" Uppercase Word (Emacs M-u)
+" Logic: Exit insert -> Uppercase to end of word -> Append
+inoremap <M-u> <Esc>gUea
+
+" Lowercase Word (Emacs M-l)
+" Logic: Exit insert -> Lowercase to end of word -> Append
+inoremap <M-l> <Esc>guea
 " nnoremap ; :
 " nnoremap : ;
 
@@ -168,26 +234,6 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 nnoremap <c-e> <end>
-inoremap <C-f> <Esc>ea
-inoremap <C-b> <C-o>b
-
-" inoremap <C-p> <C-r>"
-" nnoremap <C-n> <cmd>tabnew<cr>
-
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-
-
-" Deletion (insert mode)
-inoremap <C-d> <Del>
-" inoremap <C-h> <BS>
-inoremap <C-k> <C-o>D
-
-" Kill to end of line (store in register)
-inoremap <C-k> <C-o>D
-
-" Yank (paste from default register)
-inoremap <C-y> <C-r>"
 
 " Set mark in insert mode
 function! InsertSetMark() abort
