@@ -14,7 +14,6 @@ k("n", "<M-e>", "")
 k("n", "<space>", "")
 vim.g.mapleader = " "
 
-
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
 
@@ -127,13 +126,13 @@ endfunction
 " Keymaps
 inoremap <c-space> <C-o>:call InsertSetMark()<CR>
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
-
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
 
+" TODO: syntaxcomplete#Complete need to implement this for omnifunc
 " nnoremap v <c-v>
 
 vnoremap > >gv
