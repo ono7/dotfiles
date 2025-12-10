@@ -25,6 +25,7 @@ return {
     },
     -- trigger = { mode = "manual" },
     completion = {
+      accept = { undo_break = false },
       trigger = {
         show_on_keyword = false,
         show_on_trigger_character = false,

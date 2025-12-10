@@ -91,7 +91,7 @@ inoremap <M-k> <C-o>d}
 inoremap <C-y> <C-r>"
 
 " select last inserted text
-inoremap <C-l> <Esc>`[v`]
+" inoremap <C-l> <Esc>`[v`]
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
