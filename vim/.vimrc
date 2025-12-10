@@ -204,11 +204,10 @@ inoremap <M-u> <Esc>gUea
 " Lowercase Word (Emacs M-l)
 " Logic: Exit insert -> Lowercase to end of word -> Append
 inoremap <M-l> <Esc>guea
-" nnoremap ; :
-" nnoremap : ;
 
-" xnoremap ; :
-" nnoremap v <c-v> " use c-q
+" usefull when only visual block selection needs to be replaced
+xnoremap & :<C-u>'<,'>s/\%V\v
+
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_
@@ -220,12 +219,9 @@ nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap gm <cmd>Git commit % -m ""<Left>
 " close: closes a window (not a buffer..), allowing splits to work as intended
 nnoremap <silent> <c-w> <cmd>close!<cr>
-" nnoremap ,w <cmd>w!<cr>
 nnoremap cp yap<S-}>p
 nnoremap J mzJ`z
 
-"nnoremap <expr> j v:count ? (v:count > 1 ? "m'" . v:count : '') . 'j' : 'gj'
-"nnoremap <expr> k v:count ? (v:count > 1 ? "m'" . v:count : '') . 'k' : 'gk'
 nnoremap j gj
 nnoremap k gk
 

@@ -99,6 +99,9 @@ inoremap <M-u> <Esc>gUea
 " Logic: Exit insert -> Lowercase to end of word -> Append
 inoremap <M-l> <Esc>guea
 
+" usefull when only visual block selection needs to be replaced
+xnoremap & :<C-u>'<,'>s/\%V\v
+
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
@@ -159,7 +162,8 @@ xnoremap . :<C-u>normal! .<CR>
 
 nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 " close: closes a window not a buffer, leaving splits working as intended
-nnoremap <c-w> <cmd>close!<CR>
+" this has a conflict with diagnostics
+" nnoremap <c-w> <cmd>close!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
