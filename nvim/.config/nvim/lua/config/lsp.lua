@@ -26,10 +26,22 @@ vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP 
 
 M.setup = function()
   --- Global LSP configuration ---
+  local ok, blink = pcall(require, "blink.cmp")
+
   vim.lsp.config("*", {
     root_markers = { ".git" },
-    capabilities = require("blink.cmp").get_lsp_capabilities(),
+    capabilities = ok and blink.get_lsp_capabilities() or nil,
   })
+
+  if not ok then
+    -- Ensure LSP omnifunc is enabled
+    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+
+    -- <C-s> triggers native LSP completion
+    vim.keymap.set("i", "<C-s>", function()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n", false)
+    end, { noremap = true, silent = true })
+  end
 
   --- Enable LSP servers ---
   vim.lsp.enable({

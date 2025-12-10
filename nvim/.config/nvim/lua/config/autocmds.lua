@@ -1,5 +1,16 @@
 local create_augroup = vim.api.nvim_create_augroup
 
+vim.schedule(function()
+  for _, ac in ipairs(vim.api.nvim_get_autocmds({ event = "CursorMovedI" })) do
+    if ac.callback then
+      local info = debug.getinfo(ac.callback, "S")
+      if info and info.source and info.source:match("blink/cmp") then
+        vim.api.nvim_del_autocmd(ac.id)
+      end
+    end
+  end
+end)
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
@@ -56,9 +67,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-            not (ft:match("commit") and ft:match("rebase"))
-            and last_known_line > 1
-            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+          not (ft:match("commit") and ft:match("rebase"))
+          and last_known_line > 1
+          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -234,7 +245,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
     -- Make it a true scratch buffer
     vim.bo[buf].bufhidden = "hide"
-    vim.bo[buf].swapfile  = false -- don't create swapfiles
-    vim.bo[buf].modified  = false -- NEVER marked modified
+    vim.bo[buf].swapfile = false -- don't create swapfiles
+    vim.bo[buf].modified = false -- NEVER marked modified
   end,
 })
