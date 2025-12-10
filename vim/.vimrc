@@ -307,7 +307,8 @@ function! WrapSelection(left, right)
 endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
-xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+" cant use this because it interferes with the " register command
+" xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>

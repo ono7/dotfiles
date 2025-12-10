@@ -188,7 +188,8 @@ function! WrapSelection(left, right)
 endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
-xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+" this overrides the " register key
+" xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
