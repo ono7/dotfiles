@@ -205,6 +205,9 @@ inoremap <M-u> <Esc>gUea
 " Logic: Exit insert -> Lowercase to end of word -> Append
 inoremap <M-l> <Esc>guea
 
+" select last inserted text
+inoremap <C-l> <Esc>`[v`]
+
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
 

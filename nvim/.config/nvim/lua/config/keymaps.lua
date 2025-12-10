@@ -90,6 +90,9 @@ inoremap <M-k> <C-o>d}
 " Yank (paste from default register)
 inoremap <C-y> <C-r>"
 
+" select last inserted text
+inoremap <C-l> <Esc>`[v`]
+
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
 " Logic: Exit insert -> Uppercase to end of word -> Append

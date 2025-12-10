@@ -200,7 +200,7 @@ return {
     end, { desc = "Recent files (no git)" })
 
     -- live grep
-    k("n", "<leader>g", function()
+    k("n", "<leader>l", function()
       require("fzf-lua").live_grep({
         prompt = "Live Grep> ",
         -- previewer = false,
@@ -224,7 +224,7 @@ return {
           local opts = winopts
           opts.title = " Live Grep "
           opts.title_pos = "center"
-          opts.width = 0.95 -- 95% of the editor width
+          opts.width = 0.95  -- 95% of the editor width
           opts.height = 0.95 -- 95% of the editor height
           return opts
         end,
