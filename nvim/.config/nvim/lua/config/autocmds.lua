@@ -1,15 +1,28 @@
 local create_augroup = vim.api.nvim_create_augroup
 
-vim.schedule(function()
-  for _, ac in ipairs(vim.api.nvim_get_autocmds({ event = "CursorMovedI" })) do
-    if ac.callback then
-      local info = debug.getinfo(ac.callback, "S")
-      if info and info.source and info.source:match("blink/cmp") then
-        vim.api.nvim_del_autocmd(ac.id)
-      end
+-- LSP omnifunc
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+  end,
+})
+
+-- Fallback omni for non-LSP buffers
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local buf = args.buf
+
+    -- Don't override LSP
+    if next(vim.lsp.get_clients({ bufnr = buf })) ~= nil then
+      return
     end
-  end
-end)
+
+    -- Only fallback if nothing is set by the ftplugin
+    if vim.bo[buf].omnifunc == "" then
+      vim.bo[buf].omnifunc = "syntaxcomplete#Complete"
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",

@@ -35,7 +35,7 @@ M.setup = function()
 
   if not ok then
     -- Ensure LSP omnifunc is enabled
-    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+    --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- <C-s> triggers native LSP completion
     vim.keymap.set("i", "<C-s>", function()
