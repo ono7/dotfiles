@@ -41,6 +41,7 @@ inoremap <C-BS> <C-w>
 " Character motions
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
+
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
@@ -82,8 +83,8 @@ inoremap <C-k> <C-o>D
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-o>d}
 
-" Yank (paste from default register)
-inoremap <C-y> <C-r>"
+" Yank (paste from default register), using this for completion instead
+"inoremap <C-y> <C-r>"
 
 " select last inserted text
 inoremap <C-l> <Esc>`[v`]
@@ -125,7 +126,7 @@ endfunction
 
 " Keymaps
 inoremap <c-space> <C-o>:call InsertSetMark()<CR>
-inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
+"inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>

@@ -37,10 +37,42 @@ M.setup = function()
     -- Ensure LSP omnifunc is enabled
     --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- <C-s> triggers native LSP completion
-    vim.keymap.set("i", "<C-s>", function()
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n", false)
+    vim.keymap.set("i", "<C-y>", function()
+      local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
+      local buftype = vim.bo.buftype
+
+      local keys
+      if has_lsp then
+        keys = "<C-x><C-o>" -- LSP fuzzy completion now supported
+      elseif buftype == "" then
+        keys = "<C-x><C-n>" -- keyword completion with fuzzy filtering
+      else
+        return
+      end
+
+      keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+      vim.api.nvim_feedkeys(keys, "n", false)
     end, { noremap = true, silent = true })
+    -- vim.keymap.set("i", "<C-y>", function()
+    --   local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
+    --
+    --   local keys
+    --   if has_lsp then
+    --     -- Use native LSP omni completion
+    --     keys = "<C-x><C-o>"
+    --   else
+    --     -- Use native keyword completion (buffer words)
+    --     keys = "<C-n>"
+    --   end
+    --
+    --   keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+    --   vim.api.nvim_feedkeys(keys, "n", false)
+    -- end, { noremap = true, silent = true })
+
+    -- <C-s> triggers native LSP completion
+    --   vim.keymap.set("i", "<C-s>", function()
+    --     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n", false)
+    --   end, { noremap = true, silent = true })
   end
 
   --- Enable LSP servers ---
@@ -66,7 +98,7 @@ M.setup = function()
   end, { desc = "LSP: Hover documentation" })
 
   --- Completion options ---
-  vim.o.completeopt = "menu,noinsert,popup,fuzzy"
+  -- vim.o.completeopt = "menu,noinsert,popup,fuzzy"
 
   --- Diagnostic configuration ---
   vim.diagnostic.config({

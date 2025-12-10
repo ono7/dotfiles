@@ -78,7 +78,7 @@ use f,t,F,T vim, ; move forward (comma) move back
 
 vim.loader.enable(true)
 
-vim.opt.completeopt = { "menu", "menuone" }
+vim.opt.completeopt = { "menu", "menuone", "fuzzy" }
 vim.opt.complete = { ".", "w", "b" }
 
 if vim.opt.termguicolors then
@@ -108,7 +108,7 @@ require("config.neovide")
 require("utils.zoxide").setup() -- use fzflua zoxide..
 
 --- these two worktogether
-require("utils.runner").setup()      -- runs anything :M <cmd> :)
+require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.ruff")
 
@@ -118,7 +118,7 @@ vim.opt.mouse = "a"
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
