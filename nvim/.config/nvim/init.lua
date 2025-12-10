@@ -78,9 +78,6 @@ use f,t,F,T vim, ; move forward (comma) move back
 
 vim.loader.enable(true)
 
-vim.opt.completeopt = { "menu", "menuone", "fuzzy" }
-vim.opt.complete = { ".", "w", "b" }
-
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
   vim.cmd([[let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"]])
