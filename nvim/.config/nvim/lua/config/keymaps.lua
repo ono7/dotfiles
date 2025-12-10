@@ -14,10 +14,6 @@ k("n", "<M-e>", "")
 k("n", "<space>", "")
 vim.g.mapleader = " "
 
--- k("i", "<c-s>", "<c-x><c-n>", silent)
-
--- k("i", "<M-a>", "<ESC>^i", silent)
--- k("i", "<M-e>", "<End>", silent)
 
 -- prevents matchit from mapping [%
 vim.g.loaded_matchit = 1
@@ -91,7 +87,7 @@ inoremap <M-k> <C-o>d}
 inoremap <C-y> <C-r>"
 
 " select last inserted text
-" inoremap <C-l> <Esc>`[v`]
+inoremap <C-l> <Esc>`[v`]
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
@@ -154,9 +150,6 @@ nnoremap k gk
 " xnoremap p P
 xnoremap p "_dP
 
-" make dot operator work in visual mode
-xnoremap . :<C-u>normal! .<CR>
-
 " clear hlsearch on esc
 " nnoremap <silent> <Esc> :noh<CR><Esc>
 
@@ -201,8 +194,6 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
-"set iskeyword+=_,-
-"set iskeyword+=-
 set ttyfast
 
 function! CopyMatches(reg)
