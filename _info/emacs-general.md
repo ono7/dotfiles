@@ -1,3 +1,10 @@
+## clean up packages 
+
+this should trigger a redownload of all packages
+rm -rf ~/.emacs.d/straight
+rm -rf ~/.emacs.d/eln-cache
+
+
 ## INSTALLING EMACS
 
 ```sh
