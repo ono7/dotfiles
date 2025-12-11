@@ -20,6 +20,7 @@ if type stow &>/dev/null; then
   stow aerospace
   stow gdb
   stow git
+  stow emacs
   stow nvim
   # stow ssh
   stow sqlite

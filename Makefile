@@ -40,6 +40,7 @@ clean:
 	rm -rf ~/.local/share/nvim
 	rm -f ~/.alacritty-windows.toml
 	rm -f ~/.bashrc
+	rm -f ~/.emacs.d
 	rm -f ~/.sqliterc
 	rm -f ~/.aerospace
 	rm -f ~/.zshrc
