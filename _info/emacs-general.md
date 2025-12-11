@@ -1,10 +1,14 @@
 ## INSTALLING EMACS
 
-$ brew tap d12frosted/emacs-plus
-$ brew install emacs-plus [options]
+```sh
 
-`brew install emacs-plus -with-24bit-color`
+# documentation here
+# https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file
 
+brew tap d12frosted/emacs-plus
+brew install emacs-plus@31 --with-xwidgets --with-savchenkovaleriy-big-sur-3d-icon
+
+```
 
 ## colors
 
@@ -22,18 +26,9 @@ search for function help
 
 `C-h w`
 
-get current keybindings for current window
+# get current keybindings for current window
 
 `C-h b`
-
-## file formatting shortcuts
-
-`helm`  delete-trainling-white-stapaces
-    - removes whites spaces from file
-
-## troubleshoot startup issues
-
-`emacs --debug-ijkjjnit`
 
 ## when things slow down, remove all packages and reinstall them
 
@@ -47,11 +42,6 @@ also good to remove all these from time to time as things slow down
 
 `C-h i`
 
-## show bindings
-
-`C-x b`
-
 ## upgrade packages in packages buffer (package-list-packages)
 
     `update all installed packages with U x in the *Packages* buffer`
-
