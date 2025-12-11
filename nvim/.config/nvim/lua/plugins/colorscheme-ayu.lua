@@ -85,7 +85,8 @@ else
 
           -- 3. MINIMAL SYNTAX COLORS
           String = { fg = "#8ca64a" },
-          Special = { fg = "#C07035", italic = false },
+          -- Special = { fg = "#C07035", italic = false },
+          Special = { fg = "#D89F5C", bold = false },
           Statement = { fg = "#D89F5C", bold = true },
           Type = { fg = "#7aa7d8" },
           Function = { fg = "#AABFD9" },
@@ -97,11 +98,11 @@ else
           StatusLineNC = { bg = "none" },
 
           -- 5. DIFF & GIT (FINAL FIXES)
-          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" }, -- Subtle Blue-Green BG
+          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" },  -- Subtle Blue-Green BG
           DiffAdded = { link = "DiffAdd" },
-          DiffChange = {}, -- Subtle Blue-Grey BG (Line Change)
+          DiffChange = {},                               -- Subtle Blue-Grey BG (Line Change)
           DiffText = { fg = "#BEBEBC", bg = "#2A3245" }, -- Clear BG for Word Change
-          DiffDelete = { fg = "#222A38", bg = "none" }, -- **FIXED**: Deleted text is dark and very subtle
+          DiffDelete = { fg = "#222A38", bg = "none" },  -- **FIXED**: Deleted text is dark and very subtle
           DiffRemoved = { fg = "#d35a63", bg = "none" },
 
           -- 6. RESET/NEUTRAL GROUPS (Your explicit overrides to limit color)

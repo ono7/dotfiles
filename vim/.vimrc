@@ -632,8 +632,9 @@ hi Constant       guifg=#FFA0A0               ctermfg=217
 hi String         guifg=#8CA64A               ctermfg=107
 hi Function       guifg=#AABFD9               ctermfg=153
 hi Statement      guifg=#D89F5C               ctermfg=179
+hi Special        guifg=#D89F5C               ctermfg=179
+"hi Special        guifg=#C07035               ctermfg=173
 hi Type           guifg=#7AA7D8               ctermfg=110
-hi Special        guifg=#C07035               ctermfg=173
 hi Identifier     guifg=#40FFFF               ctermfg=51
 hi PreProc        guifg=#FF80FF               ctermfg=13
 hi Underlined     guifg=#80A0FF               ctermfg=75
