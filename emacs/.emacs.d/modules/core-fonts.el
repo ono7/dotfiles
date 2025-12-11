@@ -5,4 +5,16 @@
 (set-face-attribute 'bold-italic nil :family "Iosevka Custom"
                     :weight 'bold :slant 'italic)
 
+(with-eval-after-load 'markdown-mode
+  (set-face-attribute 'markdown-code-face nil
+                      :inherit 'default
+                      :family "Iosevka Custom")
+  (set-face-attribute 'markdown-pre-face nil
+                      :inherit 'default
+                      :family "Iosevka Custom")
+  (set-face-attribute 'markdown-inline-code-face nil
+                      :inherit 'default
+                      :family "Iosevka Custom"))
+
+
 (provide 'core-fonts)

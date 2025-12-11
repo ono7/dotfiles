@@ -7,7 +7,7 @@ rm -rf ~/.emacs.d/eln-cache
 
 ## INSTALLING EMACS
 
-```sh
+```bash
 
 # documentation here
 # https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file
@@ -19,8 +19,7 @@ brew install emacs-plus@31 --with-xwidgets --with-savchenkovaleriy-big-sur-3d-ic
 
 alternative way of compiling straight from emacs on apple silicon
 
-```
-
+```sh
 
 git clone https://git.savannah.gnu.org/git/emacs.git
 cd emacs
@@ -104,4 +103,5 @@ also good to remove all these from time to time as things slow down
 
 ## upgrade packages in packages buffer (package-list-packages)
 
-    `update all installed packages with U x in the *Packages* buffer`
+`update all installed packages with U x in the *Packages* buffer`
+	

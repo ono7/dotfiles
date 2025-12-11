@@ -14,3 +14,10 @@
 (require 'project-config)
 (require 'lsp-go)
 (require 'org-config)
+
+;; programming things
+(require 'python-config)
+(require 'go-config)
+(require 'ansible-config)
+(require 'json-config)
+(require 'yaml-config)
