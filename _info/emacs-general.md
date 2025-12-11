@@ -1,3 +1,10 @@
+## ctags
+
+for emacs must generate new tags with 
+
+`ctags -e -R .`
+
+or emacs cant read them because they are vim style tags
 ## clean up packages 
 
 this should trigger a redownload of all packages

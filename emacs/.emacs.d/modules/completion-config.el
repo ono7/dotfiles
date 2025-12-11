@@ -1,27 +1,32 @@
+;; ==============================
+;; COMPLETION: Vertico + Orderless
+;; ==============================
 (use-package vertico
   :init (vertico-mode)
-  :custom (vertico-cycle t))
+  :config
+  (setq vertico-cycle t))
 
 (use-package orderless
   :init
   (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides
-        '((file (styles . (partial-path orderless))))))
+        orderless-matching-styles '(orderless-flex)))
 
 (use-package consult
   :bind (("C-x b" . consult-buffer)
          ("C-x C-r" . consult-recent-file)))
 
-(use-package consult-dir
-  :after consult
-  :bind (("C-x C-f" . consult-dir)))
-
 (use-package marginalia
   :init (marginalia-mode))
 
-;; workaround for partial-path issue
-(setq completion-category-overrides
-      '((file (styles . (orderless)))))
+;; ==============================
+;; PROJECTS: Make Projectile obey orderless
+;; ==============================
+(use-package projectile
+  :init (projectile-mode)
+  :config
+  (setq projectile-enable-caching t
+        projectile-indexing-method 'alien
+        projectile-sort-order 'recently-active
+        projectile-completion-system 'default))
 
 (provide 'completion-config)

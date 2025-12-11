@@ -23,7 +23,7 @@
 
    ;; === Core UI ===
    `(default                   ((t (:foreground ,fg :background ,bg))))
-   `(cursor                    ((t (:background "#FF69B4")))) ;; hot-pink override
+   `(cursor                    ((t (:background "#FF69B4"))))
    `(region                    ((t (:background ,visual))))
    `(hl-line                   ((t (:background ,cursorl))))
    `(line-number               ((t (:foreground ,line-nr :background ,bg))))
@@ -31,49 +31,63 @@
    `(vertical-border           ((t (:foreground ,bg))))
    `(fringe                    ((t (:background ,bg))))
 
-   ;; Non-text items (Neovim "EndOfBuffer" mapping)
+   ;; Non-text items
    `(shadow                    ((t (:foreground ,nontext))))
 
-   ;; === Paren Matching (keep original) ===
+   ;; === Prompts / Messages ===
+   `(minibuffer-prompt         ((t (:foreground ,fg))))
+   `(success                   ((t (:foreground ,fg))))
+   `(warning                   ((t (:foreground ,fg))))
+   `(error                     ((t (:foreground ,err))))
+
+   ;; === LSP highlight cleanup ===
+   `(lsp-face-highlight-textual ((t (:foreground ,fg :background nil))))
+   `(lsp-face-highlight-read    ((t (:foreground ,fg :background nil))))
+   `(lsp-face-highlight-write   ((t (:foreground ,fg :background nil))))
+
+   `(lsp-ui-sideline-code-action      ((t (:foreground ,fg))))
+   `(lsp-ui-sideline-current-symbol   ((t (:foreground ,fg))))
+   `(lsp-ui-sideline-symbol           ((t (:foreground ,fg))))
+   `(lsp-ui-sideline-global           ((t (:foreground ,fg))))
+
+   ;; === Paren Matching ===
    `(show-paren-match
      ((t (:foreground ,bg :background "#AABFD9" :weight bold))))
    `(show-paren-mismatch
      ((t (:foreground ,bg :background ,err))))
 
-   ;; === Search (keep your original Emacs style) ===
+   ;; === Search ===
    `(isearch        ((t (:foreground ,search-fg :background ,search-bg))))
    `(lazy-highlight ((t (:foreground ,search-fg :background ,search-bg))))
 
-   ;; === Popup Menu (Company) ===
+   ;; === Company Popup ===
    `(company-tooltip
      ((t (:background "#1D2738" :foreground ,fg))))
    `(company-tooltip-selection
      ((t (:background ,search-bg :foreground ,search-fg))))
 
-   ;; === Messages ===
-   `(error   ((t (:foreground ,err))))
-   `(warning ((t (:foreground ,warn))))
-   `(success ((t (:foreground "#AAD94C"))))
-
    ;; === Syntax ===
    `(font-lock-comment-face        ((t (:foreground ,comment :slant italic))))
-   `(font-lock-string-face         ((t (:foreground ,string))))
-   `(font-lock-constant-face       ((t (:foreground ,fg))))   ;; neutralized
+   `(font-lock-string-face         ((t (:foreground ,string))))   ;; ← restored
+   `(font-lock-constant-face       ((t (:foreground ,fg))))
    `(font-lock-function-name-face  ((t (:foreground ,func))))
    `(font-lock-keyword-face        ((t (:foreground ,special :weight bold))))
    `(font-lock-type-face           ((t (:foreground ,type))))
-   `(font-lock-variable-name-face  ((t (:foreground ,fg))))   ;; neutral
+   `(font-lock-variable-name-face  ((t (:foreground ,fg))))
    `(font-lock-preprocessor-face   ((t (:foreground ,fg))))
    `(font-lock-builtin-face        ((t (:foreground ,fg))))
    `(font-lock-punctuation-face    ((t (:foreground ,fg))))
    `(font-lock-operator-face       ((t (:foreground ,fg))))
 
-   ;; === Diff (mapped from Neovim) ===
+   ;; === Diff ===
    `(diff-added      ((t (:foreground ,fg :background "#1C2E2E"))))
    `(diff-changed    ((t (:background "#2A3245" :foreground ,fg))))
    `(diff-removed    ((t (:foreground ,err :background ,bg))))
    `(diff-refine-added   ((t (:background "#1C2E2E" :weight bold))))
    `(diff-refine-removed ((t (:background "#2A1E1E" :weight bold))))
+
+   ;; === Link face (fix for Go import neon blue) ===
+   `(link ((t (:foreground ,fg :underline t))))
    ))
 
 (provide-theme 'ayu-carbon)
