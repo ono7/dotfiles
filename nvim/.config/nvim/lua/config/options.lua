@@ -49,10 +49,10 @@ function _G.winbar_path()
   if filepath == "" then
     return ""
   end
-  if filepath:sub(1, #vim.env.HOME) == vim.env.HOME then
-    filepath = "~" .. filepath:sub(#vim.env.HOME + 1)
-  end
-  return filepath
+  -- if filepath:sub(1, #vim.env.HOME) == vim.env.HOME then
+  --   filepath = "~" .. filepath:sub(#vim.env.HOME + 1)
+  -- end
+  return vim.fn.pathshorten(filepath, 4)
 end
 
 -- Undo configuration

@@ -211,6 +211,13 @@ inoremap <C-l> <Esc>`[v`]
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
 
+nnoremap vw viw
+nnoremap cw ciw
+nnoremap dw diw
+nnoremap vW viW
+nnoremap cW ciW
+nnoremap dW diW
+
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_
