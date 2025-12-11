@@ -16,4 +16,12 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
+(defun my-format-elisp-on-save ()
+  "Indent the entire buffer before saving if in Emacs Lisp mode."
+  (when (eq major-mode 'emacs-lisp-mode)
+    (indent-region (point-min) (point-max) nil)))
+
+;; auto format lisp files
+(add-hook 'before-save-hook #'my-format-elisp-on-save)
+
 (provide 'core-bootstrap)

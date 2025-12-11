@@ -3,7 +3,7 @@
 
 (setq warning-suppress-types '((files)))
 (setq use-short-answers t) ;; y or n
-(global-set-key (kbd "C-S-v") 'yank)
+(global-set-key (kbd "C-S-v") 'yank) ;; paste
 
 ;; core settings
 (require 'core-bootstrap)
@@ -28,6 +28,9 @@
 (require 'ansible-config)
 (require 'json-config)
 (require 'yaml-config)
+
+;; magit
+(require 'magit-config)
 
 (define-key help-mode-map (kbd "q") #'quit-window)
 (setq x-stretch-cursor nil)

@@ -22,17 +22,34 @@
    'ayu-carbon
 
    ;; === Core UI ===
-   `(default                   ((t (:foreground ,fg :background ,bg))))
-   `(cursor                    ((t (:background "#FF69B4"))))
-   `(region                    ((t (:background ,visual))))
-   `(hl-line                   ((t (:background ,cursorl))))
-   `(line-number               ((t (:foreground ,line-nr :background ,bg))))
-   `(line-number-current-line  ((t (:foreground "yellow" :background ,bg))))
-   `(vertical-border           ((t (:foreground ,bg))))
-   `(fringe                    ((t (:background ,bg))))
+   `(default                 ((t (:foreground ,fg :background ,bg))))
+   `(cursor                  ((t (:background "#FF69B4"))))
+   `(region                  ((t (:background ,visual))))
+   `(ffap                    ((t (:background ,visual))))
+   `(highlight               ((t (:background ,visual))))
+   `(hl-line                 ((t (:background ,cursorl))))
+   `(line-number             ((t (:foreground ,line-nr :background ,bg))))
+   `(line-number-current-line ((t (:foreground "yellow" :background ,bg))))
+   `(vertical-border         ((t (:foreground ,bg))))
+   `(fringe                  ((t (:background ,bg))))
 
    ;; Non-text items
-   `(shadow                    ((t (:foreground ,nontext))))
+   `(shadow                  ((t (:foreground ,nontext))))
+
+   ;; === Status Line ===
+   `(mode-line
+     ((t (:background ,cursorl :foreground ,fg :box (:line-width 1 :color ,cursorl)))))
+   
+   `(mode-line-inactive
+     ((t (:background ,cursorl :foreground ,comment :box (:line-width 1 :color ,cursorl)))))
+   
+   `(mode-line-highlight
+     ((t (:foreground ,special :weight bold))))
+   `(mode-line-buffer-id
+     ((t (:foreground ,func :weight bold))))
+   
+   `(mode-line-misc-info
+     ((t (:foreground ,fg :background ,visual))))
 
    ;; === Prompts / Messages ===
    `(minibuffer-prompt         ((t (:foreground ,fg))))
@@ -57,8 +74,8 @@
      ((t (:foreground ,bg :background ,err))))
 
    ;; === Search ===
-   `(isearch        ((t (:foreground ,search-fg :background ,search-bg))))
-   `(lazy-highlight ((t (:foreground ,search-fg :background ,search-bg))))
+   `(isearch          ((t (:foreground ,search-fg :background ,search-bg))))
+   `(lazy-highlight   ((t (:foreground ,search-fg :background ,search-bg))))
 
    ;; === Company Popup ===
    `(company-tooltip
@@ -67,17 +84,17 @@
      ((t (:background ,search-bg :foreground ,search-fg))))
 
    ;; === Syntax ===
-   `(font-lock-comment-face        ((t (:foreground ,comment :slant italic))))
-   `(font-lock-string-face         ((t (:foreground ,string))))
-   `(font-lock-constant-face       ((t (:foreground ,fg))))
-   `(font-lock-function-name-face  ((t (:foreground ,func))))
-   `(font-lock-keyword-face        ((t (:foreground ,special :weight bold))))
-   `(font-lock-type-face           ((t (:foreground ,type))))
-   `(font-lock-variable-name-face  ((t (:foreground ,fg))))
-   `(font-lock-preprocessor-face   ((t (:foreground ,fg))))
-   `(font-lock-builtin-face        ((t (:foreground ,fg))))
-   `(font-lock-punctuation-face    ((t (:foreground ,fg))))
-   `(font-lock-operator-face       ((t (:foreground ,fg))))
+   `(font-lock-comment-face         ((t (:foreground ,comment :slant italic))))
+   `(font-lock-string-face          ((t (:foreground ,string))))
+   `(font-lock-constant-face        ((t (:foreground ,fg))))
+   `(font-lock-function-name-face   ((t (:foreground ,func))))
+   `(font-lock-keyword-face         ((t (:foreground ,special :weight bold))))
+   `(font-lock-type-face            ((t (:foreground ,type))))
+   `(font-lock-variable-name-face   ((t (:foreground ,fg))))
+   `(font-lock-preprocessor-face    ((t (:foreground ,fg))))
+   `(font-lock-builtin-face         ((t (:foreground ,fg))))
+   `(font-lock-punctuation-face     ((t (:foreground ,fg))))
+   `(font-lock-operator-face        ((t (:foreground ,fg))))
 
    ;; === Diff ===
    `(diff-added      ((t (:foreground ,fg :background "#1C2E2E"))))
