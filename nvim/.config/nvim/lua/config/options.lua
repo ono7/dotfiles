@@ -147,7 +147,7 @@ endfunction
 nnoremap <silent> gz :call ToggleFolding()<CR>
 ]])
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 
@@ -168,6 +168,11 @@ function! Rg(args) abort
 endfunction
 command -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
+
+
+-- in term set line spacing x/y to 0/0
+vim.opt.linespace = 10
+
 
 vim.opt.hidden = true
 vim.opt.history = 1000
@@ -211,7 +216,7 @@ vim.opt.ruler = true
 vim.opt.complete = ".,w,b"
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
-vim.opt.showmatch = true -- matchparen
+vim.opt.showmatch = true         -- matchparen
 vim.opt.matchtime = 0
 vim.opt.showtabline = 1
 vim.opt.scrollback = 1000
@@ -230,13 +235,13 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 200 -- for performace
+vim.opt.synmaxcol = 200          -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = false          -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""
-vim.opt.lazyredraw = true -- Don't redraw during macros
-vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.lazyredraw = true    -- Don't redraw during macros
+vim.opt.updatetime = 250     -- Faster CursorHold events
 vim.opt.smoothscroll = false -- disable for performance

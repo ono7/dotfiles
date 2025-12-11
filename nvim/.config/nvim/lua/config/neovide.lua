@@ -35,8 +35,6 @@ if vim.g.neovide then
     vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
   end
 
-  vim.opt.linespace = 10
-
   vim.g.neovide_text_gamma = 0.8
   vim.g.neovide_text_contrast = 0.1
 

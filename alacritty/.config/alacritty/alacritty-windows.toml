@@ -103,27 +103,29 @@ LC_CTYPE = "en_US.UTF-8"
 size = 13.0
 
 [font.normal]
-# family = "SF Mono"
-# family = "FiraMono Nerd Font Mono"
 
-# family = "SFMono Nerd Font"
+# family = "SF Mono Terminal"
 # style = "Medium"
 
-family = "IosevkaTerm Nerd Font Mono"
-style = "SemiBold"
+family = "Iosevka Custom"
+style = "Medium Semi-Extended"
 
 [font.italic]
-family = "IosevkaTerm Nerd Font Mono"
-# family = "FiraMono Nerd Font Mono"
-style = "SemiBold Oblique"
+family = "Iosevka Custom"
+style = "Medium Semi-Extended"
+
 #
 [font.bold]
-family = "IosevkaTerm Nerd Font Mono"
-style = "Bold"
+family = "Iosevka Custom"
+style = "Bold Semi-Extended"
 
 [font.offset]
-x = 2
-y = 6
+x = 0
+y = 0  # This creates the extra vertical space (height)
+
+[font.glyph_offset]
+x = 0
+y = 0  # This moves the text UP to center it in that extra space
 
 [keyboard]
 bindings = [
