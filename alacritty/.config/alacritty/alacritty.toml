@@ -99,7 +99,7 @@ style = "Bold Semi-Extended"
 
 [font.offset]
 x = 0
-y = 0  # This creates the extra vertical space (height)
+y = 2  # This creates the extra vertical space (height)
 
 [font.glyph_offset]
 x = 0
