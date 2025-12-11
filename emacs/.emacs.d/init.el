@@ -5,7 +5,6 @@
 (setq use-short-answers t) ;; y or n
 (global-set-key (kbd "C-S-v") 'yank)
 
-
 ;; core settings
 (require 'core-bootstrap)
 (require 'core-ui)
@@ -30,5 +29,6 @@
 (require 'json-config)
 (require 'yaml-config)
 
-
 (define-key help-mode-map (kbd "q") #'quit-window)
+(setq x-stretch-cursor nil)
+

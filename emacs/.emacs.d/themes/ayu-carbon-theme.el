@@ -68,7 +68,7 @@
 
    ;; === Syntax ===
    `(font-lock-comment-face        ((t (:foreground ,comment :slant italic))))
-   `(font-lock-string-face         ((t (:foreground ,string))))   ;; ← restored
+   `(font-lock-string-face         ((t (:foreground ,string))))
    `(font-lock-constant-face       ((t (:foreground ,fg))))
    `(font-lock-function-name-face  ((t (:foreground ,func))))
    `(font-lock-keyword-face        ((t (:foreground ,special :weight bold))))
@@ -86,8 +86,11 @@
    `(diff-refine-added   ((t (:background "#1C2E2E" :weight bold))))
    `(diff-refine-removed ((t (:background "#2A1E1E" :weight bold))))
 
-   ;; === Link face (fix for Go import neon blue) ===
+   ;; === Link face ===
    `(link ((t (:foreground ,fg :underline t))))
+
+   ;; === Tabs (remove literal TAB block highlight) ===
+   `(tab ((t (:inherit default :background nil :foreground nil))))
    ))
 
 (provide-theme 'ayu-carbon)
