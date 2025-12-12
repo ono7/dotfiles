@@ -170,29 +170,97 @@ vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 -- end
 
 -- vim.api.nvim_create_user_command("Rg", function(opts)
---   vim.cmd("silent! grep! " .. opts.args)
+--   -- 1. Shellescape handles quotes/special shell chars
+--   local args = vim.fn.shellescape(opts.args)
+--
+--   -- 2. Escape pipe (|) to (\|) so Vim's :grep command doesn't split it
+--   --    (Vim consumes the backslash, passing '|' to the shell)
+--   args = string.gsub(args, "|", "\\|")
+--
+--   vim.cmd("silent! grep! " .. args)
 --   vim.cmd("cwindow")
---   vim.cmd("redraw!")
 -- end, { nargs = "+", complete = "file" })
 
+-- if vim.fn.executable("rg") == 1 then
+--   vim.opt.grepprg = "rg --vimgrep --smart-case --pcre2"
+-- else
+--   vim.opt.grepprg = "grep -nHIRE $* ."
+-- end
+--
+-- vim.opt.grepformat = "%f:%l:%c:%m,%f"
+
 vim.cmd([[
-" allows lookaround :Rg ^from (?=.*Adapter)
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --pcre2
-  set grepformat=%f:%l:%c:%m
+
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
 else
-  set grepprg=grep\ -nHIRE\ $*\ .
-  set grepformat=%f:%l:%m
+  let &grepprg = 'grep -nHIRE $* .'
+  let &grepformat = '%f:%l:%m'
 endif
 
-function! s:Rg(args) abort
-  execute "silent! grep!" a:args
+" supported patterns
+" :Rg "jlima|test|type \S+ struct"
+" *********** FLAGS **********
+" -uuu  flag support
+" -u (.gitignore)
+" -uu (hidden + .gitignore),
+" -uuu (Binaries + hidden + .gitignore) DO NOT USE THIS!
+" :Rg -uu "jlima|test|type \S+ struct"
+" :Rg -uu \"test\" -> will match "test"
+" negative lookaround
+" :Rg ^from (?!unittest)\w+ import -- anything but
+" :Rg ^from (?!unittest|ansible|pytest)\w+ import --anything but
+" positive lookaround (behind)
+" (?<=user_id: )\d+ -- matches only \d+
+" positive lookaround (ahead)
+
+function! Rg(args) abort
+  " 1. Detect where the flags end (e.g., -P, --hidden, -w)
+  "    Matches start of line (^), followed by groups of whitespace+dash+non-whitespace
+  let l:flag_end_idx = matchend(a:args, '^\%(\s*-\S\+\)\+\s*')
+
+  if l:flag_end_idx != -1
+    " Split: Flags (raw) vs Pattern (to be quoted)
+    let l:flags = strpart(a:args, 0, l:flag_end_idx)
+    let l:pattern = strpart(a:args, l:flag_end_idx)
+  else
+    " No flags detected, treat everything as the pattern
+    let l:flags = ""
+    let l:pattern = a:args
+  endif
+
+  " 2. Escape pipes (| -> \|) ONLY in the pattern so Vim command parsing is safe
+  let l:pattern = substitute(l:pattern, '|', '\\|', 'g')
+
+  " 3. Construct: grep! [raw flags] '[pattern]'
+  execute "silent! grep! " . l:flags . "'" . l:pattern . "'"
   cwindow
   redraw!
 endfunction
-
-command! -nargs=+ -complete=file Rg call s:Rg(<q-args>)
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
+
+-- vim.cmd([[
+-- " Configure grepprg
+-- if executable('rg')
+--   let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+--   let &grepformat = '%f:%l:%c:%m'
+-- else
+--   let &grepprg = 'grep -nHIRE $* .'
+--   let &grepformat = '%f:%l:%m'
+-- endif
+--
+-- " Define the :Rg command
+-- " 1. -nargs=+      : Requires arguments
+-- " 2. -complete=file: Enables file tab completion
+-- " 3. (No -bar)     : Crucial! Allows '|' to be part of the argument string
+-- " allows :Rg test|jlima|struct
+-- " this will match quotes :Rg "test"
+-- command! -nargs=+ -complete=file Rg
+--   \ execute 'silent! grep! ' . substitute(shellescape(<q-args>), '|', '\\|', 'g')
+--   \ | cwindow
+-- ]])
 
 -- in term set line spacing x/y to 0/0
 vim.opt.linespace = 10

@@ -43,20 +43,54 @@ endif
 
 
 " allows lookaround :Rg ^from (?=.*Adapter)
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --pcre2
-  set grepformat=%f:%l:%c:%m
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
 else
-  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules\ $*\ .
-  set grepformat=%f:%l:%m
+  let &grepprg = 'grep -nHIRE $* .'
+  let &grepformat = '%f:%l:%m'
 endif
 
-function! s:Rg(args) abort
-  execute "silent! grep!" a:args
+" supported patterns
+" :Rg "jlima|test|type \S+ struct"
+" *********** FLAGS **********
+" -uuu  flag support
+" -u (.gitignore)
+" -uu (hidden + .gitignore),
+" -uuu (Binaries + hidden + .gitignore) DO NOT USE THIS!
+" :Rg -uu "jlima|test|type \S+ struct"
+" :Rg -uu \"test\" -> will match "test"
+" negative lookaround
+" :Rg ^from (?!unittest)\w+ import -- anything but
+" :Rg ^from (?!unittest|ansible|pytest)\w+ import --anything but
+" positive lookaround (behind)
+" (?<=user_id: )\d+ -- matches only \d+
+" positive lookaround (ahead)
+
+function! Rg(args) abort
+  " 1. Detect where the flags end (e.g., -P, --hidden, -w)
+  "    Matches start of line (^), followed by groups of whitespace+dash+non-whitespace
+  let l:flag_end_idx = matchend(a:args, '^\%(\s*-\S\+\)\+\s*')
+
+  if l:flag_end_idx != -1
+    " Split: Flags (raw) vs Pattern (to be quoted)
+    let l:flags = strpart(a:args, 0, l:flag_end_idx)
+    let l:pattern = strpart(a:args, l:flag_end_idx)
+  else
+    " No flags detected, treat everything as the pattern
+    let l:flags = ""
+    let l:pattern = a:args
+  endif
+
+  " 2. Escape pipes (| -> \|) ONLY in the pattern so Vim command parsing is safe
+  let l:pattern = substitute(l:pattern, '|', '\\|', 'g')
+
+  " 3. Construct: grep! [raw flags] '[pattern]'
+  execute "silent! grep! " . l:flags . "'" . l:pattern . "'"
   cwindow
   redraw!
 endfunction
-command! -nargs=+ -complete=file Rg call s:Rg(<q-args>)
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 set undolevels=999 undoreload=1000
 if !isdirectory($HOME."/.vim-undo")
