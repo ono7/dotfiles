@@ -1,5 +1,4 @@
 /*
-Author: jose.lima3@marriott.com
 Date: 2024-07-18 16:46 CST
 
   - HTTP service for transfering Network OS images:
