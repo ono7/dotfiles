@@ -158,14 +158,14 @@ return {
 
     -- find files
     k("n", "<c-f>", function()
-      local current_file_dir = vim.fn.expand("%:p:h")
+      -- local current_file_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
-        cwd = current_file_dir,
+        -- cwd = current_file_dir,
         prompt = "Files (current dir)> ",
         previewer = false,
         winopts = function()
           local opts = winopts
-          opts.title = " Files in " .. vim.fn.fnamemodify(current_file_dir, ":t") .. " "
+          -- opts.title = " Files in " .. vim.fn.fnamemodify(current_file_dir, ":t") .. " "
           opts.title_pos = "center"
           return opts
         end,
