@@ -70,7 +70,16 @@ if vim.fn.isdirectory(undo_dir) == 0 then
   vim.fn.mkdir(undo_dir, "p")
 end
 
-vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
+vim.opt_local.winbar = "%=" .. "%{v:lua.winbar_path()}"
+
+-- local term_group = vim.api.nvim_create_augroup("TermWinbar", { clear = true })
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--   group = term_group,
+--   desc = "Disable winbar in terminal buffers",
+--   callback = function()
+--     vim.opt_local.winbar = nil
+--   end,
+-- })
 
 vim.g.matchparen_timeout = 10
 vim.g.matchparen_insert_timeout = 10

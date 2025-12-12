@@ -9,10 +9,19 @@ return {
       width = 0.80,
       row = 0.35,
       col = 0.50,
+      split = "belowright new",
       preview = {
-        default = "builtin",
-        layout = "flex",
+        -- "horizontal" places the preview to the right of the list.
+        -- "vertical" places the preview above or below the list.
+        layout     = "horizontal",
+        horizontal = "right:50%", -- Preview takes 50% of the split width
       },
+      -- Optional: Ensure the window doesn't behave like a float
+      fullscreen = false,
+      -- preview = {
+      --   default = "builtin",
+      --   layout = "flex",
+      -- },
     }
 
     fzf.setup({

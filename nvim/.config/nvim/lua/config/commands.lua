@@ -32,6 +32,7 @@ vim.api.nvim_create_user_command("T", function(opts)
   ---------------------------------------------------------------------------
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
     save_editor_pos()
+    vim.opt_local.winbar = nil
 
     -- Create bottom terminal without shifting current window
     vim.cmd("botright " .. term_size .. "split")

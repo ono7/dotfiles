@@ -10,6 +10,7 @@
 ;; Leader key (SPACE)
 (define-prefix-command 'my-leader-map)
 
+;; TODO(jlima): maybe this should be moved to evil-config.lel
 (with-eval-after-load 'evil
   (define-key evil-normal-state-map (kbd "SPC") 'my-leader-map)
   (define-key evil-motion-state-map (kbd "SPC") 'my-leader-map))

@@ -163,10 +163,10 @@ xnoremap p "_dP
 " includes filename in commit, but better to use git log --name-only
  nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
 
-nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
+"nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 " close: closes a window not a buffer, leaving splits working as intended
 " this has a conflict with diagnostics
-" nnoremap <c-w> <cmd>close!<CR>
+nnoremap <leader>d <cmd>close!<CR>
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
