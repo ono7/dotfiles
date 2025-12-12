@@ -35,6 +35,7 @@ nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-w>
+
 " we lose the ability to do C-r in insert...
 " but gain navigational speed
 inoremap <C-r> <C-o>?\v
