@@ -40,7 +40,7 @@ function P.setup()
       setup_autocommand()
       vim.schedule(function()
         -- vim.notify("Hook cleared")
-        print("Hook cleared")
+        print("compiler cleared")
       end)
       return
     end
@@ -51,7 +51,7 @@ function P.setup()
 
     -- Schedule the print message
     vim.schedule(function()
-      print(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
+      print(string.format("compiler configured: %s\nMonitoring for changes.", monitor_cmd))
       -- vim.notify(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
     end)
 
