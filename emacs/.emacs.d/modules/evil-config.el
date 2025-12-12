@@ -25,6 +25,13 @@
   (define-key evil-insert-state-map (kbd "C-k") #'kill-line)
   (define-key evil-insert-state-map (kbd "C-d") #'delete-char)
   (define-key evil-insert-state-map (kbd "C-h") #'delete-backward-char)
+
+  ;; Move visual selection down with J
+  (define-key evil-visual-state-map (kbd "J") (kbd ":m '>+1<RET>gv=gv"))
+
+  ;; Move visual selection up with K
+  (define-key evil-visual-state-map (kbd "K") (kbd ":m '<-2<RET>gv=gv"))
+
   (defun my/evil-select-all ()
     (interactive)
     (evil-goto-first-line)
