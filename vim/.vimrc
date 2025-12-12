@@ -28,19 +28,35 @@ else
   augroup end
 endif
 
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
-
-  function! Rg(args) abort
-    execute "silent! grep!" shellescape(a:args)
-    cwindow
-    redraw!
-  endfunction
-  command -nargs=+ -complete=file Rg call Rg(<q-args>)
-
-else
-  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
+"if executable("rg")
+"  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
+"  function! Rg(args) abort
+"    execute "silent! grep!" shellescape(a:args)
+"    cwindow
+"    redraw!
+"  endfunction
+"  command -nargs=+ -complete=file Rg call Rg(<q-args>)
+"
+"else
+"  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
 endif
+
+
+" allows lookaround :Rg ^from (?=.*Adapter)
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --pcre2
+  set grepformat=%f:%l:%c:%m
+else
+  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules\ $*\ .
+  set grepformat=%f:%l:%m
+endif
+
+function! s:Rg(args) abort
+  execute "silent! grep!" a:args
+  cwindow
+  redraw!
+endfunction
+command! -nargs=+ -complete=file Rg call s:Rg(<q-args>)
 
 set undolevels=999 undoreload=1000
 if !isdirectory($HOME."/.vim-undo")
