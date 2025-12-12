@@ -56,4 +56,5 @@ function M.setup()
   end, { nargs = "*" })
   M.loaded = true
 end
+
 return M

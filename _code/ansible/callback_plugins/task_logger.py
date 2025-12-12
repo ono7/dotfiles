@@ -1,59 +1,62 @@
 #!/usr/bin/env python3
-""" task auditing callback pluging
+"""task auditing callback pluging
 
-    Author:  Jose Lima (jlima)
-    Date:    2024-01-10  21:01
+Author:  Jose Lima (jlima)
+Date:    2024-01-10  21:01
 
-    NOTE: **Do not print() in the callback plugin**
+NOTE: **Do not print() in the callback plugin**
 
-    # set stdout to default in ansible.cfg
+# set stdout to default in ansible.cfg
+[defaults]
+stdout_callback = default
+
+this settings should go in your ansible.cfg
+
     [defaults]
-    stdout_callback = default
+    callback_plugins = ./callback_plugins
 
-    this settings should go in your ansible.cfg
+    [playbook]
+    callback_whitelist = sqlite_logger, task_logger
 
-        [defaults]
-        callback_plugins = ./callback_plugins
+DESCRIPTION:
 
-        [playbook]
-        callback_whitelist = sqlite_logger, task_logger
+    This callback module hooks into ansible events and creates a log entry for each task
+    in to a log file that can be used for reporting.
 
-    DESCRIPTION:
+    Tasks that are set to "ignore_errors: true" are set to WARNING status here since the intent
+    is to continue playbook execution when the flag is set. Tasks that ignore_errors will be
+    flagged with [ ✅ WARNING ], indicating that this is not a fatal event, all tasks that ignore_errors
+    will explicietly mention this in the task name:  `Task: (ignore_errors) ABC` for visibility.
 
-        This callback module hooks into ansible events and creates a log entry for each task
-        in to a log file that can be used for reporting.
+    To skip logging any task output/errors that could leak sensitive_task data mark
+    there are two ways supported to skip logging task ouput (but still report failure):
 
-        Tasks that are set to "ignore_errors: true" are set to WARNING status here since the intent
-        is to continue playbook execution when the flag is set. Tasks that ignore_errors will be
-        flagged with [ ✅ WARNING ], indicating that this is not a fatal event, all tasks that ignore_errors
-        will explicietly mention this in the task name:  `Task: (ignore_errors) ABC` for visibility.
+    1. Set a tag named sensitive_task
 
-        To skip logging any task output/errors that could leak sensitive_task data mark
-        there are two ways supported to skip logging task ouput (but still report failure):
+        - name: Set the super secret password
+          ansible.builtin.shell: echo password123
+          tags:
+           - sensitive_task
 
-        1. Set a tag named sensitive_task
+    2. Or set a variable named sensitive_task directly on the task
 
-            - name: Set the super secret password
-              ansible.builtin.shell: echo password123
-              tags:
-               - sensitive_task
+        - name: Set the super secret password
+          ansible.builtin.shell: echo password123
+          vars:
+            sensitive_task: true
 
-        2. Or set a variable named sensitive_task directly on the task
-
-            - name: Set the super secret password
-              ansible.builtin.shell: echo password123
-              vars:
-                sensitive_task: true
-
-         Setting variable named sensitive_task globaly will basically ignore all output
-         but still report a failure and the task name, this method should be used with discretion.
+     Setting variable named sensitive_task globaly will basically ignore all output
+     but still report a failure and the task name, this method should be used with discretion.
 
 """
+
+import logging
+from pathlib import Path
+
+from ansible.executor.task_result import TaskResult  # noqa: F401
+
 # from pathlib import Path
 from ansible.plugins.callback import CallbackBase
-from ansible.executor.task_result import TaskResult  # noqa: F401
-from pathlib import Path
-import logging
 
 log_file_name = "ansible_tasks.log"
 
@@ -68,7 +71,7 @@ logger = logging.getLogger(__name__)
 
 
 _status_fatal = r"[ ❌ FATAL ]"
-_status_success = r"✅OK"
+status_success = r"✅OK"
 _status_warning = r"[ ✅ WARNING ]"
 
 
