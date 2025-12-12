@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ task auditing callback pluging
 
-    Author:  Jose Lima (jlima688)
+    Author:  Jose Lima (jlima)
     Date:    2024-01-10  21:01
 
     NOTE: **Do not print() in the callback plugin**

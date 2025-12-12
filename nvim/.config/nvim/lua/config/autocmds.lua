@@ -80,9 +80,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-          not (ft:match("commit") and ft:match("rebase"))
-          and last_known_line > 1
-          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+            not (ft:match("commit") and ft:match("rebase"))
+            and last_known_line > 1
+            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -117,6 +117,14 @@ vim.api.nvim_create_autocmd("FileType", {
 --   autocmd QuickFixCmdPost    l* lwindow 6
 -- augroup END
 -- ]])
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  group = vim.api.nvim_create_augroup("AutoOpenQuickfix", { clear = true }),
+  pattern = "[^l]*",   -- Matches :make, :grep, but NOT :lmake
+  callback = function()
+    vim.cmd("cwindow") -- Opens window only if there are valid errors
+  end,
+})
 
 -- auto source snippets file
 vim.api.nvim_create_autocmd("BufWritePost", {

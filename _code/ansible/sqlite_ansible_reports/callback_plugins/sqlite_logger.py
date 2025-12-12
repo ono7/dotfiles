@@ -1,50 +1,52 @@
 #!/usr/bin/env python3
 """
-    Author:  Jose Lima (jlima)
-    Date:    2024-02-19  16:54
+Author:  Jose Lima (jlima)
+Date:    2024-02-19  16:54
 
-    This callback logs everything into a sqlite3 table for post playbook parsing
-    this can be called as part of a workflow where a job template parses the results from the table
-    and generates a report, html etc.
+This callback logs everything into a sqlite3 table for post playbook parsing
+this can be called as part of a workflow where a job template parses the results from the table
+and generates a report, html etc.
 
-    this settings should go in your ansible.cfg
+this settings should go in your ansible.cfg
 
-        [defaults]
-        callback_plugins = ./callback_plugins
+    [defaults]
+    callback_plugins = ./callback_plugins
 
-        [playbook]
-        callback_whitelist = sqlite_logger, task_logger
+    [playbook]
+    callback_whitelist = sqlite_logger, task_logger
 
-    .tables;
-    select * from task_result;
-    select * from task_results where result regexp '\d';
-    select * from task_results where result regexp 'error';
+.tables;
+select * from task_result;
+select * from task_results where result regexp '\d';
+select * from task_results where result regexp 'error';
 
-    sqlite> select count(*) from task_results ;
-    ┌──────────┐
-    │ count(*) │
-    ├──────────┤
-    │ 60       │
-    └──────────┘
-    sqlite> select count(*) from task_results where result REGEXP 'bad';
-    ┌──────────┐
-    │ count(*) │
-    ├──────────┤
-    │ 4        │
-    └──────────┘
-    sqlite> select count(*) from task_results where status == "OK";
-    ┌──────────┐
-    │ count(*) │
-    ├──────────┤
-    │ 56       │
-    └──────────┘
-    sqlite>
+sqlite> select count(*) from task_results ;
+┌──────────┐
+│ count(*) │
+├──────────┤
+│ 60       │
+└──────────┘
+sqlite> select count(*) from task_results where result REGEXP 'bad';
+┌──────────┐
+│ count(*) │
+├──────────┤
+│ 4        │
+└──────────┘
+sqlite> select count(*) from task_results where status == "OK";
+┌──────────┐
+│ count(*) │
+├──────────┤
+│ 56       │
+└──────────┘
+sqlite>
 
 """
-from ansible.plugins.callback import CallbackBase
-import sqlite3
+
 import json
 import logging
+import sqlite3
+
+from ansible.plugins.callback import CallbackBase
 
 # Configure logging
 logging.basicConfig(
