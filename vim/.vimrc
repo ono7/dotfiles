@@ -28,21 +28,22 @@ else
   augroup end
 endif
 
-"if executable("rg")
-"  set grepprg=rg\ --vimgrep\ --smart-case\ --pcre2\ --no-messages\ 2>/dev/null
-"  function! Rg(args) abort
-"    execute "silent! grep!" shellescape(a:args)
-"    cwindow
-"    redraw!
-"  endfunction
-"  command -nargs=+ -complete=file Rg call Rg(<q-args>)
-"
-"else
-"  set grepprg=grep\ -nHIRE\ --exclude-dir=.git\ --exclude-dir=node_modules
-endif
-
-
-" allows lookaround :Rg ^from (?=.*Adapter)
+" supported patterns, basically everything, must wrap pattren in single quotes
+" :Rg 'jlima|test|type \S+ struct'
+" :Rg -t go '^type (?![jJ]ob)\w+' -- only match go file types, -t go -t py can be chained
+" *********** FLAGS **********
+" -uuu  flag support
+" -u (.gitignore)
+" -uu (hidden + .gitignore),
+" -uuu (Binaries + hidden + .gitignore) DO NOT USE THIS!
+" :Rg -uu 'jlima|test|type \S+ struct'
+" :Rg -uu \"test\" -> will match "test"
+" negative lookaround
+" :Rg '^from (?!unittest)\w+ import' -- anything but
+" :Rg '^from (?!unittest|ansible|pytest)\w+ import' --anything but
+" positive lookaround (behind)
+" (?<=user_id: )\d+ -- matches only \d+
+" positive lookaround (ahead)
 if executable('rg')
   let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
   let &grepformat = '%f:%l:%c:%m'
@@ -51,42 +52,9 @@ else
   let &grepformat = '%f:%l:%m'
 endif
 
-" supported patterns
-" :Rg "jlima|test|type \S+ struct"
-" *********** FLAGS **********
-" -uuu  flag support
-" -u (.gitignore)
-" -uu (hidden + .gitignore),
-" -uuu (Binaries + hidden + .gitignore) DO NOT USE THIS!
-" :Rg -uu "jlima|test|type \S+ struct"
-" :Rg -uu \"test\" -> will match "test"
-" negative lookaround
-" :Rg ^from (?!unittest)\w+ import -- anything but
-" :Rg ^from (?!unittest|ansible|pytest)\w+ import --anything but
-" positive lookaround (behind)
-" (?<=user_id: )\d+ -- matches only \d+
-" positive lookaround (ahead)
-
 function! Rg(args) abort
-  " 1. Detect where the flags end (e.g., -P, --hidden, -w)
-  "    Matches start of line (^), followed by groups of whitespace+dash+non-whitespace
-  let l:flag_end_idx = matchend(a:args, '^\%(\s*-\S\+\)\+\s*')
-
-  if l:flag_end_idx != -1
-    " Split: Flags (raw) vs Pattern (to be quoted)
-    let l:flags = strpart(a:args, 0, l:flag_end_idx)
-    let l:pattern = strpart(a:args, l:flag_end_idx)
-  else
-    " No flags detected, treat everything as the pattern
-    let l:flags = ""
-    let l:pattern = a:args
-  endif
-
-  " 2. Escape pipes (| -> \|) ONLY in the pattern so Vim command parsing is safe
-  let l:pattern = substitute(l:pattern, '|', '\\|', 'g')
-
-  " 3. Construct: grep! [raw flags] '[pattern]'
-  execute "silent! grep! " . l:flags . "'" . l:pattern . "'"
+  let l:pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" l:pattern
   cwindow
   redraw!
 endfunction
