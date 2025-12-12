@@ -101,6 +101,12 @@ inoremap <M-l> <Esc>guea
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
 
+" Move visual selection down
+vnoremap J :m '>+1<CR>gv=gv
+
+" Move visual selection up
+vnoremap K :m '<-2<CR>gv=gv
+
 nnoremap vw viw
 nnoremap cw ciw
 nnoremap dw diw
@@ -378,8 +384,8 @@ end, { silent = true })
 -- Copy full file path
 k("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<CR>', opt)
 
---- when using J keep cursor to the right
-k({ "n", "v" }, "J", "mzJ`z")
+-- --- when using J keep cursor to the right
+-- k({ "n", "v" }, "J", "mzJ`z")
 
 --- go ---
 k("n", "gt", ":GoTagAdd<cr>", silent)
