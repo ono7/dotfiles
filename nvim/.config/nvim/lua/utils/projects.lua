@@ -11,7 +11,7 @@ local function load_projects()
   local content = file:read("*a")
   file:close()
   local ok, data = pcall(vim.json.decode, content)
-  return ok and data or {}
+  return (ok and data) or {}
 end
 
 local function save_projects(projects)
@@ -22,71 +22,84 @@ local function save_projects(projects)
   end
 end
 
+-- Helper: Remove a path from DB (Shared logic)
+local function db_remove(target_path)
+  local projects = load_projects()
+  if projects[target_path] then
+    projects[target_path] = nil
+    save_projects(projects)
+    return true
+  end
+  return false
+end
+
+-- Helper: Update timestamp
+local function db_touch(path)
+  local projects = load_projects()
+  projects[path] = os.time()
+  save_projects(projects)
+end
+
 -- 1. Add Project
 function M.add_project()
   local cwd = vim.fn.getcwd()
-  local projects = load_projects()
-
-  -- Check for duplicates
-  for _, path in ipairs(projects) do
-    if path == cwd then
-      vim.notify("Project already exists: " .. cwd, vim.log.levels.WARN)
-      return
-    end
-  end
-
-  table.insert(projects, cwd)
-  save_projects(projects)
-  vim.notify("Added project: " .. cwd, vim.log.levels.INFO)
+  db_touch(cwd) -- Adds or updates timestamp
+  vim.notify("Tracked project: " .. cwd, vim.log.levels.INFO)
 end
 
--- 2. Remove Project
+-- 2. Remove Project (Manual)
 function M.remove_project()
   local cwd = vim.fn.getcwd()
-  local projects = load_projects()
-  local new_projects = {}
-  local found = false
-
-  for _, path in ipairs(projects) do
-    if path ~= cwd then
-      table.insert(new_projects, path)
-    else
-      found = true
-    end
-  end
-
-  if found then
-    save_projects(new_projects)
+  if db_remove(cwd) then
     vim.notify("Removed project: " .. cwd, vim.log.levels.INFO)
   else
-    vim.notify("Project not found in list.", vim.log.levels.WARN)
+    vim.notify("Project not tracked.", vim.log.levels.WARN)
   end
 end
 
--- 3. Pick Project (FZF)
+-- 3. Pick Project (Sorted + Auto-Cleanup)
 function M.pick_project()
   local projects = load_projects()
+  local sorted_paths = {}
 
-  fzf.fzf_exec(projects, {
+  -- Convert map to list for sorting
+  for path, time in pairs(projects) do
+    table.insert(sorted_paths, { path = path, time = time })
+  end
+
+  -- Sort: Newest time first
+  table.sort(sorted_paths, function(a, b) return a.time > b.time end)
+
+  -- Extract paths for FZF
+  local fzf_list = {}
+  for _, item in ipairs(sorted_paths) do
+    table.insert(fzf_list, item.path)
+  end
+
+  fzf.fzf_exec(fzf_list, {
     prompt = 'Projects> ',
     actions = {
       ['default'] = function(selected)
         local path = selected[1]
-        -- Validation: Check if directory still exists
+
+        -- Validation: Check existence
         if vim.fn.isdirectory(path) == 0 then
-          vim.notify("Directory no longer exists: " .. path, vim.log.levels.ERROR)
+          -- Auto-cleanup missing directory
+          db_remove(path)
+          vim.notify("Directory missing. Removed from list: " .. path, vim.log.levels.WARN)
           return
         end
 
-        -- Execute tcd
+        -- Execute tcd and update timestamp
         vim.cmd('tcd ' .. path)
+        db_touch(path)
         vim.notify("Switched to: " .. path)
       end
     }
   })
 end
 
--- Setup user commands
+-- Setup
 function M.setup()
   vim.api.nvim_create_user_command('ProjectAdd', M.add_project, {})
   vim.api.nvim_create_user_command('ProjectRemove', M.remove_project, {})
