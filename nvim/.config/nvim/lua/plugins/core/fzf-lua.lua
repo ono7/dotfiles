@@ -13,7 +13,7 @@ return {
       preview = {
         -- "horizontal" places the preview to the right of the list.
         -- "vertical" places the preview above or below the list.
-        layout     = "horizontal",
+        layout = "horizontal",
         horizontal = "right:50%", -- Preview takes 50% of the split width
       },
       -- Optional: Ensure the window doesn't behave like a float
@@ -152,7 +152,8 @@ return {
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
     k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    k("n", "<c-s>", fzf.lsp_document_symbols, { desc = "[S]earch [D]iagnostics" })
+    -- reserve c-s for :Rg
+    -- k("n", "<c-s>", fzf.lsp_document_symbols, { desc = "[S]earch [D]iagnostics" })
     k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
     -- find files
@@ -233,7 +234,7 @@ return {
           local opts = winopts
           opts.title = " Live Grep "
           opts.title_pos = "center"
-          opts.width = 0.95  -- 95% of the editor width
+          opts.width = 0.95 -- 95% of the editor width
           opts.height = 0.95 -- 95% of the editor height
           return opts
         end,

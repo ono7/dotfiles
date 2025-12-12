@@ -119,6 +119,7 @@ nnoremap dw diw
 nnoremap vW viW
 nnoremap cW ciW
 nnoremap dW diW
+nnoremap <c-s> :Rg<space>
 
 " Set mark in insert mode
 function! InsertSetMark() abort

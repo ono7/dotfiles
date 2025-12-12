@@ -246,6 +246,7 @@ nnoremap dw diw
 nnoremap vW viW
 nnoremap cW ciW
 nnoremap dW diW
+nnoremap <c-s> :Rg<space>
 
 nnoremap U <c-r>
 nnoremap <c-r> <cmd>browse oldfiles<CR>
