@@ -87,6 +87,10 @@ Otherwise, show full LSP documentation for the symbol at point."
       (kbd "go") #'lsp-find-type-definition
       (kbd "gr") #'lsp-find-references
 
+      (kbd "gl") #'flymake-show-buffer-diagnostics
+      (kbd "]d") #'flycheck-next-error
+      (kbd "[d") #'flycheck-previous-error
+
       ;; Rename
       (kbd "gR") #'lsp-rename
 

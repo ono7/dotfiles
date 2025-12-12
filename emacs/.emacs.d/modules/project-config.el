@@ -20,4 +20,7 @@
 (define-key my-leader-map (kbd "b") #'switch-to-buffer)
 (define-key my-leader-map (kbd ".") #'find-file)
 
+;; select entire buffer
+(define-key my-leader-map (kbd "a") #'my/evil-select-all)
+
 (provide 'project-config)
