@@ -107,6 +107,7 @@ require("utils.zoxide").setup() -- use fzflua zoxide..
 --- these two worktogether
 require("utils.runner").setup()      -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
+require("utils.projects").setup()    -- keeps track of project
 require("utils.ruff")
 
 vim.opt.mouse = "a"
