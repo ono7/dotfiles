@@ -152,6 +152,7 @@ inoremap <C-BS> <C-w>
 " Character motions
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
+
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
@@ -193,8 +194,11 @@ inoremap <C-k> <C-o>D
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-o>d}
 
-" Yank (paste from default register)
-inoremap <C-y> <C-r>"
+" Yank (paste from default register), using this for completion instead
+"inoremap <C-y> <C-r>"
+
+" select last inserted text
+inoremap <C-l> <Esc>`[v`]
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
@@ -205,13 +209,17 @@ inoremap <M-u> <Esc>gUea
 " Logic: Exit insert -> Lowercase to end of word -> Append
 inoremap <M-l> <Esc>guea
 
-" select last inserted text
-inoremap <C-l> <Esc>`[v`]
-
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
 
+" Move visual selection down
+vnoremap J :m '>+1<CR>gv=gv
+
+" Move visual selection up
+vnoremap K :m '<-2<CR>gv=gv
+
 nnoremap vw viw
+nnoremap vp vip
 nnoremap cw ciw
 nnoremap dw diw
 nnoremap vW viW

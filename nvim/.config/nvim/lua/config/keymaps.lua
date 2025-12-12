@@ -35,6 +35,10 @@ nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-w>
+" we lose the ability to do C-r in insert...
+" but gain navigational speed
+inoremap <C-r> <C-o>?\v
+inoremap <C-s> <C-o>/\v
 
 " --- Emacs Navigation Parity ---
 
@@ -108,6 +112,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap vw viw
+nnoremap vp vip
 nnoremap cw ciw
 nnoremap dw diw
 nnoremap vW viW
