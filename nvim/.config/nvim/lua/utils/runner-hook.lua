@@ -39,7 +39,8 @@ function P.setup()
       monitor_cmd = nil
       setup_autocommand()
       vim.schedule(function()
-        vim.notify("Hook cleared")
+        -- vim.notify("Hook cleared")
+        print("Hook cleared")
       end)
       return
     end
@@ -50,7 +51,8 @@ function P.setup()
 
     -- Schedule the print message
     vim.schedule(function()
-      vim.notify(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
+      print(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
+      -- vim.notify(string.format("CMD Hook: %s\nMonitoring for changes.", monitor_cmd))
     end)
 
     -- Execute the command immediately once
