@@ -156,7 +156,7 @@ endfunction
 nnoremap <silent> gz :call ToggleFolding()<CR>
 ]])
 
-vim.g.markdown_folding = 1 -- enable markdown folding
+vim.g.markdown_folding = 1    -- enable markdown folding
 
 vim.opt.formatoptions = "qlj" -- TODO: overwritten in my_cmds.lua
 
@@ -169,6 +169,7 @@ vim.cmd([[
 " -u (.gitignore)
 " -uu (hidden + .gitignore),
 " -uuu (Binaries + hidden + .gitignore) DO NOT USE THIS!
+" :Rg -u -w 'testing|jlima' --- multiple flag are also supported
 " :Rg -uu 'jlima|test|type \S+ struct'
 " :Rg -uu \"test\" -> will match "test"
 " negative lookaround
@@ -193,30 +194,6 @@ function! Rg(args) abort
 endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 
-"function! Rg(args) abort
-"  " 1. Detect where the flags end (e.g., -P, --hidden, -w)
-"  "    Matches start of line (^), followed by groups of whitespace+dash+non-whitespace
-"  let l:flag_end_idx = matchend(a:args, '^\%(\s*-\S\+\)\+\s*')
-"
-"  if l:flag_end_idx != -1
-"    " Split: Flags (raw) vs Pattern (to be quoted)
-"    let l:flags = strpart(a:args, 0, l:flag_end_idx)
-"    let l:pattern = strpart(a:args, l:flag_end_idx)
-"  else
-"    " No flags detected, treat everything as the pattern
-"    let l:flags = ""
-"    let l:pattern = a:args
-"  endif
-"
-"  " 2. Escape pipes (| -> \|) ONLY in the pattern so Vim command parsing is safe
-"  let l:pattern = substitute(l:pattern, '|', '\\|', 'g')
-"
-"  " 3. Construct: grep! [raw flags] '[pattern]'
-"  execute "silent! grep! " . l:flags . "'" . l:pattern . "'"
-"  cwindow
-"  redraw!
-"endfunction
-"command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
 -- in term set line spacing x/y to 0/0
@@ -264,7 +241,7 @@ vim.opt.ruler = true
 vim.opt.complete = ".,w,b"
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
 vim.opt.showbreak = [[↪ ]]
-vim.opt.showmatch = true -- matchparen
+vim.opt.showmatch = true         -- matchparen
 vim.opt.matchtime = 0
 vim.opt.showtabline = 1
 vim.opt.scrollback = 1000
@@ -283,13 +260,13 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
-vim.opt.synmaxcol = 200 -- for performace
+vim.opt.synmaxcol = 200          -- for performace
 vim.opt.tags = [[./tags,tags;~]] -- search upwards until ~ (homedir)
 vim.opt.textwidth = 80
-vim.opt.timeout = false -- remove timeout for partially typed commands
+vim.opt.timeout = false          -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""
-vim.opt.lazyredraw = true -- Don't redraw during macros
-vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.lazyredraw = true    -- Don't redraw during macros
+vim.opt.updatetime = 250     -- Faster CursorHold events
 vim.opt.smoothscroll = false -- disable for performance
