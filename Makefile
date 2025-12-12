@@ -148,6 +148,7 @@ mac-deps:
 mac-keybinds:
 	@echo $(BANNER)
 	mkdir -p ~/Library/KeyBindings
+	rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
 	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
 
 # installs go dependencies
