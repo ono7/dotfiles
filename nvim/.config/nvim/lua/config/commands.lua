@@ -8,6 +8,14 @@ local term_size = 12
 local last_win = nil
 local last_cursor = nil
 
+local function close_quickfix()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.fn.win_gettype(win) == "quickfix" then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+end
+
 vim.api.nvim_create_user_command("T", function(opts)
   local cmd = opts.args
 
@@ -31,6 +39,7 @@ vim.api.nvim_create_user_command("T", function(opts)
   -- CREATE NEW TERMINAL
   ---------------------------------------------------------------------------
   if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+    close_quickfix()
     save_editor_pos()
     vim.opt_local.winbar = nil
 
@@ -72,6 +81,7 @@ vim.api.nvim_create_user_command("T", function(opts)
   ---------------------------------------------------------------------------
   -- SHOW EXISTING TERMINAL
   ---------------------------------------------------------------------------
+  close_quickfix()
   save_editor_pos()
 
   vim.cmd("botright " .. term_size .. "split")
@@ -108,7 +118,7 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   repo = repo:gsub(".git$", "")
 
   local github_repo_url =
-      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+    string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
   local github_file_url = string.format(
     "%s/blob/%s/%s#L%s",
     vim.uri_encode(github_repo_url),
