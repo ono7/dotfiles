@@ -36,6 +36,7 @@ if type stow &>/dev/null; then
   stow zsh
   stow jq
   stow zk
+  stow direnv
   stow eslint
   stow lint-staged
   stow yamllint
