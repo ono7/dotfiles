@@ -9,13 +9,9 @@ working_directory = "None"
 background = "#151F2D"
 foreground = "#BEBEBC"
 
-# [colors.cursor]
+# [colors.selection]
 # text = "#151F2D"
-# cursor = "#BEBEBC"
-
-[colors.selection]
-text = "#151F2D"
-background = "#1E2E45"
+# background = "#1E2E45"
 
 [colors.normal]
 black   = "#151F2D"
@@ -47,6 +43,15 @@ magenta = "#5F6C77"
 cyan    = "#5A6B85"
 white   = "#BEBEBC"
 
+[colors.vi_mode_cursor]
+text = "#151F2D"
+cursor = "#FFB454"
+
+# new
+[colors.selection]
+text = "#BEBEBC"
+background = "#1F3350"
+
 [colors.search]
 matches = { foreground = "#151F2D", background = "#1E2E45" }
 focused_match = { foreground = "#151F2D", background = "#BEBEBC" }
@@ -60,8 +65,8 @@ end   = { foreground = "#151F2D", background = "#7AA7D8" }
 osc52 = "CopyPaste"
 
 [colors.cursor]
-text = "#151f2e"
-cursor = "#00f6ff"
+text = "#151F2D"
+cursor = "#FFB454"
 
 [debug]
 log_level = "Off"
