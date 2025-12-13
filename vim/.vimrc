@@ -327,8 +327,21 @@ xnoremap . :normal .<CR>
 " clear hlsearch on esc
 " nnoremap <silent> <Esc> :noh<CR><Esc>
 
-nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
-nnoremap <leader>d <cmd>bd!<CR>
+" nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
+
+function! SmartClose()
+  let l:current_buf = bufnr("%")
+  " Try to go to the previous buffer
+  bprevious
+  " If we didn't move (meaning there was only 1 buffer), open a blank one
+  if bufnr("%") == l:current_buf
+    enew
+  endif
+  " Delete the original buffer
+  " Use bdelete! to force close even if unsaved (optional, remove ! for safety)
+  execute "bdelete " . l:current_buf
+endfunction
+nnoremap <silent> <leader>d :call SmartClose()<CR>
 
 vnoremap <enter> y/\V<C-r>=escape(@",'/\')<CR><CR>
 

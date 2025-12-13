@@ -179,13 +179,28 @@ xnoremap p "_dP
 "nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 " close: closes a window not a buffer, leaving splits working as intended
 " this has a conflict with diagnostics
-nnoremap <leader>d <cmd>close!<CR>
+" nnoremap <leader>d <cmd>close!<CR>
+
 nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
 xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
+
+function! SmartClose()
+  let l:current_buf = bufnr("%")
+  " Try to go to the previous buffer
+  bprevious
+  " If we didn't move (meaning there was only 1 buffer), open a blank one
+  if bufnr("%") == l:current_buf
+    enew
+  endif
+  " Delete the original buffer
+  " Use bdelete! to force close even if unsaved (optional, remove ! for safety)
+  execute "bdelete " . l:current_buf
+endfunction
+nnoremap <silent> <leader>d :call SmartClose()<CR>
 
 function! WrapSelection(left, right)
     let save_reg = @"
@@ -325,6 +340,24 @@ endif
 
 packadd cfilter
 ]])
+
+-- vim.keymap.set("n", "<leader>d", function()
+--   local current_buf = vim.api.nvim_get_current_buf()
+--   -- Try to switch to the alternate buffer (the last one you were editing)
+--   local alternate_buf = vim.fn.bufnr("#")
+--   if vim.api.nvim_buf_is_loaded(alternate_buf) and alternate_buf ~= current_buf then
+--     vim.api.nvim_set_current_buf(alternate_buf)
+--   else
+--     -- Fallback: Cycle to previous buffer
+--     vim.cmd("bprevious")
+--   end
+--   -- If we haven't moved (meaning this was the only buffer), open a new scratch buffer
+--   if vim.api.nvim_get_current_buf() == current_buf then
+--     vim.cmd("enew")
+--   end
+--   -- Finally, delete the original buffer
+--   vim.cmd("bdelete " .. current_buf)
+-- end, { desc = "Close buffer, keep window" })
 
 -- k("n", "<leader>dt", function()
 --   if vim.diagnostic.is_enabled() then
