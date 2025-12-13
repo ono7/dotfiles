@@ -74,6 +74,7 @@ vim.api.nvim_create_user_command("T", function(opts)
       -- HIDE terminal
       vim.api.nvim_win_hide(win)
       restore_editor_pos()
+      vim.cmd("echo ''")
       return
     end
   end
@@ -118,7 +119,7 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   repo = repo:gsub(".git$", "")
 
   local github_repo_url =
-    string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
   local github_file_url = string.format(
     "%s/blob/%s/%s#L%s",
     vim.uri_encode(github_repo_url),
