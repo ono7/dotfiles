@@ -69,6 +69,7 @@ else
 
           -- 2. UTILITY & BACKGROUND ELEMENTS
           NormalFloat = { bg = "none" },
+          CursorLineNr = { bg = "none" },
           -- CursorLine = { bg = "none" },
           CursorLine = { link = "Visual" },
           CursorColumn = { bg = "none" },
@@ -100,11 +101,11 @@ else
           TermCursor = { link = "Cursor" },
 
           -- 5. DIFF & GIT (FINAL FIXES)
-          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" },  -- Subtle Blue-Green BG
+          DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" }, -- Subtle Blue-Green BG
           DiffAdded = { link = "DiffAdd" },
-          DiffChange = {},                               -- Subtle Blue-Grey BG (Line Change)
+          DiffChange = {}, -- Subtle Blue-Grey BG (Line Change)
           DiffText = { fg = "#BEBEBC", bg = "#2A3245" }, -- Clear BG for Word Change
-          DiffDelete = { fg = "#222A38", bg = "none" },  -- **FIXED**: Deleted text is dark and very subtle
+          DiffDelete = { fg = "#222A38", bg = "none" }, -- **FIXED**: Deleted text is dark and very subtle
           DiffRemoved = { fg = "#d35a63", bg = "none" },
 
           -- 6. RESET/NEUTRAL GROUPS (Your explicit overrides to limit color)

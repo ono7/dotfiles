@@ -32,7 +32,7 @@ if vim.g.neovide then
   if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
     vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   else
-    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h23"
+    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h24"
   end
 
   vim.g.neovide_text_gamma = 0.8

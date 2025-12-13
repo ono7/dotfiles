@@ -124,7 +124,7 @@ return {
     end, { desc = "Search dotfiles" })
 
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
-    k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
+    -- k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
     k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
     k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
@@ -181,7 +181,7 @@ return {
     -- live grep
     k("n", "<leader>l", function()
       require("fzf-lua").live_grep({
-        prompt = "Live Grep> ",
+        prompt = "Rg(-uu)> ",
         rg_opts = table.concat({
           "--color=never",
           "--no-heading",
@@ -189,7 +189,7 @@ return {
           "--line-number",
           "--column",
           "--smart-case",
-          "-u",
+          "-uu",
           "--glob=!venv",
           "--glob=!.venv",
           "--glob=!.collections",
@@ -198,9 +198,10 @@ return {
         }, " "),
         no_ignore = false,
         hidden = true,
+        previewer = true,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
-          opts.title = " Live Grep "
+          opts.title = " Live Rg "
           opts.title_pos = "center"
           opts.width = 0.95
           opts.height = 0.95
