@@ -22,7 +22,7 @@ local function save_projects(projects)
   end
 end
 
--- Helper: Remove a path from DB (Shared logic)
+-- Helper: Remove a path from DB
 local function db_remove(target_path)
   local projects = load_projects()
   if projects[target_path] then
@@ -43,11 +43,11 @@ end
 -- 1. Add Project
 function M.add_project()
   local cwd = vim.fn.getcwd()
-  db_touch(cwd) -- Adds or updates timestamp
+  db_touch(cwd)
   vim.notify("Tracked project: " .. cwd, vim.log.levels.INFO)
 end
 
--- 2. Remove Project (Manual)
+-- 2. Remove Project
 function M.remove_project()
   local cwd = vim.fn.getcwd()
   if db_remove(cwd) then
@@ -57,20 +57,17 @@ function M.remove_project()
   end
 end
 
--- 3. Pick Project (Sorted + Auto-Cleanup)
+-- 3. Pick Project (Sorted + Auto-Cleanup + File Picker)
 function M.pick_project()
   local projects = load_projects()
   local sorted_paths = {}
 
-  -- Convert map to list for sorting
   for path, time in pairs(projects) do
     table.insert(sorted_paths, { path = path, time = time })
   end
 
-  -- Sort: Newest time first
   table.sort(sorted_paths, function(a, b) return a.time > b.time end)
 
-  -- Extract paths for FZF
   local fzf_list = {}
   for _, item in ipairs(sorted_paths) do
     table.insert(fzf_list, item.path)
@@ -82,31 +79,71 @@ function M.pick_project()
       ['default'] = function(selected)
         local path = selected[1]
 
-        -- Validation: Check existence
         if vim.fn.isdirectory(path) == 0 then
-          -- Auto-cleanup missing directory
           db_remove(path)
-          vim.notify("Directory missing. Removed from list: " .. path, vim.log.levels.WARN)
+          vim.notify("Directory missing. Removed: " .. path, vim.log.levels.WARN)
           return
         end
 
-        -- Execute tcd and update timestamp
         vim.cmd('tcd ' .. path)
         db_touch(path)
-        vim.notify("Switched to: " .. path)
+
+        vim.schedule(function()
+          fzf.files({ cwd = path })
+        end)
       end
     }
   })
 end
 
+-- 4. Open Last Project Directly
+function M.last_project()
+  local projects = load_projects()
+  local best_path = nil
+  local best_time = -1
+
+  -- Find the entry with the highest timestamp
+  for path, time in pairs(projects) do
+    if time > best_time then
+      best_path = path
+      best_time = time
+    end
+  end
+
+  if not best_path then
+    vim.notify("No projects tracked yet.", vim.log.levels.WARN)
+    return
+  end
+
+  -- Validate existence
+  if vim.fn.isdirectory(best_path) == 0 then
+    db_remove(best_path)
+    vim.notify("Last project missing. Removed: " .. best_path, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Switch and Open
+  vim.cmd('tcd ' .. best_path)
+  db_touch(best_path) -- Update timestamp so it stays at the top
+  vim.notify("Switched to last: " .. best_path)
+
+  -- Open picker immediately
+  fzf.files({ cwd = best_path })
+end
+
 -- Setup
 function M.setup()
+  -- User Commands
   vim.api.nvim_create_user_command('ProjectAdd', M.add_project, {})
   vim.api.nvim_create_user_command('ProjectRemove', M.remove_project, {})
   vim.api.nvim_create_user_command('ProjectPick', M.pick_project, {})
+  vim.api.nvim_create_user_command('L', M.last_project, {}) -- Short command as requested
+
+  -- Keymaps
   vim.keymap.set('n', '<leader>pp', '<cmd>ProjectPick<CR>', { desc = "Pick Project" })
-  vim.keymap.set('n', '<leader>pa', '<cmd>ProjectAdd<CR>', { desc = "Pick Project" })
-  vim.keymap.set('n', '<leader>pr', '<cmd>ProjectRemove<CR>', { desc = "Pick Project" })
+  vim.keymap.set('n', '<leader>pa', '<cmd>ProjectAdd<CR>', { desc = "Add Project" })
+  vim.keymap.set('n', '<leader>pr', '<cmd>ProjectRemove<CR>', { desc = "Remove Project" })
+  vim.keymap.set('n', '<leader>pl', '<cmd>L<CR>', { desc = "Last Project" })
 end
 
 return M
