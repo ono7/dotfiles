@@ -79,7 +79,7 @@ return {
       },
       buffers = {
         sort_lastused = true,
-        previewer = false,
+        previewer = true,
       },
       grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",

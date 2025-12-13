@@ -38,7 +38,7 @@ return {
 
           progress_style = "WarningMsg",
           group_style = "Directory", -- better contrast
-          icon_style = "Comment", -- muted icon color
+          icon_style = "Comment",    -- muted icon color
 
           priority = 30,
           skip_history = true,
@@ -79,7 +79,7 @@ return {
             timeout = 2,
 
             -- icon set per level (big visual upgrade)
-            icon = "✨",
+            icon = "💫",
 
             icon_style = "Title",
           }),
