@@ -144,45 +144,6 @@ end
 vim.notify("Follow the white rabbit...  🐇")
 vim.opt.guicursor = "n-c-v-i:block-Cursor"
 
--- vim.opt.guicursor = table.concat({
---   "n-v-c:block-Cursor", -- block
---   "i:ver25-Cursor",     -- beam (vertical bar, 25% width)
---   "r-cr:hor20-Cursor",  -- optional: thinner cursor for replace modes
--- }, ",")
-
--- vim.api.nvim_create_autocmd("FileType", {
---   group = vim.api.nvim_create_augroup("enable_syntax", { clear = true }),
---   pattern = "*",
---   callback = function()
---     -- allow these to have syntax enabled always
---     local allowed = {
---       markdown = true,
---       fugitive = true,
---       gitcommit = true,
---     }
---     if allowed[vim.bo.filetype] then
---       vim.cmd("setlocal syntax=on")
---     end
---   end,
--- })
-
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "*",
---   callback = function()
---     -- allow these to have syntax enabled always
---     local allowed = {
---       markdown = true,
---       fugitive = true,
---       gitcommit = true,
---       toml = true,
---       config = true,
---     }
---     if not allowed[vim.bo.filetype] then
---       vim.cmd('setlocal syntax=off')
---     end
---   end
--- })
-
 --- disable
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
