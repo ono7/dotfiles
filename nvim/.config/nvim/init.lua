@@ -142,7 +142,7 @@ if not string.find(current_path, go_bin_path, 1, true) then
 end
 
 vim.notify("Follow the white rabbit...  🐇")
-vim.opt.guicursor = "n-c-v-i:block-Cursor"
+vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
 
 --- disable
 vim.api.nvim_create_autocmd("FileType", {

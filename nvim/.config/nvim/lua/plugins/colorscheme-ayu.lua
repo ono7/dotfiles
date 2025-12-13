@@ -96,6 +96,8 @@ else
           Todo = { fg = "#d35a63" },
           StatusLine = { bg = "none" },
           StatusLineNC = { bg = "none" },
+          Cursor = { bg = "#FFB454", fg = "#151F2D" },
+          TermCursor = { link = "Cursor" },
 
           -- 5. DIFF & GIT (FINAL FIXES)
           DiffAdd = { fg = "#BEBEBC", bg = "#1C2E2E" },  -- Subtle Blue-Green BG
@@ -152,7 +154,8 @@ else
 
       -- External hlset calls (These must remain external)
       -- vim.api.nvim_set_hl(0, "Cursor", { bg = "#00ff00", fg = "#151F2D" }) -- bright green
-      vim.api.nvim_set_hl(0, "Cursor", { bg = "#FFB454", fg = "#151F2D" })
+      -- vim.api.nvim_set_hl(0, "Cursor", { bg = "#FFB454", fg = "#151F2D" })
+      -- vim.api.nvim_set_hl(0, "TermCursor", { link = "Cursor" })
       -- vim.api.nvim_set_hl(0, "Cursor", { bg = "#FF69B4", fg = "#151F2D" }) -- hot pink
       vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b396b8", bold = true, italic = false })
 
