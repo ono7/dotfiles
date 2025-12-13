@@ -189,7 +189,7 @@ return {
           "--line-number",
           "--column",
           "--smart-case",
-          "-uu",
+          "-u",
           "--glob=!venv",
           "--glob=!.venv",
           "--glob=!.collections",
@@ -201,10 +201,8 @@ return {
         previewer = true,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
-          opts.title = " Live Rg "
+          opts.title = " Live Rg -uu "
           opts.title_pos = "center"
-          opts.width = 0.95
-          opts.height = 0.95
           return opts
         end,
       })
