@@ -145,7 +145,7 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 
-vim.notify("Follow the white rabbit...  🐇")
+print("Follow the white rabbit...  🐇")
 vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
 
 --- disable
