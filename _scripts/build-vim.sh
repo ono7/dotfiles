@@ -133,10 +133,12 @@ fi
 
 # Post-installation setup (only for user installs)
 if [[ $(id -u) -ne 0 ]]; then
+
   log "Installing vim-fugitive plugin"
   mkdir -p ~/.vim/pack/plugins/start
   [[ -d ~/.vim/pack/plugins/start/vim-fugitive ]] && rm -rf ~/.vim/pack/plugins/start/vim-fugitive
   git clone https://github.com/tpope/vim-fugitive.git ~/.vim/pack/plugins/start/vim-fugitive
+
   log "Installing vim-dispatch plugin"
   [[ -d ~/.vim/pack/plugins/start/vim-dispatch ]] && rm -rf ~/.vim/pack/plugins/start/vim-dispatch
   git clone https://github.com/tpope/vim-dispatch.git ~/.vim/pack/plugins/start/vim-dispatch
