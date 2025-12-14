@@ -183,6 +183,17 @@ inoremap <C-f> <Right>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
+" Fix Meta/Alt key detection for non-Neovim
+if !has('nvim')
+    execute "set <M-f>=\ef"
+    execute "set <M-b>=\eb"
+
+		inoremap <M-d> <C-o>dw
+		" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
+		" Note: Mapped to Option-Backspace (<M-BS>) for convenience
+		inoremap <M-BS> <C-w>
+endif
+
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
 inoremap <M-f> <C-o>e<Right>
@@ -406,7 +417,7 @@ cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
 inoremap <D-y> <c-x><c-n>
-inoremap <C-s> <c-x><c-n>
+"inoremap <C-s> <c-x><c-n>
 
 inoremap <C-a> <C-o>^
 " inoremap <C-a> <Home>
