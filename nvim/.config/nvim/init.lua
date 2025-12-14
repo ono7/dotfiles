@@ -22,6 +22,10 @@ lua print(vim.lsp.get_clients({bufnr=0})[1].config.root_dir)
     :argdo %s/test/Test/gc
 * :write ++p (creates directories if they dont exists)
 
+use /<c-r><c-w> will fill in the word under the cursor, same with ?<c-r><c-w>
+
+:%bd (close all buffers)
+
 * neovim 0.11 defaults for lsp_attach
 
 "grn" is mapped in Normal mode to |vim.lsp.buf.rename()|
