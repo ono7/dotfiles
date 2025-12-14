@@ -1,5 +1,11 @@
 extends todo
 
+snippet env "insert env block" b
+  if [ -d ".venv" ]; then
+    source .venv/bin/activate
+  fi
+  ${0}
+
 snippet h "header" b
   #!/usr/bin/env bash
 
