@@ -165,6 +165,26 @@ cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-w>
 
+function! s:ToggleQuickfix() abort
+  " Check if a quickfix window is currently open
+  let l:qf_exists = !empty(filter(getwininfo(), 'v:val.quickfix'))
+
+  if l:qf_exists
+    cclose
+  else
+    copen
+    " Optional: Execute 'wincmd p' here if you wanted the window to open
+    " but keep focus on your code. Since you ASKED for focus in QF,
+    " we leave this out. copen focuses by default.
+  endif
+endfunction
+
+" Map Ctrl-\ to toggle logic
+nnoremap <silent> <C-\> <cmd>call <SID>ToggleQuickfix()<CR>
+inoremap <silent> <C-\> <cmd>call <SID>ToggleQuickfix()<CR>
+" Terminal mode handling to exit terminal insert mode first
+tnoremap <silent> <C-\> <C-\><C-n><cmd>call <SID>ToggleQuickfix()<CR>
+
 " we lose the ability to do C-r in insert...
 " but gain navigational speed
 inoremap <C-r> <C-o>?\v
@@ -284,6 +304,15 @@ nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 nnoremap <c-e> <end>
 
+
+" ===========================
+" TERMINAL NAVIGATION
+" ===========================
+" 1. Escape Terminal Mode (<C-\><C-n>)
+" 2. Execute Window Move (<C-w>j/k)
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
@@ -323,8 +352,8 @@ xnoremap . :<C-u>normal! .<CR>
 
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
-nnoremap <M-r> :browse oldfiles<CR>
-nnoremap <esc>r :browse oldfiles<CR>
+" nnoremap <esc>r :browse oldfiles<CR>
+nnoremap  :browse oldfiles<CR>
 
 "nnoremap <esc>k <cmd>cprev<cr>
 "nnoremap <esc>j <cmd>cnext<cr>
@@ -622,85 +651,128 @@ set background=dark
 " ===========================
 " CORE UI
 " ===========================
-hi Normal         guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
-hi NormalNC       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
-hi EndOfBuffer    guifg=#151F2D               ctermfg=234
-hi LineNr         guifg=#3A4555               ctermfg=240
-hi CursorLineNr   guifg=Yellow                ctermfg=11
-hi CursorLine     guibg=#1E2E45               ctermbg=237
-hi CursorColumn   guibg=#2A3240               ctermbg=240
-hi ColorColumn    guibg=#2A1A1A               ctermbg=52
-hi! clear VertSplit
-hi SignColumn     guifg=Cyan                  ctermfg=14
+" Background: #151F2D | Foreground: #BEBEBC
+hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+hi NormalNC     guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+hi EndOfBuffer  guifg=#151F2D guibg=NONE    ctermfg=234 ctermbg=NONE
+
+" Line Numbers & Cursor
+hi LineNr       guifg=#3A4555 guibg=NONE    ctermfg=240
+" Lua: CursorLineNr = bg=none. Changed FG from Yellow to Ayu Accent Orange
+hi CursorLineNr guifg=#D89F5C guibg=NONE    ctermfg=179
+" Lua: CursorLine links to Visual (#1F3350)
+hi CursorLine   guibg=#1F3350               ctermbg=237
+hi CursorColumn guibg=#1F3350               ctermbg=237
+hi ColorColumn  guibg=#1F3350               ctermbg=237
+
+" Lua: SignColumn = bg=none. Removed Cyan.
+hi SignColumn   guifg=#3A4555 guibg=NONE    ctermfg=240
+hi VertSplit    guifg=#151F2D guibg=#151F2D ctermfg=234 ctermbg=234
+hi WinSeparator guifg=#151F2D guibg=#151F2D ctermfg=234 ctermbg=234
 
 " ===========================
-" VISUAL / SEARCH
+" VISUAL / SEARCH (TONED DOWN)
 " ===========================
-hi Visual         guifg=#BEBEBC guibg=#223E65 ctermfg=250 ctermbg=60
-hi Search         guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
-hi IncSearch      guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
-hi MatchParen     guifg=#151F2D guibg=#AABFD9 ctermfg=0 ctermbg=152
+" Lua: Visual = { bg = "#1F3350" }
+hi Visual       guifg=NONE    guibg=#1F3350 ctermfg=NONE ctermbg=60
+
+" Lua: Search = { fg = "#151F2D", bg = "#BEBEBC" } (Reverse style)
+hi Search       guifg=#151F2D guibg=#BEBEBC ctermfg=234  ctermbg=250
+hi IncSearch    guifg=#151F2D guibg=#D89F5C ctermfg=234  ctermbg=179
+
+" Lua: MatchParen = { fg = "#151F2D", bg = "#BEBEBC" }
+hi MatchParen   guifg=#151F2D guibg=#BEBEBC ctermfg=234  ctermbg=250
 
 " ===========================
-" POPUP MENU (FIXED READABILITY)
+" POPUP MENU
 " ===========================
-hi Pmenu          guifg=#BEBEBC guibg=#1D2738 ctermfg=250 ctermbg=235
-hi PmenuSel       guifg=#FFFFFF guibg=#3A6FB0 ctermfg=15  ctermbg=68
-hi PmenuSbar      guibg=#3A4555               ctermbg=240
-hi PmenuThumb     guibg=#BEBEBC               ctermbg=250
-hi PmenuShadow    guifg=#5A6B85 guibg=#000000 ctermfg=240 ctermbg=0
+" Toned down the bright blue selection to match Visual/Search vibe
+hi Pmenu        guifg=#BEBEBC guibg=#1D2738 ctermfg=250 ctermbg=235
+hi PmenuSel     guifg=#151F2D guibg=#BEBEBC ctermfg=234 ctermbg=250
+hi PmenuSbar    guibg=#3A4555               ctermbg=240
+hi PmenuThumb   guibg=#BEBEBC               ctermbg=250
 
 " ===========================
 " MESSAGES / MODE / SPECIAL
 " ===========================
+hi ErrorMsg     guifg=#D35A63 guibg=NONE    ctermfg=1   ctermbg=NONE
+hi WarningMsg   guifg=#D89F5C guibg=NONE    ctermfg=179 ctermbg=NONE
+hi MoreMsg      guifg=#BEBEBC               ctermfg=250
+hi ModeMsg      guifg=#BEBEBC               ctermfg=250
+hi Question     guifg=#AAD94C               ctermfg=10
 
-hi ErrorMsg guifg=#D35A63 guibg=NONE ctermfg=1 ctermbg=NONE
-hi Error    guifg=#D35A63 guibg=NONE ctermfg=1 ctermbg=NONE
-hi WarningMsg     guifg=#D89F5C               ctermfg=179
-hi MoreMsg        guifg=#BEBEBC               ctermfg=250
-hi ModeMsg        guifg=#BEBEBC               ctermfg=250
-hi Question       guifg=#AAD94C               ctermfg=10
-hi Title          guifg=#AABFD9               ctermfg=153
-hi Directory      guifg=Cyan                  ctermfg=14
-hi SpecialKey     guifg=Cyan                  ctermfg=81
-hi NonText        guifg=#5A6B85               ctermfg=12
+" Fixed: Directory/Title were Cyan/Blue. Aligned with Ayu Types.
+hi Title        guifg=#D89F5C               ctermfg=179
+hi Directory    guifg=#7AA7D8               ctermfg=110
+
+" Fixed: SpecialKey was Cyan. Made subtle Grey.
+hi SpecialKey   guifg=#5F6C77               ctermfg=240
+hi NonText      guifg=#5A6B85               ctermfg=240
 
 " ===========================
 " FOLDS
 " ===========================
-hi Folded         guifg=Cyan guibg=#2A3240    ctermfg=14 ctermbg=240
-hi FoldColumn     guifg=Cyan guibg=#2A3240    ctermfg=14 ctermbg=240
+" Lua: Folded = { bg = "none" }. Fixed the Cyan FG.
+hi Folded       guifg=#5F6C77 guibg=NONE    ctermfg=240 ctermbg=NONE
+hi FoldColumn   guifg=#5F6C77 guibg=NONE    ctermfg=240 ctermbg=NONE
 
 " ===========================
-" DIFF (FLAT + MODERN)
+" DIFF (MATCHING LUA OVERRIDES)
 " ===========================
-hi DiffAdd        guifg=#BEBEBC guibg=#1C2E2E ctermfg=250 ctermbg=23
-hi DiffChange     guifg=#BEBEBC guibg=#223040 ctermfg=250 ctermbg=24
-hi DiffDelete     guifg=#222A38 guibg=#2A1A1A ctermfg=235 ctermbg=52
-hi DiffText       guifg=#FFFFFF guibg=#2A3245 ctermfg=15  ctermbg=60
+" Lua: DiffAdd/Added = { fg = "#BEBEBC", bg = "#1C2E2E" }
+hi DiffAdd      guifg=#BEBEBC guibg=#1C2E2E ctermfg=250 ctermbg=23
+" Lua: DiffText = { fg = "#BEBEBC", bg = "#2A3245" }
+hi DiffText     guifg=#BEBEBC guibg=#2A3245 ctermfg=250 ctermbg=60
+" Lua: DiffChange (Line) - Subtle Blue-Grey
+hi DiffChange   guifg=NONE    guibg=#223040 ctermfg=NONE ctermbg=24
+" Lua: DiffDelete = { fg = "#222A38", bg = "none" }
+hi DiffDelete   guifg=#222A38 guibg=NONE    ctermfg=235 ctermbg=NONE
 
 " ===========================
 " SPELLING
 " ===========================
-hi SpellBad       guifg=#D35A63               ctermfg=1
-hi SpellCap       guifg=#7AA7D8               ctermfg=110
-hi SpellRare      guifg=#C07035               ctermfg=173
-hi SpellLocal     guifg=Cyan                  ctermfg=14
+hi SpellBad     guifg=#D35A63 gui=undercurl ctermfg=1
+hi SpellCap     guifg=#7AA7D8 gui=undercurl ctermfg=110
+hi SpellRare    guifg=#D89F5C gui=undercurl ctermfg=179
+hi SpellLocal   guifg=#AAD94C gui=undercurl ctermfg=10
 
 " ===========================
-" SYNTAX (FLATTENED)
+" SYNTAX
 " ===========================
-hi Comment        guifg=#5F6C77               ctermfg=240
-hi Constant       guifg=#FFA0A0               ctermfg=217
-hi String         guifg=#8CA64A               ctermfg=107
-hi Function       guifg=#AABFD9               ctermfg=153
-hi Statement      guifg=#D89F5C               ctermfg=179
-hi Special        guifg=#D89F5C               ctermfg=179
-"hi Special        guifg=#C07035               ctermfg=173
-hi Type           guifg=#7AA7D8               ctermfg=110
-hi Identifier     guifg=#40FFFF               ctermfg=51
-hi PreProc        guifg=#FF80FF               ctermfg=13
-hi Underlined     guifg=#80A0FF               ctermfg=75
-hi Ignore         guifg=#151F2D               ctermfg=234
-hi Error          guifg=#D35A63               ctermfg=1
-hi Todo           guifg=#D35A63 guibg=#3A6FB0 ctermfg=1 ctermbg=68
+hi Comment      guifg=#5F6C77 gui=italic    ctermfg=240
+hi String       guifg=#8CA64A               ctermfg=107
+hi Function     guifg=#AABFD9               ctermfg=153
+hi Type         guifg=#7AA7D8               ctermfg=110
+" Lua: Statement/Special = { fg = "#D89F5C" }
+hi Statement    guifg=#D89F5C gui=bold      ctermfg=179
+hi Special      guifg=#D89F5C               ctermfg=179
+hi Keyword      guifg=#D89F5C               ctermfg=179
+hi PreProc      guifg=#D89F5C               ctermfg=179
+
+" Fixed: Identifier was Cyan (#40FFFF). Muted to FG or Type blue.
+hi Identifier   guifg=#BEBEBC               ctermfg=250
+hi Constant     guifg=#D89F5C               ctermfg=179
+
+" Delimiters/Operators - Neutralized per Lua config
+hi Delimiter    guifg=#BEBEBC               ctermfg=250
+hi Operator     guifg=#BEBEBC               ctermfg=250
+
+hi Todo         guifg=#D35A63 guibg=NONE    ctermfg=1 ctermbg=NONE
+hi Error        guifg=#D35A63 guibg=NONE    ctermfg=1 ctermbg=NONE
+
+" ===========================
+" STATUSLINE (SUBTLE & VISIBLE)
+" ===========================
+" Active: Matches your Visual selection color. subtle but distinct.
+hi StatusLine       guifg=#BEBEBC guibg=#1F3350 gui=NONE ctermfg=250 ctermbg=60
+
+" Inactive: Very dark (darker than main bg). Creates a 'gutter' effect to show separation.
+hi StatusLineNC     guifg=#5F6C77 guibg=#10151F gui=NONE ctermfg=240 ctermbg=233
+
+" Terminal: Keep consistent (no green)
+hi! link StatusLineTerm   StatusLine
+hi! link StatusLineTermNC StatusLineNC
+
+" Split Separators: Link to the inactive background for a clean border
+hi VertSplit        guifg=#10151F guibg=#10151F ctermfg=233 ctermbg=233
+hi WinSeparator     guifg=#10151F guibg=#10151F ctermfg=233 ctermbg=233
