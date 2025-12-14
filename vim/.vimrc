@@ -184,26 +184,26 @@ inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
 " Fix Meta/Alt key detection for non-Neovim
-if !has('nvim')
-    execute "set <M-f>=\ef"
-    execute "set <M-b>=\eb"
-
-		inoremap <M-d> <C-o>dw
-		" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
-		" Note: Mapped to Option-Backspace (<M-BS>) for convenience
-		inoremap <M-BS> <C-w>
-endif
+"if !has('nvim')
+"    execute "set <M-f>=\ef"
+"    execute "set <M-b>=\eb"
+"
+"   inoremap <M-d> <C-o>dw
+"   " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
+"   " Note: Mapped to Option-Backspace (<M-BS>) for convenience
+"   inoremap <M-BS> <C-w>
+"endif
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
-inoremap <M-f> <C-o>e<Right>
+inoremap f <C-o>e<Right>
 " ~b = moveWordBackward
-inoremap <M-b> <C-o>b
+inoremap b <C-o>b
 
 " Send Escape+b/f to the shell when Alt-b/f is pressed
 " ~f, ~b
-tnoremap <M-b> <Esc>b
-tnoremap <M-f> <Esc>f
+tnoremap b <Esc>b
+tnoremap f <Esc>f
 
 " === PARAGRAPH MOVEMENT ===
 " ~{ = Start of para / ~} = End of para
@@ -217,7 +217,7 @@ inoremap <C-d> <Del>
 inoremap <C-h> <BS>
 
 " ~d = Delete Word Forward
-inoremap <M-d> <C-o>dw
+inoremap d <C-o>dw
 " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
 " Note: Mapped to Option-Backspace (<M-BS>) for convenience
 inoremap <M-BS> <C-w>
@@ -226,7 +226,7 @@ inoremap <M-BS> <C-w>
 inoremap <C-k> <C-o>D
 
 " ~k = Kill to end of paragraph (Rough approximation)
-inoremap <M-k> <C-o>d}
+inoremap k <C-o>d}
 
 " Yank (paste from default register), using this for completion instead
 "inoremap <C-y> <C-r>"
@@ -241,7 +241,7 @@ inoremap <M-u> <Esc>gUea
 
 " Lowercase Word (Emacs M-l)
 " Logic: Exit insert -> Lowercase to end of word -> Append
-inoremap <M-l> <Esc>guea
+inoremap l <Esc>guea
 
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
