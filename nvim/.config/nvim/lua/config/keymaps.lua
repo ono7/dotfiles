@@ -623,7 +623,6 @@ end)
 --
 --   return "<CR>"
 -- end, { expr = true, noremap = true })
-
 vim.keymap.set("i", "<CR>", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local col = cursor[2]
