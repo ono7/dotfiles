@@ -34,7 +34,17 @@ cnoremap <c-e> <end>
 nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
-inoremap <C-BS> <C-w>
+inoremap <C-BS> <C-g>u<C-w>
+
+" undo in insert mode
+inoremap <C-/> <C-u>
+
+" copy line and put cursor on same column position
+" inoremap <silent> <C-,> <C-o>mz<C-o>yyp<C-o>`z<C-o>j
+
+"inoremap <C-,> <C-o>:let c=col('.') <Bar> call append(line('.'), getline('.')) <Bar> call cursor(line('.')+1, c)<CR>
+
+inoremap <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR>
 
 " we lose the ability to do C-r in insert...
 " but gain navigational speed
@@ -72,21 +82,21 @@ inoremap <M-}> <C-o>}
 
 " === DELETION ===
 " ^d = Delete Forward
-inoremap <C-d> <Del>
+inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
-inoremap <C-h> <BS>
+inoremap <C-h> <C-g>u<BS>
 
 " ~d = Delete Word Forward
-inoremap <M-d> <C-o>dw
+inoremap <M-d> <C-g>u<C-o>dw
 " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
 " Note: Mapped to Option-Backspace (<M-BS>) for convenience
-inoremap <M-BS> <C-w>
+inoremap <M-BS> <C-g>u<C-w>
 
 " Kill to end of line (store in register)
-inoremap <C-k> <C-o>D
+inoremap <C-k> <C-g>u<C-o>D
 
 " ~k = Kill to end of paragraph (Rough approximation)
-inoremap <M-k> <C-o>d}
+inoremap <M-k> <C-g>u<C-o>d}
 
 " Yank (paste from default register), using this for completion instead
 "inoremap <C-y> <C-r>"

@@ -42,8 +42,8 @@
 (require 'core-rg)
 ;; (require 'evil-config)
 (require 'theme-config)
-(require 'completion-config)
-(require 'project-config)
+;; (require 'completion-config)
+;; (require 'project-config)
 (require 'org-config)
 
 ;; terminal
@@ -69,3 +69,8 @@
 (use-package goto-chg
   :ensure t
   :bind ("C-." . goto-last-change))
+
+
+(ido-mode 1)
+(ido-everywhere 1)
+; (ido-ubiquitous-mode 1)

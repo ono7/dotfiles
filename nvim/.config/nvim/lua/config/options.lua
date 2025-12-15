@@ -15,7 +15,9 @@ vim.opt.sessionoptions:remove("terminal")
 vim.opt.path = ".,**,**/.*/**"
 vim.opt.shell = "zsh"
 
-vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
+-- vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
+
+vim.opt.shada = "'100,<2000,s200,:1000,/1000,h,f1,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
 
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"

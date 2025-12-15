@@ -11,8 +11,7 @@ let g:matchparen_timeout = 20
 let g:matchparen_insert_timeout = 20
 
 if has("nvim")
-  set shada='20,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
-  packadd cfilter
+  set shada = "'100,<2000,s200,:1000,/1000,h,f1,r/COMMIT_EDITMSG,r/git-rebase-todo,!"add cfilter
   set inccommand=nosplit
   set pumheight=10 pumblend=0
   augroup UpdateShada
@@ -20,7 +19,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-  set viminfo='20,<2000,s200,:1000,/200,h,f1,r/COMMIT_EDITMSG$
+  set viminfo='20,<2000,s200,:1000,/1000,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!
@@ -150,6 +149,7 @@ set wildignore+=**/site-packages/**
 set wildignore+=**/node_modules/**
 set wildignore+=.tags
 set wildignore+=tags
+
 set noesckeys
 
 command! Mktags call system('ctags -R .')
