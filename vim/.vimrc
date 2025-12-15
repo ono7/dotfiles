@@ -20,7 +20,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-	set viminfo='20,<2000,s200,:1000,/200,h,f1,r/COMMIT_EDITMSG$
+  set viminfo='20,<2000,s200,:1000,/200,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!
@@ -150,6 +150,7 @@ set wildignore+=**/site-packages/**
 set wildignore+=**/node_modules/**
 set wildignore+=.tags
 set wildignore+=tags
+set noesckeys
 
 command! Mktags call system('ctags -R .')
 command! D bd!
