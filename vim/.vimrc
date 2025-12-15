@@ -20,7 +20,7 @@ if has("nvim")
     autocmd BufRead,BufNewFile * call insert(v:oldfiles, expand('%:p'), 0) | wshada
   augroup end
 else
-  set viminfo='20,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$
+	set viminfo='20,<2000,s200,:1000,/200,h,f1,r/COMMIT_EDITMSG$
   set ttyfast
   augroup UpdateViminfo
     autocmd!
@@ -44,6 +44,7 @@ endif
 " positive lookaround (behind)
 " (?<=user_id: )\d+ -- matches only \d+
 " positive lookaround (ahead)
+
 if executable('rg')
   let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
   let &grepformat = '%f:%l:%c:%m'
@@ -61,9 +62,11 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 set undolevels=999 undoreload=1000
+
 if !isdirectory($HOME."/.vim-undo")
     call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
+
 set undodir=~/.vim-undo
 set undofile
 
@@ -94,7 +97,7 @@ set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
 " set iskeyword+=_,-
 
- set termguicolors
+set termguicolors
 if has('win32') || has('win64')
   set shellslash
   set termguicolors
@@ -676,9 +679,10 @@ hi WinSeparator guifg=#151F2D guibg=#151F2D ctermfg=234 ctermbg=234
 " Lua: Visual = { bg = "#1F3350" }
 hi Visual       guifg=NONE    guibg=#1F3350 ctermfg=NONE ctermbg=60
 
-" Lua: Search = { fg = "#151F2D", bg = "#BEBEBC" } (Reverse style)
-hi Search       guifg=#151F2D guibg=#BEBEBC ctermfg=234  ctermbg=250
-hi IncSearch    guifg=#151F2D guibg=#D89F5C ctermfg=234  ctermbg=179
+hi Search       guifg=#151F2D guibg=#D89F5C ctermfg=234 ctermbg=179
+
+" IncSearch: Dark text on Bright Orange (Active match pops slightly more)
+hi IncSearch    guifg=#151F2D guibg=#FFB454 ctermfg=234 ctermbg=214
 
 " Lua: MatchParen = { fg = "#151F2D", bg = "#BEBEBC" }
 hi MatchParen   guifg=#151F2D guibg=#BEBEBC ctermfg=234  ctermbg=250
