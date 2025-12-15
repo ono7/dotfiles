@@ -24,14 +24,11 @@
 (scroll-bar-mode -1)
 (setq list-buffers-brief t)
 
-
-
 ;; Move the help prefix from C-h → F1
 (global-set-key (kbd "<f1>") help-map)
 
 ;; Remove Emacs’ default C-h binding so Evil can continue using it
 ;; (global-unset-key (kbd "C-h"))
-
 
 ;; core settings
 (require 'core-bootstrap)
@@ -70,7 +67,6 @@
   :ensure t
   :bind ("C-." . goto-last-change))
 
-
+(blink-cursor-mode 1)
 (ido-mode 1)
 (ido-everywhere 1)
-; (ido-ubiquitous-mode 1)

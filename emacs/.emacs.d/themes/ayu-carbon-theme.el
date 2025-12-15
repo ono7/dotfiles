@@ -23,7 +23,7 @@
 
    ;; === Core UI ===
    `(default                 ((t (:foreground ,fg :background ,bg))))
-   `(cursor                  ((t (:background "#FF69B4"))))
+   `(cursor                  ((t (:background "#ffb454"))))
    `(region                  ((t (:background ,visual))))
    `(ffap                    ((t (:background ,visual))))
    `(highlight               ((t (:background ,visual))))
