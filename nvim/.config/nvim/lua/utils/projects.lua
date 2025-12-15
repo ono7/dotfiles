@@ -1,13 +1,15 @@
 local M = {}
-local fzf = require('fzf-lua')
+local fzf = require("fzf-lua")
 
 -- Configuration
-local DATA_PATH = vim.fn.stdpath('data') .. '/projects.json'
+local DATA_PATH = vim.fn.stdpath("data") .. "/projects.json"
 
 -- Helpers: Load/Save
 local function load_projects()
   local file = io.open(DATA_PATH, "r")
-  if not file then return {} end
+  if not file then
+    return {}
+  end
   local content = file:read("*a")
   file:close()
   local ok, data = pcall(vim.json.decode, content)
@@ -66,7 +68,9 @@ function M.pick_project()
     table.insert(sorted_paths, { path = path, time = time })
   end
 
-  table.sort(sorted_paths, function(a, b) return a.time > b.time end)
+  table.sort(sorted_paths, function(a, b)
+    return a.time > b.time
+  end)
 
   local fzf_list = {}
   for _, item in ipairs(sorted_paths) do
@@ -74,9 +78,9 @@ function M.pick_project()
   end
 
   fzf.fzf_exec(fzf_list, {
-    prompt = 'Projects> ',
+    prompt = "Projects> ",
     actions = {
-      ['default'] = function(selected)
+      ["default"] = function(selected)
         local path = selected[1]
 
         if vim.fn.isdirectory(path) == 0 then
@@ -85,14 +89,14 @@ function M.pick_project()
           return
         end
 
-        vim.cmd('tcd ' .. path)
+        vim.cmd("lcd " .. path)
         db_touch(path)
 
         vim.schedule(function()
           fzf.files({ cwd = path })
         end)
-      end
-    }
+      end,
+    },
   })
 end
 
@@ -123,7 +127,7 @@ function M.last_project()
   end
 
   -- Switch and Open
-  vim.cmd('tcd ' .. best_path)
+  vim.cmd("lcd " .. best_path)
   db_touch(best_path) -- Update timestamp so it stays at the top
   vim.notify("Switched to last: " .. best_path)
 
@@ -134,16 +138,16 @@ end
 -- Setup
 function M.setup()
   -- User Commands
-  vim.api.nvim_create_user_command('ProjectAdd', M.add_project, {})
-  vim.api.nvim_create_user_command('ProjectRemove', M.remove_project, {})
-  vim.api.nvim_create_user_command('ProjectPick', M.pick_project, {})
-  vim.api.nvim_create_user_command('L', M.last_project, {}) -- Short command as requested
+  vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
+  vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
+  vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
+  vim.api.nvim_create_user_command("L", M.last_project, {}) -- Short command as requested
 
   -- Keymaps
-  vim.keymap.set('n', '<leader>pp', '<cmd>ProjectPick<CR>', { desc = "Pick Project" })
-  vim.keymap.set('n', '<leader>pa', '<cmd>ProjectAdd<CR>', { desc = "Add Project" })
-  vim.keymap.set('n', '<leader>pr', '<cmd>ProjectRemove<CR>', { desc = "Remove Project" })
-  vim.keymap.set('n', '<leader>pl', '<cmd>L<CR>', { desc = "Last Project" })
+  vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
+  vim.keymap.set("n", "<leader>pa", "<cmd>ProjectAdd<CR>", { desc = "Add Project" })
+  vim.keymap.set("n", "<leader>pr", "<cmd>ProjectRemove<CR>", { desc = "Remove Project" })
+  vim.keymap.set("n", "<leader>pl", "<cmd>L<CR>", { desc = "Last Project" })
 end
 
 return M

@@ -136,7 +136,7 @@ vnoremap d "0d
 inoremap <C-c> <Esc>
 
 " change local cd per buffer
-nnoremap <leader>cd :lcd %:h<CR>
+nnoremap <leader>cd :tcd %:h<CR>
 
 " Word movement
 inoremap <M-f> <C-o>w

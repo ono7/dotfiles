@@ -53,7 +53,7 @@ function M.setup()
           if selected and selected[1] then
             local path = selected[1]
             delete_all_buffers()
-            vim.cmd("tcd " .. path)
+            vim.cmd("lcd " .. path)
             vim.notify("cwd: \n" .. path)
             vim.defer_fn(function()
               fzf.files({
@@ -67,7 +67,7 @@ function M.setup()
           if selected and selected[1] then
             local path = selected[1]
             delete_all_buffers()
-            vim.cmd("tcd " .. path)
+            vim.cmd("lcd " .. path)
             vim.notify("cwd: \n" .. path)
             vim.defer_fn(function()
               fzf.files({
