@@ -5,17 +5,15 @@ podman machine ssh
 
 sudo vi /etc/containers/registries.conf
 
-# add this:
 [[registry]]
-prefix="docker.io"
+location="docker.io"
+
+[[registry.mirror]]
 location="mirror.gcr.io"
 
-# this should be enough, if not add the mirror or the line below
-
-# unqualified-search-registries = [ "mirror.gcr.io" ]
-#
-# [[registry.mirror]]
-# location="mirror.gcr.io"
+# forces shortnames to use the mirror
+unqualified-search-registries = [ "mirror.gcr.io" ]
+short-name-mode = "enforcing"
 ```
 
 ## update machine ca
