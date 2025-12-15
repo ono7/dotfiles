@@ -1,3 +1,43 @@
+## fix container registry issues
+
+```bash
+podman machine ssh
+
+sudo vi /etc/containers/registries.conf
+
+# add this:
+[[registry]]
+prefix="docker.io"
+location="mirror.gcr.io"
+
+# this should be enough, if not add the mirror or the line below
+
+# unqualified-search-registries = [ "mirror.gcr.io" ]
+#
+# [[registry.mirror]]
+# location="mirror.gcr.io"
+```
+
+## update machine ca
+
+fix tls issues with proxy when using podman
+
+```bash
+podman machine ssh
+
+cat << EOF > ca_root.crt
+<paste_contents>
+EOF
+
+sudo cp ca_root /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
+exit
+
+# or sudo vi, paste the root ca, exit and run sudo update-ca-trust
+sudo vi /etc/pki/ca-trust/source/anchors/ca_root.crt
+run sudo update-ca-trust
+```
+
 # podman notes
 
 brew install podman
@@ -6,27 +46,26 @@ brew install podman
 
 `https://github.com/ansible/vscode-ansible/wiki/macos`
 
-
 `podman machine init -v src:target`
 
 note default cpu is 1, probably best to add 4 with some memory
 
-podman machine init --cpus=4 --memory=4096 -v $HOME:$HOME 
+podman machine init --cpus=4 --memory=4096 -v $HOME:$HOME
 podman machine start
 
 # https://edofic.com/posts/2021-09-12-podman-m1-amd64/
 
-* ssh into podman machine
+- ssh into podman machine
 
 podman machine ssh
 
-* setup proxy
+- setup proxy
 
 sudo -i
 
 `change to use the correct proxy`
 
-* create service file so rpm-ostree uses proxy
+- create service file so rpm-ostree uses proxy
 
 ```bash
 # this might not be needed, http_proxy might get inherited from outside of the container
@@ -37,7 +76,8 @@ Environment="http_proxy=http://172.16.1.61:8080"
 EOF
 
 ```
-* clean up and then install qemu
+
+- clean up and then install qemu
 
 rpm-ostree cleanup --repomd
 rpm-ostree install qemu-user-static
@@ -52,7 +92,6 @@ env = [
 EOF
 ```
 
-* reboot, done, **THIS LOSES THE VOLUMES**
-* its best to do a poman machines stop/start instead
-systemctl reboot
-
+- reboot, done, **THIS LOSES THE VOLUMES**
+- its best to do a poman machines stop/start instead
+  systemctl reboot
