@@ -145,8 +145,6 @@ if not string.find(current_path, go_bin_path, 1, true) then
   vim.env.PATH = go_bin_path .. ":" .. current_path
 end
 
-vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
-
 --- disable
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
@@ -161,3 +159,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
+
+-- Enable blinking cursor in Neovide (and other GUIs)
+vim.opt.guicursor = "a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"

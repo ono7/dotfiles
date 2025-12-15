@@ -89,7 +89,7 @@ let &showbreak="↪ "
 set splitbelow splitright
 set fileformats=unix fileformat=unix
 set matchtime=0
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0
+set guicursor=a:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
@@ -168,6 +168,8 @@ nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-w>
+
+inoremap <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
 
 function! s:ToggleQuickfix() abort
   " Check if a quickfix window is currently open

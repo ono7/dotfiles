@@ -36,15 +36,14 @@ cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-g>u<C-w>
 
+" move to beginning of doc/end of doc
+inoremap <M-lt> <C-g>u<C-o>gg<C-o>^
+inoremap <M->> <C-g>u<C-o>G<C-o>$
+
 " undo in insert mode
 inoremap <C-/> <C-u>
 
-" copy line and put cursor on same column position
-" inoremap <silent> <C-,> <C-o>mz<C-o>yyp<C-o>`z<C-o>j
-
-"inoremap <C-,> <C-o>:let c=col('.') <Bar> call append(line('.'), getline('.')) <Bar> call cursor(line('.')+1, c)<CR>
-
-inoremap <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR>
+inoremap <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
 
 " we lose the ability to do C-r in insert...
 " but gain navigational speed
