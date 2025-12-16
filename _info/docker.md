@@ -1,3 +1,7 @@
+## useful commnads
+
+`docker compose up --pull always -d`
+
 ## use docker registry mirrors
 
 This is usefull if 403 errors pop up when doing docker pull or building
