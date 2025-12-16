@@ -281,7 +281,6 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap vw viw
 nnoremap vp vip
 nnoremap cw ciw
-nnoremap dw diw
 nnoremap vW viW
 nnoremap cW ciW
 nnoremap dW diW
@@ -289,8 +288,6 @@ nnoremap <c-s> :Rg<space>
 
 nnoremap U <c-r>
 nnoremap ; :
-
-inoremap <C-x> <Esc>
 
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_

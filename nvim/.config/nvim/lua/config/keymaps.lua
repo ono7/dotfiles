@@ -97,8 +97,6 @@ inoremap <C-k> <C-g>u<C-o>D
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
 
-inoremap <C-x> <Esc>
-
 " Yank (paste from default register), using this for completion instead
 "inoremap <C-y> <C-r>"
 
@@ -126,7 +124,6 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap vw viw
 nnoremap vp vip
 nnoremap cw ciw
-nnoremap dw diw
 nnoremap vW viW
 nnoremap cW ciW
 nnoremap dW diW
