@@ -488,6 +488,7 @@ function setup_keys() {
     bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
     bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
     bindkey -M viins '^U' kill-whole-line         # Unix standard
+    bindkey -M viins '^K' kill-line   # Emacs-style C-k
     bindkey -M viins '^W' backward-kill-word      # Unix standard
 
     # --- Character Movement (Vim/Emacs Parity) ---
