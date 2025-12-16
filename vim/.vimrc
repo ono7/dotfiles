@@ -55,7 +55,7 @@ endif
 function! Rg(args) abort
   let l:pattern = substitute(a:args, '|', '\\|', 'g')
   execute "silent! grep!" l:pattern
-  cwindow
+  copen
   redraw!
 endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
