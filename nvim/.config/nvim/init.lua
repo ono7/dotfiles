@@ -109,9 +109,9 @@ require("config.neovide")
 require("utils.zoxide").setup() -- use fzflua zoxide..
 
 --- these two worktogether
-require("utils.runner").setup()      -- runs anything :M <cmd> :)
+require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
-require("utils.projects").setup()    -- keeps track of project
+require("utils.projects").setup() -- keeps track of project
 require("utils.ruff")
 
 vim.opt.mouse = "a"
@@ -120,7 +120,7 @@ vim.opt.mouse = "a"
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -160,7 +160,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
+vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
 
 -- Enable blinking cursor in Neovide (and other GUIs)
-vim.opt.guicursor = "a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
+-- vim.opt.guicursor = "a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
