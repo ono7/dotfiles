@@ -15,4 +15,5 @@ stow nvim
 # update go-deps
 make go-deps
 make mac-keybinds
+make vim
 ```
