@@ -97,6 +97,8 @@ inoremap <C-k> <C-g>u<C-o>D
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
 
+inoremap <C-x> <Esc>
+
 " Yank (paste from default register), using this for completion instead
 "inoremap <C-y> <C-r>"
 

@@ -18,10 +18,10 @@ return {
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateDown()
     end)
-    vim.keymap.set("t", "<c-k>", function()
-      vim.cmd.stopinsert()
-      nvim_tmux_nav.NvimTmuxNavigateUp()
-    end)
+    -- vim.keymap.set("t", "<c-k>", function()
+    --   vim.cmd.stopinsert()
+    --   nvim_tmux_nav.NvimTmuxNavigateUp()
+    -- end)
     vim.keymap.set("t", "<c-l>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateRight()
@@ -29,7 +29,7 @@ return {
     -- else
     vim.keymap.set("n", "<c-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
     vim.keymap.set("n", "<c-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
-    vim.keymap.set("n", "<c-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+    -- vim.keymap.set("n", "<c-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
     vim.keymap.set("n", "<c-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
     -- end
   end,

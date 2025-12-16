@@ -290,6 +290,8 @@ nnoremap <c-s> :Rg<space>
 nnoremap U <c-r>
 nnoremap ; :
 
+inoremap <C-x> <Esc>
+
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$
