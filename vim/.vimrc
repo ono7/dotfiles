@@ -288,6 +288,8 @@ nnoremap dW diW
 nnoremap <c-s> :Rg<space>
 
 nnoremap U <c-r>
+nnoremap ; :
+
 nnoremap <c-r> <cmd>browse oldfiles<CR>
 nnoremap Y yg_
 nnoremap D d$

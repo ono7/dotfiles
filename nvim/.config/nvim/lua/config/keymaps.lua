@@ -167,6 +167,8 @@ nnoremap <silent> <space><space> <cmd>noh<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
 
+nnoremap ; :
+
 " TODO: syntaxcomplete#Complete need to implement this for omnifunc
 " nnoremap v <c-v>
 
