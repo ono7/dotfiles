@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ sanitizes address strings and fetches geolocation data.
-    Author:  Jose Lima (jlima)
+    Author:  Jose Lima
     Date:    2024-01-04  22:48
 """
 import requests

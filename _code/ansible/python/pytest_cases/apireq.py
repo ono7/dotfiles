@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    Author:  Jose Lima (jlima)
+    Author:  Jose Lima
     Date:    2024-01-07  16:16
     pytest example
 """
