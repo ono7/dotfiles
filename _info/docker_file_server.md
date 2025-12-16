@@ -1,5 +1,7 @@
-```go
+# simple go file server implementation with htmx, pico css and caching
 
+```go
+// with cache
 package main
 
 import (
@@ -44,14 +46,24 @@ type FileEntry struct {
   RowCount int
 }
 
-var fsMutex sync.Mutex
+// Cache structures
+type cacheEntry struct {
+  ModTime time.Time
+  Rows    int
+}
+
+var (
+  fsMutex    sync.Mutex
+  cacheMutex sync.RWMutex
+  rowCache   = make(map[string]cacheEntry)
+)
 
 func main() {
-  adminUser := getEnv("POST_USER", "test")
-  adminPass := getEnv("POST_PASS", "test")
+  adminUser := getEnv("POST_USER", "admin")
+  adminPass := getEnv("POST_PASS", "adminpass")
 
-  viewUser := getEnv("VIEWER_USER", "test")
-  viewPass := getEnv("VIEWER_PASS", "test")
+  viewUser := getEnv("VIEWER_USER", "viewer")
+  viewPass := getEnv("VIEWER_PASS", "viewerpass")
 
   os.MkdirAll(reportDir, 0755)
   os.MkdirAll(publicDir, 0755)
@@ -111,8 +123,8 @@ func reportsHandler(w http.ResponseWriter, r *http.Request) {
 
       info, err := entry.Info()
       if err == nil {
-        // Calculate rows
-        count := countCSVRows(filepath.Join(reportDir, entry.Name()))
+        // Use cached row count
+        count := getRowCountsWithCache(entry.Name(), info.ModTime())
 
         files = append(files, FileEntry{
           Name:     entry.Name(),
@@ -208,8 +220,35 @@ func reportsHandler(w http.ResponseWriter, r *http.Request) {
 // Helpers
 // ---------------------------------------------------------------------
 
-// countCSVRows reads the file and returns the number of records minus 1 (header).
-// Returns 0 if the file cannot be read or has only a header.
+// getRowCountsWithCache checks the cache for an existing row count.
+// If missing or the file ModTime has changed, it recalculates it.
+func getRowCountsWithCache(filename string, modTime time.Time) int {
+  fullPath := filepath.Join(reportDir, filename)
+
+  // 1. Fast path: Read Lock
+  cacheMutex.RLock()
+  entry, found := rowCache[filename]
+  cacheMutex.RUnlock()
+
+  // If valid, return immediately
+  if found && entry.ModTime.Equal(modTime) {
+    return entry.Rows
+  }
+
+  // 2. Slow path: Calculate rows (without lock to allow concurrency)
+  rows := countCSVRows(fullPath)
+
+  // 3. Update Cache: Write Lock
+  cacheMutex.Lock()
+  rowCache[filename] = cacheEntry{
+    ModTime: modTime,
+    Rows:    rows,
+  }
+  cacheMutex.Unlock()
+
+  return rows
+}
+
 func countCSVRows(path string) int {
   f, err := os.Open(path)
   if err != nil {
@@ -218,7 +257,7 @@ func countCSVRows(path string) int {
   defer f.Close()
 
   r := csv.NewReader(f)
-  r.ReuseRecord = true // Optimization: reuse the backing array
+  r.ReuseRecord = true
 
   count := 0
   for {
@@ -227,7 +266,7 @@ func countCSVRows(path string) int {
       break
     }
     if err != nil {
-      return 0 // Stop counting on malformed CSV
+      return 0
     }
     count++
   }
@@ -262,10 +301,9 @@ func csvHandler(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  // 1. Decode Base64
   decodedBytes, err := base64.StdEncoding.DecodeString(req.Data)
   if err != nil {
-    http.Error(w, "Invalid base64 data", http.StatusBadRequest)
+    http.Error(w, "Invalid base64 data, please encode you data", http.StatusBadRequest)
     return
   }
 
@@ -275,7 +313,6 @@ func csvHandler(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  // 2. Read decoded data
   reader := csv.NewReader(strings.NewReader(string(decodedBytes)))
   records, err := reader.ReadAll()
   if err != nil || len(records) == 0 {
