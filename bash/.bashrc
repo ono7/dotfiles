@@ -40,6 +40,7 @@ bind -m vi-insert '"\C-n": next-history'
 bind -m vi-insert '"\C-p": previous-history'
 bind -m vi-insert '"\C-a": beginning-of-line'
 bind -m vi-insert '"\C-e": end-of-line'
+bind -m vi-insert '"\C-k":kill-line'
 
 # --- Option Key Movement (Matches Alacritty "Both" / Esc+Key) ---
 bind -m vi-insert '"\ef": forward-word'
