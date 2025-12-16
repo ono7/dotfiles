@@ -213,7 +213,7 @@ inoremap <C-e> <End>
 if !has('nvim')
     "execute "set <M-f>=\ef"
     "execute "set <M-b>=\eb"
-    execute "set <C-,>=\<Esc>[44;5u"
+    "execute "set <C-,>=\<Esc>[44;5u"
 
    "inoremap <M-d> <C-o>dw
    "" ~^h = Delete Word Backward (Option+Ctrl+Backspace)

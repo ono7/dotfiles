@@ -145,6 +145,7 @@ bindings = [
 {  key  =  "P",         mods  =  "Command",  chars   =  "\u0010"   },
 {  key  =  "Q",         mods  =  "Command",  action  =  "None"     },
 {  key  =  "Q",         mods  =  "Command",  chars   =  "\u0011"   },
+{  key  =  "Comma",     mods  =  "Control",  chars   =  "\u001b[44;5u"},
 {  key  =  "R",         mods  =  "Command",  chars   =  "\u0012"   },
 {  key  =  "T",         mods  =  "Command",  chars   =  "\u0014"   },
 {  key  =  "Y",         mods  =  "Command",        chars   =  "\u0019"             },
