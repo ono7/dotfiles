@@ -128,7 +128,7 @@ else
           ["@function.builtin"] = { link = "Normal" },
           ["@constant.builtin"] = { link = "Normal" },
 
-          ["@property.yaml"] = { link = "LspDiagnosticsError" },
+          ["@property.yaml"] = { link = "Type" },
           ["@module"] = { link = "Normal" },
           ["@markup.raw"] = { link = "Normal" },
           ["@constructor"] = { link = "Normal" },
