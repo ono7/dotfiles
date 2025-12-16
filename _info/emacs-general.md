@@ -1,3 +1,22 @@
+## gitigore fir ~/.emacs.d/.gitignore
+
+```
+# Ignore everything by default
+*
+
+# Allow these directories
+!modules/
+!themes/
+
+# Allow files inside those directories
+!modules/**
+!themes/**
+
+# Allow init.el
+!init.el
+
+```
+
 ## ctags
 
 for emacs must generate new tags with
