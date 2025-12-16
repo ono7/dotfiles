@@ -1,16 +1,16 @@
 ## ctags
 
-for emacs must generate new tags with 
+for emacs must generate new tags with
 
 `ctags -e -R .`
 
 or emacs cant read them because they are vim style tags
-## clean up packages 
+
+## clean up packages
 
 this should trigger a redownload of all packages
 rm -rf ~/.emacs.d/straight
 rm -rf ~/.emacs.d/eln-cache
-
 
 ## INSTALLING EMACS
 
@@ -20,7 +20,7 @@ rm -rf ~/.emacs.d/eln-cache
 # https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file
 
 brew tap d12frosted/emacs-plus
-brew install emacs-plus@31 --with-xwidgets --with-savchenkovaleriy-big-sur-3d-icon
+brew install emacs-plus@30 --with-xwidgets --with-savchenkovaleriy-big-sur-3d-icon
 
 ```
 
@@ -111,4 +111,3 @@ also good to remove all these from time to time as things slow down
 ## upgrade packages in packages buffer (package-list-packages)
 
 `update all installed packages with U x in the *Packages* buffer`
-	
