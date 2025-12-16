@@ -18,6 +18,10 @@ short-name-mode = "enforcing"
 
 ## update machine ca
 
+extract ca chain with openssl
+
+`openssl s_client -showcerts -connect www.website.com:443 </dev/null`
+
 fix tls issues with proxy when using podman
 
 ```bash
