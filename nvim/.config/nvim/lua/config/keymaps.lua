@@ -43,7 +43,21 @@ inoremap <M->> <C-g>u<C-o>G<C-o>$
 " undo in insert mode
 inoremap <C-/> <C-u>
 
-inoremap <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
+"inoremap <silent> <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
+function! DuplicateAndMark()
+    let l:c = col('.')
+    " Duplicate line above using the unnamed register
+    execute "normal! yyP"
+    " Restore cursor column on the new line
+    call cursor(line('.'), l:c)
+    " Move down to the original line (mimicking your previous <Down>)
+    execute "normal! j"
+
+    redraw
+    echo "Mark set"
+endfunction
+
+inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
 
 " we lose the ability to do C-r in insert...
 " but gain navigational speed

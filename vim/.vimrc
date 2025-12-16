@@ -94,7 +94,7 @@ set tags=./tags,tags;~
 set shortmess=atcIoOsT
 set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
-" set iskeyword+=_,-
+set iskeyword-=_
 
 set termguicolors
 if has('win32') || has('win64')
@@ -210,15 +210,16 @@ inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 
 " Fix Meta/Alt key detection for non-Neovim
-"if !has('nvim')
-"    execute "set <M-f>=\ef"
-"    execute "set <M-b>=\eb"
-"
-"   inoremap <M-d> <C-o>dw
-"   " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
-"   " Note: Mapped to Option-Backspace (<M-BS>) for convenience
-"   inoremap <M-BS> <C-w>
-"endif
+if !has('nvim')
+    "execute "set <M-f>=\ef"
+    "execute "set <M-b>=\eb"
+    execute "set <C-,>=\<Esc>[44;5u"
+
+   "inoremap <M-d> <C-o>dw
+   "" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
+   "" Note: Mapped to Option-Backspace (<M-BS>) for convenience
+   "inoremap <M-BS> <C-w>
+endif
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)

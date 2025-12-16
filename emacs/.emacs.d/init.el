@@ -9,8 +9,20 @@
 (setq use-short-answers t) ;; y or n
 
 (global-set-key (kbd "C-S-v") 'yank) ;; paste
-(global-set-key (kbd "C-a") #'move-beginning-of-line)
+;; (global-set-key (kbd "C-a") #'move-beginning-of-line)
 (global-set-key (kbd "C-e") #'move-end-of-line)
+
+
+(defun my-smart-beginning-of-line ()
+  "Move to first non-whitespace or beginning of line.
+If already at indentation, move to column 0."
+  (interactive)
+  (let ((orig (point)))
+    (back-to-indentation)
+    (when (= orig (point))
+      (move-beginning-of-line 1))))
+
+(global-set-key (kbd "C-a") #'my-smart-beginning-of-line)
 
 ;; Kill current buffer immediately (skip the "Kill buffer?" prompt)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
