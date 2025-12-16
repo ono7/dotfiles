@@ -130,6 +130,10 @@ nnoremap cW ciW
 nnoremap dW diW
 nnoremap <c-s> :Rg<space>
 
+nnoremap <C-w>q <C-w>c
+nnoremap <C-w><C-q> <C-w>c
+vnoremap <C-w>q <C-w>c
+
 " Set mark in insert mode
 function! InsertSetMark() abort
   normal! mz
