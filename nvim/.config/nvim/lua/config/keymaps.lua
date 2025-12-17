@@ -99,11 +99,12 @@ inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
 inoremap <C-h> <C-g>u<BS>
 
-" ~d = Delete Word Forward
-inoremap <M-d> <C-g>u<C-o>dw
 " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
 " Note: Mapped to Option-Backspace (<M-BS>) for convenience
 inoremap <M-BS> <C-g>u<C-w>
+
+" ~d = Delete Word Forward
+inoremap <M-d> <C-g>u<C-o>dw
 
 " Kill to end of line (store in register)
 inoremap <C-k> <C-g>u<C-o>D

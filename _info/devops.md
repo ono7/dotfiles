@@ -19,7 +19,7 @@ limiting factor (i.e., constraint) that stands in the way of achieving a goal ..
 
 - if you automate bad processes you will automate those faster.
 
-**_ simulating and testing automation are critical to success _**
+**_ simulating and testing automation is critical to success _**
 
 - takes the network team out of the Create, Retrieve, Update, Delete process.
 

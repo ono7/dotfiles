@@ -130,3 +130,11 @@ also good to remove all these from time to time as things slow down
 ## upgrade packages in packages buffer (package-list-packages)
 
 `update all installed packages with U x in the *Packages* buffer`
+
+
+## manage windows
+
+`c-x o` move to next window
+`c-x 1` close all but the current window
+`c-x 2` open new split (horitontal)
+

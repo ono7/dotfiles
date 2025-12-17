@@ -2,9 +2,12 @@
   :init
   (setq evil-want-keybinding nil
         evil-want-C-u-scroll t
+
         evil-want-C-i-jump t)
   :config
   (evil-mode 1))
+
+(setq evil-esc-delay 0)
 
 (use-package evil-collection
   :after evil
@@ -55,13 +58,14 @@
         evil-replace-state-cursor 'box
         evil-operator-state-cursor 'box))
 
+
 ;; Window movement
-(require 'windmove)
-(with-eval-after-load 'evil
-  (evil-define-key 'normal 'global
-    (kbd "C-h") #'windmove-left
-    (kbd "C-j") #'windmove-down
-    (kbd "C-k") #'windmove-up
-    (kbd "C-l") #'windmove-right))
+;; (require 'windmove)
+;; (with-eval-after-load 'evil
+;;   (evil-define-key 'normal 'global
+;;     (kbd "C-h") #'windmove-left
+;;     (kbd "C-j") #'windmove-down
+;;     (kbd "C-k") #'windmove-up
+;;     (kbd "C-l") #'windmove-right))
 
 (provide 'evil-config)

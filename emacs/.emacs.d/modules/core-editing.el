@@ -7,7 +7,7 @@
   (recentf-max-menu-items 50))
 
 (with-eval-after-load 'evil
-  (define-key evil-normal-state-map (kbd "C-r") #'consult-recent-file))
+  (define-key evil-normal-state-map (kbd "C-c r") #'consult-recent-file))
 
 ;; M-q in normal mode
 (with-eval-after-load 'evil
