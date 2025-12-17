@@ -263,6 +263,7 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 
 set ttyfast
+set confirm
 
 function! CopyMatches(reg)
   let hits = []

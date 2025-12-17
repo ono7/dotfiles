@@ -27,6 +27,8 @@ else
   augroup end
 endif
 
+set confirm
+
 " supported patterns, basically everything, must wrap pattren in single quotes
 " :Rg 'jlima|test|type \S+ struct'
 " :Rg -t go '^type (?![jJ]ob)\w+' -- only match go file types, -t go -t py can be chained
