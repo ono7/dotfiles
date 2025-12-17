@@ -175,6 +175,9 @@ endfunction
 inoremap <c-space> <C-o>:call InsertSetMark()<CR>
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 
+inoremap <M-o> <C-o>O
+inoremap <M-S-o> <C-o>o
+
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
