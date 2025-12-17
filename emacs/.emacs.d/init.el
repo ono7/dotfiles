@@ -199,3 +199,6 @@
 ;; :ensure t
 ;;  :config
 ;;  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;; Force Emacs to recognize the ripgrep config file
+(setenv "RIPGREP_CONFIG_PATH" (expand-file-name "~/.ripgreprc"))
