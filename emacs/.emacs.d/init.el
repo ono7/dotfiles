@@ -200,5 +200,28 @@
 ;;  :config
 ;;  (add-hook 'after-init-hook #'global-flycheck-mode))
 
+;; this will honor the settings in ripgreprc
 ;; Force Emacs to recognize the ripgrep config file
 (setenv "RIPGREP_CONFIG_PATH" (expand-file-name "~/.ripgreprc"))
+
+;; TODO: this should be a core binding
+;; Function to mimic Vim's 'o' (Open line below)
+(defun my/open-line-below ()
+  "Move to end of line, insert new line, and indent."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+;; Function to mimic Vim's 'O' (Open line above)
+(defun my/open-line-above ()
+  "Move to start of line, insert new line above, and indent."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+;; Keybindings
+;; M-o is usually 'facemap-menu' (rich text formatting), safe to override for coding
+(global-set-key (kbd "M-o") 'my/open-line-below)
+(global-set-key (kbd "M-O") 'my/open-line-above)
