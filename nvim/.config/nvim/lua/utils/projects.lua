@@ -4,6 +4,15 @@ local fzf = require("fzf-lua")
 -- Configuration
 local DATA_PATH = vim.fn.stdpath("data") .. "/projects.json"
 
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 -- Helpers: Load/Save
 local function load_projects()
   local file = io.open(DATA_PATH, "r")
@@ -53,7 +62,7 @@ end
 function M.remove_project()
   local cwd = vim.fn.getcwd()
   if db_remove(cwd) then
-    vim.notify("Removed project: " .. cwd, vim.log.levels.INFO)
+    vim.notify("Removed project: " .. trim_path(cwd), vim.log.levels.INFO)
   else
     vim.notify("Project not tracked.", vim.log.levels.WARN)
   end
@@ -85,7 +94,7 @@ function M.pick_project()
 
         if vim.fn.isdirectory(path) == 0 then
           db_remove(path)
-          vim.notify("Directory missing. Removed: " .. path, vim.log.levels.WARN)
+          vim.notify("Directory missing. Removed: " .. trim_path(path), vim.log.levels.WARN)
           return
         end
 
@@ -134,7 +143,7 @@ function M.last_project()
   -- Switch and Open
   vim.cmd("lcd " .. best_path)
   db_touch(best_path) -- Update timestamp so it stays at the top
-  vim.notify("Switched to last: " .. best_path:sub(-60))
+  vim.notify("CWD: " .. trim_path(best_path))
 
   -- FIX: Force `fd` to use the strict path, ignoring git roots
   fzf.files({

@@ -71,7 +71,8 @@ endif
 set undodir=~/.vim-undo
 set undofile
 
-set path=.,**,**/.*/**
+set path=.,**
+set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
 set lazyredraw hidden updatetime=300
@@ -142,15 +143,6 @@ if exists('+wildoptions')
     set wildmode=longest:full,full
   endtry
 endif
-
-set wildignore+=**/tmp/**
-set wildignore+=**/.git/**
-set wildignore+=**/__pycache__/**
-set wildignore+=**/.ruff_cache/**
-set wildignore+=**/site-packages/**
-set wildignore+=**/node_modules/**
-set wildignore+=.tags
-set wildignore+=tags
 
 set noesckeys
 
@@ -353,6 +345,26 @@ inoremap <Nul> <C-o>:call InsertSetMark()<CR>
 inoremap <C-Space> <C-o>:call InsertSetMark()<CR>
 " works on both
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
+
+" Function to set the mark and print message
+function! SetGlobalMark(char)
+  execute 'normal! m' . a:char
+  echo "Mark set"
+endfunction
+
+" Map lowercase 'm' to call the function with the Uppercase target
+nnoremap <silent> ma :call SetGlobalMark('A')<CR>
+nnoremap <silent> mb :call SetGlobalMark('B')<CR>
+nnoremap <silent> mr :call SetGlobalMark('R')<CR>
+nnoremap <silent> ms :call SetGlobalMark('S')<CR>
+nnoremap <silent> mt :call SetGlobalMark('T')<CR>
+
+" Jump mappings (unchanged, direct mapping)
+nnoremap 'a `A
+nnoremap 'b `B
+nnoremap 'r `R
+nnoremap 's `S
+nnoremap 't `T
 
 vnoremap > >gv
 vnoremap < <gv

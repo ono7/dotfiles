@@ -6,6 +6,15 @@ local function get_poetry_venv()
   return nil
 end
 
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 local function get_python_path(root_dir)
   -- Priority 1: Local .venv
 
@@ -53,7 +62,7 @@ return {
     local python_path = get_python_path(root_dir)
 
     if python_path then
-      -- vim.api.nvim_echo({ { "venv: ", "Normal" }, { python_path:sub(-60), "Comment" } }, false, {})
+      vim.api.nvim_echo({ { "venv: ", "Normal" }, { trim_path(python_path), "Comment" } }, false, {})
       client.config.settings.python.pythonPath = python_path
       client.notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,

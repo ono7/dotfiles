@@ -1,6 +1,16 @@
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 local function get_git_root()
   local dot_git_path = vim.fn.finddir(".git", ".;")
-  print(vim.fn.fnamemodify(dot_git_path, ":h"))
+  local path = vim.fn.fnamemodify(dot_git_path, ":h")
+  print(trim_path(path))
   return vim.fn.fnamemodify(dot_git_path, ":h")
 end
 
@@ -101,8 +111,8 @@ end
 
 --- shellcode ---
 --- m(
---- 	"x",
---- 	"<space>h",
---- 	[[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
---- 	silent
+---   "x",
+---   "<space>h",
+---   [[:s/\v\s+//ge<cr><bar> :s/\v(..)/\\\x\1/ge<cr><bar> :s/\v.*/buffer \+\= b"&"/ge<cr>:noh<cr>]],
+---   silent
 --- )

@@ -3,6 +3,15 @@ local silent = { noremap = true, silent = true }
 
 local k = vim.keymap.set
 
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 --- nop ---
 k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
@@ -192,6 +201,7 @@ set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/v
 " Function to set the mark and print message
 function! SetGlobalMark(char)
   execute 'normal! m' . a:char
+  echo "Mark set"
 endfunction
 
 " Map lowercase 'm' to call the function with the Uppercase target
@@ -482,7 +492,8 @@ k("n", "<D-o>", "<c-o>", opt)
 
 k("n", "<leader>cd", function()
   vim.cmd.lcd("%:p:h")
-  print("new lcd: " .. vim.fn.getcwd())
+  local path = vim.fn.getcwd()
+  print("new lcd: " .. trim_path(path))
 end, { silent = true })
 
 -- Copy full file path
