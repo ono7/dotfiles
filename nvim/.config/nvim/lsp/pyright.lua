@@ -33,6 +33,8 @@ local function get_python_path(root_dir)
   return nil
 end
 
+vim.diagnostic.config({ update_in_insert = false })
+
 return {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
@@ -42,6 +44,9 @@ return {
     "poetry.lock",
     "requirements.txt",
     ".git",
+  },
+  flags = {
+    debounce_text_changes = 500, -- Wait 300ms after typing stops before analyzing
   },
   on_attach = function(client, bufnr)
     local root_dir = client.config.root_dir

@@ -178,6 +178,10 @@ inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 inoremap <M-o> <C-o>O
 inoremap <M-S-o> <C-o>o
 
+nnoremap <C-d> x
+nnoremap <M-d> dw
+
+" TODO(jlima773): fix this, does not work 2025-12-17 21:55
 " Function to set the mark and print message
 function! SetGlobalMark(char)
   execute 'mark ' . a:char

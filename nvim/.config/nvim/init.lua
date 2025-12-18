@@ -164,3 +164,5 @@ vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
 
 -- Enable blinking cursor in Neovide (and other GUIs)
 -- vim.opt.guicursor = "a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
+
+vim.diagnostic.config({ update_in_insert = false })
