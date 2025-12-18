@@ -112,11 +112,15 @@ inoremap <C-k> <C-g>u<C-o>D
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
 
+
+" ~k = Kill to end of paragraph (Rough approximation)
+inoremap <C-y> <C-g>u<C-o>p
+
 " Yank (paste from default register), using this for completion instead
 "inoremap <C-y> <C-r>"
 
-" select last inserted text
-inoremap <C-l> <Esc>`[v`]
+" select last inserted text, now used for lsp completion trigger
+" inoremap <C-l> <Esc>`[v`]
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)

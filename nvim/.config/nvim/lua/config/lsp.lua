@@ -27,7 +27,6 @@ vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP 
 M.setup = function()
   --- Global LSP configuration ---
   local ok, blink = pcall(require, "blink.cmp")
-
   vim.lsp.config("*", {
     root_markers = { ".git" },
     capabilities = ok and blink.get_lsp_capabilities() or nil,
@@ -37,7 +36,7 @@ M.setup = function()
     -- Ensure LSP omnifunc is enabled
     --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    vim.keymap.set("i", "<C-y>", function()
+    vim.keymap.set("i", "<C-l>", function()
       local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
       local buftype = vim.bo.buftype
 
@@ -107,21 +106,21 @@ M.setup = function()
   })
 
   --- Diagnostic auto-management ---
-  -- local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
+  local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
 
-  -- vim.api.nvim_create_autocmd("InsertEnter", {
-  --   group = diagnostic_group,
-  --   callback = function()
-  --     vim.diagnostic.enable(false)
-  --   end,
-  -- })
-  --
-  -- vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
-  --   group = diagnostic_group,
-  --   callback = function()
-  --     vim.diagnostic.enable(true)
-  --   end,
-  -- })
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    group = diagnostic_group,
+    callback = function()
+      vim.diagnostic.enable(false)
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost" }, {
+    group = diagnostic_group,
+    callback = function()
+      vim.diagnostic.enable(true)
+    end,
+  })
 end
 
 M.no_lsp = function()
