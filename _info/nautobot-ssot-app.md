@@ -1,3 +1,7 @@
+## how to create a nautobot ssot and job
+
+`https://networktocode.com/blog/building-a-nautobot-ssot-app/`
+
 ## django
 
 ## select related to save on db quieres when looking up foreign keys
