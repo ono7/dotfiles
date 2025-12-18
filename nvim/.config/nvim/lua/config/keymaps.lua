@@ -178,6 +178,26 @@ inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 inoremap <M-o> <C-o>O
 inoremap <M-S-o> <C-o>o
 
+" Function to set the mark and print message
+function! SetGlobalMark(char)
+  execute 'mark ' . a:char
+  echo 'Mark set'
+endfunction
+
+" Map lowercase 'm' to call the function with the Uppercase target
+nnoremap <silent> ma :call SetGlobalMark('A')<CR>
+nnoremap <silent> mb :call SetGlobalMark('B')<CR>
+nnoremap <silent> mr :call SetGlobalMark('R')<CR>
+nnoremap <silent> ms :call SetGlobalMark('S')<CR>
+nnoremap <silent> mt :call SetGlobalMark('T')<CR>
+
+" Jump mappings (unchanged, direct mapping)
+nnoremap 'a `A
+nnoremap 'b `B
+nnoremap 'r `R
+nnoremap 's `S
+nnoremap 't `T
+
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap <silent> <space><space> <cmd>noh<cr>
