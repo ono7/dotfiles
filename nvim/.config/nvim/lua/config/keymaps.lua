@@ -43,7 +43,7 @@ inoremap <M->> <C-g>u<C-o>G<C-o>$
 " undo in insert mode
 inoremap <C-/> <C-u>
 
-"inoremap <silent> <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
+" inoremap <silent> <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
 function! DuplicateAndMark()
     let l:c = col('.')
     " Duplicate line above using the unnamed register
@@ -185,11 +185,13 @@ inoremap <M-S-o> <C-o>o
 nnoremap <C-d> x
 nnoremap <M-d> dw
 
+set path=.,**
+set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
+
 " TODO(jlima773): fix this, does not work 2025-12-17 21:55
 " Function to set the mark and print message
 function! SetGlobalMark(char)
-  execute 'mark ' . a:char
-  echo 'Mark set'
+  execute 'normal! m' . a:char
 endfunction
 
 " Map lowercase 'm' to call the function with the Uppercase target

@@ -59,7 +59,7 @@ function M.remove_project()
   end
 end
 
--- 3. Pick Project (Sorted + Auto-Cleanup + File Picker)
+-- 3. Pick Project (Sorted + Auto-Cleanup + Strict Pathing)
 function M.pick_project()
   local projects = load_projects()
   local sorted_paths = {}
@@ -92,15 +92,20 @@ function M.pick_project()
         vim.cmd("lcd " .. path)
         db_touch(path)
 
+        -- FIX: Force `fd` to use the strict path, ignoring git roots
         vim.schedule(function()
-          fzf.files({ cwd = path })
+          fzf.files({
+            cwd = path,
+            cmd = "fd --type f --hidden --follow --exclude .git",
+            git_icons = false,
+          })
         end)
       end,
     },
   })
 end
 
--- 4. Open Last Project Directly
+-- 4. Open Last Project Directly (Strict Pathing)
 function M.last_project()
   local projects = load_projects()
   local best_path = nil
@@ -122,17 +127,21 @@ function M.last_project()
   -- Validate existence
   if vim.fn.isdirectory(best_path) == 0 then
     db_remove(best_path)
-    vim.notify("Last project missing. Removed: " .. best_path, vim.log.levels.ERROR)
+    vim.notify("Last project missing. Removed: " .. best_path:sub(-60), vim.log.levels.ERROR)
     return
   end
 
   -- Switch and Open
   vim.cmd("lcd " .. best_path)
   db_touch(best_path) -- Update timestamp so it stays at the top
-  vim.notify("Switched to last: " .. best_path)
+  vim.notify("Switched to last: " .. best_path:sub(-60))
 
-  -- Open picker immediately
-  fzf.files({ cwd = best_path })
+  -- FIX: Force `fd` to use the strict path, ignoring git roots
+  fzf.files({
+    cwd = best_path,
+    cmd = "fd --type f --hidden --follow --exclude .git",
+    git_icons = false,
+  })
 end
 
 -- Setup
@@ -141,7 +150,7 @@ function M.setup()
   vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
   vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
-  vim.api.nvim_create_user_command("L", M.last_project, {}) -- Short command as requested
+  vim.api.nvim_create_user_command("L", M.last_project, {})
 
   -- Keymaps
   vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
