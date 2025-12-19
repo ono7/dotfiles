@@ -4,17 +4,17 @@ if vim.g.neovide then
   -- **** anything shell related for neovide should go into ~/.zprofile ****
 
   -- the most important settings for smooth typing
-  vim.g.neovide_cursor_animation_length = 0.07
-  vim.g.neovide_cursor_trail_size = 0.02
-
+  vim.g.neovide_cursor_animation_length = 0.03
+  vim.g.neovide_cursor_trail_size = 0.04
+  vim.g.neovide_input_ime = false
   vim.g.neovide_refresh_rate = 120
   -- vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
   vim.g.neovide_cursor_smooth_blink = true
-  vim.g.neovide_cursor_blink = true
+  vim.g.neovide_cursor_blink = false
   vim.g.neovide_cursor_blink_interval = 500
   vim.g.neovide_scroll_animation_far_lines = 0
-  vim.g.neovide_scroll_animation_length = 0.00
+  vim.g.neovide_scroll_animation_length = 0
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_cursor_animate_command_line = true
   vim.g.neovide_frame_no_title = true
@@ -31,12 +31,12 @@ if vim.g.neovide then
   local uname = vim.loop.os_uname()
   local is_wsl = uname.sysname == "Linux" and uname.release:lower():match("microsoft")
 
-  if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
-    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
-  else
-    vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h24"
-  end
-
+  -- if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
+  --   vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
+  -- else
+  --   vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h24"
+  -- end
+  --
   vim.g.neovide_text_gamma = 0.8
   vim.g.neovide_text_contrast = 0.1
 
@@ -53,9 +53,11 @@ if vim.g.neovide then
   vim.g.neovide_progress_bar_animation_speed = 200.0
   vim.g.neovide_progress_bar_hide_delay = 0.2
 
+  vim.g.neovide_scale_factor = 1.0
   --- change font size with
-  local change_scale_factor = function(delta)
-    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+  local function change_scale(delta)
+    local s = vim.g.neovide_scale_factor * delta
+    vim.g.neovide_scale_factor = math.max(0.8, math.min(1.2, s))
   end
 
   vim.keymap.set("n", "<C-=>", function()
