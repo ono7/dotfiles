@@ -95,8 +95,15 @@ else
           -- 4. ALERTS & MATCHING
           Question = { fg = "#aad94c" },
           Todo = { fg = "#d35a63" },
-          StatusLine = { bg = "none" },
-          StatusLineNC = { bg = "none" },
+          StatusLine = {
+            fg = "#BEBEBC",
+            bg = "#1B2740", -- subtle lift from #151F2D, close to Visual/CursorLine
+          },
+
+          StatusLineNC = {
+            fg = "#5F6C77", -- Comment tone
+            bg = "#151F2D", -- identical to Normal bg
+          },
           Cursor = { bg = "#FFB454", fg = "#151F2D" },
           TermCursor = { link = "Cursor" },
 

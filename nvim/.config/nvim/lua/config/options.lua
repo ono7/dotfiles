@@ -215,14 +215,23 @@ vim.opt.iskeyword:remove("_")
 vim.opt.iskeyword:remove("-")
 vim.opt.joinspaces = false
 
-vim.opt.laststatus = 0
+vim.opt.laststatus = 2
+vim.opt.cmdheight = 1
+vim.opt.statusline = table.concat({
+  " %{expand('%:h:t')}/%t", -- Left: Parent/Filename
+  "%m%r%h", -- Left: Flags
+  "%=", -- Spring 1
+  " %l,%c ", -- Center: Line:Col
+  "%=", -- Spring 2
+  " %p%% ", -- Right: Percent
+})
 vim.opt.ruler = false
 vim.opt.showcmd = false
 vim.opt.showmode = true
 
-vim.cmd([[
-set statusline=%{repeat('─',winwidth('.'))}
-]])
+-- vim.cmd([[
+-- set statusline=%{repeat('─',winwidth('.'))}
+-- ]])
 
 vim.opt.list = false -- set on demand
 vim.opt.listchars = [[tab:  ,trail:•,nbsp:·,conceal: ]]
@@ -241,7 +250,6 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.pumheight = 5
 vim.opt.relativenumber = false
 vim.opt.number = false
-vim.opt.laststatus = 0
 vim.opt.ruler = true
 vim.opt.complete = ".,w,b"
 vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already

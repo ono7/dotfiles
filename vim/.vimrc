@@ -95,9 +95,17 @@ set matchtime=0
 set guicursor=a:block-blinkwait0-blinkoff400-blinkon250-Cursor/lCursor
 set tags=./tags,tags;~
 set shortmess=atcIoOsT
-set laststatus=1
 set encoding=utf-8 fileencoding=utf-8
 set iskeyword-=_
+
+set laststatus=2
+set statusline=
+set statusline+=\ %{expand('%:h:t')}/%t  " Left: Parent/Filename
+set statusline+=%m%r%h                   " Left: Flags
+set statusline+=%=                       " Spring 1 (Push right)
+set statusline+=\ %l:%c\                 " Center: Line:Col (with padding)
+set statusline+=%=                       " Spring 2 (Push left)
+set statusline+=\ %p%%\                  " Right: Percent
 
 set termguicolors
 if has('win32') || has('win64')
