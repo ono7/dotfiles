@@ -6,7 +6,7 @@ if vim.g.neovide then
   -- the most important settings for smooth typing
   vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_cursor_trail_size = 0.04
-  vim.g.neovide_input_ime = false
+  -- vim.g.neovide_input_ime = false
   vim.g.neovide_refresh_rate = 120
   -- vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
@@ -31,12 +31,13 @@ if vim.g.neovide then
   local uname = vim.loop.os_uname()
   local is_wsl = uname.sysname == "Linux" and uname.release:lower():match("microsoft")
 
+  -- this adds too much padding, but its a way to define font size based on OS
   -- if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 or is_wsl then
   --   vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   -- else
   --   vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h24"
   -- end
-  --
+
   vim.g.neovide_text_gamma = 0.8
   vim.g.neovide_text_contrast = 0.1
 
