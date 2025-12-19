@@ -210,8 +210,9 @@ vim.opt.smartcase = true
 vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
-vim.opt.iskeyword:append("-")
+-- vim.opt.iskeyword:append("-")
 vim.opt.iskeyword:remove("_")
+vim.opt.iskeyword:remove("-")
 vim.opt.joinspaces = false
 
 vim.opt.laststatus = 0

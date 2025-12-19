@@ -62,7 +62,8 @@ return {
     local python_path = get_python_path(root_dir)
 
     if python_path then
-      vim.api.nvim_echo({ { "venv: ", "Normal" }, { trim_path(python_path), "Comment" } }, false, {})
+      -- vim.api.nvim_echo({ { "venv: ", "Normal" }, { trim_path(python_path), "Comment" } }, false, {})
+      vim.notify("VENV: " .. trim_path(python_path))
       client.config.settings.python.pythonPath = python_path
       client.notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,
