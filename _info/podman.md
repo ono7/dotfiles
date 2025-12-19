@@ -97,3 +97,24 @@ EOF
 - reboot, done, **THIS LOSES THE VOLUMES**
 - its best to do a poman machines stop/start instead
   systemctl reboot
+
+## updating images
+
+- pull and make changes
+
+  podman pull site.com:production
+  podman run -it --user 0 -name newchanges site.com:production bash
+
+make changes, pip install blah blah, exit
+
+- commit and push
+  podman commit newchanges site.com:production-v2
+  podman push site.com:production-v2
+
+-
+
+podman commit production-edit site.com:production:local && podman tag site.com:production:local site.com:production-v2 && podman push site.com:production-v2
+
+- replace existing tag
+
+podman tag site.com:production:local site.com:production && podman push site.com:production
