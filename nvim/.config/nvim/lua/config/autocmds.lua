@@ -1,9 +1,31 @@
 local create_augroup = vim.api.nvim_create_augroup
 
 -- LSP omnifunc
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   callback = function(args)
+--     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+--   end,
+-- })
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client or client.name ~= "pyright" then
+      return
+    end
+
+    local venv = vim.env.VIRTUAL_ENV
+    if not venv or venv == "" then
+      return
+    end
+
+    client.settings = client.settings or {}
+    client.settings.python = client.settings.python or {}
+    client.settings.python.analysis = vim.tbl_extend("force", client.settings.python.analysis or {}, {
+      venvPath = vim.fn.fnamemodify(venv, ":h"),
+      venv = vim.fn.fnamemodify(venv, ":t"),
+    })
   end,
 })
 
@@ -80,9 +102,9 @@ vim.api.nvim_create_autocmd("BufRead", {
         local ft = vim.bo[opts.buf].filetype
         local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
         if
-            not (ft:match("commit") and ft:match("rebase"))
-            and last_known_line > 1
-            and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+          not (ft:match("commit") and ft:match("rebase"))
+          and last_known_line > 1
+          and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
         then
           vim.api.nvim_feedkeys([[g`"]], "x", false)
         end
@@ -120,7 +142,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = vim.api.nvim_create_augroup("AutoOpenQuickfix", { clear = true }),
-  pattern = "[^l]*",   -- Matches :make, :grep, but NOT :lmake
+  pattern = "[^l]*", -- Matches :make, :grep, but NOT :lmake
   callback = function()
     vim.cmd("cwindow") -- Opens window only if there are valid errors
   end,
