@@ -1,6 +1,15 @@
 -- Cache to store poetry paths per project root so we don't query system repeatedly
 local venv_cache = {}
 
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 local function get_python_path(root_dir)
   -- Priority 0: Active Shell Virtual Environment (Fastest & Safest)
   -- This works even if root_dir is nil (e.g. library files)
