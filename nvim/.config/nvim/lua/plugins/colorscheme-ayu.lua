@@ -79,8 +79,9 @@ else
           FoldColumn = { bg = "none" },
           EndOfBuffer = { fg = "#151f2d", bg = "none" },
 
-          VertSplit = { link = "Normal" },
-          WinSeparator = { link = "Search" },
+          WinSeparator = { fg = "#3A4555", bg = "none" }, -- Subtle Grey (Matches LineNr)
+          VertSplit = { link = "WinSeparator" },   -- Link old name to new style
+
           WinBar = { bg = "none" },
           WinBarNC = { fg = "#5a6b85", bg = "none" },
 
