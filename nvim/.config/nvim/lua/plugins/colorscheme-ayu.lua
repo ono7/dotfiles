@@ -97,13 +97,22 @@ else
           Todo = { fg = "#d35a63" },
           StatusLine = {
             fg = "#BEBEBC",
-            bg = "#1B2740", -- subtle lift from #151F2D, close to Visual/CursorLine
+            bg = "#233045", -- Lighter, distinct blue-grey (Active Focus)
           },
 
           StatusLineNC = {
-            fg = "#5F6C77", -- Comment tone
-            bg = "#151F2D", -- identical to Normal bg
+            fg = "#5F6C77", -- Comment tone (Dimmed text)
+            bg = "#1A2330", -- Visible separation from Normal (#151F2D)
           },
+          -- StatusLine = {
+          --   fg = "#BEBEBC",
+          --   bg = "#1B2740", -- subtle lift from #151F2D, close to Visual/CursorLine
+          -- },
+          --
+          -- StatusLineNC = {
+          --   fg = "#5F6C77", -- Comment tone
+          --   bg = "#151F2D", -- identical to Normal bg
+          -- },
           Cursor = { bg = "#FFB454", fg = "#151F2D" },
           TermCursor = { link = "Cursor" },
 
