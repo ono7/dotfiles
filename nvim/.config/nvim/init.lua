@@ -89,30 +89,29 @@ if vim.opt.termguicolors then
 end
 
 vim.cmd("syntax off")
-
-require("config.options")
 require("config.keymaps")
+require("config.options")
 require("config.disabled")
 require("config.legacy")
 require("config.abbreviations")
 require("config.diff-settings")
 require("config.vars")
-require("config.helper-functions")
+-- require("config.helper-functions")
 require("config.lazy")
-require("utils.change-path").setup() -- :Cd (toggle root dir and cwd)
-require("utils.create-table").setup()
+-- require("utils.change-path").setup() -- :Cd (toggle root dir and cwd)
+-- require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
 require("config.lsp").setup()
 require("config.neovide")
--- require("utils.help-lookup").setup()
 require("utils.zoxide").setup() -- use fzflua zoxide..
 
 --- these two worktogether
-require("utils.runner").setup() -- runs anything :M <cmd> :)
-require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
+
+-- require("utils.runner").setup() -- runs anything :M <cmd> :)
+-- require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
 require("utils.projects").setup() -- keeps track of project
-require("utils.ruff")
+-- require("utils.ruff")
 
 vim.opt.mouse = "a"
 
