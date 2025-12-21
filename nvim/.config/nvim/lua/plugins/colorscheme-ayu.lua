@@ -80,7 +80,7 @@ else
           EndOfBuffer = { fg = "#151f2d", bg = "none" },
 
           VertSplit = { link = "Normal" },
-          WinSeparator = { link = "Normal" },
+          WinSeparator = { link = "Search" },
           WinBar = { bg = "none" },
           WinBarNC = { fg = "#5a6b85", bg = "none" },
 

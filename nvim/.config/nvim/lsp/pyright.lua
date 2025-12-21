@@ -73,6 +73,7 @@ return {
       client.notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,
       })
+      vim.notify("VENV" .. trim_path(python_path))
     end
 
     -- 2. UX Optimization: Enable Inlay Hints (Neovim 0.10+)

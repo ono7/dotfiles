@@ -88,9 +88,11 @@ inoremap <C-e> <End>
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
-inoremap <M-f> <C-o>e<Right>
+"inoremap <M-f> <C-o>e<Right>
+inoremap <M-f> <S-Right>
 " ~b = moveWordBackward
-inoremap <M-b> <C-o>b
+"inoremap <M-b> <C-o>b
+inoremap <M-b> <S-Left>
 
 " Send Escape+b/f to the shell when Alt-b/f is pressed
 " ~f, ~b
@@ -663,23 +665,58 @@ for _, v in ipairs(r_pair_map) do
 end
 
 --- does not use expression mapping that can cause latency overhead
-k("i", "<BS>", function()
-  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-  if col == 0 then
-    return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+-- k("i", "<BS>", function()
+--   local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   if col == 0 then
+--     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+--   end
+--
+--   local line = vim.fn.getline(".")
+--   if col > #line then
+--     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+--   end
+--
+--   local prev_char = line:sub(col, col)
+--   local next_char = line:sub(col + 1, col + 1)
+--
+--   local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
+--   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+-- end)
+
+-- Add this helper at the top of your file
+local function term(k)
+  return vim.api.nvim_replace_termcodes(k, true, false, true)
+end
+
+vim.keymap.set("i", "<BS>", function()
+  local col = vim.fn.col('.') - 1
+  local line = vim.fn.getline('.')
+  local char_before = line:sub(col, col)
+  local char_after = line:sub(col + 1, col + 1)
+  local pair_map = {
+    ["("] = ")", ["["] = "]", ["{"] = "}", ["<"] = ">",
+    ["'"] = "'", ['"'] = '"', ["`"] = "`"
+  }
+  if pair_map[char_before] == char_after then
+    -- Return literal strings; 'replace_keycodes' handles the translation
+    return "<Del><BS>"
   end
 
-  local line = vim.fn.getline(".")
-  if col > #line then
-    return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
+  return "<BS>"
+end, { expr = true, replace_keycodes = true })
+
+
+vim.keymap.set("i", "<CR>", function()
+  local col = vim.fn.col('.') - 1
+  local line = vim.fn.getline('.')
+  local char = line:sub(col, col)
+  local pairs = { ["{"] = "}", ["["] = "]", ["("] = ")" }
+
+  if pairs[char] then
+    return "<CR>" .. pairs[char] .. "<Esc>O"
   end
-
-  local prev_char = line:sub(col, col)
-  local next_char = line:sub(col + 1, col + 1)
-
-  local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
-end)
+  return "<CR>"
+end, { expr = true, replace_keycodes = true })
 
 -- vim.keymap.set("i", "<CR>", function()
 --   local col = vim.fn.col(".")
