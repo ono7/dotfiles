@@ -35,23 +35,43 @@ M.setup = function()
   if not ok then
     -- Ensure LSP omnifunc is enabled
     --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+  vim.keymap.set("i", "<C-l>", function()
+        local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
 
-    vim.keymap.set("i", "<C-l>", function()
-      local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
-      local buftype = vim.bo.buftype
+        -- Get the character immediately preceding the cursor
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+        local line = vim.api.nvim_get_current_line()
+        local char_before = line:sub(col, col)
 
-      local keys
-      if has_lsp then
-        keys = "<C-x><C-o>" -- LSP fuzzy completion now supported
-      elseif buftype == "" then
-        keys = "<C-x><C-n>" -- keyword completion with fuzzy filtering
-      else
-        return
-      end
+        local keys
+        -- If LSP is active AND we just typed a trigger (dot, colon, etc.), use Omni
+        if has_lsp and char_before:match("[%.:>]$") then
+          keys = "<C-x><C-o>"
+        else
+          -- Otherwise, default to Buffer/Keyword completion (covers your "buffer words" case)
+          keys = "<C-x><C-n>"
+        end
 
-      keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
-      vim.api.nvim_feedkeys(keys, "n", false)
-    end, { noremap = true, silent = true })
+        keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+        vim.api.nvim_feedkeys(keys, "n", false)
+      end, { noremap = true, silent = true })
+
+    -- vim.keymap.set("i", "<C-l>", function()
+    --   local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
+    --   local buftype = vim.bo.buftype
+    --
+    --   local keys
+    --   if has_lsp then
+    --     keys = "<C-x><C-o>" -- LSP fuzzy completion now supported
+    --   elseif buftype == "" then
+    --     keys = "<C-x><C-n>" -- keyword completion with fuzzy filtering
+    --   else
+    --     return
+    --   end
+    --
+    --   keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
+    --   vim.api.nvim_feedkeys(keys, "n", false)
+    -- end, { noremap = true, silent = true })
     -- vim.keymap.set("i", "<C-y>", function()
     --   local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
     --

@@ -83,13 +83,13 @@ inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
 " the alpha and the omega
-inoremap <C-a> <C-o>^
+inoremap <C-a> <C-o>_
 inoremap <C-e> <End>
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
-"inoremap <M-f> <C-o>e<Right>
-inoremap <M-f> <S-Right>
+inoremap <M-f> <C-o>e<Right>
+" inoremap <M-f> <S-Right>
 " ~b = moveWordBackward
 "inoremap <M-b> <C-o>b
 inoremap <M-b> <S-Left>
@@ -190,8 +190,8 @@ endfunction
 inoremap <c-space> <C-o>:call InsertSetMark()<CR>
 inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 
-inoremap <M-o> <C-o>O
-inoremap <M-S-o> <C-o>o
+inoremap <M-S-o> <C-o>O
+inoremap <M-o> <C-o>o
 
 nnoremap <C-d> x
 nnoremap <M-d> dw

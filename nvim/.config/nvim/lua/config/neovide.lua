@@ -4,10 +4,10 @@ if vim.g.neovide then
   -- **** anything shell related for neovide should go into ~/.zprofile ****
 
   -- the most important settings for smooth typing
-  vim.g.neovide_cursor_animation_length = 0.10
-  vim.g.neovide_cursor_trail_size = 0.03
-  -- vim.g.neovide_input_ime = false
+  vim.g.neovide_cursor_trail_size = 0.8
+  vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_refresh_rate = 120
+
   -- vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
   vim.g.neovide_cursor_smooth_blink = true
