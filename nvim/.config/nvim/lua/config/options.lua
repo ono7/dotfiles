@@ -252,7 +252,9 @@ vim.opt.relativenumber = false
 vim.opt.number = false
 vim.opt.ruler = true
 vim.opt.complete = ".,w,b"
-vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
+-- vim.opt.shortmess = "aoOstTWICc" -- F dont show file info when editing file, useful when statusline is enabled already
+-- Add 'F' to don't give the file info when editing a file
+vim.opt.shortmess = "aoOstTWICcF"
 vim.opt.showbreak = [[↪ ]]
 vim.opt.showmatch = true -- matchparen
 vim.opt.matchtime = 0
