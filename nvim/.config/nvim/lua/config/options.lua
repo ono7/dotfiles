@@ -15,9 +15,14 @@ vim.opt.path = ".,**"
 -- vim.opt.path = ".,**,**/.*/**"
 vim.opt.shell = "zsh"
 
--- vim.opt.shada = "'100,<2000,s200,:200,/200,h,f1,r/COMMIT_EDITMSG$"
-
-vim.opt.shada = "'100,<2000,s200,:1000,/1000,h,f1,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+-- Shada (Shared Data) Performance Config
+-- '100  : Remember marks for 100 previously edited files
+-- <50   : Save at most 50 lines for each register (prevents bloat)
+-- s10   : Skip any item larger than 10KB (critical for speed)
+-- h     : Do not restore 'hlsearch' highlighting on startup
+-- :1000 : Remember 1000 command line history items
+-- /1000 : Remember 1000 search history items
+vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
 
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
@@ -217,6 +222,7 @@ vim.opt.joinspaces = false
 
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
+vim.opt.winbar = ""
 vim.opt.statusline = table.concat({
   " %{expand('%:h:t')}/%t", -- Left: Parent/Filename
   "%m%r%h", -- Left: Flags
@@ -256,7 +262,7 @@ vim.opt.complete = ".,w,b"
 -- Add 'F' to don't give the file info when editing a file
 vim.opt.shortmess = "aoOstTWICcF"
 vim.opt.showbreak = [[↪ ]]
-vim.opt.showmatch = true -- matchparen
+vim.opt.showmatch = false -- matchparen
 vim.opt.matchtime = 0
 vim.opt.showtabline = 1
 vim.opt.scrollback = 1000
@@ -282,6 +288,6 @@ vim.opt.timeout = false -- remove timeout for partially typed commands
 vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.titlestring = ""
-vim.opt.lazyredraw = true -- Don't redraw during macros
-vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.lazyredraw = false -- this is better false on neovim 0.11+
+vim.opt.updatetime = 400 -- Faster CursorHold events
 vim.opt.smoothscroll = false -- disable for performance

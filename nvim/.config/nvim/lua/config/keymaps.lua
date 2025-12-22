@@ -382,15 +382,29 @@ augroup FormatPrg
   endif
 augroup end
 
-if has('clipboard')
-  if has('mac') || !empty($DISPLAY)
-    if has('unnamedplus')
-      set clipboard=unnamedplus
-    else
-      set clipboard=unnamed
-    endif
-  endif
-endif
+"if has('clipboard')
+"  if has('mac') || !empty($DISPLAY)
+"    if has('unnamedplus')
+"      set clipboard=unnamedplus
+"    else
+"      set clipboard=unnamed
+"    endif
+"  endif
+"endif
+
+set clipboard=""
+" Yank to system clipboard
+" Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
+nnoremap <leader>y "+y
+" Usage: Select text, then <leader>y
+vnoremap <leader>y "+y
+
+" Paste from system clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+" Optional: Yank whole line to system clipboard
+nnoremap <leader>Y "+Y
 
 if exists('$SSH_TTY')
   function! Osc52yank()
@@ -689,13 +703,18 @@ local function term(k)
 end
 
 vim.keymap.set("i", "<BS>", function()
-  local col = vim.fn.col('.') - 1
-  local line = vim.fn.getline('.')
+  local col = vim.fn.col(".") - 1
+  local line = vim.fn.getline(".")
   local char_before = line:sub(col, col)
   local char_after = line:sub(col + 1, col + 1)
   local pair_map = {
-    ["("] = ")", ["["] = "]", ["{"] = "}", ["<"] = ">",
-    ["'"] = "'", ['"'] = '"', ["`"] = "`"
+    ["("] = ")",
+    ["["] = "]",
+    ["{"] = "}",
+    ["<"] = ">",
+    ["'"] = "'",
+    ['"'] = '"',
+    ["`"] = "`",
   }
   if pair_map[char_before] == char_after then
     -- Return literal strings; 'replace_keycodes' handles the translation
@@ -705,10 +724,9 @@ vim.keymap.set("i", "<BS>", function()
   return "<BS>"
 end, { expr = true, replace_keycodes = true })
 
-
 vim.keymap.set("i", "<CR>", function()
-  local col = vim.fn.col('.') - 1
-  local line = vim.fn.getline('.')
+  local col = vim.fn.col(".") - 1
+  local line = vim.fn.getline(".")
   local char = line:sub(col, col)
   local pairs = { ["{"] = "}", ["["] = "]", ["("] = ")" }
 

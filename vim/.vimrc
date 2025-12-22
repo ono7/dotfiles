@@ -75,7 +75,7 @@ set path=.,**
 set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
 set sw=2 ts=2
 set wildmenu wildmode=longest:full,full wildignorecase
-set lazyredraw hidden updatetime=300
+set lazyredraw hidden updatetime=400
 set incsearch ignorecase smartcase autoindent cindent smartindent
 set nohlsearch
 set nonumber norelativenumber nocursorline
@@ -106,6 +106,7 @@ set statusline+=%=                       " Spring 1 (Push right)
 set statusline+=\ %l:%c\                 " Center: Line:Col (with padding)
 set statusline+=%=                       " Spring 2 (Push left)
 set statusline+=\ %p%%\                  " Right: Percent
+set noshowmatch
 
 set termguicolors
 if has('win32') || has('win64')
@@ -137,9 +138,23 @@ if exists('+wildoptions')
   endtry
 endif
 
-if has('mac')
-  set clipboard=unnamedplus
-endif
+"if has('mac')
+"  set clipboard=unnamedplus
+"endif
+
+set clipboard=""
+" Yank to system clipboard
+" Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
+nnoremap <leader>y "+y
+" Usage: Select text, then <leader>y
+vnoremap <leader>y "+y
+
+" Paste from system clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+" Optional: Yank whole line to system clipboard
+nnoremap <leader>Y "+Y
 
 
 if exists('+wildoptions')
