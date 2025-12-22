@@ -35,22 +35,22 @@ M.setup = function()
   if not ok then
     -- Ensure LSP omnifunc is enabled
     --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-  vim.keymap.set("i", "<C-l>", function()
-    -- Check if any LSP client is attached to the current buffer
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    vim.keymap.set("i", "<C-l>", function()
+      -- Check if any LSP client is attached to the current buffer
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
 
-    -- If LSP is attached, trigger Omni Completion (<C-x><C-o>)
-    if #clients > 0 then
-      return "<C-x><C-o>"
-    end
+      -- If LSP is attached, trigger Omni Completion (<C-x><C-o>)
+      if #clients > 0 then
+        return "<C-x><C-o>"
+      end
 
-    -- Fallback: If no LSP, trigger Buffer Keyword Completion (<C-x><C-n>)
-    return "<C-x><C-n>"
-  end, {
-    expr = true,             -- The function returns a string to be executed as keys
-    replace_keycodes = true, -- Ensures <C-x> codes are interpreted correctly
-    desc = "Trigger LSP completion if available, else buffer words"
-  })
+      -- Fallback: If no LSP, trigger Buffer Keyword Completion (<C-x><C-n>)
+      return "<C-x><C-n>"
+    end, {
+      expr = true, -- The function returns a string to be executed as keys
+      replace_keycodes = true, -- Ensures <C-x> codes are interpreted correctly
+      desc = "Trigger LSP completion if available, else buffer words",
+    })
     -- vim.keymap.set("i", "<C-l>", function()
     --   local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
     --   local buftype = vim.bo.buftype
@@ -118,6 +118,7 @@ M.setup = function()
   vim.diagnostic.config({
     update_in_insert = false,
     virtual_text = false,
+    severity_sort = true,
   })
 
   --- Diagnostic auto-management ---
