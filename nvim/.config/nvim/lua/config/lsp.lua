@@ -36,26 +36,21 @@ M.setup = function()
     -- Ensure LSP omnifunc is enabled
     --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   vim.keymap.set("i", "<C-l>", function()
-        local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
+    -- Check if any LSP client is attached to the current buffer
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
-        -- Get the character immediately preceding the cursor
-        local col = vim.api.nvim_win_get_cursor(0)[2]
-        local line = vim.api.nvim_get_current_line()
-        local char_before = line:sub(col, col)
+    -- If LSP is attached, trigger Omni Completion (<C-x><C-o>)
+    if #clients > 0 then
+      return "<C-x><C-o>"
+    end
 
-        local keys
-        -- If LSP is active AND we just typed a trigger (dot, colon, etc.), use Omni
-        if has_lsp and char_before:match("[%.:>]$") then
-          keys = "<C-x><C-o>"
-        else
-          -- Otherwise, default to Buffer/Keyword completion (covers your "buffer words" case)
-          keys = "<C-x><C-n>"
-        end
-
-        keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
-        vim.api.nvim_feedkeys(keys, "n", false)
-      end, { noremap = true, silent = true })
-
+    -- Fallback: If no LSP, trigger Buffer Keyword Completion (<C-x><C-n>)
+    return "<C-x><C-n>"
+  end, {
+    expr = true,             -- The function returns a string to be executed as keys
+    replace_keycodes = true, -- Ensures <C-x> codes are interpreted correctly
+    desc = "Trigger LSP completion if available, else buffer words"
+  })
     -- vim.keymap.set("i", "<C-l>", function()
     --   local has_lsp = next(vim.lsp.get_clients({ bufnr = 0 })) ~= nil
     --   local buftype = vim.bo.buftype
@@ -117,7 +112,7 @@ M.setup = function()
   end, { desc = "LSP: Hover documentation" })
 
   --- Completion options ---
-  -- vim.o.completeopt = "menu,noinsert,popup,fuzzy"
+  vim.o.completeopt = "menuone,fuzzy"
 
   --- Diagnostic configuration ---
   vim.diagnostic.config({

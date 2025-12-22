@@ -1,4 +1,4 @@
-vim.opt.completeopt = { "menu", "menuone", "fuzzy" }
+-- vim.opt.completeopt = { "menu", "menuone", "fuzzy" }
 vim.opt.complete = { ".", "w", "b" }
 
 vim.g.mapleader = " "

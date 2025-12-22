@@ -57,19 +57,19 @@ if vim.g.neovide then
 
   vim.g.neovide_scale_factor = 1.0
   --- change font size with
-  local function change_scale(delta)
+  local function change_scale_factor(delta)
     local s = vim.g.neovide_scale_factor * delta
+    -- Clamps the scale between 0.8 (minimum) and 1.2 (maximum)
     vim.g.neovide_scale_factor = math.max(0.8, math.min(1.2, s))
   end
 
   vim.keymap.set("n", "<C-=>", function()
-    change_scale_factor(1.01) -- Changed from 1.25 to 1.1 for smaller increase
+    change_scale_factor(1.1) -- Increased step size slightly for visibility
   end)
 
   vim.keymap.set("n", "<C-->", function()
-    change_scale_factor(1 / 1.01) -- Changed from 1.25 to 1.1 for smaller decrease
+    change_scale_factor(1 / 1.1)
   end)
-
   -- unbind quit from neovide
   -- vim.keymap.set({ "n", "i", "v", "t" }, "<D-q>", "")
   vim.g.neovide_padding_top = 0

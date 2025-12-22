@@ -20,7 +20,7 @@ wsl = false
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 # edging = "antialias"
 height = 15
-size = 23
+size = 25
 
 # best for macos...
 hinting = "none"
