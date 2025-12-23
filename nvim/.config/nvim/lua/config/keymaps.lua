@@ -382,29 +382,31 @@ augroup FormatPrg
   endif
 augroup end
 
-"if has('clipboard')
-"  if has('mac') || !empty($DISPLAY)
-"    if has('unnamedplus')
-"      set clipboard=unnamedplus
-"    else
-"      set clipboard=unnamed
-"    endif
-"  endif
-"endif
+if has('clipboard')
+  if has('mac') || !empty($DISPLAY)
+    if has('unnamedplus')
+      set clipboard=unnamedplus
+    else
+      set clipboard=unnamed
+    endif
+  endif
+endif
 
-set clipboard=""
+"set clipboard="unnamedplus"
+
 " Yank to system clipboard
 " Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
-nnoremap <leader>y "+y
+"nnoremap <leader>y "+y
 " Usage: Select text, then <leader>y
-vnoremap <leader>y "+y
+"vnoremap <leader>y "+y
 
 " Paste from system clipboard
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
+"nnoremap <leader>p "+p
+"vnoremap <leader>p "+p
 
 " Optional: Yank whole line to system clipboard
-nnoremap <leader>Y "+Y
+
+"nnoremap <leader>Y "+Y
 
 if exists('$SSH_TTY')
   function! Osc52yank()
