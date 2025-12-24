@@ -585,7 +585,7 @@ local function toggle_maximize()
   end
 end
 
-vim.keymap.set({ "n", "t" }, "<C-o>", toggle_maximize, { silent = true })
+vim.keymap.set({ "n", "t" }, "<M-l>", toggle_maximize, { silent = true })
 
 local function check_buf(bufnr)
   --- checks if this is a valid buffer that we can save to ---
