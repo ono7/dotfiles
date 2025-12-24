@@ -70,7 +70,7 @@ blink_interval = 300
 
 [colors.cursor]
 text = "#151F2D"
-cursor = "#FFB454"
+cursor = "#E7C547"
 
 [debug]
 log_level = "Off"
