@@ -484,35 +484,40 @@ function setup_keys() {
     # =======================================================
 
     # --- Standard Parity (Fixing your ^d issue) ---
-    bindkey -M viins '^D' delete-char             # Fixes Ctrl+D
-    bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
-    bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
-    bindkey -M viins '^U' kill-whole-line         # Unix standard
-    bindkey -M viins '^K' kill-line   # Emacs-style C-k
-    bindkey -M viins '^W' backward-kill-word      # Unix standard
-
-    # --- Character Movement (Vim/Emacs Parity) ---
-    bindkey -M viins '^F' forward-char
-    bindkey -M viins '^B' backward-char
-    bindkey -M viins '^N' down-line-or-history
-    bindkey -M viins '^P' up-line-or-history
-    bindkey -M viins '^A' beginning-of-line
-    bindkey -M viins '^E' end-of-line
-
-    # --- Option Key Movement (Alacritty 'Both' sends Escape+Key) ---
-    # We use '\e' instead of '^[' to ensure syntax is correct
-    bindkey -M viins '\ef' emacs-forward-word    # Option-f
-    bindkey -M viins '\eb' backward-word         # Option-b
-
-    # --- Option Key Deletion (Parity with your macOS expectations) ---
-    bindkey -M viins '\ed' delete-word           # Option-d (Delete word forward)
-    bindkey -M viins '\e^?' backward-kill-word   # Option-Backspace (Delete word backward)
+    # bindkey -M viins '^D' delete-char             # Fixes Ctrl+D
+    # bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
+    # bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
+    # bindkey -M viins '^U' kill-whole-line         # Unix standard
+    # bindkey -M viins '^K' kill-line   # Emacs-style C-k
+    # bindkey -M viins '^W' backward-kill-word      # Unix standard
+    #
+    # # --- Character Movement (Vim/Emacs Parity) ---
+    # bindkey -M viins '^F' forward-char
+    # bindkey -M viins '^B' backward-char
+    # bindkey -M viins '^N' down-line-or-history
+    # bindkey -M viins '^P' up-line-or-history
+    # bindkey -M viins '^A' beginning-of-line
+    # bindkey -M viins '^E' end-of-line
+    #
+    # # --- Option Key Movement (Alacritty 'Both' sends Escape+Key) ---
+    # # We use '\e' instead of '^[' to ensure syntax is correct
+    # bindkey -M viins '\ef' emacs-forward-word    # Option-f
+    # bindkey -M viins '\eb' backward-word         # Option-b
+    #
+    # # --- Option Key Deletion (Parity with your macOS expectations) ---
+    # bindkey -M viins '\ed' delete-word           # Option-d (Delete word forward)
+    # bindkey -M viins '\e^?' backward-kill-word   # Option-Backspace (Delete word backward)
 
     # =======================================================
     # SEARCH & UTILS
     # =======================================================
+
+    # back to emacs bindings
+    bindkey -e
     bindkey ' ' magic-space                      # History expansion on space
     bindkey "^O" accept-line-and-down-history
+
+    bindkey '^K' kill-line   # Emacs-style C-k
 
     # --- FZF Integration ---
     bindkey "^R" fzf-history-widget

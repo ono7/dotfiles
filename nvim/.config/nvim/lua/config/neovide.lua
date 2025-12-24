@@ -96,7 +96,8 @@ if vim.g.neovide then
   vim.keymap.set("c", "<C-S-v>", "<C-r>+", { noremap = true })
   vim.keymap.set("v", "<C-S-v>", '"+p', { noremap = true })
   vim.keymap.set("t", "<C-S-v>", '<C-\\><C-n>"+pi', { noremap = true })
-  vim.keymap.set({ "n", "t" }, "<C-k>", "<C-w>k", { noremap = true })
+  -- vim.keymap.set({ "n", "t" }, "<C-k>", "<C-w>k", { noremap = true })
+  vim.keymap.set({ "n" }, "<C-k>", "<C-w>k", { noremap = true })
 
   -- Tab navigation (works in terminal and Neovide)
   vim.keymap.set({ "n", "t", "x" }, "<C-1>", "1gt", opt)
