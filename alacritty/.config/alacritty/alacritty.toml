@@ -64,6 +64,10 @@ end   = { foreground = "#151F2D", background = "#7AA7D8" }
 # osc52 = "Disabled" | "OnlyCopy" | "OnlyPaste" | "CopyPaste"
 osc52 = "CopyPaste"
 
+[cursor]
+style = { blinking = "Always" }
+blink_interval = 300
+
 [colors.cursor]
 text = "#151F2D"
 cursor = "#FFB454"
