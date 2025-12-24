@@ -227,7 +227,7 @@ vim.opt.statusline = table.concat({
   " %{expand('%:h:t')}/%t", -- Left: Parent/Filename
   "%m%r%h", -- Left: Flags
   "%=", -- Spring 1
-  " %l,%c ", -- Center: Line:Col
+  " (%l,%c) ", -- Center: Line:Col
   "%=", -- Spring 2
   " %p%% ", -- Right: Percent
 })
