@@ -1,4 +1,4 @@
-;; Minimal UI
+;;  -*- lexical-binding: t; -*-
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -17,8 +17,8 @@
 ;; Cursor style
 (setq-default cursor-type 'box)
 (setq x-stretch-cursor t)
-(set-cursor-color "#FFD700")
-(blink-cursor-mode -1)
+;; (set-cursor-color "#FFD700")
+(blink-cursor-mode 1)
 
 ;; Disable backup/autosave
 (setq make-backup-files nil

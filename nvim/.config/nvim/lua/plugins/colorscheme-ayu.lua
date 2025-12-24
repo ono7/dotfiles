@@ -80,7 +80,7 @@ else
           EndOfBuffer = { fg = "#151f2d", bg = "none" },
 
           WinSeparator = { fg = "#3A4555", bg = "none" }, -- Subtle Grey (Matches LineNr)
-          VertSplit = { link = "WinSeparator" },   -- Link old name to new style
+          VertSplit = { link = "WinSeparator" }, -- Link old name to new style
 
           WinBar = { bg = "none" },
           WinBarNC = { fg = "#5a6b85", bg = "none" },
@@ -94,7 +94,8 @@ else
           Function = { fg = "#AABFD9" },
 
           -- 4. ALERTS & MATCHING
-          Question = { fg = "#aad94c" },
+          -- Question = { fg = "#aad94c" },
+          Question = { link = "String" },
           Todo = { fg = "#d35a63" },
           StatusLine = {
             fg = "#BEBEBC",

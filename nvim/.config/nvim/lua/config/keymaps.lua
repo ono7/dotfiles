@@ -67,6 +67,7 @@ function! DuplicateAndMark()
 endfunction
 
 inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
+nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
 
 " we lose the ability to do C-r in insert...
 " but gain navigational speed

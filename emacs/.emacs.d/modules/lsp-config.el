@@ -67,12 +67,6 @@ Otherwise, show full LSP documentation for the symbol at point."
 ;; Disable go-mode default bindings
 ;; ============================
 
-(with-eval-after-load 'go-mode
-  ;; Remove go-mode’s default K binding in both vanilla + evil
-  (define-key go-mode-map (kbd "K") nil)
-  (with-eval-after-load 'evil
-    (evil-define-key 'normal go-mode-map (kbd "K") nil)))
-
 ;; ============================
 ;; Evil Keybindings for LSP
 ;; ============================
@@ -81,24 +75,24 @@ Otherwise, show full LSP documentation for the symbol at point."
   (with-eval-after-load 'evil
     ;; Navigation
     (evil-define-key 'normal lsp-mode-map
-      (kbd "gd") #'lsp-find-definition
-      (kbd "gD") #'lsp-find-declaration
-      (kbd "gi") #'lsp-find-implementation
-      (kbd "go") #'lsp-find-type-definition
-      (kbd "gr") #'lsp-find-references
+		     (kbd "gd") #'lsp-find-definition
+		     (kbd "gD") #'lsp-find-declaration
+		     (kbd "gi") #'lsp-find-implementation
+		     (kbd "go") #'lsp-find-type-definition
+		     (kbd "gr") #'lsp-find-references
 
-      (kbd "gl") #'flymake-show-buffer-diagnostics
-      (kbd "]d") #'flycheck-next-error
-      (kbd "[d") #'flycheck-previous-error
+		     (kbd "gl") #'flymake-show-buffer-diagnostics
+		     (kbd "]d") #'flycheck-next-error
+		     (kbd "[d") #'flycheck-previous-error
 
-      ;; Rename
-      (kbd "gR") #'lsp-rename
+		     ;; Rename
+		     (kbd "gR") #'lsp-rename
 
-      ;; Code actions
-      (kbd "ga") #'lsp-execute-code-action
+		     ;; Code actions
+		     (kbd "ga") #'lsp-execute-code-action
 
-      ;; Format buffer
-      (kbd "g=") #'lsp-format-buffer)
+		     ;; Format buffer
+		     (kbd "g=") #'lsp-format-buffer)
 
     ;; Documentation toggle (your K key)
     (define-key evil-normal-state-map (kbd "K") #'my/lsp-describe-toggle)))

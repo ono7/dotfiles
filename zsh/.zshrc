@@ -477,7 +477,7 @@ ct () {
 
 function setup_keys() {
     # 1. Reset to Vi Mode (This clears previous keymaps!)
-    bindkey -v
+    # bindkey -v
 
     # =======================================================
     # VI INSERT MODE MAPPINGS (-M viins)
