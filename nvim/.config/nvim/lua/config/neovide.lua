@@ -10,8 +10,8 @@ if vim.g.neovide then
 
   -- vim.g.neovide_cursor_vfx_mode = ""
   vim.g.neovide_input_macos_option_key_is_meta = "both"
-  vim.g.neovide_cursor_smooth_blink = true
-  vim.g.neovide_cursor_blink = false
+  vim.g.neovide_cursor_smooth_blink = false
+  vim.g.neovide_cursor_blink = true
   vim.g.neovide_cursor_blink_interval = 500
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_scroll_animation_length = 0

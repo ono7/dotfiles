@@ -10,7 +10,7 @@ srgb = true
 tabs = true
 theme = "dark"
 title-hidden = true
-vsync = false
+vsync = true
 wsl = false
 
 [font]
