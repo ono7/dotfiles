@@ -7,7 +7,7 @@ c.TerminalInteractiveShell.timeoutlen = 0.01  # 10ms timeout (or use 0.01 for 10
 
 c.TerminalInteractiveShell.colors = "Linux"  # This gives a good dark-background preset
 c.TerminalInteractiveShell.true_color = True
-c.TerminalInteractiveShell.editing_mode = "vi"
+# c.TerminalInteractiveShell.editing_mode = "vi"
 
 # Custom colors
 c.colors_linux = {
