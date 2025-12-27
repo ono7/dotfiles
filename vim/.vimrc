@@ -103,7 +103,7 @@ set statusline=
 set statusline+=\ %{expand('%:h:t')}/%t  " Left: Parent/Filename
 set statusline+=%m%r%h                   " Left: Flags
 set statusline+=%=                       " Spring 1 (Push right)
-set statusline+=\ %l:%c\                 " Center: Line:Col (with padding)
+set statusline+=\ (%l:%c)\                 " Center: Line:Col (with padding)
 set statusline+=%=                       " Spring 2 (Push left)
 set statusline+=\ %p%%\                  " Right: Percent
 set noshowmatch
@@ -142,20 +142,19 @@ endif
 "  set clipboard=unnamedplus
 "endif
 
-set clipboard=""
-" Yank to system clipboard
-" Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
-nnoremap <leader>y "+y
-" Usage: Select text, then <leader>y
-vnoremap <leader>y "+y
-
-" Paste from system clipboard
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-
-" Optional: Yank whole line to system clipboard
-nnoremap <leader>Y "+Y
-
+"set clipboard=""
+"" Yank to system clipboard
+"" Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
+"nnoremap <leader>y "+y
+"" Usage: Select text, then <leader>y
+"vnoremap <leader>y "+y
+"
+"" Paste from system clipboard
+"nnoremap <leader>p "+p
+"vnoremap <leader>p "+p
+"
+"" Optional: Yank whole line to system clipboard
+"nnoremap <leader>Y "+Y
 
 if exists('+wildoptions')
   try
@@ -225,18 +224,6 @@ inoremap <C-f> <Right>
 " the alpha and the omega
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
-
-" Fix Meta/Alt key detection for non-Neovim
-if !has('nvim')
-    "execute "set <M-f>=\ef"
-    "execute "set <M-b>=\eb"
-    "execute "set <C-,>=\<Esc>[44;5u"
-
-   "inoremap <M-d> <C-o>dw
-   "" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
-   "" Note: Mapped to Option-Backspace (<M-BS>) for convenience
-   "inoremap <M-BS> <C-w>
-endif
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
@@ -400,19 +387,11 @@ nnoremap <silent> <leader>n <cmd>e ~/notest.md<cr>
 " nnoremap <esc>r :browse oldfiles<CR>
 nnoremap  :browse oldfiles<CR>
 
-"nnoremap <esc>k <cmd>cprev<cr>
-"nnoremap <esc>j <cmd>cnext<cr>
-
 " xnoremap p P
 xnoremap p "_dP
 
 " make dot operator work in visual mode
 xnoremap . :normal .<CR>
-
-" clear hlsearch on esc
-" nnoremap <silent> <Esc> :noh<CR><Esc>
-
-" nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 
 function! SmartClose()
   let l:current_buf = bufnr("%")
@@ -491,10 +470,8 @@ cnoremap <M-f> <s-right>
 cnoremap <A-BS> <c-w>
 inoremap <C-BS> <c-w>
 inoremap <D-y> <c-x><c-n>
-"inoremap <C-s> <c-x><c-n>
 
 inoremap <C-a> <C-o>^
-" inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
 inoremap <C-BS> <C-w>
