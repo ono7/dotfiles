@@ -5,6 +5,15 @@ function M.setup()
     return
   end
 
+  local function trim_path(s)
+    if #s < 50 then
+      return s
+    else
+      local l = #s / 2
+      return s:sub(-l)
+    end
+  end
+
   local fzf = require("fzf-lua")
 
   local function delete_all_buffers()
@@ -54,7 +63,7 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("lcd " .. path)
-            vim.notify("cwd: \n" .. path)
+            vim.notify("cwd: \n" .. trim_path(path))
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
@@ -68,7 +77,7 @@ function M.setup()
             local path = selected[1]
             delete_all_buffers()
             vim.cmd("lcd " .. path)
-            vim.notify("cwd: \n" .. path)
+            vim.notify("cwd: \n" .. trim_path(path))
             vim.defer_fn(function()
               fzf.files({
                 cwd = path,
