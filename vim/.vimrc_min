@@ -107,6 +107,8 @@ inoremap <C-h> <BS>
 inoremap <C-k> <C-g>u<C-o>D
 inoremap <C-y> <C-g>u<C-o>p
 
+inoremap <C-l> <C-x><C-n>
+
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-e> <End>
@@ -201,3 +203,7 @@ if exists('$SSH_TTY') || $UID == 0
     autocmd TextYankPost * call Osc52yank()
   augroup end
 endif
+
+
+hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+set guicursor=a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor
