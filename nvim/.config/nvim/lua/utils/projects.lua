@@ -55,7 +55,7 @@ end
 function M.add_project()
   local cwd = vim.fn.getcwd()
   db_touch(cwd)
-  vim.notify("Tracked project: " .. cwd, vim.log.levels.INFO)
+  vim.notify("Tracking: " .. trim_path(cwd), vim.log.levels.INFO)
 end
 
 -- 2. Remove Project
