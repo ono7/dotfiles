@@ -64,6 +64,7 @@ else
 
           Comment = { fg = "#5F6C77", italic = true },
           LineNr = { fg = "#3A4555" },
+          GitSignsStagedAdd = { link = "Normal" },
 
           FidgetBorder = { fg = "#151F2D", bg = "#151F2D" },
 
