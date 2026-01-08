@@ -6,6 +6,15 @@ local create_augroup = vim.api.nvim_create_augroup
 --     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 --   end,
 -- })
+vim.api.nvim_create_autocmd("TermClose", {
+  desc = "Close terminal buffer on process exit",
+  callback = function(args)
+    -- Only close if the process exited successfully (code 0)
+    if vim.v.event.status == 0 then
+      vim.api.nvim_buf_delete(args.buf, { force = true })
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
