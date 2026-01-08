@@ -6,6 +6,8 @@ local create_augroup = vim.api.nvim_create_augroup
 --     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 --   end,
 -- })
+
+--- exit term after closing, prevents exit prompt from blocking until cleared
 vim.api.nvim_create_autocmd("TermClose", {
   desc = "Close terminal buffer on process exit",
   callback = function(args)
