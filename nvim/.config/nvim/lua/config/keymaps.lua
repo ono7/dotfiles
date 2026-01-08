@@ -168,8 +168,11 @@ nnoremap <C-w><C-q> <C-w>c
 vnoremap <C-w>q <C-w>c
 
 
+nnoremap <m-t> <cmd>tabnew<cr>
 nnoremap <m-]> <cmd>tabnext<cr>
 nnoremap <m-[> <cmd>tabprev<cr>
+
+
 
 " Set mark in insert mode
 function! InsertSetMark() abort
