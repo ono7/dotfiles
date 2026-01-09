@@ -201,7 +201,7 @@ vls () {
 
 # Connect to remote_pdb with readline support
 # Usage: rpdb [port]
-rpdb() {
+wrap() {
     local port="${1:-4444}"  # Default to 4444 if no argument provided
     socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
 }
