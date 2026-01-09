@@ -67,6 +67,7 @@ osc52 = "CopyPaste"
 [cursor]
 style = { blinking = "Always" }
 blink_interval = 300
+blink_timeout = 0   # 0 disables the timeout
 
 [colors.cursor]
 text = "#151F2D"
