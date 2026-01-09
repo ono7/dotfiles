@@ -134,3 +134,20 @@ vim.api.nvim_create_user_command("GitOpen", function(opts)
   )
   vim.fn.system("open " .. github_file_url)
 end, { nargs = "?" })
+
+vim.api.nvim_create_user_command("Cd", function()
+  -- Start searching from the current buffer's directory, or CWD if the buffer is empty
+  local buf_name = vim.api.nvim_buf_get_name(0)
+  local start_dir = buf_name ~= "" and vim.fs.dirname(buf_name) or vim.fn.getcwd()
+
+  -- Find .git upwards (works for directories and worktree files)
+  local git_marker = vim.fs.find(".git", { path = start_dir, upward = true })[1]
+
+  if git_marker then
+    -- git_marker is the path to .git; the parent is the repo root
+    local root = vim.fs.dirname(git_marker)
+    vim.cmd.lcd(root)
+  else
+    print("not a git repo")
+  end
+end, {})

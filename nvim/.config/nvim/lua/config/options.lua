@@ -216,10 +216,9 @@ vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.isfname:append("@-@")
 -- vim.opt.iskeyword:append("-")
-vim.opt.iskeyword:remove("_")
+vim.opt.iskeyword:append("_")
 vim.opt.iskeyword:remove("-")
 vim.opt.joinspaces = false
-
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
 vim.opt.winbar = ""
