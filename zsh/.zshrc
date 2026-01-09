@@ -199,6 +199,13 @@ vls () {
   fi
 }
 
+# Connect to remote_pdb with readline support
+# Usage: rpdb [port]
+rpdb() {
+    local port="${1:-4444}"  # Default to 4444 if no argument provided
+    socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
+}
+
 # Load the directory stack at startup
 if [[ -f ~/.zdirs ]]; then
     dirstack=( ${(f)"$(< ~/.zdirs)"} )
