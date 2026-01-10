@@ -1,7 +1,7 @@
 ## debug
 
 `pip install remote-pdb`
-`brew install socat`
+`brew install socat` -- does not have readline support, must be manually compiled, see `_info/socat_build.md`
 `brew install rlwrap`
 
 ### use socat to gain readline functionality
@@ -11,6 +11,16 @@ socat readline tcp:localhost:4444
 or
 
 rlwrap nc localhost 4444
+
+## Run until line 478 (the line immediately after the loop block)
+
+escape loop hell
+
+until 478
+
+## inspect
+
+import inspect
 
 pp inspect.signature(nbdevicetype)
 
