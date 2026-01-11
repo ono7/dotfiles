@@ -1,4 +1,7 @@
 ;;; init.el --- Clean, Fast, Modern Emacs Config -*- lexical-binding: t; -*-
+;;
+;; C-x s = save file
+;; C-c f = dired
 
 ;;; 1. Startup & Performance
 (setq gc-cons-threshold (* 100 1024 1024)) ; 100MB GC threshold
@@ -198,6 +201,9 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+;; make isearch space act like lazy greedy operator (.*?)
+(setq search-whitespace-regexp ".*?")
+
 ;;; 6. Module Loader
 (require 'core-ui)
 (require 'core-fonts)
@@ -214,6 +220,14 @@
 ;; (require 'magit-config)
 
 ;; Global default: spaces
-(setq indent-tabs-mode t)
+;; (setq indent-tabs-mode t)
+(setq indent-tabs-mode nil)
 (setq tab-always-indent nil)
 (setq tab-width 4)
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)))
