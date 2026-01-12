@@ -16,9 +16,9 @@ end
 k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
 k("n", "ZQ", "")
-k("i", "<M-e>", "")
+-- k("i", "<M-e>", "")
 k("i", "<M-C-U>", "")
-k("n", "<M-e>", "")
+-- k("n", "<M-e>", "")
 
 k("n", "<space>", "")
 vim.g.mapleader = " "
@@ -48,6 +48,10 @@ inoremap <C-BS> <C-g>u<C-w>
 " move to beginning of doc/end of doc
 inoremap <M-lt> <C-g>u<C-o>gg<C-o>^
 inoremap <M->> <C-g>u<C-o>G<C-o>$
+
+" Emacs-style Paragraph Navigation (Insert Mode)
+inoremap <M-a> <C-o>{
+inoremap <M-e> <C-o>}
 
 " undo in insert mode
 inoremap <C-/> <C-u>
