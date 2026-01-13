@@ -101,7 +101,6 @@ function M.pick_project()
         vim.cmd("lcd " .. path)
         db_touch(path)
 
-        -- FIX: Force `fd` to use the strict path, ignoring git roots
         vim.schedule(function()
           fzf.files({
             cwd = path,
@@ -114,7 +113,6 @@ function M.pick_project()
   })
 end
 
--- 4. Open Last Project Directly (Strict Pathing)
 function M.last_project()
   local projects = load_projects()
   local best_path = nil
@@ -145,7 +143,6 @@ function M.last_project()
   db_touch(best_path) -- Update timestamp so it stays at the top
   vim.notify("CWD: " .. trim_path(best_path))
 
-  -- FIX: Force `fd` to use the strict path, ignoring git roots
   fzf.files({
     cwd = best_path,
     cmd = "fd --type f --hidden --follow --exclude .git",
@@ -153,7 +150,6 @@ function M.last_project()
   })
 end
 
--- Setup
 function M.setup()
   -- User Commands
   vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
@@ -161,7 +157,6 @@ function M.setup()
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
   vim.api.nvim_create_user_command("L", M.last_project, {})
 
-  -- Keymaps
   vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
   vim.keymap.set("n", "<leader>pa", "<cmd>ProjectAdd<CR>", { desc = "Add Project" })
   vim.keymap.set("n", "<leader>pr", "<cmd>ProjectRemove<CR>", { desc = "Remove Project" })

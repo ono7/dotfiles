@@ -1,7 +1,11 @@
 ;;; init.el --- Clean, Fast, Modern Emacs Config -*- lexical-binding: t; -*-
+(global-set-key (kbd "M-s") #'isearch-forward-regexp)
+(global-set-key (kbd "M-r") #'isearch-backward-regexp)
 ;;
 ;; C-x s = save file
 ;; C-c f = dired
+;; c-w on selection (cut selection)
+;; c-x k (kill current buffer)
 
 ;;; 1. Startup & Performance
 (setq gc-cons-threshold (* 100 1024 1024)) ; 100MB GC threshold
@@ -36,6 +40,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+(save-place-mode 1)
 
 (add-hook 'after-init-hook
 	  (lambda ()
@@ -231,3 +236,23 @@
          ("C->"         . mc/mark-next-like-this)
          ("C-<"         . mc/mark-previous-like-this)
          ("C-c C-<"     . mc/mark-all-like-this)))
+
+(with-eval-after-load 'isearch
+  ;; Force immediate movement on first stroke if search string exists
+  (define-key isearch-mode-map (kbd "C-s") 'isearch-repeat-forward)
+  (define-key isearch-mode-map (kbd "C-r") 'isearch-repeat-backward)
+  
+  ;; Map M-s to toggle regex (overriding the M-s prefix within isearch)
+  (define-key isearch-mode-map (kbd "M-s") 'isearch-toggle-regexp))
+
+(setq whitespace-style '(face trailing lines-tail)) ;; Remove 'tabs' from this list
+
+(defun my-go-mode-setup ()
+  "Custom settings for Go mode."
+  (setq tab-width 4))
+
+(add-hook 'go-mode-hook 'my-go-mode-setup)
+
+;; search regex forward and backwards
+(global-set-key (kbd "M-s") #'isearch-forward-regexp)
+(global-set-key (kbd "M-r") #'isearch-backward-regexp)
