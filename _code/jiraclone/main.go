@@ -87,8 +87,9 @@ func (j *JiraClone) ValidateIsStory(issueKey string) error {
 	}
 
 	// Logic: Abort if "Epic" is found (case-insensitive)
-	if strings.EqualFold(meta.Fields.IssueType.Name, "Epic") {
-		return fmt.Errorf("ABORT: Issue %s is an Epic. Only Stories/Tasks can be cloned", issueKey)
+	fieldType := meta.Fields.IssueType.Name
+	if !strings.EqualFold(fieldType, "Story") {
+		return fmt.Errorf("ABORT: Issue %s is an %v. Only Stories/Tasks can be cloned", issueKey, fieldType)
 	}
 
 	return nil
