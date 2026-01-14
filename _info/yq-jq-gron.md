@@ -1,5 +1,9 @@
 ## working with yaml, json and gron
 
+## json to yaml
+
+`%!yq -y`
+
 ### convert yaml to json
 
 `cat docker-compose.yml | yq`
