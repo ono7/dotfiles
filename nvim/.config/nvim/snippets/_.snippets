@@ -42,8 +42,8 @@ snippet c "code block" w
 # snippet note "note" w
 #   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` NOTE(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
 
-# snippet d "done" w
-#   ✅ DONE: `strftime("%Y-%m-%d %H:%M")` ${0:${VISUAL}}
+snippet d "done" w
+   ✅ DONE: `strftime("%Y-%m-%d %H:%M")` ${0:${VISUAL}}
 
 snippet u "inserts username from env" w
   (`$USER`)$0
