@@ -4,6 +4,10 @@ return {
   config = function()
     local fzf = require("fzf-lua")
     local winopts = {
+      on_create = function()
+        -- Prevents 'esc' delay by making it immediate in the terminal
+        vim.keymap.set("t", "<Esc>", "<C-c>", { buffer = true, silent = true })
+      end,
       height = 0.45,
       width = 1,
       row = 1,
