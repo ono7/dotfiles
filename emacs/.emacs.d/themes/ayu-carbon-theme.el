@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (deftheme ayu-carbon "Ayu Carbon — aligned with Neovim ayu-dark overrides, Visual/Search reverted")
 
 (let ((fg      "#BEBEBC")

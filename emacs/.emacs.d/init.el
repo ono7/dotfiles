@@ -1,11 +1,12 @@
 ;;; init.el --- Clean, Fast, Modern Emacs Config -*- lexical-binding: t; -*-
-(global-set-key (kbd "M-s") #'isearch-forward-regexp)
-(global-set-key (kbd "M-r") #'isearch-backward-regexp)
+;; (global-set-key (kbd "M-s") #'isearch-forward-regexp)
+;; (global-set-key (kbd "M-r") #'isearch-backward-regexp)
 ;;
 ;; C-x s = save file
 ;; C-c f = dired
-;; c-w on selection (cut selection)
+;; c-w on selectionqqqq (cut selection)
 ;; c-x k (kill current buffer)
+;; c-u M-|  (pipe selection to external command, like vim :%!cat -s
 
 ;;; 1. Startup & Performance
 (setq gc-cons-threshold (* 100 1024 1024)) ; 100MB GC threshold
@@ -54,6 +55,7 @@
       use-dialog-box nil
       delete-by-moving-to-trash t
       create-lockfiles nil
+
       auto-save-default nil
       make-backup-files nil)
 
@@ -163,7 +165,7 @@
 
 (use-package consult
   :bind (("C-x b" . consult-project-buffer)
-         ("M-s r" . consult-ripgrep)
+         ;; ("M-s r" . consult-ripgrep)
          ("M-y"   . consult-yank-pop)
          ("C-x r b" . consult-bookmark)
          ("M-g g" . consult-goto-line)
@@ -237,22 +239,13 @@
          ("C-<"         . mc/mark-previous-like-this)
          ("C-c C-<"     . mc/mark-all-like-this)))
 
+(use-package pcre2el
+  :ensure t
+  :config
+  ;; This makes isearch-forward (C-s) and isearch-backward (C-r) 
+  ;; use PCRE syntax automatically when regex-mode is toggled.
+  (pcre-mode 1))
+
+;; Update your isearch-mode-map logic to ensure smooth toggling
 (with-eval-after-load 'isearch
-  ;; Force immediate movement on first stroke if search string exists
-  (define-key isearch-mode-map (kbd "C-s") 'isearch-repeat-forward)
-  (define-key isearch-mode-map (kbd "C-r") 'isearch-repeat-backward)
-  
-  ;; Map M-s to toggle regex (overriding the M-s prefix within isearch)
-  (define-key isearch-mode-map (kbd "M-s") 'isearch-toggle-regexp))
-
-(setq whitespace-style '(face trailing lines-tail)) ;; Remove 'tabs' from this list
-
-(defun my-go-mode-setup ()
-  "Custom settings for Go mode."
-  (setq tab-width 4))
-
-(add-hook 'go-mode-hook 'my-go-mode-setup)
-
-;; search regex forward and backwards
-(global-set-key (kbd "M-s") #'isearch-forward-regexp)
-(global-set-key (kbd "M-r") #'isearch-backward-regexp)
+  (define-key isearch-mode-map (kbd "M-s /") #'isearch-toggle-pcre))

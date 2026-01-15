@@ -1,4 +1,4 @@
-;; Fonts
+;; Fonts  -*- lexical-binding: t; -*-
 
 ;; Add line spacing for better readability
 (setq line-spacing 5)
