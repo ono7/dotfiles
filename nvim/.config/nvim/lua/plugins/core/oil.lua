@@ -17,6 +17,17 @@ return {
         ["<C-p>"] = false,
         [set_keys.prefix("v")] = { "actions.select", opts = { vertical = true } },
         [set_keys.prefix("x")] = { "actions.select", opts = { horizontal = true } },
+        ["gd"] = {
+          desc = "Toggle file detail view",
+          callback = function()
+            detail = not detail
+            if detail then
+              require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+            else
+              require("oil").set_columns({ "icon" })
+            end
+          end,
+        },
       },
       view_options = {
         show_hidden = true,
