@@ -218,13 +218,15 @@
 ;; (require 'core-rg)
 (require 'theme-config)
 ;; (require 'org-config)
-;; (require 'lsp-config)
+
 ;; (require 'python-config)
 ;; (require 'go-config)
 ;; (require 'ansible-config)
 ;; (require 'json-config)
 ;; (require 'yaml-config)
 ;; (require 'magit-config)
+
+
 
 ;; Global default: spaces
 ;; (setq indent-tabs-mode t)
@@ -249,3 +251,26 @@
 ;; Update your isearch-mode-map logic to ensure smooth toggling
 (with-eval-after-load 'isearch
   (define-key isearch-mode-map (kbd "M-s /") #'isearch-toggle-pcre))
+
+
+
+;; (after! lsp-mode
+;;     (setq  lsp-go-use-gofumpt t)
+;;        )
+;; automatically organize imports
+;; (add-hook 'go-mode-hook #'lsp-deferred)
+;; Make sure you don't have other goimports hooks enabled.
+;; (defun lsp-go-install-save-hooks ()
+;;  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+;;(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;; enable all analyzers; not done by default
+;; (after! lsp-mode
+;; (setq  lsp-go-analyses '((fieldalignment . t)
+;;                          (nilness . t)
+;;                          (shadow . t)
+;;                          (unusedparams . t)
+;;                          (unusedwrite . t)
+;;                          (useany . t)
+;;                          (unusedvariable . t)))
+;; )
