@@ -167,6 +167,8 @@ else
           IncSearch = { fg = "#151F2D", bg = "#BEBEBC" },
           NormalNC = { link = "Normal" },
           SpecialKey = { fg = "#5F6C77" },
+          TermCursor = { link = "Cursor" },
+          TermCursorNC = { link = "Cursor" },
         },
       })
 
