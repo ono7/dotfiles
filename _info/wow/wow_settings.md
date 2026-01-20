@@ -27,6 +27,7 @@ FSR /console set renderscale 0.999
 Fix overly saturated worl
 
 /console ffxglow 0
+/console ffxglow 1 (to disable)
 
 # macro
 
