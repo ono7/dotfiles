@@ -1,5 +1,11 @@
 https://slothytech.com/world-of-warcraft-best-nvidia-settings/
 
+## midnight edit mode import settings
+
+https://www.luxthos.com/cooldown-manager-profiles-world-of-warcraft-midnight/
+
+https://www.youtube.com/watch?v=hvSz3sNEm10
+
 # make things sharper
 
 /console set ResampleAlwaysSharpen 1
