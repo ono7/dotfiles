@@ -6,7 +6,22 @@ https://www.luxthos.com/cooldown-manager-profiles-world-of-warcraft-midnight/
 
 https://www.youtube.com/watch?v=hvSz3sNEm10
 
-platinator ? vs plater? - Platinator might be ready for midnight
+## addons for midnight
+
+platinator
+account wide interface
+cooldown manager profiles (see link above)
+Auctionator
+Chattymator
+BugSack
+BugGrabber
+Baginator
+Syndicator (shows data on items that might be already owned)
+WilduTools
+DamageMeterFormatting (adds DPS to new damage meter that is built in by blizz)
+DejavCharacterStats (shows ilevel on character gear so we dont have to hover on each piece of gear manually)
+LeatrixPlus
+Plumber (adds quaility of life improvements)
 
 # make things sharper
 
