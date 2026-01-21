@@ -6,6 +6,8 @@ https://www.luxthos.com/cooldown-manager-profiles-world-of-warcraft-midnight/
 
 https://www.youtube.com/watch?v=hvSz3sNEm10
 
+platinator ? vs plater? - Platinator might be ready for midnight
+
 # make things sharper
 
 /console set ResampleAlwaysSharpen 1
