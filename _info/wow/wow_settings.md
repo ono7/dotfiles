@@ -8,20 +8,18 @@ https://www.youtube.com/watch?v=hvSz3sNEm10
 
 ## addons for midnight
 
-platinator
-account wide interface
-cooldown manager profiles (see link above)
-Auctionator
-Chattymator
-BugSack
-BugGrabber
-Baginator
-Syndicator (shows data on items that might be already owned)
-WilduTools
-DamageMeterFormatting (adds DPS to new damage meter that is built in by blizz)
-DejavCharacterStats (shows ilevel on character gear so we dont have to hover on each piece of gear manually)
-LeatrixPlus
-Plumber (adds quaility of life improvements)
+```WowUp-CF Client import string
+eyJjb2xsZWN0aW9uX25hbWUiOiJXb3dVcF9leHBvcnRfMTc2OTA1ODE1Njc1MyIsImNsaWVudF90eXBlIjoiUmV0YWlsIiwiYWRkb25zIjpbeyJpZCI6IjEzNTAxIiwibmFtZSI6IkJhcnRlbmRlcjQiLCJwcm92aWRlcl9uYW1lIjoiQ3Vyc2UiLCJ2ZXJzaW9uX2lkIjoiNzQ4ODM1MSJ9LHsiaWQiOiI0NjQ2IiwibmFtZSI6IlBhd24iLCJwcm92aWRlcl9uYW1lIjoiQ3Vyc2UiLCJ2ZXJzaW9uX2lkIjoiNzQ5ODI2OSJ9LHsiaWQiOiI5NDg1NSIsIm5hbWUiOiJMZWF0cml4IFBsdXMiLCJwcm92aWRlcl9uYW1lIjoiQ3Vyc2UiLCJ2ZXJzaW9uX2lkIjoiNzQ5OTk3OCJ9LHsiaWQiOiI2MjczIiwibmFtZSI6IkJ1Z1NhY2siLCJwcm92aWRlcl9uYW1lIjoiQ3Vyc2UiLCJ2ZXJzaW9uX2lkIjoiNzQ1NTA5NSJ9LHsiaWQiOiIyMzgyIiwibmFtZSI6IkJpZ1dpZ3MgRW5jb3VudGVyIFRvb2xzIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc1MDI3MjAifSx7ImlkIjoiNDM4MyIsIm5hbWUiOiJMaXR0bGVXaWdzIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc0Nzc0MDAifSx7ImlkIjoiOTk4NjEiLCJuYW1lIjoiRGVqYUNoYXJhY3RlclN0YXRzIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc0OTgyMTMifSx7ImlkIjoiNDE5NDMzIiwibmFtZSI6IkJldHRlckNoYXJhY3RlclBhbmVsIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc0OTk4NzkifSx7ImlkIjoiNzA5ODQ3IiwibmFtZSI6IkZyYW1lU29ydCIsInByb3ZpZGVyX25hbWUiOiJDdXJzZSIsInZlcnNpb25faWQiOiI3NDkxMDk3In0seyJpZCI6IjY4MjM5OCIsIm5hbWUiOiJIZWFsdGhCYXJDb2xvciAtIEhlYWx0aCBCYXIgQ29sb3IiLCJwcm92aWRlcl9uYW1lIjoiQ3Vyc2UiLCJ2ZXJzaW9uX2lkIjoiNzUwMTg5MSJ9LHsiaWQiOiIxMzM0NCIsIm5hbWUiOiJCdWdHcmFiYmVyIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc0NTgwMzcifSx7ImlkIjoiMTM2MTI5OSIsIm5hbWUiOiJQbGF0eW5hdG9yIChOYW1lcGxhdGVzKSIsInByb3ZpZGVyX25hbWUiOiJDdXJzZSIsInZlcnNpb25faWQiOiI3NTAzNTEyIn0seyJpZCI6IjgxMjk4MiIsIm5hbWUiOiJEYXJrTW9kZSAvIERhcmsgTW9kZSAoQ29sb3IgSFVELCBVaSAmIFdpbmRvd3MpIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc1MDA3MjgifSx7ImlkIjoiNjg2NjQ2IiwibmFtZSI6Ik1vdXNlb3ZlciBBY3Rpb24gU2V0dGluZ3MgLSBBdXRvbWF0aWMgVUkgRmFkZXIgLSBNb3VzZW92ZXIgRXZlcnl0aGluZyIsInByb3ZpZGVyX25hbWUiOiJDdXJzZSIsInZlcnNpb25faWQiOiI3NDk2NzU2In0seyJpZCI6IjE1OTIiLCJuYW1lIjoiQmFnbm9uIiwicHJvdmlkZXJfbmFtZSI6IkN1cnNlIiwidmVyc2lvbl9pZCI6Ijc1MDEwMTIifV19
+```
+
+## Edit bars settings
+
+import this using the edit menu in wow
+
+```Wow Custom bars/Edit (native bars)
+2 50 0 0 1 7 7 UIParent 0.0 45.0 -1 ##$$%/&('%)#+#,$ 0 1 1 7 7 UIParent 0.0 45.0 -1 ##$$%/&('%(#,$ 0 2 1 7 7 UIParent 0.0 45.0 -1 ##$$%/&('%(#,$ 0 3 1 5 5 UIParent -5.0 -77.0 -1 #$$$%/&('%(#,$ 0 4 1 5 5 UIParent -5.0 -77.0 -1 #$$$%/&('%(#,$ 0 5 0 6 6 UIParent 96.8 4.6 -1 ##$$%/&('%(#,$ 0 6 1 1 4 UIParent 0.0 -50.0 -1 ##$$%/&('%(#,$ 0 7 1 1 4 UIParent 0.0 -100.0 -1 ##$$%/&('%(#,$ 0 10 1 7 7 UIParent 0.0 45.0 -1 ##$$&('% 0 11 1 7 7 UIParent 0.0 45.0 -1 ##$$&('%,# 0 12 1 7 7 UIParent 0.0 45.0 -1 ##$$&('% 1 -1 0 4 4 UIParent 7.4 -99.8 -1 ##$#%# 2 -1 0 5 5 UIParent -2.0 383.3 -1 ##$#%* 3 0 0 4 4 UIParent -295.5 -79.4 -1 $#3# 3 1 0 5 5 UIParent -314.5 -170.8 -1 %#3# 3 2 0 1 1 UIParent 173.5 -691.5 -1 %#&#3# 3 3 0 0 0 UIParent 106.5 -250.1 -1 '$(#)#-5.)/#1$3#5#6(7-7$ 3 4 0 0 0 UIParent 20.4 -188.9 -1 ,#-5.)/#0#1#2(5#6(7-7$ 3 5 0 2 2 UIParent -211.6 -345.0 -1 &#*$3# 3 6 0 2 2 UIParent -285.1 -262.0 -1 -5.)/#4$5#6(7-7$ 3 7 1 4 4 UIParent 0.0 0.0 -1 3# 4 -1 0 4 4 UIParent 1.6 -73.3 -1 # 5 -1 0 4 4 UIParent 3.0 -172.2 -1 # 6 0 0 2 0 MinimapCluster 11.0 0.0 -1 ##$#%#&.(()( 6 1 0 2 8 BuffFrame -15.0 -4.0 -1 ##$#%#'+(()(-$ 6 2 1 1 1 UIParent 0.0 -25.0 -1 ##$#%$&.(()(+#,-,$ 7 -1 0 4 4 UIParent -487.0 450.0 -1 # 8 -1 1 6 6 UIParent 35.0 50.0 -1 #'$A%$&i 9 -1 1 7 7 UIParent 0.0 45.0 -1 # 10 -1 1 0 0 UIParent 16.0 -116.0 -1 # 11 -1 0 1 1 UIParent 427.0 -754.0 -1 # 12 -1 0 1 1 UIParent 665.0 -354.0 -1 ##$#%% 13 -1 0 6 6 UIParent 40.4 5.5 -1 ##$#%)&- 14 -1 1 2 2 MicroButtonAndBagsBar 0.0 10.0 -1 ##$#%( 15 0 0 1 1 UIParent 2.0 -27.4 -1 # 15 1 0 1 1 UIParent -1.7 -2.9 -1 # 16 -1 0 7 7 UIParent 369.0 104.0 -1 #( 17 -1 1 1 1 UIParent 0.0 -100.0 -1 ## 18 -1 1 5 5 UIParent 0.0 0.0 -1 #- 19 -1 1 7 7 UIParent 0.0 0.0 -1 ## 20 0 0 4 4 UIParent -3.7 -200.9 -1 ##$/%$&('%(-($)#+$,$-$ 20 1 0 7 7 UIParent 9.5 243.6 -1 ##$*%$&('%(-($)#+$,$-$ 20 2 0 4 4 UIParent -2.1 -149.0 -1 ##$$%$&('((-($)#+$,$-$ 20 3 1 7 7 UIParent 420.0 430.0 -1 #$$$%#&('((-($)#*#+$,$-$.-.$ 21 -1 1 7 7 UIParent -410.0 380.0 -1 ##$# 22 0 1 8 7 UIParent -457.0 336.0 -1 #$$$%#&('((#)U*$+$,$ 22 1 1 1 1 UIParent 0.0 -40.0 -1 &('()U*#+$ 22 2 1 1 1 UIParent 0.0 -90.0 -1 &('()U*#+$ 22 3 1 1 1 UIParent 0.0 -130.0 -1 &('()U*#+$ 23 -1 1 0 0 UIParent 0.0 0.0 -1 ##$#%$&-&$'7(%)U+$,$-$.(/U
+
+```
 
 # make things sharper
 
