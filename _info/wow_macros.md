@@ -35,6 +35,10 @@ reference: `https://huntsmanslodge.com/9392/hunter-macros-for-pvp/`
 /cast [@mouseover,help,nodead] [@player] Word of Glory
 /cast [@mouseover,help,nodead] [@player] Flash of Light
 
+-- death grip
+#showtooltip
+/cast [@mouseover,harm,nodead] [] Death Grip
+
 -- flare
 /cast !Flare
 
