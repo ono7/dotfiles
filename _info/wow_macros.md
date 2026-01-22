@@ -5,6 +5,11 @@ Prioritize mouse over targets
 reference: `https://huntsmanslodge.com/9392/hunter-macros-for-pvp/`
 
 ```
+-- nearest target
+/cleartarget
+/targetenemy [noexists][dead]
+/cast Concusive Shot
+
 -- trinkets
 /use 13 or /use 14
 
@@ -19,13 +24,16 @@ reference: `https://huntsmanslodge.com/9392/hunter-macros-for-pvp/`
 
 
 -- single macros
-/cast [@mouseover,harm][harm] Silencing Shot
-/cast [@mouseover,harm][harm] Scatter Shot
+/cast [@mouseover,harm,nodead][harm] Silencing Shot
+/cast [@mouseover,harm,nodeada][harm] Scatter Shot
 
 -- cast over friendly if mouse over, or self
 /cast [@mouseover,help][@player] Intervene
 /cast [@mouseover,help][@player] Roar of Sacrifice
 /cast [@mouseover,help][@player] Master's Call
+
+/cast [@mouseover,help,nodead] [@player] Word of Glory
+/cast [@mouseover,help,nodead] [@player] Flash of Light
 
 -- flare
 /cast !Flare
