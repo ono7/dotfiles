@@ -377,4 +377,7 @@ if command -v direnv &>/dev/null; then
   eval "$(direnv hook bash)"
 fi
 
+# increase open file count for ansible on macos
+ulimit -n 10240
+
 clear && uptime
