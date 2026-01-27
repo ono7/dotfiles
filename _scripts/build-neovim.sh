@@ -63,7 +63,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 elif [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ] || command -v pacman >/dev/null 2>&1; then
   log "Arch Linux/Manjaro detected. Installing packages..."
   # Remove existing neovim if installed via pacman
-  sudo pacman -Syy
+  sudo pacman -Syu
   sudo pacman -R neovim --noconfirm || true
   # Install build dependencies - based on official Arch neovim package
   sudo pacman -S --needed --noconfirm \
