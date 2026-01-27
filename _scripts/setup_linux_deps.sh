@@ -21,7 +21,7 @@ install_arch_packages() {
   log "setting up Arch Linux dependencies (pacman)"
 
   # Update package database
-  sudo pacman -Sy
+  sudo pacman -Syu
 
   # Install base development tools and dependencies
   sudo pacman -S --needed --noconfirm base-devel procps curl file git
