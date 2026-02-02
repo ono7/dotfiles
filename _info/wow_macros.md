@@ -1,12 +1,18 @@
 ##
 
---
+-- dynamically set SpellQueueWindow
+
+```
+/run local _,_,_,lag = GetNetStats() local tol = 100 SetCVar("SpellQueueWindow", lag + tol) print("SpellQueue set to ".. (lag + tol) .." (Ping: ".. lag ..")")
+
 
 -- this should be latency + 120
 /run SetCVar("SpellQueueWindow", 200)
 
 -- set max Zoom, fix mouse in macos, set max distance to render nameplates
 /run SetCVar("Sound_NumChannels", 128); SetCVar("cameraDistanceMaxZoomFactor", 2.6); SetCVar("rawMouseEnable", 1); SetCVar("nameplateMaxDistance", 60)
+
+```
 
 # hunter
 
