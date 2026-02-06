@@ -1,6 +1,7 @@
 ## check for merge conflicts without making changes
 
 checks this two branches and reports any conflicts, this is done in memory
+
 `git merge-tree origin/main origin/develop`
 
 ```
@@ -14,6 +15,7 @@ Auto-merging development/nautobot_config.py
 Auto-merging mi_nautobot_extensions/jobs.py
 Auto-merging pyproject.toml
 CONFLICT (content): Merge conflict in pyproject.toml
+
 󰀵   󰋜 ~/work/mi-nautobot-extensions on main s?3  🐍 v3.11.11 📦 v1.2.2
 ╰─❯ git diff 203019a 498695a
 
@@ -24,6 +26,9 @@ CONFLICT (content): Merge conflict in pyproject.toml
 git diff 203019a 498695a
 
 ```
+
+see the conflict between the two
+`git diff 203019a 498695a`
 
 ## reset back without losing changes
 
