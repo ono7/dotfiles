@@ -8,7 +8,7 @@
 
 [commit]
     gpgsign = true
-	verbose = true
+  verbose = true
 
 [tag]
     gpgsign = true
@@ -26,15 +26,15 @@
     excludesfile = ~/.gitignore_global
 
 [pull]
-    ff = only         # never auto-merge on pull
-    rebase = true     # always rebase instead of merge
-    autostash = true  # stash before rebase automatically
+  # ff = only         # never auto-merge on pull
+  rebase = true
+  autostash = true  # stash before rebase automatically
 
 [rebase]
-    autostash = true
-    autosquash = true
-    updateRefs = true
-    missingCommitCheck = warn
+  autostash = true
+  autosquash = true
+  updateRefs = true
+  missingCommitCheck = warn
 
 [fetch]
     prune = true
