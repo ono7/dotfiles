@@ -9,3 +9,7 @@ IPAddress.objects.all().delete()
 ## 2. Delete all Prefixes
 
 Prefix.objects.all().delete()
+
+## 3. Delete all devices
+
+Device.objects.all().delete()

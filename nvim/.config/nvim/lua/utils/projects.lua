@@ -106,6 +106,10 @@ function M.pick_project()
             cwd = path,
             cmd = "fd --type f --hidden --follow --exclude .git",
             git_icons = false,
+            query = "", -- Explicitly clear the search string
+            fzf_opts = {
+              ["--query"] = "", -- Double-force clear at the fzf binary level
+            },
           })
         end)
       end,
@@ -147,6 +151,10 @@ function M.last_project()
     cwd = best_path,
     cmd = "fd --type f --hidden --follow --exclude .git",
     git_icons = false,
+    query = "", -- Explicitly clear the search string
+    fzf_opts = {
+      ["--query"] = "", -- Double-force clear at the fzf binary level
+    },
   })
 end
 
@@ -157,10 +165,24 @@ function M.setup()
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
   vim.api.nvim_create_user_command("L", M.last_project, {})
 
-  vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
-  vim.keymap.set("n", "<leader>pa", "<cmd>ProjectAdd<CR>", { desc = "Add Project" })
-  vim.keymap.set("n", "<leader>pr", "<cmd>ProjectRemove<CR>", { desc = "Remove Project" })
-  vim.keymap.set("n", "<leader>pl", "<cmd>L<CR>", { desc = "Last Project" })
+  -- User Commands (keeping these for manual use)
+  vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
+  vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
+  vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
+  vim.api.nvim_create_user_command("L", M.last_project, {})
+
+  -- LUA WAY: Map directly to the function references
+  local opts = { noremap = true, silent = true }
+
+  vim.keymap.set("n", "<leader>pp", M.pick_project, vim.tbl_extend("force", opts, { desc = "Pick Project" }))
+  vim.keymap.set("n", "<leader>pa", M.add_project, vim.tbl_extend("force", opts, { desc = "Add Project" }))
+  vim.keymap.set("n", "<leader>pr", M.remove_project, vim.tbl_extend("force", opts, { desc = "Remove Project" }))
+  vim.keymap.set("n", "<leader>pl", M.last_project, vim.tbl_extend("force", opts, { desc = "Last Project" }))
+
+  -- vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
+  -- vim.keymap.set("n", "<leader>pa", "<cmd>ProjectAdd<CR>", { desc = "Add Project" })
+  -- vim.keymap.set("n", "<leader>pr", "<cmd>ProjectRemove<CR>", { desc = "Remove Project" })
+  -- vim.keymap.set("n", "<leader>pl", "<cmd>L<CR>", { desc = "Last Project" })
 end
 
 return M

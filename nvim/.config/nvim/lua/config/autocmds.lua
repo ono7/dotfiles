@@ -168,17 +168,17 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- auto create dirs when saving files: use :w ++p
 
-vim.api.nvim_create_autocmd("TermOpen", {
-  callback = function()
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    vim.opt_local.statuscolumn = ""
-    vim.opt_local.signcolumn = "no"
-    vim.cmd("startinsert!")
-  end,
-  group = create_augroup("set_buf_number_options", { clear = true }),
-  desc = "Terminal Options",
-})
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--   callback = function()
+--     vim.opt_local.relativenumber = false
+--     vim.opt_local.number = false
+--     vim.opt_local.statuscolumn = ""
+--     vim.opt_local.signcolumn = "no"
+--     vim.cmd("startinsert!")
+--   end,
+--   group = create_augroup("set_buf_number_options", { clear = true }),
+--   desc = "Terminal Options",
+-- })
 
 -- local MAX_FILE_SIZE = 1024 * 1024 -- 1MB (1 MiB)
 --
