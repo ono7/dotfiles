@@ -1,3 +1,30 @@
+## check for merge conflicts without making changes
+
+checks this two branches and reports any conflicts, this is done in memory
+`git merge-tree origin/main origin/develop`
+
+```
+╰─❯ git merge-tree origin/main origin/develop
+852a89da815242d2cd08195262a3f7637bdc3181
+100644 1af9db3a1a267788d87a887075a127af4d9a71ca 1       pyproject.toml
+100644 203019a863e67a69de83a16e9a7aa45e3ae3930c 2       pyproject.toml
+100644 498695a82b2ee33df4d4c9e4fb7365eb10465bcb 3       pyproject.toml
+
+Auto-merging development/nautobot_config.py
+Auto-merging mi_nautobot_extensions/jobs.py
+Auto-merging pyproject.toml
+CONFLICT (content): Merge conflict in pyproject.toml
+󰀵   󰋜 ~/work/mi-nautobot-extensions on main s?3  🐍 v3.11.11 📦 v1.2.2
+╰─❯ git diff 203019a 498695a
+
+# use git diff to check out the conflict  1 = base, 2 = main, 3 = develop
+# its the order in which the git merge-tree file was called `git merge-tree origin/main origin/develop`
+
+# this will show the conflict in the pyproject.toml file
+git diff 203019a 498695a
+
+```
+
 ## reset back without losing changes
 
 when multiple changes have been commited but not pushed, you can run
