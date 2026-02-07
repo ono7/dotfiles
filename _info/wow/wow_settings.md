@@ -9,21 +9,24 @@ https://www.youtube.com/watch?v=hvSz3sNEm10
 ## addons for midnight
 
 ```json
+-- core
 name: Bartender4
 name: Leatrix Plus
 name: BugSack
 name: BugGrabber
-name: Platynator (Nameplates)
 name: Mouseover Action Settings - Automatic UI Fader - Mouseover Everything
 name: DarkMode / Dark Mode (Color HUD Ui & Windows)
 name: Syndicator
 name: Baganator
 name: AdvancedInterfaceOptions
 name: CursorMod
+name: PVPTabTarget
+
+-- optional
+name: Lua Browser
+name: Platynator (Nameplates)
 name: BetterCharacterPanel
 name: DejaCharacterStats
-name: Lua Browser
-name: PVPTabTarget
 ```
 
 this is just a base64 json string, we can edit and view what is in int `:'<,'>!base64 -d` `:'<,'>!jq`
