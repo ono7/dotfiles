@@ -103,13 +103,9 @@ function M.pick_project()
 
         vim.schedule(function()
           fzf.files({
-            cwd = path,
-            cmd = "fd --type f --hidden --follow --exclude .git",
+            cwd = path, -- or best_path
+            fd_opts = "--type f --hidden --follow --exclude .git",
             git_icons = false,
-            query = "", -- Explicitly clear the search string
-            fzf_opts = {
-              ["--query"] = "", -- Double-force clear at the fzf binary level
-            },
           })
         end)
       end,
@@ -149,12 +145,8 @@ function M.last_project()
 
   fzf.files({
     cwd = best_path,
-    cmd = "fd --type f --hidden --follow --exclude .git",
+    fd_opts = "--type f --hidden --follow --exclude .git",
     git_icons = false,
-    query = "", -- Explicitly clear the search string
-    fzf_opts = {
-      ["--query"] = "", -- Double-force clear at the fzf binary level
-    },
   })
 end
 
