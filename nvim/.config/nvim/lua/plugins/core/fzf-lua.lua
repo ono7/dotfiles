@@ -115,7 +115,7 @@ return {
     k("n", "<leader>vc", function()
       require("fzf-lua").files({
         cwd = vim.fn.expand("~/.dotfiles"),
-        cmd = "fd --type f --hidden --follow --exclude .git",
+        fd_opts = "--type f --hidden --follow --exclude .git",
         prompt = "Dotfiles> ",
         previewer = true,
         winopts = function()
@@ -137,7 +137,7 @@ return {
     k("n", "<c-f>", function()
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
-        cmd = "fd --type f --hidden --follow --exclude .git",
+        fd_opts = "--type f --hidden --follow --exclude .git",
         previewer = true,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
