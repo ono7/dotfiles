@@ -2,7 +2,7 @@ return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    local set_keys = require("utils.keys")
+    -- local set_keys = require("utils.keys")
     local oil_ok, oil_config = pcall(require, "oil")
 
     if not oil_ok then
@@ -15,8 +15,8 @@ return {
       columns = { "icon", add_padding = true },
       keymaps = {
         ["<C-p>"] = false,
-        [set_keys.prefix("v")] = { "actions.select", opts = { vertical = true } },
-        [set_keys.prefix("x")] = { "actions.select", opts = { horizontal = true } },
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+        ["<M-s>"] = { "actions.select", opts = { horizontal = true } },
         ["gd"] = {
           desc = "Toggle file detail view",
           callback = function()
