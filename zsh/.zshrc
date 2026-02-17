@@ -82,43 +82,46 @@ alias c="pbcopy"
 
 ############## Shell options ##############
 
-# Essential shell options (performance related)
-setopt NO_BEEP
-setopt NO_HUP
-setopt nonomatch
-setopt notify
-setopt interactivecomments
+# Essential shell options
+setopt NO_BEEP NO_HUP NONOMATCH NOTIFY INTERACTIVE_COMMENTS
 
-# Directory navigation options
-setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_MINUS
-setopt autocd
-
-# History options
-# Disable immediate history sharing for better performance
-# unsetopt SHARE_HISTORY
-# unsetopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_REDUCE_BLANKS
-
-# Set the number of directories to remember
+# Directory navigation
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_MINUS AUTO_CD
 DIRSTACKSIZE=9
 
-# Completion options (load more efficiently)
-setopt MENU_COMPLETE
+# History configuration
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=100000
+export SAVEHIST=100000
+
+# Parse and save timestamps correctly
+setopt EXTENDED_HISTORY
+
+# Instantly share history across terminal panes (implies INC_APPEND_HISTORY)
+setopt SHARE_HISTORY
+
+# Delete old duplicates so only the newest execution is saved
+setopt HIST_IGNORE_ALL_DUPS
+
+# Do not write duplicates to the history file
+setopt HIST_SAVE_NO_DUPS
+
+# Do not show duplicates during history search
+setopt HIST_FIND_NO_DUPS
+
+# Omit commands starting with a space from history
+setopt HIST_IGNORE_SPACE
+
+# Strip extra blanks before recording
+setopt HIST_REDUCE_BLANKS
+
+# Completion options
+setopt MENU_COMPLETE AUTO_LIST COMBINING_CHARS PROMPT_SP
 unsetopt LIST_AMBIGUOUS
-setopt AUTO_LIST
-setopt COMBINING_CHARS
-setopt PROMPT_SP
+
+# Interface options
+PROMPT_EOL_MARK=""
+unset zle_bracketed_paste
 
 unset zle_bracketed_paste
 
