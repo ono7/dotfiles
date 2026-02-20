@@ -222,16 +222,17 @@ vim.opt.joinspaces = false
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
 vim.opt.winbar = ""
-vim.opt.statusline = table.concat({
-  " %{expand('%:h:t')}/%t", -- Left: Parent/Filename
-  "%m%r%h", -- Left: Flags
+local parts = {
+  " %{expand('%:h:t')}/%t", -- Parent/Filename
+  "%m%r%h", -- Flags
   "%=", -- Spring 1
-  " %l,%c ", -- Center: Line:Col
+  " %l:%c ", -- Line:Col
   "%=", -- Spring 2
-  " %{&fileencoding} ", -- Right: utf-8, latin1, etc.
-  "[%{&ff}]", -- Right: [unix], [dos], [mac]
-  " %p%% ", -- Right: Percent
-})
+  " %{&fileencoding} ", -- Encoding
+  "[%{&ff}]", -- File Format
+  " %-4(%p%%%) ", -- Fixed 5-char group: "9%   ", "100% "
+}
+vim.opt.statusline = table.concat(parts)
 vim.opt.ruler = false
 vim.opt.showcmd = false
 vim.opt.showmode = true
