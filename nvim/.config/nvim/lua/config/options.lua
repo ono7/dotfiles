@@ -228,6 +228,8 @@ vim.opt.statusline = table.concat({
   "%=", -- Spring 1
   " %l,%c ", -- Center: Line:Col
   "%=", -- Spring 2
+  " %{&fileencoding} ", -- Right: utf-8, latin1, etc.
+  "[%{&ff}]", -- Right: [unix], [dos], [mac]
   " %p%% ", -- Right: Percent
 })
 vim.opt.ruler = false
@@ -247,6 +249,9 @@ vim.opt.mouse = "n"
 vim.opt.nrformats = "bin,hex"
 vim.opt.fileformats = "unix"
 vim.opt.fileformat = "unix"
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileencodings = "utf-8,ucs-bom,latin1"
 vim.opt.nrformats = "bin,hex,alpha"
 
 vim.opt.numberwidth = 1
