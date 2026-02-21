@@ -222,16 +222,27 @@ vim.opt.joinspaces = false
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
 vim.opt.winbar = ""
+-- Expose function to Vimscript evaluation
+_G.statusline_git_branch = function()
+  if vim.fn.exists("*FugitiveHead") == 0 then
+    return ""
+  end
+  local branch = vim.fn.FugitiveHead()
+  return branch ~= "" and ("  " .. branch .. " ") or ""
+end
+
 local parts = {
   " %{expand('%:h:t')}/%t", -- Parent/Filename
   "%m%r%h", -- Flags
   "%=", -- Spring 1
-  " %l:%c ", -- Line:Col
+  "%{%v:lua.statusline_git_branch()%}", -- Fugitive Branch
   "%=", -- Spring 2
+  " %l:%c ", -- Line:Col
   " %{&fileencoding} ", -- Encoding
   "[%{&ff}]", -- File Format
   " %-4(%p%%%) ", -- Fixed 5-char group: "9%   ", "100% "
 }
+
 vim.opt.statusline = table.concat(parts)
 vim.opt.ruler = false
 vim.opt.showcmd = false
