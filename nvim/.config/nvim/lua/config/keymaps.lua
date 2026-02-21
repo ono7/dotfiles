@@ -120,7 +120,10 @@ inoremap <C-h> <C-g>u<BS>
 
 " ~^h = Delete Word Backward (Option+Ctrl+Backspace)
 " Note: Mapped to Option-Backspace (<M-BS>) for convenience
-inoremap <M-BS> <C-g>u<C-w>
+"inoremap <M-BS> <C-g>u<C-w>
+
+" save file
+inoremap <C-w> <C-o>:w<CR>
 
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
