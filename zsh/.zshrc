@@ -130,6 +130,8 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=2000
 export SAVEHIST=1999
 # export HISTIGNORE='ls:ll:proxychains:pwd:sudo ssh*:echo'
+HISTORY_IGNORE='(ls|l|ll|pwd|exit|clear|claer|clera|history|fg|bg|[#]*)'
+
 HISTDUP=erase
 PROMPT_EOL_MARK=""
 
