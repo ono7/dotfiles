@@ -97,6 +97,7 @@ uv:
 	@uv tool install ruff
 	@uv tool install invoke
 	@uv tool install poetry
+	@uv tool install dnsdiag
 	poetry config virtualenvs.in-project true
 
 nvm:
