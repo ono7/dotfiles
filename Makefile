@@ -98,7 +98,7 @@ uv:
 	@uv tool install invoke
 	@uv tool install poetry
 	@uv tool install dnsdiag
-	poetry config virtualenvs.in-project true
+	# poetry config virtualenvs.in-project true
 
 nvm:
 	@echo $(BANNER)
