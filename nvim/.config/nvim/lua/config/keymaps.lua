@@ -123,7 +123,7 @@ inoremap <C-h> <C-g>u<BS>
 "inoremap <M-BS> <C-g>u<C-w>
 
 " save file
-inoremap <C-w> <C-o>:w<CR>
+" inoremap <C-w> <C-o>:w<CR>
 " nnoremap <C-w> :w<CR>
 
 " ~d = Delete Word Forward
