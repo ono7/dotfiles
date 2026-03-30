@@ -243,7 +243,7 @@ local parts = {
   " %-4(%p%%%) ", -- Fixed 5-char group: "9%   ", "100% "
 }
 
-vim.opt.statusline = table.concat(parts)
+-- vim.opt.statusline = table.concat(parts)
 vim.opt.ruler = false
 vim.opt.showcmd = false
 vim.opt.showmode = true
