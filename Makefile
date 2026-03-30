@@ -98,6 +98,7 @@ uv:
 	@uv tool install invoke
 	@uv tool install poetry
 	@uv tool install dnsdiag
+	@uv tool install pynvim
 	# poetry config virtualenvs.in-project true
 
 nvm:

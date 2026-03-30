@@ -84,6 +84,11 @@ if vim.opt.termguicolors then
 end
 
 vim.cmd("syntax off")
+
+-- new for 0.12.0
+-- 1. Enable the new non-blocking UI to kill "Press ENTER" prompts
+-- require("vim._core.ui2").enable()
+
 require("config.keymaps")
 require("config.options")
 require("config.disabled")
