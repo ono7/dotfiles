@@ -1,53 +1,116 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    -- lazy = false,
     branch = "main",
+    version = false,
     build = ":TSUpdate",
+    dependencies = { "RRethy/nvim-treesitter-endwise" },
     config = function()
       local ts = require("nvim-treesitter")
+      local ts_cfg = require("nvim-treesitter.config")
+      local parsers = require("nvim-treesitter.parsers")
 
-      ts.setup({
-        install_dir = vim.fn.stdpath("data") .. "/site",
-      })
+      local ensure_installed = {
+        "bash",
+        "c",
+        "cmake",
+        "comment",
+        "css",
+        "diff",
+        "dockerfile",
+        "git_config",
+        "git_rebase",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "gomod",
+        "gosum",
+        "gotmpl",
+        "gowork",
+        "groovy",
+        "hcl",
+        "html",
+        "javascript",
+        "jsdoc",
+        "json",
+        --"jsonnet",
+        -- "json5", -- https://json5.org
+        "just",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "ruby",
+        "rust",
+        "sql",
+        "terraform",
+        "tmux",
+        "toml",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+        "zig",
+        "zsh",
+      }
+      local installed = ts_cfg.get_installed()
+      local to_install = vim
+        .iter(ensure_installed)
+        :filter(function(parser)
+          return not vim.tbl_contains(installed, parser)
+        end)
+        :totable()
 
-      -- List of filetypes to NEVER attempt Treesitter on
-      local skip_ft = {
-        "fidget",
-        "fzf",
-        "TelescopePrompt",
-        "NvimTree",
+      if #to_install > 0 then
+        ts.install(to_install)
+      end
+
+      local ignore_filetype = {
+        "checkhealth",
         "lazy",
         "mason",
-        "notify",
-        "noice",
+        "snacks_dashboard",
+        "snacks_notif",
+        "snacks_win",
+        "snacks_input",
+        "snacks_picker_input",
+        "TelescopePrompt",
+        "alpha",
+        "dashboard",
+        "spectre_panel",
+        "NvimTree",
+        "undotree",
+        "Outline",
+        "sagaoutline",
+        "copilot-chat",
+        "vscode-diff-explorer",
       }
 
+      local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
+
       vim.api.nvim_create_autocmd("FileType", {
-        callback = function(args)
-          -- Skip if it's a known UI/Plugin filetype
-          if vim.tbl_contains(skip_ft, args.match) then
+        group = group,
+        desc = "Enable TreeSitter highlighting and indentation",
+        callback = function(ev)
+          local ft = ev.match
+
+          if vim.tbl_contains(ignore_filetype, ft) then
             return
           end
 
-          local lang = vim.treesitter.language.get_lang(args.match)
-          if not lang then
-            return
-          end
+          local lang = vim.treesitter.language.get_lang(ft) or ft
+          local buf = ev.buf
+          pcall(vim.treesitter.start, buf, lang)
 
-          -- 1. AUTO-INSTALL: Only install if we don't have it
-          local is_installed = #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", false) > 0
-          if not is_installed then
-            -- Use pcall here so it doesn't interrupt your workflow if install fails
-            pcall(vim.cmd, "TSInstall " .. lang)
-          end
-
-          -- 2. HIGHLIGHT & INDENT: Enable only if queries exist
-          if vim.treesitter.query.get(lang, "highlights") then
-            pcall(function()
-              vim.treesitter.start(args.buf, lang)
-              vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-            end)
-          end
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
       })
     end,
