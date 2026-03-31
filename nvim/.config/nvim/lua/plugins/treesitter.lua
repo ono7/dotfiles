@@ -9,7 +9,7 @@ return {
     dependencies = { "RRethy/nvim-treesitter-endwise" },
     config = function()
       local ts = require("nvim-treesitter")
-      local ts_cfg = require("nvim-treesitter.configs")
+      local ts_cfg = require("nvim-treesitter.config")
       local parsers = require("nvim-treesitter.parsers")
 
       local ensure_installed = {
