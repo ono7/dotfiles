@@ -101,7 +101,8 @@ vim.opt.cursorcolumn = false
 vim.opt.guicursor = ""
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
-vim.opt.diffopt = "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff"
+vim.opt.diffopt =
+  "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff,inline:char"
 vim.opt.directory = "~/.tmp"
 
 vim.opt.fillchars = {
@@ -220,7 +221,7 @@ vim.opt.iskeyword:append("_")
 vim.opt.iskeyword:remove("-")
 vim.opt.joinspaces = false
 vim.opt.laststatus = 2
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.winbar = ""
 -- Expose function to Vimscript evaluation
 _G.statusline_git_branch = function()

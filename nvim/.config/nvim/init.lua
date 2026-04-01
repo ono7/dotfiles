@@ -167,3 +167,6 @@ vim.opt.guicursor =
   "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:ver25-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
 
 vim.diagnostic.config({ update_in_insert = false })
+
+--- remove "press ENTER" prompt.. maybe
+require("vim._core.ui2").enable({})
