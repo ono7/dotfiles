@@ -221,7 +221,7 @@ vim.opt.iskeyword:append("_")
 vim.opt.iskeyword:remove("-")
 vim.opt.joinspaces = false
 vim.opt.laststatus = 2
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.winbar = ""
 -- Expose function to Vimscript evaluation
 _G.statusline_git_branch = function()
