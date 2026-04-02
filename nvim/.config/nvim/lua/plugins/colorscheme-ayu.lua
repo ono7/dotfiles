@@ -24,6 +24,7 @@ if vim.env.TERM_PROGRAM == "otherfake stub" then
     hi DiffChange ctermbg=NONE ctermfg=11 guibg=#0F1724 guifg=#ffff00
     hi! clear ErrorMsg
     hi! clear MatchParen
+    hi! clear MsgSeparator
     hi! Visual term=reverse cterm=reverse gui=reverse
     hi! MatchParen guibg=#384057 ctermbg=8
     hi! Search term=reverse cterm=reverse gui=reverse
@@ -60,6 +61,7 @@ else
 
           Visual = { bg = "#1F3350" },
 
+          MsgSeparator = {},
           -- Visual = { bg = "#2C3B54" },
 
           Comment = { fg = "#5F6C77", italic = true },
