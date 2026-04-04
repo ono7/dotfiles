@@ -5,7 +5,7 @@ https://www.youtube.com/watch?v=FrxIhVtWibM
 1. Auto preview 2 seconds
 2. manual mode
 3. setup touch pad to be usable to change focus point when using EVF
-   setup 3 -> touchpanel/pad -> touchpanel + pad
+   setup 3 -> touchpanel/pad -> touchpanel + pad (set to right half)
 
 1: Shoot RAW + JPG @ 2:45
 2: Flexible Spot AF @ 4:45
