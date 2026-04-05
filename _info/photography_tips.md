@@ -20,3 +20,11 @@ The five Lightroom tips include:
 4. Refining Saturation (9:24 - 11:42): Increasing contrast often leads to unwanted color saturation. You can fix this by using the Refine Saturation slider located directly beneath the Tone Curve panel, allowing you to add contrast without affecting the saturation levels.
 
 5. Advanced Brush Resizing (11:43 - 14:23): You can create perfectly straight or proportionally resizing brush strokes by clicking at a starting point, holding Shift, and clicking at an end point. This is particularly useful for applying adjustments to straight objects like beams or tapering paths that shrink in the distance.
+
+## silent shutter is only good for static subjects, disable other wise
+
+motion will create weird artifacts or show things bent/slanted
+
+## set AEL toggle button (exposure toggle hold)
+
+this will make sure the camara does not hunt for exposure when going from dark to light areas. button
