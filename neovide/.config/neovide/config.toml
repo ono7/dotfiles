@@ -5,6 +5,7 @@ frame = "transparent"
 maximized = false
 # mouse-cursor-icon = "arrow"
 # neovim-bin = "/Users/jlima/.local/bin/nvim" # in reality found dynamically on $PATH if unset
+system-native-tabs = true
 no-multigrid = false
 srgb = true
 tabs = true
