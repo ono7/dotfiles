@@ -2,6 +2,8 @@
 
 https://youtu.be/9WYs_9xoX8E?si=GIHkbQg4ptJ5pQhV&t=208
 
+this is the same trick as intersect sky but will also work in lightroom mobile
+
 example:
 
 1. select sky
