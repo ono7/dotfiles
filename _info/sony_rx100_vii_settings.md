@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=FrxIhVtWibM
 7: Set video manual mode @ 12:25
 8: Rule of thirds grid @ 13:15
 9: Set auto review on @ 13:50
-10: Touch AF + Touch Pad AF @ 14:40
+10: Touch AF + Touch Pad AF @ 14:40 ( or touch tracking ) camara settings 2
 11: Set Copyright @ 16:30
 12: Set File Name Prefix @ 17:50
 
