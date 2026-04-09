@@ -169,4 +169,4 @@ vim.opt.guicursor =
 vim.diagnostic.config({ update_in_insert = false })
 
 --- remove "press ENTER" prompt.. maybe
-require("vim._core.ui2").enable({})
+-- require("vim._core.ui2").enable({})
