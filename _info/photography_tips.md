@@ -28,3 +28,5 @@ motion will create weird artifacts or show things bent/slanted
 ## set AEL toggle button (exposure toggle hold)
 
 this will make sure the camara does not hunt for exposure when going from dark to light areas. button
+
+##
