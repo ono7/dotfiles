@@ -9,13 +9,17 @@ https://youtu.be/GGxY3oF3tnI?si=Iy91kYC1UrVlSIvk
 1a - AF-C priority selection (release)
 a7 - focus point persistance (auto)
 
+change to Auto AF for handoff instead of 3d tracking
+
 if subject detection is not being engage use wide small for AF area
 
 ### AF areas
 
-Auto AF (80%) with bird/or other subject detection
-Wide AF (some implemetation of it, small/large) if we need to choose one person in the group
-Wide AF Handoff to 3D tracking
+- Auto AF (80%) with bird/or other subject detection
+- Wide AF (some implemetation of it, small/large) if we need to choose one person in the group
+
+- Wide AF Handoff to (3D tracking, or auto AF) as long as subject detection is on
+  and the Wide area box is on the subject, the Auto AF button will lock on via handoff
 
 ### cycling settings button
 
