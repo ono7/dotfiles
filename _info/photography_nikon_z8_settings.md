@@ -2,6 +2,11 @@
 
 https://youtu.be/GGxY3oF3tnI?si=Iy91kYC1UrVlSIvk
 
+### settings for autofocus (Nikon menu)
+
+1a - AF-C priority selection (release)
+a7 - focus point persistance (auto)
+
 ### cycling settings button
 
 1. auto area auto focus
