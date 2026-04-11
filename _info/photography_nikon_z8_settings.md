@@ -2,8 +2,18 @@
 
 https://youtu.be/GGxY3oF3tnI?si=Iy91kYC1UrVlSIvk
 
+### cycling settings button
+
+1. auto area auto focus
+2. setup 3d tracking
+3. wide area custom, small, large (this gives 3 different areas)
+
+### todo
+
 1. configure fn1 for 3d object tracking
-2. configure button for changing tracking areas
+2. configure button for cycling tracking areas fn2
+
+hold down fn1 when we need to track, leave large widearea tracking on most of the time
 
 ## setup memory banks (settings for different situations)
 
