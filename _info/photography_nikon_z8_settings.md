@@ -2,10 +2,20 @@
 
 https://youtu.be/GGxY3oF3tnI?si=Iy91kYC1UrVlSIvk
 
+1. Pre Focus is needed to assist auto AF in all scenarios
+
 ### settings for autofocus (Nikon menu)
 
 1a - AF-C priority selection (release)
 a7 - focus point persistance (auto)
+
+if subject detection is not being engage use wide small for AF area
+
+### AF areas
+
+Auto AF (80%) with bird/or other subject detection
+Wide AF (some implemetation of it, small/large) if we need to choose one person in the group
+Wide AF Handoff to 3D tracking
 
 ### cycling settings button
 
