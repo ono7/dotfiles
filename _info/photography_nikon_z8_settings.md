@@ -15,7 +15,7 @@ if subject detection is not being engage use wide small for AF area
 
 ### AF areas
 
-- Auto AF (80%) with bird/or other subject detection
+- (USE THIS MOST OF THE TIME) - Auto AF (80%) with bird/or other subject detection
 - Wide AF (some implemetation of it, small/large) if we need to choose one person in the group
 
 - Wide AF Handoff to (3D tracking, or auto AF) as long as subject detection is on
