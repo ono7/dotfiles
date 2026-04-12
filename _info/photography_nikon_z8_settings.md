@@ -4,6 +4,7 @@ https://youtu.be/GGxY3oF3tnI?si=Iy91kYC1UrVlSIvk
 
 1. Pre Focus is needed to assist auto AF in all scenarios
 2. set single point autofocus to pre focus as the base autofocus
+   this makes it much easier to focus and prefocus
 3.
 
 ### settings for autofocus (Nikon menu)
