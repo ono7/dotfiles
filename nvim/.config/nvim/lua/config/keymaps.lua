@@ -44,6 +44,7 @@ nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
 inoremap <C-BS> <C-g>u<C-w>
+inoremap <M-BS> <C-g>u<C-w>
 
 " move to beginning of doc/end of doc
 inoremap <M-lt> <C-g>u<C-o>gg<C-o>^
