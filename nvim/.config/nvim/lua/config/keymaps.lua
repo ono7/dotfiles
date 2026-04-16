@@ -46,6 +46,9 @@ cnoremap <c-l> <Right>
 inoremap <C-BS> <C-g>u<C-w>
 inoremap <M-BS> <C-g>u<C-w>
 
+" dont overwrite the register after pasting in visual mode
+xnoremap p P
+
 " move to beginning of doc/end of doc
 inoremap <M-lt> <C-g>u<C-o>gg<C-o>^
 inoremap <M->> <C-g>u<C-o>G<C-o>$
