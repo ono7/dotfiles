@@ -4,3 +4,4 @@
 - Saturation = the intensity of the color
 - Lumminosity = how bright or dark a color is, lower makes the color darker,
   higher makes the color lighter
+- Temperature = defines if the coolors are cool or warm
