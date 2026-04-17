@@ -71,7 +71,7 @@ end
 
 mv 1.{bak,py} (1.bak -> 1.py) move filenames in shell, requires file.(src,dest)
 
-use f,t,F,T vim, ; move forward (comma) move back
+c-w + x -- swap splits in vim with next adjacent window
 
 ]]
 
