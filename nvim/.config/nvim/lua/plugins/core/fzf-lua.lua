@@ -70,7 +70,15 @@ return {
           ["enter"] = fzf.actions.file_switch_or_edit,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,
+
           ["ctrl-t"] = fzf.actions.file_tabedit,
+          ["ctrl-d"] = function(selected, opts)
+            if not selected[1] then
+              return
+            end
+            local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
+            vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file))
+          end,
         },
       },
       files = {
