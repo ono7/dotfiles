@@ -101,8 +101,18 @@ vim.opt.cursorcolumn = false
 vim.opt.guicursor = ""
 vim.opt.cursorline = false
 vim.opt.cursorlineopt = "number"
-vim.opt.diffopt =
-  "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff,inline:char"
+-- vim.opt.diffopt =
+-- "vertical,filler,context:5,internal,algorithm:histogram,indent-heuristic,linematch:60,closeoff,inline:char"
+
+vim.opt.diffopt:remove("inline:char")
+vim.opt.diffopt:append({
+  "vertical",
+  "algorithm:histogram",
+  "context:5",
+  "linematch:60",
+  "inline:word",
+})
+
 vim.opt.directory = "~/.tmp"
 
 vim.opt.fillchars = {
