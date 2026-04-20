@@ -48,6 +48,9 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   local cmd = opts_args.args
   local state = get_tab_state()
 
+  -- Hoisted: Close quickfix before evaluating any terminal state
+  close_quickfix()
+
   -- Save editor window + cursor
   local function save_editor_pos()
     state.last_win = vim.api.nvim_get_current_win()
@@ -68,7 +71,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   -- CREATE NEW TERMINAL
   ---------------------------------------------------------------------------
   if state.buf == nil or not vim.api.nvim_buf_is_valid(state.buf) then
-    close_quickfix()
     save_editor_pos()
     vim.opt_local.winbar = nil
 
@@ -116,7 +118,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   ---------------------------------------------------------------------------
   -- SHOW EXISTING TERMINAL
   ---------------------------------------------------------------------------
-  close_quickfix()
   save_editor_pos()
 
   vim.cmd("botright " .. term_size .. "split")

@@ -21,6 +21,12 @@ return {
         end,
         desc = "Collapse quickfix context",
       },
+      -- this should fall through the T command in commands.lua
+      {
+        "<leader>d",
+        "<cmd>cclose<CR>",
+        desc = "Close quickfix window",
+      },
     },
   },
 }
