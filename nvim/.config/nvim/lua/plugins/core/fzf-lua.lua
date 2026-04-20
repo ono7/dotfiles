@@ -111,7 +111,8 @@ return {
         git_icons = false,
         file_icons = true,
         color_icons = true,
-        formatter = "path.filename_first",
+        -- formatter = "path.filename_first",
+        formatter = "path.smart",
       },
     })
 
