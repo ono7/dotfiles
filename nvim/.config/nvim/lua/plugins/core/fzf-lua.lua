@@ -111,8 +111,8 @@ return {
         git_icons = false,
         file_icons = true,
         color_icons = true,
-        -- formatter = "path.filename_first",
-        formatter = "path.smart",
+        formatter = "path.filename_first",
+        -- formatter = "path.smart",
       },
     })
 
@@ -147,7 +147,7 @@ return {
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
         fd_opts = "--type f --hidden --follow --exclude .git",
-        previewer = true,
+        previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
           opts.title_pos = "center"
@@ -160,7 +160,7 @@ return {
     k({ "n", "x" }, "<leader>f", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
-        previewer = true,
+        previewer = false,
         git_command = "git ls-files --exclude-standard --cached --others",
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
