@@ -286,17 +286,18 @@ xnoremap H <gv
 xnoremap L >gv
 xnoremap y ygv<Esc>
 
-function! SmartClose()
-  let l:current_buf = bufnr("%")
-  " Try to go to the previous buffer
+function! SmartClose() abort
+  let l:current_buf = bufnr('%')
+
   bprevious
-  " If we didn't move (meaning there was only 1 buffer), open a blank one
-  if bufnr("%") == l:current_buf
+
+  if bufnr('%') == l:current_buf
     enew
   endif
-  " Delete the original buffer
-  " Use bdelete! to force close even if unsaved (optional, remove ! for safety)
-  execute "bdelete " . l:current_buf
+
+  if bufexists(l:current_buf)
+    execute 'silent! bdelete ' . l:current_buf
+  endif
 endfunction
 nnoremap <silent> <leader>d :call SmartClose()<CR>
 
