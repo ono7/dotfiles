@@ -16,4 +16,4 @@
 
 1. Aperature (F8-F11)
 2. ISO (lowest)
-3. shutter
+3. shutter (slow/on tripod)
