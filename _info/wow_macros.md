@@ -1,3 +1,25 @@
+## interrupt macro
+
+this works because it relies on the fact that wow midnight will target the casters currently casting first
+this may not work in pvp since there are many casters...
+
+```
+#showtooltip
+/cast [@focus,exists,nodead,harm] [Your Interrupt Spell]
+/stopmacro [@focus,exists,nodead,harm]
+/focus target
+/cleartarget
+/targetenemy
+/cast [Your Interrupt Spell]
+/target focus
+/clearfocus
+/startattack
+
+Replace [Your Interrupt Spell] with your class interrupt (Kick, Pummel, Spear Hand Strike, Counterspell, etc.)
+```
+
+Replace [Your Interrupt Spell] with your class interrupt (Kick, Pummel, Spear Hand Strike, Counterspell, etc.)
+
 ##
 
 -- dynamically set SpellQueueWindow
