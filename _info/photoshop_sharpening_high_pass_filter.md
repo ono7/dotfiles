@@ -5,3 +5,5 @@
 3. menu -> Image -> adjustments -> desaturate
 4. allpy the filter to the desaturated layer, menu -> filter -> other -> highpass filter 1.3 - 1.4 is a good start
 5. blend this layer using "linear light", use opacity to bring down the effect to
+
+ref: `https://youtu.be/0DzIbKXWGqg?si=-YQRCwSrpiUOFKVJ`
