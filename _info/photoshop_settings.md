@@ -6,3 +6,7 @@
 - rearrange all windows - window -> arrange -> consolidate all tabs
 
 - side by side - window -> arrage -> 2 up vertical or horizontal
+
+## brush
+
+default smoothing set to 0
