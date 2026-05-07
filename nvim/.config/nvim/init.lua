@@ -96,6 +96,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local stat = vim.uv.fs_stat(args.match)
     if stat and stat.size > threshold_bytes then
       local buf = args.buf
+      print("large file detected")
 
       -- 1. Disable expensive UI rendering and line-wrap calculations
       vim.bo[buf].syntax = ""
