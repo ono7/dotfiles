@@ -75,6 +75,59 @@ c-w + x -- swap splits in vim with next adjacent window
 
 ]]
 
+local large_file_group = vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })
+local threshold_bytes = 1048576 -- 1MB threshold
+
+-- Intercept file read to prevent swapfile generation blocking the main thread
+vim.api.nvim_create_autocmd("BufReadPre", {
+  group = large_file_group,
+  callback = function(args)
+    local stat = vim.uv.fs_stat(args.match)
+    if stat and stat.size > threshold_bytes then
+      vim.bo[args.buf].swapfile = false
+    end
+  end,
+})
+
+-- Execute UI optimization, parser termination, and LSP detachment post-read
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = large_file_group,
+  callback = function(args)
+    local stat = vim.uv.fs_stat(args.match)
+    if stat and stat.size > threshold_bytes then
+      local buf = args.buf
+
+      -- 1. Disable expensive UI rendering and line-wrap calculations
+      vim.bo[buf].syntax = ""
+      vim.wo[0].wrap = false
+      vim.wo[0].foldmethod = "manual"
+      vim.wo[0].spell = false
+      vim.wo[0].list = false
+      vim.wo[0].cursorline = false
+      vim.wo[0].cursorcolumn = false
+      vim.wo[0].colorcolumn = ""
+
+      -- 2. Disable bracket matching across massive lines
+      vim.bo[buf].matchpairs = ""
+      vim.bo[buf].undofile = false
+
+      -- 3. Terminate Treesitter parsing for the buffer
+      if vim.treesitter.highlighter.active[buf] then
+        vim.treesitter.stop(buf)
+      end
+
+      -- 4. Detach all active LSP clients
+      for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+        vim.lsp.buf_detach_client(buf, client.id)
+      end
+
+      -- 5. Set global buffer flag to instruct compliant plugins to back off
+      -- (e.g., indent-blankline, gitsigns, illuminate)
+      vim.b[buf].large_file = true
+    end
+  end,
+})
+
 vim.loader.enable(true)
 
 if vim.opt.termguicolors then
