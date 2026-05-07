@@ -8,3 +8,7 @@
 - ctr+opt in brush you can drag up/down/left/right, to change the hardness and size of the brush
 
 - option+command+shift+e = creates new layer preserving all the edits from previous layers
+
+## brush
+
+hold tilde ~ to erase
