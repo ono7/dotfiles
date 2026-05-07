@@ -11,7 +11,7 @@ eyes and other parts that would be skipped using high pass filter are now sharpe
 - bottom copy is the "normal" layer
   the two copies will be grouped later
 
-3. invert layer, (cmd+i)
+3. invert layer, (cmd+i), set to blend mode "VIDID LIGHT"
 4. blur layer, -> filter -> blur -> Guaussian blurr (set to 1.3)
 5. group the blurred layer with the additonal copy of the norma image created in step 2
 6. set blend mode to overlay, change oppasity accordingly
