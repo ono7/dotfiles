@@ -344,8 +344,6 @@ function! RestoreRegister()
     return ''
 endfunction
 
- autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
-
 function! s:CleanAndSave()
   let l:save = winsaveview()
 
