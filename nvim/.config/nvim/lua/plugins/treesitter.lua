@@ -41,6 +41,7 @@ return {
         local ignored_filetypes = {
           fzf = true,
           lazy = true,
+          oil = true,
           netrw = true,
           qf = true,
           TelescopePrompt = true,
