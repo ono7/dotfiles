@@ -106,7 +106,7 @@ return {
           max_height = 0,
           x_padding = 1,
           y_padding = 1,
-          align = "top",
+          align = "bottom",
           relative = "editor",
         },
       },
