@@ -34,7 +34,6 @@ M.setup = function()
   })
 
   --- 2. Navic Integration Logic ---
-  -- We use the LspAttach event to safely attach navic and set the winbar
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("LspNavicAttach", { clear = true }),
     callback = function(args)
@@ -43,11 +42,20 @@ M.setup = function()
 
       if ok_navic and client and client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
-        -- Set winbar only for the buffer where symbols are available
+
+        -- Set the winbar
         vim.wo[0].winbar = " %{%v:lua.require'nvim-navic'.get_location()%}"
+
+        -- IMMEDIATE REFRESH: Force navic to update context on every move
+        -- This eliminates the "trailing location" effect
+        vim.api.nvim_create_autocmd("CursorMoved", {
+          buffer = bufnr,
+          callback = function()
+            navic.get_location()
+          end,
+        })
       end
 
-      -- Standardize omnifunc for all LSPs
       vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
     end,
   })
