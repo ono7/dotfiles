@@ -89,7 +89,7 @@ function _G.winbar_path()
   local filepath = vim.fn.expand("%:.")
   return (filepath ~= "") and vim.fn.pathshorten(filepath, 4) or ""
 end
-vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
+-- vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
 
 -- 9. Splitting & Scrolling
 vim.opt.splitright = true

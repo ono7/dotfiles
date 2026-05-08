@@ -176,21 +176,15 @@ require("config.lazy")
 -- require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
-if package.searchpath("config.lsp", package.path) then
-  require("config.lsp").setup()
-end
+require("config.lsp").setup()
 require("config.neovide")
-if package.searchpath("utils.zoxide", package.path) then
-  require("utils.zoxide").setup() -- use fzflua zoxide..
-end
+require("utils.zoxide").setup() -- use fzflua zoxide..
 
 --- these two worktogether
 
 -- require("utils.runner").setup() -- runs anything :M <cmd> :)
 -- require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
-if package.searchpath("utils.projects", package.path) then
-  require("utils.projects").setup() -- keeps track of project
-end
+require("utils.projects").setup() -- keeps track of project
 -- require("utils.ruff")
 
 vim.opt.mouse = "a"

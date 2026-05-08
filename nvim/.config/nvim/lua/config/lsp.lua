@@ -1,5 +1,6 @@
 local M = {}
 
+--- Toggle LSP for the current buffer
 M.toggle_lsp_for_buffer = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -9,51 +10,58 @@ M.toggle_lsp_for_buffer = function()
     for _, client in ipairs(clients) do
       vim.lsp.buf_detach_client(bufnr, client.id)
     end
-    vim.notify("LSP disabled for current buffer", vim.log.levels.INFO)
+    -- Clean up UI when LSP is manually disabled
+    vim.wo[0].winbar = nil
+    vim.notify("LSP and Navic disabled", vim.log.levels.INFO)
   else
     -- LSP is inactive, re-attach via filetype
     local ft = vim.bo[bufnr].filetype
     if ft ~= "" then
       vim.bo[bufnr].filetype = ft
-      vim.notify("LSP enabled for current buffer", vim.log.levels.INFO)
-    else
-      vim.notify("No filetype set", vim.log.levels.WARN)
+      vim.notify("LSP re-enabled", vim.log.levels.INFO)
     end
   end
 end
 
-vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for current buffer" })
+vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for buffer" })
 
 M.setup = function()
-  --- Global LSP configuration ---
-  local ok, blink = pcall(require, "blink.cmp")
+  local ok_navic, navic = pcall(require, "nvim-navic")
+
+  --- 1. Global LSP configuration ---
   vim.lsp.config("*", {
     root_markers = { ".git" },
-    capabilities = ok and blink.get_lsp_capabilities() or nil,
   })
 
-  if not ok then
-    -- Ensure LSP omnifunc is enabled
-    --- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-    vim.keymap.set("i", "<C-l>", function()
-      -- Check if any LSP client is attached to the current buffer
-      local clients = vim.lsp.get_clients({ bufnr = 0 })
+  --- 2. Navic Integration Logic ---
+  -- We use the LspAttach event to safely attach navic and set the winbar
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("LspNavicAttach", { clear = true }),
+    callback = function(args)
+      local bufnr = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-      -- If LSP is attached, trigger Omni Completion (<C-x><C-o>)
-      if #clients > 0 then
-        return "<C-x><C-o>"
+      if ok_navic and client and client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+        -- Set winbar only for the buffer where symbols are available
+        vim.wo[0].winbar = " %{%v:lua.require'nvim-navic'.get_location()%}"
       end
 
-      -- Fallback: If no LSP, trigger Buffer Keyword Completion (<C-x><C-n>)
-      return "<C-x><C-n>"
-    end, {
-      expr = true, -- The function returns a string to be executed as keys
-      replace_keycodes = true, -- Ensures <C-x> codes are interpreted correctly
-      desc = "Trigger LSP completion if available, else buffer words",
-    })
-  end
+      -- Standardize omnifunc for all LSPs
+      vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    end,
+  })
 
-  --- Enable LSP servers ---
+  --- 3. Manual Completion Trigger (<C-l>) ---
+  vim.keymap.set("i", "<C-l>", function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if #clients > 0 then
+      return "<C-x><C-o>"
+    end
+    return "<C-x><C-n>"
+  end, { expr = true, replace_keycodes = true, desc = "Smart Completion" })
+
+  --- 4. Enable LSP servers ---
   vim.lsp.enable({
     "gopls",
     "pyright",
@@ -69,23 +77,22 @@ M.setup = function()
     "ruff",
   })
 
-  --- Keymaps ---
-  --- this is handled by blink.cmp by default
+  --- 5. Built-in UI Keymaps ---
   vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover({ border = "rounded" })
   end, { desc = "LSP: Hover documentation" })
 
-  --- Completion options ---
+  --- 6. Completion & Diagnostic Presentation ---
   vim.o.completeopt = "menuone,fuzzy"
 
-  --- Diagnostic configuration ---
   vim.diagnostic.config({
     update_in_insert = false,
     virtual_text = false,
     severity_sort = true,
+    float = { border = "rounded" },
   })
 
-  --- Diagnostic auto-management ---
+  --- 7. Diagnostic Auto-management ---
   local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
 
   vim.api.nvim_create_autocmd("InsertEnter", {
@@ -101,10 +108,6 @@ M.setup = function()
       vim.diagnostic.enable(true)
     end,
   })
-end
-
-M.no_lsp = function()
-  -- Placeholder for configs that don't need LSP
 end
 
 return M
