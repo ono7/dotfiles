@@ -31,7 +31,7 @@ return {
         -- SHORT CIRCUIT 1: Ignore Large Files
         -- =========================================================
         if vim.b[args.buf].large_file then
-          vim.notify("Large file detected: Treesitter disabled", vim.log.levels.WARN)
+          vim.notify("Large file detected", vim.log.levels.WARN)
           return
         end
 
