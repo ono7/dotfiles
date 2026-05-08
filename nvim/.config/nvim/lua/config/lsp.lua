@@ -43,15 +43,15 @@ M.setup = function()
       if ok_navic and client and client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
 
-        -- Set the winbar
+        -- Use a window-local winbar
         vim.wo[0].winbar = " %{%v:lua.require'nvim-navic'.get_location()%}"
 
-        -- IMMEDIATE REFRESH: Force navic to update context on every move
-        -- This eliminates the "trailing location" effect
-        vim.api.nvim_create_autocmd("CursorMoved", {
+        -- DIRECTIONAL FIX: Force a redraw of the winbar on every move
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
           buffer = bufnr,
           callback = function()
-            navic.get_location()
+            -- This forces Neovim to re-evaluate the %{} expression in the winbar
+            vim.cmd("redrawstatus")
           end,
         })
       end
