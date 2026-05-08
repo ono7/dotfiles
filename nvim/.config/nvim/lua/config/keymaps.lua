@@ -441,6 +441,9 @@ k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
+-- show diagnostics on quickfixlist
+k("n", "<leader>q", vim.diagnostic.setqflist, { desc = "LSP to Quickfix" })
+
 --- copy diagnostic
 vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float(nil, { focus = true })
