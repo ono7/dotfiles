@@ -1,4 +1,4 @@
-local gs, g = vim.api.nvim_set_var, vim.g
+local g = vim.g
 
 --- nvim-completion ---
 g.completion_sorting = "length"
@@ -6,17 +6,15 @@ g.completion_sorting = "length"
 --- lsp ---
 g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 
+--- Navigation ---
 g.tmux_navigator_disable_when_zoomed = 1
 
---- disable highlighting errors, vimscript
+--- Syntax & Language Handling ---
 g.vimsyn_noerror = 1
-
---- handle assembly language syntax ---
 g.asmsyntax = "nasm"
-
 g.java_ignore_javadoc = 1
 
---- markdown ---
+--- Markdown ---
 g.markdown_fenced_languages = {
   "html",
   "python",
@@ -32,19 +30,18 @@ g.markdown_fenced_languages = {
   "sql",
   "yaml",
   "json",
-  "go"
+  "go",
 }
 
--- g.markdown_syntax_conceal = 2
+-- Ensure these match your preference in options.lua
 g.vim_markdown_folding_disabled = 1
-
 g.markdown_folding = 0
 g.buftabline_show = 0
 
---- fix python indentation
+--- Python Indentation Logic ---
 g.pyindent_continue = "&sw"
 g.pyindent_open_paren = "0"
 g.pyindent_nested_paren = "&sw"
 
---- miniyank ---
+--- Clipboard/Yank ---
 g.miniyank_maxitems = 10
