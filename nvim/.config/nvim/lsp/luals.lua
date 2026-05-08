@@ -12,10 +12,10 @@ return {
         version = "LuaJIT",
       },
       workspace = {
-        -- library = {
-        --   vim.env.VIMRUNTIME,
-        --   -- vim.api.nvim_get_runtime_file("", true),
-        -- },
+        library = {
+          vim.env.VIMRUNTIME,
+          -- vim.api.nvim_get_runtime_file("", true),
+        },
         -- library = vim.api.nvim_get_runtime_file("", true),
         maxPreload = 10000,
         preloadFileSize = 10000,

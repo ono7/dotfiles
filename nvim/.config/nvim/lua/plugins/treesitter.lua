@@ -4,7 +4,7 @@ return {
   branch = "main",
   build = ":TSUpdate",
   config = function()
-    -- Custom registrations
+    -- 1. Register custom filetypes
     vim.filetype.add({
       extension = {
         csproj = "xml",
@@ -16,45 +16,30 @@ return {
       },
     })
 
-    -- Treesitter directory
-    local treesitter_dir = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/"
+    -- 2. Define minimum required parsers
+    local ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "gitcommit" }
 
-    -- Collect all available parsers
-    local parsers = {}
-    for name, type in vim.fs.dir(treesitter_dir .. "runtime/queries") do
-      if type == "directory" then
-        table.insert(parsers, name)
-      end
-    end
+    -- 3. Install missing parsers (install() acts as a safe no-op if already installed)
+    require("nvim-treesitter").install(ensure_installed)
 
-    -- Install file type parsers
-    require("nvim-treesitter").install(parsers)
-
-    -- Register known file types
-    dofile(treesitter_dir .. "plugin/filetypes.lua")
-
-    -- Get file types
-    local file_types = vim
-      .iter(parsers)
-      :map(function(parser)
-        return vim.treesitter.language.get_filetypes(parser)
-      end)
-      :flatten()
-      :totable()
-
-    -- Auto-run
+    -- 4. Native Autocmd for Highlighting, Folds, and Indentation
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = file_types,
+      group = vim.api.nvim_create_augroup("TreesitterNativeSetup", { clear = true }),
+      pattern = "*",
       callback = function(args)
-        -- Highlights
-        vim.treesitter.start()
+        -- Attempt to start treesitter natively.
+        -- pcall prevents a hard crash if a parser is uninstalled or corrupted.
+        local success = pcall(vim.treesitter.start, args.buf)
+        if not success then
+          return
+        end
 
-        -- Folds
+        -- Folds (Native Neovim API per official docs)
         vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.wo[0][0].foldmethod = "expr"
 
-        -- Indentation
-        vim.bo[args.buf].indentexpr = 'v:lua.require"nvim-treesitter".indentexpr()'
+        -- Indentation (Provided by nvim-treesitter API)
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     })
   end,
