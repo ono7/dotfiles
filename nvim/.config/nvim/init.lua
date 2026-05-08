@@ -73,7 +73,8 @@ mv 1.{bak,py} (1.bak -> 1.py) move filenames in shell, requires file.(src,dest)
 
 c-w + x -- swap splits in vim with next adjacent window
 
-show/close quickfix list c-/
+c-/  show/close quickfix list
+c-q show diagnostic errors in quickfix list
 
 ]]
 
