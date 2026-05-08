@@ -36,7 +36,7 @@ return {
       },
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable
-        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat or vim.b[bufnr].large_file then
           vim.notify("Conform: disable, using standard: write method")
           return
         end
