@@ -1,9 +1,7 @@
--- NOTE: Run :TSUninstall all, :TSInstall all on a fresh install of if something is currupted
-
 return {
   "nvim-treesitter/nvim-treesitter",
   lazy = false,
-  branch = "main",
+  branch = "main", -- Using the v1.0 native API branch
   build = ":TSUpdate",
   config = function()
     -- 1. Register custom filetypes
@@ -21,7 +19,7 @@ return {
     -- 2. Define minimum required parsers
     local ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "gitcommit", "python", "yaml", "json" }
 
-    -- 3. Install missing parsers
+    -- 3. Install missing parsers (install() acts as a safe no-op if already installed)
     require("nvim-treesitter").install(ensure_installed)
 
     -- 4. Native Autocmd for Highlighting, Folds, and Indentation
@@ -30,16 +28,38 @@ return {
       pattern = "*",
       callback = function(args)
         -- =========================================================
-        -- SHORT CIRCUIT: Abort if your large file script flagged this buffer
+        -- SHORT CIRCUIT 1: Ignore Large Files
         -- =========================================================
         if vim.b[args.buf].large_file then
-          print("large file detected, no HL support")
+          vim.notify("Large file detected: Treesitter disabled", vim.log.levels.WARN)
           return
         end
 
-        -- Attempt to start treesitter natively
+        -- =========================================================
+        -- SHORT CIRCUIT 2: Ignore UI and internal filetypes
+        -- =========================================================
+        local ignored_filetypes = {
+          fzf = true,
+          lazy = true,
+          netrw = true,
+          qf = true,
+          TelescopePrompt = true,
+          mason = true,
+          fidget = true,
+          notify = true,
+        }
+        if ignored_filetypes[args.match] then
+          return
+        end
+
+        -- =========================================================
+        -- START TREESITTER
+        -- =========================================================
+        -- Attempt to start treesitter natively.
+        -- pcall safely catches and ignores missing parsers.
         local success = pcall(vim.treesitter.start, args.buf)
         if not success then
+          -- If it fails, try to find out what language it needed and install it quietly
           local lang = vim.treesitter.language.get_lang(args.match) or args.match
           if lang and lang ~= "" then
             pcall(function()
@@ -49,11 +69,14 @@ return {
           return
         end
 
-        -- Folds
+        -- =========================================================
+        -- APPLY NATIVE FEATURES
+        -- =========================================================
+        -- Folds (Native Neovim API per official docs)
         vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.wo[0][0].foldmethod = "expr"
 
-        -- Indentation
+        -- Indentation (Provided by nvim-treesitter API)
         vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
     })
