@@ -96,8 +96,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local stat = vim.uv.fs_stat(args.match)
     if stat and stat.size > threshold_bytes then
       local buf = args.buf
-      print("large file detected")
-
       -- 1. Disable expensive UI rendering and line-wrap calculations
       vim.bo[buf].syntax = ""
       vim.wo[0].wrap = false
@@ -113,7 +111,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       vim.bo[0].undofile = false
       vim.bo[0].synmaxcol = 200
       vim.b[0].disable_autoformat = true
-      vim.b[0].large_file = true -- Mark as optimized
+      vim.b[0].large_file = true -- Mark as optimized, use this later on other plugins to skip them
       vim.b[0].lsp_ignore = true
 
       if pcall(require, "matchparen") then
