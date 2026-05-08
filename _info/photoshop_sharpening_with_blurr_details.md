@@ -17,7 +17,7 @@ eyes and other parts that would be skipped using high pass filter are now sharpe
 6. set blend mode to overlay, change oppasity accordingly
 
 - TIP:
-  you can apply using mask by selecting the group created, option clicking on the mask button (black)
+  you can apply using mask by selecting the group created, "option" clicking on the mask button (black)
   then selecting a brush to paint the mask.
 
 ref: https://www.youtube.com/watch?v=_IujZ_RJ61w
