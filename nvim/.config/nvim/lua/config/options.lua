@@ -13,7 +13,7 @@ vim.opt.history = 1000
 vim.opt.mouse = "n"
 vim.opt.autochdir = false
 vim.opt.autoread = true
-vim.opt.updatetime = 400
+vim.opt.updatetime = 300
 vim.opt.timeout = false
 vim.opt.timeoutlen = 300
 
