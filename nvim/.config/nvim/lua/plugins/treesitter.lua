@@ -46,6 +46,8 @@ return {
           qf = true,
           TelescopePrompt = true,
           mason = true,
+          fugitive = true,
+          tabby = true,
           fidget = true,
           notify = true,
         }
