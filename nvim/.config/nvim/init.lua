@@ -108,6 +108,18 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       vim.wo[0].cursorcolumn = false
       vim.wo[0].colorcolumn = ""
 
+      vim.bo[0].syntax = "off"
+      vim.bo[0].swapfile = false
+      vim.bo[0].undofile = false
+      vim.bo[0].synmaxcol = 200
+      vim.b[0].disable_autoformat = true
+      vim.b[0].large_file = true -- Mark as optimized
+      vim.b[0].lsp_ignore = true
+
+      if pcall(require, "matchparen") then
+        require("matchparen").disable(0)
+      end
+
       -- 2. Disable bracket matching across massive lines
       vim.bo[buf].matchpairs = ""
       vim.bo[buf].undofile = false
