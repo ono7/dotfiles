@@ -124,3 +124,41 @@ rg 'mypattern' -l | xargs sed -i 's/thispattern/newpattern/g'
 Remember that `sed` uses regular expressions, so mastering regex will greatly
 enhance your `sed` skills. Also, always be careful when using `-i` (in-place
 editing) as it directly modifies files.
+
+### other sed uses with in vim
+
+### 1. Use the Absolute Path (Recommended)
+
+Sometimes the `%` expansion within a quoted string confuses the shell. Try passing the filename as a separate argument:
+
+```bash
+:!sed -i 's/This/That/g' "%"
+
+```
+
+### 2. Use Vim’s Internal Filter (The "Vim Way")
+
+Instead of calling `sed` as an external system command with `-i` (inplace), you can "pipe" the buffer through `sed` and back into Vim. This is often more reliable:
+
+```bash
+:%!sed 's/This/That/g'
+
+```
+
+- **`%`**: Send the whole file to the command.
+- **`!`**: Filter the range through an external command.
+- **Result**: The output of `sed` replaces the content of your current buffer.
+
+### 3. Troubleshooting the macOS/BSD Difference
+
+If you are on **macOS**, the system `sed` requires an empty string argument for the `-i` flag to work without a backup file. If you are on Mac, the command should be:
+
+```bash
+:!sed -i '' 's/This/That/g' %
+
+```
+
+---
+
+**Note on Efficiency:** Unless the file is truly too large for Vim to load into memory (e.g., > 1GB), using Vim’s native command is faster and safer:
+`:%s/This/That/g`
