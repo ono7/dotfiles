@@ -76,6 +76,8 @@ c-w + x -- swap splits in vim with next adjacent window
 c-/  show/close quickfix list
 c-q show diagnostic errors in quickfix list
 
+use c-s and c-r more often to move around
+
 ]]
 
 -- Enable byte-compile loader immediately for performance
