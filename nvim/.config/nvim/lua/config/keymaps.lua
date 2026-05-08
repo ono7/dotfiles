@@ -122,14 +122,6 @@ inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
 inoremap <C-h> <C-g>u<BS>
 
-" ~^h = Delete Word Backward (Option+Ctrl+Backspace)
-" Note: Mapped to Option-Backspace (<M-BS>) for convenience
-"inoremap <M-BS> <C-g>u<C-w>
-
-" save file
-" inoremap <C-w> <C-o>:w<CR>
-" nnoremap <C-w> :w<CR>
-
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
 
@@ -143,11 +135,6 @@ inoremap <M-k> <C-g>u<C-o>d}
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <C-y> <C-g>u<C-o>p
 
-" Yank (paste from default register), using this for completion instead
-"inoremap <C-y> <C-r>"
-
-" select last inserted text, now used for lsp completion trigger
-" inoremap <C-l> <Esc>`[v`]
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
@@ -251,9 +238,6 @@ nnoremap U <c-r>
 
 nnoremap ; :
 
-" TODO: syntaxcomplete#Complete need to implement this for omnifunc
-" nnoremap v <c-v>
-
 vnoremap > >gv
 vnoremap < <gv
 
@@ -265,11 +249,6 @@ nnoremap Y yg_
 nnoremap j gj
 nnoremap k gk
 
-" xnoremap p P
-" xnoremap p "_dP
-
-" clear hlsearch on esc
-" nnoremap <silent> <Esc> :noh<CR><Esc>
 
 " includes filename in commit, but better to use git log --name-only
  nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
@@ -414,21 +393,6 @@ if has('clipboard')
   endif
 endif
 
-"set clipboard="unnamedplus"
-
-" Yank to system clipboard
-" Usage: <leader>y + motion (e.g., <leader>yiw to yank inner word)
-"nnoremap <leader>y "+y
-" Usage: Select text, then <leader>y
-"vnoremap <leader>y "+y
-
-" Paste from system clipboard
-"nnoremap <leader>p "+p
-"vnoremap <leader>p "+p
-
-" Optional: Yank whole line to system clipboard
-
-"nnoremap <leader>Y "+Y
 
 if exists('$SSH_TTY')
   function! Osc52yank()
@@ -454,48 +418,6 @@ endif
 
 packadd cfilter
 ]])
-
--- vim.keymap.set("n", "<leader>d", function()
---   local current_buf = vim.api.nvim_get_current_buf()
---   -- Try to switch to the alternate buffer (the last one you were editing)
---   local alternate_buf = vim.fn.bufnr("#")
---   if vim.api.nvim_buf_is_loaded(alternate_buf) and alternate_buf ~= current_buf then
---     vim.api.nvim_set_current_buf(alternate_buf)
---   else
---     -- Fallback: Cycle to previous buffer
---     vim.cmd("bprevious")
---   end
---   -- If we haven't moved (meaning this was the only buffer), open a new scratch buffer
---   if vim.api.nvim_get_current_buf() == current_buf then
---     vim.cmd("enew")
---   end
---   -- Finally, delete the original buffer
---   vim.cmd("bdelete " .. current_buf)
--- end, { desc = "Close buffer, keep window" })
-
--- k("n", "<leader>dt", function()
---   if vim.diagnostic.is_enabled() then
---     vim.diagnostic.enable(false)
---     print("diags: disabled")
---   else
---     vim.diagnostic.enable(true)
---     print("diags: enabled")
---   end
--- end)
-
---- delete all buffers except current one
--- vim.keymap.set("n", "<leader>d", function()
---   local cur = vim.api.nvim_get_current_buf()
---
---   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
---     if buf ~= cur and vim.api.nvim_buf_is_loaded(buf) then
---       pcall(vim.api.nvim_buf_delete, buf, { force = true })
---     end
---   end
--- end, { desc = "Delete all other buffers" })
-
--- vim.api.nvim_set_keymap("i", "<C-j>", "pumvisible() ? '<C-n>' : '<C-j>'", { expr = true, noremap = true })
--- vim.api.nvim_set_keymap("i", "<C-k>", "pumvisible() ? '<C-p>' : '<C-k>'", { expr = true, noremap = true })
 
 vim.keymap.set("n", "<C-1>", "1gt", opt)
 vim.keymap.set("n", "<C-2>", "2gt", opt)
@@ -539,29 +461,16 @@ end, { silent = true })
 -- Copy full file path
 k("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<CR>', opt)
 
--- --- when using J keep cursor to the right
--- k({ "n", "v" }, "J", "mzJ`z")
-
 --- go ---
 k("n", "gt", ":GoTagAdd<cr>", silent)
 
---- file ---
--- k("n", "<leader>da", "<cmd>%bd|e#<cr>", silent)
-
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
-
--- k("x", ",a", "<cmd>!column -t<cr>")
 
 --- terminal ---
 k("t", "<M-BS>", "\x17", { noremap = true })
 k("t", "<C-BS>", "\x17", { noremap = true })
--- k("i", "<C-BS>", "\x17", { noremap = true })
 
--- k("i", nv("BS"), "\x17", { noremap = true })
 k("c", "<C-BS>", "\x17", { noremap = true })
-
--- pass <c-b> to through term for tmux
--- k("t", "<M-b>", "<C-b>", { noremap = true })
 
 -- switch to normal mode
 k("t", "<c-x>", [[<c-\><c-n>]], silent)
@@ -702,25 +611,6 @@ for _, v in ipairs(r_pair_map) do
   table.insert(all_pair_map, v)
 end
 
---- does not use expression mapping that can cause latency overhead
--- k("i", "<BS>", function()
---   local _, col = unpack(vim.api.nvim_win_get_cursor(0))
---   if col == 0 then
---     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
---   end
---
---   local line = vim.fn.getline(".")
---   if col > #line then
---     return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>", true, false, true), "n", false)
---   end
---
---   local prev_char = line:sub(col, col)
---   local next_char = line:sub(col + 1, col + 1)
---
---   local keys = pair_map[prev_char] == next_char and "<Del><C-h>" or "<BS>"
---   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
--- end)
-
 -- Add this helper at the top of your file
 local function term(k)
   return vim.api.nvim_replace_termcodes(k, true, false, true)
@@ -748,35 +638,6 @@ vim.keymap.set("i", "<BS>", function()
   return "<BS>"
 end, { expr = true, replace_keycodes = true })
 
-vim.keymap.set("i", "<CR>", function()
-  local col = vim.fn.col(".") - 1
-  local line = vim.fn.getline(".")
-  local char = line:sub(col, col)
-  local pairs = { ["{"] = "}", ["["] = "]", ["("] = ")" }
-
-  if pairs[char] then
-    return "<CR>" .. pairs[char] .. "<Esc>O"
-  end
-  return "<CR>"
-end, { expr = true, replace_keycodes = true })
-
--- vim.keymap.set("i", "<CR>", function()
---   local col = vim.fn.col(".")
---   local line = vim.fn.getline(".")
---   local prev = col > 1 and line:sub(col - 1, col - 1) or ""
---
---   if prev == "{" then
---     return "<CR>}<Esc>O"
---   end
---   if prev == "[" then
---     return "<CR>]<Esc>O"
---   end
---   if prev == "(" then
---     return "<CR>)<Esc>O"
---   end
---
---   return "<CR>"
--- end, { expr = true, noremap = true })
 vim.keymap.set("i", "<CR>", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local col = cursor[2]
