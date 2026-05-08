@@ -75,6 +75,9 @@ c-w + x -- swap splits in vim with next adjacent window
 
 ]]
 
+-- Enable byte-compile loader immediately for performance
+vim.loader.enable(true)
+
 local large_file_group = vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })
 local threshold_bytes = 1048576 -- 1MB threshold
 
@@ -82,9 +85,10 @@ local threshold_bytes = 1048576 -- 1MB threshold
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = large_file_group,
   callback = function(args)
-    local stat = vim.uv.fs_stat(args.match)
-    if stat and stat.size > threshold_bytes then
+    local ok, stat = pcall(vim.uv.fs_stat, args.match)
+    if ok and stat and stat.size > threshold_bytes then
       vim.bo[args.buf].swapfile = false
+      vim.bo[args.buf].undofile = false
     end
   end,
 })
@@ -93,11 +97,11 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = large_file_group,
   callback = function(args)
-    local stat = vim.uv.fs_stat(args.match)
-    if stat and stat.size > threshold_bytes then
-      local buf = args.buf
+    local buf = args.buf
+    local ok, stat = pcall(vim.uv.fs_stat, args.match)
+
+    if ok and stat and stat.size > threshold_bytes then
       -- 1. Disable expensive UI rendering and line-wrap calculations
-      vim.bo[buf].syntax = ""
       vim.wo[0].wrap = false
       vim.wo[0].foldmethod = "manual"
       vim.wo[0].spell = false
@@ -106,24 +110,26 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       vim.wo[0].cursorcolumn = false
       vim.wo[0].colorcolumn = ""
 
-      vim.bo[0].syntax = "off"
-      vim.bo[0].swapfile = false
-      vim.bo[0].undofile = false
-      vim.bo[0].synmaxcol = 200
-      vim.b[0].disable_autoformat = true
-      vim.b[0].large_file = true -- Mark as optimized, use this later on other plugins to skip them
-      vim.b[0].lsp_ignore = true
+      vim.bo[buf].syntax = "off"
+      vim.bo[buf].swapfile = false
+      vim.bo[buf].undofile = false
+      vim.bo[buf].synmaxcol = 200
+      vim.b[buf].disable_autoformat = true
+      vim.b[buf].large_file = true -- Mark as optimized, use this later on other plugins to skip them
+      vim.b[buf].lsp_ignore = true
 
       if pcall(require, "matchparen") then
-        require("matchparen").disable(0)
+        pcall(function()
+          require("matchparen").disable(buf)
+        end)
       end
 
       -- 2. Disable bracket matching across massive lines
       vim.bo[buf].matchpairs = ""
-      vim.bo[buf].undofile = false
 
       -- 3. Terminate Treesitter parsing for the buffer
-      if vim.treesitter.highlighter.active[buf] then
+      local has_ts, ts_highlighter = pcall(require, "vim.treesitter.highlighter")
+      if has_ts and ts_highlighter.active[buf] then
         vim.treesitter.stop(buf)
       end
 
@@ -133,13 +139,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       end
 
       -- 5. Set global buffer flag to instruct compliant plugins to back off
-      -- (e.g., indent-blankline, gitsigns, illuminate)
       vim.b[buf].large_file = true
+      vim.notify("Large file detected: Performance optimizations applied.", vim.log.levels.WARN)
     end
   end,
 })
-
-vim.loader.enable(true)
 
 if vim.opt.termguicolors then
   -- if truecolor is supported, lets make it better for neovim
@@ -147,11 +151,12 @@ if vim.opt.termguicolors then
   vim.cmd([[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]])
 end
 
-vim.cmd("syntax off")
+-- Ensure syntax is ON by default so Treesitter can handoff or fall back
+vim.cmd("syntax on")
 
 -- new for 0.12.0
 -- 1. Enable the new non-blocking UI to kill "Press ENTER" prompts
--- require("vim._core.ui2").enable()
+-- if pcall(require, "vim._core.ui2") then require("vim._core.ui2").enable() end
 
 require("config.keymaps")
 require("config.options")
@@ -166,15 +171,21 @@ require("config.lazy")
 -- require("utils.create-table").setup()
 require("config.commands")
 require("config.autocmds")
-require("config.lsp").setup()
+if package.searchpath("config.lsp", package.path) then
+  require("config.lsp").setup()
+end
 require("config.neovide")
-require("utils.zoxide").setup() -- use fzflua zoxide..
+if package.searchpath("utils.zoxide", package.path) then
+  require("utils.zoxide").setup() -- use fzflua zoxide..
+end
 
 --- these two worktogether
 
 -- require("utils.runner").setup() -- runs anything :M <cmd> :)
 -- require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
-require("utils.projects").setup() -- keeps track of project
+if package.searchpath("utils.projects", package.path) then
+  require("utils.projects").setup() -- keeps track of project
+end
 -- require("utils.ruff")
 
 vim.opt.mouse = "a"
@@ -203,34 +214,34 @@ end, {})
 
 -- Ensure Go binaries are in PATH
 local go_bin_path = vim.fn.expand("$HOME/go/bin")
-local current_path = vim.env.PATH
-if not string.find(current_path, go_bin_path, 1, true) then
-  vim.env.PATH = go_bin_path .. ":" .. current_path
+if vim.fn.isdirectory(go_bin_path) == 1 then
+  local current_path = vim.env.PATH
+  if not string.find(current_path, go_bin_path, 1, true) then
+    vim.env.PATH = go_bin_path .. ":" .. current_path
+  end
 end
 
 --- disable
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
-  callback = function()
+  callback = function(args)
     local no_syntax = {
       csv = true,
+      log = true,
     }
-    if no_syntax[vim.bo.filetype] then
-      vim.treesitter.stop() -- stop treesitter for this buffer
-      vim.cmd([[setlocal syntax=OFF]])
-      vim.notify("All syntax off")
+    if no_syntax[vim.bo[args.buf].filetype] then
+      pcall(vim.treesitter.stop, args.buf)
+      vim.bo[args.buf].syntax = "off"
+      vim.notify("Syntax and Treesitter disabled for " .. vim.bo[args.buf].filetype)
     end
   end,
 })
 
--- vim.opt.guicursor = "n-c-v-t-i:block-Cursor"
-
 -- Enable blinking cursor in Neovide (and other GUIs)
--- vim.opt.guicursor = "a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
 vim.opt.guicursor =
   "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:ver25-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
 
 vim.diagnostic.config({ update_in_insert = false })
 
 --- remove "press ENTER" prompt.. maybe
--- require("vim._core.ui2").enable({})
+-- if pcall(require, "vim._core.ui2") then require("vim._core.ui2").enable({}) end
