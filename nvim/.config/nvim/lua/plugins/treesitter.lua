@@ -32,7 +32,6 @@ return {
         -- pcall prevents a hard crash if a parser is uninstalled or corrupted.
         local success = pcall(vim.treesitter.start, args.buf)
         if not success then
-          print("no treesitter support")
           return
         end
 
