@@ -13,9 +13,9 @@ vim.api.nvim_create_autocmd("TermClose", {
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
-    if vim.bo[args.buf].large_file ~= true then
-      return
-    end
+    -- if vim.bo[args.buf].large_file == true then
+    --   return
+    -- end
     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if not client or client.name ~= "pyright" then
