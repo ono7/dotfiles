@@ -544,7 +544,6 @@ local function clean_space_save()
   end
 end
 
--- k("i", "<M-BS>", "<C-u>", { noremap = true })
 vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
 
 -- k("n", ",w", function()
