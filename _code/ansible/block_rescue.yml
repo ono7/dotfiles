@@ -1,8 +1,9 @@
 ---
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-01-10 20:08
+# vi: ft=yaml.ansible
 
-- name: "test"
+- name: "Test"
   hosts: localhost
   gather_facts: false
   connection: local
@@ -10,18 +11,18 @@
   tasks:
     - name: Deploy block
       block:
-        - name: Test 1
+        - name: Test 1 # noqa: no-changed-when
           ansible.builtin.shell: echo $$
           register: output
           failed_when: true
           ignore_errors: true
 
-        - name: Test 2
+        - name: Test 2 # noqa: no-changed-when
           ansible.builtin.shell: echo $$
           register: output
           failed_when: true
 
-        - name: Test 3
+        - name: Test 3 # noqa: no-changed-when
           ansible.builtin.shell: echo $$
           register: output
 

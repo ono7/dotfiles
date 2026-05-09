@@ -78,6 +78,8 @@ c-q show diagnostic errors in quickfix list
 
 use c-s and c-r more often to move around
 
+<leader>nq - sets noqa for the particular diagnostics error
+
 ]]
 
 -- Enable byte-compile loader immediately for performance

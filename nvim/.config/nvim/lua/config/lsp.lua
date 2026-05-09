@@ -86,9 +86,10 @@ M.setup = function()
   })
 
   --- 5. Built-in UI Keymaps ---
-  vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover({ border = "rounded" })
-  end, { desc = "LSP: Hover documentation" })
+  -- lspsaga now handles this
+  -- vim.keymap.set("n", "K", function()
+  --   vim.lsp.buf.hover({ border = "rounded" })
+  -- end, { desc = "LSP: Hover documentation" })
 
   --- 6. Completion & Diagnostic Presentation ---
   vim.o.completeopt = "menuone,fuzzy"
