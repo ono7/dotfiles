@@ -441,8 +441,13 @@ k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
--- show diagnostics on quickfixlist
-k("n", "<leader>q", vim.diagnostic.setqflist, { desc = "LSP to Quickfix" })
+-- show diagnostics on quickfixlist for the project
+-- k("n", "<leader>q", vim.diagnostic.setqflist, { desc = "LSP to Quickfix" })
+
+-- show diagnostics for the current buffer on quickfixlist
+k("n", "<leader>q", function()
+  vim.diagnostic.setqflist({ bufnr = 0 })
+end, { desc = "Buffer LSP to Quickfix" })
 
 vim.keymap.set("n", "<leader>nq", function()
   -- Get cursor position (0-indexed for API)
