@@ -56,7 +56,6 @@ vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
 vim.opt.laststatus = 2
 vim.opt.cmdheight = 1
-vim.opt.ruler = false -- Clean statusline
 vim.opt.showcmd = false
 vim.opt.showmode = true
 vim.opt.shortmess = "aoOstTWICcF" -- 'F' hides extra file info
@@ -190,3 +189,28 @@ function! Rg(args) abort
 endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
+
+_G.statusline_git_branch = function()
+  if vim.fn.exists("*FugitiveHead") == 0 then
+    return ""
+  end
+  local branch = vim.fn.FugitiveHead()
+  return branch ~= "" and ("  " .. branch .. " ") or ""
+end
+
+local parts = {
+  "%<%f %h%w%m%r ", -- Truncation point, file path, and flags
+  "%{% v:lua.require('vim._core.util').term_exitcode() %}", -- Terminal exit code
+  "%=", -- Alignment separator 1
+  "%{%v:lua.statusline_git_branch()%}", -- Fugitive Branch
+  "%=", -- Alignment separator 2
+  "%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}", -- UI progress
+  "%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}", -- Command tracking
+  "%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}", -- Keymap name
+  "%{% &busy > 0 ? '◐ ' : '' %}", -- Busy indicator
+  "%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}", -- Diagnostics
+  "%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}", -- Ruler (Line, Column, Percentage)
+}
+
+vim.opt.ruler = true
+vim.opt.statusline = table.concat(parts)
