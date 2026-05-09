@@ -86,7 +86,6 @@ M.setup = function()
   })
 
   --- 5. Built-in UI Keymaps ---
-  -- lspsaga now handles this
   -- vim.keymap.set("n", "K", function()
   --   vim.lsp.buf.hover({ border = "rounded" })
   -- end, { desc = "LSP: Hover documentation" })
