@@ -44,6 +44,52 @@ local function close_quickfix()
   end
 end
 
+---------------------------------------------------------------------------
+-- TRANSIENT WINDOW MANAGEMENT (Terminal, Fugitive, Oil, Quickfix)
+---------------------------------------------------------------------------
+local function hide_transients()
+  local state = get_tab_state()
+  local closed_terminal = false
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(win) then
+      local buf = vim.api.nvim_win_get_buf(win)
+      local ft = vim.bo[buf].filetype
+      local bt = vim.bo[buf].buftype
+      local wt = vim.fn.win_gettype(win)
+
+      if bt == "terminal" or wt == "quickfix" or ft == "fugitive" or ft == "oil" then
+        if #vim.api.nvim_list_wins() > 1 then
+          vim.api.nvim_win_hide(win)
+          if bt == "terminal" then
+            closed_terminal = true
+          end
+        end
+      end
+    end
+  end
+
+  -- Drop focus back to editor if terminal was the active window being closed
+  if closed_terminal and state.last_win and vim.api.nvim_win_is_valid(state.last_win) then
+    vim.api.nvim_set_current_win(state.last_win)
+  end
+end
+
+-- Terminals often send <C-_> for <C-/>, binding both ensures compatibility
+vim.keymap.set("n", "<C-/>", hide_transients, opts)
+vim.keymap.set("n", "<C-_>", hide_transients, opts)
+vim.keymap.set("t", "<C-/>", function()
+  hide_transients()
+  vim.cmd("stopinsert")
+end, opts)
+vim.keymap.set("t", "<C-_>", function()
+  hide_transients()
+  vim.cmd("stopinsert")
+end, opts)
+
+---------------------------------------------------------------------------
+-- TERMINAL COMMAND
+---------------------------------------------------------------------------
 vim.api.nvim_create_user_command("T", function(opts_args)
   local cmd = opts_args.args
   local state = get_tab_state()
