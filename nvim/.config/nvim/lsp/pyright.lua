@@ -70,7 +70,7 @@ return {
 
     if python_path then
       client.config.settings.python.pythonPath = python_path
-      client.notify("workspace/didChangeConfiguration", {
+      client:notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,
       })
       vim.notify("VENV" .. trim_path(python_path))
