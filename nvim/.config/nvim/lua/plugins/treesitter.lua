@@ -42,6 +42,7 @@ return {
           fzf = true,
           lazy = true,
           oil = true,
+          oil_preview = true,
           netrw = true,
           qf = true,
           TelescopePrompt = true,
