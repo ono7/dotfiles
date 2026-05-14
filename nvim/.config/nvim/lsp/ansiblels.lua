@@ -84,7 +84,7 @@ return {
         client.config.settings.ansible.validation.lint.path = ansible_lint_path
       end
 
-      client.notify("workspace/didChangeConfiguration", {
+      client:notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,
       })
 

@@ -36,17 +36,17 @@ hinting = "none"
 # style = "Regular"
 
 family = "Iosevka Custom"
-style = "Medium Extended"
+style = "Medium Semi-Extended"
 
 [[font.bold]]
 
 family = "Iosevka Custom"
-style = "ExtraBold Extended"
+style = "ExtraBold Semi-Extended"
 
 [[font.italic]]
 
 family = "Iosevka Custom"
-style = "Medium Extended Italic"
+style = "Medium Semi-Extended Italic"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"

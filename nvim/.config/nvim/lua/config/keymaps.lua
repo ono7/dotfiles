@@ -444,6 +444,11 @@ k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 -- show diagnostics on quickfixlist for the project
 -- k("n", "<leader>q", vim.diagnostic.setqflist, { desc = "LSP to Quickfix" })
 
+vim.keymap.set("n", "<leader>te", function()
+  local dir = vim.fn.expand("%:p:h")
+  vim.fn.jobstart({ "alacritty", "--working-directory", dir }, { detach = true })
+end, { desc = "Open Alacritty in current directory" })
+
 -- show diagnostics for the current buffer on quickfixlist
 k("n", "<leader>q", function()
   vim.diagnostic.setqflist({ bufnr = 0 })
