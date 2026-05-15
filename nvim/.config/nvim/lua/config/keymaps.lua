@@ -12,6 +12,17 @@ local function trim_path(s)
   end
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "noice",
+  callback = function(event)
+    vim.keymap.set("n", "<C-/>", "<cmd>close<CR>", {
+      buffer = event.buf,
+      silent = true,
+      desc = "Close Noice history window",
+    })
+  end,
+})
+
 --- nop ---
 k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")

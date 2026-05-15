@@ -48,6 +48,7 @@ return {
           TelescopePrompt = true,
           mason = true,
           fugitive = true,
+          noice = true,
           tabby = true,
           fidget = true,
           notify = true,
