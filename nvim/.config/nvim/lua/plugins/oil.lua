@@ -15,6 +15,7 @@ return {
       columns = { "icon", add_padding = true },
       keymaps = {
         ["<C-p>"] = false,
+        ["<C-h>"] = false,
         ["<C-v>"] = { "actions.select", opts = { vertical = true } },
         ["<M-s>"] = { "actions.select", opts = { horizontal = true } },
         ["<C-/>"] = "actions.close",

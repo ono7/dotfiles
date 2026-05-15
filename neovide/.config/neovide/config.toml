@@ -23,8 +23,8 @@ wsl = false
 # normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
 # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
 # edging = "antialias"
-height = 15
-size = 25
+# height = 15
+size = 26
 
 # best for macos...
 hinting = "none"
