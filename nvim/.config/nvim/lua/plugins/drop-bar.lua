@@ -1,3 +1,4 @@
+-- LSP and document crums in bar
 return {
   "Bekaboo/dropbar.nvim",
   dependencies = {
