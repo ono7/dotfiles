@@ -26,19 +26,17 @@ return {
 
         display = {
           render_limit = 7,
-          done_ttl = 2.5,
+          done_ttl = 4, -- Increased to keep the completion checkmark visible slightly longer
           done_icon = "✔",
           done_style = "DiagnosticSignOk",
 
-          -- keep your behavior exactly
           progress_ttl = math.huge,
 
-          -- smoother braille spinner
           progress_icon = { pattern = "dots", period = 1 },
 
           progress_style = "WarningMsg",
-          group_style = "Directory", -- better contrast
-          icon_style = "Comment", -- muted icon color
+          group_style = "Directory",
+          icon_style = "Comment",
 
           priority = 30,
           skip_history = true,
@@ -75,12 +73,9 @@ return {
 
         configs = {
           default = vim.tbl_extend("force", require("fidget.notification").default_config, {
-            ttl = 2.5,
-            timeout = 2,
-
-            -- icon set per level (big visual upgrade)
+            ttl = 5, -- Increased from 2.5 to 5 seconds
+            timeout = 5, -- Increased from 2 to 5 seconds
             icon = "💫",
-
             icon_style = "Title",
           }),
         },
@@ -88,7 +83,6 @@ return {
         view = {
           stack_upwards = true,
           icon_separator = " ",
-          -- group_separator = "─",
           group_separator = "·",
           group_separator_hl = "NonText",
 
@@ -99,8 +93,8 @@ return {
 
         window = {
           normal_hl = "Normal",
-          winblend = 25, -- softer, cleaner
-          border = "rounded",
+          winblend = 25,
+          border = "none", -- Removed borders for a clean, minimal float
           zindex = 45,
           max_width = 0,
           max_height = 0,
@@ -110,15 +104,6 @@ return {
           relative = "editor",
         },
       },
-
-      --==============================
-      --  Integrations
-      --==============================
-
-      -- integration = {
-      --   ["NvimTree"] = { enable = false },
-      --   ["TestExplorer"] = { enable = false },
-      -- },
 
       --==============================
       --  Logging
