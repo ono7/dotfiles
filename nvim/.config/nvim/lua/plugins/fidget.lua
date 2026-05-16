@@ -26,7 +26,7 @@ return {
 
         display = {
           render_limit = 7,
-          done_ttl = 4, -- Increased to keep the completion checkmark visible slightly longer
+          done_ttl = 4,
           done_icon = "✔",
           done_style = "DiagnosticSignOk",
 
@@ -73,8 +73,8 @@ return {
 
         configs = {
           default = vim.tbl_extend("force", require("fidget.notification").default_config, {
-            ttl = 5, -- Increased from 2.5 to 5 seconds
-            timeout = 5, -- Increased from 2 to 5 seconds
+            ttl = 5,
+            timeout = 5,
             icon = "💫",
             icon_style = "Title",
           }),
@@ -86,17 +86,16 @@ return {
           group_separator = "·",
           group_separator_hl = "NonText",
 
-          render_message = function(msg, cnt)
-            return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
-          end,
+          reflow = true,
+          align = "message",
         },
 
         window = {
           normal_hl = "Normal",
           winblend = 25,
-          border = "none", -- Removed borders for a clean, minimal float
+          border = "none",
           zindex = 45,
-          max_width = 0,
+          max_width = 60,
           max_height = 0,
           x_padding = 1,
           y_padding = 1,

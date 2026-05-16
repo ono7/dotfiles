@@ -13,7 +13,7 @@ local function trim_path(s)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "noice",
+  pattern = { "noice", "markdown" },
   callback = function(event)
     vim.keymap.set("n", "<C-/>", "<cmd>close<CR>", {
       buffer = event.buf,
@@ -593,16 +593,19 @@ local function clean_space_save()
     print("save me first!")
     return
   end
-  local line_count = vim.api.nvim_buf_line_count(0)
-  if line_count < 1000 then
-    local save_cursor = vim.fn.getcurpos()
-    -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
-    vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
-    vim.cmd([[:write ++p]])
-    vim.fn.setpos(".", save_cursor)
+  if not vim.b[0].large_file then
+    local line_count = vim.api.nvim_buf_line_count(0)
+    if line_count < 1000 then
+      local save_cursor = vim.fn.getcurpos()
+      -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
+      vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
+      vim.cmd([[:write ++p]])
+      vim.fn.setpos(".", save_cursor)
     -- this is now handled by conform.nvim
-  else
-    print("buffer over 1000 lines skipping clean up")
+    else
+      print("too many lines.. skipping cleanup")
+    end
+    print("large file... skipping cleanup")
   end
 end
 
