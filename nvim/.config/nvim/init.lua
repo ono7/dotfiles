@@ -85,69 +85,49 @@ use c-s and c-r more often to move around
 -- Enable byte-compile loader immediately for performance
 vim.loader.enable(true)
 
-local large_file_group = vim.api.nvim_create_augroup("LargeFileOptimization", { clear = true })
-local threshold_bytes = 1048576 -- 1MB threshold
+local large_file_group = vim.api.nvim_create_augroup("LargeFileOpts", { clear = true })
+local threshold_bytes = 1048576
 
--- Intercept file read to prevent swapfile generation blocking the main thread
 vim.api.nvim_create_autocmd("BufReadPre", {
   group = large_file_group,
   callback = function(args)
     local ok, stat = pcall(vim.uv.fs_stat, args.match)
     if ok and stat and stat.size > threshold_bytes then
+      vim.b[args.buf].large_file = true
       vim.bo[args.buf].swapfile = false
       vim.bo[args.buf].undofile = false
+
+      -- Temporarily blackhole the FileType event for this buffer load
+      vim.opt.eventignore:append("FileType")
     end
   end,
 })
 
--- Execute UI optimization, parser termination, and LSP detachment post-read
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = large_file_group,
   callback = function(args)
-    local buf = args.buf
-    local ok, stat = pcall(vim.uv.fs_stat, args.match)
+    if not vim.b[args.buf].large_file then
+      return
+    end
 
-    if ok and stat and stat.size > threshold_bytes then
-      -- 1. Disable expensive UI rendering and line-wrap calculations
-      vim.wo[0].wrap = false
-      vim.wo[0].foldmethod = "manual"
-      vim.wo[0].spell = false
-      vim.wo[0].list = false
-      vim.wo[0].cursorline = false
-      vim.wo[0].cursorcolumn = false
-      vim.wo[0].colorcolumn = ""
+    -- Immediately restore FileType event generation for other buffers
+    vim.opt.eventignore:remove("FileType")
 
-      vim.bo[buf].syntax = "off"
-      vim.bo[buf].swapfile = false
-      vim.bo[buf].undofile = false
-      vim.bo[buf].synmaxcol = 200
-      vim.b[buf].disable_autoformat = true
-      vim.b[buf].large_file = true -- Mark as optimized, use this later on other plugins to skip them
-      vim.b[buf].lsp_ignore = true
+    vim.bo[args.buf].filetype = ""
+    vim.bo[args.buf].syntax = ""
+    vim.bo[args.buf].matchpairs = ""
 
-      if pcall(require, "matchparen") then
-        pcall(function()
-          require("matchparen").disable(buf)
-        end)
-      end
+    local win = vim.fn.bufwinid(args.buf)
+    if win ~= -1 then
+      vim.wo[win].wrap = false
+      vim.wo[win].foldmethod = "manual"
+      vim.wo[win].cursorline = false
+      vim.wo[win].cursorcolumn = false
+    end
 
-      -- 2. Disable bracket matching across massive lines
-      vim.bo[buf].matchpairs = ""
-
-      -- 3. Terminate Treesitter parsing for the buffer
-      local has_ts, ts_highlighter = pcall(require, "vim.treesitter.highlighter")
-      if has_ts and ts_highlighter.active[buf] then
-        vim.treesitter.stop(buf)
-      end
-
-      -- 4. Detach all active LSP clients
-      for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
-        vim.lsp.buf_detach_client(buf, client.id)
-      end
-
-      -- 5. Set global buffer flag to instruct compliant plugins to back off
-      vim.b[buf].large_file = true
-      vim.notify("Large file detected: Performance optimizations applied.", vim.log.levels.WARN)
+    -- Force-detach LSPs as a safety net
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
+      vim.lsp.buf_detach_client(args.buf, client.id)
     end
   end,
 })

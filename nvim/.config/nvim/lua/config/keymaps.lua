@@ -351,10 +351,11 @@ function! s:CleanAndSave()
   call winrestview(l:save)
 endfunction
 
-augroup CleanOnWrite
-  autocmd!
-  autocmd BufWritePre * call s:CleanAndSave()
-augroup end
+" not in neovim, we use lua there
+"augroup CleanOnWrite
+"  autocmd!
+"  autocmd BufWritePre * call s:CleanAndSave()
+"augroup end
 
 augroup FileTypeSettings
   autocmd!
@@ -579,8 +580,34 @@ end
 
 vim.keymap.set({ "n", "t" }, "<M-y>", toggle_maximize, { silent = true })
 
+-- save and clean up file
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("CleanOnWrite", { clear = true }),
+  callback = function(args)
+    -- Short-circuit immediately on massive files
+    if vim.b[args.buf].large_file then
+      return
+    end
+
+    local save = vim.fn.winsaveview()
+
+    -- Remove trailing whitespace, trailing tabs, and Windows ^M characters
+    vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
+
+    -- Remove empty lines at the end of the file
+    vim.cmd([[keeppatterns %s#\($\n\s*\)\+\%$##e]])
+
+    -- Convert remaining tabs to spaces
+    if vim.bo[args.buf].expandtab then
+      vim.cmd([[retab!]])
+    end
+
+    vim.fn.winrestview(save)
+  end,
+})
+
+-- 1. Safety check to prevent E32 on unnamed buffers
 local function check_buf(bufnr)
-  --- checks if this is a valid buffer that we can save to ---
   local bufname = vim.api.nvim_buf_get_name(bufnr)
   if bufname == "" then
     return false
@@ -588,44 +615,16 @@ local function check_buf(bufnr)
   return true
 end
 
-local function clean_space_save()
+-- 2. Map <leader>w to a raw write.
+-- The BufWritePre autocmd will automatically catch this and apply your retab/cleanup logic.
+vim.keymap.set("n", "<leader>w", function()
   if not check_buf(0) then
-    print("save me first!")
+    vim.notify("Save first..", vim.log.levels.WARN)
     return
   end
-  if not vim.b[0].large_file then
-    local line_count = vim.api.nvim_buf_line_count(0)
-    if line_count < 1000 then
-      local save_cursor = vim.fn.getcurpos()
-      -- Fixes ^M chars from Windows copy-pastes and removes trailing spaces
-      vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
-      vim.cmd([[:write ++p]])
-      vim.fn.setpos(".", save_cursor)
-    -- this is now handled by conform.nvim
-    else
-      print("too many lines.. skipping cleanup")
-    end
-    print("large file... skipping cleanup")
-  end
-end
-
-vim.api.nvim_create_user_command("CleanAndSave", clean_space_save, {})
-
--- k("n", ",w", function()
---   if not check_buf(0) then
---     print("save me first!")
---     return
---   end
---   vim.cmd([[:write ++p]])
--- end, silent)
-
-k("n", "<leader>w", function()
-  if not check_buf(0) then
-    print("save me first!")
-    return
-  end
+  -- Write current buffer, creating parent directories if they don't exist
   vim.cmd([[:write ++p]])
-end, silent)
+end, { silent = true, desc = "Write file (creates parent dirs)" })
 
 -- Toggle quickfix list
 k("n", "<c-/>", function()

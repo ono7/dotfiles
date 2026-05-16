@@ -92,7 +92,7 @@ return {
 
         window = {
           normal_hl = "Normal",
-          winblend = 25,
+          winblend = 0,
           border = "none",
           zindex = 45,
           max_width = 60,
