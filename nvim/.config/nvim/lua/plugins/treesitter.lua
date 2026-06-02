@@ -51,6 +51,7 @@ return {
           fugitive = true,
           noice = true,
           tabby = true,
+          text = true,
           fidget = true,
           notify = true,
         }
