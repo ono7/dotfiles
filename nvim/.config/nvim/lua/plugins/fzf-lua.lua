@@ -142,10 +142,13 @@ return {
     -- k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
     -- k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
-    -- find files
     k("n", "<c-f>", function()
+      -- Get the directory of the current active buffer
+      local current_dir = vim.fn.expand("%:p:h")
+
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
+        cwd = current_dir, -- Sets the search root to the buffer's directory
         fd_opts = "--type f --hidden --follow --exclude .git",
         previewer = false,
         winopts = function()
@@ -155,6 +158,20 @@ return {
         end,
       })
     end, { desc = "Find files in current file's directory" })
+
+    -- -- find files
+    -- k("n", "<c-f>", function()
+    --   require("fzf-lua").files({
+    --     prompt = "Files (current dir)> ",
+    --     fd_opts = "--type f --hidden --follow --exclude .git",
+    --     previewer = false,
+    --     winopts = function()
+    --       local opts = vim.tbl_deep_extend("force", {}, winopts)
+    --       opts.title_pos = "center"
+    --       return opts
+    --     end,
+    --   })
+    -- end, { desc = "Find files in current file's directory" })
 
     -- git files
     k({ "n", "x" }, "<leader>f", function()
