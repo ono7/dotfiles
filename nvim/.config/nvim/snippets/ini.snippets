@@ -1,26 +1,3 @@
-extends todo
-
-snippet inv "inventor.cfg" b
-  # vim: ft=ini
-  localhost ansible_connection=local
-  # debug with env: ANSIBLE_DEBUG=1
-
-  [all:vars]
-
-  # ansible_network_os=ios
-  # ansible_connection=network_cli
-  # ansible_become=yes
-  # ansible_become_method=enable
-  ansible_user={{ lookup('env', 'ANSIBLE_USER') }}
-  ansible_password={{ lookup('env', 'ANSIBLE_SSH_PASS') }}
-  ansible_become_pass={{ lookup('env', 'ANSIBLE_SSH_PASS') }}
-
-  [${1:group_1}]
-  ${2:host1} ${0:ansible_host=1.1.1.1}
-
-
-snippet ft "add ft ini" b
-  # vim: ft=ini
 
 snippet ansible.cfg "ansible config file" b
   [defaults]
@@ -69,6 +46,7 @@ snippet ansible.cfg "ansible config file" b
   # human readable output
   # install debug callback with: ansible-galaxy collection install community.general
   # and: pip install ansible -U
+
   # needs to install posix for debug callback: ansible-galaxy collection install ansible.posix -c
   stdout_callback=debug
   stderr_callback=debug
