@@ -169,7 +169,9 @@ alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
 alias xargs='xargs '
 alias ls='ls --color'
 alias less='less -R'
-alias pb="ansible-playbook "
+
+# install debug: ansible-galaxy collection install ansible.posix -c
+alias pb="ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
 alias ts='date +%Y%m%d-%H%M%S'
@@ -211,6 +213,25 @@ vls () {
 wrap () {
     local port="${1:-4444}"  # Default to 4444 if no argument provided
     socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
+}
+
+mkproject () {
+  # Guard clause: Ensure at least a project name was provided
+  if [ -z "$1" ]; then
+    echo "Usage: mkproject <project-name> [python-version]"
+    echo "Example: mkproject my_app 3.12"
+    return 1
+  fi
+
+  mkdir -p "$1"
+  cd "$1" || return 1
+  cp -a ~/.dotfiles/templates/. .
+
+  # Check if a second argument ($2) exists
+  if [ -n "$2" ]; then
+    # Initialize the project pinning the specific Python version
+    uv init --python "$2"
+  fi
 }
 
 # Load the directory stack at startup
