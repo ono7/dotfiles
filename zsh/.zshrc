@@ -417,8 +417,10 @@ mkproject () {
   if [ -n "$2" ]; then
     # Initialize the project pinning the specific Python version
     uv init --python "$2"
+    uv venv --python "$2"
   fi
   ginit
+  direnv allow
 }
 
 gitlog () {
