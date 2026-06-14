@@ -1,0 +1,5 @@
+{
+  "*.{yml,yaml}": "ansible-lint --offline",
+  "!(node_modules/**/*)*.py": ["ruff check"],
+  "*.py": ["python -m pytest tests/"]
+}

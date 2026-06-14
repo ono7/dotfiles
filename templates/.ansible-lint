@@ -1,0 +1,15 @@
+---
+exclude_paths:
+  - .collections
+  # we will no be using roles
+  - roles
+  - playbooks
+  - backups/
+skip_list:
+  - no-changed-when
+  - ignore-errors
+  - galaxy[tags]
+  - galaxy[no-changelog]
+  - run-once[play]
+  - name[casing]
+  - command-shell

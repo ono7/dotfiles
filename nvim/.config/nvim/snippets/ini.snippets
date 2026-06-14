@@ -48,8 +48,7 @@ snippet ansible.cfg "ansible config file" b
   # and: pip install ansible -U
 
   # needs to install posix for debug callback: ansible-galaxy collection install ansible.posix -c
-  stdout_callback=debug
-  stderr_callback=debug
+  # stdout_callback=debug
 
   # Use the stdout_callback when running ad-hoc commands --> /usr/bin/ansible
   # bin_ansible_callbacks=True

@@ -170,7 +170,8 @@ alias xargs='xargs '
 alias ls='ls --color'
 alias less='less -R'
 
-# install debug: ansible-galaxy collection install ansible.posix -c
+# ansible-galaxy collection install ansible.posix -c
+# ansible-galaxy collection install ansible.posix -p ./.collection -c
 alias pb="ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
