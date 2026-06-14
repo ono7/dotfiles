@@ -215,24 +215,6 @@ wrap () {
     socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
 }
 
-mkproject () {
-  # Guard clause: Ensure at least a project name was provided
-  if [ -z "$1" ]; then
-    echo "Usage: mkproject <project-name> [python-version]"
-    echo "Example: mkproject my_app 3.12"
-    return 1
-  fi
-
-  mkdir -p "$1"
-  cd "$1" || return 1
-  cp -a ~/.dotfiles/templates/. .
-
-  # Check if a second argument ($2) exists
-  if [ -n "$2" ]; then
-    # Initialize the project pinning the specific Python version
-    uv init --python "$2"
-  fi
-}
 
 # Load the directory stack at startup
 if [[ -f ~/.zdirs ]]; then
@@ -417,6 +399,26 @@ ginit () {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   git init "$@"
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
+}
+
+mkproject () {
+  # Guard clause: Ensure at least a project name was provided
+  if [ -z "$1" ]; then
+    echo "Usage: mkproject <project-name> [python-version]"
+    echo "Example: mkproject my_app 3.12"
+    return 1
+  fi
+
+  mkdir -p "$1"
+  cd "$1" || return 1
+  cp -a ~/.dotfiles/templates/. .
+
+  # Check if a second argument ($2) exists
+  if [ -n "$2" ]; then
+    # Initialize the project pinning the specific Python version
+    uv init --python "$2"
+  fi
+  ginit
 }
 
 gitlog () {
