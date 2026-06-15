@@ -213,6 +213,7 @@ inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 
 inoremap <M-S-o> <C-o>O
 inoremap <M-o> <C-o>o
+inoremap <C-w> <Esc>:w<CR>a
 
 nnoremap <C-d> x
 nnoremap <M-d> dw
