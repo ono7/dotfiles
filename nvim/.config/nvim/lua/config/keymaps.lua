@@ -249,7 +249,7 @@ nnoremap <space>a ggVG
 nnoremap U <c-r>
 
 nnoremap ; :
-xnoremap ; :
+xnoremap ; <Esc>:
 
 vnoremap > >gv
 vnoremap < <gv
