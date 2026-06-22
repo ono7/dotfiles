@@ -2,6 +2,20 @@
 
 https://charlesleifer.com/blog/going-fast-with-sqlite-and-python/
 
+# count
+
+count unique site_names
+
+```sql
+SELECT COUNT(DISTINCT site_name) FROM vpn_tunnels;
+```
+
+```sql
+SELECT site_name, COUNT(tunnel_name)
+FROM vpn_tunnels
+GROUP BY site_name;
+```
+
 # REGEXP
 
 ```

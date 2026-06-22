@@ -1,2 +1,5 @@
 .headers on
 .mode box
+.prompt "db> " "cont> "
+.nullvalue "NULL"
+.timer on

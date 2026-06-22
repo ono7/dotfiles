@@ -176,6 +176,9 @@ alias pb="ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
 alias ts='date +%Y%m%d-%H%M%S'
+alias rlwrap='rlwrap --always-readline'
+alias sqlite3='rlwrap sqlite3'
+alias sqlite='rlwrap sqlite'
 
 # Directory movement aliases
 alias -- -='cd -'
