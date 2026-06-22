@@ -8,6 +8,7 @@ count unique site_names
 
 ```sql
 SELECT COUNT(DISTINCT site_name) FROM vpn_tunnels;
+SELECT COUNT(DISTINCT spn_name) AS unique_spn_count FROM vpn_tunnels;
 ```
 
 ```sql
@@ -15,7 +16,7 @@ SELECT site_name, COUNT(tunnel_name) FROM vpn_tunnels GROUP BY site_name;
 ```
 
 ```sql
-SELECT spn_name, COUNT(*) FROM vpn_tunnels GROUP BY spn_name;
+SELECT region,spn_name, COUNT(*) as VPN_COUNT FROM vpn_tunnels GROUP BY region;
 ```
 
 # REGEXP
