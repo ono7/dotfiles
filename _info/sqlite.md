@@ -11,9 +11,11 @@ SELECT COUNT(DISTINCT site_name) FROM vpn_tunnels;
 ```
 
 ```sql
-SELECT site_name, COUNT(tunnel_name)
-FROM vpn_tunnels
-GROUP BY site_name;
+SELECT site_name, COUNT(tunnel_name) FROM vpn_tunnels GROUP BY site_name;
+```
+
+```sql
+SELECT spn_name, COUNT(*) FROM vpn_tunnels GROUP BY spn_name;
 ```
 
 # REGEXP
