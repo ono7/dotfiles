@@ -137,17 +137,25 @@ inoremap <C-h> <C-g>u<BS>
 inoremap <M-d> <C-g>u<C-o>dw
 
 " Kill to end of line (store in register)
+"inoremap <C-k> <C-g>u<C-o>D
+"inoremap <C-k> <C-g>u<C-o>"kD
 inoremap <C-k> <C-g>u<C-o>D
 
 " Kill to the beginning of the line
-inoremap <C-u> <C-g>u<C-o>d0
+"inoremap <C-u> <C-g>u<C-o>d0
+"inoremap <C-u> <C-g>u<C-o>"kd0<C-o>x
+inoremap <C-u> <C-g>u<C-o>d0<C-o>x
+
+" Paste the contents of register 'k' (like Emacs yank)
+"inoremap <C-y> <C-r>k
+inoremap <C-y> <C-r>"
 
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
 
 
 " ~k = Kill to end of paragraph (Rough approximation)
-inoremap <C-y> <C-g>u<C-o>p
+"inoremap <C-y> <C-g>u<C-o>p
 
 
 " === CASE TRANSFORMATION PARITY ===
