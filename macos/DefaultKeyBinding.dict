@@ -41,6 +41,7 @@
     "^w" = "deleteToMark:";
     "^y" = "yank:";
     "^x" = "swapWithMark:";
+    "^u" = "deleteToBeginningOfLine:";
 
     /* === TRANSPOSE & UNDO === */
     "^t" = "transpose:";
