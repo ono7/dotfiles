@@ -789,3 +789,7 @@ fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+
+# Restore default reverse-i-search and disable fzf for Ctrl-R
+bindkey '^R' history-incremental-search-backward
