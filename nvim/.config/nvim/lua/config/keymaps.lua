@@ -139,6 +139,9 @@ inoremap <M-d> <C-g>u<C-o>dw
 " Kill to end of line (store in register)
 inoremap <C-k> <C-g>u<C-o>D
 
+" Kill to the beginning of the line
+inoremap <C-u> <C-g>u<C-o>d0
+
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
 
