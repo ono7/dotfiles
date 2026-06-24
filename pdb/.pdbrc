@@ -1,0 +1,15 @@
+# print using json
+alias pj !import json; print(json.dumps(%1, indent=4, default=str))
+alias jj !import json; print(json.dumps(%1, indent=4, default=str))
+
+# by default
+sticky
+
+# Cleanly print all attributes/methods of an object (better than standard dir())
+alias di !import pprint; pprint.pprint(dir(%1))
+
+# Print only the custom variables/attributes of an object (ignores built-ins)
+alias vars !import pprint; pprint.pprint(vars(%1))
+
+# Print all local variables in the current scope cleanly
+alias pl !import pprint; pprint.pprint(locals())
