@@ -1,3 +1,6 @@
+# use l to print current line
+# use ll to print all the code
+
 # print using json
 alias pj !import json; print(json.dumps(%1, indent=4, default=str))
 alias jj !import json; print(json.dumps(%1, indent=4, default=str))
