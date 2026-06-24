@@ -172,7 +172,8 @@ alias less='less -R'
 
 # ansible-galaxy collection install ansible.posix -c
 # ansible-galaxy collection install ansible.posix -p ./.collection -c
-alias pb="ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook "
+# alias pb="ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook "
+alias pb="ansible-playbook "
 alias god='go build -gcflags="all=-N -l"'
 
 alias ts='date +%Y%m%d-%H%M%S'
