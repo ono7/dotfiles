@@ -49,6 +49,7 @@ return {
           mason = true,
           ["conform-info"] = true,
           fugitive = true,
+          dropbar_menu = true,
           noice = true,
           tabby = true,
           text = true,
