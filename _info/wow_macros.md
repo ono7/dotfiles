@@ -132,3 +132,34 @@ or
 /cast [@pet,dead][mod:shift] Revive Pet; [nopet] Call Pet 1; Mend Pet
 
 ```
+
+## mage
+
+```
+
+#showtooltip Ice Lance
+/stopcasting
+/cast [@mouseover,harm,nodead][] Ice Lance
+
+#showtooltip Ice Block
+/stopcasting
+/cast !Ice Block
+/cancelaura Ice Block
+
+#showtooltip Counterspell
+/stopcasting
+/cast [@focus,harm,nodead][@mouseover,harm,nodead][] Counterspell
+
+#showtooltip Ring of Frost
+/stopcasting
+/cast [@cursor] Ring of Frost
+
+--- spellsteal and team help
+#showtooltip
+/cast [@mouseover,help,nodead] Remove Curse; [@mouseover,harm,nodead][harm] Spellsteal; Remove Curse
+
+-- poly
+#showtooltip Polymorph
+/cast [@mouseover,harm,nodead][@focus,harm,nodead][] Polymorph
+
+```
