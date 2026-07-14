@@ -13,7 +13,7 @@ local function trim_path(s)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "noice", "markdown" },
+  pattern = { "noice", "markdown", "git" },
   callback = function(event)
     vim.keymap.set("n", "<C-/>", "<cmd>close<CR>", {
       buffer = event.buf,
@@ -565,31 +565,70 @@ k("n", "<M-k>", "<cmd>cprev<cr>", opt)
 k("n", "<M-j>", "<cmd>cnext<cr>", opt)
 
 -- Toggle maximize the current window while remembering its size.
+-- local function toggle_maximize()
+--   local win = vim.api.nvim_get_current_win()
+--
+--   -- See if this window has saved size
+--   local ok, saved = pcall(vim.api.nvim_win_get_var, win, "saved_size")
+--
+--   if ok then
+--     -- --- Restore ---
+--     vim.api.nvim_win_set_height(win, saved.height)
+--     vim.api.nvim_win_set_width(win, saved.width)
+--     pcall(vim.api.nvim_win_del_var, win, "saved_size")
+--   else
+--     -- --- Save current and maximize ---
+--     local height = vim.api.nvim_win_get_height(win)
+--     local width = vim.api.nvim_win_get_width(win)
+--
+--     vim.api.nvim_win_set_var(win, "saved_size", {
+--       height = height,
+--       width = width,
+--     })
+--
+--     vim.cmd("wincmd _") -- maximize height
+--     vim.cmd("wincmd |") -- maximize width
+--   end
+-- end
 local function toggle_maximize()
   local win = vim.api.nvim_get_current_win()
-
-  -- See if this window has saved size
   local ok, saved = pcall(vim.api.nvim_win_get_var, win, "saved_size")
 
   if ok then
     -- --- Restore ---
     vim.api.nvim_win_set_height(win, saved.height)
     vim.api.nvim_win_set_width(win, saved.width)
+
+    -- Restore original constraints
+    vim.o.winminheight = saved.minheight
+    vim.o.winminwidth = saved.minwidth
+
     pcall(vim.api.nvim_win_del_var, win, "saved_size")
+    -- Reset all windows to a balanced state
+    vim.cmd("wincmd =")
   else
-    -- --- Save current and maximize ---
+    -- --- Save and Maximize ---
     local height = vim.api.nvim_win_get_height(win)
     local width = vim.api.nvim_win_get_width(win)
 
+    -- Save current sizes and current constraints
     vim.api.nvim_win_set_var(win, "saved_size", {
       height = height,
       width = width,
+      minheight = vim.o.winminheight,
+      minwidth = vim.o.winminwidth,
     })
 
-    vim.cmd("wincmd _") -- maximize height
-    vim.cmd("wincmd |") -- maximize width
+    -- Remove constraints so the window can fill the space
+    vim.o.winminheight = 0
+    vim.o.winminwidth = 0
+
+    vim.cmd("wincmd _") -- Maximize height
+    vim.cmd("wincmd |") -- Maximize width
   end
 end
+
+vim.keymap.set({ "n", "t" }, "<M-y>", toggle_maximize, { silent = true })
 
 vim.keymap.set({ "n", "t" }, "<M-y>", toggle_maximize, { silent = true })
 
