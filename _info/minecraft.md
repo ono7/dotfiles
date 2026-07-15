@@ -1,3 +1,29 @@
+## mining
+
+### **Optimal Mining Depths (Y-Levels)**
+
+To maximize your efficiency, use these target depths for specific resources:
+
+| Ore              | Optimal Mining Depth (Y-Level) | Notes                                                            |
+| ---------------- | ------------------------------ | ---------------------------------------------------------------- |
+| **Diamond**      | **-59**                        | Spawns from 16 down to -64; most common at the very bottom.      |
+| **Redstone**     | **-59**                        | Found in the same deep layers as diamonds.                       |
+| **Gold**         | **-16**                        | Spawns from 32 down to -64; much more common in Badlands biomes. |
+| **Lapis Lazuli** | **0**                          | Spawns from 64 down to -64; peaks near Y=0.                      |
+| **Copper**       | **48**                         | Found in a wide range; common in Dripstone Caves.                |
+| **Iron**         | **16 or 232**                  | Best found at Y=16 (underground) or Y=232 (high mountains).      |
+| **Coal**         | **96**                         | Most common at high altitudes, especially in mountains.          |
+| **Emerald**      | **224–236**                    | Only spawns in mountain biomes.                                  |
+
+---
+
+### **Quick Tips for Efficiency**
+
+- **Diamond Strategy:** Mine at **Y = -59**. Avoid mining at Y = -60 or lower to prevent bedrock interference. Branch mining (tunnels spaced 2–3 blocks apart) remains a highly effective way to uncover diamond veins.
+- **Iron Strategy:** If you need iron quickly, climbing a mountain and looking for exposed veins at high altitudes (near **Y = 232**) is often faster than digging deep underground.
+- **Ancient Debris (Nether):** While not in the Overworld, the best depth to find this for Netherite is **Y = 15**.
+- **Coordinate Check:** You can see your current depth by pressing **F3** in Java Edition and looking at the **Y** value in the coordinate display.
+
 ## strat
 
 16 wood blocks
