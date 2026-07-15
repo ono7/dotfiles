@@ -2,32 +2,25 @@
     // ~/Library/KeyBindings/DefaultKeyBinding.dict
     // ~/.dotfiles/macos/DefaultKeyBinding.dict
 
-    // this has been normalized to be more like emacs
-    /* === CHARACTER MOVEMENT === */
     "^f" = "moveForward:";
     "^b" = "moveBackward:";
     "^n" = "moveDown:";
     "^p" = "moveUp:";
 
-    /* === WORD MOVEMENT === */
     "~f" = "moveWordForward:";
     "~b" = "moveWordBackward:";
 
-    /* === LINE MOVEMENT === */
     "^a" = "moveToBeginningOfLine:";
     "^e" = "moveToEndOfLine:";
 
-    /* === PARAGRAPH MOVEMENT === */
     "~{" = "moveToBeginningOfParagraph:";
     "~}" = "moveToEndOfParagraph:";
 
-    /* === DOCUMENT MOVEMENT === */
     "~<" = "moveToBeginningOfDocument:";
     "~>" = "moveToEndOfDocument:";
     "^v" = "pageDown:";
     "~v" = "pageUp:";
 
-    /* === DELETION === */
     "^d" = "deleteForward:";
     "^h" = "deleteBackward:";
     "~d" = "deleteWordForward:";
@@ -35,7 +28,6 @@
     "^k" = "deleteToEndOfLine:";
     "~k" = "deleteToEndOfParagraph:";
 
-    /* === MARK/KILL/YANK === */
     "^@" = "setMark:";
     "^ " = "setMark:";
     "^w" = "deleteToMark:";
@@ -43,20 +35,15 @@
     "^x" = "swapWithMark:";
     "^u" = "deleteToBeginningOfLine:";
 
-    /* === TRANSPOSE & UNDO === */
     "^t" = "transpose:";
 
-    // "^/" = "undo:"; // this does not work
-    // "^_" = "undo:"; // this does not work
     "^-" = "undo:";      /* Ctrl + -         (Easier to type) */
     "^/" = "undo:";       /* Ctrl + /         (Matches common Emacs config) */
     "\037" = "undo:"; // sometimes this is needed in macos
 
-    /* === CASE TRANSFORMATION === */
     "~u" = "uppercaseWord:";
     "~l" = "lowercaseWord:";
     "~c" = "capitalizeWord:";
 
-    /* === LINE MANIPULATION === */
     "^o" = "insertNewlineIgnoringFieldEditor:";
 }
