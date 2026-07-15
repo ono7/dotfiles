@@ -190,13 +190,6 @@ else
       vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
 
       vim.api.nvim_set_hl(0, "@text.note", { link = "Normal" })
-      vim.cmd([[
-        if exists("g:neovide")
-          hi TabLineSel guifg=#BEBEBC guibg=#233045 gui=bold
-          hi TabLine guifg=#5F6C77 guibg=#1A2330 gui=none
-          hi TabLineFill guibg=#151F2D guifg=NONE gui=none
-        endif
-      ]])
     end,
   }
 end
