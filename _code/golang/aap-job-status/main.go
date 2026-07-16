@@ -16,21 +16,36 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Job represents a job in AAP
+// Job represents any job execution in AAP (Standard, Workflow, Project Update, etc.)
 type Job struct {
-	ID              int            `json:"id"`
-	Name            string         `json:"name"`
-	Status          string         `json:"status"`
-	JobTemplate     int            `json:"job_template"`
-	JobTemplateName string         `json:"job_template_name,omitempty"`
-	Created         time.Time      `json:"created"`
-	Started         time.Time      `json:"started"`
-	Finished        time.Time      `json:"finished"`
-	Elapsed         float64        `json:"elapsed"`
-	ResultStdout    string         `json:"result_stdout"`
-	ResultStderr    string         `json:"result_stderr"`
-	PlaybookName    string         `json:"playbook"`
-	LaunchedBy      LaunchedByUser `json:"launched_by"`
+	ID                 int            `json:"id"`
+	Type               string         `json:"type"` // e.g. "job", "workflow_job", "project_update"
+	Name               string         `json:"name"`
+	Status             string         `json:"status"`
+	UnifiedJobTemplate int            `json:"unified_job_template,omitempty"`
+	JobTemplate        int            `json:"job_template,omitempty"`
+	WorkflowTemplate   int            `json:"workflow_job_template,omitempty"`
+	JobTemplateName    string         `json:"job_template_name,omitempty"`
+	Created            time.Time      `json:"created"`
+	Started            time.Time      `json:"started"`
+	Finished           time.Time      `json:"finished"`
+	Elapsed            float64        `json:"elapsed"`
+	PlaybookName       string         `json:"playbook,omitempty"`
+	LaunchedBy         LaunchedByUser `json:"launched_by"`
+}
+
+// GetTemplateID reliably extracts the ID regardless of the job type
+func (j *Job) GetTemplateID() int {
+	if j.UnifiedJobTemplate != 0 {
+		return j.UnifiedJobTemplate
+	}
+	if j.JobTemplate != 0 {
+		return j.JobTemplate
+	}
+	if j.WorkflowTemplate != 0 {
+		return j.WorkflowTemplate
+	}
+	return 0
 }
 
 // LaunchedByUser represents the user who launched the job
@@ -50,6 +65,7 @@ type JobDetail struct {
 
 type Template struct {
 	ID   int    `json:"id"`
+	Type string `json:"type"`
 	Name string `json:"name"`
 }
 
@@ -89,14 +105,14 @@ func NewApi(token, baseURL string) *Api {
 		},
 	}
 	return &Api{
-		baseURL: "https://" + baseURL,
+		baseURL: strings.TrimRight("https://"+baseURL, "/"),
 		client:  client,
 	}
 }
 
-// fetchJobs retrieves jobs from AAP with optional filters
+// fetchJobs retrieves jobs from AAP using the unified endpoint
 func (a *Api) fetchJobs(filter string) ([]Job, error) {
-	url := fmt.Sprintf("%s/api/v2/jobs/", a.baseURL)
+	url := fmt.Sprintf("%s/api/v2/unified_jobs/", a.baseURL)
 	if filter != "" {
 		url += "?" + filter
 	}
@@ -119,9 +135,9 @@ func (a *Api) fetchJobs(filter string) ([]Job, error) {
 	return jobsResp.Results, nil
 }
 
-// getTemplateIDByName finds template ID by name
+// getTemplateIDByName finds template ID by name using the unified template endpoint
 func (a *Api) getTemplateIDByName(templateName string) (int, error) {
-	url := fmt.Sprintf("%s/api/v2/job_templates/?name=%s", a.baseURL, templateName)
+	url := fmt.Sprintf("%s/api/v2/unified_job_templates/?name=%s", a.baseURL, templateName)
 
 	resp, err := a.client.Get(url)
 	if err != nil {
@@ -145,7 +161,7 @@ func (a *Api) getTemplateIDByName(templateName string) (int, error) {
 	return templatesResp.Results[0].ID, nil
 }
 
-// ShowRunningJobs displays all currently running jobs
+// ShowRunningJobs displays all currently running unified jobs
 func (a *Api) ShowRunningJobs() {
 	jobs, err := a.fetchJobs("status=running")
 	if err != nil {
@@ -156,7 +172,8 @@ func (a *Api) ShowRunningJobs() {
 
 // ShowJobsByTemplateID displays jobs for specific template ID
 func (a *Api) ShowJobsByTemplateID(templateID int) {
-	filter := fmt.Sprintf("job_template=%d", templateID)
+	// Filter by unified_job_template to cover standard and workflow templates
+	filter := fmt.Sprintf("unified_job_template=%d", templateID)
 	jobs, err := a.fetchJobs(filter)
 	if err != nil {
 		log.Fatal("failed to fetch jobs by template ID:", err)
@@ -186,13 +203,11 @@ func (a *Api) ShowJobDetails(jobID int) {
 
 // RelaunchJob relaunches a job only if it's not currently running
 func (a *Api) RelaunchJob(jobID int) {
-	// First check the job status
 	job, err := a.fetchJobDetails(jobID)
 	if err != nil {
 		log.Fatal("failed to fetch job details:", err)
 	}
 
-	// Safety check - don't relaunch running jobs
 	if job.Status == "running" {
 		fmt.Printf("Job ID %d is currently running - cannot relaunch\n", jobID)
 		fmt.Printf("Job Name: %s\n", job.Name)
@@ -206,9 +221,22 @@ func (a *Api) RelaunchJob(jobID int) {
 
 	fmt.Printf("Relaunching Job ID %d: %s\n", jobID, job.Name)
 	fmt.Printf("Previous Status: %s\n", job.Status)
+	fmt.Printf("Job Type: %s\n", job.Type)
 
-	// Make the relaunch API call
-	relaunchURL := fmt.Sprintf("%s/api/v2/jobs/%d/relaunch/", a.baseURL, jobID)
+	// Determine the correct endpoint based on the specific job type
+	var typeEndpoint string
+	switch job.Type {
+	case "workflow_job":
+		typeEndpoint = "workflow_jobs"
+	case "project_update":
+		typeEndpoint = "project_updates"
+	case "inventory_update":
+		typeEndpoint = "inventory_updates"
+	default:
+		typeEndpoint = "jobs"
+	}
+
+	relaunchURL := fmt.Sprintf("%s/api/v2/%s/%d/relaunch/", a.baseURL, typeEndpoint, jobID)
 
 	resp, err := a.client.Post(relaunchURL, "application/json", nil)
 	if err != nil {
@@ -238,9 +266,9 @@ func (a *Api) RelaunchJob(jobID int) {
 	}
 }
 
-// fetchJobDetails retrieves detailed information for a specific job
+// fetchJobDetails retrieves detailed information from the unified endpoint
 func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
-	url := fmt.Sprintf("%s/api/v2/jobs/%d/", a.baseURL, jobID)
+	url := fmt.Sprintf("%s/api/v2/unified_jobs/%d/", a.baseURL, jobID)
 
 	resp, err := a.client.Get(url)
 	if err != nil {
@@ -262,9 +290,7 @@ func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
 		return nil, err
 	}
 
-	// Store raw response for debug output later
 	job.rawResponse = body
-
 	return &job, nil
 }
 
@@ -274,8 +300,9 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 	fmt.Printf("%s Job Details %s\n", sep, sep)
 
 	fmt.Printf("%s, job: %d\n", job.Name, job.ID)
+	fmt.Printf("Type: %s\n", job.Type)
 	fmt.Printf("Status: %s\n", job.Status)
-	fmt.Printf("Template ID: %d\n", job.JobTemplate)
+	fmt.Printf("Template ID: %d\n", job.GetTemplateID())
 	if job.JobTemplateName != "" {
 		fmt.Printf("Template Name: %s\n", job.JobTemplateName)
 	}
@@ -290,7 +317,6 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 		fmt.Printf("Launched By: %s\n", launchedBy)
 	}
 
-	// Timing information
 	fmt.Printf("\nTiming:\n")
 	fmt.Printf("  Created:  %s\n", job.Created.Format("2006-01-02 15:04:05"))
 	if !job.Started.IsZero() {
@@ -301,12 +327,10 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 	}
 	fmt.Printf("  Duration: %s\n", formatDuration(job.Job))
 
-	// Description if available
 	if job.Description != "" {
 		fmt.Printf("\nDescription:\n%s\n", job.Description)
 	}
 
-	// Artifacts if available
 	if len(job.Artifacts) > 0 {
 		fmt.Printf("\nArtifacts:\n")
 		for key, value := range job.Artifacts {
@@ -314,10 +338,8 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 		}
 	}
 
-	// Get job output first
-	a.fetchAndDisplayJobOutput(job.ID)
+	a.fetchAndDisplayJobOutput(job)
 
-	// Always show raw API response at the bottom for debugging
 	if len(job.rawResponse) > 0 {
 		var prettyJSON interface{}
 		json.Unmarshal(job.rawResponse, &prettyJSON)
@@ -326,7 +348,7 @@ func (a *Api) displayJobDetails(job *JobDetail) {
 	}
 }
 
-// displayJobs formats and prints job information (for lists)
+// displayJobs formats and prints job information
 func (a *Api) displayJobs(jobs []Job, title string) {
 	sep := strings.Repeat("*", 30)
 	fmt.Printf("%s %s %s\n", sep, title, sep)
@@ -340,20 +362,19 @@ func (a *Api) displayJobs(jobs []Job, title string) {
 		duration := formatDuration(job)
 		fmt.Printf("%s job: %d\n", job.Name, job.ID)
 
-		// Get template name if we have it, otherwise just show ID
-		templateInfo := fmt.Sprintf("ID: %d", job.JobTemplate)
+		templateInfo := fmt.Sprintf("ID: %d", job.GetTemplateID())
 		if job.JobTemplateName != "" {
-			templateInfo = fmt.Sprintf("%s (ID: %d)", job.JobTemplateName, job.JobTemplate)
+			templateInfo = fmt.Sprintf("%s (ID: %d)", job.JobTemplateName, job.GetTemplateID())
 		}
+
+		fmt.Printf("  Type: %s\n", job.Type)
 		fmt.Printf("  Template: %s\n", templateInfo)
 		fmt.Printf("  Status: %s\n", job.Status)
 
-		// Show start time for running jobs
 		if job.Status == "running" && !job.Started.IsZero() {
 			fmt.Printf("  Started: %s\n", job.Started.Format("2006-01-02 15:04:05"))
 		}
 
-		// Show launched by info if available
 		if job.LaunchedBy.Username != "" {
 			fmt.Printf("  Launched By: %s\n", job.LaunchedBy.Username)
 		}
@@ -363,11 +384,26 @@ func (a *Api) displayJobs(jobs []Job, title string) {
 	fmt.Printf("\nTotal: %d jobs\n", len(jobs))
 }
 
-// fetchAndDisplayJobOutput gets job output from stdout/stderr endpoints
-func (a *Api) fetchAndDisplayJobOutput(jobID int) {
-	// Try stdout first
-	stdoutURL := fmt.Sprintf("%s/api/v2/jobs/%d/stdout/?format=txt", a.baseURL, jobID)
+// fetchAndDisplayJobOutput routes the output fetch dynamically based on the job type
+func (a *Api) fetchAndDisplayJobOutput(job *JobDetail) {
+	if job.Type == "workflow_job" {
+		fmt.Printf("\n%s STDOUT %s\n", strings.Repeat("=", 20), strings.Repeat("=", 20))
+		fmt.Println("Workflow jobs do not generate standard output natively.")
+		fmt.Println("Please inspect the individual child jobs of this workflow for logs.")
+		return
+	}
 
+	var endpoint string
+	switch job.Type {
+	case "project_update":
+		endpoint = "project_updates"
+	case "inventory_update":
+		endpoint = "inventory_updates"
+	default:
+		endpoint = "jobs"
+	}
+
+	stdoutURL := fmt.Sprintf("%s/api/v2/%s/%d/stdout/?format=txt", a.baseURL, endpoint, job.ID)
 	resp, err := a.client.Get(stdoutURL)
 	if err != nil {
 		fmt.Printf("\nFailed to fetch job output: %v\n", err)
@@ -385,9 +421,7 @@ func (a *Api) fetchAndDisplayJobOutput(jobID int) {
 		}
 	}
 
-	// Also try stderr endpoint for failed jobs
-	stderrURL := fmt.Sprintf("%s/api/v2/jobs/%d/stderr/?format=txt", a.baseURL, jobID)
-
+	stderrURL := fmt.Sprintf("%s/api/v2/%s/%d/stderr/?format=txt", a.baseURL, endpoint, job.ID)
 	stderrResp, err := a.client.Get(stderrURL)
 	if err == nil {
 		defer stderrResp.Body.Close()
@@ -401,7 +435,6 @@ func (a *Api) fetchAndDisplayJobOutput(jobID int) {
 		}
 	}
 
-	// If no output was found
 	if !outputFound {
 		if resp.StatusCode != http.StatusOK {
 			fmt.Printf("\nJob output not available (status: %d)\n", resp.StatusCode)
@@ -423,7 +456,6 @@ func formatDuration(job Job) string {
 		return "N/A"
 	}
 
-	// Convert to human readable format
 	hours := int(duration.Hours())
 	minutes := int(duration.Minutes()) % 60
 	seconds := int(duration.Seconds()) % 60
@@ -459,7 +491,6 @@ func loadEnvConfig() error {
 		return err
 	}
 
-	// Try loading from current directory first, then home directory
 	envPaths := []string{
 		filepath.Join(cwd, ".env"),
 		filepath.Join(homeDir, ".env"),
@@ -480,8 +511,8 @@ func loadEnvConfig() error {
 func printUsage() {
 	fmt.Println("AAP Jobs Manager")
 	fmt.Println("Usage:")
-	fmt.Println("  -j          Get all currently running jobs")
-	fmt.Println("  -t <n>   Get jobs by template name or ID")
+	fmt.Println("  -j          Get all currently running jobs (Standard & Workflow)")
+	fmt.Println("  -t <n>      Get jobs by template name or ID")
 	fmt.Println("  -d <id>     Get detailed information for specific job ID")
 	fmt.Println("  -r <id>     Relaunch job (only if not currently running)")
 	fmt.Println("  -h          Show this help")
@@ -506,9 +537,8 @@ func main() {
 		os.Exit(0)
 	}
 
-	// Load environment configuration
 	if err := loadEnvConfig(); err != nil {
-		log.Fatal("error loading .env file - add ~/.env with AAP_BASE_URL and AAP_TOKEN")
+		log.Println("Note: No .env file loaded")
 	}
 
 	token := os.Getenv("AAP_TOKEN")
@@ -521,10 +551,8 @@ func main() {
 		log.Fatal("set ENV AAP_BASE_URL")
 	}
 
-	// Initialize API client
 	aap := NewApi(token, aapUrl)
 
-	// Route based on flags
 	switch {
 	case *relaunchJob != 0:
 		aap.RelaunchJob(*relaunchJob)
@@ -533,14 +561,12 @@ func main() {
 	case *getAllJobs:
 		aap.ShowRunningJobs()
 	case *getJobsByTemplate != "":
-		// Handle both template name and ID
 		if templateID, err := strconv.Atoi(*getJobsByTemplate); err == nil {
 			aap.ShowJobsByTemplateID(templateID)
 		} else {
 			aap.ShowJobsByTemplateName(*getJobsByTemplate)
 		}
 	default:
-		// Default behavior - show all running jobs
 		aap.ShowRunningJobs()
 	}
 }
