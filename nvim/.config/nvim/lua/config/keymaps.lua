@@ -13,7 +13,7 @@ local function trim_path(s)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "noice", "markdown", "git" },
+  pattern = { "noice", "markdown", "git", "conform-info" },
   callback = function(event)
     vim.keymap.set("n", "<C-/>", "<cmd>close<CR>", {
       buffer = event.buf,
