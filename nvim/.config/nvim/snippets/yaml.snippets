@@ -5,6 +5,10 @@ priority 2000
 snippet ft "filetype" b
   # vi: ft=yaml.ansible
 
+snippet end "end playbook" b
+  - name: Stop playbook here for debugging
+    ansible.builtin.meta: end_play
+
 snippet h "header" b
   ---
   - name: "${1}"
