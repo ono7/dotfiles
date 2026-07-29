@@ -89,7 +89,7 @@ return {
       })
 
       -- Optional: Visual confirmation (can comment out later)
-      vim.notify("Ansible VENV: " .. trim_path(bin_dir))
+      vim.notify("Ansible: " .. trim_path(bin_dir))
     end
   end,
   settings = {
