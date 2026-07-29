@@ -59,6 +59,12 @@ return {
     "poetry.lock",
     ".git",
   },
+
+  -- Environment overrides passed directly to the server binary on spawn
+  cmd_env = {
+    ANSIBLE_COLLECTIONS_PATH = (vim.fn.getcwd()) .. "/collections:" .. (vim.env.ANSIBLE_COLLECTIONS_PATH or ""),
+  },
+
   on_attach = function(client, bufnr)
     local root_dir = client.config.root_dir
     local python_path = get_python_path(root_dir)
@@ -99,6 +105,10 @@ return {
       },
       ansible = {
         path = "ansible",
+        useFullyQualifiedCollectionNames = true,
+      },
+      executionEnvironment = {
+        enabled = false,
       },
       validation = {
         lint = {
