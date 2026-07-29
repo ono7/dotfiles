@@ -79,6 +79,15 @@ return {
             local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
             vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file))
           end,
+          -- NEW: Copy file path to clipboard
+          ["ctrl-y"] = function(selected, opts)
+            if not selected[1] then
+              return
+            end
+            local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
+            vim.fn.setreg("*", file)
+            vim.notify("Copied path: " .. file, vim.log.levels.INFO)
+          end,
         },
       },
       files = {
