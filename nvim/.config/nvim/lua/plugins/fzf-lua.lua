@@ -86,7 +86,7 @@ return {
             end
             local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
             vim.fn.setreg("*", file)
-            vim.notify("Copied path: " .. file, vim.log.levels.INFO)
+            vim.notify("Copied fpath", vim.log.levels.INFO)
           end,
         },
       },
