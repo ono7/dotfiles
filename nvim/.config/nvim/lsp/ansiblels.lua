@@ -1,4 +1,4 @@
--- Shared cache for poetry paths (can be shared if this is in a common module, otherwise local here)
+-- Shared cache for poetry paths
 local venv_cache = {}
 
 local function trim_path(s)
@@ -30,12 +30,10 @@ local function get_python_path(root_dir)
   -- Priority 2: Poetry (Slow, so we cache it)
   local poetry_lock = root_dir .. "/poetry.lock"
   if vim.fn.filereadable(poetry_lock) == 1 then
-    -- Return cached value if it exists
     if venv_cache[root_dir] then
       return venv_cache[root_dir]
     end
 
-    -- Run poetry info only once
     local cmd = "cd " .. vim.fn.shellescape(root_dir) .. " && poetry env info --path"
     local path = vim.fn.trim(vim.fn.system(cmd))
 
@@ -60,18 +58,25 @@ return {
     ".git",
   },
 
-  -- Environment overrides passed directly to the server binary on spawn
-  cmd_env = {
-    ANSIBLE_COLLECTIONS_PATH = (vim.fn.getcwd()) .. "/collections:" .. (vim.env.ANSIBLE_COLLECTIONS_PATH or ""),
-  },
+  -- Dynamic environment setup before server initialization
+  before_init = function(params, config)
+    local root_dir = config.root_dir or vim.fn.getcwd()
+    config.cmd_env = config.cmd_env or {}
+
+    -- Dynamically build collections path using the actual detected project root
+    local collections_paths = root_dir .. "/collections:" .. root_dir .. "/.collections"
+    if vim.env.ANSIBLE_COLLECTIONS_PATH then
+      collections_paths = collections_paths .. ":" .. vim.env.ANSIBLE_COLLECTIONS_PATH
+    end
+
+    config.cmd_env.ANSIBLE_COLLECTIONS_PATH = collections_paths
+  end,
 
   on_attach = function(client, bufnr)
     local root_dir = client.config.root_dir
     local python_path = get_python_path(root_dir)
 
     if python_path then
-      -- Derive the bin directory from the python path (remove /python)
-      -- python_path: .../.venv/bin/python -> bin_dir: .../.venv/bin
       local bin_dir = vim.fn.fnamemodify(python_path, ":h")
 
       local ansible_path = bin_dir .. "/ansible"
@@ -94,10 +99,10 @@ return {
         settings = client.config.settings,
       })
 
-      -- Optional: Visual confirmation (can comment out later)
       vim.notify("Ansible: " .. trim_path(bin_dir))
     end
   end,
+
   settings = {
     ansible = {
       python = {
