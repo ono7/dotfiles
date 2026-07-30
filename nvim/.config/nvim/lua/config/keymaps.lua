@@ -219,8 +219,8 @@ function! InsertSwapMark() abort
 endfunction
 
 " Keymaps
-inoremap <c-space> <C-o>:call InsertSetMark()<CR>
-inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
+" inoremap <c-space> <C-o>:call InsertSetMark()<CR>
+" inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
 
 inoremap <M-S-o> <C-o>O
 inoremap <M-o> <C-o>o
