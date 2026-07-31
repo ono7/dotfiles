@@ -99,7 +99,8 @@ return {
         settings = client.config.settings,
       })
 
-      vim.notify("Ansible: " .. trim_path(bin_dir))
+      -- vim.notify("Ansible: " .. trim_path(bin_dir))
+      vim.notify("Ansible: project venv active")
     end
   end,
 
