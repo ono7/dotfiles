@@ -1,6 +1,28 @@
 local create_augroup = vim.api.nvim_create_augroup
 local general_group = create_augroup("GeneralAutocmds", { clear = true })
 
+--- Manual LSP File Change Notification ---
+--- this fill notify the lsp when we make a change to a file, this will make the changes immediate
+--- and allow the lsp to know about new files or changes to a file
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = vim.api.nvim_create_augroup("LspManualNotify", { clear = true }),
+  callback = function(args)
+    -- Get active LSP clients for the current buffer
+    local clients = vim.lsp.get_clients({ bufnr = args.buf })
+
+    for _, client in ipairs(clients) do
+      client:notify("workspace/didChangeWatchedFiles", {
+        changes = {
+          {
+            uri = vim.uri_from_bufnr(args.buf),
+            type = 2, -- LSP Protocol: 1 = Created, 2 = Changed, 3 = Deleted
+          },
+        },
+      })
+    end
+  end,
+})
+
 --- exit term after closing, prevents exit prompt from blocking until cleared
 vim.api.nvim_create_autocmd("TermClose", {
   group = general_group,
