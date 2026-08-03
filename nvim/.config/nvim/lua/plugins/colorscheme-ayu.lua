@@ -118,8 +118,8 @@ else
           --   fg = "#5F6C77", -- Comment tone
           --   bg = "#151F2D", -- identical to Normal bg
           -- },
-          -- Cursor = { bg = "#FFB454", fg = "#151F2D" },
-          Cursor = { bg = "#E7C547", fg = "#151F2D" }, -- Ayu Golden Yellow
+          Cursor = { bg = "#FFB454", fg = "#151F2D" },
+          -- Cursor = { bg = "#E7C547", fg = "#151F2D" }, -- Ayu Golden Yellow
           TermCursor = { link = "Cursor" },
 
           -- 5. DIFF & GIT (FINAL FIXES)
@@ -169,7 +169,7 @@ else
           IncSearch = { fg = "#151F2D", bg = "#BEBEBC" },
           NormalNC = { link = "Normal" },
           SpecialKey = { fg = "#5F6C77" },
-          TermCursor = { link = "Cursor" },
+          -- TermCursor = { link = "Cursor" },
           TermCursorNC = { link = "Cursor" },
         },
       })
