@@ -153,11 +153,11 @@ return {
 
     k("n", "<c-f>", function()
       -- Get the directory of the current active buffer
-      local current_dir = vim.fn.expand("%:p:h")
+      -- local current_dir = vim.fn.expand("%:p:h")
 
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
-        cwd = current_dir, -- Sets the search root to the buffer's directory
+        -- cwd = current_dir, -- Sets the search root to the buffer's directory
         fd_opts = "--type f --hidden --follow --exclude .git",
         previewer = false,
         winopts = function()
