@@ -150,6 +150,6 @@
         bold red => "#C49A9A"
 
 [rerere]
-    enabled = true
+	enabled = false
 [init]
 	defaultBranch = main
