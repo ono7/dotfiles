@@ -15,8 +15,9 @@ return {
         -- Only include the Neovim runtime and specifically your config
         -- Avoid using vim.api.nvim_get_runtime_file("", true) as it is too broad
         library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.stdpath("config") .. "/lua"] = true,
+          -- [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          -- [vim.fn.stdpath("config") .. "/lua"] = true,
+          vim.env.VIMRUNTIME,
         },
         maxPreload = 2000,
         preloadFileSize = 1000,
