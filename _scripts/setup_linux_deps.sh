@@ -66,7 +66,7 @@ install_debian_packages() {
   sudo apt remove -y nano
 
   # Install base development tools
-  sudo apt install -y build-essential procps curl file git
+  sudo apt install -y build-essential procps curl file git screen
 
   # Install additional tools
   sudo apt install -y libssl-dev tree zsh silversearcher-ag \
