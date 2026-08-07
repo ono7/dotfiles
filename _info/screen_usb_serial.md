@@ -71,8 +71,14 @@ _Expected output group:_ `uucp`
 ### Add Your User to the `uucp` Group
 
 ```bash
-sudo usermod -aG uucp $USER
 
+# for Arch
+sudo usermod -aG uucp $USER
+newgrp uucp
+
+# for Ubuntu
+sudo usermod -aG dialout $USER
+newgrp dialout
 ```
 
 ### Apply Group Permissions to Current Shell
@@ -80,7 +86,6 @@ sudo usermod -aG uucp $USER
 To apply group membership changes immediately without logging out and back in, run:
 
 ```bash
-newgrp uucp
 
 ```
 
