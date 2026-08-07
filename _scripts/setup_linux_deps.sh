@@ -24,7 +24,7 @@ install_arch_packages() {
   sudo pacman -Syu
 
   # Install base development tools and dependencies
-  sudo pacman -S --needed --noconfirm base-devel procps curl file git
+  sudo pacman -S --needed --noconfirm base-devel procps curl file git screen usbutils
 
   # Install additional tools
   sudo pacman -S --needed --noconfirm docker foot ctags nvm zoxide starship npm
