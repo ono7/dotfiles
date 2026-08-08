@@ -32,6 +32,7 @@ if type stow &>/dev/null; then
   stow alacritty
   stow ipython
   stow wezterm
+  stow screen
   stow neovide
   stow zsh
   stow jq
