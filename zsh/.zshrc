@@ -565,7 +565,9 @@ function setup_keys() {
 
     # --- FZF Integration ---
     # bindkey "^R" fzf-history-widget
-    bindkey "^F" fzf-history-widget
+    # bindkey "^F" fzf-history-widget
+    bindkey "^F" forward-char
+    bindkey "^H" backward-delete-char
     # Map Ctrl+T to file search (Saving Ctrl+F for forward char)
     bindkey "^T" fzf-file-widget
 
