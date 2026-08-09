@@ -102,6 +102,9 @@ inoremap <C-n> <Down>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
+inoremap <C-h> <Left>
+tnoremap <C-h> <Left>
+
 " the alpha and the omega
 inoremap <C-a> <C-o>_
 inoremap <C-e> <End>
