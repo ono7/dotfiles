@@ -103,7 +103,7 @@ inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
 inoremap <C-h> <Left>
-tnoremap <C-h> <Left>
+" tnoremap <C-h> <Left>
 
 " the alpha and the omega
 inoremap <C-a> <C-o>_
@@ -134,7 +134,7 @@ inoremap <M-}> <C-o>}
 " ^d = Delete Forward
 inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
-inoremap <C-h> <C-g>u<BS>
+" inoremap <C-h> <C-g>u<BS>
 
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
@@ -554,6 +554,9 @@ k("c", "<C-BS>", "\x17", { noremap = true })
 -- switch to normal mode
 k("t", "<c-x>", [[<c-\><c-n>]], silent)
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
+
+-- just send this key so that zsh can use it as move back 1 char
+vim.keymap.set("t", "<C-h>", "<C-h>")
 
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)

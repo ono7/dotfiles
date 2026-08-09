@@ -5,5 +5,3 @@ https://cs50.ai/chat
 ## vscode
 
 https://cs50.dev
-
-#

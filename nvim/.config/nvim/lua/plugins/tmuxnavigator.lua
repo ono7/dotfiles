@@ -10,10 +10,10 @@ return {
       disable_when_zoomed = true, -- defaults to false
     })
 
-    vim.keymap.set("t", "<c-h>", function()
-      vim.cmd.stopinsert()
-      nvim_tmux_nav.NvimTmuxNavigateLeft()
-    end)
+    -- vim.keymap.set("t", "<c-h>", function()
+    --   vim.cmd.stopinsert()
+    --   nvim_tmux_nav.NvimTmuxNavigateLeft()
+    -- end)
     vim.keymap.set("t", "<c-j>", function()
       vim.cmd.stopinsert()
       nvim_tmux_nav.NvimTmuxNavigateDown()
