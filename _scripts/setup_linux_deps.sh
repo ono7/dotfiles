@@ -64,9 +64,10 @@ install_packages_pacman() {
     base-devel procps curl file git screen usbutils docker foot ctags \
     nvm zoxide starship npm openssl tree zsh the_silver_searcher \
     fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck \
-    rlwrap pass wl-clipboard autotiling xdg-desktop-portal xdg-desktop-portal-wlr
+    rlwrap pass wl-clipboard autotiling xdg-desktop-portal xdg-desktop-portal-wlr \
+    go
 
-  sudo pacman -S --needed --noconfirm tree-sitter-cli
+  sudo pacman -S --needed --noconfirm neovim tree-sitter-cli
 
   # Handle AUR helper (yay) for gron
   if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
