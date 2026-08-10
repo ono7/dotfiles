@@ -1,6 +1,13 @@
 {
     // ~/Library/KeyBindings/DefaultKeyBinding.dict
     // ~/.dotfiles/macos/DefaultKeyBinding.dict
+    // gtk-key-theme-name = "Emacs" in ~/.gtkrc-2.0 for linux
+    // or this for gtk-3.0 in linux
+    // mkdir -p ~/.config/gtk-3.0
+    // settings.ini
+    // [Settings]
+    // gtk-key-theme-name = Emacs
+
 
     "^f" = "moveForward:";
     "^b" = "moveBackward:";
