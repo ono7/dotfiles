@@ -25,21 +25,21 @@ setup_locale() {
   log "Setting up locale..."
 
   case "$pm" in
-    pacman)
-      if ! grep -q "^en_US.UTF-8" /etc/locale.gen; then
-        sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-        sudo locale-gen
-      fi
-      ;;
-    apt|dnf|zypper)
-      if command -v locale-gen &>/dev/null; then
-        sudo locale-gen "en_US.UTF-8" 2>/dev/null || true
-      fi
-      ;;
-    *)
-      log "Skipping automated locale setup for unknown package manager"
-      ;;
-  es>
+  pacman)
+    if ! grep -q "^en_US.UTF-8" /etc/locale.gen; then
+      sudo sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+      sudo locale-gen
+    fi
+    ;;
+  apt | dnf | zypper)
+    if command -v locale-gen &>/dev/null; then
+      sudo locale-gen "en_US.UTF-8" 2>/dev/null || true
+    fi
+    ;;
+  *)
+    log "Skipping automated locale setup for unknown package manager"
+    ;;
+  esac
 }
 
 install_packages_apt() {
@@ -128,23 +128,23 @@ main() {
   setup_locale "$pm"
 
   case "$pm" in
-    apt)
-      install_packages_apt
-      ;;
-    pacman)
-      install_packages_pacman
-      ;;
-    dnf)
-      install_packages_dnf
-      ;;
-    zypper)
-      install_packages_zypper
-      ;;
-    *)
-      log "Unsupported package manager or unknown distribution."
-      log "Please install core developer tools manually."
-      exit 1
-      ;;
+  apt)
+    install_packages_apt
+    ;;
+  pacman)
+    install_packages_pacman
+    ;;
+  dnf)
+    install_packages_dnf
+    ;;
+  zypper)
+    install_packages_zypper
+    ;;
+  *)
+    log "Unsupported package manager or unknown distribution."
+    log "Please install core developer tools manually."
+    exit 1
+    ;;
   esac
 
   log "Dependencies installation completed successfully."
