@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "Running global hooks..."
 echo "$0"
-PATH="/usr/local/bin:$PATH"
+PATH="$HOME/.npm-global/bin:/usr/local/bin:$PATH"
 if type lint-staged >/dev/null 2>&1; then
   if [ -f .lintstagedrc ]; then
     echo "✔ Using local lintstagedrc"
