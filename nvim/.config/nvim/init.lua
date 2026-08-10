@@ -85,6 +85,9 @@ use c-s and c-r more often to move around
 -- Enable byte-compile loader immediately for performance
 vim.loader.enable(true)
 
+-- Prepend local bin and npm-global paths to Neovim's environment
+vim.env.PATH = vim.fn.expand("~/.local/bin") .. ":" .. vim.fn.expand("~/.npm-global/bin") .. ":" .. vim.env.PATH
+
 local large_file_group = vim.api.nvim_create_augroup("LargeFileOpts", { clear = true })
 local threshold_bytes = 1048576
 
