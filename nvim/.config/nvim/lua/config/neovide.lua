@@ -38,6 +38,14 @@ if vim.g.neovide then
   -- else
   --   vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h24"
   -- end
+  -- neovide.lua
+  if vim.fn.has("macunix") == 1 then
+    -- macOS specific font, sizing, and theme
+    vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h21"
+  else
+    -- Linux/Windows defaults
+    vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h19"
+  end
 
   vim.g.neovide_text_gamma = 0.8
   vim.g.neovide_text_contrast = 0.1
