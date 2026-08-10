@@ -550,8 +550,8 @@ function setup_keys() {
   bindkey '^K' kill-line # Emacs-style C-k
 
   # --- FZF Integration ---
-  bindkey "^F" forward-char
-  bindkey "^H" backward-char
+  # bindkey "^F" forward-char
+  # bindkey "^H" backward-char
   bindkey "^@" fzf-history-widget
   # Map Ctrl+T to file search (Saving Ctrl+F for forward char)
   bindkey "^T" fzf-file-widget
