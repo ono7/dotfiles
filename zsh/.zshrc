@@ -35,6 +35,8 @@ else
   export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 fi
 
+export PATH=~/.npm-global/bin:$PATH
+
 typeset -U path PATH
 
 if command -v nvim >/dev/null 2>&1; then
