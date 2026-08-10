@@ -1,6 +1,6 @@
 fork = true
-# frame = "full"
-frame = "transparent"
+frame = "full"
+# frame = "transparent"
 # idle = true
 maximized = false
 # mouse-cursor-icon = "arrow"
