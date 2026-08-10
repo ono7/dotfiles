@@ -67,26 +67,26 @@ install_packages_pacman() {
     rlwrap pass wl-clipboard autotiling xdg-desktop-portal xdg-desktop-portal-wlr \
     go
 
-  sudo pacman -S --needed --noconfirm neovim tree-sitter-cli
+  sudo pacman -S --needed --noconfirm neovim tree-sitter-cli neovide
 
   # Handle AUR helper (yay) for gron
-  if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
-    log "Installing yay for AUR packages..."
-    local temp1="$PWD"
-    git clone https://aur.archlinux.org/yay-bin.git ~/yay
-    cd ~/yay || exit 1
-    makepkg -si --noconfirm
-    cd "$temp1" || exit 1
-    rm -rf ~/yay
-  fi
-
-  if command -v yay &>/dev/null; then
-    yay -S --needed --noconfirm gron
-  elif command -v paru &>/dev/null; then
-    paru -S --needed --noconfirm gron
-  else
-    log "Warning: gron not installed (requires AUR helper)"
-  fi
+  # if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
+  #   log "Installing yay for AUR packages..."
+  #   local temp1="$PWD"
+  #   git clone https://aur.archlinux.org/yay-bin.git ~/yay
+  #   cd ~/yay || exit 1
+  #   makepkg -si --noconfirm
+  #   cd "$temp1" || exit 1
+  #   rm -rf ~/yay
+  # fi
+  #
+  # if command -v yay &>/dev/null; then
+  #   yay -S --needed --noconfirm gron
+  # elif command -v paru &>/dev/null; then
+  #   paru -S --needed --noconfirm gron
+  # else
+  #   log "Warning: gron not installed (requires AUR helper)"
+  # fi
 
   sudo pacman -R --noconfirm nano 2>/dev/null || true
 }
