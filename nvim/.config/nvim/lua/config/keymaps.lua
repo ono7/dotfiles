@@ -134,7 +134,7 @@ inoremap <M-}> <C-o>}
 " ^d = Delete Forward
 inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
-" inoremap <C-h> <C-g>u<BS>
+ inoremap <C-h> <C-g>u<BS>
 
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
