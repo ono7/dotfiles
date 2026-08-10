@@ -18,6 +18,8 @@ export NVM_DIR="$HOME/.nvm"
 log "install node"
 
 nvm install node
+mkdir ~/.npm-global
+npm config set prefix "~/.npm-global"
 
 . ~/.bashrc
 
