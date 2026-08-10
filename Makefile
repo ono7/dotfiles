@@ -30,7 +30,7 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps brew-deps clean stow nvm go-deps uv neovim vim fzf starship done
+linux: linux-deps clean stow nvm go-deps uv neovim vim fzf starship done
 mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim done
 
 clean:
