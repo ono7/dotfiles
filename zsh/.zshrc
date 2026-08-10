@@ -32,10 +32,10 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   ulimit -n 10240
 else
   # Regular Linux
-  export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  export PATH="$HOME/.npm-global/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 fi
 
-export PATH=~/.npm-global/bin:$PATH
+export PATH=$HOME/.npm-global/bin:$PATH
 
 typeset -U path PATH
 

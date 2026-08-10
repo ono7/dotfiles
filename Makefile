@@ -1,7 +1,8 @@
 SHELL := /bin/bash
+# 2026-08-10 16:38
 
 export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
-
+# 2026-08-10 16:33
 
 .PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds
 
