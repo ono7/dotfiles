@@ -22,26 +22,25 @@ export GOPRIVATE=github.com/ono7/utils,github.com/ono7/other
 
 # Clean PATH building - detect actual OS, not mixed environment
 if grep -q Microsoft /proc/version 2>/dev/null; then
-    # We're in WSL - use Linux-appropriate paths only
-    # Let WSL handle Windows PATH appending automatically
-    export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  # We're in WSL - use Linux-appropriate paths only
+  # Let WSL handle Windows PATH appending automatically
+  export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 elif [[ $OSTYPE == "darwin"* ]]; then
-    # Real macOS
-    export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
-    # increase open file count for ansible on macos
-    ulimit -n 10240
+  # Real macOS
+  export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  # increase open file count for ansible on macos
+  ulimit -n 10240
 else
-    # Regular Linux
-    export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  # Regular Linux
+  export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
 fi
 
 typeset -U path PATH
 
-
-if command -v nvim > /dev/null 2>&1; then
-    export EDITOR=nvim
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
 else
-    export EDITOR=vim
+  export EDITOR=vim
 fi
 
 # kitty, alacritty use CPU instead of GPU
@@ -62,7 +61,7 @@ export MANWIDTH=999
 
 # OS-specific settings (only run what's needed)
 if [[ $OSTYPE == "linux-gnu"* ]]; then
-   export TERSTRSTRSTST=0
+  export TERSTRSTRSTST=0
 elif [[ $OSTYPE == "darwin"* ]]; then
   echo "..."
 
@@ -71,9 +70,9 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   defaults write -g ApplePressAndHoldEnabled -bool false
 fi
 
-fw () {
+fw() {
   if [[ $OSTYPE == "darwin"* ]]; then
-      /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+    /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
   fi
 }
 
@@ -195,11 +194,11 @@ alias 8='cd -8'
 alias 9='cd -9'
 
 # Save the directory stack on exit
-chpwd () {
-    print -l $PWD ${(u)dirstack} >~/.zdirs
+chpwd() {
+  print -l $PWD ${(u)dirstack} >~/.zdirs
 }
 
-vls () {
+vls() {
   local sessions_dir="$HOME/vim/sessions"
   local project_name=$(basename "$PWD")
   local session_file="$sessions_dir/${project_name}.vim"
@@ -215,16 +214,15 @@ vls () {
 
 # Connect to remote_pdb with readline support
 # Usage: rpdb [port]
-wrap () {
-    local port="${1:-4444}"  # Default to 4444 if no argument provided
-    socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
+wrap() {
+  local port="${1:-4444}" # Default to 4444 if no argument provided
+  socat READLINE,history=$HOME/.pdb_history TCP:127.0.0.1:$port
 }
-
 
 # Load the directory stack at startup
 if [[ -f ~/.zdirs ]]; then
-    dirstack=( ${(f)"$(< ~/.zdirs)"} )
-    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+  dirstack=(${(f)"$(<~/.zdirs)"})
+  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
 fi
 
 ############## Functions ##############
@@ -233,64 +231,67 @@ fi
 # https://github.com/python-poetry/poetry/issues/571
 ## on .{bash,zsh,wtv}rc
 
-poetry_shell () {
+poetry_shell() {
   deactivate 2>/dev/null
   . "$(dirname $(poetry run which python))/activate"
   which python
 }
 
 fpass() {
-    local password edit=0 clipboard=0
+  local password edit=0 clipboard=0
 
-    # Parse options
-    while getopts "ec" opt; do
-        case $opt in
-            e) edit=1 ;;
-            c) clipboard=1 ;;
-            \?) echo "Usage: fpass [-e] [-c]" >&2; return 1 ;;
-        esac
-    done
+  # Parse options
+  while getopts "ec" opt; do
+    case $opt in
+    e) edit=1 ;;
+    c) clipboard=1 ;;
+    \?)
+      echo "Usage: fpass [-e] [-c]" >&2
+      return 1
+      ;;
+    esac
+  done
 
-    # Get password selection
-    password=$(find ~/.password-store -name "*.gpg" | \
-               sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,' | \
-               fzf +m)
+  # Get password selection
+  password=$(find ~/.password-store -name "*.gpg" |
+    sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,' |
+    fzf +m)
 
-    if [[ -n "$password" ]]; then
-        if [[ $edit -eq 1 ]]; then
-            # Edit mode
-            pass edit "$password"
-        elif [[ $clipboard -eq 1 ]]; then
-            # Clipboard mode
-            pass -c "$password"
-        else
-            # Default: export to SSHPASS
-            SSHPASS=$(pass show "$password" | head -n1)
-            # intentional space to ignore pattern
-              export SSHPASS
-        fi
+  if [[ -n "$password" ]]; then
+    if [[ $edit -eq 1 ]]; then
+      # Edit mode
+      pass edit "$password"
+    elif [[ $clipboard -eq 1 ]]; then
+      # Clipboard mode
+      pass -c "$password"
+    else
+      # Default: export to SSHPASS
+      SSHPASS=$(pass show "$password" | head -n1)
+      # intentional space to ignore pattern
+      export SSHPASS
     fi
+  fi
 }
 
 export HISTORY_IGNORE="(ls|cat|AWS|SECRET|SSHPASS)"
 
 # alias nvimdiff='vim -d'
 vimgd() {
-    if [[ "$#" == 2 ]]; then
-        local ref=${1}
-        local gitrelfp=${2}
-        gitfullfp=$(git ls-files --full-name $gitrelfp)
-        fname=$(basename ${gitrelfp})
-        tmpfname=/tmp/$(sed "s/\//-/g" <<< $ref)-$fname
-        git show $ref:$gitfullfp > $tmpfname
-        vim -d $tmpfname $gitrelfp -c "setlocal nomodifiable"  # RO ref buffer
-    else
-        echo "usage: vimdg <ref|branch|commit> <relative-file-path>"
-        echo "vimgd feat-branch file.yaml"
-        echo "vimgd origin/master file.yaml"
-        echo "vimgd 91a89847a9 file.yaml"
-        echo "vimgd HEAD~3 file.yaml"
-    fi
+  if [[ "$" == 2 ]]; then
+    local ref=${1}
+    local gitrelfp=${2}
+    gitfullfp=$(git ls-files --full-name $gitrelfp)
+    fname=$(basename ${gitrelfp})
+    tmpfname=/tmp/$(sed "s/\//-/g" <<<$ref)-$fname
+    git show $ref:$gitfullfp >$tmpfname
+    vim -d $tmpfname $gitrelfp -c "setlocal nomodifiable" # RO ref buffer
+  else
+    echo "usage: vimdg <ref|branch|commit> <relative-file-path>"
+    echo "vimgd feat-branch file.yaml"
+    echo "vimgd origin/master file.yaml"
+    echo "vimgd 91a89847a9 file.yaml"
+    echo "vimgd HEAD~3 file.yaml"
+  fi
 }
 
 cdf() {
@@ -298,7 +299,7 @@ cdf() {
   file=$(fd --type f | fzf --preview 'head -100 {}') && cd "$(dirname "$file")"
 }
 
-function d () {
+function d() {
   if [[ -n $1 ]]; then
     dirs "$@"
   else
@@ -306,20 +307,20 @@ function d () {
   fi
 }
 
-echo_red () {
+echo_red() {
   echo -e "${RED}$@${RESET}"
 }
 
-echo_green () {
+echo_green() {
   echo -e "${GREEN}$@${RESET}"
 }
 
 # Suspend and foreground Neovim with ctrl+z
-toggle () {
+toggle() {
   fg %nvim
 }
 
-runner () {
+runner() {
   if ! command -v nodemon &>/dev/null; then
     npm install -g nodemon
   fi
@@ -332,30 +333,30 @@ runner () {
   nodemon --exec $@ --signal SIGTERM
 }
 
-fixgit () {
+fixgit() {
   git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 }
 
-ta () {
-    if ! command -v tmux &> /dev/null; then
-        echo "Error: tmux is not installed."
-        return 1
-    fi
+ta() {
+  if ! command -v tmux &>/dev/null; then
+    echo "Error: tmux is not installed."
+    return 1
+  fi
 
-    local SESSION_NAME="${1:-develop}"
+  local SESSION_NAME="${1:-develop}"
 
-    if [ -n "$TMUX" ]; then
-        if [ -n "$1" ]; then
-            tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
-        else
-            return 0
-        fi
+  if [ -n "$TMUX" ]; then
+    if [ -n "$1" ]; then
+      tmux detach-client -E "tmux new-session -A -s '$SESSION_NAME'"
     else
-        tmux new-session -A -s "$SESSION_NAME"
+      return 0
     fi
+  else
+    tmux new-session -A -s "$SESSION_NAME"
+  fi
 }
 
-mkrole () {
+mkrole() {
   local dir1="$@"
   mydir="roles/${dir1// /_}"
   if [ -d $mydir ]; then
@@ -363,50 +364,51 @@ mkrole () {
     return 1
   fi
   echo "creating ansible role -> $mydir"
-  for d in defaults files handlers meta tasks templates tests vars
-  do
+  for d in defaults files handlers meta tasks templates tests vars; do
     mkdir -p $mydir/$d
     echo "created $mydir/$d (dir)"
   done
-  for f in defaults handlers tasks meta vars
-  do
+  for f in defaults handlers tasks meta vars; do
     if [ ! -f "$mydir/$f/main.yml" ]; then
-      echo '---' >> $mydir/$f/main.yml
+      echo '---' >>$mydir/$f/main.yml
       echo "created $mydir/$f/main.yml (file)"
     fi
   done
   echo "done!"
 }
 
-take () {
+take() {
   [ -z "$1" ] && echo "Please provide an argument"
   local dir="$@"
-  mkdir -p "${dir// /-}"; cd "${dir// /-}"
+  mkdir -p "${dir// /-}"
+  cd "${dir// /-}"
 }
 
-mktag () {
+mktag() {
   [ -z "$1" ] && echo "Please provide an argument"
-  git tag -a $1 -m "$@"; git push origin $1
+  git tag -a $1 -m "$@"
+  git push origin $1
 }
 
-rmtag () {
+rmtag() {
   [ -z "$1" ] && echo "Please provide an argument"
-  git tag -d $1;git push --delete origin $1
+  git tag -d $1
+  git push --delete origin $1
 }
 
-_cdr () {
+_cdr() {
   mydir="$(git rev-parse --show-toplevel 2>/dev/null)"
   cd ${mydir:-.}
 }
 alias cdr=_cdr
 
-ginit () {
+ginit() {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   git init "$@"
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
 }
 
-mkproject () {
+mkproject() {
   # Guard clause: Ensure at least a project name was provided
   if [ -z "$1" ]; then
     echo "Usage: mkproject <project-name> [python-version]"
@@ -428,33 +430,33 @@ mkproject () {
   direnv allow
 }
 
-gitlog () {
+gitlog() {
   git log --oneline --graph --decorate --simplify-by-decoration --color --oneline --date=local --pretty=format:'%C(auto) %h %d %C(reset)%s (%C(cyan)%ad %ae%C(reset))' $@
 }
 
-jira () {
-    my_dir=$PWD
-    cdr
-    git add .
-    jira=$(git branch --show-current | grep -Eio "ntwk\-\d{1,20}")
-    f=$(git status --porcelain | cut -c4- | head -n 4)
-    more_changes=$(git status --porcelain | sed -n 5p)
-    [ -n "$more_changes" ] && f="$f ..."
-    if test -z "$1"; then
-      git commit "-m $jira updates to -> ${f//$'\n'/ }"
-    else
-      comment="$@"
-      git commit '-m' "$jira $comment -> ${f//$'\n'/ }"
-    fi
-    cd $my_dir
+jira() {
+  my_dir=$PWD
+  cdr
+  git add .
+  jira=$(git branch --show-current | grep -Eio "ntwk\-\d{1,20}")
+  f=$(git status --porcelain | cut -c4- | head -n 4)
+  more_changes=$(git status --porcelain | sed -n 5p)
+  [ -n "$more_changes" ] && f="$f ..."
+  if test -z "$1"; then
+    git commit "-m $jira updates to -> ${f//$'\n'/ }"
+  else
+    comment="$@"
+    git commit '-m' "$jira $comment -> ${f//$'\n'/ }"
+  fi
+  cd $my_dir
 }
 
-va () {
+va() {
   deactivate || echo ".."
   if [[ -d .venv ]]; then
     source .venv/bin/activate 2>/dev/null || source ../.venv/bin/activate 2>/dev/null
   elif [[ -d $(git rev-parse --show-toplevel 2>/dev/null)/.venv ]]; then
-      source $(git rev-parse --show-toplevel)/.venv/bin/activate || source ../$(git rev-parse --show-toplevel)/.venv/bin/activate
+    source $(git rev-parse --show-toplevel)/.venv/bin/activate || source ../$(git rev-parse --show-toplevel)/.venv/bin/activate
   else
     echo "no python env found.."
     return 1
@@ -462,44 +464,44 @@ va () {
   echo $(which python3)
 }
 
-vd () {
+vd() {
   deactivate && echo ".venv deactivated.."
   echo $(which python3)
 }
 
-vc () {
+vc() {
   deactivate 2>/dev/null
   echo "use: vc --python 3.11.9"
   uv venv --seed --python-preference managed "$@" && va
 }
 
-uv_poetry_install () {
+uv_poetry_install() {
   # drop in replacement for poetry, uses uv to install packages but lets poetry handle the poetry.lock
   # usefull for opensource repos like nautobot
-    uv pip install --no-deps -r <(POETRY_WARNINGS_EXPORT=false poetry export --without-hashes --with dev -f requirements.txt)
-    poetry install --only-root
+  uv pip install --no-deps -r <(POETRY_WARNINGS_EXPORT=false poetry export --without-hashes --with dev -f requirements.txt)
+  poetry install --only-root
 }
 
-_d () {
+_d() {
   cdr
   cd "$(fd -td -HI --exclude '.git' --exclude '__pycache__' . | fzf)"
 }
 
 # see ~/.config/fd/ignore
-vs () {
+vs() {
   n "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
 }
 
-fcd () {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
+fcd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2>/dev/null | fzf +m) && cd "$dir"
 }
 
-gb () {
+gb() {
   git checkout $(git branch -a | fzf)
 }
 
-d () {
+d() {
   if [[ -n $1 ]]; then
     dirs "$@"
   else
@@ -509,7 +511,7 @@ d () {
 
 ############## Completion system ##############
 
-ct () {
+ct() {
   wd=$PWD
   cdr
   ctags -R --exclude=@$HOME/.ctagsignore
@@ -520,92 +522,74 @@ ct () {
 # bindkey "^H" backward-kill-word
 
 function setup_keys() {
-    # 1. Reset to Vi Mode (This clears previous keymaps!)
-    # bindkey -v
+  # bindkey -M viins '^D' delete-char             # Fixes Ctrl+D
+  # bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
+  # bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
+  # bindkey -M viins '^U' kill-whole-line         # Unix standard
+  # bindkey -M viins '^K' kill-line   # Emacs-style C-k
+  # bindkey -M viins '^W' backward-kill-word      # Unix standard
+  #
+  # bindkey -M viins '^F' forward-char
+  # bindkey -M viins '^B' backward-char
+  # bindkey -M viins '^N' down-line-or-history
+  # bindkey -M viins '^P' up-line-or-history
+  # bindkey -M viins '^A' beginning-of-line
+  # bindkey -M viins '^E' end-of-line
+  #
+  # bindkey -M viins '\ef' emacs-forward-word    # Option-f
+  # bindkey -M viins '\eb' backward-word         # Option-b
+  #
+  # bindkey -M viins '\ed' delete-word           # Option-d (Delete word forward)
+  # bindkey -M viins '\e^?' backward-kill-word   # Option-Backspace (Delete word backward)
 
-    # =======================================================
-    # VI INSERT MODE MAPPINGS (-M viins)
-    # =======================================================
+  # back to emacs bindings
+  bindkey -e
+  bindkey ' ' magic-space # History expansion on space
+  bindkey "^O" accept-line-and-down-history
 
-    # --- Standard Parity (Fixing your ^d issue) ---
-    bindkey -M viins '^D' delete-char             # Fixes Ctrl+D
-    bindkey -M viins '^H' backward-delete-char    # Fixes Backspace
-    bindkey -M viins '^?' backward-delete-char    # Fixes Backspace (Legacy)
-    bindkey -M viins '^U' kill-whole-line         # Unix standard
-    bindkey -M viins '^K' kill-line   # Emacs-style C-k
-    bindkey -M viins '^W' backward-kill-word      # Unix standard
+  bindkey '^K' kill-line # Emacs-style C-k
 
-    # --- Character Movement (Vim/Emacs Parity) ---
-    bindkey -M viins '^F' forward-char
-    bindkey -M viins '^B' backward-char
-    bindkey -M viins '^N' down-line-or-history
-    bindkey -M viins '^P' up-line-or-history
-    bindkey -M viins '^A' beginning-of-line
-    bindkey -M viins '^E' end-of-line
+  # --- FZF Integration ---
+  bindkey "^F" forward-char
+  bindkey "^H" backward-char
+  bindkey "^@" fzf-history-widget
+  # Map Ctrl+T to file search (Saving Ctrl+F for forward char)
+  bindkey "^T" fzf-file-widget
 
-    # --- Option Key Movement (Alacritty 'Both' sends Escape+Key) ---
-    # We use '\e' instead of '^[' to ensure syntax is correct
-    bindkey -M viins '\ef' emacs-forward-word    # Option-f
-    bindkey -M viins '\eb' backward-word         # Option-b
+  # --- Zsh Autosuggestions ---
+  # Ensure Right Arrow accepts suggestion even in Vi Mode
+  # bindkey -M viins '^[[C' autosuggest-accept
 
-    # --- Option Key Deletion (Parity with your macOS expectations) ---
-    bindkey -M viins '\ed' delete-word           # Option-d (Delete word forward)
-    bindkey -M viins '\e^?' backward-kill-word   # Option-Backspace (Delete word backward)
+  # --- Clipboard ---
+  # bindkey -M vicmd 'y' vi-yank-clipboard
+  # function vi-yank-clipboard {
+  #     zle vi-yank
+  #     if command -v pbcopy >/dev/null 2>&1; then
+  #         echo "$CUTBUFFER" | pbcopy
+  #     elif command -v wl-copy >/dev/null 2>&1; then
+  #         echo "$CUTBUFFER" | wl-copy
+  #     fi
+  # }
+  # zle -N vi-yank-clipboard
 
-    # =======================================================
-    # SEARCH & UTILS
-    # =======================================================
+  # --- Text Objects (ci", ci(, etc) ---
+  # autoload -U select-quoted
+  # zle -N select-quoted
+  # for m in visual viopp; do
+  #   for c in {a,i}{\',\",\`}; do
+  #     bindkey -M $m $c select-quoted
+  #   done
+  # done
 
-    # back to emacs bindings
-    bindkey -e
-    bindkey ' ' magic-space                      # History expansion on space
-    bindkey "^O" accept-line-and-down-history
-
-    bindkey '^K' kill-line   # Emacs-style C-k
-
-    # --- FZF Integration ---
-    # bindkey "^R" fzf-history-widget
-    # bindkey "^F" fzf-history-widget
-    bindkey "^F" forward-char
-    # bindkey "^H" backward-delete-char
-    bindkey "^H" backward-char
-    bindkey "^@" fzf-history-widget
-    # Map Ctrl+T to file search (Saving Ctrl+F for forward char)
-    bindkey "^T" fzf-file-widget
-
-    # --- Zsh Autosuggestions ---
-    # Ensure Right Arrow accepts suggestion even in Vi Mode
-    bindkey -M viins '^[[C' autosuggest-accept
-
-    # --- Clipboard ---
-    bindkey -M vicmd 'y' vi-yank-clipboard
-    function vi-yank-clipboard {
-        zle vi-yank
-        if command -v pbcopy >/dev/null 2>&1; then
-            echo "$CUTBUFFER" | pbcopy
-        elif command -v wl-copy >/dev/null 2>&1; then
-            echo "$CUTBUFFER" | wl-copy
-        fi
-    }
-    zle -N vi-yank-clipboard
-
-    # --- Text Objects (ci", ci(, etc) ---
-    autoload -U select-quoted
-    zle -N select-quoted
-    for m in visual viopp; do
-      for c in {a,i}{\',\",\`}; do
-        bindkey -M $m $c select-quoted
-      done
-    done
-
-    autoload -U select-bracketed
-    zle -N select-bracketed
-    for m in visual viopp; do
-      for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-        bindkey -M $m $c select-bracketed
-      done
-    done
+  #     autoload -U select-bracketed
+  #     zle -N select-bracketed
+  #     for m in visual viopp; do
+  #       for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+  #         bindkey -M $m $c select-bracketed
+  #       done
+  #     done
 }
+
 # install homebrew on linux and macos
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -736,7 +720,6 @@ if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
   fi
 fi
 
-
 if command -v direnv &>/dev/null; then
   eval "$(direnv hook zsh)"
 fi
@@ -761,7 +744,6 @@ bindkey -r '^T'
 #   fi
 # fi
 
-
 # [ -f $HOME/root-ca.crt ] && export SSL_CERT_FILE="$HOME/root-ca.crt"
 
 ############## Starship prompt ##############
@@ -782,10 +764,10 @@ if grep -qE "^ID=(arch|manjaro)" /etc/os-release 2>/dev/null || command -v pacma
     emulate -L zsh
     setopt extendedglob
     local LC_ALL=C
-    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$( ([##16]#MATCH))}}
   }
   function chpwd-osc7-pwd() {
-    (( ZSH_SUBSHELL )) || osc7-pwd
+    ((ZSH_SUBSHELL)) || osc7-pwd
   }
   add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 fi
@@ -794,7 +776,6 @@ fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-
 
 # Restore default reverse-i-search and disable fzf for Ctrl-R
 bindkey '^R' history-incremental-search-backward
