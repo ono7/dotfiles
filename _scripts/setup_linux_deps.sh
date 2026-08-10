@@ -53,6 +53,7 @@ install_packages_apt() {
     build-essential procps curl file git screen libssl-dev tree zsh \
     silversearcher-ag fd-find unzip xclip ripgrep stow make sqlite3 \
     wget shfmt shellcheck gron rlwrap pass
+  sudo apt install -y tree-sitter-cli
 }
 
 install_packages_pacman() {
@@ -64,6 +65,8 @@ install_packages_pacman() {
     nvm zoxide starship npm openssl tree zsh the_silver_searcher \
     fd unzip xclip ripgrep stow make sqlite wget shfmt shellcheck \
     rlwrap pass wl-clipboard autotiling xdg-desktop-portal xdg-desktop-portal-wlr
+
+  sudo pacman -S --needed --noconfirm tree-sitter-cli
 
   # Handle AUR helper (yay) for gron
   if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
