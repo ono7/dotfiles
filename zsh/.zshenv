@@ -104,7 +104,7 @@ ga() {
   fi
 
   # Proceed with the rest of the function
-  if [ "$#" -eq 0 ]; then
+  if [ "$" -eq 0 ]; then
     git add -p
   else
     git add "$@"
@@ -113,7 +113,7 @@ ga() {
 }
 
 gac() {
-  if [ "$#" -eq 0 ]; then
+  if [ "$" -eq 0 ]; then
     git add -p
   else
     git add "$@"
@@ -265,3 +265,5 @@ EOF
 trap 'rm -rf ~/.vim-undo ~/.myrc' EXIT
 SETUP_END
 }
+
+export PATH="$HOME/.npm-global/bin:$HOME/.virtualenvs/prod3/bin:$HOME/.nvm/versions/node/v23.5.0/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$HOME/go/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:$HOME/.cache/lm-studio/bin:$PATH"
