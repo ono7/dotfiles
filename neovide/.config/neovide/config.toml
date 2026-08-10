@@ -1,7 +1,8 @@
 fork = true
 # frame = "full"
-frame = "buttonless"
+# frame = "buttonless"
 # frame = "transparent"
+fram = "none"
 idle = true
 maximized = false
 # mouse-cursor-icon = "arrow"
