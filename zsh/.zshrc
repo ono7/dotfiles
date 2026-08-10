@@ -80,7 +80,14 @@ fw() {
 }
 
 alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
-alias c="pbcopy"
+
+if command -v pbcopy &>/dev/null; then
+  alias c="pbcopy"
+elif command -v wl-copy &>/dev/null; then
+  alias c="wl-copy"
+elif command -v xclip &>/dev/null; then
+  alias c="xclip -selection clipboard"
+fi
 
 ############## Shell options ##############
 
