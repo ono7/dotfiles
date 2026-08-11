@@ -19,43 +19,42 @@ title-hidden = true
 vsync = true
 wsl = false
 
-[font]
-# Will use the bundled Fira Code Nerd Font by default
-# normal = { family = "SF Mono Terminal", style = "Medium" }
-# normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
-# normal = { family = "Iosevka Mayukai Original", style = "Medium" }
-# edging = "antialias"
-# height = 15
-size = 21
+# [font]
+
+# # Will use the bundled Fira Code Nerd Font by default
+# # normal = { family = "SF Mono Terminal", style = "Medium" }
+# # normal = { family = "IosevkaTerm Nerd Font Mono", style = "Medium" }
+# # normal = { family = "Iosevka Mayukai Original", style = "Medium" }
+# # edging = "antialias"
+# # height = 15
+
+# size = 18
 
 # best for macos...
-hinting = "none"
+# hinting = "none"
 
 
-[[font.normal]]
-
-# family = "SF Mono Terminal"
-# style = "Regular"
-
-family = "Iosevka Custom"
-style = "Medium Semi-Extended"
-
-[[font.bold]]
-
-family = "Iosevka Custom"
-style = "ExtraBold Semi-Extended"
-
-[[font.italic]]
-
-family = "Iosevka Custom"
-style = "Medium Semi-Extended Italic"
+# [[font.normal]]
+#
+# family = "Iosevka Custom"
+# style = "Medium Semi-Extended"
+#
+# [[font.bold]]
+#
+# family = "Iosevka Custom"
+# style = "ExtraBold Semi-Extended"
+#
+# [[font.italic]]
+#
+# family = "Iosevka Custom"
+# style = "Medium Semi-Extended Italic"
 
 [box-drawing]
 # "font-glyph", "native" or "selected-native"
 mode = "native"
 
 [box-drawing.sizes]
-default = [2, 4]  # Thin and thick values respectively, for all sizes
+# default = [2, 4]  # Thin and thick values respectively, for all sizes
 
 # normal = {}
 
