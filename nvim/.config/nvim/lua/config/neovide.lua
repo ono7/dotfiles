@@ -23,7 +23,7 @@ vim.g.neovide_frame_no_title = true
 vim.g.neovide_confirm_quit = true
 vim.g.neovide_profiler = false
 
--- 3. Visual Effects (Kept intact)
+-- 3. Visual Effects
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 vim.g.neovide_floating_shadow = true
@@ -40,7 +40,7 @@ vim.g.neovide_progress_bar_hide_delay = 0.2
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
-  vim.g.neovide_font_edging = "subpixel"
+  vim.g.neovide_font_edging = "subpixelantialias"
   vim.g.neovide_font_hinting = "full"
 elseif os_name == "OSX" then
   -- macOS (Apple Silicon / CoreText native)
@@ -50,12 +50,12 @@ elseif os_name == "OSX" then
 else
   -- Linux Native (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16"
-  vim.g.neovide_font_edging = "subpixel"
+  vim.g.neovide_font_edging = "subpixelantialias"
   vim.g.neovide_font_hinting = "full"
 end
 
--- Linear rendering parameters (prevents text bleed on dark background #151F2D)
-vim.g.neovide_text_gamma = 1.0
+-- Font Blending (0.0 Gamma maps to standard sRGB 2.2 in Neovide)
+vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
 
 -- UI & Mouse Settings
