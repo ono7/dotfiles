@@ -54,13 +54,10 @@ else
   vim.g.neovide_font_hinting = "full"
 end
 
--- Linear rendering parameters across all OS platforms
-vim.g.neovide_text_gamma = 1.0
-vim.g.neovide_text_contrast = 0.5
-
 -- Prevents text bleed on dark background (#151F2D)
 vim.g.neovide_text_gamma = 1.0
 vim.g.neovide_text_contrast = 0.5
+
 -- Peak Sharpness Rendering Settings
 vim.g.neovide_font_edging = "subpixel" -- Uses RGB subpixel rendering instead of standard antialias
 vim.g.neovide_font_hinting = "full" -- Snaps font stems cleanly to screen pixel grids
