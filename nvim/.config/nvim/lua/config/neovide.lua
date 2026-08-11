@@ -42,14 +42,23 @@ if os_name == "Windows" or is_wsl then
 elseif os_name == "OSX" then
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h19"
 else
-  vim.g.neovide_fullscreen = false
-  vim.g.neovide_idle = true
+  -- Font Definition
   vim.o.guifont = "Iosevka Custom:h16:m-Semi-Extended"
-  vim.g.neovide_font_hinting = "none"
-  vim.g.neovide_font_edging = "antialias"
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_theme = "dark"
 end
+
+-- Peak Sharpness Rendering Settings
+vim.g.neovide_font_edging = "subpixel" -- Uses RGB subpixel rendering instead of standard antialias
+vim.g.neovide_font_hinting = "full" -- Snaps font stems cleanly to screen pixel grids
+
+-- Text Gamma & Contrast (Linear rendering avoids pixel border bleed)
+vim.g.neovide_text_gamma = 1.0 -- Set to 1.0 for true vector reproduction
+vim.g.neovide_text_contrast = 0.0 -- Prevents artificial stroke weight alteration
+
+-- UI & Mouse Settings
+vim.g.neovide_fullscreen = false
+vim.g.neovide_idle = true
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_theme = "dark"
 
 vim.g.neovide_text_gamma = 0.8
 vim.g.neovide_text_contrast = 0.1
