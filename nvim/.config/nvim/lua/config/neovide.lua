@@ -2,7 +2,7 @@ if not vim.g.neovide then
   return
 end
 
--- 1. Instant OS detection via LuaJIT (bypasses slow C/Vimscript vim.fn checks)
+-- 1. Instant OS detection via LuaJIT
 local os_name = jit.os -- "OSX", "Windows", "Linux"
 local is_wsl = os_name == "Linux" and (vim.uv.os_uname().release:lower():find("microsoft") ~= nil)
 
@@ -36,35 +36,27 @@ vim.g.neovide_progress_bar_height = 5.0
 vim.g.neovide_progress_bar_animation_speed = 200.0
 vim.g.neovide_progress_bar_hide_delay = 0.2
 
--- 4. Font & Environment Setup
+-- 4. Font & Sharpness Setup per OS
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   vim.g.neovide_font_edging = "subpixel"
   vim.g.neovide_font_hinting = "full"
 elseif os_name == "OSX" then
-  -- macOS (Apple Silicon)
+  -- macOS (Apple Silicon / CoreText native)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h19"
   vim.g.neovide_font_edging = "antialias"
-  vim.g.neovide_font_hinting = "full"
+  vim.g.neovide_font_hinting = "none"
 else
-  -- Linux / Fallback
-  vim.o.guifont = "Iosevka Custom:h16:m-Semi-Extended"
+  -- Linux Native (NVIDIA 1440p)
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16"
   vim.g.neovide_font_edging = "subpixel"
   vim.g.neovide_font_hinting = "full"
 end
 
--- Prevents text bleed on dark background (#151F2D)
+-- Linear rendering parameters (prevents text bleed on dark background #151F2D)
 vim.g.neovide_text_gamma = 1.0
 vim.g.neovide_text_contrast = 0.5
-
--- Peak Sharpness Rendering Settings
-vim.g.neovide_font_edging = "subpixel" -- Uses RGB subpixel rendering instead of standard antialias
-vim.g.neovide_font_hinting = "full" -- Snaps font stems cleanly to screen pixel grids
-
--- Text Gamma & Contrast (Linear rendering avoids pixel border bleed)
-vim.g.neovide_text_gamma = 1.0 -- Set to 1.0 for true vector reproduction
-vim.g.neovide_text_contrast = 0.0 -- Prevents artificial stroke weight alteration
 
 -- UI & Mouse Settings
 vim.g.neovide_fullscreen = false
@@ -72,8 +64,6 @@ vim.g.neovide_idle = true
 vim.g.neovide_hide_mouse_when_typing = true
 vim.g.neovide_theme = "dark"
 
-vim.g.neovide_text_gamma = 0.8
-vim.g.neovide_text_contrast = 0.1
 vim.g.neovide_padding_top = 0
 vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_left = 10
