@@ -33,6 +33,8 @@ elif [[ $OSTYPE == "darwin"* ]]; then
 else
   # Regular Linux
   export PATH="$HOME/.npm-global/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  export NVD_BACKEND=direct
+  export MOZ_ENABLE_WAYLAND=1
 fi
 
 export PATH=$HOME/.npm-global/bin:$PATH
