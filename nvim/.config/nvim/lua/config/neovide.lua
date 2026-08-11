@@ -38,14 +38,29 @@ vim.g.neovide_progress_bar_hide_delay = 0.2
 
 -- 4. Font & Environment Setup
 if os_name == "Windows" or is_wsl then
-  vim.opt.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
+  -- Windows / WSL (NVIDIA 1440p)
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
+  vim.g.neovide_font_edging = "subpixel"
+  vim.g.neovide_font_hinting = "full"
 elseif os_name == "OSX" then
+  -- macOS (Apple Silicon)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h19"
+  vim.g.neovide_font_edging = "antialias"
+  vim.g.neovide_font_hinting = "full"
 else
-  -- Font Definition
+  -- Linux / Fallback
   vim.o.guifont = "Iosevka Custom:h16:m-Semi-Extended"
+  vim.g.neovide_font_edging = "subpixel"
+  vim.g.neovide_font_hinting = "full"
 end
 
+-- Linear rendering parameters across all OS platforms
+vim.g.neovide_text_gamma = 1.0
+vim.g.neovide_text_contrast = 0.5
+
+-- Prevents text bleed on dark background (#151F2D)
+vim.g.neovide_text_gamma = 1.0
+vim.g.neovide_text_contrast = 0.5
 -- Peak Sharpness Rendering Settings
 vim.g.neovide_font_edging = "subpixel" -- Uses RGB subpixel rendering instead of standard antialias
 vim.g.neovide_font_hinting = "full" -- Snaps font stems cleanly to screen pixel grids
