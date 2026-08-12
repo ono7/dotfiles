@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #  Author:  Jose Lima (jlima)
 #  Date:    2024-09-20 20:51
-set -e # Exit immediately if a command exits with a non-zero status.
+
+set -euo pipefail
 
 log() {
   printf '\n[%s] - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
