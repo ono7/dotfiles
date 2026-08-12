@@ -4,29 +4,28 @@ end
 
 -- 1. Instant OS detection via LuaJIT
 local os_name = jit.os -- "OSX", "Windows", "Linux"
+local is_mac = os_name == "OSX" or vim.fn.has("macunix") == 1
 local is_wsl = os_name == "Linux" and (vim.uv.os_uname().release:lower():find("microsoft") ~= nil)
 
--- 2. Smooth Typing & Motion
-vim.g.neovide_cursor_trail_size = 0.8
-vim.g.neovide_cursor_animation_length = 0.03
-vim.g.neovide_refresh_rate = 120
-
-vim.g.neovide_input_macos_option_key_is_meta = "both"
-vim.g.neovide_cursor_smooth_blink = false
+-- 2. Smooth, Fluid Motion & Gliding Cursor
+vim.g.neovide_cursor_animation_length = 0.09 -- Soft, fluid cursor gliding
+vim.g.neovide_cursor_trail_size = 0.75 -- Organic trailing tail
+vim.g.neovide_cursor_smooth_blink = true -- Gentle pulse/fade when cursor blinks
 vim.g.neovide_cursor_blink = true
-vim.g.neovide_cursor_blink_interval = 500
-vim.g.neovide_scroll_animation_far_lines = 0
-vim.g.neovide_scroll_animation_length = 0
+vim.g.neovide_cursor_blink_interval = 600
+
 vim.g.neovide_cursor_animate_in_insert_mode = true
 vim.g.neovide_cursor_animate_command_line = true
-vim.g.neovide_frame_no_title = true
-vim.g.neovide_confirm_quit = true
-vim.g.neovide_profiler = false
+vim.g.neovide_cursor_antialiasing = true
 
--- 3. Visual Effects
-vim.g.neovide_floating_blur_amount_x = 2.0
-vim.g.neovide_floating_blur_amount_y = 2.0
-vim.g.neovide_floating_shadow = true
+-- Fluid Viewport Scrolling
+vim.g.neovide_scroll_animation_length = 0.15
+vim.g.neovide_scroll_animation_far_lines = 1
+
+-- 3. Visual Effects & High-Performance Floating Windows
+vim.g.neovide_floating_blur_amount_x = 0.0 -- Kept at 0 to prevent typing latency during LSP autocomplete
+vim.g.neovide_floating_blur_amount_y = 0.0
+vim.g.neovide_floating_shadow = false
 vim.g.neovide_floating_z_height = 10
 vim.g.neovide_light_angle_degrees = 45
 vim.g.neovide_light_radius = 5
@@ -36,15 +35,14 @@ vim.g.neovide_progress_bar_height = 5.0
 vim.g.neovide_progress_bar_animation_speed = 200.0
 vim.g.neovide_progress_bar_hide_delay = 0.2
 
-local is_mac = vim.fn.has("macunix") == 1
--- 4. Font & Sharpness Setup per OS
+-- 4. Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   vim.g.neovide_font_edging = "subpixelantialias"
   vim.g.neovide_font_hinting = "full"
 elseif is_mac then
-  -- macOS (Apple Silicon / CoreText native)
+  -- macOS (Apple Silicon / CoreText native Retina crispness)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h26"
   vim.g.neovide_font_edging = "antialias"
   vim.g.neovide_font_hinting = "none"
@@ -55,14 +53,17 @@ else
   vim.g.neovide_font_hinting = "full"
 end
 
--- Font Blending (0.0 Gamma maps to standard sRGB 2.2 in Neovide)
+-- Font Blending
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
 
--- UI & Mouse Settings
+-- 5. Window, UI & Padding
+vim.g.neovide_input_macos_option_key_is_meta = "both"
+vim.g.neovide_frame_no_title = true
 vim.g.neovide_fullscreen = false
 vim.g.neovide_idle = true
 vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_confirm_quit = true
 vim.g.neovide_theme = "dark"
 
 vim.g.neovide_padding_top = 0
@@ -70,21 +71,20 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_left = 10
 vim.g.neovide_padding_right = 10
 
-if is_mac then
-  -- Reduce Neovide size on macOS Retina displays (e.g., 85% or 90% of default)
-  vim.g.neovide_scale_factor = 0.85
-else
-  vim.g.neovide_scale_factor = 1.0
-end
+-- Baseline Scale Factor (1.0 leaves macOS native at crisp :h28)
+vim.g.neovide_scale_factor = 1.0
+
+-- Dynamic Scale Keymaps (Cmd += / Cmd +- on Mac, Ctrl += / Ctrl +- on Linux/Windows)
 local function change_scale_factor(delta)
   local s = vim.g.neovide_scale_factor * delta
-  vim.g.neovide_scale_factor = math.max(0.8, math.min(1.2, s))
+  vim.g.neovide_scale_factor = math.max(0.7, math.min(1.5, s))
 end
 
-vim.keymap.set("n", "<C-=>", function()
+local cmd_or_ctrl = is_mac and "<D-" or "<C-"
+vim.keymap.set("n", cmd_or_ctrl .. "=>", function()
   change_scale_factor(1.1)
 end)
-vim.keymap.set("n", "<C-->", function()
+vim.keymap.set("n", cmd_or_ctrl .. "->", function()
   change_scale_factor(1 / 1.1)
 end)
 
@@ -96,7 +96,9 @@ vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
 vim.keymap.set({ "n", "v" }, "<C-S-v>", '"+p')
 vim.keymap.set({ "i", "c" }, "<C-S-v>", "<C-r>+")
 vim.keymap.set("t", "<C-S-v>", '<C-\\><C-n>"+pi')
-vim.keymap.set("t", "<D-S-v>", '<C-\\><C-n>"+pi')
+if is_mac then
+  vim.keymap.set("t", "<D-S-v>", '<C-\\><C-n>"+pi')
+end
 
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 
