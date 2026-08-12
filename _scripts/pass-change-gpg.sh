@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Backup the password store
 cp -r ~/.password-store ~/.password-store-backup
 
