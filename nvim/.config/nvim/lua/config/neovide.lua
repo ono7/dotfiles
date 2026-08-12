@@ -43,7 +43,7 @@ if os_name == "Windows" or is_wsl then
   vim.g.neovide_font_hinting = "full"
 elseif is_mac then
   -- macOS (Apple Silicon / CoreText native Retina crispness)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h26"
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25"
   vim.g.neovide_font_edging = "antialias"
   vim.g.neovide_font_hinting = "none"
 else
