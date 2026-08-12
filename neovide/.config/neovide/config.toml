@@ -2,7 +2,7 @@ fork = true
 # frame = "full"
 # frame = "buttonless"
 # frame = "transparent"
-fram = "none"
+frame = "full"
 idle = true
 maximized = false
 # mouse-cursor-icon = "arrow"
@@ -11,7 +11,6 @@ system-native-tabs = true
 system-tab-prev-hotkey = "ctrl+1"
 system-tab-next-hotkey = "ctrl+2"
 # system-tab-next-hotkey = "cmd+shift+]"
-no-multigrid = false
 srgb = true
 tabs = true
 theme = "dark"
@@ -53,7 +52,7 @@ wsl = false
 # "font-glyph", "native" or "selected-native"
 mode = "native"
 
-[box-drawing.sizes]
+# [box-drawing.sizes]
 # default = [2, 4]  # Thin and thick values respectively, for all sizes
 
 # normal = {}
