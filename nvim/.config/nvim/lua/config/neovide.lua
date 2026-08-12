@@ -19,7 +19,7 @@ vim.g.neovide_cursor_animate_command_line = true
 vim.g.neovide_cursor_antialiasing = true
 
 -- Fluid Viewport Scrolling
-vim.g.neovide_scroll_animation_length = 0.15
+vim.g.neovide_scroll_animation_length = 0.12
 vim.g.neovide_scroll_animation_far_lines = 1
 
 -- 3. Visual Effects & High-Performance Floating Windows
