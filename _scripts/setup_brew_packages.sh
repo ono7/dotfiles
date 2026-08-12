@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -euo pipefail
+
 if type brew &>/dev/null; then
   brew install ansifilter wget tree go clang-format zoxide grep netcat stow
   brew install fd cmake ack rg coreutils ssh-copy-id jq p7zip curl universal-ctags mtr lua ninja rust
