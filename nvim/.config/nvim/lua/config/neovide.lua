@@ -36,15 +36,16 @@ vim.g.neovide_progress_bar_height = 5.0
 vim.g.neovide_progress_bar_animation_speed = 200.0
 vim.g.neovide_progress_bar_hide_delay = 0.2
 
+local is_mac = vim.fn.has("macunix") == 1
 -- 4. Font & Sharpness Setup per OS
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
   vim.g.neovide_font_edging = "subpixelantialias"
   vim.g.neovide_font_hinting = "full"
-elseif os_name == "OSX" then
+elseif is_mac then
   -- macOS (Apple Silicon / CoreText native)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h19"
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h26"
   vim.g.neovide_font_edging = "antialias"
   vim.g.neovide_font_hinting = "none"
 else
@@ -68,8 +69,6 @@ vim.g.neovide_padding_top = 0
 vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_left = 10
 vim.g.neovide_padding_right = 10
-
-local is_mac = vim.fn.has("macunix") == 1
 
 if is_mac then
   -- Reduce Neovide size on macOS Retina displays (e.g., 85% or 90% of default)
