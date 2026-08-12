@@ -89,7 +89,7 @@ else
           WinBarNC = { fg = "#5a6b85", bg = "none" },
 
           -- 3. MINIMAL SYNTAX COLORS
-          String = { fg = "#8ca64a" },
+          String = { fg = "#8FB47E" }, -- Soothing Sage Green
           -- Special = { fg = "#C07035", italic = false },
           Special = { fg = "#D89F5C", bold = false },
           Statement = { fg = "#D89F5C", bold = true },
