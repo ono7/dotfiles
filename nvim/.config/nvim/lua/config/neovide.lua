@@ -69,8 +69,14 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_left = 10
 vim.g.neovide_padding_right = 10
 
--- 5. Scale Factor Bindings
-vim.g.neovide_scale_factor = 1.0
+local is_mac = vim.fn.has("macunix") == 1
+
+if is_mac then
+  -- Reduce Neovide size on macOS Retina displays (e.g., 85% or 90% of default)
+  vim.g.neovide_scale_factor = 0.85
+else
+  vim.g.neovide_scale_factor = 1.0
+end
 local function change_scale_factor(delta)
   local s = vim.g.neovide_scale_factor * delta
   vim.g.neovide_scale_factor = math.max(0.8, math.min(1.2, s))
