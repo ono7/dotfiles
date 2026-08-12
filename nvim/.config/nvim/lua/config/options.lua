@@ -5,6 +5,7 @@ vim.loader.enable(true)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.more = false
 -- 3. General Behavior
 vim.opt.background = "dark"
 vim.opt.bufhidden = "hide"
@@ -55,7 +56,7 @@ vim.opt.joinspaces = false
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
 vim.opt.laststatus = 2
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.showcmd = false
 vim.opt.showmode = true
 vim.opt.shortmess = "aoOstTWICcF" -- 'F' hides extra file info
