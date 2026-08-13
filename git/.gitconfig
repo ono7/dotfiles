@@ -27,7 +27,7 @@
 
 [pull]
   # ff = only         # never auto-merge on pull
-  rebase = true
+	rebase = true
   autostash = true  # stash before rebase automatically
 
 [rebase]
@@ -63,7 +63,7 @@
     prompt = false
 
 [push]
-    autoSetupRemote = true
+	autoSetupRemote = true
     default = current
     followTags = true
 
