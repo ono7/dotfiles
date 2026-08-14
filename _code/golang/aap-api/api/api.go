@@ -1,8 +1,8 @@
 /*
 endpoints:
 
-	update project: /api/v2/projects/$PROJECT_ID/update/
-	get projects: /api/v2/projects
+	update project: /api/controller/v2/projects/$PROJECT_ID/update/
+	get projects: /api/controller/v2/projects
 */
 package api
 
@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os/exec"
@@ -129,7 +130,7 @@ func (a *Api) SetLocalRepo() {
 func (a *Api) GetAllProjects() {
 	log.Println("Fetching projects ➜ AAP")
 
-	nextURL := "/api/v2/projects"
+	nextURL := "/api/controller/v2/projects"
 
 	for nextURL != "" {
 		resp, err := a.Client.Get(a.BaseUrl + nextURL)
@@ -138,9 +139,15 @@ func (a *Api) GetAllProjects() {
 		}
 		defer resp.Body.Close()
 
+		// Safety check to ensure we got a valid response before parsing JSON
+		if resp.StatusCode < 200 || resp.StatusCode > 299 {
+			body, _ := io.ReadAll(resp.Body)
+			log.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+		}
+
 		var pageResp PaginatedResponse
 		if err := json.NewDecoder(resp.Body).Decode(&pageResp); err != nil {
-			log.Fatal("json.NewDecorder", err)
+			log.Fatal("json.NewDecoder", err)
 		}
 
 		a.Repos = append(a.Repos, pageResp.Results...)
@@ -153,10 +160,6 @@ func (a *Api) GetAllProjects() {
 }
 
 func (a *Api) ShowRepos() {
-	// out, err := json.MarshalIndent(projects, " ", "   ")
-	// if err != nil {
-	// 	log.Fatal("MarshalIndent err:", err)
-	// }
 	if len(a.Repos) == 0 {
 		a.GetAllProjects()
 	}
@@ -175,7 +178,7 @@ func (a *Api) GetWithPattern(pattern string) {
 }
 
 func (a *Api) UpdateProjectID(id int) int {
-	url := fmt.Sprintf("%s/api/v2/projects/%d/update/", a.BaseUrl, id)
+	url := fmt.Sprintf("%s/api/controller/v2/projects/%d/update/", a.BaseUrl, id)
 	payload := map[string]string{
 		"launch_type": "manual",
 	}

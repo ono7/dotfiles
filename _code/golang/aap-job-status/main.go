@@ -112,7 +112,7 @@ func NewApi(token, baseURL string) *Api {
 
 // fetchJobs retrieves jobs from AAP using the unified endpoint
 func (a *Api) fetchJobs(filter string) ([]Job, error) {
-	url := fmt.Sprintf("%s/api/v2/unified_jobs/", a.baseURL)
+	url := fmt.Sprintf("%s/api/controller/v2/unified_jobs/", a.baseURL)
 	if filter != "" {
 		url += "?" + filter
 	}
@@ -137,7 +137,7 @@ func (a *Api) fetchJobs(filter string) ([]Job, error) {
 
 // getTemplateIDByName finds template ID by name using the unified template endpoint
 func (a *Api) getTemplateIDByName(templateName string) (int, error) {
-	url := fmt.Sprintf("%s/api/v2/unified_job_templates/?name=%s", a.baseURL, templateName)
+	url := fmt.Sprintf("%s/api/controller/v2/unified_job_templates/?name=%s", a.baseURL, templateName)
 
 	resp, err := a.client.Get(url)
 	if err != nil {
@@ -236,7 +236,7 @@ func (a *Api) RelaunchJob(jobID int) {
 		typeEndpoint = "jobs"
 	}
 
-	relaunchURL := fmt.Sprintf("%s/api/v2/%s/%d/relaunch/", a.baseURL, typeEndpoint, jobID)
+	relaunchURL := fmt.Sprintf("%s/api/controller/v2/%s/%d/relaunch/", a.baseURL, typeEndpoint, jobID)
 
 	resp, err := a.client.Post(relaunchURL, "application/json", nil)
 	if err != nil {
@@ -268,7 +268,7 @@ func (a *Api) RelaunchJob(jobID int) {
 
 // fetchJobDetails retrieves detailed information from the unified endpoint
 func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
-	url := fmt.Sprintf("%s/api/v2/unified_jobs/%d/", a.baseURL, jobID)
+	url := fmt.Sprintf("%s/api/controller/v2/unified_jobs/%d/", a.baseURL, jobID)
 
 	resp, err := a.client.Get(url)
 	if err != nil {
@@ -403,7 +403,7 @@ func (a *Api) fetchAndDisplayJobOutput(job *JobDetail) {
 		endpoint = "jobs"
 	}
 
-	stdoutURL := fmt.Sprintf("%s/api/v2/%s/%d/stdout/?format=txt", a.baseURL, endpoint, job.ID)
+	stdoutURL := fmt.Sprintf("%s/api/controller/v2/%s/%d/stdout/?format=txt", a.baseURL, endpoint, job.ID)
 	resp, err := a.client.Get(stdoutURL)
 	if err != nil {
 		fmt.Printf("\nFailed to fetch job output: %v\n", err)
@@ -421,7 +421,7 @@ func (a *Api) fetchAndDisplayJobOutput(job *JobDetail) {
 		}
 	}
 
-	stderrURL := fmt.Sprintf("%s/api/v2/%s/%d/stderr/?format=txt", a.baseURL, endpoint, job.ID)
+	stderrURL := fmt.Sprintf("%s/api/controller/v2/%s/%d/stderr/?format=txt", a.baseURL, endpoint, job.ID)
 	stderrResp, err := a.client.Get(stderrURL)
 	if err == nil {
 		defer stderrResp.Body.Close()

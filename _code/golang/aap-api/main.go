@@ -11,8 +11,36 @@ import (
 	"go-aap-projects/api"
 )
 
-func main() {
+// loadEnvConfig gracefully loads environment variables from .env files
+func loadEnvConfig() error {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
 
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+
+	envPaths := []string{
+		filepath.Join(cwd, ".env"),
+		filepath.Join(homeDir, ".env"),
+	}
+
+	var lastErr error
+	for _, path := range envPaths {
+		if err := godotenv.Load(path); err == nil {
+			return nil
+		} else {
+			lastErr = err
+		}
+	}
+
+	return lastErr
+}
+
+func main() {
 	getAll := flag.Bool("g", false, "Get and print all repos configured as projects in AAP")
 	help := flag.Bool("h", false, "this :)")
 	updateThisRepo := flag.Bool("u", false, "Attempt to resolve the git remote URL and find the repos matching this one in AAP")
@@ -21,23 +49,11 @@ func main() {
 
 	if *help {
 		flag.Usage()
-		os.Exit(1)
+		os.Exit(0)
 	}
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		log.Fatal("os.Getwd() enable to resolve current working directory")
-	}
-	cwd = filepath.Join(cwd, ".env")
-
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatal("os.UserHomeDir() enable to resolve current working directory")
-	}
-
-	homeDir = filepath.Join(homeDir, ".env")
-	if err := godotenv.Load(homeDir); err != nil {
-		log.Fatal("error loading dotenv, try adding a ~/.env file with AAP_BASE_URL and AAP_TOKEN")
+	if err := loadEnvConfig(); err != nil {
+		log.Println("Note: No .env file loaded, relying on system environment variables")
 	}
 
 	token := os.Getenv("AAP_TOKEN")
@@ -71,5 +87,7 @@ func main() {
 		}
 		return
 	}
+
+	// Default behavior if no flags are passed
 	aap.UpdateLocalRepo()
 }

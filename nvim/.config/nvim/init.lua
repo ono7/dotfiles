@@ -222,12 +222,12 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Enable blinking cursor in Neovide (and other GUIs)
--- vim.opt.guicursor =
---   "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:ver25-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
+vim.opt.guicursor =
+  "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:ver25-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
 
 -- blocky
-vim.opt.guicursor =
-  "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
+-- vim.opt.guicursor =
+--   "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
 
 vim.diagnostic.config({ update_in_insert = false })
 
