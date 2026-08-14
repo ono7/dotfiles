@@ -506,14 +506,8 @@ _d() {
 
 vs() {
   if [[ -n "$NVIM" ]]; then
-    # We are inside Neovim!
-    # Escape terminal, jump to main window, and open Fzf-lua files
-    # NOTE: Single quotes here are CRITICAL so the shell doesn't escape the slashes.
-    # nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p:FzfLua files<CR>'
-    # testing
-    nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p<C-/>:FzfLua files<CR>'
+    nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p<C-/>:lua require("fzf-lua").files({cwd=[['"$PWD"']]})<CR>'
   else
-    # We are in a normal terminal window outside of Neovide. Fallback to CLI fzf.
     local file
     file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
     [[ -n "$file" ]] && nvim "$file"
