@@ -1,172 +1,61 @@
-# UI related
-# cmd+shift+j (dump scroll back buffer)
+# ==============================================================================
+# Ghostty Terminal Configuration
+# Location: ~/.config/ghostty/config
+# ==============================================================================
 
-# font settings
-# font-family = SF Mono
-# font-family-bold = SF Mono Heavy
-# font-style = Medium
+# ------------------------------------------------------------------------------
+# 1. Font & Typography
+# ------------------------------------------------------------------------------
+font-family = "Iosevka Custom"
+font-size = 15
 
-# font-family = IosevkaTerm Nerd Font Mono
-# font-style = SemiBold
-# font-style-bold = Bold
-# font-style-italic = SemiBold Oblique
-# font-family = IosevkaTerm Nerd Font Mono
-# font-style = SemiBold
-# font-style-bold = Bold
-# font-style-italic = SemiBold Oblique
+# Subpixel / Retina display font smoothing (macOS specific)
+font-thicken = true
 
-font-family = Iosevka Custom
-font-style = Extended
+# ------------------------------------------------------------------------------
+# 2. Colors & Theme
+# Matches custom dark slate palette (#151F2D background, #BEBEBC foreground)
+# ------------------------------------------------------------------------------
+background = 151f2d
+foreground = bebebc
 
-# font-family = SF Mono Terminal
-# font-style = Regular
+# Cursor colors
+cursor-color = bebebc
+cursor-text = 151f2d
 
-font-size = 18
-adjust-cell-height = 10%
-# adjust-cell-width = 5%
+# Selection highlight colors
+selection-background = 223044
+selection-foreground = bebebc
 
-shell-integration-features = no-cursor,sudo,no-title
+# ------------------------------------------------------------------------------
+# 3. Window & Decoration
+# ------------------------------------------------------------------------------
+# Match custom UI padding
+window-padding-x = 10
+window-padding-y = 10
 
-cursor-style-blink = false
+# Clean borderless window
+window-decoration = false
 
-mouse-hide-while-typing = true
-
-scrollback-limit = 4294967296
-
-# window settings
-window-inherit-working-directory = true
-window-theme = ghostty
-window-colorspace = "display-p3"
-# minimum-contrast = 3
-window-save-state = always
-
-# init window size
-window-height = 28
-window-width = 200
-
-clipboard-read = allow
-copy-on-select = clipboard
-
-macos-titlebar-style = transparent
+# macOS specific windowing & Meta key behavior
+macos-titlebar-style = hidden
 macos-option-as-alt = true
 
-clipboard-paste-bracketed-safe = true
-clipboard-paste-protection = false
+# ------------------------------------------------------------------------------
+# 4. Cursor & Mouse Mechanics
+# ------------------------------------------------------------------------------
+cursor-style = block
+cursor-style-blink = true
 
-keybind = global:cmd+grave_accent=toggle_quick_terminal
-keybind = cmd+shift+r=reload_config
+# Automatically conceal mouse cursor during typing
+mouse-hide-while-typing = true
 
-# tabs and windows
-keybind = cmd+shift+t=new_tab
-keybind = cmd+shift+l=next_tab
-keybind = cmd+shift+h=previous_tab
+# ------------------------------------------------------------------------------
+# 5. System, Bell & Clipboard
+# ------------------------------------------------------------------------------
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = false
 
-keybind = ctrl+shift+l=write_scrollback_file:open
-
-# unbind some defaults makes them passthrough
-keybind = cmd+c=unbind
-keybind = cmd+d=unbind
-keybind = cmd+w=unbind
-keybind = cmd+q=unbind
-keybind = cmd+h=unbind
-keybind = cmd+t=unbind
-keybind = cmd+v=unbind
-keybind = cmd+k=unbind
-keybind = cmd+l=unbind
-keybind = cmd+h=unbind
-keybind = alt+right=unbind
-
-# open config
-keybind = cmd+comma=unbind
-
-# disable full screen
-keybind = cmd+enter=unbind
-
-# convert some of our cmd+ combos to ctr+
-keybind = cmd+space=text:\x00
-keybind = cmd+a=text:\x01
-keybind = cmd+b=text:\x02
-keybind = cmd+c=text:\x03
-keybind = cmd+d=text:\x04
-keybind = cmd+e=text:\x05
-keybind = cmd+f=text:\x06
-keybind = cmd+g=text:\x07
-keybind = cmd+h=text:\x08
-keybind = cmd+i=text:\x1b[105;5u
-keybind = ctrl+i=text:\x1b[105;5u
-keybind = cmd+j=text:\x0a
-keybind = cmd+k=text:\x0b
-keybind = cmd+l=text:\x0c
-keybind = cmd+n=text:\x0e
-keybind = cmd+m=text:\x01bZ
-keybind = cmd+o=text:\x0f
-keybind = cmd+p=text:\x10
-keybind = cmd+q=text:\x11
-keybind = cmd+r=text:\x12
-keybind = cmd+left_bracket=text:\x1b
-keybind = ctrl+left_bracket=text:\x1b
-keybind = cmd+p=text:\x10
-keybind = cmd+r=text:\x12
-keybind = cmd+t=text:\x14
-keybind = cmd+v=text:\x16
-keybind = cmd+x=text:\x18
-keybind = cmd+y=text:\x19
-keybind = cmd+w=text:\x17
-# keybind = ctrl+h=text:\x17
-keybind = cmd+backspace=text:\x17
-# keybind = ctrl+h=text:\x17
-# keybind = ctrl+backspace=text:\x1b[3;5~
-# keybind = ctrl+backspace=text:\u{17}
-# keybind = ctrl+backspace=text:\x17
-# keybind = ctrl+backspace=text:\x1b[127;5u
-# todo fix me
-keybind = cmd+9=text:\x1b1
-keybind = cmd+0=text:\x1b2
-keybind = cmd+backspace=text:\x17
-keybind = cmd+z=text:\x1a
-keybind = cmd+right_bracket=text:\x1d
-keybind = ctrl+right_bracket=text:\x1d
-keybind = super+shift+v=paste_from_clipboard
-keybind = ctrl+shift+v=paste_from_clipboard
-
-# keybind = ctrl+c=unbind
-# keybind = ctrl+v=unbind
-
-# reduce input latency (but may crash with display link)
-window-vsync = false
-
-macos-non-native-fullscreen = true
-
-# background-opacity = .95
-# background-blur = true
-
-# colorscheme
-
-# Ghostty colorscheme converted from Alacritty
-
-# Primary colors
-background = #151F2D
-foreground = #BEBEBC
-
-# Normal colors
-palette = 0=#01060e
-palette = 1=#ea6c73
-palette = 2=#7daa52
-palette = 3=#f9af4f
-palette = 4=#53bdfa
-palette = 5=#fae994
-palette = 6=#90e1c6
-palette = 7=#c7c7c7
-
-# Bright colors
-palette = 8=#686868
-palette = 9=#f07178
-palette = 10=#7daa52
-palette = 11=#ffb454
-palette = 12=#53bdfa
-palette = 13=#fae994
-palette = 14=#90e1c6
-palette = 15=#c7c7c7
-# Selection
-selection-background = #364156
-selection-foreground = #e3ded7
+# Silence system audio bell
+bell-action = none
