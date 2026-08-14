@@ -70,6 +70,7 @@ install_packages_pacman() {
     go
 
   sudo pacman -S --needed --noconfirm neovim tree-sitter-cli neovide
+  sudo pacman -S --needed --noconfirm base-devel cmake unzip ninja tree-sitter curl lld
 
   # Handle AUR helper (yay) for gron
   # if ! command -v yay &>/dev/null && ! command -v paru &>/dev/null; then
