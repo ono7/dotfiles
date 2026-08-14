@@ -792,9 +792,9 @@ fw && uptime && echo "\n\"Follow the white rabbit... 🐇\"\n"
 # Restore default reverse-i-search and disable fzf for Ctrl-R
 bindkey '^R' history-incremental-search-backward
 
-# Prevent nested Neovim instances
-if [[ -n "$NVIM" ]]; then
-  alias vi='nvim --server "$NVIM" --remote'
-  alias vim='nvim --server "$NVIM" --remote'
-  alias nvim='nvim --server "$NVIM" --remote'
-fi
+# # Prevent nested Neovim instances
+# if [[ -n "$NVIM" ]]; then
+#   alias vi='nvim --server "$NVIM" --remote'
+#   alias vim='nvim --server "$NVIM" --remote'
+#   alias nvim='nvim --server "$NVIM" --remote'
+# fi
