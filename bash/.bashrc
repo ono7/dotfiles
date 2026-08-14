@@ -381,3 +381,10 @@ fi
 ulimit -n 10240
 
 clear && uptime
+
+# Prevent nested Neovim instances
+if [[ -n "$NVIM" ]]; then
+  alias vi='nvim --server "$NVIM" --remote'
+  alias vim='nvim --server "$NVIM" --remote'
+  alias nvim='nvim --server "$NVIM" --remote'
+fi
