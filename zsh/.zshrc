@@ -505,21 +505,16 @@ _d() {
 # }
 
 vs() {
-  local file
-  # Exclude the .git folder so fzf populates instantly
-  file="$(fd --type f -H --no-ignore-vcs -E .git | fzf --height 30% --reverse --border)"
-
-  if [[ -n "$file" ]]; then
-    if [[ -n "$NVIM" ]]; then
-      # We are inside the terminal. Use native zero-latency RPC:
-      # 1. <C-\><C-n>   : Escape terminal insert mode
-      # 2. <Cmd>wincmd p: Jump to the alternate window (main editor)
-      # 3. <Cmd>e file  : Open the file (using printf to safely escape spaces)
-      nvim --server "$NVIM" --remote-send "<C-\><C-n><Cmd>wincmd p<CR><Cmd>e $(printf "%q" "$file")<CR>"
-    else
-      # We are outside Neovide, just launch normally
-      nvim "$file"
-    fi
+  if [[ -n "$NVIM" ]]; then
+    # We are inside Neovim!
+    # Escape terminal, jump to main window, and open Fzf-lua files
+    # NOTE: Single quotes here are CRITICAL so the shell doesn't escape the slashes.
+    nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p:FzfLua files<CR>'
+  else
+    # We are in a normal terminal window outside of Neovide. Fallback to CLI fzf.
+    local file
+    file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
+    [[ -n "$file" ]] && nvim "$file"
   fi
 }
 
