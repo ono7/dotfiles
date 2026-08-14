@@ -51,7 +51,7 @@
     sort = -committerdate
 
 [merge]
-    tool = vimdiff
+	tool = neovide
     prompt = false
     conflictstyle = zdiff3   # best conflict view
 
@@ -60,7 +60,7 @@
 
 [mergetool]
     keepBackup = false
-    prompt = false
+	prompt = false
 
 [push]
 	autoSetupRemote = true
@@ -153,3 +153,5 @@
 	enabled = false
 [init]
 	defaultBranch = main
+[mergetool "neovide"]
+	cmd = neovide --no-fork -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
