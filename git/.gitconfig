@@ -51,7 +51,7 @@
     sort = -committerdate
 
 [merge]
-	tool = neovide
+	tool = nvim
     prompt = false
     conflictstyle = zdiff3   # best conflict view
 
@@ -155,3 +155,5 @@
 	defaultBranch = main
 [mergetool "neovide"]
 	cmd = neovide --no-fork -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+[mergetool "nvim"]
+	cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
