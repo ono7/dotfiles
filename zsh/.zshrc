@@ -500,8 +500,27 @@ _d() {
 }
 
 # see ~/.config/fd/ignore
+# vs() {
+#   n "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
+# }
+
 vs() {
-  n "$(fd --type f -H --no-ignore-vcs | fzf --height 30% --reverse --border)" || return
+  local file
+  # Exclude the .git folder so fzf populates instantly
+  file="$(fd --type f -H --no-ignore-vcs -E .git | fzf --height 30% --reverse --border)"
+
+  if [[ -n "$file" ]]; then
+    if [[ -n "$NVIM" ]]; then
+      # We are inside the terminal. Use native zero-latency RPC:
+      # 1. <C-\><C-n>   : Escape terminal insert mode
+      # 2. <Cmd>wincmd p: Jump to the alternate window (main editor)
+      # 3. <Cmd>e file  : Open the file (using printf to safely escape spaces)
+      nvim --server "$NVIM" --remote-send "<C-\><C-n><Cmd>wincmd p<CR><Cmd>e $(printf "%q" "$file")<CR>"
+    else
+      # We are outside Neovide, just launch normally
+      nvim "$file"
+    fi
+  fi
 }
 
 fcd() {
