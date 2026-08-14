@@ -26,12 +26,14 @@ return {
       -- Explicitly map the conflict resolution keys for the merge tool
       keymaps = {
         merge_tool = {
-          { "n", "co", actions.conflict_choose("ours"),   { desc = "Choose OURS" } },
+          { "n", "co", actions.conflict_choose("ours"), { desc = "Choose OURS" } },
           { "n", "ct", actions.conflict_choose("theirs"), { desc = "Choose THEIRS" } },
-          { "n", "ca", actions.conflict_choose("all"),    { desc = "Choose ALL" } },
-          { "n", "dx", actions.conflict_choose("none"),   { desc = "Choose NONE" } },
-        }
-      }
+          { "n", "ca", actions.conflict_choose("all"), { desc = "Choose ALL" } },
+          { "n", "dx", actions.conflict_choose("none"), { desc = "Choose NONE" } },
+          { "n", "1", actions.conflict_choose("ours"), { desc = "Choose OURS" } },
+          { "n", "2", actions.conflict_choose("theirs"), { desc = "Choose THEIRS" } },
+        },
+      },
     }
   end,
 }
