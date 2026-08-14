@@ -2,7 +2,7 @@ local create_augroup = vim.api.nvim_create_augroup
 local general_group = create_augroup("GeneralAutocmds", { clear = true })
 
 local opts = { silent = true }
-local term_size = 12
+local term_size = 8
 
 ---------------------------------------------------------------------------
 -- TAB-LOCAL STATE MANAGEMENT

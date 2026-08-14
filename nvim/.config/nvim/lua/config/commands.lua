@@ -1,5 +1,5 @@
 local opts = { silent = true }
-local term_size = 12
+local term_size = 9
 
 ---------------------------------------------------------------------------
 -- TAB-LOCAL STATE MANAGEMENT
