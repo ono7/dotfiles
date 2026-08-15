@@ -21,6 +21,7 @@ return {
           "lua-language-server",
           "vim-language-server",
           "gopls",
+          "qmlls",
           "isort",
           "black",
           "clangd",
