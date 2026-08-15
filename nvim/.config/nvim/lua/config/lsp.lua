@@ -75,6 +75,7 @@ M.setup = function()
     "pyright",
     "ansiblels",
     "luals",
+    "qmlls",
     "bashls",
     "html",
     "jsonls",
