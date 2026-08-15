@@ -198,7 +198,7 @@ return {
     end, { desc = "All git files including untracked" })
 
     -- oldfiles
-    k("n", "<c-r>", function()
+    k("n", "<M-r>", function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Files> ",
         -- FIX 2: Enabled previewer here

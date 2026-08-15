@@ -93,6 +93,9 @@ nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
 inoremap <C-r> <C-o>?\v
 inoremap <C-s> <C-o>/\v
 
+nnoremap <C-r> ?\v
+nnoremap <C-s> /\v
+
 " --- Emacs Navigation Parity ---
 
 " Character motions
@@ -185,7 +188,8 @@ nnoremap vp vip
 nnoremap vW viW
 "nnoremap cW ciW
 nnoremap dW diW
-nnoremap <c-s> :Rg<space>
+" nnoremap <c-s> :Rg<space>
+" nnoremap <c-s> :Rg<space>
 
 nnoremap <C-w>q <C-w>c
 nnoremap <C-w><C-q> <C-w>c
@@ -775,3 +779,10 @@ vim.keymap.set("i", "<CR>", function()
 
   return "<CR>"
 end, { expr = true, noremap = true })
+
+vim.keymap.set(
+  "i",
+  "<C-S-e>",
+  "<Esc>Go",
+  { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
+)
