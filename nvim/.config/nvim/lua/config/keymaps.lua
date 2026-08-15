@@ -780,16 +780,16 @@ end, { expr = true, replace_keycodes = true })
 --   return "<CR>"
 -- end, { expr = true, noremap = true })
 
--- vim.keymap.set(
---   "i",
---   "<C-S-e>",
---   "<Esc>Go",
---   { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
--- )
-
 vim.keymap.set(
   "i",
   "<C-S-e>",
-  "<Esc>G?\\S<CR>:noh<CR>o",
-  { noremap = true, silent = true, desc = "Insert after last non-empty line" }
+  "<Esc>Go",
+  { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
 )
+
+-- vim.keymap.set(
+--   "i",
+--   "<C-S-e>",
+--   "<Esc>G?\\S<CR>:noh<CR>o",
+--   { noremap = true, silent = true, desc = "Insert after last non-empty line" }
+-- )
