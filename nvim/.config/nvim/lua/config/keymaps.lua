@@ -763,22 +763,22 @@ vim.keymap.set("i", "<BS>", function()
   return "<BS>"
 end, { expr = true, replace_keycodes = true })
 
-vim.keymap.set("i", "<CR>", function()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local col = cursor[2]
-  if col == 0 then
-    return "<CR>"
-  end
-
-  local char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, col - 1, cursor[1] - 1, col, {})[1]
-
-  if char == "{" or char == "[" or char == "(" then
-    local close = char == "{" and "}" or char == "[" and "]" or ")"
-    return "<CR>" .. close .. "<Esc>O"
-  end
-
-  return "<CR>"
-end, { expr = true, noremap = true })
+-- vim.keymap.set("i", "<CR>", function()
+--   local cursor = vim.api.nvim_win_get_cursor(0)
+--   local col = cursor[2]
+--   if col == 0 then
+--     return "<CR>"
+--   end
+--
+--   local char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, col - 1, cursor[1] - 1, col, {})[1]
+--
+--   if char == "{" or char == "[" or char == "(" then
+--     local close = char == "{" and "}" or char == "[" and "]" or ")"
+--     return "<CR>" .. close .. "<Esc>O"
+--   end
+--
+--   return "<CR>"
+-- end, { expr = true, noremap = true })
 
 vim.keymap.set(
   "i",
