@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 log() {
   printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
@@ -7,23 +8,35 @@ log() {
 log "$0"
 
 log "downloading nvm"
-
-mkdir -p ~/.nvm
+export NVM_DIR="$HOME/.nvm"
+mkdir -p "$NVM_DIR"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
-export NVM_DIR="$HOME/.nvm"
+# Load nvm into current shell session
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+# Remove any old conflicting npm prefix from ~/.npmrc if present
+if [ -f "$HOME/.npmrc" ]; then
+  npm config delete prefix || true
+  npm config delete globalconfig || true
+fi
+
 log "install node"
-
 nvm install node
-mkdir ~/.npm-global
-npm config set prefix "~/.npm-global"
-
-. ~/.bashrc
+nvm use --delete-prefix node
 
 npm set strict-ssl false
 
 log "installing npm packages"
-npm install -g lua-fmt prettier jsonlint typescript eslint jsonlint doctoc neovim lint-staged lint-staged-shellcheck eslint-formatter-compact
+npm install -g \
+  lua-fmt \
+  prettier \
+  jsonlint \
+  typescript \
+  eslint \
+  doctoc \
+  neovim \
+  lint-staged \
+  lint-staged-shellcheck \
+  eslint-formatter-compact
