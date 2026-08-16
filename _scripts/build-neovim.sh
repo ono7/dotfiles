@@ -61,7 +61,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   log "macOS detected. Installing packages..."
   if command -v brew >/dev/null 2>&1; then
     brew uninstall --ignore-dependencies neovim || true
-    brew install ninja cmake gettext curl || true
+    brew install ninja cmake gettext curl tree-sitter-cli || true
   else
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
@@ -69,24 +69,23 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 # Check if the system is Arch Linux or Manjaro
 elif [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ] || command -v pacman >/dev/null 2>&1; then
   log "Arch Linux/Manjaro detected. Installing packages..."
-  # Remove existing neovim if installed via pacman
   sudo pacman -Syu
   sudo pacman -R neovim --noconfirm || true
-  # Install build dependencies - based on official Arch neovim package
   sudo pacman -S --needed --noconfirm \
-    base-devel cmake unzip ninja curl git \
+    base-devel cmake unzip ninja curl git tree-sitter-cli \
     libluv libutf8proc libuv libvterm luajit msgpack-c tree-sitter unibilium \
     tree-sitter-c tree-sitter-lua tree-sitter-markdown tree-sitter-query \
     tree-sitter-vim tree-sitter-vimdoc lua51-lpeg lua51-mpack
 # Check if the system is RHEL or Fedora
 elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ]; then
   log "RHEL or Fedora detected. Installing packages..."
-  sudo dnf -y install ninja-build cmake gcc gcc-c++ make unzip gettext curl glibc-gconv-extra
+  sudo dnf -y install ninja-build cmake gcc gcc-c++ make unzip gettext curl glibc-gconv-extra tree-sitter-cli
 # Check if the system is Debian-based (Ubuntu, Debian, etc.)
 elif [ -f /etc/debian_version ]; then
   log "Debian-based system detected. Installing packages..."
   sudo apt-get update
-  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
+  sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential tree-sitter-cli ||
+    sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
 else
   log "Unsupported operating system. This script is intended for macOS, Arch Linux, Manjaro, RHEL, Fedora, Ubuntu, or Debian systems only."
   exit 1
@@ -134,9 +133,10 @@ if ! make install; then
   exit 1
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 log "Neovim installed successfully in $HOME/.local/bin/nvim"
 log "Build complete"
-log "Make sure $HOME/.local/bin is in \$PATH"
 
 # Check if nvim is in PATH
 if command -v nvim >/dev/null 2>&1; then
@@ -159,8 +159,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 log "attempting to bootstrap neovim plugins"
-
-. ~/.bashrc
 
 nvim --headless "+Lazy! sync" +qa
 
