@@ -87,7 +87,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --with-python3-config-dir="$(/opt/homebrew/bin/python3-config --configdir)" \
     --enable-perlinterp=yes \
     --enable-luainterp=yes \
-    --enable-rubyinterp=yes \
+    --enable-rubyinterp=no \
     --with-ruby-command="$(which ruby)" \
     --enable-cscope \
     --enable-terminal \
