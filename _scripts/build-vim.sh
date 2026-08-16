@@ -88,7 +88,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --enable-perlinterp=yes \
     --enable-luainterp=yes \
     --enable-rubyinterp=no \
-    --with-ruby-command="$(which ruby)" \
     --enable-cscope \
     --enable-terminal \
     --disable-netbeans \
@@ -109,7 +108,7 @@ else
     --enable-python3interp=yes \
     --with-python3-config-dir="$(python3-config --configdir)" \
     --enable-perlinterp=yes \
-    --enable-rubyinterp=yes \
+    --enable-rubyinterp=no \
     --enable-cscope \
     --enable-terminal \
     --with-compiledby="${USER}" \
