@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#  Author:  Jose Lima (jlima)
-#  Date:    2024-09-20 20:51
+#  Author:   Jose Lima (jlima)
+#  Date:     2024-09-20 20:51
 
 set -euo pipefail
 
@@ -17,7 +17,14 @@ trap cleanup EXIT
 
 # Function to detect package manager and install dependencies
 install_dependencies() {
-  if command -v pacman &>/dev/null; then
+  if command -v dnf &>/dev/null; then
+    log "Detected Fedora/RHEL - installing dependencies with dnf"
+    sudo dnf install -y \
+      gcc make git autoconf automake pkgconf \
+      ncurses-devel gettext python3-devel ruby-devel \
+      lua-devel perl-devel tcl-devel \
+      libX11-devel libXt-devel libXmu-devel libXtst-devel
+  elif command -v pacman &>/dev/null; then
     log "Detected Arch Linux - installing dependencies with pacman"
     sudo pacman -Syu --needed --noconfirm \
       base-devel git cmake pkgconf ncurses python ruby lua perl tcl \
@@ -49,17 +56,26 @@ fi
 ARCH=$(uname -m)
 
 # Set compiler optimizations based on architecture
-if [[ "$ARCH" == "arm64" ]]; then
+case "$ARCH" in
+arm64 | aarch64)
   export CFLAGS="-O3 -march=native -mtune=native -pipe"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe"
   export LDFLAGS="-Wl,-O1 -flto"
-  log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
-elif [[ "$ARCH" == "x86_64" ]]; then
+  log "Building for ARM64/aarch64 (${ARCH}) with CPU optimizations"
+  ;;
+x86_64)
   export CFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export LDFLAGS="-Wl,-O1,-s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
-fi
+  ;;
+*)
+  export CFLAGS="-O2 -pipe"
+  export CXXFLAGS="-O2 -pipe"
+  export LDFLAGS=""
+  log "Building for generic architecture (${ARCH})"
+  ;;
+esac
 
 # Clean up previous installations
 rm -rf "$HOME/.local/vim"
@@ -98,7 +114,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     --with-compiledby="${USER}" \
     --prefix="${INSTALL_PREFIX}"
 else
-  # Always install dependencies for Linux
   install_dependencies
 
   log "Configuring for Linux (${INSTALL_TYPE} installation)"
@@ -106,7 +121,7 @@ else
     --with-features=huge \
     --enable-multibyte \
     --enable-python3interp=yes \
-    --with-python3-config-dir="$(python3-config --configdir)" \
+    --with-python3-config-dir="$(python3-config --configdir 2>/dev/null || true)" \
     --enable-perlinterp=yes \
     --enable-rubyinterp=no \
     --enable-cscope \
@@ -134,7 +149,6 @@ fi
 
 # Post-installation setup (only for user installs)
 if [[ $(id -u) -ne 0 ]]; then
-
   log "Installing vim-fugitive plugin"
   mkdir -p ~/.vim/pack/plugins/start
   [[ -d ~/.vim/pack/plugins/start/vim-fugitive ]] && rm -rf ~/.vim/pack/plugins/start/vim-fugitive
@@ -152,7 +166,7 @@ echo "Vim successfully built and installed!"
 echo "Installation type: ${INSTALL_TYPE}"
 echo "Installation prefix: ${INSTALL_PREFIX}"
 echo "Platform: ${ARCH}"
-echo "Compiler flags: ${CFLAGS}"
+echo "Compiler flags: ${CFLAGS:-Not set}"
 echo ""
 
 if [[ $(id -u) -eq 0 ]]; then
