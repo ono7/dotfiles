@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# TODO(jlima): this can be removed later from Makefile
 # log() {
 #   printf '\n%s - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 # }
