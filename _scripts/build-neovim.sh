@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#  Author:  Jose Lima (jlima)
-#  Date:    2024-09-20 20:51
-#  Updated for Arch Linux/Manjaro support
+#  Author:    Jose Lima (jlima)
+#  Date:      2024-09-20 20:51
+#  Updated for Arch Linux/Manjaro/Fedora support
 
 set -euo pipefail
 
@@ -23,18 +23,24 @@ trap cleanup EXIT
 
 # Detect architecture and set optimization flags
 ARCH=$(uname -m)
-if [[ "$ARCH" == "arm64" ]]; then
-  # Apple Silicon optimizations (M1/M2/M3/M4)
+if [[ "$ARCH" == "arm64" || "$ARCH" == "aarch64" ]]; then
+  # ARM64 / Apple Silicon optimizations
   export CFLAGS="-O3 -march=native -mtune=native -pipe"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe"
   export LDFLAGS="-Wl,-O1 -flto"
-  log "Building for Apple Silicon (${ARCH}) with CPU optimizations"
+  log "Building for ARM64 (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
   # x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export LDFLAGS="-Wl,-O1,-s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
+else
+  # Generic fallback for any other architecture
+  export CFLAGS="-O2 -pipe"
+  export CXXFLAGS="-O2 -pipe"
+  export LDFLAGS="-Wl,-O1"
+  log "Building for generic architecture (${ARCH})"
 fi
 
 log "Cleaning artifacts..."
@@ -75,7 +81,7 @@ elif [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ] || command -v pacma
 # Check if the system is RHEL or Fedora
 elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ]; then
   log "RHEL or Fedora detected. Installing packages..."
-  sudo dnf -y install ninja-build cmake gcc make unzip gettext curl glibc-gconv-extra
+  sudo dnf -y install ninja-build cmake gcc gcc-c++ make unzip gettext curl glibc-gconv-extra
 # Check if the system is Debian-based (Ubuntu, Debian, etc.)
 elif [ -f /etc/debian_version ]; then
   log "Debian-based system detected. Installing packages..."
@@ -93,12 +99,6 @@ log "cleaning left over artifacts"
 make distclean
 
 # Build dependencies first
-# this will download and build all its defendencies
-# mkdir -p .deps && cd .deps
-# cmake ../cmake.deps/ -DUSE_BUNDLED=ON
-# make -j$(nproc)
-# cd ..
-
 mkdir -p .deps && cd .deps
 cmake ../cmake.deps \
   -DCMAKE_C_FLAGS="$CFLAGS" \
@@ -109,7 +109,7 @@ cmake ../cmake.deps \
 make -j$(nproc)
 cd ..
 
-# Then your existing build
+# Build Neovim
 mkdir -p build && cd build
 cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
@@ -119,8 +119,6 @@ cmake .. \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
   -DENABLE_LTO=ON \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
-
-make -j$(nproc)
 
 if ! make -j$(nproc); then
   log "Error while building neovim"
@@ -160,7 +158,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-log "attempting to boostrap neovim"
+log "attempting to bootstrap neovim plugins"
 
 . ~/.bashrc
 
