@@ -46,6 +46,7 @@ clean:
 	rm -rf ~/.dlv
 	rm -f ~/.zshenv
 	rm -f ~/.ctagsrc
+	rm -f ~/.npmrc
 	rm -rf ~/.ctags.d
 	rm -f ~/.gdbinit
 	rm -f ~/.inputrc
