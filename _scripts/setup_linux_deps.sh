@@ -103,7 +103,7 @@ install_packages_dnf() {
   sudo dnf install -y \
     @development-tools procps-ng curl file git screen openssl-devel \
     tree zsh the_silver_searcher fd-find unzip xclip ripgrep stow make \
-    sqlite wget shfmt shellcheck rlwrap util-linux-user
+    sqlite wget shfmt shellcheck rlwrap util-linux-user go
   sudo dnf -y copr enable alternateved/keyd
   sudo dnf -y install keyd
 }
