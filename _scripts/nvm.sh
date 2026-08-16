@@ -16,14 +16,14 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Remove conflicting prefix/globalconfig entries directly from ~/.npmrc before installing Node
+# Remove conflicting prefix/globalconfig entries from ~/.npmrc before installing Node
 if [ -f "$HOME/.npmrc" ]; then
   sed -i '/prefix/d' "$HOME/.npmrc"
   sed -i '/globalconfig/d' "$HOME/.npmrc"
 fi
 
 log "install node"
-nvm install --delete-prefix node
+nvm install node
 nvm use node
 
 npm set strict-ssl false
