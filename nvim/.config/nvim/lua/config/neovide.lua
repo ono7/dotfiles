@@ -44,7 +44,7 @@ elseif is_mac then
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
-  vim.o.guifont = "Iosevka Custom:h25:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h26:#e-subpixelantialias:#h-full"
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
@@ -79,7 +79,8 @@ local function change_scale_factor(delta)
   vim.g.neovide_scale_factor = math.max(0.7, math.min(1.5, s))
 end
 
-local cmd_or_ctrl = is_mac and "<D-" or "<C-"
+-- local cmd_or_ctrl = is_mac and "<D-" or "<C-"
+local cmd_or_ctrl = "<C-"
 vim.keymap.set("n", cmd_or_ctrl .. "=>", function()
   change_scale_factor(1.1)
 end)
