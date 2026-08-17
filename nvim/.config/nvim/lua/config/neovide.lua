@@ -38,13 +38,13 @@ vim.g.neovide_progress_bar_hide_delay = 0.2
 -- Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h14:#e-subpixelantialias:#h-full"
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
-  vim.o.guifont = "Iosevka Custom:b:h25:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h25:#e-subpixelantialias:#h-full"
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
@@ -52,28 +52,9 @@ else
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
 end
 
--- if os_name == "Windows" or is_wsl then
---   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
---   vim.g.neovide_font_edging = "subpixelantialias"
---   vim.g.neovide_font_hinting = "full"
--- elseif is_mac then
---   -- macOS (Apple Silicon / CoreText native Retina crispness)
---   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25"
---   vim.g.neovide_font_edging = "antialias"
---   vim.g.neovide_font_hinting = "none"
--- else
---   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16"
---   vim.g.neovide_font_edging = "subpixelantialias"
---   vim.g.neovide_font_hinting = "full"
--- end
-
 -- Font Blending
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
-
--- Add to init.lua
--- vim.g.neovide_text_gamma = 0.8
--- vim.g.neovide_text_contrast = 0.1
 
 -- 5. Window, UI & Padding
 vim.g.neovide_input_macos_option_key_is_meta = "both"
