@@ -42,9 +42,9 @@ if os_name == "Windows" or is_wsl then
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
-  -- vim.o.guifont = "Iosevka Custom:style=Medium:h25:#e-subpixelantialias:#h-full"
-  vim.o.guifont = "Iosevka Custom:b:h25:#e-subpixelantialias:#h-full"
-  -- vim.o.guifont = "Iosevka Custom:Bold Extended:h25:#h-full"
+  -- The default setting disables subpixel rendering (ideal for Retina)
+  vim.g.neovide_pixel_geometry = "Unknown"
+  vim.o.guifont = "Iosevka Custom:style=Medium:h25:#e-subpixelantialias:#h-full"
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
