@@ -35,14 +35,19 @@ vim.g.neovide_progress_bar_height = 5.0
 vim.g.neovide_progress_bar_animation_speed = 200.0
 vim.g.neovide_progress_bar_hide_delay = 0.2
 
--- 4. Font & Sharpness Setup per OS (Preserving Extended Specs)
+-- Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
-  vim.o.guifont = "Iosevka Custom Medium Extended:h14:#e-subpixelantialias:#h-full"
+  -- Windows / WSL (NVIDIA 1440p)
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14:#e-subpixelantialias:#h-full"
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
-  vim.o.guifont = "Iosevka Custom Medium Extended:h25:#e-subpixelantialias:#h-full"
+  -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
+  vim.o.guifont =
+    "Iosevka Custom:SemiBold Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
 else
-  vim.o.guifont = "Iosevka Custom Medium Extended:h16:#e-subpixelantialias:#h-full"
+  -- Linux Native (NVIDIA 1440p)
+  -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
 end
 
 -- if os_name == "Windows" or is_wsl then
