@@ -75,7 +75,8 @@ return {
           default = vim.tbl_extend("force", require("fidget.notification").default_config, {
             ttl = 5,
             timeout = 5,
-            icon = "💫",
+            -- icon = "💫",
+            icon = "📌 ",
             icon_style = "Title",
           }),
         },

@@ -108,16 +108,16 @@ size = 13.0
 # style = "Medium"
 
 family = "Iosevka Custom"
-style = "Medium Semi-Extended"
+# style = "Medium Semi-Extended"
 
-[font.italic]
-family = "Iosevka Custom"
-style = "Medium Semi-Extended"
+# [font.italic]
+# family = "Iosevka Custom"
+# style = "Medium Semi-Extended"
 
 #
-[font.bold]
-family = "Iosevka Custom"
-style = "Bold Semi-Extended"
+# [font.bold]
+# family = "Iosevka Custom"
+# style = "Bold Semi-Extended"
 
 [font.offset]
 x = 0
