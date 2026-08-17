@@ -5,7 +5,7 @@ vim.loader.enable(true)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.more = false
+vim.opt.more = true
 -- 3. General Behavior
 vim.opt.background = "dark"
 vim.opt.bufhidden = "hide"
