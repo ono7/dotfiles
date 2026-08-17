@@ -108,6 +108,7 @@ return {
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "@text.danger", { link = "ErrorMsg" })
     vim.api.nvim_set_hl(0, "@text.note", { link = "NormalBold" })
+    vim.api.nvim_set_hl(0, "@spell.markdown", { link = "NormalBold" })
 
     -- Loop over all defined groups and ensure bold is retained
     -- for name, hl in pairs(vim.api.nvim_get_hl(0, {})) do
