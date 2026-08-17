@@ -21,10 +21,10 @@ return {
           "lua-language-server",
           "vim-language-server",
           "gopls",
-          "qmlls",
+          -- "qmlls", not supported on some platforms arm64/linux
           "isort",
           "black",
-          "clangd",
+          -- "clangd", not supported on some platforms arm64/linux
           "stylua",
           "shellcheck",
           "sqlfmt",
