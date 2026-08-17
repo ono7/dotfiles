@@ -37,25 +37,36 @@ vim.g.neovide_progress_bar_hide_delay = 0.2
 
 -- 4. Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
-  -- Windows / WSL (NVIDIA 1440p)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
-  vim.g.neovide_font_edging = "subpixelantialias"
-  vim.g.neovide_font_hinting = "full"
+  vim.o.guifont = "Iosevka Custom Medium Extended:h14:#e-subpixelantialias:#h-full"
 elseif is_mac then
-  -- macOS (Apple Silicon / CoreText native Retina crispness)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25"
-  vim.g.neovide_font_edging = "antialias"
-  vim.g.neovide_font_hinting = "none"
+  -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
+  vim.o.guifont = "Iosevka Custom Medium Extended:h25:#e-subpixelantialias:#h-full"
 else
-  -- Linux Native (NVIDIA 1440p)
-  vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16"
-  vim.g.neovide_font_edging = "subpixelantialias"
-  vim.g.neovide_font_hinting = "full"
+  vim.o.guifont = "Iosevka Custom Medium Extended:h16:#e-subpixelantialias:#h-full"
 end
+
+-- if os_name == "Windows" or is_wsl then
+--   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h14"
+--   vim.g.neovide_font_edging = "subpixelantialias"
+--   vim.g.neovide_font_hinting = "full"
+-- elseif is_mac then
+--   -- macOS (Apple Silicon / CoreText native Retina crispness)
+--   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25"
+--   vim.g.neovide_font_edging = "antialias"
+--   vim.g.neovide_font_hinting = "none"
+-- else
+--   vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16"
+--   vim.g.neovide_font_edging = "subpixelantialias"
+--   vim.g.neovide_font_hinting = "full"
+-- end
 
 -- Font Blending
 vim.g.neovide_text_gamma = 0.0
 vim.g.neovide_text_contrast = 0.5
+
+-- Add to init.lua
+-- vim.g.neovide_text_gamma = 0.8
+-- vim.g.neovide_text_contrast = 0.1
 
 -- 5. Window, UI & Padding
 vim.g.neovide_input_macos_option_key_is_meta = "both"
@@ -91,7 +102,6 @@ end)
 -- 6. Highlighting
 vim.api.nvim_set_hl(0, "Normal", { bg = "#151F2D", fg = "#BEBEBC" })
 vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
-
 -- 7. Deduplicated Keymaps
 vim.keymap.set({ "n", "v" }, "<C-S-v>", '"+p')
 vim.keymap.set({ "i", "c" }, "<C-S-v>", "<C-r>+")
