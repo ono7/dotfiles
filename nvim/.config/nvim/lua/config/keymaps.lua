@@ -786,10 +786,3 @@ vim.keymap.set(
   "<Esc>Go",
   { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
 )
-
--- vim.keymap.set(
---   "i",
---   "<C-S-e>",
---   "<Esc>G?\\S<CR>:noh<CR>o",
---   { noremap = true, silent = true, desc = "Insert after last non-empty line" }
--- )
