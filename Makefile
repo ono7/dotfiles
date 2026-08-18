@@ -2,7 +2,10 @@ SHELL := /bin/bash
 
 export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linuxbrew/bin:$(HOME)/.local/bin:$(HOME)/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/snap/bin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$(GOPATH)/bin:$(HOME)/.rd/bin:$(HOME)/.luarocks/bin:/opt/homebrew/bin:$(HOME)/.npm-packages/bin:$(HOME)/local/node/bin:$(HOME)/local/yarn/bin:$(HOME)/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$(HOME)/.cargo/bin:$(PATH)
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds
+FONT_REPO := https://github.com/ono7/fonts2.git
+FONT_DIR  := $(HOME)/fonts2
+
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds install-fonts
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -11,6 +14,8 @@ install:
 # Default target for easy installation
 build:
 	@$(MAKE) detect-os
+
+OS := $(shell uname -s)
 
 # Detect the operating system and invoke the appropriate target
 detect-os:
@@ -29,8 +34,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps uv vim fzf starship done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim done
+linux: linux-deps clean stow nvm go-deps uv vim fzf starship install-fonts done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim install-fonts done
 
 clean:
 	@echo $(BANNER)
@@ -158,6 +163,27 @@ mac-keybinds:
 go-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/go-deps.sh
+
+install-fonts:
+	@if [ ! -d "$(FONT_DIR)" ]; then \
+		echo "Cloning font repository to $(FONT_DIR)..."; \
+		git clone $(FONT_REPO) $(FONT_DIR); \
+	else \
+		echo "Directory $(FONT_DIR) already exists. Skipping clone."; \
+	fi
+ifeq ($(OS),Darwin)
+	@echo "Installing fonts for macOS..."
+	@find $(FONT_DIR) -name "*.ttf" -exec cp {} ~/Library/Fonts/ \;
+	@echo "Fonts installed successfully."
+else ifeq ($(OS),Linux)
+	@echo "Installing fonts for Linux..."
+	@mkdir -p ~/.local/share/fonts/
+	@find $(FONT_DIR) -name "*.ttf" -exec cp {} ~/.local/share/fonts/ \;
+	@fc-cache -fv
+	@echo "Fonts installed successfully."
+else
+	@echo "OS $(OS) not supported for automatic font installation."
+endif
 
 # bootstrap neovim dependencies
 done:
