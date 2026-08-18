@@ -165,11 +165,11 @@ go-deps:
 	@bash ./_scripts/go-deps.sh
 
 install-fonts:
-	@if [ ! -d "$(FONT_DIR)" ]; then \
-		rm -rf $(FONT_DIR); \
-		echo "Cloning font repository to $(FONT_DIR)..."; \
-		git clone $(FONT_REPO) $(FONT_DIR); \
-	fi
+	@echo "Removing existing font directory (if any)..."
+	@rm -rf $(FONT_DIR)
+	@echo "Cloning font repository to $(FONT_DIR)..."
+	@git clone $(FONT_REPO) $(FONT_DIR)
+
 ifeq ($(OS),Darwin)
 	@echo "Installing fonts for macOS..."
 	@find $(FONT_DIR) -name "*.ttf" -exec cp {} ~/Library/Fonts/ \;
