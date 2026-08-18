@@ -5,7 +5,7 @@ export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linux
 FONT_REPO := https://github.com/ono7/fonts2.git
 FONT_DIR  := $(HOME)/fonts2
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds install-fonts
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -34,8 +34,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps uv vim fzf starship install-fonts done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim install-fonts done
+linux: linux-deps clean stow nvm go-deps uv vim fzf starship fonts done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim fonts done
 
 clean:
 	@echo $(BANNER)
@@ -164,7 +164,7 @@ go-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/go-deps.sh
 
-install-fonts:
+fonts:
 	@echo "Removing existing font directory (if any)..."
 	@rm -rf $(FONT_DIR)
 	@echo "Cloning font repository to $(FONT_DIR)..."
