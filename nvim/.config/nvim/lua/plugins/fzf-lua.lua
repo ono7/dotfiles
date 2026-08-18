@@ -48,6 +48,9 @@ return {
         },
       },
       zoxide = {
+        formatter = false,
+        -- scope = "tab",
+        scope = "local",
         winopts = {
           preview = { hidden = true },
         },
@@ -168,6 +171,23 @@ return {
       })
     end, { desc = "Find files in current file's directory" })
 
+    k("n", "<M-f>", function()
+      -- Get the directory of the current active buffer
+      -- local current_dir = vim.fn.expand("%:p:h")
+
+      require("fzf-lua").files({
+        prompt = "Files (current dir)> ",
+        -- cwd = current_dir, -- Sets the search root to the buffer's directory
+        fd_opts = "--type f --hidden --follow --exclude .git",
+        previewer = false,
+        winopts = function()
+          local opts = vim.tbl_deep_extend("force", {}, winopts)
+          opts.title_pos = "center"
+          return opts
+        end,
+      })
+    end, { desc = "Find files in current file's directory" })
+
     -- -- find files
     -- k("n", "<c-f>", function()
     --   require("fzf-lua").files({
@@ -248,6 +268,8 @@ return {
         end,
       })
     end, { desc = "Live grep with rg" })
+
+    k("n", "<M-z>", fzf.zoxide, { desc = "Search [Z]oxide directories" })
 
     k("n", "<leader>s/", function()
       fzf.live_grep({ buffers_only = true, prompt = "Live Grep in Open Files> " })
