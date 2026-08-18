@@ -421,7 +421,16 @@ ginit() {
   git init "$@"
 
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
-  [ ! -f .lintstagedrc ] && cp ~/.dotfiles/templates/.lintstagedrc .lintstagedrc || echo_green 'skipping .lintstagedrc'
+  [ ! -f .pre-commit-config.yaml ] && cp ~/.dotfiles/templates/.pre-commit-config.yaml .pre-commit-config.yaml || echo_green 'skipping pre-commit config'
+
+  # Automatically wire up the git hooks
+  if command -v uvx >/dev/null 2>&1; then
+    uvx pre-commit install
+    echo_green "pre-commit hooks installed via uvx"
+  elif command -v pre-commit >/dev/null 2>&1; then
+    pre-commit install
+    echo_green "pre-commit hooks installed"
+  fi
 }
 
 mkproject() {
