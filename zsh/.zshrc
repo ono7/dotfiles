@@ -416,6 +416,8 @@ _cdr() {
 }
 alias cdr=_cdr
 
+export PRE_COMMIT_COLOR=never
+
 ginit() {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   git init "$@"
