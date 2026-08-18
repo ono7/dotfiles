@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url" // Added for URL encoding
 	"os"
 	"path/filepath"
 	"strconv"
@@ -112,12 +113,12 @@ func NewApi(token, baseURL string) *Api {
 
 // fetchJobs retrieves jobs from AAP using the unified endpoint
 func (a *Api) fetchJobs(filter string) ([]Job, error) {
-	url := fmt.Sprintf("%s/api/controller/v2/unified_jobs/", a.baseURL)
+	reqURL := fmt.Sprintf("%s/api/controller/v2/unified_jobs/", a.baseURL)
 	if filter != "" {
-		url += "?" + filter
+		reqURL += "?" + filter
 	}
 
-	resp, err := a.client.Get(url)
+	resp, err := a.client.Get(reqURL)
 	if err != nil {
 		return nil, err
 	}
@@ -137,9 +138,11 @@ func (a *Api) fetchJobs(filter string) ([]Job, error) {
 
 // getTemplateIDByName finds template ID by name using the unified template endpoint
 func (a *Api) getTemplateIDByName(templateName string) (int, error) {
-	url := fmt.Sprintf("%s/api/controller/v2/unified_job_templates/?name=%s", a.baseURL, templateName)
+	// Properly escape spaces and special characters for AAP 2.6 gateway
+	encodedName := url.QueryEscape(templateName)
+	reqURL := fmt.Sprintf("%s/api/controller/v2/unified_job_templates/?name=%s", a.baseURL, encodedName)
 
-	resp, err := a.client.Get(url)
+	resp, err := a.client.Get(reqURL)
 	if err != nil {
 		return 0, err
 	}
@@ -268,9 +271,9 @@ func (a *Api) RelaunchJob(jobID int) {
 
 // fetchJobDetails retrieves detailed information from the unified endpoint
 func (a *Api) fetchJobDetails(jobID int) (*JobDetail, error) {
-	url := fmt.Sprintf("%s/api/controller/v2/unified_jobs/%d/", a.baseURL, jobID)
+	reqURL := fmt.Sprintf("%s/api/controller/v2/unified_jobs/%d/", a.baseURL, jobID)
 
-	resp, err := a.client.Get(url)
+	resp, err := a.client.Get(reqURL)
 	if err != nil {
 		return nil, err
 	}
