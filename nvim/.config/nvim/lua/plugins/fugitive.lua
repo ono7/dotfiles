@@ -18,6 +18,11 @@ return {
           silent = true,
           desc = "Close Fugitive window",
         })
+        vim.keymap.set("n", "<leader>g", "<cmd>close<CR>", {
+          buffer = event.buf,
+          silent = true,
+          desc = "Close Fugitive window",
+        })
       end,
     })
   end,
