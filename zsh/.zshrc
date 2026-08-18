@@ -419,7 +419,9 @@ alias cdr=_cdr
 ginit() {
   [ -f ./config ] && git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && echo_green "fixed bare repo..." && return
   git init "$@"
+
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore || echo_green 'skipping .gitignore'
+  [ ! -f .lintstagedrc ] && cp ~/.dotfiles/templates/.lintstagedrc .lintstagedrc || echo_green 'skipping .lintstagedrc'
 }
 
 mkproject() {
