@@ -1,3 +1,14 @@
+## just use grep instead of find
+
+grep -rnIi --exclude-dir={proc,sys,dev} "searchme" / 2>/dev/null
+
+```
+-I ignore binary
+-i ignore case
+-R recursive
+-n line number
+```
+
 ## find only non binary files in linux
 
 `find . -type f -exec grep -Iq . {} \; --print0 | tar -vczf /tmp/1.tgz -T -`
