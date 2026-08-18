@@ -1,3 +1,4 @@
+---
 # Globally exclude any file inside .collections/ or collections/
 exclude: '(^|/)\.collections/|(^|/)collections/'
 
