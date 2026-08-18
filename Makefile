@@ -166,10 +166,9 @@ go-deps:
 
 install-fonts:
 	@if [ ! -d "$(FONT_DIR)" ]; then \
+		rm -rf $(FONT_DIR); \
 		echo "Cloning font repository to $(FONT_DIR)..."; \
 		git clone $(FONT_REPO) $(FONT_DIR); \
-	else \
-		echo "Directory $(FONT_DIR) already exists. Skipping clone."; \
 	fi
 ifeq ($(OS),Darwin)
 	@echo "Installing fonts for macOS..."
