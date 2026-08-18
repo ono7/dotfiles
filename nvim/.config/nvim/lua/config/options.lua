@@ -215,3 +215,4 @@ local parts = {
 
 vim.opt.ruler = true
 vim.opt.statusline = table.concat(parts)
+vim.opt.nrformats:append("alpha")
