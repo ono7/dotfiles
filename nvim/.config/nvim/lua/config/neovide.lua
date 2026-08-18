@@ -44,7 +44,8 @@ elseif is_mac then
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
-  vim.o.guifont = "Iosevka Custom:h26:#e-subpixelantialias:#h-full"
+  -- vim.o.guifont = "Iosevka Custom:h26:#e-subpixelantialias:#h-full,IosevkaTerm Nerd Font:h26"
+  vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h26:#e-subpixelantialias:#h-full"
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
