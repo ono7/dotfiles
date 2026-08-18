@@ -688,6 +688,15 @@ vim.keymap.set("n", "<leader>w", function()
   vim.cmd([[:write ++p]])
 end, { silent = true, desc = "Write file (creates parent dirs)" })
 
+vim.keymap.set("n", "<M-w>", function()
+  if not check_buf(0) then
+    vim.notify("Save first..", vim.log.levels.WARN)
+    return
+  end
+  -- Write current buffer, creating parent directories if they don't exist
+  vim.cmd([[:write ++p]])
+end, { silent = true, desc = "Write file (creates parent dirs)" })
+
 -- Toggle quickfix list
 k("n", "<c-/>", function()
   local qf_exists = false
