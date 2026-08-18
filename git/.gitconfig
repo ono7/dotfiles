@@ -18,7 +18,6 @@
     editor = nvim
     mergeoptions = --no-edit
     pager = delta
-    hookspath = ~/.git_global/hooks
     compression = 9
     whitespace = error
     preloadindex = true
