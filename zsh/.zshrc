@@ -425,10 +425,10 @@ ginit() {
 
   # Automatically wire up the git hooks
   if command -v uvx >/dev/null 2>&1; then
-    uvx pre-commit install
+    uvx pre-commit install -f
     echo_green "pre-commit hooks installed via uvx"
   elif command -v pre-commit >/dev/null 2>&1; then
-    pre-commit install
+    pre-commit install -f
     echo_green "pre-commit hooks installed"
   fi
 }
