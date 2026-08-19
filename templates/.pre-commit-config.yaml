@@ -34,3 +34,10 @@ repos:
         entry: ansible-lint
         language: system
         types: [yaml]
+
+      - id: ctags
+        name: Generate Ctags
+        entry: ctags -R -f tags .
+        language: system
+        pass_filenames: false
+        always_run: true
