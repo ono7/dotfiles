@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-    Author:  Jose Lima (jlima)
-    Date:    2024-01-31  16:12
-    
+Author:  Jose Lima (jlima)
+Date:    2024-01-31  16:12
+
 """
-import requests
+
 import json
+
+import requests
 
 # Ansible Tower details
 tower_url = "http://your_ansible_tower_server/api/v2/job_templates/"
