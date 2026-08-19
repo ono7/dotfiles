@@ -3,7 +3,6 @@
 exclude: '(^|/)\.collections/|(^|/)collections/'
 
 repos:
-  # 1. Standard lightweight hooks (Keep these remote, they are tiny and fast)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
@@ -12,7 +11,7 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  # 2. Local system hooks for tools you already have installed
+  # Local system hooks for tools
   - repo: local
     hooks:
       - id: ruff
