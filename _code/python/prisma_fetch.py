@@ -2,7 +2,7 @@ import os
 
 import prisma_sase
 
-sdk = prisma_sase.API()
+sdk = prisma_sase.API(ssl_verify=False)
 CLIENT_ID = os.environ.get("PRISMA_CLIENT_ID") or os.environ.get("PRISMASASE_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("PRISMA_CLIENT_SECRET") or os.environ.get(
     "PRISMASASE_CLIENT_SECRET"
