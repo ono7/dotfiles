@@ -4,9 +4,17 @@ snippet main "insert if name check" b
   if __name__ == "__main__":
     ${0}
 
-snippet dump "dumps var in json"
-        import json
-        print(json.dumps(${0:${VISUAL}},indent=4))
+snippet dump "json dumps to file" b
+  # TODO: remove when done
+  import json
+  with open("${1:output}.json", "w", encoding="utf-8") as f:
+    json.dump(${2:response}, f, ensure_ascii=False, indent=2)
+  ${0}
+
+# snippet dump "dumps var in json"
+#         import json
+#         print(json.dumps(${0:${VISUAL}},indent=4))
+
 snippet h "header" b
   #!/usr/bin/env python3
   """${1}${2:${VISUAL}}"""
