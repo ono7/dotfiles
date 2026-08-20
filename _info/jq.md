@@ -1,5 +1,9 @@
 # tips
 
+## this will map all paths into flat strings for parsing
+
+`[paths | map(tostring) | join(".")] | unique`
+
 ## find any nested key
 
 ```sh
@@ -7,7 +11,6 @@ terraform show -json | jq '..|.id?' | grep -v 'null'
   "b47dcd42309cc62bae7b275be3d06941b8bbf824"
   "a_buffalo"
 ```
-
 
 ? = no error/optional
 
