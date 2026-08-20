@@ -1,8 +1,16 @@
 # tips
 
+## limit results
+
+```
+limit(1; .items[] | select(.ipv4_config.type == "dhcp"))
+```
+
 ## this will map all paths into flat strings for parsing
 
-`[paths | map(tostring) | join(".")] | unique`
+```
+[paths | map(tostring) | join(".")] | unique
+```
 
 ## find any nested key
 
