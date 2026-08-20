@@ -1,6 +1,12 @@
 ## just use grep instead of find
 
-grep -rnIi --exclude-dir={proc,sys,dev} "searchme" / 2>/dev/null
+### recurvice grep
+
+grep -riIn --exclude-dir={proc,sys,dev} "searchme" / 2>/dev/null
+
+### batched with find
+
+find / -type f -exec grep -HnIi "search_term" {} + 2>/dev/null
 
 ```
 -I ignore binary
