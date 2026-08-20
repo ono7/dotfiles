@@ -559,13 +559,14 @@ k("c", "<C-BS>", "\x17", { noremap = true })
 k("t", "<c-x>", [[<c-\><c-n>]], silent)
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
--- just send this key so that zsh can use it as move back 1 char
+-- just send this key so that zsh can use it as move back 1 char (passthrough)
 vim.keymap.set("t", "<C-h>", "<C-h>")
+vim.keymap.set("t", "<C-p>", "<C-p>")
 
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)
 k("t", "<D-c>", [[<c-c>]], silent)
-k("t", "<D-p>", [[<c-p>]], silent)
+-- k("t", "<D-p>", [[<c-p>]], silent)
 k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
