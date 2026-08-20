@@ -1,0 +1,13 @@
+---
+base_url: "https://api.server.com/api/controller/v2"
+insecure_skip_verify: true
+headers:
+  Authorization: "Bearer abctokenfake"
+  Accept: "application/json"
+# other example
+# base_url: "https://api.service.internal/v1"
+# insecure_skip_verify: false
+# headers:
+#   X-Auth-Token: "${API_JWT}"
+#   X-Tenant-ID: "network-automation"
+#   Accept: "application/json"
