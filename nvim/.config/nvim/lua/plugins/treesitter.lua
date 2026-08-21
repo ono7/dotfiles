@@ -47,6 +47,7 @@ return {
           oil_preview = true,
           netrw = true,
           qf = true,
+          snippets = true,
           TelescopePrompt = true,
           mason = true,
           ["conform-info"] = true,
