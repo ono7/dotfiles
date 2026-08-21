@@ -621,13 +621,22 @@ bindkey "^O" accept-line-and-down-history
 bindkey '^K' kill-line
 bindkey '^R' history-incremental-search-backward
 
+# leave this here, its used for darker colorthemes
+# export FZF_DEFAULT_OPTS='
+# --height 40%
+# --border=rounded
+# --color=bg+:#252a3e,bg:-1,spinner:#f5c2e7,hl:#a6e3a1
+# --color=fg:#D6CFC7,header:#94e2d5,info:#f9e2af,pointer:#f38ba8
+# --color=marker:#a6e3a1,fg+:-1,prompt:#cba6f7,hl+:#a6e3a1
+# --color=border:#6c7086,separator:#45475a,scrollbar:#585b70'
+
 export FZF_DEFAULT_OPTS='
 --height 40%
 --border=rounded
---color=bg+:#252a3e,bg:-1,spinner:#f5c2e7,hl:#a6e3a1
---color=fg:#D6CFC7,header:#94e2d5,info:#f9e2af,pointer:#f38ba8
---color=marker:#a6e3a1,fg+:-1,prompt:#cba6f7,hl+:#a6e3a1
---color=border:#6c7086,separator:#45475a,scrollbar:#585b70'
+--color=bg:-1,bg+:#D5CFC4,fg:#38414D,fg+:#38414D
+--color=hl:#B85C38,hl+:#B85C38,info:#996E14,prompt:#3B6EA8
+--color=pointer:#C4434B,marker:#4A7A59,spinner:#2D7D8A,header:#3B6EA8
+--color=border:#A9B3C1,separator:#E6E2DA,scrollbar:#7B8A9C'
 
 if command -v fd &>/dev/null; then
   export FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --exclude ".collections" --follow --hidden'

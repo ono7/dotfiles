@@ -38,9 +38,15 @@ return {
     fzf.setup({
       win_bg = "Normal",
       fzf_colors = {
+        ["hl"] = { "fg", "FzfLuaFzfMatch" },
+        ["hl+"] = { "fg", "FzfLuaFzfMatch" },
+        ["pointer"] = { "fg", "FzfLuaFzfPointer" },
         ["bg+"] = { "bg", "Visual" },
         ["fg+"] = { "fg", "Normal" },
+        ["marker"] = { "fg", "FzfLuaFzfMarker" },
       },
+      -- fzf_colors = {
+      -- },
       winopts = winopts,
       previewers = {
         builtin = {
