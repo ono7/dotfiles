@@ -1,4 +1,4 @@
-# Starship configuration - Elegant rounded style matching your Alacritty colors
+# Starship configuration - Elegant rounded style (Custom-Paper Light Theme)
 # Save this as ~/.config/starship.toml
 
 format = """
@@ -22,9 +22,9 @@ $character"""
 # Disable the blank line at the start of the prompt
 add_newline = false
 
-# OS Symbol - subtle, no background
+# OS Symbol
 [os]
-style = "fg:#8CA7BE"
+style = "fg:#3B6EA8" # Denim Blue
 disabled = false
 format = "[$symbol ]($style)"
 
@@ -50,28 +50,29 @@ Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 
-# Username - clean, minimal
+# Username
 [username]
 show_always = false
-style_user = "fg:#D4B97E"
-style_root = "fg:#C49A9A bold"
-format = "[$user]($style)[@](fg:#8087a2)"
+style_user = "fg:#996E14" # Ochre
+style_root = "fg:#C4434B bold" # Crimson
+format = "[$user]($style)[@](fg:#7B8A9C)" # Soft Slate '@'
 
-# Hostname - only when SSH
+# Hostname
 [hostname]
 ssh_only = true
-style = "fg:#8CA7BE"
+style = "fg:#3B6EA8" # Denim Blue
 format = "[$hostname]($style) "
 
+# Directory
 [directory]
-style = "fg:#E3DED7 bold"
+style = "fg:#3B6EA8 bold" # Bold Denim Blue for high readability
 format = "[  $path]($style) "
-truncation_length = 3  # Show 3 full levels, abbreviate the rest
+truncation_length = 3
 truncate_to_repo = false
 truncation_symbol = '…/'
-fish_style_pwd_dir_length = 1  # Show only first character of each truncated dir
+fish_style_pwd_dir_length = 1
 read_only = " 󰌾"
-read_only_style = "fg:#C49A9A"
+read_only_style = "fg:#C4434B" # Crimson
 
 [directory.substitutions]
 "Documents" = "󰈙 Docs"
@@ -81,15 +82,15 @@ read_only_style = "fg:#C49A9A"
 "Developer" = "󰲋 Dev"
 "~" = "󰋜 ~"
 
-# Git Branch - clean and minimal
+# Git Branch
 [git_branch]
 symbol = ""
-style = "fg:#8CBBAD"
+style = "fg:#2D7D8A" # Deep Teal
 format = "[on $symbol$branch]($style)"
 
-# Git Status - clean indicators
+# Git Status
 [git_status]
-style = "fg:#C49A9A"
+style = "fg:#C4434B" # Crimson
 format = "[$all_status$ahead_behind]($style)"
 conflicted = "⚡"
 ahead = "⇡${count} "
@@ -103,54 +104,53 @@ staged = "+${count} "
 renamed = "»${count} "
 deleted = "✘${count} "
 
-# Language/Tool Indicators - floating style
+# Language/Tool Indicators
 [nodejs]
 symbol = " "
-style = "fg:#8CBBAD"
+style = "fg:#4A7A59" # Pine Green
 format = "[( $symbol$version )]($style)"
 
 [rust]
 symbol = " "
-style = "fg:#C49A9A"
+style = "fg:#C4434B" # Crimson
 format = "[( $symbol$version )]($style)"
 
 [golang]
 symbol = " "
-style = "fg:#93B5B3"
+style = "fg:#2D7D8A" # Deep Teal
 format = "[( $symbol$version )]($style)"
 
 [php]
 symbol = " "
-style = "fg:#B097B6"
+style = "fg:#734A7A" # Plum
 format = "[( $symbol$version )]($style)"
 
 [python]
 symbol = "🐍 "
-style = "fg:#D4B97E"
+style = "fg:#B85C38" # Rust
 format = '[( $symbol$version)]($style)'
 
 [env_var.VIRTUAL_ENV]
 symbol = "🔸"
-style = "fg:#D4B97E"
+style = "fg:#B85C38" # Rust
 format = "<[$symbol]>($style)"
 detect_extensions = ['py', 'ipynb', 'pyc', 'pyd', 'pyo', 'pyw', 'pyz']
 detect_files = ['requirements.txt', 'pyproject.toml', 'Pipfile', '.python-version']
-# Starship automatically detects virtual environments via VIRTUAL_ENV, CONDA_DEFAULT_ENV, etc.
 
 [docker_context]
 symbol = " "
-style = "fg:#8CA7BE"
+style = "fg:#3B6EA8" # Denim Blue
 format = "[( $symbol$context )]($style)"
 
-# Package version - subtle
+# Package version
 [package]
-style = "fg:#C9C2B8"
+style = "fg:#5C6A7B" # Slate
 format = "[( 📦 $version )]($style)"
 
-# Command duration - only show if > 2 seconds
+# Command duration
 [cmd_duration]
 min_time = 2000
-style = "fg:#8087a2 italic"
+style = "fg:#7B8A9C italic" # Soft Slate
 format = "[( $duration )]($style)"
 
 # Line break
@@ -160,21 +160,21 @@ disabled = false
 # Character - elegant arrows
 [character]
 disabled = false
-success_symbol = "[╰─❯](bold fg:#8CBBAD)"
-error_symbol = "[╰─❯](bold fg:#C49A9A)"
-vimcmd_symbol = "[╰─⦿](bold fg:#D4B97E)"
-vimcmd_replace_one_symbol = "[╰─⦿](bold fg:#B097B6)"
-vimcmd_replace_symbol = "[╰─⦿](bold fg:#B097B6)"
-vimcmd_visual_symbol = "[╰─⦿](bold fg:#93B5B3)"
+success_symbol = "[╰─❯](bold fg:#4A7A59)" # Pine Green
+error_symbol = "[╰─❯](bold fg:#C4434B)" # Crimson
+vimcmd_symbol = "[╰─⦿](bold fg:#B85C38)" # Rust
+vimcmd_replace_one_symbol = "[╰─⦿](bold fg:#734A7A)" # Plum
+vimcmd_replace_symbol = "[╰─⦿](bold fg:#734A7A)" # Plum
+vimcmd_visual_symbol = "[╰─⦿](bold fg:#2D7D8A)" # Deep Teal
 
-# Time - only show on right side if needed
+# Time
 [time]
 disabled = true
 time_format = "%R"
-style = "fg:#8087a2"
+style = "fg:#5C6A7B" # Slate
 format = "[🕐 $time]($style)"
 
-# Battery - clean indicators
+# Battery
 [battery]
 full_symbol = "🔋"
 charging_symbol = "🔌"
@@ -183,52 +183,52 @@ format = "[$symbol$percentage]($style) "
 
 [[battery.display]]
 threshold = 30
-style = "bold fg:#C49A9A"
+style = "bold fg:#C4434B" # Crimson
 
 [[battery.display]]
 threshold = 60
-style = "fg:#D4B97E"
+style = "fg:#996E14" # Ochre
 
 [[battery.display]]
 threshold = 100
-style = "fg:#8CBBAD"
+style = "fg:#4A7A59" # Pine Green
 
-# Status - minimal error display
+# Status
 [status]
-style = "fg:#C49A9A"
+style = "fg:#C4434B" # Crimson
 symbol = "✗"
 success_symbol = ""
 format = "[$symbol$int]($style) "
 map_symbol = true
 disabled = false
 
-# Cloud services - subtle when present
+# Cloud services
 [aws]
 symbol = "☁️  "
-style = "fg:#D4B97E"
+style = "fg:#996E14" # Ochre
 format = "[($symbol$profile )]($style)"
 
 [azure]
 disabled = false
 format = "[($symbol$subscription )]($style)"
 symbol = "☁️  "
-style = "fg:#8CA7BE"
+style = "fg:#3B6EA8" # Denim Blue
 
 [gcloud]
 symbol = "☁️  "
-style = "fg:#C49A9A"
+style = "fg:#C4434B" # Crimson
 format = "[($symbol$project )]($style)"
 
-# Kubernetes - when relevant
+# Kubernetes
 [kubernetes]
 symbol = "⛵ "
-style = "fg:#93B5B3"
+style = "fg:#2D7D8A" # Deep Teal
 format = "[($symbol$context )]($style)"
 disabled = false
 
 # Jobs indicator
 [jobs]
 symbol = "⚙️ "
-style = "fg:#D4B97E"
+style = "fg:#996E14" # Ochre
 number_threshold = 1
 format = "[$symbol$number]($style) "

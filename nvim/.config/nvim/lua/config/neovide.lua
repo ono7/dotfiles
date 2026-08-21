@@ -101,7 +101,7 @@ end)
 
 -- 6. Highlighting
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#151F2D", fg = "#BEBEBC" })
-vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
+-- vim.api.nvim_set_hl(0, "FidgetBorder", { fg = "#1A2230", bg = "#0A0E14" })
 -- 7. Deduplicated Keymaps
 vim.keymap.set({ "n", "v" }, "<C-S-v>", '"+p')
 vim.keymap.set({ "i", "c" }, "<C-S-v>", "<C-r>+")
