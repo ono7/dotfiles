@@ -93,6 +93,17 @@ elif command -v xclip &>/dev/null; then
   alias c="xclip -selection clipboard"
 fi
 
+if command -v eza >/dev/null 2>&1; then
+  alias ls="eza --icons"
+  alias ll="eza -lh --git --icons --group-directories-first"
+  alias la="eza -lah --git --icons --group-directories-first"
+  alias lt="eza --tree --level=2 --icons"
+else
+  # Standard fallback aliases if eza is not installed
+  alias ll="ls -lh"
+  alias la="ls -lah"
+fi
+
 alias rgl="rg -M 0"
 alias grepl="grep --line-buffered"
 
