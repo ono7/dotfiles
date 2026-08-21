@@ -45,7 +45,7 @@ elseif is_mac then
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
   -- vim.o.guifont = "Iosevka Custom:h26:#e-subpixelantialias:#h-full,IosevkaTerm Nerd Font:h26"
-  vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h27:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h26:#e-subpixelantialias:#h-full"
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
@@ -54,8 +54,15 @@ else
 end
 
 -- Font Blending
-vim.g.neovide_text_gamma = 0.0
-vim.g.neovide_text_contrast = 0.5
+
+-- Replicates Alacritty's crisp font rendering
+vim.g.neovide_text_gamma = 0.8
+
+-- Flattens the anti-aliasing halo
+vim.g.neovide_text_contrast = 0.1
+
+-- linespace = 7 (is about 1.5x, recommended for stigmatism)
+vim.opt.linespace = 7
 
 -- 5. Window, UI & Padding
 vim.g.neovide_input_macos_option_key_is_meta = "both"
