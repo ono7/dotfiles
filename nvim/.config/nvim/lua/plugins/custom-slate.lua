@@ -7,18 +7,17 @@ return {
     priority = 1000,
     config = function()
       -- 1. HARMONIOUS SOOTHING PALETTE
-      -- Base layers
-      local bg = "#131720" -- Deep velvet ink
-      local bg_subtle = "#19202C" -- Floating windows, popups & active statusline
-      local bg_visual = "#222D3E" -- Selection / CursorLine / Pmenu active item
+      local bg = "#131720"
+      local bg_subtle = "#19202C"
+      local bg_visual = "#222D3E"
       local bg_highlight = "#1C2433"
-      local bg_inactive = "#151922" -- Inactive statusline background
+      local bg_inactive = "#151922"
 
       -- Typography
-      local fg_main = "#D2D6DC" -- Warm ivory/platinum
-      local fg_dim = "#9DA7B3" -- Secondary elements & punctuation
-      local fg_muted = "#5C6A7B" -- Comments & line numbers
-      local fg_faint = "#323D4D" -- Dim raw markdown blocks, diff filler & deletions
+      local fg_main = "#D2D6DC"
+      local fg_dim = "#9DA7B3"
+      local fg_muted = "#5C6A7B" -- Keep for UI elements (StatusLineNC, Diff, PmenuExtra)
+      local fg_faint = "#323D4D"
 
       -- Syntax Accents
       local c = {
@@ -30,6 +29,12 @@ return {
         subtle = bg_subtle,
         visual = bg_visual,
         line_nr = "#384354",
+
+        -- Comment choices:
+        -- "#708A82" -> Muted Sage (Balanced, organic)
+        -- "#6C7D93" -> Frosted Slate (Clean, modern slate)
+        -- "#827B75" -> Warm Driftwood (Earthy, low eye-strain)
+        comment = "#536070",
 
         -- Color tokens
         keyword = "#E59468",
@@ -46,35 +51,32 @@ return {
         diff_text_bg = "#2A3245",
       }
 
-      -- Reset & apply
       if vim.g.colors_name then
         vim.cmd("hi clear")
       end
       vim.o.termguicolors = true
       vim.g.colors_name = "custom-slate"
 
-      -- 2. TERMINAL ANSI 16-COLOR PALETTE (Fixes :terminal and ls colors)
-      vim.g.terminal_color_0 = c.subtle -- Black
-      vim.g.terminal_color_1 = c.error -- Red
-      vim.g.terminal_color_2 = c.string -- Green
-      vim.g.terminal_color_3 = c.constant -- Yellow / Orange
-      vim.g.terminal_color_4 = c.type -- Blue (replaces harsh electric blue)
-      vim.g.terminal_color_5 = c.param -- Magenta (replaces harsh neon pink)
-      vim.g.terminal_color_6 = c.fn -- Cyan
-      vim.g.terminal_color_7 = c.fg -- White / Foreground
+      -- Terminal ANSI
+      vim.g.terminal_color_0 = c.subtle
+      vim.g.terminal_color_1 = c.error
+      vim.g.terminal_color_2 = c.string
+      vim.g.terminal_color_3 = c.constant
+      vim.g.terminal_color_4 = c.type
+      vim.g.terminal_color_5 = c.param
+      vim.g.terminal_color_6 = c.fn
+      vim.g.terminal_color_7 = c.fg
+      vim.g.terminal_color_8 = c.comment
+      vim.g.terminal_color_9 = c.error
+      vim.g.terminal_color_10 = "#B6DCA0"
+      vim.g.terminal_color_11 = "#F0C87A"
+      vim.g.terminal_color_12 = "#92BEF5"
+      vim.g.terminal_color_13 = "#C8B0CE"
+      vim.g.terminal_color_14 = "#A2E4EB"
+      vim.g.terminal_color_15 = "#E8ECEF"
 
-      vim.g.terminal_color_8 = c.muted -- Bright Black (Slate comments)
-      vim.g.terminal_color_9 = c.error -- Bright Red
-      vim.g.terminal_color_10 = "#B6DCA0" -- Bright Green
-      vim.g.terminal_color_11 = "#F0C87A" -- Bright Yellow
-      vim.g.terminal_color_12 = "#92BEF5" -- Bright Blue
-      vim.g.terminal_color_13 = "#C8B0CE" -- Bright Magenta / Plum
-      vim.g.terminal_color_14 = "#A2E4EB" -- Bright Cyan
-      vim.g.terminal_color_15 = "#E8ECEF" -- Bright White
-
-      -- 3. HIGHLIGHT DEFINITIONS
+      -- Highlights
       local highlights = {
-        -- Core Editor
         Normal = { fg = c.fg, bg = c.bg },
         NormalNC = { link = "Normal" },
         NormalText = { fg = c.fg },
@@ -84,7 +86,11 @@ return {
         Visual = { bg = c.visual },
         MsgSeparator = {},
 
-        Comment = { fg = c.muted, italic = true },
+        -- Syntax Comments
+        Comment = { fg = c.comment, italic = true },
+        ["@lsp.type.comment"] = { fg = c.comment, italic = true },
+        ["@comment"] = { fg = c.comment, italic = true },
+
         LineNr = { fg = c.line_nr, bg = c.bg },
         CursorLineNr = { fg = c.constant, bg = "none", bold = true },
         CursorLine = { bg = bg_highlight },
@@ -106,7 +112,7 @@ return {
         WinBarNC = { fg = c.muted, bg = "none" },
         FidgetBorder = { fg = c.bg, bg = c.bg },
 
-        -- Popup Menu (Pmenu / Cmp)
+        -- Popup Menu
         Pmenu = { fg = c.fg, bg = c.subtle },
         PmenuSel = { fg = c.fg, bg = c.visual, bold = true },
         PmenuKind = { fg = c.type, bg = c.subtle },
@@ -152,7 +158,7 @@ return {
         SpecialKey = { fg = c.muted },
         NonText = { fg = c.line_nr },
 
-        -- UI Elements & Statusline
+        -- Statusline & Cursor
         StatusLine = { fg = c.fg, bg = c.subtle },
         StatusLineNC = { fg = c.muted, bg = bg_inactive },
         Cursor = { bg = c.cursor, fg = c.bg },
@@ -162,24 +168,22 @@ return {
         IncSearch = { fg = c.bg, bg = c.keyword },
         GitSignsStagedAdd = { fg = c.string },
 
-        -- Native Diff Groups (Diff fill chars and deleted filler lines)
+        -- Diff
         DiffAdd = { fg = c.fg, bg = c.diff_add_bg },
         DiffAdded = { fg = c.string, bg = "none" },
         DiffChange = {},
         DiffText = { fg = c.fg, bg = c.diff_text_bg },
         DiffTextAdd = { link = "DiffText" },
-        DiffDelete = { fg = c.faint, bg = "none" }, -- Diff fill chars (---) now match markdown blocks
+        DiffDelete = { fg = c.faint, bg = "none" },
         DiffRemoved = { fg = c.faint, bg = "none" },
 
-        -- Diffview Core & Filler Highlights
+        -- Diffview
         DiffviewDiffAdd = { link = "DiffAdd" },
         DiffviewDiffChange = {},
         DiffviewDiffText = { link = "DiffText" },
         DiffviewDiffDelete = { fg = c.faint, bg = "none" },
-        DiffviewDiffDeleteDim = { fg = c.faint, bg = "none" }, -- Overrides default Comment link
+        DiffviewDiffDeleteDim = { fg = c.faint, bg = "none" },
         DiffviewDiffAddAsDelete = { fg = c.faint, bg = "none" },
-
-        -- Diffview File Panel & Status
         DiffviewFilePanelTitle = { fg = c.keyword, bold = true },
         DiffviewFilePanelCounter = { fg = c.param, bold = true },
         DiffviewFilePanelFileName = { fg = c.fg },
@@ -202,7 +206,7 @@ return {
         DiffviewDim1 = { fg = c.muted },
         DiffviewDim2 = { fg = c.faint },
 
-        -- Patch / Generic Diff Buffer Syntax
+        -- Patch Syntax
         diffAdded = { fg = c.string },
         diffRemoved = { fg = c.faint, bg = "none" },
         diffChanged = {},
@@ -212,12 +216,10 @@ return {
         diffLine = { fg = c.muted },
         diffIndexLine = { fg = c.muted },
 
-        -- Treesitter Diff Captures
+        -- Treesitter
         ["@diff.plus"] = { fg = c.string },
         ["@diff.minus"] = { fg = c.faint },
         ["@diff.delta"] = {},
-
-        -- Treesitter & Fine-Grained
         ["@punctuation.bracket"] = { fg = c.fg },
         ["@punctuation.delimiter"] = { fg = c.fg },
         ["@operator"] = { fg = c.fg },
@@ -239,20 +241,14 @@ return {
         ["@text.danger"] = { fg = c.error, bold = true },
         ["@text.note"] = { fg = c.fn },
         ["@spell.markdown"] = { link = "NormalText" },
-
-        -- Markdown Raw & Code Blocks
         ["@markup.raw"] = { fg = c.string },
         ["@markup.raw.block.markdown"] = { fg = c.faint },
         ["@markup.raw.delimiter.markdown"] = { fg = c.faint },
-
-        -- LSP & Breadcrumbs
         ["@lsp.typedecl"] = { fg = c.type },
-        ["@lsp.type.comment"] = { fg = c.muted, italic = true },
         TreesitterContextBottom = { fg = c.param, italic = false },
         OilFile = { link = "NormalText" },
       }
 
-      -- 4. APPLY
       for group, spec in pairs(highlights) do
         vim.api.nvim_set_hl(0, group, spec)
       end
