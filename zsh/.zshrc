@@ -194,7 +194,7 @@ alias tf='terraform'
 alias ssh='TERM=xterm-256color ssh '
 alias tree="tree -a -I '*.pyc|__pycache__|venv|.git'"
 alias xargs='xargs '
-alias ls='ls --color'
+# alias ls='ls --color'
 alias less='less -R'
 
 # ansible-galaxy collection install ansible.posix -c

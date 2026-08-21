@@ -84,7 +84,7 @@ defaults write com.apple.finder NewWindowTargetPath -string "file:///${HOME}/"
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # Have the Dock show only active apps
-# defaults write com.apple.dock static-only -bool true
+defaults write com.apple.dock static-only -bool true
 # defaults write com.apple.dock static-only -bool false
 
 # Set Dock autohide
