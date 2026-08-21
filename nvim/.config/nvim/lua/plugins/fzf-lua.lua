@@ -217,12 +217,14 @@ return {
       })
     end, { desc = "All git files including untracked" })
 
-    -- oldfiles
+    -- oldfiles (Current Project Only)
     k("n", "<M-r>", function()
       require("fzf-lua").oldfiles({
-        prompt = "Recent Files> ",
-        -- FIX 2: Enabled previewer here
+        prompt = "Recent Project Files> ",
+        formatter = "path.filename_first",
         previewer = true,
+        cwd = vim.uv.cwd(), -- Limits oldfiles to the current working directory / project root
+        -- cwd_only = true,  -- Alternative toggle if you prefer global matching filtered by cwd
         file_ignore_patterns = {
           "COMMIT_EDITMSG",
           "MERGE_MSG",
@@ -232,12 +234,34 @@ return {
         },
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
-          opts.title = " Recent Files "
+          opts.title = " Recent Project Files "
           opts.title_pos = "center"
           return opts
         end,
       })
-    end, { desc = "Recent files (no git)" })
+    end, { desc = "Recent files (current project)" })
+
+    -- -- oldfiles
+    -- k("n", "<M-r>", function()
+    --   require("fzf-lua").oldfiles({
+    --     prompt = "Recent Files> ",
+    --     -- FIX 2: Enabled previewer here
+    --     previewer = true,
+    --     file_ignore_patterns = {
+    --       "COMMIT_EDITMSG",
+    --       "MERGE_MSG",
+    --       "git%-rebase%-todo",
+    --       "%.git/",
+    --       "fugitive:",
+    --     },
+    --     winopts = function()
+    --       local opts = vim.tbl_deep_extend("force", {}, winopts)
+    --       opts.title = " Recent Files "
+    --       opts.title_pos = "center"
+    --       return opts
+    --     end,
+    --   })
+    -- end, { desc = "Recent files (no git)" })
 
     -- live grep
     k("n", "<leader>l", function()

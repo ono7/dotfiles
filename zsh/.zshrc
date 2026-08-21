@@ -93,6 +93,9 @@ elif command -v xclip &>/dev/null; then
   alias c="xclip -selection clipboard"
 fi
 
+alias rgl="rg -M 0"
+alias grepl="grep --line-buffered"
+
 ############## Shell options ##############
 
 # Essential shell options
