@@ -20,10 +20,15 @@ snippet note "note" w
   - NOTE: ${0:${VISUAL}}
 
 
-snippet c "code block" w
-	\`\`\`${1}
-	${0:${VISUAL}}
-	\`\`\`
+# snippet c "code block" b
+#   \`\`\`${1}
+#   ${0:${VISUAL}}
+#   \`\`\`
+
+snippet c "code block" b
+  ```${1}
+  ${0:${VISUAL}}
+  ```
 
 snippet ti "tag inline" w
   <${1}>${0:${VISUAL}}</${1/\v(\w+).*/\1/g}>
