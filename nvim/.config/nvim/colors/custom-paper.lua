@@ -73,7 +73,7 @@ local highlights = {
   Normal = { fg = c.fg, bg = c.bg },
   NormalNC = { link = "Normal" },
   NormalText = { fg = c.fg },
-  MatchParen = { fg = c.keyword, bg = c.visual, bold = true },
+  MatchParen = { fg = c.bg, bg = c.fg, bold = true },
   ModeMsg = { fg = c.fg },
   MoreMsg = { fg = c.fg },
   Visual = { bg = c.visual },
