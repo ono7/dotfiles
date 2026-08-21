@@ -68,6 +68,7 @@ install_packages_apt() {
     wget shfmt shellcheck gron rlwrap pass golang-go
 
   sudo apt-get install -y tree-sitter-cli 2>/dev/null || true
+  sudo apt-get install -y eza 2>/dev/null || true
 }
 
 install_packages_pacman() {
@@ -82,7 +83,7 @@ install_packages_pacman() {
     tree zsh the_silver_searcher fd unzip xclip wl-clipboard ripgrep stow make sqlite \
     wget shfmt shellcheck rlwrap pass go \
     zoxide starship npm \
-    neovim neovide tree-sitter-cli
+    neovim neovide tree-sitter-cli eza
 }
 
 install_packages_dnf() {
