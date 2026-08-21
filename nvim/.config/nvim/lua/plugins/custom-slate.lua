@@ -8,38 +8,42 @@ return {
     config = function()
       -- 1. HARMONIOUS SOOTHING PALETTE
       -- Base layers
-      local bg = "#131720" -- Deep velvet ink; rich, soft on eyes, zero glare
+      local bg = "#131720" -- Deep velvet ink
       local bg_subtle = "#19202C" -- Floating windows, popups & active statusline
-      local bg_visual = "#222D3E" -- Selection / CursorLine
+      local bg_visual = "#222D3E" -- Selection / CursorLine / Pmenu active item
       local bg_highlight = "#1C2433"
       local bg_inactive = "#151922" -- Inactive statusline background
 
       -- Typography
-      local fg_main = "#D2D6DC" -- Warm ivory/platinum (crisp without harsh glare)
+      local fg_main = "#D2D6DC" -- Warm ivory/platinum
       local fg_dim = "#9DA7B3" -- Secondary elements & punctuation
-      local fg_muted = "#5C6A7B" -- Comments & line numbers (soft slate)
+      local fg_muted = "#5C6A7B" -- Comments & line numbers
+      local fg_faint = "#323D4D" -- Dim raw markdown blocks, diff filler & deletions
 
-      -- Syntax Accents (Warm & Balanced)
+      -- Syntax Accents
       local c = {
         bg = bg,
         fg = fg_main,
         dim = fg_dim,
         muted = fg_muted,
+        faint = fg_faint,
         subtle = bg_subtle,
         visual = bg_visual,
         line_nr = "#384354",
 
         -- Color tokens
-        keyword = "#E59468", -- Warm apricot / terracotta
-        string = "#A3C78B", -- Soothing sage green
-        type = "#76A9E6", -- Clear soft cornflower blue
-        fn = "#89D0D8", -- Crisp calm cyan/teal
-        param = "#B6C8E6", -- Gentle periwinkle
-        constant = "#E5B567", -- Soft gold/amber
-        error = "#E06C75", -- Muted coral red
+        keyword = "#E59468",
+        string = "#A3C78B",
+        type = "#76A9E6",
+        fn = "#89D0D8",
+        param = "#B6C8E6",
+        constant = "#E5B567",
+        error = "#E06C75",
         cursor = "#FFB454",
-        diff_add = "#182C28",
-        diff_text = "#24334A",
+
+        -- Diff Colors
+        diff_add_bg = "#1C2E2E",
+        diff_text_bg = "#2A3245",
       }
 
       -- Reset & apply
@@ -53,9 +57,8 @@ return {
       local highlights = {
         -- Core Editor
         Normal = { fg = c.fg, bg = c.bg },
-        NormalNC = { fg = c.dim, bg = c.bg },
+        NormalNC = { link = "Normal" },
         NormalText = { fg = c.fg },
-        -- MatchParen = { fg = c.keyword, bg = c.visual, bold = true },
         MatchParen = { fg = c.fg, bold = true },
         ModeMsg = { fg = c.fg },
         MoreMsg = { fg = c.fg },
@@ -76,11 +79,44 @@ return {
         -- Window Chrome & Floats
         NormalFloat = { fg = c.fg, bg = c.subtle },
         FloatBorder = { fg = c.line_nr, bg = c.subtle },
+        FloatTitle = { fg = c.keyword, bg = c.subtle, bold = true },
+        FloatFooter = { fg = c.muted, bg = c.subtle },
         WinSeparator = { fg = c.line_nr, bg = "none" },
         VertSplit = { link = "WinSeparator" },
         WinBar = { bg = "none" },
         WinBarNC = { fg = c.muted, bg = "none" },
         FidgetBorder = { fg = c.bg, bg = c.bg },
+
+        -- Popup Menu (Pmenu / Cmp)
+        Pmenu = { fg = c.fg, bg = c.subtle },
+        PmenuSel = { fg = c.fg, bg = c.visual, bold = true },
+        PmenuKind = { fg = c.type, bg = c.subtle },
+        PmenuKindSel = { fg = c.type, bg = c.visual, bold = true },
+        PmenuExtra = { fg = c.muted, bg = c.subtle },
+        PmenuExtraSel = { fg = c.dim, bg = c.visual },
+        PmenuSbar = { bg = c.subtle },
+        PmenuThumb = { bg = c.line_nr },
+        WildMenu = { fg = c.fg, bg = c.visual },
+
+        -- Cmp Autocompletion
+        CmpItemAbbr = { fg = c.fg },
+        CmpItemAbbrDeprecated = { fg = c.muted, strikethrough = true },
+        CmpItemAbbrMatch = { fg = c.fn, bold = true },
+        CmpItemAbbrMatchFuzzy = { fg = c.fn, bold = true },
+        CmpItemMenu = { fg = c.muted, italic = true },
+        CmpItemKindFunction = { fg = c.fn },
+        CmpItemKindMethod = { fg = c.fn },
+        CmpItemKindVariable = { fg = c.param },
+        CmpItemKindField = { fg = c.fg },
+        CmpItemKindProperty = { fg = c.fg },
+        CmpItemKindClass = { fg = c.type },
+        CmpItemKindInterface = { fg = c.type },
+        CmpItemKindStruct = { fg = c.type },
+        CmpItemKindKeyword = { fg = c.keyword },
+        CmpItemKindSnippet = { fg = c.constant },
+        CmpItemKindText = { fg = c.dim },
+        CmpItemKindFile = { fg = c.fg },
+        CmpItemKindFolder = { fg = c.type },
 
         -- Syntax
         String = { fg = c.string },
@@ -107,13 +143,60 @@ return {
         IncSearch = { fg = c.bg, bg = c.keyword },
         GitSignsStagedAdd = { fg = c.string },
 
-        -- Diff & Git
-        DiffAdd = { fg = c.fg, bg = c.diff_add },
-        DiffAdded = { link = "DiffAdd" },
+        -- Native Diff Groups (Diff fill chars and deleted filler lines)
+        DiffAdd = { fg = c.fg, bg = c.diff_add_bg },
+        DiffAdded = { fg = c.string, bg = "none" },
         DiffChange = {},
-        DiffText = { fg = c.fg, bg = c.diff_text },
-        DiffDelete = { fg = c.muted, bg = "none" },
-        DiffRemoved = { fg = c.error, bg = "none" },
+        DiffText = { fg = c.fg, bg = c.diff_text_bg },
+        DiffTextAdd = { link = "DiffText" },
+        DiffDelete = { fg = c.faint, bg = "none" }, -- Diff fill chars (---) now match markdown blocks
+        DiffRemoved = { fg = c.faint, bg = "none" },
+
+        -- Diffview Core & Filler Highlights
+        DiffviewDiffAdd = { link = "DiffAdd" },
+        DiffviewDiffChange = {},
+        DiffviewDiffText = { link = "DiffText" },
+        DiffviewDiffDelete = { fg = c.faint, bg = "none" },
+        DiffviewDiffDeleteDim = { fg = c.faint, bg = "none" }, -- Overrides default Comment link
+        DiffviewDiffAddAsDelete = { fg = c.faint, bg = "none" },
+
+        -- Diffview File Panel & Status
+        DiffviewFilePanelTitle = { fg = c.keyword, bold = true },
+        DiffviewFilePanelCounter = { fg = c.param, bold = true },
+        DiffviewFilePanelFileName = { fg = c.fg },
+        DiffviewFilePanelPath = { fg = c.muted },
+        DiffviewFilePanelRootPath = { fg = c.muted, bold = true },
+        DiffviewFilePanelInsertions = { fg = c.string },
+        DiffviewFilePanelDeletions = { fg = c.faint },
+        DiffviewFilePanelSelected = { fg = c.type },
+        DiffviewStatusAdded = { fg = c.string },
+        DiffviewStatusUntracked = { fg = c.string },
+        DiffviewStatusModified = { fg = c.type },
+        DiffviewStatusRenamed = { fg = c.constant },
+        DiffviewStatusDeleted = { fg = c.faint },
+        DiffviewStatusBroken = { fg = c.faint },
+        DiffviewStatusUnknown = { fg = c.faint },
+        DiffviewPrimary = { fg = c.keyword },
+        DiffviewSecondary = { fg = c.type },
+        DiffviewFolder = { fg = c.type },
+        DiffviewFolderName = { fg = c.type },
+        DiffviewDim1 = { fg = c.muted },
+        DiffviewDim2 = { fg = c.faint },
+
+        -- Patch / Generic Diff Buffer Syntax
+        diffAdded = { fg = c.string },
+        diffRemoved = { fg = c.faint, bg = "none" },
+        diffChanged = {},
+        diffOldFile = { fg = c.faint },
+        diffNewFile = { fg = c.string },
+        diffFile = { fg = c.type },
+        diffLine = { fg = c.muted },
+        diffIndexLine = { fg = c.muted },
+
+        -- Treesitter Diff Captures
+        ["@diff.plus"] = { fg = c.string },
+        ["@diff.minus"] = { fg = c.faint },
+        ["@diff.delta"] = {},
 
         -- Treesitter & Fine-Grained
         ["@punctuation.bracket"] = { fg = c.fg },
@@ -130,7 +213,6 @@ return {
         ["@constant"] = { fg = c.constant },
         ["@constant.builtin"] = { fg = c.constant, bold = true },
         ["@module"] = { fg = c.type },
-        ["@markup.raw"] = { fg = c.string },
         ["@markup.heading"] = { fg = c.keyword, bold = true },
         ["@constructor"] = { fg = c.type },
         ["@constructor.python"] = { fg = c.type },
@@ -138,6 +220,11 @@ return {
         ["@text.danger"] = { fg = c.error, bold = true },
         ["@text.note"] = { fg = c.fn },
         ["@spell.markdown"] = { link = "NormalText" },
+
+        -- Markdown Raw & Code Blocks
+        ["@markup.raw"] = { fg = c.string },
+        ["@markup.raw.block.markdown"] = { fg = c.faint },
+        ["@markup.raw.delimiter.markdown"] = { fg = c.faint },
 
         -- LSP & Breadcrumbs
         ["@lsp.typedecl"] = { fg = c.type },
