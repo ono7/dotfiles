@@ -7,7 +7,9 @@ return {
     require("ayu").setup({
       overrides = {
         -- 1. CORE COLORS & COMFORT
-        Normal = { bg = "#151F2D", fg = "#BEBEBC" },
+        -- Change this variable to test: "#12151A" (Charcoal), "#0D131C" (Obsidian), or "#16181D" (Graphite)
+        -- Normal = { bg = "#151F2D", fg = "#BEBEBC" },
+        Normal = { bg = "#0D131C", fg = "#BEBEBC" },
         NormalText = { fg = "#BEBEBC" }, -- Base group for neutral text (renamed from NormalBold)
         MatchParen = { fg = "#151F2D", bg = "#BEBEBC" },
         ModeMsg = { link = "NormalText" },
@@ -100,9 +102,11 @@ return {
     })
 
     -- Load colorscheme
-    vim.cmd([[colorscheme ayu-dark]])
+    -- vim.cmd([[colorscheme ayu-dark]])
 
     -- External hlset calls
+    -- Change this variable to test: "#12151A" (Charcoal), "#0D131C" (Obsidian), or "#16181D" (Graphite)
+    vim.api.nvim_set_hl(0, "Normal", { bg = "#0D131C" })
     vim.api.nvim_set_hl(0, "TreesitterContextBottom", { fg = "#b396b8", italic = false })
     vim.api.nvim_set_hl(0, "OilFile", { link = "NormalText" })
     vim.api.nvim_set_hl(0, "@text.todo", { link = "ErrorMsg" })
