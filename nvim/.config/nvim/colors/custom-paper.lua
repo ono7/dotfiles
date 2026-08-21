@@ -193,6 +193,39 @@ local highlights = {
   ["@lsp.typedecl"] = { fg = c.type },
   TreesitterContextBottom = { fg = c.param, italic = false },
   OilFile = { link = "NormalText" },
+
+  -- ==========================================
+  -- FZF-LUA SPECIFIC OVERRIDES
+  -- ==========================================
+  -- Base UI
+  FzfLuaBackdrop = { bg = c.bg_inactive }, -- Overrides the harsh 'Black'
+  FzfLuaBorder = { fg = c.line_nr, bg = c.subtle },
+  FzfLuaTitle = { fg = c.keyword, bg = c.subtle, bold = true },
+
+  -- Hardcoded X11 Color Replacements
+  FzfLuaHeaderBind = { fg = c.fn }, -- Replaces 'MediumSpringGreen'
+  FzfLuaHeaderText = { fg = c.keyword }, -- Replaces 'Brown4'
+  FzfLuaPathColNr = { fg = c.constant }, -- Replaces 'CadetBlue4'
+  FzfLuaPathLineNr = { fg = c.string }, -- Replaces 'MediumSpringGreen'
+
+  FzfLuaLivePrompt = { fg = c.error, bold = true }, -- Replaces 'PaleVioletRed1'
+  FzfLuaLiveSym = { fg = c.error },
+
+  -- Buffer & Tab Colors
+  FzfLuaBufNr = { fg = c.type }, -- Replaces 'Aquamarine3'
+  FzfLuaBufFlagCur = { fg = c.keyword }, -- Replaces 'Brown4'
+  FzfLuaBufFlagAlt = { fg = c.type }, -- Replaces 'CadetBlue4'
+  FzfLuaTabTitle = { fg = c.type, bold = true },
+  FzfLuaTabMarker = { fg = c.string, bold = true },
+
+  -- Fuzzy search character hits (Forced to Bold Crimson for instant visibility)
+  FzfLuaFzfMatch = { fg = c.error, bold = true },
+  DropBarFzfMatch = { fg = c.error, bold = true },
+
+  -- FZF terminal wrapper fallbacks
+  fzf1 = { fg = c.error, bg = c.bg_subtle },
+  fzf2 = { fg = c.string, bg = c.bg_subtle },
+  fzf3 = { fg = c.type, bg = c.bg_subtle },
 }
 
 for group, spec in pairs(highlights) do
