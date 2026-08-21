@@ -1,8 +1,8 @@
 # ~/.zshenv (Loaded for ALL zsh instances - keep lean & sub-millisecond)
 
 # Monitor / Display Scaling (Linux/Wayland)
-export QT_SCALE_FACTOR=2
-export QT_WAYLAND_FORCE_DPI=physical
+# export QT_SCALE_FACTOR=2
+# export QT_WAYLAND_FORCE_DPI=physical
 
 # Global tool directories
 export GOPATH="$HOME/go"
