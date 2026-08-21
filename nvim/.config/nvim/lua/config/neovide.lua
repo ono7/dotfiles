@@ -35,6 +35,9 @@ vim.g.neovide_progress_bar_height = 5.0
 vim.g.neovide_progress_bar_animation_speed = 200.0
 vim.g.neovide_progress_bar_hide_delay = 0.2
 
+-- force subpixel antialiasing
+vim.g.neovide_pixel_geometry = "RGBH"
+
 -- Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
