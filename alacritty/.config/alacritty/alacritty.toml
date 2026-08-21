@@ -95,7 +95,7 @@ size = 16.0
 # family = "SF Mono Terminal"
 # style = "Medium"
 
-family = "Iosevka Custom"
+family = "IosevkaTerm Nerd Font"
 # style = "Medium Semi-Extended"
 
 # [font.italic]
