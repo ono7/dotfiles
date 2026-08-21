@@ -109,7 +109,7 @@ return {
       },
       buffers = {
         sort_lastused = true,
-        previewer = true,
+        previewer = false,
       },
       grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",
@@ -144,7 +144,7 @@ return {
         cwd = vim.fn.expand("~/.dotfiles"),
         fd_opts = "--type f --hidden --follow --exclude .git",
         prompt = "Dotfiles> ",
-        previewer = true,
+        previewer = false,
         winopts = function()
           -- FIX 3: Use deep_extend to copy options so we don't break the global config
           local opts = vim.tbl_deep_extend("force", {}, winopts)
@@ -228,7 +228,7 @@ return {
       require("fzf-lua").oldfiles({
         prompt = "Recent Project Files> ",
         formatter = "path.filename_first",
-        previewer = true,
+        previewer = false,
         cwd = vim.uv.cwd(), -- Limits oldfiles to the current working directory / project root
         -- cwd_only = true,  -- Alternative toggle if you prefer global matching filtered by cwd
         file_ignore_patterns = {
@@ -289,7 +289,7 @@ return {
         }, " "),
         no_ignore = false,
         hidden = true,
-        previewer = true,
+        previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
           opts.title = " Live Rg -uu "
