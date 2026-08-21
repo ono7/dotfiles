@@ -1,6 +1,13 @@
 local opts = { silent = true }
 local term_size = 18
 
+-- Helper to get non-floating windows in the current tabpage
+local function get_normal_wins()
+  return vim.tbl_filter(function(win)
+    return vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_config(win).relative == ""
+  end, vim.api.nvim_tabpage_list_wins(0))
+end
+
 -- 👇 ADD THIS AUTOCMD TO FORCE THE STATUSLINE TO HIDE 👇
 vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
   callback = function()
@@ -14,7 +21,6 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
 ---------------------------------------------------------------------------
 -- TAB-LOCAL STATE MANAGEMENT
 ---------------------------------------------------------------------------
--- Maps tabpage_handle -> { buf, win, job, last_win, last_cursor, height }
 local tab_state = {}
 
 local function get_tab_state()
@@ -54,9 +60,9 @@ vim.api.nvim_create_autocmd("TabClosed", {
 })
 
 local function close_quickfix()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.fn.win_gettype(win) == "quickfix" then
-      vim.api.nvim_win_close(win, true)
+      pcall(vim.api.nvim_win_close, win, true)
     end
   end
 end
@@ -68,7 +74,7 @@ local function hide_transients()
   local state = get_tab_state()
   local closed_terminal = false
 
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_is_valid(win) then
       local buf = vim.api.nvim_win_get_buf(win)
       local ft = vim.bo[buf].filetype
@@ -76,12 +82,12 @@ local function hide_transients()
       local wt = vim.fn.win_gettype(win)
 
       if bt == "terminal" or wt == "quickfix" or ft == "fugitive" or ft == "oil" then
-        if #vim.api.nvim_list_wins() > 1 then
+        if #get_normal_wins() > 1 then
           if bt == "terminal" then
             state.height = vim.api.nvim_win_get_height(win)
             closed_terminal = true
           end
-          vim.api.nvim_win_hide(win)
+          pcall(vim.api.nvim_win_hide, win)
         end
       end
     end
@@ -133,7 +139,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     save_editor_pos()
     vim.opt_local.winbar = nil
 
-    -- Use clean split, lock height immediately, then resize
     vim.cmd("botright split")
     vim.wo.winfixheight = true
     vim.cmd("resize " .. state.height)
@@ -147,7 +152,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     state.win = vim.api.nvim_get_current_win()
     state.job = vim.b.terminal_job_id
 
-    -- HIDE STATUSLINE IN TERMINAL BUFFER
     vim.wo.statusline = "%#Normal# "
     vim.b[state.buf].lualine_disable = true
 
@@ -163,13 +167,12 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   ---------------------------------------------------------------------------
   -- TERMINAL EXISTS → TOGGLE
   ---------------------------------------------------------------------------
-  local wins = vim.api.nvim_list_wins()
-  for _, win in ipairs(wins) do
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_get_buf(win) == state.buf then
       state.height = vim.api.nvim_win_get_height(win)
 
-      if #wins > 1 then
-        vim.api.nvim_win_hide(win)
+      if #get_normal_wins() > 1 then
+        pcall(vim.api.nvim_win_hide, win)
       else
         vim.cmd("enew")
       end
@@ -192,7 +195,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   vim.api.nvim_win_set_buf(0, state.buf)
   state.win = vim.api.nvim_get_current_win()
 
-  -- HIDE STATUSLINE IN TERMINAL BUFFER
   vim.wo.statusline = "%#Normal# "
 
   if cmd ~= "" then
