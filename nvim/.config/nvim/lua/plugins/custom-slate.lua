@@ -53,7 +53,26 @@ return {
       vim.o.termguicolors = true
       vim.g.colors_name = "custom-slate"
 
-      -- 2. HIGHLIGHT DEFINITIONS
+      -- 2. TERMINAL ANSI 16-COLOR PALETTE (Fixes :terminal and ls colors)
+      vim.g.terminal_color_0 = c.subtle -- Black
+      vim.g.terminal_color_1 = c.error -- Red
+      vim.g.terminal_color_2 = c.string -- Green
+      vim.g.terminal_color_3 = c.constant -- Yellow / Orange
+      vim.g.terminal_color_4 = c.type -- Blue (replaces harsh electric blue)
+      vim.g.terminal_color_5 = c.param -- Magenta (replaces harsh neon pink)
+      vim.g.terminal_color_6 = c.fn -- Cyan
+      vim.g.terminal_color_7 = c.fg -- White / Foreground
+
+      vim.g.terminal_color_8 = c.muted -- Bright Black (Slate comments)
+      vim.g.terminal_color_9 = c.error -- Bright Red
+      vim.g.terminal_color_10 = "#B6DCA0" -- Bright Green
+      vim.g.terminal_color_11 = "#F0C87A" -- Bright Yellow
+      vim.g.terminal_color_12 = "#92BEF5" -- Bright Blue
+      vim.g.terminal_color_13 = "#C8B0CE" -- Bright Magenta / Plum
+      vim.g.terminal_color_14 = "#A2E4EB" -- Bright Cyan
+      vim.g.terminal_color_15 = "#E8ECEF" -- Bright White
+
+      -- 3. HIGHLIGHT DEFINITIONS
       local highlights = {
         -- Core Editor
         Normal = { fg = c.fg, bg = c.bg },
@@ -204,7 +223,7 @@ return {
         ["@operator"] = { fg = c.fg },
         ["@variable"] = { fg = c.fg },
         ["@variable.builtin"] = { fg = c.type },
-        ["@variable.parameter"] = { fg = c.param },
+        ["@variable.parameter"] = { fg = c.fg },
         ["@variable.member"] = { fg = c.fg },
         ["@variable.field"] = { fg = c.fg },
         ["@property"] = { fg = c.fg },
@@ -233,7 +252,7 @@ return {
         OilFile = { link = "NormalText" },
       }
 
-      -- 3. APPLY
+      -- 4. APPLY
       for group, spec in pairs(highlights) do
         vim.api.nvim_set_hl(0, group, spec)
       end
