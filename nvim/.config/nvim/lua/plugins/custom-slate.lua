@@ -15,6 +15,7 @@ return {
 
       -- Typography
       local fg_main = "#D2D6DC"
+      -- local fg_main = "#AAB1BD"
       local fg_dim = "#9DA7B3"
       local fg_muted = "#5C6A7B" -- Keep for UI elements (StatusLineNC, Diff, PmenuExtra)
       local fg_faint = "#323D4D"
