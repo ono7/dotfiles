@@ -623,3 +623,18 @@ fi
 command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
 command -v direnv &>/dev/null && eval "$(direnv hook bash)"
 command -v starship &>/dev/null && eval "$(starship init bash)"
+
+# --- TOOL INTEGRATIONS & PROMPT ---
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --bash 2>/dev/null)" || [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+  # Remove Ctrl+T bindings across all keymaps (matches zsh: bindkey -r '^T')
+  bind -r '\C-t' 2>/dev/null
+  bind -m vi-insert -r '\C-t' 2>/dev/null
+  bind -m vi-command -r '\C-t' 2>/dev/null
+  bind -m emacs -r '\C-t' 2>/dev/null
+
+  # Bind Ctrl+Space (Ctrl+@) to FZF history if desired (matches zsh: bindkey "^@" fzf-history-widget)
+  bind -m vi-insert '"\C-@": "\C-r"' 2>/dev/null
+  bind -m emacs '"\C-@": "\C-r"' 2>/dev/null
+fi
