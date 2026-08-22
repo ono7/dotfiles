@@ -94,7 +94,8 @@ style = "Bold"
 
 [font.offset]
 x = 0
-y = 2
+# 11 = 1.5x line heigth
+y = 11
 
 [font.glyph_offset]
 x = 0
