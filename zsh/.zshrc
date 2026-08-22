@@ -638,6 +638,9 @@ fi
 
 # --- INTERACTIVE-ONLY EXTENSIONS & PROMPT ---
 if [[ -o interactive ]]; then
+  if [ ! -d ~/.zsh/zsh-autosuggestions ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+  fi
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
   [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
   command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
