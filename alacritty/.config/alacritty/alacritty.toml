@@ -118,7 +118,7 @@ x = 0
 y = 15
 
 [scrolling]
-history = 5000
+history = 15000
 multiplier = 3
 
 [selection]
