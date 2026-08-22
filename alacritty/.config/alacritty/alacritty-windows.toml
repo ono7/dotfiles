@@ -122,7 +122,7 @@ family = "Iosevka Custom"
 
 [font.offset]
 x = 0
-y = 0
+y = 11
 
 [font.glyph_offset]
 x = 0
