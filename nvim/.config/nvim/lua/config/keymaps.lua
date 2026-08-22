@@ -90,11 +90,15 @@ nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
 
 " we lose the ability to do C-r in insert...
 " but gain navigational speed
-inoremap <C-r> <C-o>?\v
-inoremap <C-s> <C-o>/\v
+inoremap <C-r> <C-o>?
+inoremap <C-s> <C-o>/
+nnoremap <C-r> ?
+nnoremap <C-s> /
 
-nnoremap <C-r> ?\v
-nnoremap <C-s> /\v
+" inoremap <C-r> <C-o>?\v
+" inoremap <C-s> <C-o>/\v
+" nnoremap <C-r> ?\v
+" nnoremap <C-s> /\v
 
 " --- Emacs Navigation Parity ---
 
