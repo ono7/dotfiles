@@ -623,9 +623,3 @@ fi
 command -v zoxide &>/dev/null && eval "$(zoxide init bash)"
 command -v direnv &>/dev/null && eval "$(direnv hook bash)"
 command -v starship &>/dev/null && eval "$(starship init bash)"
-
-# Toolchain version managers & environments
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
