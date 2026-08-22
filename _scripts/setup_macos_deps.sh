@@ -113,6 +113,9 @@ defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 defaults write -g KeyRepeat -int 1
 defaults write -g InitialKeyRepeat -int 10
 
+# disable press and hold
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 # disable press and hold characters
 defaults write -g ApplePressAndHoldEnabled -bool false
 
