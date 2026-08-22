@@ -199,8 +199,10 @@ local highlights = {
   -- ==========================================
   -- Base UI
   FzfLuaBackdrop = { bg = c.bg_inactive }, -- Overrides the harsh 'Black'
-  FzfLuaBorder = { fg = c.line_nr, bg = c.subtle },
-  FzfLuaTitle = { fg = c.keyword, bg = c.subtle, bold = true },
+  -- FzfLuaBorder = { fg = c.line_nr, bg = c.subtle },
+  FzfLuaBorder = { fg = c.line_nr },
+  FzfLuaTitle = { fg = c.keyword, bold = true },
+  FzfLuaTitleFlags = { fg = c.type, bold = true },
 
   -- Hardcoded X11 Color Replacements
   FzfLuaHeaderBind = { fg = c.fn }, -- Replaces 'MediumSpringGreen'

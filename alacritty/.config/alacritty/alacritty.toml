@@ -86,10 +86,11 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 16.0
+size = 22.0
 
 [font.normal]
 family = "IosevkaTerm Nerd Font"
+style = "Bold"
 
 [font.offset]
 x = 0
