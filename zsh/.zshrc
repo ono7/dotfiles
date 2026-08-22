@@ -73,10 +73,7 @@ zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 
 zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
+
 
 # --- ALIASES ---
 # Global directory traversal
@@ -614,12 +611,6 @@ mycolors() {
   done
 }
 
-# --- KEYBINDINGS & FZF CONFIGURATION ---
-bindkey -e
-bindkey ' ' magic-space
-bindkey "^O" accept-line-and-down-history
-bindkey '^K' kill-line
-bindkey '^R' history-incremental-search-backward
 
 # leave this here, its used for darker colorthemes
 # export FZF_DEFAULT_OPTS='
@@ -654,3 +645,20 @@ if [[ -o interactive ]]; then
   command -v starship &>/dev/null && eval "$(starship init zsh)"
   [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 fi
+
+# --- KEYBINDINGS & FZF CONFIGURATION ---
+bindkey -e
+bindkey ' ' magic-space
+bindkey "^O" accept-line-and-down-history
+bindkey '^K' kill-line
+bindkey '^R' history-incremental-search-backward
+bindkey "^@" fzf-history-widget
+bindkey "^T" fzf-file-widget
+
+# remove control+t (fzf)
+bindkey -r '^T'
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
