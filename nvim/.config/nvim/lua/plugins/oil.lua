@@ -62,5 +62,6 @@ return {
 
     local binding = "<M-\\>"
     vim.keymap.set("n", binding, "<CMD>Oil<CR>")
+    vim.keymap.set("n", "<c-\\>", "<CMD>Oil<CR>")
   end,
 }
