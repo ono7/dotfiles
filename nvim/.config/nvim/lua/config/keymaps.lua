@@ -171,11 +171,14 @@ inoremap <M-k> <C-g>u<C-o>d}
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
 " Logic: Exit insert -> Uppercase to end of word -> Append
-inoremap <M-u> <Esc>gUea
+"inoremap <M-u> <Esc>gUea
+" this will make the last Word typed upper case
+inoremap <M-u> <Esc>gUiwea
 
 " Lowercase Word (Emacs M-l)
 " Logic: Exit insert -> Lowercase to end of word -> Append
-inoremap <M-l> <Esc>guea
+"inoremap <M-l> <Esc>guea
+inoremap <M-l> <Esc>guiwea
 
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
