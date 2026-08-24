@@ -285,6 +285,7 @@ ginit() {
   git init "$@"
   [ ! -f .gitignore ] && cp ~/.dotfiles/git/.gitignore .gitignore
   [ ! -f .pre-commit-config.yaml ] && cp ~/.dotfiles/templates/.pre-commit-config.yaml .pre-commit-config.yaml
+  [ ! -f .envrc ] && cp ~/.dotfiles/templates/.envrc .envrc
   if command -v uvx >/dev/null 2>&1; then
     uvx pre-commit install -f
   elif command -v pre-commit >/dev/null 2>&1; then

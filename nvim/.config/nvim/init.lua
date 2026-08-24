@@ -80,6 +80,10 @@ use c-s and c-r more often to move around
 
 <leader>nq - sets noqa for the particular diagnostics error
 
+
+-- %< the current filename without the extension, % = the file name to compile
+Dispatch: :Dispatch g++ % -o %<
+
 ]]
 
 -- Enable byte-compile loader immediately for performance
