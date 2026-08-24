@@ -316,7 +316,7 @@ function! SmartClose() abort
     execute 'silent! bdelete ' . l:current_buf
   endif
 endfunction
-nnoremap <silent> <leader>d :call SmartClose()<CR>
+" nnoremap <silent> <leader>d :call SmartClose()<CR>
 
 function! WrapSelection(left, right)
     let save_reg = @"

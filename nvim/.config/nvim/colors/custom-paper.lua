@@ -228,6 +228,66 @@ local highlights = {
   fzf1 = { fg = c.error, bg = c.bg_subtle },
   fzf2 = { fg = c.string, bg = c.bg_subtle },
   fzf3 = { fg = c.type, bg = c.bg_subtle },
+
+  -- ==========================================
+  -- DIAGNOSTICS
+  -- ==========================================
+  -- Base diagnostic colors
+  DiagnosticError = { fg = c.error },
+  DiagnosticWarn = { fg = c.constant },
+  DiagnosticInfo = { fg = c.type },
+  DiagnosticHint = { fg = c.muted },
+  DiagnosticOk = { fg = c.string },
+
+  -- Underlines (undercurl is standard for LSP diagnostics)
+  DiagnosticUnderlineError = { sp = c.error, undercurl = true },
+  DiagnosticUnderlineWarn = { sp = c.constant, undercurl = true },
+  DiagnosticUnderlineInfo = { sp = c.type, undercurl = true },
+  DiagnosticUnderlineHint = { sp = c.muted, undercurl = true },
+  DiagnosticUnderlineOk = { sp = c.string, undercurl = true },
+
+  -- Virtual Text (adding a subtle background makes them readable without glare)
+  DiagnosticVirtualTextError = { fg = c.error, bg = c.subtle },
+  DiagnosticVirtualTextWarn = { fg = c.constant, bg = c.subtle },
+  DiagnosticVirtualTextInfo = { fg = c.type, bg = c.subtle },
+  DiagnosticVirtualTextHint = { fg = c.muted, bg = c.subtle },
+  DiagnosticVirtualTextOk = { fg = c.string, bg = c.subtle },
+
+  -- Gutter Signs
+  DiagnosticSignError = { fg = c.error, bg = "none" },
+  DiagnosticSignWarn = { fg = c.constant, bg = "none" },
+  DiagnosticSignInfo = { fg = c.type, bg = "none" },
+  DiagnosticSignHint = { fg = c.muted, bg = "none" },
+  DiagnosticSignOk = { fg = c.string, bg = "none" },
+
+  -- ==========================================
+  -- GITSIGNS
+  -- ==========================================
+  -- Sign column indicators (bg="none" ensures they blend into the gutter)
+  GitSignsAdd = { fg = c.string, bg = "none" },
+  GitSignsChange = { fg = c.type, bg = "none" },
+  GitSignsDelete = { fg = c.error, bg = "none" },
+
+  -- Staged sign column indicators
+  GitSignsStagedAdd = { fg = c.string },
+  GitSignsStagedChange = { fg = c.type },
+  GitSignsStagedDelete = { fg = c.error },
+  GitSignsStagedChangedelete = { fg = c.type },
+
+  -- Number column (if you enable 'numhl' in gitsigns config)
+  GitSignsAddNr = { fg = c.string, bg = "none" },
+  GitSignsChangeNr = { fg = c.type, bg = "none" },
+  GitSignsDeleteNr = { fg = c.error, bg = "none" },
+
+  -- Line highlights (if you enable 'linehl') - mapped to your diff backgrounds
+  GitSignsAddLn = { bg = c.diff_add_bg },
+  GitSignsChangeLn = { bg = c.diff_text_bg },
+  GitSignsDeleteLn = { bg = c.subtle },
+
+  -- Inline highlights (for word diffs if you enable 'word_diff')
+  GitSignsAddInline = { bg = c.diff_add_bg },
+  GitSignsChangeInline = { bg = c.diff_text_bg },
+  GitSignsDeleteInline = { fg = c.error, strikethrough = true },
 }
 
 for group, spec in pairs(highlights) do
