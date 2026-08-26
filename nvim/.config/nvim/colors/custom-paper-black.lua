@@ -50,7 +50,7 @@ local c = {
   constant = text_black,
 
   -- Exceptions
-  bracket = "#9C7A6D", -- Warm bracket tone
+  bracket = "#6E7B8B", -- Balanced slate-graphite structural framing
   special = "#B85C38", -- Rust color for \n, \t, and special chars
 
   -- UI, Diagnostics & Git
@@ -86,7 +86,7 @@ local highlights = {
   Normal                             = { fg = c.fg, bg = c.bg },
   NormalNC                           = { link = "Normal" },
   NormalText                         = { fg = c.fg },
-  MatchParen                         = { fg = c.bg, bg = c.bracket, bold = true },
+  MatchParen                         = { fg = text_black, bg = c.visual, bold = true, underline = true },
   ModeMsg                            = { fg = c.fg },
   MoreMsg                            = { fg = c.fg },
   Error                              = { fg = c.error },
@@ -183,7 +183,7 @@ local highlights = {
 
   -- Syntax & Treesitter Mappings
   ["@punctuation.bracket"]           = { fg = c.bracket },
-  ["@punctuation.delimiter"]         = { fg = c.fg },
+  ["@punctuation.delimiter"]         = { fg = c.bracket },
   ["@string"]                        = { fg = c.string },
   ["@string.escape"]                 = { fg = c.special, bold = true },
   ["@character.special"]             = { fg = c.special, bold = true },
