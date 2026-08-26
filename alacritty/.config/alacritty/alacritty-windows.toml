@@ -190,7 +190,7 @@ shell = "wsl.exe ~"
 [window]
 decorations = "full"
 decorations_theme_variant = "Light"
-dynamic_padding = true
+dynamic_padding = false
 dynamic_title = true
 opacity = 1.0
 startup_mode = "Maximized"
@@ -200,5 +200,5 @@ columns = 82
 lines = 28
 
 [window.padding]
-x = 5
-y = 5
+x = 0
+y = 0
