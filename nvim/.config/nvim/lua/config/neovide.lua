@@ -9,8 +9,8 @@ local is_wsl = os_name == "Linux" and (vim.uv.os_uname().release:lower():find("m
 
 -- 2. Smooth, Fluid Motion & Gliding Cursor
 vim.g.neovide_cursor_animation_length = 0.09 -- Soft, fluid cursor gliding
-vim.g.neovide_cursor_trail_size = 0.75 -- Organic trailing tail
-vim.g.neovide_cursor_smooth_blink = true -- Gentle pulse/fade when cursor blinks
+vim.g.neovide_cursor_trail_size = 0.75       -- Organic trailing tail
+vim.g.neovide_cursor_smooth_blink = true     -- Gentle pulse/fade when cursor blinks
 vim.g.neovide_cursor_blink = true
 vim.g.neovide_cursor_blink_interval = 600
 
