@@ -1,1 +1,6 @@
 extends yaml
+
+snippet assert "assertion block" w
+  - name: $1
+    ansible.builtin.assert:
+      that: $0
