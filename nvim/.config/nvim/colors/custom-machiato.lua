@@ -1,4 +1,4 @@
--- ~/.config/nvim/colors/custom-paper.lua
+-- ~/.config/nvim/colors/custom-macchiato.lua
 
 -- 1. Reset everything FIRST
 vim.cmd("hi clear")
@@ -6,27 +6,27 @@ if vim.fn.exists("syntax_on") then
   vim.cmd("syntax reset")
 end
 
--- 2. Force the environment variables to LIGHT mode
+-- 2. Force the environment variables to DARK mode
 vim.o.termguicolors = true
-vim.o.background = "light"
-vim.g.colors_name = "custom-paper"
+vim.o.background = "dark"
+vim.g.colors_name = "custom-macchiato"
 
--- Force Neovide's window background to match the warm oatmeal color
+-- Force Neovide's window background to match the Macchiato base color
 if vim.g.neovide then
-  vim.g.neovide_background_color = "#F2EFE9"
+  vim.g.neovide_background_color = "#24273A"
 end
 
--- 3. ANTI-GLARE LIGHT PALETTE
-local bg = "#F2EFE9"
-local bg_subtle = "#E6E2DA"
-local bg_visual = "#D5CFC4"
-local bg_highlight = "#EAE6DF"
-local bg_inactive = "#EBE7E0"
+-- 3. ASTIGMATISM-FRIENDLY DARK PALETTE (Catppuccin Macchiato)
+local bg = "#24273A" -- Base
+local bg_subtle = "#1E2030" -- Mantle (slightly darker for UI elements)
+local bg_inactive = "#181825" -- Crust (darkest for inactive statuslines)
+local bg_visual = "#363A4F" -- Surface0 (visual selection)
+local bg_highlight = "#494D64" -- Surface1 (cursorline / colorcolumn)
 
-local fg_main = "#38414D"
-local fg_dim = "#5C6A7B"
-local fg_muted = "#7B8A9C"
-local fg_faint = "#A9B3C1"
+local fg_main = "#CAD3F5" -- Text (soft off-white to prevent halation)
+local fg_dim = "#B8C0E0" -- Subtext1
+local fg_muted = "#A5ADCB" -- Subtext0
+local fg_faint = "#5B6078" -- Surface2 (very dim for non-text/borders)
 
 local c = {
   bg = bg,
@@ -36,39 +36,39 @@ local c = {
   faint = fg_faint,
   subtle = bg_subtle,
   visual = bg_visual,
-  line_nr = "#A9B3C1",
-  comment = "#7B8A9C",
-  keyword = "#B85C38",
-  string = "#4A7A59",
-  type = "#3B6EA8",
-  fn = "#2D7D8A",
-  param = "#5C6A7B",
-  constant = "#996E14",
-  error = "#C4434B",
-  cursor = "#D97736",
-  diff_add_bg = "#DCE8DE",
-  diff_text_bg = "#C6D8C9",
+  line_nr = "#6E738D", -- Overlay0 (visible but recedes)
+  comment = "#8087A2", -- Overlay1 (soft, readable comments)
+  keyword = "#C6A0F6", -- Mauve
+  string = "#A6DA95", -- Green
+  type = "#F5A97F", -- Peach
+  fn = "#8AADF4", -- Blue
+  param = "#F5BDE6", -- Pink
+  constant = "#EED49F", -- Yellow
+  error = "#ED8796", -- Red
+  cursor = "#F4DBD6", -- Rosewater
+  diff_add_bg = "#2F403B", -- Muted green overlay for git diffs
+  diff_text_bg = "#323F54", -- Muted blue overlay for git diff text
 }
 
--- Terminal ANSI
+-- Terminal ANSI (Mapped to Catppuccin Macchiato equivalents)
 vim.g.terminal_color_0 = c.subtle
 vim.g.terminal_color_1 = c.error
 vim.g.terminal_color_2 = c.string
 vim.g.terminal_color_3 = c.constant
-vim.g.terminal_color_4 = c.type
-vim.g.terminal_color_5 = c.param
-vim.g.terminal_color_6 = c.fn
+vim.g.terminal_color_4 = c.fn
+vim.g.terminal_color_5 = c.keyword
+vim.g.terminal_color_6 = "#8BD5CA" -- Teal
 vim.g.terminal_color_7 = c.fg
 vim.g.terminal_color_8 = c.comment
 vim.g.terminal_color_9 = c.error
-vim.g.terminal_color_10 = "#3A6146"
-vim.g.terminal_color_11 = "#7A570F"
-vim.g.terminal_color_12 = "#2C5482"
-vim.g.terminal_color_13 = "#734A7A"
-vim.g.terminal_color_14 = "#21606B"
-vim.g.terminal_color_15 = "#1A1F26"
+vim.g.terminal_color_10 = c.string
+vim.g.terminal_color_11 = c.constant
+vim.g.terminal_color_12 = c.fn
+vim.g.terminal_color_13 = c.keyword
+vim.g.terminal_color_14 = "#8BD5CA" -- Teal
+vim.g.terminal_color_15 = "#A5ADCB" -- Subtext0
 
--- 4. Highlights
+-- 4. Highlights (Logic remains exactly the same as your setup)
 local highlights = {
   Normal = { fg = c.fg, bg = c.bg },
   NormalNC = { link = "Normal" },
@@ -138,14 +138,14 @@ local highlights = {
   Statement = { fg = c.keyword },
   Keyword = { fg = c.keyword },
   Type = { fg = c.type },
-  Function = { fg = c.fg },
+  Function = { fg = c.fn },
   Identifier = { fg = c.fg },
   Operator = { fg = c.dim },
   Delimiter = { fg = c.dim },
   Question = { fg = c.string },
-  Todo = { fg = c.error, bold = true },
+  Todo = { fg = c.bg, bg = c.error, bold = true },
   SpecialKey = { fg = c.muted },
-  NonText = { fg = c.line_nr },
+  NonText = { fg = c.faint },
 
   StatusLine = { fg = c.fg, bg = c.subtle },
   StatusLineNC = { fg = c.muted, bg = bg_inactive },
@@ -154,7 +154,6 @@ local highlights = {
   TermCursorNC = { link = "Cursor" },
   Search = { fg = c.bg, bg = c.constant },
   IncSearch = { fg = c.bg, bg = c.keyword },
-  GitSignsStagedAdd = { fg = c.string },
 
   DiffAdd = { fg = c.fg, bg = c.diff_add_bg },
   DiffAdded = { fg = c.string, bg = "none" },
@@ -167,9 +166,6 @@ local highlights = {
   ["@diff.plus"] = { fg = c.string },
   ["@diff.minus"] = { fg = c.error },
   ["@diff.delta"] = {},
-  -- ["@punctuation.bracket"] = { fg = c.dim },
-  -- ["@punctuation.delimiter"] = { fg = c.dim },
-  -- ["@operator"] = { fg = c.dim },
   ["@punctuation.bracket"] = { fg = c.fg },
   ["@punctuation.delimiter"] = { fg = c.fg },
   ["@operator"] = { fg = c.fg },
@@ -187,9 +183,9 @@ local highlights = {
   ["@markup.heading"] = { fg = c.keyword, bold = true },
   ["@constructor"] = { fg = c.type },
   ["@constructor.python"] = { fg = c.type },
-  ["@text.todo"] = { fg = c.error, bold = true },
-  ["@text.danger"] = { fg = c.error, bold = true },
-  ["@text.note"] = { fg = c.fn },
+  ["@text.todo"] = { fg = c.bg, bg = c.error, bold = true },
+  ["@text.danger"] = { fg = c.bg, bg = c.error, bold = true },
+  ["@text.note"] = { fg = c.bg, bg = c.fn, bold = true },
   ["@spell.markdown"] = { link = "NormalText" },
   ["@markup.raw"] = { fg = c.string },
   ["@markup.raw.block.markdown"] = { fg = c.faint },
@@ -201,63 +197,45 @@ local highlights = {
   -- ==========================================
   -- FZF-LUA SPECIFIC OVERRIDES
   -- ==========================================
-  -- Base UI
-  FzfLuaBackdrop = { bg = c.bg_inactive }, -- Overrides the harsh 'Black'
-  -- FzfLuaBorder = { fg = c.line_nr, bg = c.subtle },
+  FzfLuaBackdrop = { bg = c.bg_inactive },
   FzfLuaBorder = { fg = c.line_nr },
   FzfLuaTitle = { fg = c.keyword, bold = true },
   FzfLuaTitleFlags = { fg = c.type, bold = true },
-
-  -- Hardcoded X11 Color Replacements
-  FzfLuaHeaderBind = { fg = c.fn }, -- Replaces 'MediumSpringGreen'
-  FzfLuaHeaderText = { fg = c.keyword }, -- Replaces 'Brown4'
-  FzfLuaPathColNr = { fg = c.constant }, -- Replaces 'CadetBlue4'
-  FzfLuaPathLineNr = { fg = c.string }, -- Replaces 'MediumSpringGreen'
-
-  FzfLuaLivePrompt = { fg = c.error, bold = true }, -- Replaces 'PaleVioletRed1'
+  FzfLuaHeaderBind = { fg = c.fn },
+  FzfLuaHeaderText = { fg = c.keyword },
+  FzfLuaPathColNr = { fg = c.constant },
+  FzfLuaPathLineNr = { fg = c.string },
+  FzfLuaLivePrompt = { fg = c.error, bold = true },
   FzfLuaLiveSym = { fg = c.error },
-
-  -- Buffer & Tab Colors
-  FzfLuaBufNr = { fg = c.type }, -- Replaces 'Aquamarine3'
-  FzfLuaBufFlagCur = { fg = c.keyword }, -- Replaces 'Brown4'
-  FzfLuaBufFlagAlt = { fg = c.type }, -- Replaces 'CadetBlue4'
+  FzfLuaBufNr = { fg = c.type },
+  FzfLuaBufFlagCur = { fg = c.keyword },
+  FzfLuaBufFlagAlt = { fg = c.type },
   FzfLuaTabTitle = { fg = c.type, bold = true },
   FzfLuaTabMarker = { fg = c.string, bold = true },
-
-  -- Fuzzy search character hits (Forced to Bold Crimson for instant visibility)
   FzfLuaFzfMatch = { fg = c.error, bold = true },
   DropBarFzfMatch = { fg = c.error, bold = true },
-
-  -- FZF terminal wrapper fallbacks
-  fzf1 = { fg = c.error, bg = c.bg_subtle },
-  fzf2 = { fg = c.string, bg = c.bg_subtle },
-  fzf3 = { fg = c.type, bg = c.bg_subtle },
+  fzf1 = { fg = c.error, bg = c.subtle },
+  fzf2 = { fg = c.string, bg = c.subtle },
+  fzf3 = { fg = c.type, bg = c.subtle },
 
   -- ==========================================
   -- DIAGNOSTICS
   -- ==========================================
-  -- Base diagnostic colors
   DiagnosticError = { fg = c.error },
   DiagnosticWarn = { fg = c.constant },
   DiagnosticInfo = { fg = c.type },
   DiagnosticHint = { fg = c.muted },
   DiagnosticOk = { fg = c.string },
-
-  -- Underlines (undercurl is standard for LSP diagnostics)
   DiagnosticUnderlineError = { sp = c.error, undercurl = true },
   DiagnosticUnderlineWarn = { sp = c.constant, undercurl = true },
   DiagnosticUnderlineInfo = { sp = c.type, undercurl = true },
   DiagnosticUnderlineHint = { sp = c.muted, undercurl = true },
   DiagnosticUnderlineOk = { sp = c.string, undercurl = true },
-
-  -- Virtual Text (adding a subtle background makes them readable without glare)
   DiagnosticVirtualTextError = { fg = c.error, bg = c.subtle },
   DiagnosticVirtualTextWarn = { fg = c.constant, bg = c.subtle },
   DiagnosticVirtualTextInfo = { fg = c.type, bg = c.subtle },
   DiagnosticVirtualTextHint = { fg = c.muted, bg = c.subtle },
   DiagnosticVirtualTextOk = { fg = c.string, bg = c.subtle },
-
-  -- Gutter Signs
   DiagnosticSignError = { fg = c.error, bg = "none" },
   DiagnosticSignWarn = { fg = c.constant, bg = "none" },
   DiagnosticSignInfo = { fg = c.type, bg = "none" },
@@ -267,28 +245,19 @@ local highlights = {
   -- ==========================================
   -- GITSIGNS
   -- ==========================================
-  -- Sign column indicators (bg="none" ensures they blend into the gutter)
   GitSignsAdd = { fg = c.string, bg = "none" },
   GitSignsChange = { fg = c.type, bg = "none" },
   GitSignsDelete = { fg = c.error, bg = "none" },
-
-  -- Staged sign column indicators
   GitSignsStagedAdd = { fg = c.string },
   GitSignsStagedChange = { fg = c.type },
   GitSignsStagedDelete = { fg = c.error },
   GitSignsStagedChangedelete = { fg = c.type },
-
-  -- Number column (if you enable 'numhl' in gitsigns config)
   GitSignsAddNr = { fg = c.string, bg = "none" },
   GitSignsChangeNr = { fg = c.type, bg = "none" },
   GitSignsDeleteNr = { fg = c.error, bg = "none" },
-
-  -- Line highlights (if you enable 'linehl') - mapped to your diff backgrounds
   GitSignsAddLn = { bg = c.diff_add_bg },
   GitSignsChangeLn = { bg = c.diff_text_bg },
   GitSignsDeleteLn = { bg = c.subtle },
-
-  -- Inline highlights (for word diffs if you enable 'word_diff')
   GitSignsAddInline = { bg = c.diff_add_bg },
   GitSignsChangeInline = { bg = c.diff_text_bg },
   GitSignsDeleteInline = { fg = c.error, strikethrough = true },
