@@ -104,7 +104,7 @@ y = 0
 [window]
 decorations = "Transparent"
 decorations_theme_variant = "Light"
-dynamic_padding = true
+dynamic_padding = false
 position = "None"
 startup_mode = "Windowed"
 option_as_alt = "both"
@@ -115,7 +115,7 @@ lines = 28
 
 [window.padding]
 x = 0
-y = 15
+y = 0
 
 [scrolling]
 history = 15000
