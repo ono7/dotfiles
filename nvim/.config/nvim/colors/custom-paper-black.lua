@@ -50,7 +50,8 @@ local c = {
   constant = text_black,
 
   -- Exceptions
-  bracket = "#6E7B8B", -- Balanced slate-graphite structural framing
+  -- bracket = "#6E7B8B", -- Balanced slate-graphite structural framing
+  bracket = "#5C6A7B",
   special = "#B85C38", -- Rust color for \n, \t, and special chars
 
   -- UI, Diagnostics & Git
@@ -238,56 +239,57 @@ local highlights = {
   fzf2                               = { fg = c.ok, bg = c.bg_subtle },
   fzf3                               = { fg = c.info, bg = c.bg_subtle },
 
+
   -- Diagnostics
-  DiagnosticError                    = { fg = c.error },
-  DiagnosticWarn                     = { fg = c.warn },
-  DiagnosticInfo                     = { fg = c.info },
-  DiagnosticHint                     = { fg = c.muted },
-  DiagnosticOk                       = { fg = c.ok },
+  DiagnosticError            = { fg = c.error },
+  DiagnosticWarn             = { fg = c.warn },
+  DiagnosticInfo             = { fg = c.info },
+  DiagnosticHint             = { fg = c.muted },
+  DiagnosticOk               = { fg = c.ok },
 
-  DiagnosticUnderlineError           = { sp = c.error, undercurl = true },
-  DiagnosticUnderlineWarn            = { sp = c.warn, undercurl = true },
-  DiagnosticUnderlineInfo            = { sp = c.info, undercurl = true },
-  DiagnosticUnderlineHint            = { sp = c.muted, undercurl = true },
-  DiagnosticUnderlineOk              = { sp = c.ok, undercurl = true },
+  DiagnosticUnderlineError   = { sp = c.error, undercurl = true },
+  DiagnosticUnderlineWarn    = { sp = c.warn, undercurl = true },
+  DiagnosticUnderlineInfo    = { sp = c.info, undercurl = true },
+  DiagnosticUnderlineHint    = { sp = c.muted, undercurl = true },
+  DiagnosticUnderlineOk      = { sp = c.ok, undercurl = true },
 
-  DiagnosticVirtualTextError         = { fg = c.error, bg = c.subtle },
-  DiagnosticVirtualTextWarn          = { fg = c.warn, bg = c.subtle },
-  DiagnosticVirtualTextInfo          = { fg = c.info, bg = c.subtle },
-  DiagnosticVirtualTextHint          = { fg = c.muted, bg = c.subtle },
-  DiagnosticVirtualTextOk            = { fg = c.ok, bg = c.subtle },
+  DiagnosticVirtualTextError = { fg = c.error, bg = c.subtle },
+  DiagnosticVirtualTextWarn  = { fg = c.warn, bg = c.subtle },
+  DiagnosticVirtualTextInfo  = { fg = c.info, bg = c.subtle },
+  DiagnosticVirtualTextHint  = { fg = c.muted, bg = c.subtle },
+  DiagnosticVirtualTextOk    = { fg = c.ok, bg = c.subtle },
 
-  DiagnosticSignError                = { fg = c.error, bg = "none" },
-  DiagnosticSignWarn                 = { fg = c.warn, bg = "none" },
-  DiagnosticSignInfo                 = { fg = c.info, bg = "none" },
-  DiagnosticSignHint                 = { fg = c.muted, bg = "none" },
-  DiagnosticSignOk                   = { fg = c.ok, bg = "none" },
+  DiagnosticSignError        = { fg = c.error, bg = "none" },
+  DiagnosticSignWarn         = { fg = c.warn, bg = "none" },
+  DiagnosticSignInfo         = { fg = c.info, bg = "none" },
+  DiagnosticSignHint         = { fg = c.muted, bg = "none" },
+  DiagnosticSignOk           = { fg = c.ok, bg = "none" },
 
   -- GitSigns
-  GitSignsAdd                        = { fg = c.ok, bg = "none" },
-  GitSignsChange                     = { fg = c.info, bg = "none" },
-  GitSignsDelete                     = { fg = c.error, bg = "none" },
-  GitSignsStagedAdd                  = { fg = c.ok },
-  GitSignsStagedChange               = { fg = c.info },
-  GitSignsStagedDelete               = { fg = c.error },
-  GitSignsStagedChangedelete         = { fg = c.info },
-  GitSignsAddNr                      = { fg = c.ok, bg = "none" },
-  GitSignsChangeNr                   = { fg = c.info, bg = "none" },
-  GitSignsDeleteNr                   = { fg = c.error, bg = "none" },
-  GitSignsAddLn                      = { bg = c.diff_add_bg },
-  GitSignsChangeLn                   = { bg = c.diff_text_bg },
-  GitSignsDeleteLn                   = { bg = c.subtle },
-  GitSignsAddInline                  = { bg = c.diff_add_bg },
-  GitSignsChangeInline               = { bg = c.diff_text_bg },
-  GitSignsDeleteInline               = { fg = c.error, strikethrough = true },
+  GitSignsAdd                = { fg = c.ok, bg = "none" },
+  GitSignsChange             = { fg = c.info, bg = "none" },
+  GitSignsDelete             = { fg = c.error, bg = "none" },
+  GitSignsStagedAdd          = { fg = c.ok },
+  GitSignsStagedChange       = { fg = c.info },
+  GitSignsStagedDelete       = { fg = c.error },
+  GitSignsStagedChangedelete = { fg = c.info },
+  GitSignsAddNr              = { fg = c.ok, bg = "none" },
+  GitSignsChangeNr           = { fg = c.info, bg = "none" },
+  GitSignsDeleteNr           = { fg = c.error, bg = "none" },
+  GitSignsAddLn              = { bg = c.diff_add_bg },
+  GitSignsChangeLn           = { bg = c.diff_text_bg },
+  GitSignsDeleteLn           = { bg = c.subtle },
+  GitSignsAddInline          = { bg = c.diff_add_bg },
+  GitSignsChangeInline       = { bg = c.diff_text_bg },
+  GitSignsDeleteInline       = { fg = c.error, strikethrough = true },
 
   -- LSP Document Highlight (cursor symbol tracking)
-  LspReferenceText                   = { bg = bg_visual },
-  LspReferenceRead                   = { bg = bg_visual },
-  LspReferenceWrite                  = { bg = bg_visual, underline = true },
-  IlluminatedWordText                = { link = "LspReferenceText" },
-  IlluminatedWordRead                = { link = "LspReferenceRead" },
-  IlluminatedWordWrite               = { link = "LspReferenceWrite" },
+  LspReferenceText           = { bg = bg_visual },
+  LspReferenceRead           = { bg = bg_visual },
+  LspReferenceWrite          = { bg = bg_visual, underline = true },
+  IlluminatedWordText        = { link = "LspReferenceText" },
+  IlluminatedWordRead        = { link = "LspReferenceRead" },
+  IlluminatedWordWrite       = { link = "LspReferenceWrite" },
 }
 
 for group, spec in pairs(highlights) do
