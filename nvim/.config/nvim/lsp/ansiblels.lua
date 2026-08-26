@@ -75,6 +75,9 @@ return {
   on_attach = function(client, bufnr)
     local root_dir = client.config.root_dir
     local python_path = get_python_path(root_dir)
+    -- disable formatting, let conform handle this, conform will honor rules
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
 
     if python_path then
       local bin_dir = vim.fn.fnamemodify(python_path, ":h")
@@ -94,6 +97,7 @@ return {
       if vim.fn.executable(ansible_lint_path) == 1 then
         client.config.settings.ansible.validation.lint.path = ansible_lint_path
       end
+
 
       client:notify("workspace/didChangeConfiguration", {
         settings = client.config.settings,
@@ -120,6 +124,7 @@ return {
         lint = {
           enabled = true,
           path = "ansible-lint",
+          arguments = "-x yaml[line-length]",
         },
       },
     },

@@ -9,7 +9,7 @@ ignore:
 
 rules:
   line-length:
-    max: 120
+    max: 9999
     level: warning
 
   empty-lines:

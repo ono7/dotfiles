@@ -9,7 +9,7 @@ return {
       notify_on_error = true,
       notify_no_formatters = true,
       formatters_by_ft = {
-        lua = { "stylua" },
+        lua = { "stylua --column-width 9999" },
         -- python = { "isort", "black" },
         python = function(bufnr)
           if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -19,7 +19,8 @@ return {
           end
         end,
         yaml = { "prettier" },
-        ["yaml.ansible"] = { "ansible-lint" },
+        -- ["yaml.ansible"] = { "ansible-lint" },
+        -- ["yaml.ansible"] = { "stylua --column-width 9999" },
         javascript = { "prettier" },
         typescript = { "prettier" },
         css = { "prettier" },

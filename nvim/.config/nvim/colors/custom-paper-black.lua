@@ -16,50 +16,64 @@ if vim.g.neovide then
   vim.g.neovide_background_color = "#F2EFE9"
 end
 
--- 3. ANTI-GLARE LIGHT PALETTE
+-- 3. ANTI-GLARE LIGHT PALETTE (Monochrome Text Edition)
 local bg = "#F2EFE9"
 local bg_subtle = "#E6E2DA"
 local bg_visual = "#D5CFC4"
 local bg_highlight = "#EAE6DF"
 local bg_inactive = "#EBE7E0"
 
-local fg_main = "#38414D"
+-- Base text is forced to pitch black
+local text_black = "#000000"
+
 local fg_dim = "#5C6A7B"
 local fg_muted = "#7B8A9C"
 local fg_faint = "#A9B3C1"
 
 local c = {
   bg = bg,
-  fg = fg_main,
+  fg = text_black,
   dim = fg_dim,
   muted = fg_muted,
   faint = fg_faint,
   subtle = bg_subtle,
   visual = bg_visual,
   line_nr = "#A9B3C1",
+
+  -- Forced black for all standard code text
   comment = "#7B8A9C",
-  keyword = "#B85C38",
-  string = "#4A7A59",
-  type = "#3B6EA8",
-  fn = "#2D7D8A",
-  param = "#5C6A7B",
-  constant = "#996E14",
+  keyword = text_black,
+  string = text_black,
+  type = text_black,
+  fn = text_black,
+  param = text_black,
+  constant = text_black,
+
+  -- Exceptions
+  -- bracket = "#5C6A7B", -- Original dim color for brackets () [] {}
+  bracket = "#9C7A6D",
+  special = "#B85C38", -- Rust color for \n, \t, and special chars
+
+  -- UI, Diagnostics & Git (Maintained for usability)
   error = "#C4434B",
+  warn = "#996E14",
+  info = "#3B6EA8",
+  ok = "#4A7A59",
   cursor = "#D97736",
   diff_add_bg = "#DCE8DE",
   diff_text_bg = "#C6D8C9",
 }
 
--- Terminal ANSI
+-- Terminal ANSI (Hardcoded to original palette so CLI apps don't turn completely black)
 vim.g.terminal_color_0 = c.subtle
 vim.g.terminal_color_1 = c.error
-vim.g.terminal_color_2 = c.string
-vim.g.terminal_color_3 = c.constant
-vim.g.terminal_color_4 = c.type
-vim.g.terminal_color_5 = c.param
-vim.g.terminal_color_6 = c.fn
-vim.g.terminal_color_7 = c.fg
-vim.g.terminal_color_8 = c.comment
+vim.g.terminal_color_2 = "#4A7A59" -- string
+vim.g.terminal_color_3 = "#996E14" -- constant
+vim.g.terminal_color_4 = "#3B6EA8" -- type
+vim.g.terminal_color_5 = "#5C6A7B" -- param
+vim.g.terminal_color_6 = "#2D7D8A" -- fn
+vim.g.terminal_color_7 = "#38414D" -- original fg
+vim.g.terminal_color_8 = "#7B8A9C" -- comment
 vim.g.terminal_color_9 = c.error
 vim.g.terminal_color_10 = "#3A6146"
 vim.g.terminal_color_11 = "#7A570F"
@@ -73,7 +87,7 @@ local highlights = {
   Normal = { fg = c.fg, bg = c.bg },
   NormalNC = { link = "Normal" },
   NormalText = { fg = c.fg },
-  MatchParen = { fg = c.bg, bg = c.fg, bold = true },
+  MatchParen = { fg = c.bg, bg = c.bracket, bold = true },
   ModeMsg = { fg = c.fg },
   MoreMsg = { fg = c.fg },
   Error = { fg = c.error },
@@ -85,7 +99,7 @@ local highlights = {
   ["@comment"] = { fg = c.comment, italic = true },
 
   LineNr = { fg = c.line_nr, bg = c.bg },
-  CursorLineNr = { fg = c.constant, bg = "none", bold = true },
+  CursorLineNr = { fg = c.warn, bg = "none", bold = true },
   CursorLine = { bg = bg_highlight },
   CursorColumn = { bg = bg_highlight },
   ColorColumn = { bg = bg_highlight },
@@ -96,7 +110,7 @@ local highlights = {
 
   NormalFloat = { fg = c.fg, bg = c.subtle },
   FloatBorder = { fg = c.line_nr, bg = c.subtle },
-  FloatTitle = { fg = c.keyword, bg = c.subtle, bold = true },
+  FloatTitle = { fg = c.fg, bg = c.subtle, bold = true },
   FloatFooter = { fg = c.muted, bg = c.subtle },
   WinSeparator = { fg = c.line_nr, bg = "none" },
   VertSplit = { link = "WinSeparator" },
@@ -105,46 +119,47 @@ local highlights = {
   FidgetBorder = { fg = c.bg, bg = c.bg },
 
   Pmenu = { fg = c.fg, bg = c.subtle },
-  PmenuSel = { fg = c.bg, bg = c.type, bold = true },
-  PmenuKind = { fg = c.type, bg = c.subtle },
-  PmenuKindSel = { fg = c.bg, bg = c.type, bold = true },
+  PmenuSel = { fg = c.bg, bg = c.info, bold = true },
+  PmenuKind = { fg = c.info, bg = c.subtle },
+  PmenuKindSel = { fg = c.bg, bg = c.info, bold = true },
   PmenuExtra = { fg = c.muted, bg = c.subtle },
-  PmenuExtraSel = { fg = c.bg, bg = c.type },
+  PmenuExtraSel = { fg = c.bg, bg = c.info },
   PmenuSbar = { bg = c.subtle },
   PmenuThumb = { bg = c.line_nr },
-  WildMenu = { fg = c.bg, bg = c.type },
+  WildMenu = { fg = c.bg, bg = c.info },
 
   CmpItemAbbr = { fg = c.fg },
   CmpItemAbbrDeprecated = { fg = c.muted, strikethrough = true },
-  CmpItemAbbrMatch = { fg = c.fn, bold = true },
-  CmpItemAbbrMatchFuzzy = { fg = c.fn, bold = true },
+  CmpItemAbbrMatch = { fg = c.fg, bold = true },
+  CmpItemAbbrMatchFuzzy = { fg = c.fg, bold = true },
   CmpItemMenu = { fg = c.muted, italic = true },
-  CmpItemKindFunction = { fg = c.fn },
-  CmpItemKindMethod = { fg = c.fn },
-  CmpItemKindVariable = { fg = c.param },
+  CmpItemKindFunction = { fg = c.fg },
+  CmpItemKindMethod = { fg = c.fg },
+  CmpItemKindVariable = { fg = c.fg },
   CmpItemKindField = { fg = c.fg },
   CmpItemKindProperty = { fg = c.fg },
-  CmpItemKindClass = { fg = c.type },
-  CmpItemKindInterface = { fg = c.type },
-  CmpItemKindStruct = { fg = c.type },
-  CmpItemKindKeyword = { fg = c.keyword },
-  CmpItemKindSnippet = { fg = c.constant },
-  CmpItemKindText = { fg = c.dim },
+  CmpItemKindClass = { fg = c.fg },
+  CmpItemKindInterface = { fg = c.fg },
+  CmpItemKindStruct = { fg = c.fg },
+  CmpItemKindKeyword = { fg = c.fg },
+  CmpItemKindSnippet = { fg = c.fg },
+  CmpItemKindText = { fg = c.fg },
   CmpItemKindFile = { fg = c.fg },
-  CmpItemKindFolder = { fg = c.type },
+  CmpItemKindFolder = { fg = c.fg },
 
   String = { fg = c.string },
-  Special = { fg = c.constant },
+  Special = { fg = c.special },
+  SpecialKey = { fg = c.special },
+  SpecialChar = { fg = c.special },
   Statement = { fg = c.keyword },
   Keyword = { fg = c.keyword },
   Type = { fg = c.type },
   Function = { fg = c.fg },
   Identifier = { fg = c.fg },
-  Operator = { fg = c.dim },
-  Delimiter = { fg = c.dim },
-  Question = { fg = c.string },
+  Operator = { fg = c.fg },
+  Delimiter = { fg = c.bracket },
+  Question = { fg = c.fg },
   Todo = { fg = c.error, bold = true },
-  SpecialKey = { fg = c.muted },
   NonText = { fg = c.line_nr },
 
   StatusLine = { fg = c.fg, bg = c.subtle },
@@ -152,144 +167,131 @@ local highlights = {
   Cursor = { bg = c.cursor, fg = c.bg },
   TermCursor = { link = "Cursor" },
   TermCursorNC = { link = "Cursor" },
-  Search = { fg = c.bg, bg = c.constant },
-  IncSearch = { fg = c.bg, bg = c.keyword },
-  GitSignsStagedAdd = { fg = c.string },
+  Search = { fg = c.bg, bg = c.warn },
+  IncSearch = { fg = c.bg, bg = text_black },
 
   DiffAdd = { fg = c.fg, bg = c.diff_add_bg },
-  DiffAdded = { fg = c.string, bg = "none" },
+  DiffAdded = { fg = c.ok, bg = "none" },
   DiffChange = {},
   DiffText = { fg = c.fg, bg = c.diff_text_bg },
   DiffTextAdd = { link = "DiffText" },
   DiffDelete = { fg = c.faint, bg = "none" },
   DiffRemoved = { fg = c.faint, bg = "none" },
 
-  ["@diff.plus"] = { fg = c.string },
+  ["@diff.plus"] = { fg = c.ok },
   ["@diff.minus"] = { fg = c.error },
   ["@diff.delta"] = {},
-  -- ["@punctuation.bracket"] = { fg = c.dim },
-  -- ["@punctuation.delimiter"] = { fg = c.dim },
-  -- ["@operator"] = { fg = c.dim },
-  ["@punctuation.bracket"] = { fg = c.fg },
+
+  -- Exceptions handled here
+  ["@punctuation.bracket"] = { fg = c.bracket },
   ["@punctuation.delimiter"] = { fg = c.fg },
+  ["@string.escape"] = { fg = c.special, bold = true }, -- specifically targets \n, \t in strings
+  ["@character.special"] = { fg = c.special, bold = true },
+
   ["@operator"] = { fg = c.fg },
   ["@variable"] = { fg = c.fg },
-  ["@variable.builtin"] = { fg = c.type },
-  ["@variable.parameter"] = { fg = c.param },
+  ["@variable.builtin"] = { fg = c.fg },
+  ["@variable.parameter"] = { fg = c.fg },
   ["@variable.member"] = { fg = c.fg },
   ["@variable.field"] = { fg = c.fg },
   ["@property"] = { fg = c.fg },
-  ["@property.yaml"] = { fg = c.type },
-  ["@function.builtin"] = { fg = c.fn },
-  ["@constant"] = { fg = c.constant },
-  ["@constant.builtin"] = { fg = c.constant, bold = true },
-  ["@module"] = { fg = c.type },
-  ["@markup.heading"] = { fg = c.keyword, bold = true },
-  ["@constructor"] = { fg = c.type },
-  ["@constructor.python"] = { fg = c.type },
-  ["@lsp.type.method.yaml.ansible"] = { fg = c.type },
+  ["@property.yaml"] = { fg = c.fg },
+  ["@function.builtin"] = { fg = c.fg },
+  ["@constant"] = { fg = c.fg },
+  ["@constant.builtin"] = { fg = c.fg, bold = true },
+  ["@module"] = { fg = c.fg },
+  ["@markup.heading"] = { fg = c.fg, bold = true },
+  ["@constructor"] = { fg = c.fg },
+  ["@constructor.python"] = { fg = c.fg },
+  ["@lsp.type.method.yaml.ansible"] = { fg = c.fg },
   ["@text.todo"] = { fg = c.error, bold = true },
   ["@text.danger"] = { fg = c.error, bold = true },
-  ["@text.note"] = { fg = c.fn },
+  ["@text.note"] = { fg = c.fg },
   ["@spell.markdown"] = { link = "NormalText" },
-  ["@markup.raw"] = { fg = c.string },
+  ["@markup.raw"] = { fg = c.fg },
   ["@markup.raw.block.markdown"] = { fg = c.faint },
   ["@markup.raw.delimiter.markdown"] = { fg = c.faint },
-  ["@lsp.typedecl"] = { fg = c.type },
-  TreesitterContextBottom = { fg = c.param, italic = false },
+  ["@lsp.typedecl"] = { fg = c.fg },
+  TreesitterContextBottom = { fg = c.fg, italic = false },
   OilFile = { link = "NormalText" },
 
   -- ==========================================
   -- FZF-LUA SPECIFIC OVERRIDES
+  -- (Mapped to UI colors so the picker remains legible)
   -- ==========================================
-  -- Base UI
-  FzfLuaBackdrop = { bg = c.bg_inactive }, -- Overrides the harsh 'Black'
-  -- FzfLuaBorder = { fg = c.line_nr, bg = c.subtle },
+  FzfLuaBackdrop = { bg = c.bg_inactive },
   FzfLuaBorder = { fg = c.line_nr },
-  FzfLuaTitle = { fg = c.keyword, bold = true },
-  FzfLuaTitleFlags = { fg = c.type, bold = true },
+  FzfLuaTitle = { fg = c.fg, bold = true },
+  FzfLuaTitleFlags = { fg = c.info, bold = true },
 
-  -- Hardcoded X11 Color Replacements
-  FzfLuaHeaderBind = { fg = c.fn }, -- Replaces 'MediumSpringGreen'
-  FzfLuaHeaderText = { fg = c.keyword }, -- Replaces 'Brown4'
-  FzfLuaPathColNr = { fg = c.constant }, -- Replaces 'CadetBlue4'
-  FzfLuaPathLineNr = { fg = c.string }, -- Replaces 'MediumSpringGreen'
+  FzfLuaHeaderBind = { fg = c.info },
+  FzfLuaHeaderText = { fg = c.warn },
+  FzfLuaPathColNr = { fg = c.warn },
+  FzfLuaPathLineNr = { fg = c.ok },
 
-  FzfLuaLivePrompt = { fg = c.error, bold = true }, -- Replaces 'PaleVioletRed1'
+  FzfLuaLivePrompt = { fg = c.error, bold = true },
   FzfLuaLiveSym = { fg = c.error },
 
-  -- Buffer & Tab Colors
-  FzfLuaBufNr = { fg = c.type }, -- Replaces 'Aquamarine3'
-  FzfLuaBufFlagCur = { fg = c.keyword }, -- Replaces 'Brown4'
-  FzfLuaBufFlagAlt = { fg = c.type }, -- Replaces 'CadetBlue4'
-  FzfLuaTabTitle = { fg = c.type, bold = true },
-  FzfLuaTabMarker = { fg = c.string, bold = true },
+  FzfLuaBufNr = { fg = c.info },
+  FzfLuaBufFlagCur = { fg = c.warn },
+  FzfLuaBufFlagAlt = { fg = c.info },
+  FzfLuaTabTitle = { fg = c.info, bold = true },
+  FzfLuaTabMarker = { fg = c.ok, bold = true },
 
-  -- Fuzzy search character hits (Forced to Bold Crimson for instant visibility)
   FzfLuaFzfMatch = { fg = c.error, bold = true },
   DropBarFzfMatch = { fg = c.error, bold = true },
 
-  -- FZF terminal wrapper fallbacks
   fzf1 = { fg = c.error, bg = c.bg_subtle },
-  fzf2 = { fg = c.string, bg = c.bg_subtle },
-  fzf3 = { fg = c.type, bg = c.bg_subtle },
+  fzf2 = { fg = c.ok, bg = c.bg_subtle },
+  fzf3 = { fg = c.info, bg = c.bg_subtle },
 
   -- ==========================================
   -- DIAGNOSTICS
   -- ==========================================
-  -- Base diagnostic colors
   DiagnosticError = { fg = c.error },
-  DiagnosticWarn = { fg = c.constant },
-  DiagnosticInfo = { fg = c.type },
+  DiagnosticWarn = { fg = c.warn },
+  DiagnosticInfo = { fg = c.info },
   DiagnosticHint = { fg = c.muted },
-  DiagnosticOk = { fg = c.string },
+  DiagnosticOk = { fg = c.ok },
 
-  -- Underlines (undercurl is standard for LSP diagnostics)
   DiagnosticUnderlineError = { sp = c.error, undercurl = true },
-  DiagnosticUnderlineWarn = { sp = c.constant, undercurl = true },
-  DiagnosticUnderlineInfo = { sp = c.type, undercurl = true },
+  DiagnosticUnderlineWarn = { sp = c.warn, undercurl = true },
+  DiagnosticUnderlineInfo = { sp = c.info, undercurl = true },
   DiagnosticUnderlineHint = { sp = c.muted, undercurl = true },
-  DiagnosticUnderlineOk = { sp = c.string, undercurl = true },
+  DiagnosticUnderlineOk = { sp = c.ok, undercurl = true },
 
-  -- Virtual Text (adding a subtle background makes them readable without glare)
   DiagnosticVirtualTextError = { fg = c.error, bg = c.subtle },
-  DiagnosticVirtualTextWarn = { fg = c.constant, bg = c.subtle },
-  DiagnosticVirtualTextInfo = { fg = c.type, bg = c.subtle },
+  DiagnosticVirtualTextWarn = { fg = c.warn, bg = c.subtle },
+  DiagnosticVirtualTextInfo = { fg = c.info, bg = c.subtle },
   DiagnosticVirtualTextHint = { fg = c.muted, bg = c.subtle },
-  DiagnosticVirtualTextOk = { fg = c.string, bg = c.subtle },
+  DiagnosticVirtualTextOk = { fg = c.ok, bg = c.subtle },
 
-  -- Gutter Signs
   DiagnosticSignError = { fg = c.error, bg = "none" },
-  DiagnosticSignWarn = { fg = c.constant, bg = "none" },
-  DiagnosticSignInfo = { fg = c.type, bg = "none" },
+  DiagnosticSignWarn = { fg = c.warn, bg = "none" },
+  DiagnosticSignInfo = { fg = c.info, bg = "none" },
   DiagnosticSignHint = { fg = c.muted, bg = "none" },
-  DiagnosticSignOk = { fg = c.string, bg = "none" },
+  DiagnosticSignOk = { fg = c.ok, bg = "none" },
 
   -- ==========================================
   -- GITSIGNS
   -- ==========================================
-  -- Sign column indicators (bg="none" ensures they blend into the gutter)
-  GitSignsAdd = { fg = c.string, bg = "none" },
-  GitSignsChange = { fg = c.type, bg = "none" },
+  GitSignsAdd = { fg = c.ok, bg = "none" },
+  GitSignsChange = { fg = c.info, bg = "none" },
   GitSignsDelete = { fg = c.error, bg = "none" },
 
-  -- Staged sign column indicators
-  GitSignsStagedAdd = { fg = c.string },
-  GitSignsStagedChange = { fg = c.type },
+  GitSignsStagedAdd = { fg = c.ok },
+  GitSignsStagedChange = { fg = c.info },
   GitSignsStagedDelete = { fg = c.error },
-  GitSignsStagedChangedelete = { fg = c.type },
+  GitSignsStagedChangedelete = { fg = c.info },
 
-  -- Number column (if you enable 'numhl' in gitsigns config)
-  GitSignsAddNr = { fg = c.string, bg = "none" },
-  GitSignsChangeNr = { fg = c.type, bg = "none" },
+  GitSignsAddNr = { fg = c.ok, bg = "none" },
+  GitSignsChangeNr = { fg = c.info, bg = "none" },
   GitSignsDeleteNr = { fg = c.error, bg = "none" },
 
-  -- Line highlights (if you enable 'linehl') - mapped to your diff backgrounds
   GitSignsAddLn = { bg = c.diff_add_bg },
   GitSignsChangeLn = { bg = c.diff_text_bg },
   GitSignsDeleteLn = { bg = c.subtle },
 
-  -- Inline highlights (for word diffs if you enable 'word_diff')
   GitSignsAddInline = { bg = c.diff_add_bg },
   GitSignsChangeInline = { bg = c.diff_text_bg },
   GitSignsDeleteInline = { fg = c.error, strikethrough = true },

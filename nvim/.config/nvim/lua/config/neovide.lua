@@ -48,7 +48,7 @@ elseif is_mac then
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
   -- vim.o.guifont = "Iosevka Custom:h26:#e-subpixelantialias:#h-full,IosevkaTerm Nerd Font:h26"
-  vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h25:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h26:#e-subpixelantialias:#h-full"
   vim.g.neovide_padding_top = 0
   vim.g.neovide_padding_bottom = 0
   vim.g.neovide_padding_right = 0
@@ -85,22 +85,29 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_left = 10
 vim.g.neovide_padding_right = 10
 
--- Baseline Scale Factor (1.0 leaves macOS native at crisp :h28)
+-- Baseline Scale Factor
 vim.g.neovide_scale_factor = 1.0
 
--- Dynamic Scale Keymaps (Cmd += / Cmd +- on Mac, Ctrl += / Ctrl +- on Linux/Windows)
+-- Dynamic Scale Keymaps
 local function change_scale_factor(delta)
   local s = vim.g.neovide_scale_factor * delta
-  vim.g.neovide_scale_factor = math.max(0.7, math.min(1.5, s))
+  vim.g.neovide_scale_factor = math.max(0.7, math.min(1.2, s))
 end
 
--- local cmd_or_ctrl = is_mac and "<D-" or "<C-"
 local cmd_or_ctrl = "<C-"
+
+-- Changed from 1.1 to 1.05 for a ~5% step
 vim.keymap.set("n", cmd_or_ctrl .. "=>", function()
-  change_scale_factor(1.1)
+  change_scale_factor(1.02)
 end)
+
 vim.keymap.set("n", cmd_or_ctrl .. "->", function()
-  change_scale_factor(1 / 1.1)
+  change_scale_factor(1 / 1.05)
+end)
+
+-- Optional: Add a shortcut to quickly reset back to default (1.0)
+vim.keymap.set("n", cmd_or_ctrl .. "0>", function()
+  vim.g.neovide_scale_factor = 1.0
 end)
 
 -- 6. Highlighting
