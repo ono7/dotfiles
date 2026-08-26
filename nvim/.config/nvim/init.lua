@@ -182,7 +182,7 @@ vim.opt.mouse = "a"
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
   local events =
-    { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })
@@ -231,6 +231,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.diagnostic.config({ update_in_insert = false })
 
-vim.cmd([[colorscheme custom-paper]])
+vim.cmd([[colorscheme custom-paper-black]])
 
 vim.opt.guicursor = ""
