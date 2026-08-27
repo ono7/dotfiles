@@ -31,37 +31,41 @@ local fg_muted          = "#7B8A9C"
 local fg_faint          = "#A9B3C1"
 
 local c                 = {
-  bg = bg,
-  fg = text_black,
-  dim = fg_dim,
-  muted = fg_muted,
-  faint = fg_faint,
-  subtle = bg_subtle,
-  visual = bg_visual,
-  line_nr = "#A9B3C1",
+  bg          = bg,
+  fg          = text_black,
+  dim         = fg_dim,
+  muted       = fg_muted,
+  faint       = fg_faint,
+  subtle      = bg_subtle,
+  visual      = bg_visual,
+  highlight   = bg_highlight,
+  inactive    = bg_inactive,
+  line_nr     = "#A9B3C1",
 
   -- Text Elements
-  comment = "#8C96A4", -- Light graphite pencil (distinct from strings)
-  string = "#4A6B53",  -- Deep, desaturated olive ink (clear data separation)
-  keyword = text_black,
-  type = text_black,
-  fn = text_black,
-  param = text_black,
-  constant = text_black,
+  comment     = "#8C96A4", -- Light graphite pencil
+  string      = "#4A6B53", -- Deep, desaturated olive ink
+  keyword     = text_black,
+  type        = text_black,
+  fn          = text_black,
+  param       = text_black,
+  constant    = text_black,
 
-  -- Exceptions
-  -- bracket = "#6E7B8B", -- Balanced slate-graphite structural framing
-  bracket = "#5C6A7B",
-  special = "#B85C38", -- Rust color for \n, \t, and special chars
+  -- Structural & Special
+  bracket     = "#5C6A7B",
+  special     = "#B85C38", -- Rust color for \n, \t, and special chars
 
   -- UI, Diagnostics & Git
-  error = "#C4434B",
-  warn = "#996E14",
-  info = "#3B6EA8",
-  ok = "#4A7A59",
-  cursor = "#D97736",
+  error       = "#C4434B",
+  warn        = "#996E14",
+  info        = "#3B6EA8",
+  ok          = "#4A7A59",
+  cursor      = "#D97736",
   diff_add_bg = "#DCE8DE",
-  diff_text_bg = "#C6D8C9",
+  diff_add_fg = "#2B4B34",
+  diff_del_bg = "#F7DCDA",
+  diff_del_fg = "#961C24",
+  diff_txt_bg = "#BED8C2",
 }
 
 -- Terminal ANSI (Hardcoded high-contrast values for light background)
@@ -74,15 +78,15 @@ vim.g.terminal_color_5  = "#5A315C" -- Magenta (Normal)
 vim.g.terminal_color_6  = "#1A5C66" -- Cyan (Normal)
 vim.g.terminal_color_7  = "#38414D" -- White / Gray (Normal)
 
--- Bright ANSI variants (Darkened significantly so CLI muted/retry text is readable)
-vim.g.terminal_color_8  = "#424B57" -- Bright Black (Ansible RETRY / dim CLI output)
+-- Bright ANSI variants
+vim.g.terminal_color_8  = "#424B57" -- Bright Black
 vim.g.terminal_color_9  = "#A8222A" -- Bright Red
 vim.g.terminal_color_10 = "#2B4B34" -- Bright Green
 vim.g.terminal_color_11 = "#664308" -- Bright Yellow
 vim.g.terminal_color_12 = "#1D3B5E" -- Bright Blue
 vim.g.terminal_color_13 = "#472649" -- Bright Magenta
 vim.g.terminal_color_14 = "#144850" -- Bright Cyan
-vim.g.terminal_color_15 = "#111417" -- Bright White (Near pitch black)
+vim.g.terminal_color_15 = "#111417" -- Bright White
 
 -- 4. Highlights
 local highlights        = {
@@ -90,9 +94,9 @@ local highlights        = {
   NormalNC                                          = { link = "Normal" },
   NormalText                                        = { fg = c.fg },
   MatchParen                                        = { fg = text_black, bg = c.visual, bold = true, underline = true },
-  ModeMsg                                           = { fg = c.fg },
-  MoreMsg                                           = { fg = c.fg },
-  Error                                             = { fg = c.error },
+  ModeMsg                                           = { fg = c.fg, bold = true },
+  MoreMsg                                           = { fg = c.fg, bold = true },
+  Error                                             = { fg = c.error, bold = true },
   Visual                                            = { bg = c.visual },
   MsgSeparator                                      = {},
 
@@ -102,9 +106,9 @@ local highlights        = {
 
   LineNr                                            = { fg = c.line_nr, bg = c.bg },
   CursorLineNr                                      = { fg = c.warn, bg = "none", bold = true },
-  CursorLine                                        = { bg = bg_highlight },
-  CursorColumn                                      = { bg = bg_highlight },
-  ColorColumn                                       = { bg = bg_highlight },
+  CursorLine                                        = { bg = c.highlight },
+  CursorColumn                                      = { bg = c.highlight },
+  ColorColumn                                       = { bg = c.highlight },
   SignColumn                                        = { bg = "none" },
   Folded                                            = { fg = c.muted, bg = c.subtle },
   FoldColumn                                        = { bg = "none" },
@@ -165,24 +169,25 @@ local highlights        = {
   NonText                                           = { fg = c.line_nr },
 
   StatusLine                                        = { fg = c.fg, bg = c.subtle },
-  StatusLineNC                                      = { fg = c.muted, bg = bg_inactive },
+  StatusLineNC                                      = { fg = c.muted, bg = c.inactive },
   Cursor                                            = { bg = c.cursor, fg = c.bg },
   TermCursor                                        = { link = "Cursor" },
   TermCursorNC                                      = { link = "Cursor" },
   Search                                            = { fg = c.bg, bg = c.warn },
-  IncSearch                                         = { fg = c.bg, bg = text_black },
+  CurSearch                                         = { fg = c.bg, bg = text_black, bold = true },
+  IncSearch                                         = { link = "CurSearch" },
 
-  DiffAdd                                           = { fg = c.fg, bg = c.diff_add_bg },
+  DiffAdd                                           = { fg = c.diff_add_fg, bg = c.diff_add_bg },
   DiffAdded                                         = { fg = c.ok, bg = "none" },
-  DiffChange                                        = {},
-  DiffText                                          = { fg = c.fg, bg = c.diff_text_bg },
+  DiffChange                                        = { bg = c.diff_add_bg },
+  DiffText                                          = { fg = c.fg, bg = c.diff_txt_bg, bold = true },
   DiffTextAdd                                       = { link = "DiffText" },
-  DiffDelete                                        = { fg = c.faint, bg = "none" },
-  DiffRemoved                                       = { fg = c.faint, bg = "none" },
+  DiffDelete                                        = { fg = c.diff_del_fg, bg = c.diff_del_bg },
+  DiffRemoved                                       = { fg = c.error, bg = "none" },
 
   ["@diff.plus"]                                    = { fg = c.ok },
   ["@diff.minus"]                                   = { fg = c.error },
-  ["@diff.delta"]                                   = {},
+  ["@diff.delta"]                                   = { fg = c.warn },
 
   -- Syntax & Treesitter Mappings
   ["@punctuation.bracket"]                          = { fg = c.bracket },
@@ -208,7 +213,6 @@ local highlights        = {
   ["@constructor.python"]                           = { fg = c.fg },
   ["@lsp.type.method.yaml.ansible"]                 = { fg = c.fg },
   ["@lsp.typemod.property.definition.yaml.ansible"] = { fg = c.error },
-  ["@lsp"]                                          = { fg = c.error },
   ["@text.todo"]                                    = { fg = c.error, bold = true },
   ["@text.danger"]                                  = { fg = c.error, bold = true },
   ["@text.note"]                                    = { fg = c.fg },
@@ -217,11 +221,14 @@ local highlights        = {
   ["@markup.raw.block.markdown"]                    = { fg = c.faint },
   ["@markup.raw.delimiter.markdown"]                = { fg = c.faint },
   ["@lsp.typedecl"]                                 = { fg = c.fg },
-  TreesitterContextBottom                           = { fg = c.fg, italic = false },
+
+  -- Treesitter Context
+  TreesitterContext                                 = { bg = c.subtle },
+  TreesitterContextBottom                           = { sp = c.line_nr, underline = true },
   OilFile                                           = { link = "NormalText" },
 
   -- FZF-Lua Overrides
-  FzfLuaBackdrop                                    = { bg = c.bg_inactive },
+  FzfLuaBackdrop                                    = { bg = c.inactive },
   FzfLuaBorder                                      = { fg = c.line_nr },
   FzfLuaTitle                                       = { fg = c.fg, bold = true },
   FzfLuaTitleFlags                                  = { fg = c.info, bold = true },
@@ -239,61 +246,60 @@ local highlights        = {
   FzfLuaFzfMatch                                    = { fg = c.error, bold = true },
   DropBarFzfMatch                                   = { fg = c.error, bold = true },
 
-  fzf1                                              = { fg = c.error, bg = c.bg_subtle },
-  fzf2                                              = { fg = c.ok, bg = c.bg_subtle },
-  fzf3                                              = { fg = c.info, bg = c.bg_subtle },
-
+  fzf1                                              = { fg = c.error, bg = c.subtle },
+  fzf2                                              = { fg = c.ok, bg = c.subtle },
+  fzf3                                              = { fg = c.info, bg = c.subtle },
 
   -- Diagnostics
-  DiagnosticError            = { fg = c.error },
-  DiagnosticWarn             = { fg = c.warn },
-  DiagnosticInfo             = { fg = c.info },
-  DiagnosticHint             = { fg = c.muted },
-  DiagnosticOk               = { fg = c.ok },
+  DiagnosticError                                   = { fg = c.error },
+  DiagnosticWarn                                    = { fg = c.warn },
+  DiagnosticInfo                                    = { fg = c.info },
+  DiagnosticHint                                    = { fg = c.muted },
+  DiagnosticOk                                      = { fg = c.ok },
 
-  DiagnosticUnderlineError   = { sp = c.error, undercurl = true },
-  DiagnosticUnderlineWarn    = { sp = c.warn, undercurl = true },
-  DiagnosticUnderlineInfo    = { sp = c.info, undercurl = true },
-  DiagnosticUnderlineHint    = { sp = c.muted, undercurl = true },
-  DiagnosticUnderlineOk      = { sp = c.ok, undercurl = true },
+  DiagnosticUnderlineError                          = { sp = c.error, undercurl = true },
+  DiagnosticUnderlineWarn                           = { sp = c.warn, undercurl = true },
+  DiagnosticUnderlineInfo                           = { sp = c.info, undercurl = true },
+  DiagnosticUnderlineHint                           = { sp = c.muted, undercurl = true },
+  DiagnosticUnderlineOk                             = { sp = c.ok, undercurl = true },
 
-  DiagnosticVirtualTextError = { fg = c.error, bg = c.subtle },
-  DiagnosticVirtualTextWarn  = { fg = c.warn, bg = c.subtle },
-  DiagnosticVirtualTextInfo  = { fg = c.info, bg = c.subtle },
-  DiagnosticVirtualTextHint  = { fg = c.muted, bg = c.subtle },
-  DiagnosticVirtualTextOk    = { fg = c.ok, bg = c.subtle },
+  DiagnosticVirtualTextError                        = { fg = c.error, bg = c.subtle },
+  DiagnosticVirtualTextWarn                         = { fg = c.warn, bg = c.subtle },
+  DiagnosticVirtualTextInfo                         = { fg = c.info, bg = c.subtle },
+  DiagnosticVirtualTextHint                         = { fg = c.muted, bg = c.subtle },
+  DiagnosticVirtualTextOk                           = { fg = c.ok, bg = c.subtle },
 
-  DiagnosticSignError        = { fg = c.error, bg = "none" },
-  DiagnosticSignWarn         = { fg = c.warn, bg = "none" },
-  DiagnosticSignInfo         = { fg = c.info, bg = "none" },
-  DiagnosticSignHint         = { fg = c.muted, bg = "none" },
-  DiagnosticSignOk           = { fg = c.ok, bg = "none" },
+  DiagnosticSignError                               = { fg = c.error, bg = "none" },
+  DiagnosticSignWarn                                = { fg = c.warn, bg = "none" },
+  DiagnosticSignInfo                                = { fg = c.info, bg = "none" },
+  DiagnosticSignHint                                = { fg = c.muted, bg = "none" },
+  DiagnosticSignOk                                  = { fg = c.ok, bg = "none" },
 
   -- GitSigns
-  GitSignsAdd                = { fg = c.ok, bg = "none" },
-  GitSignsChange             = { fg = c.info, bg = "none" },
-  GitSignsDelete             = { fg = c.error, bg = "none" },
-  GitSignsStagedAdd          = { fg = c.ok },
-  GitSignsStagedChange       = { fg = c.info },
-  GitSignsStagedDelete       = { fg = c.error },
-  GitSignsStagedChangedelete = { fg = c.info },
-  GitSignsAddNr              = { fg = c.ok, bg = "none" },
-  GitSignsChangeNr           = { fg = c.info, bg = "none" },
-  GitSignsDeleteNr           = { fg = c.error, bg = "none" },
-  GitSignsAddLn              = { bg = c.diff_add_bg },
-  GitSignsChangeLn           = { bg = c.diff_text_bg },
-  GitSignsDeleteLn           = { bg = c.subtle },
-  GitSignsAddInline          = { bg = c.diff_add_bg },
-  GitSignsChangeInline       = { bg = c.diff_text_bg },
-  GitSignsDeleteInline       = { fg = c.error, strikethrough = true },
+  GitSignsAdd                                       = { fg = c.ok, bg = "none" },
+  GitSignsChange                                    = { fg = c.info, bg = "none" },
+  GitSignsDelete                                    = { fg = c.error, bg = "none" },
+  GitSignsStagedAdd                                 = { fg = c.ok },
+  GitSignsStagedChange                              = { fg = c.info },
+  GitSignsStagedDelete                              = { fg = c.error },
+  GitSignsStagedChangedelete                        = { fg = c.info },
+  GitSignsAddNr                                     = { fg = c.ok, bg = "none" },
+  GitSignsChangeNr                                  = { fg = c.info, bg = "none" },
+  GitSignsDeleteNr                                  = { fg = c.error, bg = "none" },
+  GitSignsAddLn                                     = { bg = c.diff_add_bg },
+  GitSignsChangeLn                                  = { bg = c.diff_txt_bg },
+  GitSignsDeleteLn                                  = { bg = c.subtle },
+  GitSignsAddInline                                 = { bg = c.diff_add_bg },
+  GitSignsChangeInline                              = { bg = c.diff_txt_bg },
+  GitSignsDeleteInline                              = { fg = c.error, strikethrough = true },
 
-  -- LSP Document Highlight (cursor symbol tracking)
-  LspReferenceText           = { bg = bg_visual },
-  LspReferenceRead           = { bg = bg_visual },
-  LspReferenceWrite          = { bg = bg_visual, underline = true },
-  IlluminatedWordText        = { link = "LspReferenceText" },
-  IlluminatedWordRead        = { link = "LspReferenceRead" },
-  IlluminatedWordWrite       = { link = "LspReferenceWrite" },
+  -- LSP Document Highlight
+  LspReferenceText                                  = { bg = c.visual },
+  LspReferenceRead                                  = { bg = c.visual },
+  LspReferenceWrite                                 = { bg = c.visual, underline = true },
+  IlluminatedWordText                               = { link = "LspReferenceText" },
+  IlluminatedWordRead                               = { link = "LspReferenceRead" },
+  IlluminatedWordWrite                              = { link = "LspReferenceWrite" },
 }
 
 for group, spec in pairs(highlights) do
