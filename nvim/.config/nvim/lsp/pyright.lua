@@ -74,7 +74,7 @@ return {
         settings = client.config.settings,
       })
       -- vim.notify("VENV" .. trim_path(python_path))
-      vim.notify("project venv active")
+      vim.notify("env: ✓")
     end
 
     -- 2. UX Optimization: Enable Inlay Hints (Neovim 0.10+)
