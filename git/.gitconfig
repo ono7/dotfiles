@@ -72,6 +72,7 @@
     context = 4
     renames = copies
     interHunkContext = 10
+    mnemonicPrefix = true
 
 [color]
     ui = auto
