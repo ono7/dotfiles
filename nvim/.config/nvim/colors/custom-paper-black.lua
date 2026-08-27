@@ -17,20 +17,20 @@ if vim.g.neovide then
 end
 
 -- 3. ANTI-GLARE LIGHT PALETTE (Monochrome Text Edition)
-local bg = "#F2EFE9"
-local bg_subtle = "#E6E2DA"
-local bg_visual = "#D5CFC4"
-local bg_highlight = "#EAE6DF"
-local bg_inactive = "#EBE7E0"
+local bg                = "#F2EFE9"
+local bg_subtle         = "#E6E2DA"
+local bg_visual         = "#D5CFC4"
+local bg_highlight      = "#EAE6DF"
+local bg_inactive       = "#EBE7E0"
 
 -- Base text is forced to pitch black
-local text_black = "#000000"
+local text_black        = "#000000"
 
-local fg_dim = "#5C6A7B"
-local fg_muted = "#7B8A9C"
-local fg_faint = "#A9B3C1"
+local fg_dim            = "#5C6A7B"
+local fg_muted          = "#7B8A9C"
+local fg_faint          = "#A9B3C1"
 
-local c = {
+local c                 = {
   bg = bg,
   fg = text_black,
   dim = fg_dim,
@@ -64,26 +64,28 @@ local c = {
   diff_text_bg = "#C6D8C9",
 }
 
--- Terminal ANSI (Hardcoded to original palette so CLI apps don't turn completely black)
-vim.g.terminal_color_0 = c.subtle
-vim.g.terminal_color_1 = c.error
-vim.g.terminal_color_2 = "#4A7A59" -- string
-vim.g.terminal_color_3 = "#996E14" -- constant
-vim.g.terminal_color_4 = "#3B6EA8" -- type
-vim.g.terminal_color_5 = "#5C6A7B" -- param
-vim.g.terminal_color_6 = "#2D7D8A" -- fn
-vim.g.terminal_color_7 = "#38414D" -- original fg
-vim.g.terminal_color_8 = "#7B8A9C" -- comment
-vim.g.terminal_color_9 = c.error
-vim.g.terminal_color_10 = "#3A6146"
-vim.g.terminal_color_11 = "#7A570F"
-vim.g.terminal_color_12 = "#2C5482"
-vim.g.terminal_color_13 = "#734A7A"
-vim.g.terminal_color_14 = "#21606B"
-vim.g.terminal_color_15 = "#1A1F26"
+-- Terminal ANSI (Hardcoded high-contrast values for light background)
+vim.g.terminal_color_0  = "#D5CFC4" -- Black (Normal / Subtle BG)
+vim.g.terminal_color_1  = "#961C24" -- Red (Normal)
+vim.g.terminal_color_2  = "#355B3F" -- Green (Normal)
+vim.g.terminal_color_3  = "#80550B" -- Yellow / Orange (Normal)
+vim.g.terminal_color_4  = "#274F7D" -- Blue (Normal)
+vim.g.terminal_color_5  = "#5A315C" -- Magenta (Normal)
+vim.g.terminal_color_6  = "#1A5C66" -- Cyan (Normal)
+vim.g.terminal_color_7  = "#38414D" -- White / Gray (Normal)
+
+-- Bright ANSI variants (Darkened significantly so CLI muted/retry text is readable)
+vim.g.terminal_color_8  = "#424B57" -- Bright Black (Ansible RETRY / dim CLI output)
+vim.g.terminal_color_9  = "#A8222A" -- Bright Red
+vim.g.terminal_color_10 = "#2B4B34" -- Bright Green
+vim.g.terminal_color_11 = "#664308" -- Bright Yellow
+vim.g.terminal_color_12 = "#1D3B5E" -- Bright Blue
+vim.g.terminal_color_13 = "#472649" -- Bright Magenta
+vim.g.terminal_color_14 = "#144850" -- Bright Cyan
+vim.g.terminal_color_15 = "#111417" -- Bright White (Near pitch black)
 
 -- 4. Highlights
-local highlights = {
+local highlights        = {
   Normal                                            = { fg = c.fg, bg = c.bg },
   NormalNC                                          = { link = "Normal" },
   NormalText                                        = { fg = c.fg },

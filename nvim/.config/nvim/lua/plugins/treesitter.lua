@@ -18,7 +18,7 @@ return {
 
     -- 2. Define minimum required parsers
     local ensure_installed =
-      { "c", "cpp", "lua", "qmljs", "vim", "vimdoc", "query", "gitcommit", "python", "yaml", "json" }
+    { "c", "cpp", "lua", "qmljs", "vim", "vimdoc", "query", "gitcommit", "python", "yaml", "json" }
 
     -- 3. Install missing parsers (install() acts as a safe no-op if already installed)
     require("nvim-treesitter").install(ensure_installed)
@@ -47,6 +47,7 @@ return {
           oil_preview = true,
           netrw = true,
           qf = true,
+          harpoon = true,
           snippets = true,
           TelescopePrompt = true,
           mason = true,

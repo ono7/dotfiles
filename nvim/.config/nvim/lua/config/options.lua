@@ -89,6 +89,7 @@ function _G.winbar_path()
   local filepath = vim.fn.expand("%:.")
   return (filepath ~= "") and vim.fn.pathshorten(filepath, 4) or ""
 end
+
 -- vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
 
 -- 9. Splitting & Scrolling
@@ -104,7 +105,7 @@ vim.opt.smoothscroll = false -- Perf optimization for long lines
 vim.opt.swapfile = false
 vim.opt.directory = "~/.tmp"
 vim.opt.synmaxcol = 200
-vim.opt.lazyredraw = false -- Neovim 0.11+ preferred false
+vim.opt.lazyredraw = false  -- Neovim 0.11+ preferred false
 vim.opt.scrollback = 100000 -- Keeping the high limit for logs
 vim.opt.maxmempattern = 2000
 
@@ -192,27 +193,44 @@ command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
 _G.statusline_git_branch = function()
-  if vim.fn.exists("*FugitiveHead") == 0 then
-    return ""
+  local ok, branch = pcall(vim.fn.FugitiveHead)
+  if ok and branch and branch ~= "" then
+    return "  " .. branch .. " "
   end
-  local branch = vim.fn.FugitiveHead()
-  return branch ~= "" and ("  " .. branch .. " ") or ""
+  return ""
+end
+
+_G.statusline_lsp_progress = function()
+  local is_curwin = vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1)
+  if package.loaded["vim.ui"] and is_curwin and vim.ui.progress_status then
+    return vim.ui.progress_status() or ""
+  end
+  return ""
+end
+
+_G.statusline_diagnostics = function()
+  if package.loaded["vim.diagnostic"] and next(vim.diagnostic.count()) then
+    return vim.diagnostic.status() .. " "
+  end
+  return ""
 end
 
 local parts = {
   "%<%f %h%w%m%r ", -- Truncation point, file path, and flags
   "%{% v:lua.require('vim._core.util').term_exitcode() %}", -- Terminal exit code
-  "%=", -- Alignment separator 1
-  "%{%v:lua.statusline_git_branch()%}", -- Fugitive Branch
-  "%=", -- Alignment separator 2
-  "%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}", -- UI progress
+  "%=", -- Alignment separator 1 (Center)
+  "%{%v:lua.statusline_git_branch()%}", -- Fugitive Git Branch
+  "%=", -- Alignment separator 2 (Right)
+  "%{%v:lua.statusline_lsp_progress()%}", -- UI / LSP progress
   "%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}", -- Command tracking
   "%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}", -- Keymap name
   "%{% &busy > 0 ? '◐ ' : '' %}", -- Busy indicator
-  "%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}", -- Diagnostics
-  "%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}", -- Ruler (Line, Column, Percentage)
+  "%{%v:lua.statusline_diagnostics()%}", -- Diagnostics
+  "%-18.(%l/%L,%c%V%) %P ", -- Line / Total lines, Col, %
 }
 
+vim.o.statusline = table.concat(parts, "")
+
 vim.opt.ruler = true
-vim.opt.statusline = table.concat(parts)
+-- vim.opt.statusline = table.concat(parts)
 vim.opt.nrformats:append("alpha")
