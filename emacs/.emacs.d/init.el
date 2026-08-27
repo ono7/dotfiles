@@ -44,9 +44,9 @@
 (save-place-mode 1)
 
 (add-hook 'after-init-hook
-	  (lambda ()
-	    (blink-cursor-mode 1)
-	    (setq blink-cursor-blinks 0)))
+    (lambda ()
+      (blink-cursor-mode 1)
+      (setq blink-cursor-blinks 0)))
 
 (show-paren-mode 1)
 
@@ -244,7 +244,7 @@
 (use-package pcre2el
   :ensure t
   :config
-  ;; This makes isearch-forward (C-s) and isearch-backward (C-r) 
+  ;; This makes isearch-forward (C-s) and isearch-backward (C-r)
   ;; use PCRE syntax automatically when regex-mode is toggled.
   (pcre-mode 1))
 

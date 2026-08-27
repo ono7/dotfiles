@@ -26,7 +26,7 @@
 
 [pull]
   # ff = only         # never auto-merge on pull
-	rebase = true
+  rebase = true
   autostash = true  # stash before rebase automatically
 
 [rebase]
@@ -50,7 +50,7 @@
     sort = -committerdate
 
 [merge]
-	tool = nvim
+  tool = nvim
     prompt = false
     conflictstyle = zdiff3   # best conflict view
 
@@ -59,10 +59,10 @@
 
 [mergetool]
     keepBackup = false
-	prompt = false
+  prompt = false
 
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
     default = current
     followTags = true
 
@@ -105,54 +105,57 @@
     navigate = true
     side-by-side = true
     line-numbers = true
-    dark = true
+    light = true
+    syntax-theme = none
 
-    blame-palette = "#191828 #1e1d2d #2d2c3c #363545 #3e3d4d"
+    # Blame palette stepped from paper BG (#F2EFE9) down to visual depth (#D5CFC4)
+    blame-palette = "#F2EFE9 #EAE6DF #E2DDD4 #D8D2C7 #CDC6B9"
 
-    commit-decoration-style = none
+    # Header styling (dark ink text on paper)
     file-decoration-style = none
-    file-style = "#E3DED7" bold
+    file-style = bold "#000000"
     hunk-header-decoration-style = none
-    hunk-header-file-style = "#E3DED7" bold
-    hunk-header-line-number-style = "#A6B0C3" bold
+    hunk-header-file-style = bold "#000000"
+    hunk-header-line-number-style = bold "#5C6A7B"
     hunk-header-style = file line-number syntax
 
-    line-numbers-left-style = "#3A4057"
-    line-numbers-right-style = "#3A4057"
-    line-numbers-zero-style = "#3A4057"
+    # Line numbers (matching c.line_nr and diagnostics)
+    line-numbers-left-style = "#A9B3C1"
+    line-numbers-right-style = "#A9B3C1"
+    line-numbers-zero-style = "#A9B3C1"
+    line-numbers-minus-style = bold "#961C24"
+    line-numbers-plus-style = bold "#355B3F"
 
-    line-numbers-minus-style = "#C49A9A" bold
-    line-numbers-plus-style = "#8CBBAD" bold
+    # Diff backgrounds (soft tinted paper matching diff_add_bg and diff_text_bg)
+    minus-style = syntax "#F7DCDA"
+    minus-emph-style = syntax "#EBB1B3"
+    minus-empty-line-marker-style = normal "#F7DCDA"
 
-    minus-style = "#C49A9A"
-    plus-style = "#8CBBAD"
+    plus-style = syntax "#DCE8DE"
+    plus-emph-style = syntax "#BED8C2"
+    plus-empty-line-marker-style = normal "#DCE8DE"
 
-    minus-emph-style = "#1e1d2d" "#D4B97E"
-    plus-emph-style = "#1e1d2d" "#D4B97E"
-
-    minus-empty-line-marker-style = "#C49A9A"
-    plus-empty-line-marker-style = "#8CBBAD"
-
+    zero-style = syntax
+    whitespace-error-style = "#C4434B" reverse
     word-diff-regex = "[^[:space:]]+"
-
-    whitespace-error-style = "#D4B97E" reverse
 
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"
 
+    # Delta map-styles using custom-paper ink colors
     map-styles = \
-        bold purple => "#B097B6", \
-        bold blue => "#8CA7BE", \
-        bold cyan => "#93B5B3", \
-        bold yellow => "#D4B97E", \
-        bold green => "#8CBBAD", \
-        bold red => "#C49A9A"
+        bold purple => "#5A315C", \
+        bold blue => "#274F7D", \
+        bold cyan => "#1A5C66", \
+        bold yellow => "#80550B", \
+        bold green => "#355B3F", \
+        bold red => "#961C24"
 
 [rerere]
-	enabled = false
+  enabled = false
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [mergetool "neovide"]
-	cmd = neovide --no-fork -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+  cmd = neovide --no-fork -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 [mergetool "nvim"]
-	cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+  cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"

@@ -35,6 +35,8 @@ return {
 
     vim.keymap.set({ "n", "i" }, "<M-1>", function() harpoon:list():select(1) end, opts)
     vim.keymap.set({ "n", "i" }, "<M-2>", function() harpoon:list():select(2) end, opts)
+    vim.keymap.set({ "n", "i" }, "<M-j>", function() harpoon:list():select(1) end, opts)
+    vim.keymap.set({ "n", "i" }, "<M-k>", function() harpoon:list():select(2) end, opts)
     vim.keymap.set({ "n", "i" }, "<M-3>", function() harpoon:list():select(3) end, opts)
     vim.keymap.set({ "n", "i" }, "<M-4>", function() harpoon:list():select(4) end, opts)
 

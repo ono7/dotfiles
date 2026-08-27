@@ -192,6 +192,18 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
+_G.statusline_filename = function()
+  local file = vim.fn.expand("%:t")
+  if file == "" then
+    return "[No Name]"
+  end
+  local parent = vim.fn.expand("%:p:h:t")
+  if parent == "" or parent == "/" then
+    return file
+  end
+  return parent .. "/" .. file
+end
+
 _G.statusline_git_branch = function()
   local ok, branch = pcall(vim.fn.FugitiveHead)
   if ok and branch and branch ~= "" then
@@ -216,7 +228,7 @@ _G.statusline_diagnostics = function()
 end
 
 local parts = {
-  "%<%f %h%w%m%r ", -- Truncation point, file path, and flags
+  "%<%{%v:lua.statusline_filename()%} %h%w%m%r ", -- Truncation, dirname/filename.txt, and flags
   "%{% v:lua.require('vim._core.util').term_exitcode() %}", -- Terminal exit code
   "%=", -- Alignment separator 1 (Center)
   "%{%v:lua.statusline_git_branch()%}", -- Fugitive Git Branch
