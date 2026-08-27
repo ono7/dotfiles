@@ -33,6 +33,7 @@
     "^h" = "deleteBackward:";
     "~d" = "deleteWordForward:";
     "~^h" = "deleteWordBackward:"; // or just use option+bs
+    "^"\U007F"" = "deleteWordBackward:";
     "^k" = "deleteToEndOfLine:";
     "~k" = "deleteToEndOfParagraph:";
 
