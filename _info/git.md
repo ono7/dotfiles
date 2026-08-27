@@ -3,6 +3,9 @@
 ```sh
 
 # start in main branch, change main if thats not the target branch
+# git branch -m main ; renames branch
+# git add -A ; stage all files
+# git push -f origin main ; this now pushes the recently renamed branch (main) to origin main
 
 git checkout --orphan temp_branch
 git add -A
