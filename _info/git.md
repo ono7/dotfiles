@@ -1,3 +1,18 @@
+## reset branch and clean all commits
+
+```sh
+
+# start in main branch, change main if thats not the target branch
+
+git checkout --orphan temp_branch
+git add -A
+git commit -m "init"
+git branch -D main
+git branch -m main
+git push -f origin main
+
+```
+
 ## check for merge conflicts without making changes
 
 checks this two branches and reports any conflicts, this is done in memory
