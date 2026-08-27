@@ -155,7 +155,5 @@
   enabled = false
 [init]
   defaultBranch = main
-[mergetool "neovide"]
-  cmd = neovide --no-fork -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 [mergetool "nvim"]
-  cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE"
