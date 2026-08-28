@@ -55,7 +55,7 @@ vim.opt.joinspaces = false
 -- 8. UI Customization (Tabline, Winbar, Statusline)
 vim.opt.showtabline = 1
 vim.opt.tabline = "%!v:lua.MyTabLine()"
-vim.opt.laststatus = 2
+vim.opt.laststatus = 0
 -- vim.opt.cmdheight = 1
 vim.opt.showcmd = false
 vim.opt.showmode = true
