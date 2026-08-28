@@ -40,8 +40,8 @@ return {
         display = {
           render_limit = 5,
           done_ttl = 3,
-          -- done_icon = "󰄬 ",
-          done_icon = "✔",
+          done_icon = "󰄬 ",
+          -- done_icon = "✔",
           done_style = "FidgetDone",
 
           progress_ttl = math.huge,
