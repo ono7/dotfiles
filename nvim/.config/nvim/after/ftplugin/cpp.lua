@@ -6,5 +6,5 @@
 -- for standard programs
 vim.b.dispatch = "g++ % -o %:r && ./%:r"
 
--- for interactive programs that require input
-vim.b.start = "cd %:p:h:S && g++ %:t:S -o %:t:r:S && ./%:t:r:S"
+-- Keeps the shell open so you can see output/errors and prevents early buffer destruction
+-- vim.b.start = "cd %:p:h:S && g++ %:t:S -o %:t:r:S && ./%:t:r:S; exec $SHELL"
