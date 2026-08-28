@@ -118,7 +118,7 @@ return {
 
         window = {
           normal_hl = "FidgetWindow", -- Uses pure transparent background
-          winblend = 0,               -- 0 ensures no composite dimming layer
+          winblend = 20,              -- 0 ensures no composite dimming layer
           border = "none",
           zindex = 45,
           max_width = 50,
