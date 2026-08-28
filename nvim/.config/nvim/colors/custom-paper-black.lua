@@ -56,6 +56,7 @@ local c                 = {
   bracket     = "#5C6A7B",
   -- special     = "#B85C38", -- Rust color for \n, \t, and special chars
   special     = "#9E5A3F",
+  -- special     = "#3B6EA8",
 
   -- UI, Diagnostics & Git
   error       = "#C4434B",
