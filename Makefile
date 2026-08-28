@@ -134,6 +134,7 @@ neovim:
 	@echo $(BANNER)
 	@mkdir -p ~/.local/bin
 	@touch ~/.workspaces
+	@rm -rf $(HOME)/.local/share/nvim
 	@bash ./_scripts/build-neovim.sh
 
 vim:
