@@ -19,7 +19,8 @@ cleanup() {
   rm -rf "${TAG}.tar.gz"
   rm -rf "${DESTDIR}"
 }
-trap cleanup EXIT
+
+trap cleanup EXIT ERR INT TERM
 
 # Detect architecture and set optimization flags
 ARCH=$(uname -m)
