@@ -106,7 +106,7 @@ function M.pick_project()
             cwd = path, -- or best_path
             fd_opts = "--type f --hidden --follow --exclude .git",
             git_icons = false,
-            previewer = true,
+            previewer = false,
           })
         end)
       end,
