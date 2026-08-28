@@ -45,7 +45,8 @@ local c                 = {
   -- Text Elements
   comment     = "#8C96A4", -- Light graphite pencil
   string      = "#4A6B53", -- Deep, desaturated olive ink
-  keyword     = text_black,
+  -- keyword     = text_black,
+  keyword     = "#C4434B",
   type        = text_black,
   fn          = text_black,
   param       = text_black,

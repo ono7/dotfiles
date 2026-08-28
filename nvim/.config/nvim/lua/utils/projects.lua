@@ -2,7 +2,7 @@ local M = {}
 local fzf = require("fzf-lua")
 
 -- Configuration
-local DATA_PATH = vim.fn.stdpath("data") .. "/projects.json"
+local DATA_PATH = vim.fn.expand("~/.neovim_projects.json")
 
 local function trim_path(s)
   if #s < 50 then
@@ -103,7 +103,7 @@ function M.pick_project()
 
         vim.schedule(function()
           fzf.files({
-            cwd = path, -- or best_path
+            cwd = path,
             fd_opts = "--type f --hidden --follow --exclude .git",
             git_icons = false,
             previewer = false,
@@ -141,7 +141,7 @@ function M.last_project()
 
   -- Switch and Open
   vim.cmd("lcd " .. best_path)
-  db_touch(best_path) -- Update timestamp so it stays at the top
+  db_touch(best_path)
   vim.notify("CWD: " .. trim_path(best_path))
 
   fzf.files({
@@ -158,24 +158,13 @@ function M.setup()
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
   vim.api.nvim_create_user_command("L", M.last_project, {})
 
-  -- User Commands (keeping these for manual use)
-  vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
-  vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
-  vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
-  vim.api.nvim_create_user_command("L", M.last_project, {})
-
-  -- LUA WAY: Map directly to the function references
+  -- Keymaps
   local opts = { noremap = true, silent = true }
 
   vim.keymap.set("n", "<leader>pp", M.pick_project, vim.tbl_extend("force", opts, { desc = "Pick Project" }))
   vim.keymap.set("n", "<leader>pa", M.add_project, vim.tbl_extend("force", opts, { desc = "Add Project" }))
   vim.keymap.set("n", "<leader>pr", M.remove_project, vim.tbl_extend("force", opts, { desc = "Remove Project" }))
   vim.keymap.set("n", "<leader>pl", M.last_project, vim.tbl_extend("force", opts, { desc = "Last Project" }))
-
-  -- vim.keymap.set("n", "<leader>pp", "<cmd>ProjectPick<CR>", { desc = "Pick Project" })
-  -- vim.keymap.set("n", "<leader>pa", "<cmd>ProjectAdd<CR>", { desc = "Add Project" })
-  -- vim.keymap.set("n", "<leader>pr", "<cmd>ProjectRemove<CR>", { desc = "Remove Project" })
-  -- vim.keymap.set("n", "<leader>pl", "<cmd>L<CR>", { desc = "Last Project" })
 end
 
 return M
