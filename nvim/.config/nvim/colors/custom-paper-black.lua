@@ -194,6 +194,7 @@ local highlights        = {
 
   -- Syntax & Treesitter Mappings
   ["@punctuation.bracket"]                          = { fg = c.bracket },
+  ["@punctuation.special"]                          = { fg = c.special },
   ["@punctuation.delimiter"]                        = { fg = c.bracket },
   ["@string"]                                       = { fg = c.string },
   ["@string.escape"]                                = { fg = c.special, bold = true },
