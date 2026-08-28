@@ -422,6 +422,12 @@ augroup FormatPrg
   endif
 augroup end
 
+" this will show the file name when switching windows/splits etc and not running a statusline"
+augroup EchoFileNameOnFocus
+  autocmd!
+  autocmd WinEnter,BufEnter * if &laststatus == 0 && &buftype ==# '' | file | endif
+augroup END
+
 if has('clipboard')
   if has('mac') || !empty($DISPLAY)
     if has('unnamedplus')
