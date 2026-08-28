@@ -9,7 +9,7 @@ end
 -- 2. Force the environment variables to LIGHT mode
 vim.o.termguicolors = true
 vim.o.background = "light"
-vim.g.colors_name = "custom-paper"
+vim.g.colors_name = "custom-paper-black"
 
 -- Force Neovide's window background to match the warm oatmeal color
 if vim.g.neovide then
@@ -54,7 +54,8 @@ local c                 = {
 
   -- Structural & Special
   bracket     = "#5C6A7B",
-  special     = "#B85C38", -- Rust color for \n, \t, and special chars
+  -- special     = "#B85C38", -- Rust color for \n, \t, and special chars
+  special     = "#9E5A3F",
 
   -- UI, Diagnostics & Git
   error       = "#C4434B",
