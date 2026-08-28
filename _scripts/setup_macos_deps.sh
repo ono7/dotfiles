@@ -122,6 +122,9 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # disable font smoothing, makes text more blurry on macos
 defaults -currentHost write -g AppleFontSmoothing -int 0
 
+# remove all pinned apps
+defaults write com.apple.dock persistent-apps -array && killall Dock
+
 # Disable startup sound
 sudo nvram SystemAudioVolume=%01
 
