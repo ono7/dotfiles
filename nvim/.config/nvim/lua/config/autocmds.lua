@@ -409,12 +409,20 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- this will display the filename when i switch windows
 -- useful when not running statusline
--- vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
---   group = vim.api.nvim_create_augroup("EchoFileNameOnFocus", { clear = true }),
---   callback = function()
---     -- Ignore floating windows and non-file utility buffers
---     if vim.api.nvim_win_get_config(0).relative == "" and vim.bo.buftype == "" then
---       vim.cmd("file")
---     end
---   end,
--- })
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = vim.api.nvim_create_augroup("EchoFileNameOnFocus", { clear = true }),
+  callback = function(args)
+    -- Check if it's a regular window, valid buffer type, and has a file name
+    local is_normal_win = vim.api.nvim_win_get_config(0).relative == ""
+    local is_normal_buf = vim.bo[args.buf].buftype == ""
+    local name = vim.api.nvim_buf_get_name(args.buf)
+
+    if is_normal_win and is_normal_buf and name ~= "" then
+      local filename = vim.fn.fnamemodify(name, ":~:.")
+      local flags = (vim.bo[args.buf].modified and "[+]" or "")
+        .. (vim.bo[args.buf].readonly and "[RO]" or "")
+
+      vim.api.nvim_echo({ { string.format('"%s" %s', filename, flags), "Normal" } }, false, {})
+    end
+  end,
+})

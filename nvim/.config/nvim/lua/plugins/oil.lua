@@ -44,7 +44,7 @@ return {
         border = "rounded",
         win_options = {
           winblend = 0,
-          signcolumn = "yes:2"
+          -- signcolumn = "yes:2"
         },
         preview_split = "auto",
         override = function(conf)
