@@ -161,6 +161,8 @@ export NVM_DIR="$HOME/.nvm"
 
 log "attempting to bootstrap neovim plugins"
 
+cleanup
+
 nvim --headless "+Lazy! sync" +qa
 
 exit 0
