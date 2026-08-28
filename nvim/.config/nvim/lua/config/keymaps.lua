@@ -289,7 +289,7 @@ nnoremap k gk
 
 
 " includes filename in commit, but better to use git log --name-only
- nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>: "<Left>
+ nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
 
 "nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
 " close: closes a window not a buffer, leaving splits working as intended
