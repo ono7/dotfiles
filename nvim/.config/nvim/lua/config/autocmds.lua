@@ -203,7 +203,7 @@ vim.api.nvim_create_user_command("GitOpen", function(opts_args)
   repo = repo:gsub(".git$", "")
 
   local github_repo_url =
-    string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
   local github_file_url = string.format(
     "%s/blob/%s/%s#L%s",
     vim.uri_encode(github_repo_url),
@@ -406,3 +406,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- this will display the filename when i switch windows
+-- useful when not running statusline
+-- vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+--   group = vim.api.nvim_create_augroup("EchoFileNameOnFocus", { clear = true }),
+--   callback = function()
+--     -- Ignore floating windows and non-file utility buffers
+--     if vim.api.nvim_win_get_config(0).relative == "" and vim.bo.buftype == "" then
+--       vim.cmd("file")
+--     end
+--   end,
+-- })

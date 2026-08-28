@@ -107,10 +107,10 @@ alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 
 # File listing (eza / ls)
 if command -v eza >/dev/null 2>&1; then
-  alias ls="eza --icons"
-  alias ll="eza -lh --git --icons --group-directories-first"
-  alias la="eza -lah --git --icons --group-directories-first"
-  alias lt="eza --tree --level=2 --icons"
+  alias ls="eza --icons auto"
+  alias ll="eza -lh --git --icons auto --group-directories-first"
+  alias la="eza -lah --git --icons auto --group-directories-first"
+  alias lt="eza --tree --level=2 --icons auto"
 else
   alias ll="ls -lh"
   alias la="ls -lah"
