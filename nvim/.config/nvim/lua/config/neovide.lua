@@ -56,7 +56,7 @@ elseif is_mac then
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
-  vim.o.guifont = "Iosevka Custom:h19:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h17:#e-subpixelantialias:#h-full"
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
 end
 

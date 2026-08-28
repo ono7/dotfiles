@@ -104,7 +104,7 @@ return {
       })
 
       -- vim.notify("Ansible: " .. trim_path(bin_dir))
-      vim.notify("env: ✓")
+      vim.notify("env: ✔")
     end
   end,
 
