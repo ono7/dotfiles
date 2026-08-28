@@ -94,6 +94,9 @@ end, opts)
 -- TERMINAL COMMAND
 ---------------------------------------------------------------------------
 vim.api.nvim_create_user_command("T", function(opts_args)
+  if vim.fn.getcmdwintype() ~= "" then
+    return
+  end
   local cmd = opts_args.args
   local state = get_tab_state()
 
@@ -412,17 +415,44 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("EchoFileNameOnFocus", { clear = true }),
   callback = function(args)
+    -- Ignore command-line window and non-normal windows/buffers
+    if vim.fn.getcmdwintype() ~= "" then
+      return
+    end
+
     local is_normal_win = vim.api.nvim_win_get_config(0).relative == ""
     local is_normal_buf = vim.bo[args.buf].buftype == ""
     local name = vim.api.nvim_buf_get_name(args.buf)
 
     if is_normal_win and is_normal_buf and name ~= "" then
       vim.schedule(function()
-        -- Ensure window and buffer are still valid after the redraw cycle
-        if vim.api.nvim_win_is_valid(0) and vim.api.nvim_buf_is_valid(args.buf) then
-          vim.cmd("file")
+        -- Ensure we haven't entered cmdwin during the schedule delay
+        if
+            vim.fn.getcmdwintype() == ""
+            and vim.api.nvim_win_is_valid(0)
+            and vim.api.nvim_buf_is_valid(args.buf)
+        then
+          pcall(vim.cmd, "file")
         end
       end)
     end
+  end,
+})
+
+-- Disable plugin splits, terminals, and fzf from running in the command-line window
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+  group = general_group,
+  callback = function(args)
+    local key_opts = { buffer = args.buf, nowait = true, silent = true }
+
+    -- Disable fzf-lua and terminal toggles
+    vim.keymap.set("n", "<C-f>", "<Nop>", key_opts)
+    vim.keymap.set("n", "<C-t>", "<Nop>", key_opts)
+
+    -- Restore standard Vim Visual Block selection for Ctrl-v
+    vim.keymap.set("n", "<C-v>", "<C-v>", key_opts)
+
+    -- Optional: Allow pressing 'q' to close the command-line window quickly
+    vim.keymap.set("n", "q", "<C-c>", key_opts)
   end,
 })
