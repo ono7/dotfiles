@@ -34,6 +34,9 @@ return {
         shfmt = {
           prepend_args = { "-i", "2" },
         },
+        stylua = {
+          prepend_args = { "--column-width", "9999" },
+        },
       },
       format_after_save = function(bufnr)
         -- disable with a global or buffer-local variable

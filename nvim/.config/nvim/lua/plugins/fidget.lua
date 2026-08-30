@@ -21,7 +21,7 @@ return {
       --  LSP Progress Subsystem
       --==============================
       progress = {
-        poll_rate = 0,
+        poll_rate = 16,
         suppress_on_insert = false,
         ignore_done_already = false,
         ignore_empty_message = false,
