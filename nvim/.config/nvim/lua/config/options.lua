@@ -1,12 +1,17 @@
--- 1. Performance & Loader (Top of file)
+-- =============================================================================
+-- 1. Performance & Loader (Must run first)
+-- =============================================================================
 vim.loader.enable(true)
 
+-- =============================================================================
 -- 2. Leader Keys
+-- =============================================================================
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.more = true
--- 3. General Behavior
+-- =============================================================================
+-- 3. General Editor Behavior & Timeouts
+-- =============================================================================
 vim.opt.background = "dark"
 vim.opt.bufhidden = "hide"
 vim.opt.hidden = true
@@ -14,35 +19,20 @@ vim.opt.history = 1000
 vim.opt.mouse = "n"
 vim.opt.autochdir = false
 vim.opt.autoread = true
-vim.opt.updatetime = 300
-vim.opt.timeout = false
+vim.opt.more = true
+
+-- Key timeout settings (prevents hung mappings & fast escape resolution)
+vim.opt.timeout = true
 vim.opt.timeoutlen = 300
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 10
+vim.opt.updatetime = 300
 
--- 4. Shada (Shared Data) Optimized for Speed
-vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
-
--- 5. Search & Matching
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.inccommand = "nosplit"
-vim.g.matchparen_timeout = 10
-vim.g.matchparen_insert_timeout = 10
-
--- 6. Undo Configuration
-local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
-if vim.fn.isdirectory(undo_dir) == 0 then
-  vim.fn.mkdir(undo_dir, "p")
-end
-vim.opt.undodir = undo_dir
-vim.opt.undofile = true
-vim.opt.undolevels = 1000
-vim.opt.undoreload = 10000
-
--- 7. Formatting & Indentation
+-- =============================================================================
+-- 4. Indentation & Formatting (Optimized for Low Latency)
+-- =============================================================================
 vim.opt.autoindent = true
-vim.opt.smartindent = true
+vim.opt.smartindent = false -- Disabled: avoids conflicts with filetype indent scripts
 vim.opt.breakindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -52,14 +42,77 @@ vim.opt.textwidth = 80
 vim.opt.formatoptions = "qlj"
 vim.opt.joinspaces = false
 
--- 8. UI Customization (Tabline, Winbar, Statusline)
-vim.opt.showtabline = 1
-vim.opt.tabline = "%!v:lua.MyTabLine()"
-vim.opt.laststatus = 0
--- vim.opt.cmdheight = 1
-vim.opt.showcmd = false
-vim.opt.showmode = true
-vim.opt.shortmess = "aoOstTWICcF" -- 'F' hides extra file info
+-- =============================================================================
+-- 5. Search & Pattern Matching
+-- =============================================================================
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.inccommand = "nosplit"
+vim.g.matchparen_timeout = 10
+vim.g.matchparen_insert_timeout = 10
+
+-- =============================================================================
+-- 6. Undo & Shada Persistence
+-- =============================================================================
+local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+vim.opt.undodir = undo_dir
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
+
+vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+
+-- =============================================================================
+-- 7. System, Paths & File Handling
+-- =============================================================================
+vim.opt.path = ".,," -- Removed '**' to prevent blocking recursive scans on completion/gf
+vim.opt.shell = "zsh"
+vim.opt.isfname:append("@-@")
+vim.opt.iskeyword:append("_")
+vim.opt.iskeyword:remove("-")
+vim.opt.nrformats:append("alpha")
+vim.opt.sessionoptions:remove("terminal")
+
+-- =============================================================================
+-- 8. Memory & Performance Guards
+-- =============================================================================
+vim.opt.swapfile = false
+vim.opt.directory = "~/.tmp"
+vim.opt.synmaxcol = 200
+vim.opt.lazyredraw = false -- Neovim 0.11+ preferred false
+vim.opt.scrollback = 100000
+vim.opt.maxmempattern = 2000
+
+-- =============================================================================
+-- 9. Splits & Scrolling
+-- =============================================================================
+vim.opt.splitright = true
+vim.opt.splitbelow = false
+vim.opt.splitkeep = "screen"
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
+vim.opt.sidescroll = 3
+vim.opt.smoothscroll = false
+
+-- =============================================================================
+-- 10. Display & Appearance
+-- =============================================================================
+vim.opt.number = false
+vim.opt.relativenumber = false
+vim.opt.signcolumn = "yes:1"
+vim.opt.pumheight = 5
+vim.opt.cursorline = false
+vim.opt.cursorcolumn = false
+vim.opt.cursorlineopt = "number"
+vim.opt.ambiwidth = "single"
+vim.opt.title = true
+vim.opt.titlestring = ""
+vim.opt.linespace = 10
 vim.opt.showbreak = [[↪ ]]
 vim.opt.fillchars = {
   foldopen = "",
@@ -72,44 +125,9 @@ vim.opt.fillchars = {
   stl = " ",
 }
 
-function _G.MyTabLine()
-  local s = ""
-  for i = 1, vim.fn.tabpagenr("$") do
-    local winnr = vim.fn.tabpagewinnr(i)
-    local bufnr = vim.fn.tabpagebuflist(i)[winnr]
-    local bufname = vim.fn.bufname(bufnr)
-    local filename = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or "[No Name]"
-    s = s .. (i == vim.fn.tabpagenr() and "%#TabLineSel#" or "%#TabLine#")
-    s = s .. " " .. i .. ":" .. filename .. " "
-  end
-  return s .. "%#TabLineFill#"
-end
-
-function _G.winbar_path()
-  local filepath = vim.fn.expand("%:.")
-  return (filepath ~= "") and vim.fn.pathshorten(filepath, 4) or ""
-end
-
--- vim.opt.winbar = "%=" .. "%{v:lua.winbar_path()}"
-
--- 9. Splitting & Scrolling
-vim.opt.splitright = true
-vim.opt.splitbelow = false
-vim.opt.splitkeep = "screen"
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 5
-vim.opt.sidescroll = 3
-vim.opt.smoothscroll = false -- Perf optimization for long lines
-
--- 10. Performance & Memory
-vim.opt.swapfile = false
-vim.opt.directory = "~/.tmp"
-vim.opt.synmaxcol = 200
-vim.opt.lazyredraw = false  -- Neovim 0.11+ preferred false
-vim.opt.scrollback = 100000 -- Keeping the high limit for logs
-vim.opt.maxmempattern = 2000
-
--- 11. Diff Options
+-- =============================================================================
+-- 11. Diff & Language Options
+-- =============================================================================
 vim.opt.diffopt:remove("inline:char")
 vim.opt.diffopt:append({
   "vertical",
@@ -119,32 +137,12 @@ vim.opt.diffopt:append({
   "inline:word",
 })
 
--- 12. Display & Appearance
-vim.opt.number = false
-vim.opt.relativenumber = false
-vim.opt.signcolumn = "yes:1"
-vim.opt.pumheight = 5
-vim.opt.cursorline = false
-vim.opt.cursorcolumn = false
-vim.opt.cursorlineopt = "number"
-vim.opt.ambiwidth = "single"
-vim.opt.title = true
-vim.opt.titlestring = ""
-vim.opt.linespace = 10
-
--- 13. System / Path
-vim.opt.path = ".,**"
-vim.opt.shell = "zsh"
-vim.opt.isfname:append("@-@")
-vim.opt.iskeyword:append("_")
-vim.opt.iskeyword:remove("-")
-vim.opt.sessionoptions:remove("terminal")
-
--- 14. Language Support
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,9"
 
--- 15. Folding (Preserved logic)
+-- =============================================================================
+-- 12. Folding Configuration
+-- =============================================================================
 vim.opt.foldmethod = "manual"
 vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
@@ -166,50 +164,62 @@ _G.better_fold_text = function()
 end
 vim.opt.foldtext = "v:lua.better_fold_text()"
 
--- 16. Legacy / Vimscript (Preserved Rg logic)
-vim.cmd([[
-function! ToggleFolding()
-  if &foldmethod ==# 'manual'
-    setlocal foldmethod=indent foldenable foldlevel=1
-    echo "Folding enabled (methods folded, classes open)"
-  else
-    setlocal nofoldenable foldmethod=manual
-    echo "Folding disabled"
-  endif
-endfunction
-nnoremap <silent> gz :call ToggleFolding()<CR>
+-- =============================================================================
+-- 13. High-Performance UI Components (Tabline, Winbar, Statusline)
+-- =============================================================================
+vim.opt.showtabline = 1
+vim.opt.tabline = "%!v:lua.MyTabLine()"
+vim.opt.laststatus = 0
+vim.opt.showcmd = false
+vim.opt.showmode = true
+vim.opt.ruler = true
+vim.opt.shortmess = "aoOstTWICcF"
 
-if executable('rg')
-  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
-  let &grepformat = '%f:%l:%c:%m'
-endif
+-- Native API tabline (avoids Vimscript FFI overhead)
+function _G.MyTabLine()
+  local s = ""
+  local tabs = vim.api.nvim_list_tabpages()
+  local cur_tab = vim.api.nvim_get_current_tabpage()
 
-function! Rg(args) abort
-  let l:pattern = substitute(a:args, '|', '\\|', 'g')
-  execute "silent! grep!" l:pattern
-  copen
-endfunction
-command! -nargs=+ -complete=file Rg call Rg(<q-args>)
-]])
+  for i, tab in ipairs(tabs) do
+    local win = vim.api.nvim_tabpage_get_win(tab)
+    local buf = vim.api.nvim_win_get_buf(win)
+    local name = vim.api.nvim_buf_get_name(buf)
+    local filename = (name ~= "") and vim.fs.basename(name) or "[No Name]"
 
-_G.statusline_filename = function()
-  local file = vim.fn.expand("%:t")
-  if file == "" then
-    return "[No Name]"
+    s = s .. (tab == cur_tab and "%#TabLineSel#" or "%#TabLine#")
+    s = s .. " " .. i .. ":" .. filename .. " "
   end
-  local parent = vim.fn.expand("%:p:h:t")
-  if parent == "" or parent == "/" then
-    return file
-  end
-  return parent .. "/" .. file
+  return s .. "%#TabLineFill#"
 end
 
-_G.statusline_git_branch = function()
-  local ok, branch = pcall(vim.fn.FugitiveHead)
-  if ok and branch and branch ~= "" then
-    return "  " .. branch .. " "
+function _G.winbar_path()
+  local filepath = vim.fn.expand("%:.")
+  return (filepath ~= "") and vim.fn.pathshorten(filepath, 4) or ""
+end
+
+-- Fast Lua pattern matching for filename resolution
+_G.statusline_filename = function()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then
+    return "[No Name]"
   end
-  return ""
+  local parent, file = name:match("([^/\\]+)[/\\]([^/\\]+)$")
+  return parent and (parent .. "/" .. file) or vim.fs.basename(name)
+end
+
+-- Event-driven Git branch caching (avoids calling Fugitive per redraw)
+local current_git_branch = ""
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
+  group = vim.api.nvim_create_augroup("StatuslineGitCache", { clear = true }),
+  callback = function()
+    local ok, branch = pcall(vim.fn.FugitiveHead)
+    current_git_branch = (ok and branch and branch ~= "") and ("  " .. branch .. " ") or ""
+  end,
+})
+
+_G.statusline_git_branch = function()
+  return current_git_branch
 end
 
 _G.statusline_lsp_progress = function()
@@ -228,21 +238,45 @@ _G.statusline_diagnostics = function()
 end
 
 local parts = {
-  "%<%{%v:lua.statusline_filename()%} %h%w%m%r ", -- Truncation, dirname/filename.txt, and flags
-  "%{% v:lua.require('vim._core.util').term_exitcode() %}", -- Terminal exit code
-  "%=", -- Alignment separator 1 (Center)
-  "%{%v:lua.statusline_git_branch()%}", -- Fugitive Git Branch
-  "%=", -- Alignment separator 2 (Right)
-  "%{%v:lua.statusline_lsp_progress()%}", -- UI / LSP progress
-  "%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}", -- Command tracking
-  "%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}", -- Keymap name
-  "%{% &busy > 0 ? '◐ ' : '' %}", -- Busy indicator
-  "%{%v:lua.statusline_diagnostics()%}", -- Diagnostics
-  "%-18.(%l/%L,%c%V%) %P ", -- Line / Total lines, Col, %
+  "%<%{%v:lua.statusline_filename()%} %h%w%m%r ",
+  "%{% v:lua.require('vim._core.util').term_exitcode() %}",
+  "%=",
+  "%{%v:lua.statusline_git_branch()%}",
+  "%=",
+  "%{%v:lua.statusline_lsp_progress()%}",
+  "%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}",
+  "%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}",
+  "%{% &busy > 0 ? '◐ ' : '' %}",
+  "%{%v:lua.statusline_diagnostics()%}",
+  "%-18.(%l/%L,%c%V%) %P ",
 }
 
-vim.o.statusline = table.concat(parts, "")
+vim.opt.statusline = table.concat(parts, "")
 
-vim.opt.ruler = true
--- vim.opt.statusline = table.concat(parts)
-vim.opt.nrformats:append("alpha")
+-- =============================================================================
+-- 14. Custom Commands & Keymaps
+-- =============================================================================
+vim.cmd([[
+function! ToggleFolding()
+  if &foldmethod ==# 'manual'
+    setlocal foldmethod=indent foldenable foldlevel=1
+    echo "Folding enabled (methods folded, classes open)"
+  else
+    setlocal nofoldenable foldmethod=manual
+    echo "Folding disabled"
+  endif
+endfunction
+nnoremap <silent> gz :call ToggleFolding()<CR>
+
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
+endif
+
+function! Rg(args) abort
+  local pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" pattern
+  copen
+endfunction
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
+]])
