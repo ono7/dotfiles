@@ -1,28 +1,35 @@
-import IPython.terminal.prompts as prompts  # noqa: F401
-from IPython.terminal.prompts import Prompts, Token  # noqa: F401
+# ~/.ipython/profile_default/ipython_config.py
 
-c = get_config()  # noqa
+c = get_config()  # noqa: F821
 
-c.TerminalInteractiveShell.timeoutlen = 0.01  # 10ms timeout (or use 0.01 for 10ms)
+# Keybindings: Emacs mode
+c.TerminalInteractiveShell.editing_mode = "emacs"
+c.TerminalInteractiveShell.prompt_includes_vi_mode = False
+c.TerminalInteractiveShell.timeoutlen = 0.01
 
-c.TerminalInteractiveShell.colors = "Linux"  # This gives a good dark-background preset
+# Enable true color and use light background base
 c.TerminalInteractiveShell.true_color = True
-# c.TerminalInteractiveShell.editing_mode = "vi"
+c.TerminalInteractiveShell.colors = "LightBG"
 
-# Custom colors
-c.colors_linux = {
-    "normal": "\033[0;37m",  # Light gray
-    "number": "\033[1;36m",  # Cyan
-    "string": "\033[1;32m",  # Green
-    "name": "\033[0;37m",  # Light gray
-    "punct": "\033[0;37m",  # Light gray
-    "comment": "\033[0;36m",  # Darker cyan
-    "NoColor": "\033[0;37m",
+# Custom ANSI Color Scheme matching custom-paper light palette
+# -------------------------------------------------------------------------
+# normal / text   : #000000 (Pitch Black)       -> \033[38;2;0;0;0m
+# keyword / error : #C4434B (Rust Red)          -> \033[38;2;196;67;75m
+# string          : #4A6B53 (Olive Ink)         -> \033[38;2;74;107;83m
+# comment         : #8C96A4 (Graphite Pencil)   -> \033[38;2;140;150;164m
+# special / punct : #5C6A7B (Slate Dim)         -> \033[38;2;92;106;123m
+# number / warn   : #996E14 (Warm Amber)        -> \033[38;2;153;110;20m
+# -------------------------------------------------------------------------
+c.colors_lightbg = {
+    "normal": "\033[38;2;0;0;0m",  # Pitch black
+    "number": "\033[38;2;153;110;20m",  # Amber / dark yellow
+    "string": "\033[38;2;74;107;83m",  # Olive ink
+    "name": "\033[38;2;0;0;0m",  # Pitch black
+    "punct": "\033[38;2;92;106;123m",  # Slate dim
+    "comment": "\033[38;2;140;150;164m",  # Graphite pencil
+    "NoColor": "\033[38;2;0;0;0m",
 }
 
-# Show vi mode in prompt
-c.TerminalInteractiveShell.prompt_includes_vi_mode = True
-
-# Reduce completion delay
-c.IPCompleter.use_jedi = True  # Keep Jedi for better completions
-c.IPCompleter.jedi_compute_type_timeout = 100  # 100ms timeout for type inference
+# Completion settings
+c.IPCompleter.use_jedi = True
+c.IPCompleter.jedi_compute_type_timeout = 100
