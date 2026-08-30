@@ -1,6 +1,7 @@
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "echasnovski/mini.icons" },
+  event = "VeryLazy",
   config = function()
     local fzf = require("fzf-lua")
     local winopts = {
@@ -142,7 +143,7 @@ return {
     k("n", "<leader>vc", function()
       require("fzf-lua").files({
         cwd = vim.fn.expand("~/.dotfiles"),
-        fd_opts = "--type f --hidden --follow --exclude .git",
+        fd_opts = "--type f --hidden --exclude .git",
         prompt = "Dotfiles> ",
         previewer = false,
         winopts = function()
@@ -167,7 +168,7 @@ return {
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
         -- cwd = current_dir, -- Sets the search root to the buffer's directory
-        fd_opts = "--type f --hidden --follow --exclude .git",
+        fd_opts = "--type f --hidden --exclude .git",
         previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
@@ -184,7 +185,7 @@ return {
       require("fzf-lua").files({
         prompt = "Files (current dir)> ",
         -- cwd = current_dir, -- Sets the search root to the buffer's directory
-        fd_opts = "--type f --hidden --follow --exclude .git",
+        fd_opts = "--type f --hidden --exclude .git",
         previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
