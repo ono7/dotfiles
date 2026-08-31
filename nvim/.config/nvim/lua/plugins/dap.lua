@@ -6,28 +6,28 @@ return {
   },
   keys = {
     {
-      "<F5>",
+      "<F8>",
       function()
         require("dap").continue()
       end,
       desc = "DAP: Continue / Start",
     },
     {
-      "<F10>",
+      "<F9>",
       function()
         require("dap").step_over()
       end,
       desc = "DAP: Step Over",
     },
     {
-      "<F11>",
+      "<F10>",
       function()
         require("dap").step_into()
       end,
       desc = "DAP: Step Into",
     },
     {
-      "<F12>",
+      "<F7>",
       function()
         require("dap").step_out()
       end,

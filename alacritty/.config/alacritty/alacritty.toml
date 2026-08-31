@@ -89,8 +89,9 @@ TERM = "alacritty"
 size = 22.0
 
 [font.normal]
-family = "IosevkaTerm Nerd Font"
-style = "Bold"
+# family = "IosevkaTerm Nerd Font"
+# style = "Bold"
+family = "Iosevka Custom"
 
 [font.offset]
 x = 0
