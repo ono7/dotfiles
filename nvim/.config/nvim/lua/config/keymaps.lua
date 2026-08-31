@@ -48,26 +48,66 @@ cnoreabbrev qq qa!
 map Q <Nop>
 
 " this combines best of vim with the best of emacs which is available everywhere..
-cnoremap <c-a> <Home>
-cnoremap <c-b> <left>
-cnoremap <c-e> <end>
+"cnoremap <c-a> <Home>
+"cnoremap <c-b> <left>
+"cnoremap <c-e> <end>
+"cnoremap <c-l> <Right>
+
 nnoremap <c-e> <end>
-cnoremap <c-l> <Right>
 
 " Map Alt-Backspace to delete word backward in command-line mode
-cnoremap <M-BS> <C-w>
-cnoremap <A-BS> <C-w>
+"cnoremap <M-BS> <C-w>
+"cnoremap <A-BS> <C-w>
 
 " Emacs / Readline navigation for Vim command-line
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+"cnoremap <C-a> <Home>
+"cnoremap <C-e> <End>
 " cnoremap <C-f> <Right>
-cnoremap <C-b> <Left>
-cnoremap <M-f> <S-Right>
-cnoremap <M-b> <S-Left>
-cnoremap <M-BS> <C-w>
-cnoremap <M-d> <S-Right><C-w>
+"cnoremap <C-b> <Left>
+"cnoremap <M-f> <S-Right>
+"cnoremap <M-b> <S-Left>
+"cnoremap <M-BS> <C-w>
+"cnoremap <M-d> <S-Right><C-w>
 cnoremap <C-k> <C-f>D<C-c>
+" Kill forward to end of line (C-k)
+cnoremap <expr> <C-k> repeat("\<Del>", strlen(getcmdline()) - getcmdpos() + 1)
+
+" Kill backward to start of line (C-u)
+cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
+
+" Kill word forward (M-d / Alt-d)
+cnoremap <M-d> <S-Right><C-w>
+cnoremap <Esc>d <S-Right><C-w>
+
+function! s:kill_eol() abort
+  let l:line = getcmdline()
+  let l:pos = getcmdpos()
+  let l:killed = strpart(l:line, l:pos - 1)
+  if !empty(l:killed)
+    call setreg('"', l:killed)
+  endif
+  call setcmdline(strpart(l:line, 0, l:pos - 1), l:pos)
+  return ''
+endfunction
+
+function! s:kill_bol() abort
+  let l:line = getcmdline()
+  let l:pos = getcmdpos()
+  let l:killed = strpart(l:line, 0, l:pos - 1)
+  if !empty(l:killed)
+    call setreg('"', l:killed)
+  endif
+  call setcmdline(strpart(l:line, l:pos - 1), 1)
+  return ''
+endfunction
+
+cnoremap <expr> <C-k> <SID>kill_eol()
+cnoremap <expr> <C-u> <SID>kill_bol()
+cnoremap <C-y> <C-r>"
+
+" Yank / Paste previously killed or yanked text (C-y)
+" Inserts the contents of the default unnamed register
+cnoremap <C-y> <C-r>"
 
 inoremap <C-BS> <C-g>u<C-w>
 inoremap <M-BS> <C-g>u<C-w>
