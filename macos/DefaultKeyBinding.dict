@@ -1,14 +1,6 @@
 {
     // ~/Library/KeyBindings/DefaultKeyBinding.dict
     // ~/.dotfiles/macos/DefaultKeyBinding.dict
-    // gtk-key-theme-name = "Emacs" in ~/.gtkrc-2.0 for linux
-    // or this for gtk-3.0 in linux
-    // mkdir -p ~/.config/gtk-3.0
-    // settings.ini
-    // [Settings]
-    // gtk-key-theme-name = Emacs
-    // make the change immediately with this command
-    // gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 
     "^f" = "moveForward:";
     "^b" = "moveBackward:";
@@ -33,7 +25,7 @@
     "^h" = "deleteBackward:";
     "~d" = "deleteWordForward:";
     "~^h" = "deleteWordBackward:"; // or just use option+bs
-    "^"\U007F"" = "deleteWordBackward:";
+    // "^"\U007F"" = "deleteWordBackward:";
     "^k" = "deleteToEndOfLine:";
     "~k" = "deleteToEndOfParagraph:";
 
@@ -48,11 +40,11 @@
 
     "^-" = "undo:";      /* Ctrl + -         (Easier to type) */
     "^/" = "undo:";       /* Ctrl + /         (Matches common Emacs config) */
-    "\037" = "undo:"; // sometimes this is needed in macos
 
     "~u" = "uppercaseWord:";
     "~l" = "lowercaseWord:";
     "~c" = "capitalizeWord:";
 
     "^o" = "insertNewlineIgnoringFieldEditor:";
+    "\037" = "undo:"; // sometimes this is needed in macos
 }
