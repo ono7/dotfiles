@@ -54,6 +54,21 @@ cnoremap <c-e> <end>
 nnoremap <c-e> <end>
 cnoremap <c-l> <Right>
 
+" Map Alt-Backspace to delete word backward in command-line mode
+cnoremap <M-BS> <C-w>
+cnoremap <A-BS> <C-w>
+
+" Emacs / Readline navigation for Vim command-line
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+" cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-BS> <C-w>
+cnoremap <M-d> <S-Right><C-w>
+cnoremap <C-k> <C-f>D<C-c>
+
 inoremap <C-BS> <C-g>u<C-w>
 inoremap <M-BS> <C-g>u<C-w>
 
@@ -803,9 +818,4 @@ end, { expr = true, replace_keycodes = true })
 --   return "<CR>"
 -- end, { expr = true, noremap = true })
 
-vim.keymap.set(
-  "i",
-  "<C-S-e>",
-  "<Esc>Go",
-  { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
-)
+vim.keymap.set("i", "<C-S-e>", "<Esc>Go", { noremap = true, silent = true, desc = "Jump to end of file and insert new line" })
