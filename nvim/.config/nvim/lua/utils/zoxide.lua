@@ -64,12 +64,12 @@ function M.setup()
             delete_all_buffers()
             vim.cmd("lcd " .. path)
             vim.notify("cwd: \n" .. trim_path(path))
-            vim.defer_fn(function()
-              fzf.files({
-                cwd = path,
-                previewer = false,
-              })
-            end, 120)
+            -- vim.defer_fn(function()
+            --   fzf.files({
+            --     cwd = path,
+            --     previewer = false,
+            --   })
+            -- end, 120)
           end
         end,
         ["ctrl-f"] = function(selected)
