@@ -121,6 +121,17 @@ inoremap <C-s> <C-o>/
 nnoremap <C-r> ?
 nnoremap <C-s> /
 
+" save as sudo
+"cnoremap w!! w !sudo tee % > /dev/null
+
+augroup CleanNoName
+  autocmd!
+  " Mark unnamed, non-special buffers to wipe ONLY if completely empty and unmodified
+  autocmd BufLeave * if bufname('') ==# '' && &buftype ==# '' && !&modified && line('$') == 1 && getline(1) ==# ''
+        \ | setlocal bufhidden=wipe
+        \ | endif
+augroup END
+
 " show shorter file paths
 " nnoremap <C-g> :echo expand('%:h:t') . '/' . expand('%:t')<CR>
 
