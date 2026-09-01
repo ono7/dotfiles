@@ -18,7 +18,7 @@ snippet load "json load to file" b
     # TODO(jlima): remove this before prod
     import json
 
-    with open("${1:test_data}.json", "r", encoding="uft-8") as f:
+    with open("${1:test_data}.json", "r", encoding="utf-8") as f:
       ${2:test_data} = json.load(f)
     ${0}
 
