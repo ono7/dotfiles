@@ -273,10 +273,13 @@ if executable('rg')
   let &grepformat = '%f:%l:%c:%m'
 endif
 
+" this is the best part of my config
 function! Rg(args) abort
-  local pattern = substitute(a:args, '|', '\\|', 'g')
-  execute "silent! grep!" pattern
+  " escape the | properly, :Rg -uu 'from (?!ansible|pytest)\w+ import'
+  let l:pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" l:pattern
   copen
 endfunction
+
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
