@@ -2,6 +2,8 @@ return {
   "nanozuki/tabby.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
+    local devicons = require("nvim-web-devicons")
+
     -- Harmonized with custom-slate theme
     local palette = {
       fill_bg = "#131720", -- Editor base background
@@ -21,6 +23,26 @@ return {
       tab = { fg = palette.inactive_fg, bg = palette.inactive_bg },
     }
 
+    -- Helper to extract "parent_dir/filename" from the active window in a tab
+    local function get_tab_label(tab_id)
+      local current_win = tab_id.current_win()
+      local bufid = current_win.buf().id
+      local bufname = vim.api.nvim_buf_get_name(bufid)
+
+      if bufname == "" then
+        return "[No Name]"
+      end
+
+      local filename = vim.fn.fnamemodify(bufname, ":t")
+      local parent = vim.fn.fnamemodify(bufname, ":p:h:t")
+
+      if parent == "" or parent == "." then
+        return filename
+      end
+
+      return parent .. "/" .. filename
+    end
+
     require("tabby.tabline").set(function(line)
       return {
         {
@@ -31,10 +53,9 @@ return {
           local is_current = tab.is_current()
           local hl = is_current and theme.current_tab or theme.tab
 
-          local name = tab.name()
-          local index = string.find(name, "%[%d")
-          local tab_name = index and string.sub(name, 1, index - 1) or name
+          local tab_name = get_tab_label(tab)
 
+          -- Check if any buffer in this tab is modified
           local modified = false
           local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
           for _, win_id in ipairs(win_ids) do
