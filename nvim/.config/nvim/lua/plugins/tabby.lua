@@ -2,17 +2,15 @@ return {
   "nanozuki/tabby.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
-    local devicons = require("nvim-web-devicons")
-
-    -- Harmonized with custom-slate theme
+    -- Harmonized with custom-paper palette
     local palette = {
-      fill_bg = "#131720", -- Editor base background
-      active_bg = "#222D3E", -- Selection/Visual pill background
-      active_fg = "#D2D6DC", -- Warm ivory text
-      inactive_bg = "#19202C", -- Floating/Subtle surface
-      inactive_fg = "#5C6A7B", -- Soft slate for inactive tabs
-      accent = "#89D0D8", -- Calm cyan/teal for icons
-      modified = "#E06C75", -- Coral red dot for unsaved changes
+      fill_bg = "#F2EFE9", -- Base paper background
+      active_bg = "#D5CFC4", -- Visual / active selection pill
+      active_fg = "#000000", -- Crisp black text
+      inactive_bg = "#E6E2DA", -- Subtle surface for inactive pills
+      inactive_fg = "#5C6A7B", -- Slate/dim text
+      accent = "#3B6EA8", -- Paper info blue for head/tail glyphs
+      modified = "#C4434B", -- Brick red dot for unsaved changes
     }
 
     local theme = {
