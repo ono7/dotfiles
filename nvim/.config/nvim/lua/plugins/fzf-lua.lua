@@ -4,6 +4,33 @@ return {
   event = "VeryLazy",
   config = function()
     local fzf = require("fzf-lua")
+
+    -- ---------------------------------------------------------
+    -- AUTO-SYNC DIRECTORY ON FILE OPEN (Tab-local directory)
+    -- ---------------------------------------------------------
+    local auto_cd_group = vim.api.nvim_create_augroup("FzfAutoDirectory", { clear = true })
+    vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter" }, {
+      group = auto_cd_group,
+      callback = function(args)
+        local bufnr = args.buf
+
+        -- Ignore unlisted or non-standard buffers (fzf terminal, help, etc.)
+        if not vim.bo[bufnr].buflisted or vim.bo[bufnr].buftype ~= "" then
+          return
+        end
+
+        local file_path = vim.api.nvim_buf_get_name(bufnr)
+        if file_path == "" then
+          return
+        end
+
+        local file_dir = vim.fn.fnamemodify(file_path, ":p:h")
+        if file_dir ~= "" and vim.fn.isdirectory(file_dir) == 1 then
+          vim.cmd("silent! tcd " .. vim.fn.fnameescape(file_dir))
+        end
+      end,
+    })
+
     local winopts = {
       on_create = function()
         -- Prevents 'esc' delay by making it immediate in the terminal
@@ -13,29 +40,17 @@ return {
       width = 1,
       row = 1,
       col = 0,
-
-      -- FIX 1: Manually force ONLY the top border line.
-      -- The order is: { top, right, bottom, left, topleft, topright, botright, botleft }
-      -- We use "─" for top, and empty strings "" for everything else.
       border = { "─", "─", "─", "", "", "", "", "" },
-
-      -- Optional: removes the scrollbar on the right edge
       scrollbar = false,
-
       preview = {
         layout = "horizontal",
         horizontal = "right:50%",
-
-        -- FIX 2: Remove border from the preview window completely
         border = "noborder",
-
-        -- Optional: Add a left border if you want a visual line between Picker and Preview:
-        -- border = { "", "", "", "│", "", "", "", "" },
-
         scrollbar = false,
       },
       fullscreen = false,
     }
+
     fzf.setup({
       win_bg = "Normal",
       fzf_colors = {
@@ -46,8 +61,6 @@ return {
         ["fg+"] = { "fg", "Normal" },
         ["marker"] = { "fg", "FzfLuaFzfMarker" },
       },
-      -- fzf_colors = {
-      -- },
       winopts = winopts,
       previewers = {
         builtin = {
@@ -56,8 +69,7 @@ return {
       },
       zoxide = {
         formatter = false,
-        -- scope = "tab",
-        scope = "local",
+        scope = "tab",
         winopts = {
           preview = { hidden = true },
         },
@@ -75,12 +87,10 @@ return {
       },
       actions = {
         files = {
-          ["default"] = fzf.actions.file_switch_or_edit,
+          ["default"] = fzf.actions.file_tabedit,
           ["ctrl-q"] = fzf.actions.file_sel_to_qf,
-          ["enter"] = fzf.actions.file_switch_or_edit,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,
-
           ["ctrl-t"] = fzf.actions.file_tabedit,
           ["ctrl-d"] = function(selected, opts)
             if not selected[1] then
@@ -89,14 +99,13 @@ return {
             local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
             vim.cmd("vert diffsplit " .. vim.fn.fnameescape(file))
           end,
-          -- NEW: Copy file path to clipboard
           ["ctrl-y"] = function(selected, opts)
             if not selected[1] then
               return
             end
             local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
-            vim.fn.setreg("*", file)
-            -- vim.notify("Copied fpath", vim.log.levels.INFO)
+            vim.fn.setreg("+", file)
+            vim.notify("Copied: " .. file, vim.log.levels.INFO)
           end,
         },
       },
@@ -111,6 +120,7 @@ return {
       buffers = {
         sort_lastused = true,
         previewer = false,
+        stat_file = true,
       },
       grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",
@@ -118,7 +128,7 @@ return {
       },
       live_grep = {
         cmd = "rg --line-number --column --no-heading --color=always --smart-case",
-        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.git/*" --glob "!.venv/*"',
+        rg_opts = '--hidden --glob "!node_modules/*" --glob "!.cache/*" --glob "!.git/*" --glob "!.venv/*"',
       },
       git = {
         files = {},
@@ -131,7 +141,6 @@ return {
         file_icons = true,
         color_icons = true,
         formatter = "path.filename_first",
-        -- formatter = "path.smart",
       },
     })
 
@@ -147,7 +156,6 @@ return {
         prompt = "Dotfiles> ",
         previewer = false,
         winopts = function()
-          -- FIX 3: Use deep_extend to copy options so we don't break the global config
           local opts = vim.tbl_deep_extend("force", {}, winopts)
           opts.title = " Dotfiles "
           opts.title_pos = "center"
@@ -157,17 +165,13 @@ return {
     end, { desc = "Search dotfiles" })
 
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
-    -- k("n", "<leader>scw", fzf.grep_cword, { desc = "[S]earch current [W]ord" })
-    -- k("n", "<leader>g", fzf.live_grep, { desc = "[S]earch by [G]rep" })
-    -- k("n", "<c-d>", fzf.diagnostics_document, { desc = "[S]earch [D]iagnostics" })
 
+    -- Finds files rooted in the current buffer's directory
     k("n", "<c-f>", function()
-      -- Get the directory of the current active buffer
-      -- local current_dir = vim.fn.expand("%:p:h")
-
+      local current_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
-        prompt = "Files (current dir)> ",
-        -- cwd = current_dir, -- Sets the search root to the buffer's directory
+        prompt = "Files (local dir)> ",
+        cwd = (current_dir ~= "" and vim.fn.isdirectory(current_dir) == 1) and current_dir or vim.uv.cwd(),
         fd_opts = "--type f --hidden --exclude .git",
         previewer = false,
         winopts = function()
@@ -179,12 +183,10 @@ return {
     end, { desc = "Find files in current file's directory" })
 
     k("n", "<M-f>", function()
-      -- Get the directory of the current active buffer
-      -- local current_dir = vim.fn.expand("%:p:h")
-
+      local current_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
-        prompt = "Files (current dir)> ",
-        -- cwd = current_dir, -- Sets the search root to the buffer's directory
+        prompt = "Files (local dir)> ",
+        cwd = (current_dir ~= "" and vim.fn.isdirectory(current_dir) == 1) and current_dir or vim.uv.cwd(),
         fd_opts = "--type f --hidden --exclude .git",
         previewer = false,
         winopts = function()
@@ -195,21 +197,7 @@ return {
       })
     end, { desc = "Find files in current file's directory" })
 
-    -- -- find files
-    -- k("n", "<c-f>", function()
-    --   require("fzf-lua").files({
-    --     prompt = "Files (current dir)> ",
-    --     fd_opts = "--type f --hidden --follow --exclude .git",
-    --     previewer = false,
-    --     winopts = function()
-    --       local opts = vim.tbl_deep_extend("force", {}, winopts)
-    --       opts.title_pos = "center"
-    --       return opts
-    --     end,
-    --   })
-    -- end, { desc = "Find files in current file's directory" })
-
-    -- git files
+    -- Git files
     k({ "n", "x" }, "<leader>f", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
@@ -224,14 +212,13 @@ return {
       })
     end, { desc = "All git files including untracked" })
 
-    -- oldfiles (Current Project Only)
+    -- Recent project files
     k("n", "<M-r>", function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Project Files> ",
         formatter = "path.filename_first",
         previewer = false,
-        cwd = vim.uv.cwd(), -- Limits oldfiles to the current working directory / project root
-        -- cwd_only = true,  -- Alternative toggle if you prefer global matching filtered by cwd
+        cwd = vim.uv.cwd(),
         file_ignore_patterns = {
           "COMMIT_EDITMSG",
           "MERGE_MSG",
@@ -248,29 +235,7 @@ return {
       })
     end, { desc = "Recent files (current project)" })
 
-    -- -- oldfiles
-    -- k("n", "<M-r>", function()
-    --   require("fzf-lua").oldfiles({
-    --     prompt = "Recent Files> ",
-    --     -- FIX 2: Enabled previewer here
-    --     previewer = true,
-    --     file_ignore_patterns = {
-    --       "COMMIT_EDITMSG",
-    --       "MERGE_MSG",
-    --       "git%-rebase%-todo",
-    --       "%.git/",
-    --       "fugitive:",
-    --     },
-    --     winopts = function()
-    --       local opts = vim.tbl_deep_extend("force", {}, winopts)
-    --       opts.title = " Recent Files "
-    --       opts.title_pos = "center"
-    --       return opts
-    --     end,
-    --   })
-    -- end, { desc = "Recent files (no git)" })
-
-    -- live grep
+    -- Live grep
     k("n", "<leader>l", function()
       require("fzf-lua").live_grep({
         prompt = "Rg(-uu)> ",
