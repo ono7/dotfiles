@@ -123,6 +123,7 @@ nnoremap <C-s> /
 
 " save as sudo
 "cnoremap w!! w !sudo tee % > /dev/null
+cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
 
 augroup CleanNoName
   autocmd!
