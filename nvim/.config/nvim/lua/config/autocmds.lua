@@ -205,15 +205,8 @@ vim.api.nvim_create_user_command("GitOpen", function(opts_args)
   local _, _, host, user, repo = unpack(ssh_url_captures)
   repo = repo:gsub(".git$", "")
 
-  local github_repo_url =
-      string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
-  local github_file_url = string.format(
-    "%s/blob/%s/%s#L%s",
-    vim.uri_encode(github_repo_url),
-    vim.uri_encode(git_ref),
-    vim.uri_encode(file),
-    line
-  )
+  local github_repo_url = string.format("https://%s/%s/%s", vim.uri_encode(host), vim.uri_encode(user), vim.uri_encode(repo))
+  local github_file_url = string.format("%s/blob/%s/%s#L%s", vim.uri_encode(github_repo_url), vim.uri_encode(git_ref), vim.uri_encode(file), line)
   vim.fn.system("open " .. github_file_url)
 end, { nargs = "?" })
 
@@ -427,11 +420,7 @@ vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     if is_normal_win and is_normal_buf and name ~= "" then
       vim.schedule(function()
         -- Ensure we haven't entered cmdwin during the schedule delay
-        if
-            vim.fn.getcmdwintype() == ""
-            and vim.api.nvim_win_is_valid(0)
-            and vim.api.nvim_buf_is_valid(args.buf)
-        then
+        if vim.fn.getcmdwintype() == "" and vim.api.nvim_win_is_valid(0) and vim.api.nvim_buf_is_valid(args.buf) then
           pcall(vim.cmd, "file")
         end
       end)
@@ -454,5 +443,41 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
 
     -- Optional: Allow pressing 'q' to close the command-line window quickly
     vim.keymap.set("n", "q", "<C-c>", key_opts)
+  end,
+})
+
+local clean_init_group = vim.api.nvim_create_augroup("CleanInitialBuffer", { clear = true })
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = clean_init_group,
+  once = true, -- Only needs to run once when the first real file is loaded
+  callback = function(args)
+    local opened_buf = args.buf
+
+    -- Defer slightly to ensure the new file buffer and tab are fully mounted
+    vim.schedule(function()
+      for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if bufnr ~= opened_buf and vim.api.nvim_buf_is_valid(bufnr) then
+          local name = vim.api.nvim_buf_get_name(bufnr)
+          local is_empty = vim.api.nvim_buf_line_count(bufnr) == 1 and vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] == ""
+          local is_unmodified = not vim.bo[bufnr].modified
+          local is_real = vim.bo[bufnr].buflisted and vim.bo[bufnr].buftype == ""
+
+          -- If it has no name, is listed, empty, and unmodified, wipe it out
+          if name == "" and is_real and is_empty and is_unmodified then
+            -- If that buffer occupied Tab 1, closing the tab or buffer prevents empty tabs
+            local wins = vim.fn.win_findbuf(bufnr)
+            for _, win in ipairs(wins) do
+              local tab = vim.api.nvim_win_get_tabpage(win)
+              -- If Tab 1 has only this single window, close the redundant tab
+              if #vim.api.nvim_tabpage_list_wins(tab) == 1 and #vim.api.nvim_list_tabpages() > 1 then
+                pcall(vim.cmd, "tabclose " .. vim.api.nvim_tabpage_get_number(tab))
+              end
+            end
+            pcall(vim.api.nvim_buf_delete, bufnr, { force = true })
+          end
+        end
+      end
+    end)
   end,
 })

@@ -121,6 +121,9 @@ inoremap <C-s> <C-o>/
 nnoremap <C-r> ?
 nnoremap <C-s> /
 
+" show shorter file paths
+" nnoremap <C-g> :echo expand('%:h:t') . '/' . expand('%:t')<CR>
+
 " inoremap <C-r> <C-o>?\v
 " inoremap <C-s> <C-o>/\v
 " nnoremap <C-r> ?\v

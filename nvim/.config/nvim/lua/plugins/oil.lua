@@ -15,10 +15,46 @@ return {
       columns = { "icon", add_padding = true },
       keymaps = {
         ["<C-p>"] = false,
-        ["<C-t>"] = false,
         ["<C-h>"] = false,
-        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
-        ["<M-s>"] = { "actions.select", opts = { horizontal = true } },
+
+        -- 1. Make <CR> / Enter open files in a new tab by default
+        ["<CR>"] = {
+          desc = "Open file in new tab and close oil in previous window",
+          callback = function()
+            local oil = require("oil")
+            local entry = oil.get_cursor_entry()
+            if not entry then
+              return
+            end
+
+            -- If it's a directory, let oil enter the directory as normal
+            if entry.type == "directory" then
+              oil.select()
+              return
+            end
+
+            -- Get current oil directory and full file path
+            local current_dir = oil.get_current_dir()
+            if not current_dir then
+              return
+            end
+            local file_path = current_dir .. entry.name
+
+            -- Close Oil / restore previous buffer in current window before opening tab
+            oil.close()
+
+            -- Open the target file in a brand new tab
+            vim.cmd("tabedit " .. vim.fn.fnameescape(file_path))
+          end,
+        },
+
+        -- 2. Explicit Tab binding (<C-t>)
+        ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open in new tab" },
+
+        -- 3. Splits
+        ["<C-v>"] = { "actions.select", opts = { vertical = true }, desc = "Open in vertical split" },
+        ["<M-s>"] = { "actions.select", opts = { horizontal = true }, desc = "Open in horizontal split" },
+
         ["<C-/>"] = "actions.close",
         ["gd"] = {
           desc = "Toggle file detail view",
@@ -44,7 +80,6 @@ return {
         border = "rounded",
         win_options = {
           winblend = 0,
-          -- signcolumn = "yes:2"
         },
         preview_split = "auto",
         override = function(conf)
