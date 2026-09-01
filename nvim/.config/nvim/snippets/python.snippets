@@ -5,11 +5,22 @@ snippet main "insert if name check" b
     ${0}
 
 snippet dump "json dumps to file" b
-  # TODO: remove when done
-  import json
-  with open("${1:output}.json", "w", encoding="utf-8") as f:
-    json.dump(${2:response}, f, ensure_ascii=False, indent=2)
-  ${0}
+    # TODO(jlima): remove this before prod
+    import json
+
+    with open("${1:test_data}.json", "w", encoding="utf-8") as f:
+        json.dump(${2:data}, f, indent=2)
+
+    print("Saved API response to ${1}.json")
+
+
+snippet load "json load to file" b
+    # TODO(jlima): remove this before prod
+    import json
+
+    with open("${1:test_data}.json", "r", encoding="uft-8") as f:
+      ${2:test_data} = json.load(f)
+    ${0}
 
 # snippet dump "dumps var in json"
 #         import json
