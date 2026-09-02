@@ -34,8 +34,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps uv vim fzf starship fonts done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim fonts done
+linux: linux-deps clean stow nvm go-deps uv vim fzf starship fonts neovide done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim neovide fonts done
 
 clean:
 	@echo $(BANNER)
