@@ -5,7 +5,7 @@ export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linux
 FONT_REPO := https://github.com/ono7/fonts2.git
 FONT_DIR  := $(HOME)/fonts2
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -66,6 +66,7 @@ clean:
 	rm -f ~/.pylintrc
 	rm -f ~/.dircolors
 	mkdir -p ~/local/bin
+	mkdir -p ~/.config/neovide
 	mkdir -p ~/.npm-global/bin
 	mkdir -p ~/.tmp
 
@@ -136,6 +137,19 @@ neovim:
 	@touch ~/.workspaces
 	@rm -rf $(HOME)/.local/share/nvim
 	@bash ./_scripts/build-neovim.sh
+
+neovide:
+	@echo $(BANNER)
+	@rm -rf ~/.config/neovide/config.toml
+	@mkdir -p ~/.config/neovide
+ifeq ($(OS),Darwin)
+	@echo "Linking neovide config for macOS"
+	@ln -s ~/.dotfiles/templates/macos-config.toml ~/.config/neovide/config.toml
+else
+	@echo "Linking neovide config for Linux"
+	@ln -s ~/.dotfiles/templates/linux-config.toml ~/.config/neovide/config.toml
+endif
+	@echo "Neovide configuration linked successfully."
 
 vim:
 	@echo $(BANNER)
