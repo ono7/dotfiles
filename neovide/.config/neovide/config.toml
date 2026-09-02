@@ -1,8 +1,8 @@
 fork = true
 # frame = "full"
-# frame = "buttonless"
+frame = "buttonless"
 # frame = "transparent"
-frame = "full"
+# frame = "full"
 idle = true
 maximized = false
 system-native-tabs = true
