@@ -1,0 +1,21 @@
+fork = true
+# frame = "full"
+# frame = "buttonless"
+frame = "transparent"
+# frame = "full"
+idle = true
+maximized = false
+system-native-tabs = true
+system-tab-prev-hotkey = "ctrl+1"
+system-tab-next-hotkey = "ctrl+2"
+# system-tab-next-hotkey = "cmd+shift+]"
+srgb = true
+tabs = true
+theme = "dark"
+title-hidden = true
+vsync = true
+wsl = false
+
+[box-drawing]
+# "font-glyph", "native" or "selected-native"
+mode = "native"

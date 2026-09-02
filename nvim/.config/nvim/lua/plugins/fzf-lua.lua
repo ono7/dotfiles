@@ -87,7 +87,32 @@ return {
       },
       actions = {
         files = {
-          ["default"] = fzf.actions.file_tabedit,
+          ["default"] = function(selected, opts)
+            if not selected[1] then
+              return
+            end
+            local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
+            if not file then
+              return
+            end
+            local target_path = vim.fs.normalize(vim.fn.fnamemodify(file, ":p"))
+
+            -- Check all tabs and windows for the target file
+            for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+              for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local buf_name = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
+                if buf_name == target_path then
+                  vim.api.nvim_set_current_tabpage(tab)
+                  vim.api.nvim_set_current_win(win)
+                  return
+                end
+              end
+            end
+
+            -- If not open anywhere, open in a new tab
+            vim.cmd("tabedit " .. vim.fn.fnameescape(target_path))
+          end,
           ["ctrl-q"] = fzf.actions.file_sel_to_qf,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,

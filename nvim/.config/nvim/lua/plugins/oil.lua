@@ -19,7 +19,7 @@ return {
 
         -- 1. Make <CR> / Enter open files in a new tab by default
         ["<CR>"] = {
-          desc = "Open file in new tab and close oil in previous window",
+          desc = "Open in existing tab or create a new one",
           callback = function()
             local oil = require("oil")
             local entry = oil.get_cursor_entry()
@@ -27,24 +27,35 @@ return {
               return
             end
 
-            -- If it's a directory, let oil enter the directory as normal
             if entry.type == "directory" then
               oil.select()
               return
             end
 
-            -- Get current oil directory and full file path
             local current_dir = oil.get_current_dir()
             if not current_dir then
               return
             end
-            local file_path = current_dir .. entry.name
+            local target_path = vim.fs.normalize(current_dir .. entry.name)
 
-            -- Close Oil / restore previous buffer in current window before opening tab
+            -- Check all tabs and windows for the target file
+            for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+              for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+                local buf = vim.api.nvim_win_get_buf(win)
+                local buf_name = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
+                if buf_name == target_path then
+                  -- Switch to that tab and window, close oil first
+                  oil.close()
+                  vim.api.nvim_set_current_tabpage(tab)
+                  vim.api.nvim_set_current_win(win)
+                  return
+                end
+              end
+            end
+
+            -- If not open in any tab, close oil and open in a new tab
             oil.close()
-
-            -- Open the target file in a brand new tab
-            vim.cmd("tabedit " .. vim.fn.fnameescape(file_path))
+            vim.cmd("tabedit " .. vim.fn.fnameescape(target_path))
           end,
         },
 
