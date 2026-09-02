@@ -42,7 +42,7 @@ return {
     require("tabby.tabline").set(function(line)
       return {
         {
-          { " 🐇 ", hl = theme.head },
+          { "🐇", hl = theme.head },
           line.sep("", theme.head, theme.fill),
         },
         line.tabs().foreach(function(tab)
@@ -62,18 +62,17 @@ return {
 
           return {
             line.sep("", hl, theme.fill),
-            is_current and "  " or "  ",
             tab_name,
             modified and { " ", fg = palette.modified } or "",
             line.sep("", hl, theme.fill),
             hl = hl,
-            margin = " ",
+            margin = "",
           }
         end),
         line.spacer(),
         {
           line.sep("", theme.tail, theme.fill),
-          { "  ", hl = theme.tail },
+          { "", hl = theme.tail },
         },
         hl = theme.fill,
       }
