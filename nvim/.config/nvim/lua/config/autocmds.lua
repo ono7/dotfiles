@@ -481,3 +481,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end)
   end,
 })
+
+-- deletes no-name buffer on entry when running neovide
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.g.neovide then
+      vim.cmd("bn")
+      vim.cmd("bd #")
+    end
+  end,
+})
