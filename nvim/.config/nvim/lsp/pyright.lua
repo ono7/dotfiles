@@ -1,50 +1,47 @@
 -- Cache to store poetry paths per project root so we don't query system repeatedly
-local venv_cache = {}
 
-local function trim_path(s)
-  if #s < 50 then
-    return s
-  else
-    local l = #s / 2
-    return s:sub(-l)
-  end
+local function file_exists(path)
+  return vim.uv.fs_stat(path) ~= nil
 end
 
-local function get_python_path(root_dir)
-  -- Priority 0: Active Shell Virtual Environment (Fastest & Safest)
-  -- This works even if root_dir is nil (e.g. library files)
-  if vim.env.VIRTUAL_ENV then
+local function trim_path(s)
+  if not s or #s <= 45 then
+    return s or ""
+  end
+  return "..." .. s:sub(-42)
+end
+
+local function resolve_python_path(root_dir)
+  -- 1. Active terminal virtual environment
+  if vim.env.VIRTUAL_ENV and file_exists(vim.env.VIRTUAL_ENV .. "/bin/python") then
     return vim.env.VIRTUAL_ENV .. "/bin/python"
   end
 
-  -- GUARD CLAUSE: If we are in a dependency file (site-packages), root_dir is nil.
-  -- We cannot check for local project files, so we bail out.
   if not root_dir then
     return nil
   end
 
-  -- Priority 1: Local .venv in project root (Fast)
-  local local_venv = root_dir .. "/.venv"
-  if vim.fn.isdirectory(local_venv) == 1 then
-    return local_venv .. "/bin/python"
+  -- 2. Local .venv (Standard for uv, venv, and in-project Poetry)
+  local dot_venv = root_dir .. "/.venv/bin/python"
+  if file_exists(dot_venv) then
+    return dot_venv
   end
 
-  -- Priority 2: Poetry (Slow, so we cache it)
-  local poetry_lock = root_dir .. "/poetry.lock"
-  if vim.fn.filereadable(poetry_lock) == 1 then
-    -- Return cached value if it exists
-    if venv_cache[root_dir] then
-      return venv_cache[root_dir]
-    end
+  -- 3. Local venv (Standard alternative naming)
+  local standard_venv = root_dir .. "/venv/bin/python"
+  if file_exists(standard_venv) then
+    return standard_venv
+  end
 
-    -- Run poetry info only once
+  -- 4. External Poetry environment
+  if file_exists(root_dir .. "/poetry.lock") then
     local cmd = "cd " .. vim.fn.shellescape(root_dir) .. " && poetry env info --path"
     local path = vim.fn.trim(vim.fn.system(cmd))
-
     if vim.v.shell_error == 0 and path ~= "" then
-      local python_bin = path .. "/bin/python"
-      venv_cache[root_dir] = python_bin
-      return python_bin
+      local poetry_bin = path .. "/bin/python"
+      if file_exists(poetry_bin) then
+        return poetry_bin
+      end
     end
   end
 
@@ -63,36 +60,32 @@ return {
   flags = {
     debounce_text_changes = 300,
   },
-  on_attach = function(client, bufnr)
-    -- 1. Virtual Env Setup
-    local root_dir = client.config.root_dir
-    local python_path = get_python_path(root_dir)
-
+  before_init = function(_, config)
+    local python_path = resolve_python_path(config.root_dir)
     if python_path then
-      client.config.settings.python.pythonPath = python_path
-      client:notify("workspace/didChangeConfiguration", {
-        settings = client.config.settings,
-      })
-      -- vim.notify("VENV" .. trim_path(python_path))
-      vim.notify("env: ✔")
+      config.settings.python.pythonPath = python_path
+      vim.schedule(function()
+        vim.notify("env: ✔ ")
+      end)
+    else
+      vim.schedule(function()
+        vim.notify("env: ✖ system default", vim.log.levels.WARN, {
+          title = "Pyright",
+        })
+      end)
     end
-
-    -- 2. UX Optimization: Enable Inlay Hints (Neovim 0.10+)
-    -- Shows param names inline: func(name="param")
-    -- if client.server_capabilities.inlayHintProvider then
-    --   vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    -- end
+  end,
+  on_attach = function(client, bufnr)
+    -- Buffer-local keymaps and buffer settings
   end,
   settings = {
     python = {
       analysis = {
-        -- PERFORMANCE: Only analyze files you are editing, not the whole repo.
         diagnosticMode = "openFilesOnly",
-
-        -- TYPE CHECKING: Strictness settings
         typeCheckingMode = "basic",
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
+        indexing = false, -- do not index non-open files in the project
       },
     },
   },

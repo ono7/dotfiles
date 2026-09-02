@@ -84,6 +84,11 @@ use c-s and c-r more often to move around
 -- %< the current filename without the extension, % = the file name to compile
 Dispatch: :Dispatch g++ % -o %<
 
+read hidden chars in files like BOM or hidden UTF8
+enables binary mode
+:e ++bin
+
+
 ]]
 
 -- Enable byte-compile loader immediately for performance
@@ -181,8 +186,7 @@ vim.opt.mouse = "a"
 --- check to see what autocmds are running on the buffer
 --- usefull for fixing performance issues or input issues
 vim.api.nvim_create_user_command("CheckAutocommands", function()
-  local events =
-  { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
+  local events = { "InsertEnter", "InsertLeave", "InsertCharPre", "TextChanged", "TextChangedI", "CursorHold", "CursorHoldI" }
 
   for _, event in ipairs(events) do
     local autocmds = vim.api.nvim_get_autocmds({ event = event })

@@ -1,7 +1,7 @@
 return {
   "j-hui/fidget.nvim",
   config = function()
-    -- Base transparent window highlight (removes the dark banner entirely)
+    -- Base transparent window highlight
     vim.api.nvim_set_hl(0, "FidgetWindow", { bg = "NONE" })
 
     -- Clean, background-free icon & text highlights
@@ -23,8 +23,8 @@ return {
       progress = {
         poll_rate = 16,
         suppress_on_insert = false,
-        ignore_done_already = false,
-        ignore_empty_message = false,
+        ignore_done_already = true, -- Skip subtasks that finished instantly
+        ignore_empty_message = true, -- Drop LSP tokens with no status payload
 
         clear_on_detach = function(client_id)
           local client = vim.lsp.get_client_by_id(client_id)
@@ -35,13 +35,13 @@ return {
           return msg.lsp_client.name
         end,
 
-        ignore = {},
+        -- Ignore Pyright progress tokens entirely (other LSPs like gopls or rust-analyzer will still show)
+        ignore = { "pyright" },
 
         display = {
           render_limit = 5,
-          done_ttl = 3,
+          done_ttl = 0.5, -- Dismiss completed items after 0.5s instead of 3s
           done_icon = "󰄬 ",
-          -- done_icon = "✔",
           done_style = "FidgetDone",
 
           progress_ttl = math.huge,
@@ -55,7 +55,10 @@ return {
           skip_history = true,
 
           format_message = function(msg)
-            local message = msg.message or (msg.done and "Completed" or "In progress...")
+            if not msg.message and msg.done then
+              return nil
+            end
+            local message = msg.message or "In progress..."
             if msg.percentage then
               message = string.format("(%d%%) %s", msg.percentage, message)
             end
@@ -117,8 +120,8 @@ return {
         },
 
         window = {
-          normal_hl = "FidgetWindow", -- Uses pure transparent background
-          winblend = 20,              -- 0 ensures no composite dimming layer
+          normal_hl = "FidgetWindow",
+          winblend = 0, -- Set to 0 so Neovide does not apply composite tinting
           border = "none",
           zindex = 45,
           max_width = 50,
