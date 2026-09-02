@@ -2,15 +2,14 @@ return {
   "nanozuki/tabby.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
-    -- Harmonized with custom-paper palette
     local palette = {
-      fill_bg = "#F2EFE9", -- Base paper background
-      active_bg = "#D5CFC4", -- Visual / active selection pill
-      active_fg = "#000000", -- Crisp black text
-      inactive_bg = "#E6E2DA", -- Subtle surface for inactive pills
-      inactive_fg = "#5C6A7B", -- Slate/dim text
-      accent = "#3B6EA8", -- Paper info blue for head/tail glyphs
-      modified = "#C4434B", -- Brick red dot for unsaved changes
+      fill_bg = "#F2EFE9",
+      active_bg = "#D5CFC4",
+      active_fg = "#000000",
+      inactive_bg = "#E6E2DA",
+      inactive_fg = "#5C6A7B",
+      accent = "#3B6EA8",
+      modified = "#C4434B",
     }
 
     local theme = {
@@ -21,7 +20,6 @@ return {
       tab = { fg = palette.inactive_fg, bg = palette.inactive_bg },
     }
 
-    -- Helper to extract "parent_dir/filename" from the active window in a tab
     local function get_tab_label(tab_id)
       local current_win = tab_id.current_win()
       local bufid = current_win.buf().id
@@ -50,10 +48,8 @@ return {
         line.tabs().foreach(function(tab)
           local is_current = tab.is_current()
           local hl = is_current and theme.current_tab or theme.tab
-
           local tab_name = get_tab_label(tab)
 
-          -- Check if any buffer in this tab is modified
           local modified = false
           local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
           for _, win_id in ipairs(win_ids) do
@@ -65,10 +61,11 @@ return {
           end
 
           return {
-            line.sep("", hl, theme.fill),
+            line.sep("", hl, theme.fill),
+            is_current and "  " or "  ",
             tab_name,
             modified and { " ", fg = palette.modified } or "",
-            line.sep("", hl, theme.fill),
+            line.sep("", hl, theme.fill),
             hl = hl,
             margin = " ",
           }
