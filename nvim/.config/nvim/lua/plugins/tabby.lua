@@ -2,6 +2,8 @@ return {
   "nanozuki/tabby.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
+    -- always show tabline
+    vim.o.showtabline = 2
     local palette = {
       fill_bg = "#F2EFE9",
       active_bg = "#D5CFC4",
