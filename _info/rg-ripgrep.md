@@ -1,5 +1,24 @@
 ## install on container RHEL
 
+```vim
+
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
+endif
+
+" this is the best part of my config
+function! Rg(args) abort
+  " escape the | properly, :Rg -uu 'from (?!ansible|pytest)\w+ import'
+  let l:pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" l:pattern
+  copen
+endfunction
+
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
+
+```
+
 # Add global bypass to dnf configuration
 
 ```bash
