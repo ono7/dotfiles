@@ -324,8 +324,13 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
   local arg = vim.trim(opts_cmd.args)
   local patterns = arg ~= "" and vim.split(arg, "|", { trimempty = true }) or {}
 
+  -- NOTE(jlima): Use nvim_get_option_value with pcall to prevent fatal __index errors on unlisted or dead bufs.
   local bufs = vim.tbl_filter(function(b)
-    return vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted
+    if not vim.api.nvim_buf_is_valid(b) then
+      return false
+    end
+    local ok, listed = pcall(vim.api.nvim_get_option_value, "buflisted", { buf = b })
+    return ok and listed
   end, vim.api.nvim_list_bufs())
 
   local targets = {}
@@ -372,12 +377,16 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
   local skipped_modified = 0
 
   for _, buf in ipairs(targets) do
-    if not opts_cmd.bang and vim.bo[buf].modified then
-      skipped_modified = skipped_modified + 1
-    else
-      local ok = pcall(vim.api.nvim_buf_delete, buf, { force = opts_cmd.bang })
-      if ok then
-        closed = closed + 1
+    -- NOTE(jlima): Verify buffer validity before checking modification state; deleting prior buffers can invalidate siblings.
+    if vim.api.nvim_buf_is_valid(buf) then
+      local ok_mod, is_modified = pcall(vim.api.nvim_get_option_value, "modified", { buf = buf })
+      if not opts_cmd.bang and ok_mod and is_modified then
+        skipped_modified = skipped_modified + 1
+      else
+        local ok = pcall(vim.api.nvim_buf_delete, buf, { force = opts_cmd.bang })
+        if ok then
+          closed = closed + 1
+        end
       end
     end
   end
@@ -396,7 +405,11 @@ end, {
     current_lead = current_lead or lead
 
     local bufs = vim.tbl_filter(function(b)
-      return vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted
+      if not vim.api.nvim_buf_is_valid(b) then
+        return false
+      end
+      local ok, listed = pcall(vim.api.nvim_get_option_value, "buflisted", { buf = b })
+      return ok and listed
     end, vim.api.nvim_list_bufs())
 
     local candidates = {}
