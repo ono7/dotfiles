@@ -106,15 +106,52 @@ alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
 alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 
 # File listing (eza / ls)
-if command -v eza >/dev/null 2>&1; then
-  alias ls="eza --icons auto"
-  alias ll="eza -lh --git --icons auto --group-directories-first"
-  alias la="eza -lah --git --icons auto --group-directories-first"
-  alias lt="eza --tree --level=2 --icons auto"
+# if command -v eza >/dev/null 2>&1; then
+#   alias ls="eza --icons auto"
+#   alias ll="eza -lh --git --icons auto --group-directories-first"
+#   alias la="eza -lah --git --icons auto --group-directories-first"
+#   alias lt="eza --tree --level=2 --icons auto"
+# else
+#   alias ll="ls -lh"
+#   alias la="ls -lah"
+# fi
+
+# -------------------------------------------------------------------
+# File Listing (GNU ls / BSD ls cross-platform configuration)
+# -------------------------------------------------------------------
+
+# Determine the binary for GNU ls
+if command -v gls >/dev/null 2>&1; then
+  _ls_bin="gls"
+elif ls --version >/dev/null 2>&1; then
+  _ls_bin="ls"
 else
+  _ls_bin=""
+fi
+
+if [[ -n "$_ls_bin" ]]; then
+  # GNU ls options:
+  # -h: Human-readable sizes (K, M, G)
+  # -v: Natural sorting of version/build numbers (e.g., file1, file2, file10)
+  # --group-directories-first: Group folders ahead of files
+  # --time-style: Consistent, ISO-like date formatting
+  alias ls="${_ls_bin} --color=auto"
+  alias ll="${_ls_bin} --color=auto -lhv --group-directories-first --time-style='+%Y-%m-%d %H:%M'"
+  alias la="${_ls_bin} --color=auto -lahv --group-directories-first --time-style='+%Y-%m-%d %H:%M'"
+  alias lk="${_ls_bin} --color=auto -lhvS --group-directories-first" # Sort by size (largest first)
+  alias lt="${_ls_bin} --color=auto -lhvt --group-directories-first" # Sort by modification time (newest first)
+else
+  # Native macOS / BSD fallback
+  export CLICOLOR=1
+  export LSCOLORS="GxFxCxDxBxegedabagaced"
+  alias ls="ls"
   alias ll="ls -lh"
   alias la="ls -lah"
+  alias lk="ls -lhS"
+  alias lt="ls -lht"
 fi
+
+unset _ls_bin
 
 # Clipboard
 if command -v pbcopy &>/dev/null; then
