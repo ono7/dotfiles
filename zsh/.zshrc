@@ -489,7 +489,7 @@ vs() {
   local file
   file="$(fd --type f -E .git --absolute-path | fzf --height 30% --reverse --border)" || return
   if [[ -n "$file" ]]; then
-    printf '%s' "$file" | pbcopy
+    printf '%s' "$file" | c
   fi
 }
 
