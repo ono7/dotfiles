@@ -31,32 +31,32 @@ vim.api.nvim_create_autocmd("TermClose", {
 })
 
 -- LSP attach configuration (omnifunc and pyright venv resolution)
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = general_group,
-  callback = function(args)
-    if vim.b[args.buf].large_file == true then
-      return
-    end
-
-    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client or client.name ~= "pyright" then
-      return
-    end
-
-    local venv = vim.env.VIRTUAL_ENV
-    if venv and venv ~= "" then
-      client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
-        python = {
-          analysis = {
-            venvPath = vim.fn.fnamemodify(venv, ":h"),
-            venv = vim.fn.fnamemodify(venv, ":t"),
-          },
-        },
-      })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = general_group,
+--   callback = function(args)
+--     if vim.b[args.buf].large_file == true then
+--       return
+--     end
+--
+--     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if not client or client.name ~= "pyright" then
+--       return
+--     end
+--
+--     local venv = vim.env.VIRTUAL_ENV
+--     if venv and venv ~= "" then
+--       client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
+--         python = {
+--           analysis = {
+--             venvPath = vim.fn.fnamemodify(venv, ":h"),
+--             venv = vim.fn.fnamemodify(venv, ":t"),
+--           },
+--         },
+--       })
+--     end
+--   end,
+-- })
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
