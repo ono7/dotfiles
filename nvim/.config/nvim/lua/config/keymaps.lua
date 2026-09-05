@@ -567,6 +567,8 @@ vim.keymap.set("c", "<C-k>", function()
   return ""
 end, { expr = true, desc = "Kill to end of line" })
 
+k({ "x", "n" }, "<leader>p", '"+p', opt)
+
 --- macros
 k("x", "Q", "<cmd>norm @q<CR>", opt)
 

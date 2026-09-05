@@ -1,0 +1,134 @@
+return {
+  "romgrk/barbar.nvim",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  init = function()
+    vim.g.barbar_auto_setup = false
+  end,
+  config = function()
+    vim.o.showtabline = 2
+    -- Automatically set barbar_name to "parent/filename"
+    local augroup = vim.api.nvim_create_augroup("BarbarCustomNames", { clear = true })
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufFilePost" }, {
+      group = augroup,
+      callback = function(args)
+        local bufname = vim.api.nvim_buf_get_name(args.buf)
+        if bufname == "" then
+          return
+        end
+
+        local filename = vim.fn.fnamemodify(bufname, ":t")
+        local parent = vim.fn.fnamemodify(bufname, ":p:h:t")
+
+        if parent ~= "" and parent ~= "." then
+          vim.b[args.buf].barbar_name = parent .. "/" .. filename
+        end
+      end,
+    })
+
+    require("barbar").setup({
+      animation = false,
+      auto_hide = false,
+      tabpages = false,
+      maximum_length = 40,
+      -- Set whether to hide/show parent directories
+      -- Barbar resolves duplicates by default, but you can configure full name behavior:
+      semantic_letters = true,
+      clickable = true,
+      focus_on_close = "left",
+      icons = {
+        buffer_index = false,
+        buffer_number = false,
+        button = false,
+        diagnostics = {
+          [vim.diagnostic.severity.ERROR] = { enabled = false },
+          [vim.diagnostic.severity.WARN] = { enabled = false },
+          [vim.diagnostic.severity.INFO] = { enabled = false },
+          [vim.diagnostic.severity.HINT] = { enabled = false },
+        },
+        gitsigns = {
+          added = { enabled = false },
+          changed = { enabled = false },
+          deleted = { enabled = false },
+        },
+        filetype = {
+          custom_colors = false,
+          enabled = true,
+        },
+        separator = { left = "", right = "" },
+        separator_at_end = true,
+        modified = { button = "" },
+        pinned = { button = "", filename = true },
+      },
+      maximum_padding = 1,
+      minimum_padding = 1,
+    })
+
+    local palette = {
+      fill_bg = "#F2EFE9",
+      active_bg = "#D5CFC4",
+      active_fg = "#000000",
+      inactive_bg = "#E6E2DA",
+      inactive_fg = "#5C6A7B",
+      accent = "#3B6EA8",
+      modified = "#C4434B",
+    }
+
+    local function apply_barbar_colors()
+      -- Tabline bar background
+      vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = palette.fill_bg, fg = palette.inactive_fg })
+
+      -- Active Tab
+      vim.api.nvim_set_hl(0, "BufferCurrent", { bg = palette.active_bg, fg = palette.active_fg, bold = true })
+      vim.api.nvim_set_hl(0, "BufferCurrentIndex", { bg = palette.active_bg, fg = palette.active_fg })
+      vim.api.nvim_set_hl(0, "BufferCurrentMod", { bg = palette.active_bg, fg = palette.modified, bold = true })
+      vim.api.nvim_set_hl(0, "BufferCurrentSign", { bg = palette.active_bg, fg = palette.active_bg })
+      vim.api.nvim_set_hl(0, "BufferCurrentTarget", { bg = palette.active_bg, fg = palette.accent, bold = true })
+      vim.api.nvim_set_hl(0, "BufferCurrentIcon", { bg = palette.active_bg })
+
+      -- Active Tab Separators (renders glyph fg in tab color, bg in fill color)
+      vim.api.nvim_set_hl(0, "BufferCurrentSep", { fg = palette.active_bg, bg = palette.fill_bg })
+
+      -- Inactive Tabs
+      vim.api.nvim_set_hl(0, "BufferInactive", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+      vim.api.nvim_set_hl(0, "BufferInactiveIndex", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+      vim.api.nvim_set_hl(0, "BufferInactiveMod", { bg = palette.inactive_bg, fg = palette.modified })
+      vim.api.nvim_set_hl(0, "BufferInactiveSign", { bg = palette.inactive_bg, fg = palette.inactive_bg })
+      vim.api.nvim_set_hl(0, "BufferInactiveTarget", { bg = palette.inactive_bg, fg = palette.accent, bold = true })
+      vim.api.nvim_set_hl(0, "BufferInactiveIcon", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+
+      -- Inactive Tab Separators
+      vim.api.nvim_set_hl(0, "BufferInactiveSep", { fg = palette.inactive_bg, bg = palette.fill_bg })
+
+      -- Visible (unfocused splits in active tab)
+      vim.api.nvim_set_hl(0, "BufferVisible", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+      vim.api.nvim_set_hl(0, "BufferVisibleIndex", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+      vim.api.nvim_set_hl(0, "BufferVisibleMod", { bg = palette.inactive_bg, fg = palette.modified })
+      vim.api.nvim_set_hl(0, "BufferVisibleSign", { bg = palette.inactive_bg, fg = palette.inactive_bg })
+      vim.api.nvim_set_hl(0, "BufferVisibleTarget", { bg = palette.inactive_bg, fg = palette.accent, bold = true })
+      vim.api.nvim_set_hl(0, "BufferVisibleIcon", { bg = palette.inactive_bg, fg = palette.inactive_fg })
+      vim.api.nvim_set_hl(0, "BufferVisibleSep", { fg = palette.inactive_bg, bg = palette.fill_bg })
+    end
+
+    -- Run immediately and bind to ColorScheme events
+    apply_barbar_colors()
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      group = vim.api.nvim_create_augroup("BarbarCustomHighlights", { clear = true }),
+      callback = apply_barbar_colors,
+    })
+
+    -- Keymaps
+    local map = vim.keymap.set
+    local opts = { silent = true }
+    map("n", "<Tab>", "<Cmd>BufferNext<CR>", opts)
+    map("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", opts)
+    map("n", "]b", "<Cmd>BufferNext<CR>", opts)
+    map("n", "[b", "<Cmd>BufferPrevious<CR>", opts)
+    map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
+    map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
+    map("n", "<leader>bp", "<Cmd>BufferPick<CR>", opts)
+    map("n", "<leader>c", "<Cmd>BufferClose<CR>", opts)
+    map("n", "<leader>bc", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
+  end,
+}

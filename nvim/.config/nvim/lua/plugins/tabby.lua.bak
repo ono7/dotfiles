@@ -4,6 +4,7 @@ return {
   config = function()
     -- always show tabline
     vim.o.showtabline = 2
+    vim.opt.switchbuf = "usetab,uselast"
     local palette = {
       fill_bg = "#F2EFE9",
       active_bg = "#D5CFC4",
