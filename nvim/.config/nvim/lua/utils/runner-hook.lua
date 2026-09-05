@@ -19,10 +19,16 @@ local function execute_command(bufnr)
       return
     end
 
-    -- NOTE(jlima): Scope nvim_buf_call strictly to expansion so it does not pull window focus back from the terminal.
+    local buf_name = vim.api.nvim_buf_get_name(bufnr)
+    local buf_dir = buf_name ~= "" and vim.fs.dirname(buf_name) or vim.fn.getcwd()
+
+    -- NOTE(jlima): Temporarily scope lcd to file directory so wildcards expand matching :T's working directory without leaking state.
     local expanded_cmd
     vim.api.nvim_buf_call(bufnr, function()
+      local saved_cwd = vim.fn.getcwd()
+      vim.cmd.lcd(buf_dir)
       expanded_cmd = vim.fn.expandcmd(raw_cmd)
+      vim.cmd.lcd(saved_cwd)
     end)
 
     if expanded_cmd and expanded_cmd ~= "" then
@@ -64,20 +70,33 @@ function P.setup()
       return
     end
 
-    -- NOTE(jlima): Passing no arguments clears the hook exclusively for current filetype.
-    if #args.args == 0 then
-      ft_commands[ft] = nil
-      vim.schedule(function()
-        print(string.format("Compiler cleared for filetype: %s", ft))
-      end)
-      return
+    local function apply_hook(input)
+      if input == nil then
+        return
+      end
+
+      local cleaned = vim.trim(input)
+      if cleaned == "" then
+        ft_commands[ft] = nil
+        print(string.format("[%s] Compiler cleared.", ft))
+        return
+      end
+
+      ft_commands[ft] = cleaned
+      print(string.format("[%s] Compiler configured: %s (triggers on save)", ft, ft_commands[ft]))
     end
 
-    ft_commands[ft] = args.args
-
-    vim.schedule(function()
-      print(string.format("[%s] Compiler configured: %s (triggers on save)", ft, ft_commands[ft]))
-    end)
+    -- NOTE(jlima): Passing no arguments presents an interactive edit prompt with existing command; empty input clears.
+    if #args.args == 0 then
+      vim.ui.input({
+        prompt = string.format("[%s] Edit Hook (empty to clear): ", ft),
+        default = ft_commands[ft] or "",
+      }, function(input)
+        apply_hook(input)
+      end)
+    else
+      apply_hook(args.args)
+    end
   end, { nargs = "*" })
 
   P.loaded = true
