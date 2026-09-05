@@ -83,6 +83,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.opt_local.spell = false
     vim.opt_local.wrap = true
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    -- NOTE(jlima): Schedule entering insert mode to prevent subsequent event loops from resetting to normal mode.
+    vim.schedule(function()
+      vim.cmd("startinsert")
+    end)
   end,
 })
 
