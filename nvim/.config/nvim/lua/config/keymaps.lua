@@ -505,28 +505,6 @@ endif
 packadd cfilter
 ]])
 
--- Append recursive search from current working directory
--- (Avoid wiping default paths like empty string/buffer relative)
-vim.opt.path:append("**")
-
--- REQUIRED: Prune heavy trees so the filesystem walker ignores them
-vim.opt.wildignore:append({
-  "*/.git/*",
-  "*/.venv/*",
-  "*/venv/*",
-  "*/__pycache__/*",
-  "*/node_modules/*",
-  "*/.tox/*",
-  "*/build/*",
-  "*/dist/*",
-  "*.o",
-  "*.pyc",
-  "*.swp",
-})
-
--- Configure wildmenu to behave predictably with :find <Tab>
-vim.opt.wildmenu = true
-vim.opt.wildmode = "longest:full,full"
 if vim.env.SSH_TTY then
   vim.g.clipboard = {
     name = "OSC 52",

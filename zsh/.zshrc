@@ -3,8 +3,6 @@
 # Disable flow control (Ctrl+S/Ctrl+Q)
 stty -ixon 2>/dev/null
 
-# test
-
 export GPG_TTY="/dev/tty"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export GOPATH="$HOME/go"

@@ -8,28 +8,28 @@ return {
     -- ---------------------------------------------------------
     -- AUTO-SYNC DIRECTORY ON FILE OPEN (Tab-local directory)
     -- ---------------------------------------------------------
-    local auto_cd_group = vim.api.nvim_create_augroup("FzfAutoDirectory", { clear = true })
-    vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter" }, {
-      group = auto_cd_group,
-      callback = function(args)
-        local bufnr = args.buf
-
-        -- Ignore unlisted or non-standard buffers (fzf terminal, help, etc.)
-        if not vim.bo[bufnr].buflisted or vim.bo[bufnr].buftype ~= "" then
-          return
-        end
-
-        local file_path = vim.api.nvim_buf_get_name(bufnr)
-        if file_path == "" then
-          return
-        end
-
-        local file_dir = vim.fn.fnamemodify(file_path, ":p:h")
-        if file_dir ~= "" and vim.fn.isdirectory(file_dir) == 1 then
-          vim.cmd("silent! tcd " .. vim.fn.fnameescape(file_dir))
-        end
-      end,
-    })
+    -- local auto_cd_group = vim.api.nvim_create_augroup("FzfAutoDirectory", { clear = true })
+    -- vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter" }, {
+    --   group = auto_cd_group,
+    --   callback = function(args)
+    --     local bufnr = args.buf
+    --
+    --     -- Ignore unlisted or non-standard buffers (fzf terminal, help, etc.)
+    --     if not vim.bo[bufnr].buflisted or vim.bo[bufnr].buftype ~= "" then
+    --       return
+    --     end
+    --
+    --     local file_path = vim.api.nvim_buf_get_name(bufnr)
+    --     if file_path == "" then
+    --       return
+    --     end
+    --
+    --     local file_dir = vim.fn.fnamemodify(file_path, ":p:h")
+    --     if file_dir ~= "" and vim.fn.isdirectory(file_dir) == 1 then
+    --       vim.cmd("silent! tcd " .. vim.fn.fnameescape(file_dir))
+    --     end
+    --   end,
+    -- })
 
     local winopts = {
       on_create = function()

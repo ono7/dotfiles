@@ -289,24 +289,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Fallback omni for non-LSP buffers
-vim.api.nvim_create_autocmd("FileType", {
-  group = general_group,
-  callback = function(args)
-    -- Use vim.lsp.get_clients instead of get_active_clients (deprecated)
-    if #vim.lsp.get_clients({ bufnr = args.buf }) > 0 then
-      return
-    end
-
-    if vim.bo[args.buf].omnifunc == "" then
-      vim.bo[args.buf].omnifunc = "syntaxcomplete#Complete"
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = general_group,
+--   callback = function(args)
+--     -- Use vim.lsp.get_clients instead of get_active_clients (deprecated)
+--     if #vim.lsp.get_clients({ bufnr = args.buf }) > 0 then
+--       return
+--     end
+--
+--     if vim.bo[args.buf].omnifunc == "" then
+--       vim.bo[args.buf].omnifunc = "syntaxcomplete#Complete"
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = create_augroup("highlight_yanked_text", { clear = true }),
   callback = function()
-    vim.hl.on_yank({ higroup = "Visual", timeout = 100 })
+    vim.hl.on_yank({ higroup = "Visual", timeout = 150 })
   end,
 })
 
@@ -374,21 +374,41 @@ local function find_git_root(path)
   return vim.fs.root(path, ".git")
 end
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = create_augroup("project_root_lcd", { clear = true }),
-  callback = function(args)
-    local path = vim.api.nvim_buf_get_name(args.buf)
-    if path == "" or path:match("term://") then
-      return
-    end
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   group = create_augroup("project_root_lcd", { clear = true }),
+--   callback = function(args)
+--     local path = vim.api.nvim_buf_get_name(args.buf)
+--     if path == "" or path:match("term://") then
+--       return
+--     end
+--
+--     local root = find_git_root(path)
+--     if root and not seen_projects[root] then
+--       seen_projects[root] = true
+--       vim.cmd("lcd " .. vim.fn.fnameescape(root))
+--     end
+--   end,
+-- })
 
-    local root = find_git_root(path)
-    if root and not seen_projects[root] then
-      seen_projects[root] = true
-      vim.cmd("lcd " .. vim.fn.fnameescape(root))
-    end
-  end,
-})
+-- Project root auto-chdir (per-tab rather than per-window)
+-- local seen_projects = {}
+
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--   group = vim.api.nvim_create_augroup("project_root_cd", { clear = true }),
+--   callback = function(args)
+--     local path = vim.api.nvim_buf_get_name(args.buf)
+--     if path == "" or path:match("^term://") then
+--       return
+--     end
+--
+--     local root = vim.fs.root(path, ".git")
+--     if root and not seen_projects[root] then
+--       seen_projects[root] = true
+--       -- Use tcd so the tab is anchored to the repo without fracturing splits
+--       vim.cmd("tcd " .. vim.fn.fnameescape(root))
+--     end
+--   end,
+-- })
 
 -- Scratch buffer management
 vim.api.nvim_create_autocmd("BufEnter", {

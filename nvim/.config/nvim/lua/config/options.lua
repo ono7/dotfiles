@@ -12,7 +12,7 @@ vim.g.maplocalleader = " "
 -- =============================================================================
 -- 3. General Editor Behavior & Timeouts
 -- =============================================================================
-vim.opt.background = "dark"
+-- vim.opt.background = "dark"
 vim.opt.bufhidden = "hide"
 vim.opt.hidden = true
 vim.opt.history = 1000
@@ -70,7 +70,6 @@ vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!
 -- =============================================================================
 -- 7. System, Paths & File Handling
 -- =============================================================================
-vim.opt.path = ".,," -- Removed '**' to prevent blocking recursive scans on completion/gf
 vim.opt.shell = "zsh"
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("_")
@@ -78,14 +77,39 @@ vim.opt.iskeyword:remove("-")
 vim.opt.nrformats:append("alpha")
 vim.opt.sessionoptions:remove("terminal")
 
+-- Append recursive search from current working directory for :find
+vim.opt.path:append("**")
+
+-- Recursively traverse visible directories, any dot-folder, and all children
+-- vim.opt.path:append("**/.*/**")
+
+-- Prune heavy trees so native filesystem searches ignore them
+vim.opt.wildignore:append({
+  "*/.git/*",
+  "*/.venv/*",
+  "*/venv/*",
+  "*/__pycache__/*",
+  "*/node_modules/*",
+  "*/.tox/*",
+  "*/build/*",
+  "*/dist/*",
+  "*.o",
+  "*.pyc",
+  "*.swp",
+})
+
+-- Configure wildmenu to behave predictably with :find <Tab>
+vim.opt.wildmenu = true
+vim.opt.wildmode = "longest:full,full"
+
 -- =============================================================================
 -- 8. Memory & Performance Guards
 -- =============================================================================
 vim.opt.swapfile = false
 vim.opt.directory = "~/.tmp"
 vim.opt.synmaxcol = 200
-vim.opt.lazyredraw = false -- Neovim 0.11+ preferred false
-vim.opt.scrollback = 100000
+vim.opt.lazyredraw = false
+vim.opt.scrollback = 10000 -- Bounded to prevent memory bloat and GC pauses
 vim.opt.maxmempattern = 2000
 
 -- =============================================================================
@@ -165,18 +189,24 @@ end
 vim.opt.foldtext = "v:lua.better_fold_text()"
 
 -- =============================================================================
--- 13. High-Performance UI Components (Tabline, Winbar, Statusline)
+-- 13. Event-Driven Statusline & Tabline (Zero Keystroke Overhead)
 -- =============================================================================
 vim.opt.showtabline = 1
-vim.opt.tabline = "%!v:lua.MyTabLine()"
 vim.opt.laststatus = 0
 vim.opt.showcmd = false
 vim.opt.showmode = true
 vim.opt.ruler = true
 vim.opt.shortmess = "aoOstTWICcF"
 
--- Native API tabline (avoids Vimscript FFI overhead)
-function _G.MyTabLine()
+local cache = {
+  tabline = "",
+  git_branch = "",
+  diagnostics = "",
+  filename = "[No Name]",
+}
+
+-- 1. Tabline: Only calculated when tabs or buffers change
+local function update_tabline()
   local s = ""
   local tabs = vim.api.nvim_list_tabpages()
   local cur_tab = vim.api.nvim_get_current_tabpage()
@@ -190,7 +220,47 @@ function _G.MyTabLine()
     s = s .. (tab == cur_tab and "%#TabLineSel#" or "%#TabLine#")
     s = s .. " " .. i .. ":" .. filename .. " "
   end
-  return s .. "%#TabLineFill#"
+  cache.tabline = s .. "%#TabLineFill#"
+end
+
+-- 2. Git Branch: Cached per buffer focus
+local function update_git()
+  local ok, branch = pcall(vim.fn.FugitiveHead)
+  cache.git_branch = (ok and branch and branch ~= "") and ("  " .. branch .. " ") or ""
+end
+
+-- 3. Diagnostics: Strictly scoped to current buffer only
+local function update_diagnostics(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  local count = vim.diagnostic.count(bufnr)
+
+  local errs = count[vim.diagnostic.severity.ERROR] or 0
+  local warns = count[vim.diagnostic.severity.WARN] or 0
+
+  if errs == 0 and warns == 0 then
+    cache.diagnostics = ""
+    return
+  end
+
+  local parts = {}
+  if errs > 0 then
+    table.insert(parts, "E:" .. errs)
+  end
+  if warns > 0 then
+    table.insert(parts, "W:" .. warns)
+  end
+  cache.diagnostics = table.concat(parts, " ") .. " "
+end
+
+-- 4. Filename: Cached relative name
+local function update_filename()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then
+    cache.filename = "[No Name]"
+    return
+  end
+  local parent, file = name:match("([^/\\]+)[/\\]([^/\\]+)$")
+  cache.filename = parent and (parent .. "/" .. file) or vim.fs.basename(name)
 end
 
 function _G.winbar_path()
@@ -198,60 +268,58 @@ function _G.winbar_path()
   return (filepath ~= "") and vim.fn.pathshorten(filepath, 4) or ""
 end
 
--- Fast Lua pattern matching for filename resolution
-_G.statusline_filename = function()
-  local name = vim.api.nvim_buf_get_name(0)
-  if name == "" then
-    return "[No Name]"
-  end
-  local parent, file = name:match("([^/\\]+)[/\\]([^/\\]+)$")
-  return parent and (parent .. "/" .. file) or vim.fs.basename(name)
-end
+local status_group = vim.api.nvim_create_augroup("StatuslineCache", { clear = true })
 
--- Event-driven Git branch caching (avoids calling Fugitive per redraw)
-local current_git_branch = ""
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
-  group = vim.api.nvim_create_augroup("StatuslineGitCache", { clear = true }),
-  callback = function()
-    local ok, branch = pcall(vim.fn.FugitiveHead)
-    current_git_branch = (ok and branch and branch ~= "") and ("  " .. branch .. " ") or ""
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "DirChanged" }, {
+  group = status_group,
+  callback = function(args)
+    update_filename()
+    update_git()
+    update_diagnostics(args.buf)
+    update_tabline()
   end,
 })
 
-_G.statusline_git_branch = function()
-  return current_git_branch
+vim.api.nvim_create_autocmd({ "TabEnter", "TabClosed" }, {
+  group = status_group,
+  callback = update_tabline,
+})
+
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+  group = status_group,
+  callback = function(args)
+    if args.buf == vim.api.nvim_get_current_buf() then
+      update_diagnostics(args.buf)
+    end
+  end,
+})
+
+-- Redraw exports (instant memory reads during redraw)
+_G.get_tabline = function()
+  return cache.tabline
+end
+_G.get_filename = function()
+  return cache.filename
+end
+_G.get_git = function()
+  return cache.git_branch
+end
+_G.get_diagnostics = function()
+  return cache.diagnostics
 end
 
-_G.statusline_lsp_progress = function()
-  local is_curwin = vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1)
-  if package.loaded["vim.ui"] and is_curwin and vim.ui.progress_status then
-    return vim.ui.progress_status() or ""
-  end
-  return ""
-end
+vim.opt.tabline = "%!v:lua.get_tabline()"
 
-_G.statusline_diagnostics = function()
-  if package.loaded["vim.diagnostic"] and next(vim.diagnostic.count()) then
-    return vim.diagnostic.status() .. " "
-  end
-  return ""
-end
-
-local parts = {
-  "%<%{%v:lua.statusline_filename()%} %h%w%m%r ",
-  "%{% v:lua.require('vim._core.util').term_exitcode() %}",
+-- Statusline format:
+-- Removed %c / %V to stop per-keystroke statusline redraws while typing on the same line
+vim.opt.statusline = table.concat({
+  "%< %{%v:lua.get_filename()%} %h%w%m%r ",
   "%=",
-  "%{%v:lua.statusline_git_branch()%}",
+  "%{%v:lua.get_git()%}",
   "%=",
-  "%{%v:lua.statusline_lsp_progress()%}",
-  "%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}",
-  "%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}",
-  "%{% &busy > 0 ? '◐ ' : '' %}",
-  "%{%v:lua.statusline_diagnostics()%}",
-  "%-18.(%l/%L,%c%V%) %P ",
-}
-
-vim.opt.statusline = table.concat(parts, "")
+  "%{%v:lua.get_diagnostics()%}",
+  "%-10.(%l/%L%) %P ",
+}, "")
 
 -- =============================================================================
 -- 14. Custom Commands & Keymaps
@@ -273,9 +341,7 @@ if executable('rg')
   let &grepformat = '%f:%l:%c:%m'
 endif
 
-" this is the best part of my config
 function! Rg(args) abort
-  " escape the | properly, :Rg -uu 'from (?!ansible|pytest)\w+ import'
   let l:pattern = substitute(a:args, '|', '\\|', 'g')
   execute "silent! grep!" l:pattern
   copen
