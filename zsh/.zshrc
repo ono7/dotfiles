@@ -487,9 +487,8 @@ take() {
 
 vs() {
   local file
-  file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
+  file="$(fd --type f -E .git --absolute-path | fzf --height 30% --reverse --border)" || return
   if [[ -n "$file" ]]; then
-    # macOS: pbcopy | Wayland: wl-copy | X11: xclip -selection clipboard
     printf '%s' "$file" | pbcopy
   fi
 }
