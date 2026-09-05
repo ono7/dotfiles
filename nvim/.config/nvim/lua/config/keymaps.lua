@@ -144,34 +144,26 @@ augroup END
 " --- Emacs Navigation Parity ---
 
 " Character motions
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-
-" inoremap <C-h> <Left>
-" tnoremap <C-h> <Left>
+"inoremap <C-p> <Up>
+"inoremap <C-n> <Down>
+"
+"inoremap <C-b> <Left>
+"inoremap <C-f> <Right>
 
 " the alpha and the omega
-inoremap <C-a> <C-o>_
-inoremap <C-e> <End>
+"inoremap <C-a> <C-o>_
+"inoremap <C-e> <End>
 
 " === WORD MOVEMENT ===
 " ~f = moveWordForward (Emacs jumps to end of word)
-inoremap <M-f> <C-o>e<Right>
-" inoremap <M-f> <S-Right>
+"inoremap <M-f> <C-o>e<Right>
 " ~b = moveWordBackward
-"inoremap <M-b> <C-o>b
-inoremap <M-b> <S-Left>
+"inoremap <M-b> <S-Left>
 
 " Send Escape+b/f to the shell when Alt-b/f is pressed
 " ~f, ~b
-tnoremap <M-b> <Esc>b
-tnoremap <M-f> <Esc>f
-
-" paste in term
-" tnoremap <C-y> <C-\><C-n>pa
+"tnoremap <M-b> <Esc>b
+"tnoremap <M-f> <Esc>f
 
 " === PARAGRAPH MOVEMENT ===
 " ~{ = Start of para / ~} = End of para
@@ -182,32 +174,22 @@ inoremap <M-}> <C-o>}
 " ^d = Delete Forward
 inoremap <C-d> <C-g>u<Del>
 " ^h = Delete Backward (Standard Backspace)
- inoremap <C-h> <C-g>u<BS>
+inoremap <C-h> <C-g>u<BS>
 
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
 
 " Kill to end of line (store in register)
-"inoremap <C-k> <C-g>u<C-o>D
-"inoremap <C-k> <C-g>u<C-o>"kD
 inoremap <C-k> <C-g>u<C-o>D
 
 " Kill to the beginning of the line
-"inoremap <C-u> <C-g>u<C-o>d0
-"inoremap <C-u> <C-g>u<C-o>"kd0<C-o>x
 inoremap <C-u> <C-g>u<C-o>d0<C-o>x
 
 " Paste the contents of register 'k' (like Emacs yank)
-"inoremap <C-y> <C-r>k
 inoremap <C-y> <C-r>"
 
 " ~k = Kill to end of paragraph (Rough approximation)
 inoremap <M-k> <C-g>u<C-o>d}
-
-
-" ~k = Kill to end of paragraph (Rough approximation)
-"inoremap <C-y> <C-g>u<C-o>p
-
 
 " === CASE TRANSFORMATION PARITY ===
 " Uppercase Word (Emacs M-u)
@@ -388,6 +370,7 @@ xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 
 set ttyfast
 set confirm
+set nolisp
 
 function! CopyMatches(reg)
   let hits = []
@@ -528,6 +511,61 @@ vim.keymap.set("n", "<C-6>", "6gt", opt)
 vim.keymap.set("n", "<C-7>", "7gt", opt)
 vim.keymap.set("n", "<C-8>", "8gt", opt)
 vim.keymap.set("n", "<C-9>", "9gt", opt)
+
+-- fix rsi issues with insert mode
+local imap = function(lhs, rhs, desc)
+  vim.keymap.set("i", lhs, rhs, { noremap = true, silent = true, nowait = true, desc = desc })
+end
+
+-- Line navigation
+imap("<C-a>", "<C-o>_", "Move to beginning of line")
+imap("<C-e>", "<End>", "Move to end of line")
+
+-- Character / Word navigation
+imap("<C-b>", "<Left>", "Move backward one character")
+imap("<C-f>", "<Right>", "Move forward one character")
+imap("<M-b>", "<C-Left>", "Move backward one word")
+imap("<M-f>", "<C-Right>", "Move forward one word")
+
+-- Deletion
+imap("<C-d>", "<Del>", "Delete forward character")
+imap("<C-k>", "<C-o>D", "Kill line forward")
+imap("<C-u>", "<C-u>", "Kill line backward")
+imap("<M-d>", "<C-o>dw", "Delete word forward")
+
+local cmap = function(lhs, rhs, desc)
+  vim.keymap.set("c", lhs, rhs, { noremap = true, desc = desc })
+end
+
+-- Line navigation
+cmap("<C-a>", "<Home>", "Start of line")
+cmap("<C-e>", "<End>", "End of line")
+
+-- Character navigation (home-row)
+cmap("<C-b>", "<Left>", "Cursor left")
+-- cmap("<C-f>", "<Right>", "Cursor right")
+vim.keymap.set("c", "<C-f>", function()
+  if vim.fn.getcmdpos() > #vim.fn.getcmdline() then
+    return vim.o.cedit
+  end
+  return "<Right>"
+end, { expr = true, desc = "Cursor right, or open command-line window at EOL" })
+
+-- Word navigation
+cmap("<M-b>", "<S-Left>", "Word backward")
+cmap("<M-f>", "<S-Right>", "Word forward")
+
+-- Deletion
+cmap("<C-d>", "<Del>", "Delete character forward")
+cmap("<M-d>", "<S-Right><C-w>", "Delete word forward")
+
+-- Kill line forward (cursor to end)
+vim.keymap.set("c", "<C-k>", function()
+  local pos = vim.fn.getcmdpos()
+  local line = vim.fn.getcmdline()
+  vim.fn.setcmdline(string.sub(line, 1, pos - 1))
+  return ""
+end, { expr = true, desc = "Kill to end of line" })
 
 --- macros
 k("x", "Q", "<cmd>norm @q<CR>", opt)
