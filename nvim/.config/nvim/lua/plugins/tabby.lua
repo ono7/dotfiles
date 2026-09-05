@@ -66,7 +66,7 @@ return {
           return {
             line.sep("", hl, theme.fill),
             tab_name,
-            modified and { " ", fg = palette.modified } or "",
+            modified and { " ", fg = palette.modified } or "",
             line.sep("", hl, theme.fill),
             hl = hl,
             margin = "",
