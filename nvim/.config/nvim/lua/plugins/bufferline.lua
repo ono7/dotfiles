@@ -21,15 +21,18 @@ return {
       options = {
         mode = "buffers",
         style_preset = require("bufferline").style_preset.no_italic,
-        separator_style = "slant", -- Renders the angled  /  separators
+        separator_style = "slant",
         always_show_bufferline = true,
         show_buffer_close_icons = false,
+        sort_by = "relative_directory",
         show_close_icon = false,
+        show_tab_indicators = false,
+        numbers = "none",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
         max_name_length = 40,
         truncate_names = true,
         diagnostics = false,
-
-        -- Formats label to "parent/filename" exactly like Tabby
         name_formatter = function(buf)
           if buf.path == "" then
             return "[No Name]"
@@ -44,7 +47,6 @@ return {
 
           return parent .. "/" .. filename
         end,
-
         modified_icon = "",
         indicator = {
           style = "none",
@@ -79,6 +81,31 @@ return {
           fg = palette.fill_bg,
           bg = palette.inactive_bg,
         },
+        tab = {
+          fg = palette.inactive_fg,
+          bg = palette.fill_bg,
+        },
+        tab_selected = {
+          fg = palette.active_fg,
+          bg = palette.fill_bg,
+          bold = true,
+        },
+        tab_separator = {
+          fg = palette.fill_bg,
+          bg = palette.fill_bg,
+        },
+        tab_separator_selected = {
+          fg = palette.fill_bg,
+          bg = palette.fill_bg,
+        },
+        tab_close = {
+          fg = palette.inactive_fg,
+          bg = palette.fill_bg,
+        },
+        offset_separator = {
+          fg = palette.fill_bg,
+          bg = palette.fill_bg,
+        },
         modified = {
           fg = palette.modified,
           bg = palette.inactive_bg,
@@ -110,14 +137,13 @@ return {
       },
     })
 
-    -- Keymaps
     local map = vim.keymap.set
     local opts = { silent = true }
 
-    map("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
-    map("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
-    map("n", "]b", "<Cmd>BufferLineCycleNext<CR>", opts)
-    map("n", "[b", "<Cmd>BufferLineCyclePrev<CR>", opts)
+    -- map("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
+    -- map("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
+    map("n", "<c-]>", "<Cmd>BufferLineCycleNext<CR>", opts)
+    map("n", "<c-[>", "<Cmd>BufferLineCyclePrev<CR>", opts)
     map("n", "<A->>", "<Cmd>BufferLineMoveNext<CR>", opts)
     map("n", "<A-<>", "<Cmd>BufferLineMovePrev<CR>", opts)
     map("n", "<leader>bp", "<Cmd>BufferLinePick<CR>", opts)

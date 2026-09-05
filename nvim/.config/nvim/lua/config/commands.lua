@@ -242,20 +242,6 @@ vim.api.nvim_create_user_command("Cd", function()
   end
 end, {})
 
--- finds files faster than built in find command
--- vim.api.nvim_create_user_command("F", function(opts)
---   vim.cmd.edit(vim.fn.fnameescape(opts.args))
--- end, {
---   nargs = 1,
---   complete = function(lead)
---     local cmd = string.format("fd --type f --hidden --exclude .git %s", vim.fn.shellescape(lead))
---     return vim.fn.systemlist(cmd)
---   end,
---   desc = "Fast find including dotfiles",
--- })
-
---- same as above but supports regex
-
 -- Directory + File regex:
 -- :F config.*init<Tab>
 
@@ -267,29 +253,72 @@ end, {})
 
 -- Character classes / Wildcards:
 -- :F \.config/.*[0-9]<Tab>
+-- vim.api.nvim_create_user_command("F", function(opts)
+--   vim.cmd.edit(vim.fn.fnameescape(opts.args))
+-- end, {
+--   nargs = 1,
+--   complete = function(lead)
+--     local pattern = lead ~= "" and lead or ".*"
+--
+--     -- -p: regex matches against entire relative path, not just basename
+--     -- --max-results: caps results to prevent wildmenu lag on broad patterns
+--     local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
+--     return vim.fn.systemlist(cmd)
+--   end,
+--   desc = "Fast regex find including dotfiles",
+-- })
 vim.api.nvim_create_user_command("F", function(opts)
   vim.cmd.edit(vim.fn.fnameescape(opts.args))
 end, {
   nargs = 1,
   complete = function(lead)
-    local pattern = lead ~= "" and lead or ".*"
+    local parts = vim.split(lead, "!", { plain = true })
+    local pattern = parts[1] ~= "" and parts[1] or ".*"
 
-    -- -p: regex matches against entire relative path, not just basename
-    -- --max-results: caps results to prevent wildmenu lag on broad patterns
-    local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
-    return vim.fn.systemlist(cmd)
+    -- Fetch matches based on primary pattern
+    local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 100 %s", vim.fn.shellescape(pattern))
+    local results = vim.fn.systemlist(cmd)
+
+    -- Filter exclusions in Lua (supports Lua patterns and literal strings)
+    for i = 2, #parts do
+      local exclude = parts[i]
+      if exclude ~= "" then
+        results = vim.tbl_filter(function(item)
+          return not item:find(exclude, 1, true) and not item:match(exclude)
+        end, results)
+      end
+    end
+
+    return results
   end,
-  desc = "Fast regex find including dotfiles",
+  desc = "Fast regex find: :F <pattern>!<exclude>",
 })
 
--- same as above but opens matches in tabs
+local function run_fd_filtered(input, max_results)
+  local parts = vim.split(input, "!", { plain = true })
+  local pattern = parts[1] ~= "" and parts[1] or ".*"
+
+  local limit_flag = max_results and string.format("--max-results %d", max_results) or ""
+  local cmd = string.format("fd --type f --hidden --exclude .git -p %s %s", limit_flag, vim.fn.shellescape(pattern))
+  local results = vim.fn.systemlist(cmd)
+
+  for i = 2, #parts do
+    local exclude = parts[i]
+    if exclude ~= "" then
+      results = vim.tbl_filter(function(item)
+        return not item:find(exclude, 1, true) and not item:match(exclude)
+      end, results)
+    end
+  end
+
+  return results
+end
+
 vim.api.nvim_create_user_command("FT", function(opts)
-  local pattern = opts.args ~= "" and opts.args or ".*"
-  local cmd = string.format("fd --type f --hidden --exclude .git -p %s", vim.fn.shellescape(pattern))
-  local files = vim.fn.systemlist(cmd)
+  local files = run_fd_filtered(opts.args, nil)
 
   if #files == 0 then
-    vim.notify("No files matched: " .. pattern, vim.log.levels.WARN)
+    vim.notify("No files matched: " .. opts.args, vim.log.levels.WARN)
     return
   end
 
@@ -319,12 +348,54 @@ vim.api.nvim_create_user_command("FT", function(opts)
 end, {
   nargs = 1,
   complete = function(lead)
-    local pattern = lead ~= "" and lead or ".*"
-    local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
-    return vim.fn.systemlist(cmd)
+    return run_fd_filtered(lead, 50)
   end,
-  desc = "Open all regex matches in separate tabs",
+  desc = "Open all regex matches in separate tabs: :FT <pattern>!<exclude>",
 })
+
+-- same as above but opens matches in tabs
+-- vim.api.nvim_create_user_command("FT", function(opts)
+--   local pattern = opts.args ~= "" and opts.args or ".*"
+--   local cmd = string.format("fd --type f --hidden --exclude .git -p %s", vim.fn.shellescape(pattern))
+--   local files = vim.fn.systemlist(cmd)
+--
+--   if #files == 0 then
+--     vim.notify("No files matched: " .. pattern, vim.log.levels.WARN)
+--     return
+--   end
+--
+--   -- Guard against crashing/freezing Neovim if the regex matches hundreds of files
+--   local max_tabs = vim.o.tabpagemax -- Defaults to 50
+--   if #files > max_tabs then
+--     local confirm = vim.fn.confirm(string.format("Found %d matches. Open first %d in tabs?", #files, max_tabs), "&Yes\n&No", 2)
+--     if confirm ~= 1 then
+--       return
+--     end
+--   end
+--
+--   for i, file in ipairs(files) do
+--     if i > max_tabs then
+--       break
+--     end
+--
+--     -- If Tab 1 is currently an empty, unmodified scratch buffer, reuse it for file #1
+--     local is_empty_buffer = i == 1 and vim.api.nvim_buf_get_name(0) == "" and not vim.bo.modified and vim.bo.buftype == ""
+--
+--     if is_empty_buffer then
+--       vim.cmd.edit(vim.fn.fnameescape(file))
+--     else
+--       vim.cmd.tabedit(vim.fn.fnameescape(file))
+--     end
+--   end
+-- end, {
+--   nargs = 1,
+--   complete = function(lead)
+--     local pattern = lead ~= "" and lead or ".*"
+--     local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
+--     return vim.fn.systemlist(cmd)
+--   end,
+--   desc = "Open all regex matches in separate tabs",
+-- })
 
 vim.api.nvim_create_user_command("Da", function(opts)
   local arg = vim.trim(opts.args)
