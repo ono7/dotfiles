@@ -325,3 +325,99 @@ end, {
   end,
   desc = "Open all regex matches in separate tabs",
 })
+
+vim.api.nvim_create_user_command("Da", function(opts)
+  local arg = vim.trim(opts.args)
+  local patterns = arg ~= "" and vim.split(arg, "|", { trimempty = true }) or {}
+
+  local bufs = vim.tbl_filter(function(b)
+    return vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted
+  end, vim.api.nvim_list_bufs())
+
+  local targets = {}
+  for _, buf in ipairs(bufs) do
+    if #patterns == 0 then
+      table.insert(targets, buf)
+    else
+      local full_path = vim.api.nvim_buf_get_name(buf)
+      local rel_path = full_path ~= "" and vim.fn.fnamemodify(full_path, ":.") or ""
+      local buf_name = vim.fn.bufname(buf)
+
+      local function test_match(str, pat)
+        if not str or str == "" then
+          return false
+        end
+        local ok, match = pcall(string.find, str, pat)
+        if ok and match ~= nil then
+          return true
+        end
+        return str:lower():find(pat:lower(), 1, true) ~= nil
+      end
+
+      -- OR match: true if ANY sub-pattern matches
+      local matched = false
+      for _, pat in ipairs(patterns) do
+        local trimmed_pat = vim.trim(pat)
+        if test_match(rel_path, trimmed_pat) or test_match(buf_name, trimmed_pat) or test_match(full_path, trimmed_pat) then
+          matched = true
+          break
+        end
+      end
+
+      if matched then
+        table.insert(targets, buf)
+      end
+    end
+  end
+
+  if #targets == 0 then
+    vim.notify("No buffers matched" .. (arg ~= "" and (": " .. arg) or ""), vim.log.levels.WARN)
+    return
+  end
+
+  local closed = 0
+  local skipped_modified = 0
+
+  for _, buf in ipairs(targets) do
+    if not opts.bang and vim.bo[buf].modified then
+      skipped_modified = skipped_modified + 1
+    else
+      local ok = pcall(vim.api.nvim_buf_delete, buf, { force = opts.bang })
+      if ok then
+        closed = closed + 1
+      end
+    end
+  end
+
+  if skipped_modified > 0 then
+    vim.notify(string.format("Closed %d buffer(s). Skipped %d modified buffer(s) (use :D! to force).", closed, skipped_modified), vim.log.levels.WARN)
+  else
+    vim.notify(string.format("Closed %d buffer(s).", closed), vim.log.levels.INFO)
+  end
+end, {
+  bang = true,
+  nargs = "?",
+  complete = function(lead)
+    -- Preserve prefix before the last pipe for multi-pattern completion
+    local prefix, current_lead = lead:match("^(.*|)(.*)$")
+    prefix = prefix or ""
+    current_lead = current_lead or lead
+
+    local bufs = vim.tbl_filter(function(b)
+      return vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted
+    end, vim.api.nvim_list_bufs())
+
+    local candidates = {}
+    for _, buf in ipairs(bufs) do
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name ~= "" then
+        local rel = vim.fn.fnamemodify(name, ":.")
+        if current_lead == "" or rel:find(current_lead, 1, true) then
+          table.insert(candidates, prefix .. rel)
+        end
+      end
+    end
+    return candidates
+  end,
+  desc = "Close buffers matching pattern(s) separated by '|', or all if empty",
+})

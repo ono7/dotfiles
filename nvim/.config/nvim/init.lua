@@ -88,6 +88,8 @@ read hidden chars in files like BOM or hidden UTF8
 enables binary mode
 :e ++bin
 
+reopen last active file in the tab
+:tab sb #
 
 ]]
 

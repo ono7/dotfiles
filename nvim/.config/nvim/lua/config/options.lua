@@ -78,7 +78,7 @@ vim.opt.nrformats:append("alpha")
 vim.opt.sessionoptions:remove("terminal")
 
 -- Append recursive search from current working directory for :find
-vim.opt.path:append("**")
+-- vim.opt.path:append("**") -- use :FT or :F now
 
 -- Recursively traverse visible directories, any dot-folder, and all children
 -- vim.opt.path:append("**/.*/**")

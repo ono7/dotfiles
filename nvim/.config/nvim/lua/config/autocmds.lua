@@ -511,3 +511,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+
+vim.opt.clipboard = ""
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Copy visual yanks to system clipboard",
+  callback = function()
+    if vim.v.event.operator == "y" and vim.v.event.visual then
+      vim.fn.setreg("+", vim.fn.getreg('"'), vim.fn.getregtype('"'))
+    end
+  end,
+})

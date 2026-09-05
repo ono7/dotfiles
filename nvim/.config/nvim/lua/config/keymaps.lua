@@ -41,7 +41,7 @@ vim.cmd([[
 
 command! Mktags call system('ctags -R .')
 command! D bd!
-command! Da %bd!
+"command! Da %bd!
 
 cnoreabbrev qq qa!
 
@@ -469,15 +469,15 @@ augroup end
 "  autocmd WinEnter,BufEnter * if &laststatus == 0 && &buftype ==# '' | file | endif
 "augroup END
 
-if has('clipboard')
-  if has('mac') || !empty($DISPLAY)
-    if has('unnamedplus')
-      set clipboard=unnamedplus
-    else
-      set clipboard=unnamed
-    endif
-  endif
-endif
+"if has('clipboard')
+"  if has('mac') || !empty($DISPLAY)
+"    if has('unnamedplus')
+"      set clipboard=unnamedplus
+"    else
+"      set clipboard=unnamed
+"    endif
+"  endif
+"endif
 
 
 "if exists('$SSH_TTY')
