@@ -150,7 +150,7 @@ inoremap <C-n> <Down>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 
-inoremap <C-h> <Left>
+" inoremap <C-h> <Left>
 " tnoremap <C-h> <Left>
 
 " the alpha and the omega
@@ -284,8 +284,8 @@ inoremap <C-w> <Esc>:w<CR>a
 nnoremap <C-d> x
 nnoremap <M-d> dw
 
-set path=.,**
-set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
+"set path=.,**
+"set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
 
 " TODO(jlima773): fix this, does not work 2025-12-17 21:55
 " Function to set the mark and print message
@@ -480,30 +480,66 @@ if has('clipboard')
 endif
 
 
-if exists('$SSH_TTY')
-  function! Osc52yank()
-    " Base64 encode the yanked text
-    if len(@0) > 100000
-      return
-    endif
-    let buffer = system('base64 -w 0', @0)
-    let buffer = substitute(buffer, '\n', '', 'g')
-
-    " Write to a temp file to avoid shell escaping issues
-    let temp_file = tempname()
-    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp_file, 'b')
-    call system('cat ' . shellescape(temp_file) . ' > /dev/tty')
-    call delete(temp_file)
-  endfunction
-
-  augroup Yank
-    autocmd!
-    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
-  augroup end
-endif
+"if exists('$SSH_TTY')
+"  function! Osc52yank()
+"    " Base64 encode the yanked text
+"    if len(@0) > 100000
+"      return
+"    endif
+"    let buffer = system('base64 -w 0', @0)
+"    let buffer = substitute(buffer, '\n', '', 'g')
+"
+"    " Write to a temp file to avoid shell escaping issues
+"    let temp_file = tempname()
+"    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp_file, 'b')
+"    call system('cat ' . shellescape(temp_file) . ' > /dev/tty')
+"    call delete(temp_file)
+"  endfunction
+"
+"  augroup Yank
+"    autocmd!
+"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
+"  augroup end
+"endif
 
 packadd cfilter
 ]])
+
+-- Append recursive search from current working directory
+-- (Avoid wiping default paths like empty string/buffer relative)
+vim.opt.path:append("**")
+
+-- REQUIRED: Prune heavy trees so the filesystem walker ignores them
+vim.opt.wildignore:append({
+  "*/.git/*",
+  "*/.venv/*",
+  "*/venv/*",
+  "*/__pycache__/*",
+  "*/node_modules/*",
+  "*/.tox/*",
+  "*/build/*",
+  "*/dist/*",
+  "*.o",
+  "*.pyc",
+  "*.swp",
+})
+
+-- Configure wildmenu to behave predictably with :find <Tab>
+vim.opt.wildmenu = true
+vim.opt.wildmode = "longest:full,full"
+if vim.env.SSH_TTY then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
+end
 
 vim.keymap.set("n", "<C-1>", "1gt", opt)
 vim.keymap.set("n", "<C-2>", "2gt", opt)
@@ -696,8 +732,6 @@ end
 
 vim.keymap.set({ "n", "t" }, "<M-y>", toggle_maximize, { silent = true })
 
-vim.keymap.set({ "n", "t" }, "<M-y>", toggle_maximize, { silent = true })
-
 -- save and clean up file
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("CleanOnWrite", { clear = true }),
@@ -806,25 +840,30 @@ local function term(k)
   return vim.api.nvim_replace_termcodes(k, true, false, true)
 end
 
+local my_pair_map = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+  ["<"] = ">",
+  ["'"] = "'",
+  ['"'] = '"',
+  ["`"] = "`",
+}
+
 vim.keymap.set("i", "<BS>", function()
-  local col = vim.fn.col(".") - 1
-  local line = vim.fn.getline(".")
-  local char_before = line:sub(col, col)
-  local char_after = line:sub(col + 1, col + 1)
-  local pair_map = {
-    ["("] = ")",
-    ["["] = "]",
-    ["{"] = "}",
-    ["<"] = ">",
-    ["'"] = "'",
-    ['"'] = '"',
-    ["`"] = "`",
-  }
-  if pair_map[char_before] == char_after then
-    -- Return literal strings; 'replace_keycodes' handles the translation
-    return "<Del><BS>"
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local col = cursor[2] -- 0-indexed byte column
+  if col == 0 then
+    return "<BS>"
   end
 
+  local line = vim.api.nvim_get_current_line()
+  local char_before = line:sub(col, col)
+  local char_after = line:sub(col + 1, col + 1)
+
+  if my_pair_map[char_before] == char_after then
+    return "<Del><BS>"
+  end
   return "<BS>"
 end, { expr = true, replace_keycodes = true })
 
