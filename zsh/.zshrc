@@ -473,13 +473,22 @@ take() {
   cd "${dir// /-}" || return
 }
 
+# vs() {
+#   if [[ -n "$NVIM" ]]; then
+#     nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p<C-/>:lua require("fzf-lua").files({cwd=[['"$PWD"']]})<CR>'
+#   else
+#     local file
+#     file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
+#     [[ -n "$file" ]] && nvim "$file"
+#   fi
+# }
+
 vs() {
-  if [[ -n "$NVIM" ]]; then
-    nvim --clean --server "$NVIM" --remote-send '<C-\><C-n><C-w>p<C-/>:lua require("fzf-lua").files({cwd=[['"$PWD"']]})<CR>'
-  else
-    local file
-    file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
-    [[ -n "$file" ]] && nvim "$file"
+  local file
+  file="$(fd --type f -E .git | fzf --height 30% --reverse --border)"
+  if [[ -n "$file" ]]; then
+    # macOS: pbcopy | Wayland: wl-copy | X11: xclip -selection clipboard
+    printf '%s' "$file" | pbcopy
   fi
 }
 
