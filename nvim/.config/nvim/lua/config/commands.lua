@@ -1,27 +1,16 @@
 local opts = { silent = true }
-local term_size = 18
+local term_size = 8
 
--- Helper to get non-floating windows in the current tabpage
+---------------------------------------------------------------------------
+-- TAB-LOCAL STATE & HELPERS
+---------------------------------------------------------------------------
+local tab_state = {}
+
 local function get_normal_wins()
   return vim.tbl_filter(function(win)
     return vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_config(win).relative == ""
   end, vim.api.nvim_tabpage_list_wins(0))
 end
-
--- 👇 ADD THIS AUTOCMD TO FORCE THE STATUSLINE TO HIDE 👇
-vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
-  callback = function()
-    if vim.bo.buftype == "terminal" then
-      vim.b.lualine_disable = true
-      vim.opt_local.statusline = "%#Normal# "
-    end
-  end,
-})
-
----------------------------------------------------------------------------
--- TAB-LOCAL STATE MANAGEMENT
----------------------------------------------------------------------------
-local tab_state = {}
 
 local function get_tab_state()
   local tab = vim.api.nvim_get_current_tabpage()
@@ -38,27 +27,6 @@ local function get_tab_state()
   return tab_state[tab]
 end
 
--- Cleanup orphaned terminal buffers when a tab is closed
-vim.api.nvim_create_autocmd("TabClosed", {
-  group = vim.api.nvim_create_augroup("TabTerminalCleanup", { clear = true }),
-  callback = function()
-    local valid_tabs = vim.api.nvim_list_tabpages()
-    local valid_set = {}
-    for _, t in ipairs(valid_tabs) do
-      valid_set[t] = true
-    end
-
-    for tab_id, state in pairs(tab_state) do
-      if not valid_set[tab_id] then
-        if state.buf and vim.api.nvim_buf_is_valid(state.buf) then
-          vim.api.nvim_buf_delete(state.buf, { force = true })
-        end
-        tab_state[tab_id] = nil
-      end
-    end
-  end,
-})
-
 local function close_quickfix()
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.fn.win_gettype(win) == "quickfix" then
@@ -67,9 +35,6 @@ local function close_quickfix()
   end
 end
 
----------------------------------------------------------------------------
--- TRANSIENT WINDOW MANAGEMENT (Terminal, Fugitive, Oil, Quickfix)
----------------------------------------------------------------------------
 local function hide_transients()
   local state = get_tab_state()
   local closed_terminal = false
@@ -98,6 +63,61 @@ local function hide_transients()
   end
 end
 
+local function run_fd_filtered(input, max_results)
+  local parts = vim.split(input, "!", { plain = true })
+  local pattern = parts[1] ~= "" and parts[1] or ".*"
+
+  local limit_flag = max_results and string.format("--max-results %d", max_results) or ""
+  local cmd = string.format("fd --type f --hidden --exclude .git -p %s %s", limit_flag, vim.fn.shellescape(pattern))
+  local results = vim.fn.systemlist(cmd)
+
+  for i = 2, #parts do
+    local exclude = parts[i]
+    if exclude ~= "" then
+      results = vim.tbl_filter(function(item)
+        return not item:find(exclude, 1, true) and not item:match(exclude)
+      end, results)
+    end
+  end
+
+  return results
+end
+
+---------------------------------------------------------------------------
+-- AUTOCMDS
+---------------------------------------------------------------------------
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
+  callback = function()
+    if vim.bo.buftype == "terminal" then
+      vim.b.lualine_disable = true
+      vim.opt_local.statusline = "%#Normal# "
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("TabClosed", {
+  group = vim.api.nvim_create_augroup("TabTerminalCleanup", { clear = true }),
+  callback = function()
+    local valid_tabs = vim.api.nvim_list_tabpages()
+    local valid_set = {}
+    for _, t in ipairs(valid_tabs) do
+      valid_set[t] = true
+    end
+
+    for tab_id, state in pairs(tab_state) do
+      if not valid_set[tab_id] then
+        if state.buf and vim.api.nvim_buf_is_valid(state.buf) then
+          vim.api.nvim_buf_delete(state.buf, { force = true })
+        end
+        tab_state[tab_id] = nil
+      end
+    end
+  end,
+})
+
+---------------------------------------------------------------------------
+-- KEYMAPS
+---------------------------------------------------------------------------
 vim.keymap.set("n", "<C-/>", hide_transients, opts)
 vim.keymap.set("n", "<C-_>", hide_transients, opts)
 vim.keymap.set("t", "<C-/>", function()
@@ -109,8 +129,10 @@ vim.keymap.set("t", "<C-_>", function()
   vim.cmd("stopinsert")
 end, opts)
 
+vim.keymap.set("n", "<C-t>", "<cmd>T<CR>", opts)
+
 ---------------------------------------------------------------------------
--- TERMINAL COMMAND
+-- USER COMMANDS
 ---------------------------------------------------------------------------
 vim.api.nvim_create_user_command("T", function(opts_args)
   local cmd = opts_args.args
@@ -132,9 +154,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     end
   end
 
-  ---------------------------------------------------------------------------
-  -- CREATE NEW TERMINAL
-  ---------------------------------------------------------------------------
   if state.buf == nil or not vim.api.nvim_buf_is_valid(state.buf) then
     save_editor_pos()
     vim.opt_local.winbar = nil
@@ -164,9 +183,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     return
   end
 
-  ---------------------------------------------------------------------------
-  -- TERMINAL EXISTS → TOGGLE
-  ---------------------------------------------------------------------------
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_get_buf(win) == state.buf then
       state.height = vim.api.nvim_win_get_height(win)
@@ -183,9 +199,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     end
   end
 
-  ---------------------------------------------------------------------------
-  -- SHOW EXISTING TERMINAL
-  ---------------------------------------------------------------------------
   save_editor_pos()
 
   vim.cmd("botright split")
@@ -204,16 +217,12 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   vim.cmd("startinsert")
 end, { nargs = "*" })
 
-vim.keymap.set("n", "<C-t>", "<cmd>T<CR>", opts)
-
----Call `:GitOpen dev` to open the file on the `dev` branch
 vim.api.nvim_create_user_command("GitOpen", function(opts_args)
   local git_root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
   local file = vim.fn.expand("%:p"):gsub(vim.pesc(git_root .. "/"), "")
   local line = vim.fn.line(".")
 
   local repo_url = vim.fn.system("git -C " .. git_root .. " config --get remote.origin.url")
-  ---@type string | nil
   local forced_branch = #opts_args.args > 0 and opts_args.args or nil
   local branch = forced_branch or vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("\n", "")
   local commit_hash = vim.fn.system("git rev-parse HEAD"):gsub("\n", "")
@@ -242,44 +251,17 @@ vim.api.nvim_create_user_command("Cd", function()
   end
 end, {})
 
--- Directory + File regex:
--- :F config.*init<Tab>
-
--- Alternation / OR:
--- :F (init|options)\.lua$<Tab>
-
--- End-of-line anchors:
--- :F zshrc$<Tab>
-
--- Character classes / Wildcards:
--- :F \.config/.*[0-9]<Tab>
--- vim.api.nvim_create_user_command("F", function(opts)
---   vim.cmd.edit(vim.fn.fnameescape(opts.args))
--- end, {
---   nargs = 1,
---   complete = function(lead)
---     local pattern = lead ~= "" and lead or ".*"
---
---     -- -p: regex matches against entire relative path, not just basename
---     -- --max-results: caps results to prevent wildmenu lag on broad patterns
---     local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
---     return vim.fn.systemlist(cmd)
---   end,
---   desc = "Fast regex find including dotfiles",
--- })
-vim.api.nvim_create_user_command("F", function(opts)
-  vim.cmd.edit(vim.fn.fnameescape(opts.args))
+vim.api.nvim_create_user_command("F", function(opts_cmd)
+  vim.cmd.edit(vim.fn.fnameescape(opts_cmd.args))
 end, {
   nargs = 1,
   complete = function(lead)
     local parts = vim.split(lead, "!", { plain = true })
     local pattern = parts[1] ~= "" and parts[1] or ".*"
 
-    -- Fetch matches based on primary pattern
     local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 100 %s", vim.fn.shellescape(pattern))
     local results = vim.fn.systemlist(cmd)
 
-    -- Filter exclusions in Lua (supports Lua patterns and literal strings)
     for i = 2, #parts do
       local exclude = parts[i]
       if exclude ~= "" then
@@ -294,36 +276,15 @@ end, {
   desc = "Fast regex find: :F <pattern>!<exclude>",
 })
 
-local function run_fd_filtered(input, max_results)
-  local parts = vim.split(input, "!", { plain = true })
-  local pattern = parts[1] ~= "" and parts[1] or ".*"
-
-  local limit_flag = max_results and string.format("--max-results %d", max_results) or ""
-  local cmd = string.format("fd --type f --hidden --exclude .git -p %s %s", limit_flag, vim.fn.shellescape(pattern))
-  local results = vim.fn.systemlist(cmd)
-
-  for i = 2, #parts do
-    local exclude = parts[i]
-    if exclude ~= "" then
-      results = vim.tbl_filter(function(item)
-        return not item:find(exclude, 1, true) and not item:match(exclude)
-      end, results)
-    end
-  end
-
-  return results
-end
-
-vim.api.nvim_create_user_command("FT", function(opts)
-  local files = run_fd_filtered(opts.args, nil)
+vim.api.nvim_create_user_command("FT", function(opts_cmd)
+  local files = run_fd_filtered(opts_cmd.args, nil)
 
   if #files == 0 then
-    vim.notify("No files matched: " .. opts.args, vim.log.levels.WARN)
+    vim.notify("No files matched: " .. opts_cmd.args, vim.log.levels.WARN)
     return
   end
 
-  -- Guard against crashing/freezing Neovim if the regex matches hundreds of files
-  local max_tabs = vim.o.tabpagemax -- Defaults to 50
+  local max_tabs = vim.o.tabpagemax
   if #files > max_tabs then
     local confirm = vim.fn.confirm(string.format("Found %d matches. Open first %d in tabs?", #files, max_tabs), "&Yes\n&No", 2)
     if confirm ~= 1 then
@@ -336,7 +297,6 @@ vim.api.nvim_create_user_command("FT", function(opts)
       break
     end
 
-    -- If Tab 1 is currently an empty, unmodified scratch buffer, reuse it for file #1
     local is_empty_buffer = i == 1 and vim.api.nvim_buf_get_name(0) == "" and not vim.bo.modified and vim.bo.buftype == ""
 
     if is_empty_buffer then
@@ -353,52 +313,8 @@ end, {
   desc = "Open all regex matches in separate tabs: :FT <pattern>!<exclude>",
 })
 
--- same as above but opens matches in tabs
--- vim.api.nvim_create_user_command("FT", function(opts)
---   local pattern = opts.args ~= "" and opts.args or ".*"
---   local cmd = string.format("fd --type f --hidden --exclude .git -p %s", vim.fn.shellescape(pattern))
---   local files = vim.fn.systemlist(cmd)
---
---   if #files == 0 then
---     vim.notify("No files matched: " .. pattern, vim.log.levels.WARN)
---     return
---   end
---
---   -- Guard against crashing/freezing Neovim if the regex matches hundreds of files
---   local max_tabs = vim.o.tabpagemax -- Defaults to 50
---   if #files > max_tabs then
---     local confirm = vim.fn.confirm(string.format("Found %d matches. Open first %d in tabs?", #files, max_tabs), "&Yes\n&No", 2)
---     if confirm ~= 1 then
---       return
---     end
---   end
---
---   for i, file in ipairs(files) do
---     if i > max_tabs then
---       break
---     end
---
---     -- If Tab 1 is currently an empty, unmodified scratch buffer, reuse it for file #1
---     local is_empty_buffer = i == 1 and vim.api.nvim_buf_get_name(0) == "" and not vim.bo.modified and vim.bo.buftype == ""
---
---     if is_empty_buffer then
---       vim.cmd.edit(vim.fn.fnameescape(file))
---     else
---       vim.cmd.tabedit(vim.fn.fnameescape(file))
---     end
---   end
--- end, {
---   nargs = 1,
---   complete = function(lead)
---     local pattern = lead ~= "" and lead or ".*"
---     local cmd = string.format("fd --type f --hidden --exclude .git -p --max-results 50 %s", vim.fn.shellescape(pattern))
---     return vim.fn.systemlist(cmd)
---   end,
---   desc = "Open all regex matches in separate tabs",
--- })
-
-vim.api.nvim_create_user_command("Da", function(opts)
-  local arg = vim.trim(opts.args)
+vim.api.nvim_create_user_command("Da", function(opts_cmd)
+  local arg = vim.trim(opts_cmd.args)
   local patterns = arg ~= "" and vim.split(arg, "|", { trimempty = true }) or {}
 
   local bufs = vim.tbl_filter(function(b)
@@ -425,7 +341,6 @@ vim.api.nvim_create_user_command("Da", function(opts)
         return str:lower():find(pat:lower(), 1, true) ~= nil
       end
 
-      -- OR match: true if ANY sub-pattern matches
       local matched = false
       for _, pat in ipairs(patterns) do
         local trimmed_pat = vim.trim(pat)
@@ -450,10 +365,10 @@ vim.api.nvim_create_user_command("Da", function(opts)
   local skipped_modified = 0
 
   for _, buf in ipairs(targets) do
-    if not opts.bang and vim.bo[buf].modified then
+    if not opts_cmd.bang and vim.bo[buf].modified then
       skipped_modified = skipped_modified + 1
     else
-      local ok = pcall(vim.api.nvim_buf_delete, buf, { force = opts.bang })
+      local ok = pcall(vim.api.nvim_buf_delete, buf, { force = opts_cmd.bang })
       if ok then
         closed = closed + 1
       end
@@ -469,7 +384,6 @@ end, {
   bang = true,
   nargs = "?",
   complete = function(lead)
-    -- Preserve prefix before the last pipe for multi-pattern completion
     local prefix, current_lead = lead:match("^(.*|)(.*)$")
     prefix = prefix or ""
     current_lead = current_lead or lead
