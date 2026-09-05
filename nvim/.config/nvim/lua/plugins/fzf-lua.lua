@@ -5,32 +5,6 @@ return {
   config = function()
     local fzf = require("fzf-lua")
 
-    -- ---------------------------------------------------------
-    -- AUTO-SYNC DIRECTORY ON FILE OPEN (Tab-local directory)
-    -- ---------------------------------------------------------
-    -- local auto_cd_group = vim.api.nvim_create_augroup("FzfAutoDirectory", { clear = true })
-    -- vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter" }, {
-    --   group = auto_cd_group,
-    --   callback = function(args)
-    --     local bufnr = args.buf
-    --
-    --     -- Ignore unlisted or non-standard buffers (fzf terminal, help, etc.)
-    --     if not vim.bo[bufnr].buflisted or vim.bo[bufnr].buftype ~= "" then
-    --       return
-    --     end
-    --
-    --     local file_path = vim.api.nvim_buf_get_name(bufnr)
-    --     if file_path == "" then
-    --       return
-    --     end
-    --
-    --     local file_dir = vim.fn.fnamemodify(file_path, ":p:h")
-    --     if file_dir ~= "" and vim.fn.isdirectory(file_dir) == 1 then
-    --       vim.cmd("silent! tcd " .. vim.fn.fnameescape(file_dir))
-    --     end
-    --   end,
-    -- })
-
     local winopts = {
       on_create = function()
         -- Prevents 'esc' delay by making it immediate in the terminal
@@ -69,7 +43,7 @@ return {
       },
       zoxide = {
         formatter = false,
-        scope = "tab",
+        scope = "global",
         winopts = {
           preview = { hidden = true },
         },
@@ -91,13 +65,15 @@ return {
             if not selected[1] then
               return
             end
+
             local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
             if not file then
               return
             end
+
             local target_path = vim.fs.normalize(vim.fn.fnamemodify(file, ":p"))
 
-            -- Check all tabs and windows for the target file
+            -- NOTE(jlima): Switch to existing tabpage/window if buffer is already opened anywhere across tabs.
             for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
               for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
                 local buf = vim.api.nvim_win_get_buf(win)
@@ -110,13 +86,18 @@ return {
               end
             end
 
-            -- If not open anywhere, open in a new tab
-            vim.cmd("tabedit " .. vim.fn.fnameescape(target_path))
+            -- NOTE(jlima): Reuse the initial unnamed scratch buffer instead of leaving an orphaned first tab.
+            local is_empty_buffer = vim.api.nvim_buf_get_name(0) == "" and not vim.bo.modified and vim.bo.buftype == ""
+
+            if is_empty_buffer then
+              vim.cmd.edit(vim.fn.fnameescape(target_path))
+            else
+              vim.cmd.tabedit(vim.fn.fnameescape(target_path))
+            end
           end,
           ["ctrl-q"] = fzf.actions.file_sel_to_qf,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,
-          ["ctrl-t"] = fzf.actions.file_tabedit,
           ["ctrl-d"] = function(selected, opts)
             if not selected[1] then
               return
@@ -191,7 +172,6 @@ return {
 
     k("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
 
-    -- Finds files rooted in the current buffer's directory
     k("n", "<c-f>", function()
       local current_dir = vim.fn.expand("%:p:h")
       require("fzf-lua").files({
@@ -201,6 +181,7 @@ return {
         previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
+          opts.title = " Dotfiles "
           opts.title_pos = "center"
           return opts
         end,
@@ -216,13 +197,13 @@ return {
         previewer = false,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
+          opts.title = " Files (local dir) "
           opts.title_pos = "center"
           return opts
         end,
       })
     end, { desc = "Find files in current file's directory" })
 
-    -- Git files
     k({ "n", "x" }, "<leader>f", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
@@ -237,7 +218,6 @@ return {
       })
     end, { desc = "All git files including untracked" })
 
-    -- Recent project files
     k("n", "<M-r>", function()
       require("fzf-lua").oldfiles({
         prompt = "Recent Project Files> ",
@@ -260,7 +240,6 @@ return {
       })
     end, { desc = "Recent files (current project)" })
 
-    -- Live grep
     k("n", "<leader>l", function()
       require("fzf-lua").live_grep({
         prompt = "Rg(-uu)> ",

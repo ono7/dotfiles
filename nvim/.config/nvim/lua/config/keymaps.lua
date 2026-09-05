@@ -502,15 +502,15 @@ if vim.env.SSH_TTY then
   }
 end
 
-vim.keymap.set("n", "<C-1>", "1gt", opt)
-vim.keymap.set("n", "<C-2>", "2gt", opt)
-vim.keymap.set("n", "<C-3>", "3gt", opt)
-vim.keymap.set("n", "<C-4>", "4gt", opt)
-vim.keymap.set("n", "<C-5>", "5gt", opt)
-vim.keymap.set("n", "<C-6>", "6gt", opt)
-vim.keymap.set("n", "<C-7>", "7gt", opt)
-vim.keymap.set("n", "<C-8>", "8gt", opt)
-vim.keymap.set("n", "<C-9>", "9gt", opt)
+-- vim.keymap.set("n", "<C-1>", "1gt", opt)
+-- vim.keymap.set("n", "<C-2>", "2gt", opt)
+-- vim.keymap.set("n", "<C-3>", "3gt", opt)
+-- vim.keymap.set("n", "<C-4>", "4gt", opt)
+-- vim.keymap.set("n", "<C-5>", "5gt", opt)
+-- vim.keymap.set("n", "<C-6>", "6gt", opt)
+-- vim.keymap.set("n", "<C-7>", "7gt", opt)
+-- vim.keymap.set("n", "<C-8>", "8gt", opt)
+-- vim.keymap.set("n", "<C-9>", "9gt", opt)
 
 -- fix rsi issues with insert mode
 local imap = function(lhs, rhs, desc)

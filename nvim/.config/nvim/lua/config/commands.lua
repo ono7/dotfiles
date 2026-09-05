@@ -252,7 +252,14 @@ vim.api.nvim_create_user_command("Cd", function()
 end, {})
 
 vim.api.nvim_create_user_command("F", function(opts_cmd)
-  vim.cmd.edit(vim.fn.fnameescape(opts_cmd.args))
+  local is_empty_buffer = vim.api.nvim_buf_get_name(0) == "" and not vim.bo.modified and vim.bo.buftype == ""
+
+  -- NOTE(jlima): Reuse the initial unnamed scratch buffer instead of creating an orphaned first tab.
+  if is_empty_buffer then
+    vim.cmd.edit(vim.fn.fnameescape(opts_cmd.args))
+  else
+    vim.cmd.tabedit(vim.fn.fnameescape(opts_cmd.args))
+  end
 end, {
   nargs = 1,
   complete = function(lead)

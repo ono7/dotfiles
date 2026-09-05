@@ -28,11 +28,12 @@ return {
         show_close_icon = false,
         show_tab_indicators = false,
         numbers = "none",
+        diagnostics = false,
+        diagnostics_indicator = nil,
         left_trunc_marker = "",
         right_trunc_marker = "",
         max_name_length = 40,
         truncate_names = true,
-        diagnostics = false,
         name_formatter = function(buf)
           if buf.path == "" then
             return "[No Name]"
@@ -140,8 +141,6 @@ return {
     local map = vim.keymap.set
     local opts = { silent = true }
 
-    -- map("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
-    -- map("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
     map("n", "<c-]>", "<Cmd>BufferLineCycleNext<CR>", opts)
     map("n", "<c-[>", "<Cmd>BufferLineCyclePrev<CR>", opts)
     map("n", "<A->>", "<Cmd>BufferLineMoveNext<CR>", opts)
@@ -149,5 +148,31 @@ return {
     map("n", "<leader>bp", "<Cmd>BufferLinePick<CR>", opts)
     map("n", "<leader>c", "<Cmd>bdelete<CR>", opts)
     map("n", "<leader>bc", "<Cmd>BufferLineCloseOthers<CR>", opts)
+
+    local function go_to_tab(ordinal)
+      local state = require("bufferline.state")
+      if not state.components then
+        return
+      end
+
+      local visual_buffers = {}
+      for i = #state.components, 1, -1 do
+        local el = state.components[i]
+        if el and el.id and vim.api.nvim_buf_is_valid(el.id) then
+          table.insert(visual_buffers, el)
+        end
+      end
+
+      local element = visual_buffers[ordinal]
+      if element and element.id then
+        vim.api.nvim_set_current_buf(element.id)
+      end
+    end
+
+    for i = 1, 8 do
+      map("n", string.format("<C-%d>", i), function()
+        go_to_tab(i)
+      end, opts)
+    end
   end,
 }

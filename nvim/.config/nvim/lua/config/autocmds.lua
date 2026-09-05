@@ -176,17 +176,6 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
   end,
 })
 
--- Delete no-name buffer on entry when running under Neovide
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = general_group,
-  callback = function()
-    if vim.g.neovide then
-      vim.cmd("bn")
-      vim.cmd("bd #")
-    end
-  end,
-})
-
 -- Synchronize visual yanks to system clipboard
 vim.opt.clipboard = ""
 vim.api.nvim_create_autocmd("TextYankPost", {
