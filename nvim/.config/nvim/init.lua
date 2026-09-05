@@ -91,6 +91,8 @@ enables binary mode
 reopen last active file in the tab
 :tab sb #
 
+:tab sball
+
 ]]
 
 -- Enable byte-compile loader immediately for performance
