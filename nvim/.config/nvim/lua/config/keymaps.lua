@@ -524,6 +524,8 @@ imap("<C-e>", "<End>", "Move to end of line")
 -- Character / Word navigation
 imap("<C-b>", "<Left>", "Move backward one character")
 imap("<C-f>", "<Right>", "Move forward one character")
+imap("<C-p>", "<Up>", "Move up one character")
+imap("<C-n>", "<Down>", "Move down one character")
 imap("<M-b>", "<C-Left>", "Move backward one word")
 imap("<M-f>", "<C-Right>", "Move forward one word")
 
