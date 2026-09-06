@@ -182,6 +182,11 @@ require("utils.zoxide").setup() -- use fzflua zoxide..
 
 -- require("utils.runner").setup() -- runs anything :M <cmd> :)
 require("utils.runner-hook").setup() -- :H <cmd>  adds monitoring hook that triggers on file save
+
+vim.keymap.set("n", "<leader>r", function()
+  require("utils.runner-hook").save_and_execute()
+end, { desc = "Save and run filetype hook" })
+
 require("utils.projects").setup() -- keeps track of project
 -- require("utils.ruff")
 

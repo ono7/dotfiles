@@ -1,0 +1,1 @@
+{"cpp":"mkdir -p build && g++ % -o %< && ./%<"}
