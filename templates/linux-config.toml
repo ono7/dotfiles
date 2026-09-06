@@ -1,7 +1,7 @@
 fork = true
 # frame = "full"
 # frame = "buttonless"
-frame = "transparent"
+# frame = "transparent"
 # frame = "full"
 idle = true
 maximized = false

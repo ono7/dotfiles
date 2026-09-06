@@ -1,19 +1,16 @@
 local M = {}
 local fzf = require("fzf-lua")
 
--- Configuration
 local DATA_PATH = vim.fn.expand("~/.neovim_projects.json")
 
 local function trim_path(s)
   if #s < 50 then
     return s
-  else
-    local l = #s / 2
-    return s:sub(-l)
   end
+  local l = math.floor(#s / 2)
+  return s:sub(-l)
 end
 
--- Helpers: Load/Save
 local function load_projects()
   local file = io.open(DATA_PATH, "r")
   if not file then
@@ -22,7 +19,7 @@ local function load_projects()
   local content = file:read("*a")
   file:close()
   local ok, data = pcall(vim.json.decode, content)
-  return (ok and data) or {}
+  return (ok and type(data) == "table" and data) or {}
 end
 
 local function save_projects(projects)
@@ -33,7 +30,6 @@ local function save_projects(projects)
   end
 end
 
--- Helper: Remove a path from DB
 local function db_remove(target_path)
   local projects = load_projects()
   if projects[target_path] then
@@ -44,21 +40,29 @@ local function db_remove(target_path)
   return false
 end
 
--- Helper: Update timestamp
 local function db_touch(path)
   local projects = load_projects()
   projects[path] = os.time()
   save_projects(projects)
 end
 
--- 1. Add Project
+local function open_project_files(path)
+  -- NOTE(jlima): cwd_only scopes vim.v.oldfiles strictly to target root without manual path filtering.
+  fzf.oldfiles({
+    cwd = path,
+    cwd_only = true,
+    git_icons = false,
+    previewer = false,
+    prompt = "MRU Files> ",
+  })
+end
+
 function M.add_project()
   local cwd = vim.fn.getcwd()
   db_touch(cwd)
   vim.notify("Tracking: " .. trim_path(cwd), vim.log.levels.INFO)
 end
 
--- 2. Remove Project
 function M.remove_project()
   local cwd = vim.fn.getcwd()
   if db_remove(cwd) then
@@ -68,7 +72,6 @@ function M.remove_project()
   end
 end
 
--- 3. Pick Project (Sorted + Auto-Cleanup + Strict Pathing)
 function M.pick_project()
   local projects = load_projects()
   local sorted_paths = {}
@@ -91,6 +94,9 @@ function M.pick_project()
     actions = {
       ["default"] = function(selected)
         local path = selected[1]
+        if not path then
+          return
+        end
 
         if vim.fn.isdirectory(path) == 0 then
           db_remove(path)
@@ -98,16 +104,11 @@ function M.pick_project()
           return
         end
 
-        vim.cmd("lcd " .. path)
+        vim.cmd("lcd " .. vim.fn.fnameescape(path))
         db_touch(path)
 
         vim.schedule(function()
-          fzf.files({
-            cwd = path,
-            fd_opts = "--type f --hidden --follow --exclude .git",
-            git_icons = false,
-            previewer = false,
-          })
+          open_project_files(path)
         end)
       end,
     },
@@ -119,7 +120,6 @@ function M.last_project()
   local best_path = nil
   local best_time = -1
 
-  -- Find the entry with the highest timestamp
   for path, time in pairs(projects) do
     if time > best_time then
       best_path = path
@@ -132,35 +132,26 @@ function M.last_project()
     return
   end
 
-  -- Validate existence
   if vim.fn.isdirectory(best_path) == 0 then
     db_remove(best_path)
-    vim.notify("Last project missing. Removed: " .. best_path:sub(-60), vim.log.levels.ERROR)
+    vim.notify("Last project missing. Removed: " .. trim_path(best_path), vim.log.levels.ERROR)
     return
   end
 
-  -- Switch and Open
-  vim.cmd("lcd " .. best_path)
+  vim.cmd("lcd " .. vim.fn.fnameescape(best_path))
   db_touch(best_path)
   vim.notify("CWD: " .. trim_path(best_path))
 
-  fzf.files({
-    cwd = best_path,
-    fd_opts = "--type f --hidden --follow --exclude .git",
-    git_icons = false,
-  })
+  open_project_files(best_path)
 end
 
 function M.setup()
-  -- User Commands
   vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
   vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
   vim.api.nvim_create_user_command("L", M.last_project, {})
 
-  -- Keymaps
   local opts = { noremap = true, silent = true }
-
   vim.keymap.set("n", "<leader>pp", M.pick_project, vim.tbl_extend("force", opts, { desc = "Pick Project" }))
   vim.keymap.set("n", "<leader>pa", M.add_project, vim.tbl_extend("force", opts, { desc = "Add Project" }))
   vim.keymap.set("n", "<leader>pr", M.remove_project, vim.tbl_extend("force", opts, { desc = "Remove Project" }))
