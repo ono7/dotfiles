@@ -144,8 +144,8 @@ augroup END
 " --- Emacs Navigation Parity ---
 
 " Character motions
-"inoremap <C-p> <Up>
-"inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
 "
 "inoremap <C-b> <Left>
 "inoremap <C-f> <Right>
