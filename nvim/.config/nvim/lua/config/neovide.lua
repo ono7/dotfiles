@@ -41,7 +41,7 @@ vim.g.neovide_pixel_geometry = "RGBH"
 -- Font & Sharpness Setup per OS (Preserving Extended Specs)
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
-  vim.o.guifont = "Iosevka Custom:h14:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h19:#e-subpixelantialias:#h-full"
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
