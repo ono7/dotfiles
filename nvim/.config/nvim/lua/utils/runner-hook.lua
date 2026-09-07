@@ -72,7 +72,9 @@ local function execute_command(bufnr)
   end)
 
   if expanded_cmd and expanded_cmd ~= "" then
-    vim.cmd("T " .. expanded_cmd)
+    -- NOTE(jlima): Chaining cd before execution ensures an existing terminal process synchronizes CWD without scraping terminal buffer state.
+    local escaped_dir = vim.fn.fnameescape(buf_dir)
+    vim.cmd(string.format("T cd %s && %s", escaped_dir, expanded_cmd))
   end
 end
 
