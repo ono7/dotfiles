@@ -855,11 +855,6 @@ for _, v in ipairs(r_pair_map) do
   table.insert(all_pair_map, v)
 end
 
--- Add this helper at the top of your file
-local function term(k)
-  return vim.api.nvim_replace_termcodes(k, true, false, true)
-end
-
 local my_pair_map = {
   ["("] = ")",
   ["["] = "]",
@@ -870,22 +865,28 @@ local my_pair_map = {
   ["`"] = "`",
 }
 
+-- NOTE(jlima): Pre-allocate keycode strings once at init to eliminate runtime termcode translation overhead.
+local key_bs = vim.api.nvim_replace_termcodes("<BS>", true, false, true)
+local key_del_bs = vim.api.nvim_replace_termcodes("<Del><BS>", true, false, true)
+
 vim.keymap.set("i", "<BS>", function()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local col = cursor[2] -- 0-indexed byte column
-  if col == 0 then
-    return "<BS>"
+  -- col('.') returns 1-based byte index of cursor in insert mode
+  local c = vim.fn.col(".")
+  if c <= 1 then
+    return key_bs
   end
 
-  local line = vim.api.nvim_get_current_line()
-  local char_before = line:sub(col, col)
-  local char_after = line:sub(col + 1, col + 1)
+  local line = vim.fn.getline(".")
+  -- Byte immediately preceding and byte immediately following the cursor
+  local char_before = line:sub(c - 1, c - 1)
+  local char_after = line:sub(c, c)
 
   if my_pair_map[char_before] == char_after then
-    return "<Del><BS>"
+    return key_del_bs
   end
-  return "<BS>"
-end, { expr = true, replace_keycodes = true })
+
+  return key_bs
+end, { expr = true, replace_keycodes = false })
 
 -- vim.keymap.set("i", "<CR>", function()
 --   local cursor = vim.api.nvim_win_get_cursor(0)
