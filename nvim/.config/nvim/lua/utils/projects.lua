@@ -2,6 +2,7 @@ local M = {}
 local fzf = require("fzf-lua")
 
 local DATA_PATH = vim.fn.expand("~/.neovim_projects.json")
+local uv = vim.uv or vim.loop
 
 local function trim_path(s)
   if #s < 50 then
@@ -58,13 +59,14 @@ local function open_project_files(path)
 end
 
 function M.add_project()
-  local cwd = vim.fn.getcwd()
+  -- NOTE(jlima): uv.cwd() queries OS process state directly, avoiding window-local cwd desync.
+  local cwd = uv.cwd()
   db_touch(cwd)
   vim.notify("Tracking: " .. trim_path(cwd), vim.log.levels.INFO)
 end
 
 function M.remove_project()
-  local cwd = vim.fn.getcwd()
+  local cwd = uv.cwd()
   if db_remove(cwd) then
     vim.notify("Removed project: " .. trim_path(cwd), vim.log.levels.INFO)
   else
@@ -104,7 +106,8 @@ function M.pick_project()
           return
         end
 
-        vim.cmd("lcd " .. vim.fn.fnameescape(path))
+        -- NOTE(jlima): nvim_set_current_dir takes raw string paths directly, bypassing vimscript fnameescape space and parenthesis truncation bugs.
+        vim.api.nvim_set_current_dir(path)
         db_touch(path)
 
         vim.schedule(function()
@@ -138,7 +141,8 @@ function M.last_project()
     return
   end
 
-  vim.cmd("lcd " .. vim.fn.fnameescape(best_path))
+  -- NOTE(jlima): nvim_set_current_dir takes raw string paths directly, bypassing vimscript fnameescape space and parenthesis truncation bugs.
+  vim.api.nvim_set_current_dir(best_path)
   db_touch(best_path)
   vim.notify("CWD: " .. trim_path(best_path))
 
