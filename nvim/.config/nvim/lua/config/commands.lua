@@ -322,7 +322,22 @@ end, {
 
 vim.api.nvim_create_user_command("Da", function(opts_cmd)
   local arg = vim.trim(opts_cmd.args)
-  local patterns = arg ~= "" and vim.split(arg, "|", { trimempty = true }) or {}
+  local raw_patterns = arg ~= "" and vim.split(arg, "|", { trimempty = true }) or {}
+
+  local include_pats = {}
+  local exclude_pats = {}
+
+  for _, pat in ipairs(raw_patterns) do
+    local trimmed = vim.trim(pat)
+    if trimmed:sub(1, 1) == "!" then
+      local stripped = vim.trim(trimmed:sub(2))
+      if stripped ~= "" then
+        table.insert(exclude_pats, stripped)
+      end
+    elseif trimmed ~= "" then
+      table.insert(include_pats, trimmed)
+    end
+  end
 
   -- NOTE(jlima): Use nvim_get_option_value with pcall to prevent fatal __index errors on unlisted or dead bufs.
   local bufs = vim.tbl_filter(function(b)
@@ -333,37 +348,43 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
     return ok and listed
   end, vim.api.nvim_list_bufs())
 
+  local function test_match(str, pat)
+    if not str or str == "" then
+      return false
+    end
+    local ok, match = pcall(string.find, str, pat)
+    if ok and match ~= nil then
+      return true
+    end
+    return str:lower():find(pat:lower(), 1, true) ~= nil
+  end
+
   local targets = {}
   for _, buf in ipairs(bufs) do
-    if #patterns == 0 then
-      table.insert(targets, buf)
-    else
-      local full_path = vim.api.nvim_buf_get_name(buf)
-      local rel_path = full_path ~= "" and vim.fn.fnamemodify(full_path, ":.") or ""
-      local buf_name = vim.fn.bufname(buf)
+    local full_path = vim.api.nvim_buf_get_name(buf)
+    local rel_path = full_path ~= "" and vim.fn.fnamemodify(full_path, ":.") or ""
+    local buf_name = vim.fn.bufname(buf)
 
-      local function test_match(str, pat)
-        if not str or str == "" then
-          return false
-        end
-        local ok, match = pcall(string.find, str, pat)
-        if ok and match ~= nil then
-          return true
-        end
-        return str:lower():find(pat:lower(), 1, true) ~= nil
+    -- Check exclusion rules first
+    local is_excluded = false
+    for _, pat in ipairs(exclude_pats) do
+      if test_match(rel_path, pat) or test_match(buf_name, pat) or test_match(full_path, pat) then
+        is_excluded = true
+        break
       end
+    end
 
-      local matched = false
-      for _, pat in ipairs(patterns) do
-        local trimmed_pat = vim.trim(pat)
-        if test_match(rel_path, trimmed_pat) or test_match(buf_name, trimmed_pat) or test_match(full_path, trimmed_pat) then
-          matched = true
-          break
-        end
-      end
-
-      if matched then
+    if not is_excluded then
+      if #include_pats == 0 then
+        -- NOTE(jlima): If no positive patterns exist, treat all non-excluded buffers as targets.
         table.insert(targets, buf)
+      else
+        for _, pat in ipairs(include_pats) do
+          if test_match(rel_path, pat) or test_match(buf_name, pat) or test_match(full_path, pat) then
+            table.insert(targets, buf)
+            break
+          end
+        end
       end
     end
   end
@@ -392,7 +413,7 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
   end
 
   if skipped_modified > 0 then
-    vim.notify(string.format("Closed %d buffer(s). Skipped %d modified buffer(s) (use :D! to force).", closed, skipped_modified), vim.log.levels.WARN)
+    vim.notify(string.format("Closed %d buffer(s). Skipped %d modified buffer(s) (use :Da! to force).", closed, skipped_modified), vim.log.levels.WARN)
   else
     vim.notify(string.format("Closed %d buffer(s).", closed), vim.log.levels.INFO)
   end
@@ -403,6 +424,10 @@ end, {
     local prefix, current_lead = lead:match("^(.*|)(.*)$")
     prefix = prefix or ""
     current_lead = current_lead or lead
+
+    -- Preserve leading ! for completion
+    local excl_prefix = current_lead:match("^%s*(!)") or ""
+    local query = current_lead:sub(#excl_prefix + 1)
 
     local bufs = vim.tbl_filter(function(b)
       if not vim.api.nvim_buf_is_valid(b) then
@@ -417,12 +442,12 @@ end, {
       local name = vim.api.nvim_buf_get_name(buf)
       if name ~= "" then
         local rel = vim.fn.fnamemodify(name, ":.")
-        if current_lead == "" or rel:find(current_lead, 1, true) then
-          table.insert(candidates, prefix .. rel)
+        if query == "" or rel:find(query, 1, true) then
+          table.insert(candidates, prefix .. excl_prefix .. rel)
         end
       end
     end
     return candidates
   end,
-  desc = "Close buffers matching pattern(s) separated by '|', or all if empty",
+  desc = "Close buffers matching pattern(s); prefix with '!' to exclude",
 })
