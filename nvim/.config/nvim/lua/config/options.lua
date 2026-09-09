@@ -28,6 +28,8 @@ vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 10
 vim.opt.updatetime = 300
 
+vim.opt.jumpoptions = { "stack", "view" }
+
 -- =============================================================================
 -- 4. Indentation & Formatting (Optimized for Low Latency)
 -- =============================================================================
