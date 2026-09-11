@@ -7,55 +7,92 @@
 # 1. Font & Typography
 # ------------------------------------------------------------------------------
 font-family = "Iosevka Custom"
-font-size = 15
-
-# Subpixel / Retina display font smoothing (macOS specific)
+font-size = 26
 font-thicken = true
 
 # ------------------------------------------------------------------------------
-# 2. Colors & Theme
-# Matches custom dark slate palette (#151F2D background, #BEBEBC foreground)
+# 2. Colors & Theme (custom-paper light palette)
 # ------------------------------------------------------------------------------
-background = 151f2d
-foreground = bebebc
+background = #F2EFE9
+foreground = #000000
 
-# Cursor colors
-cursor-color = bebebc
-cursor-text = 151f2d
+# NOTE(jlima): Set to pitch black to match text_black; cursor-text matches paper bg
+cursor-color = #000000
+cursor-text = #F2EFE9
 
-# Selection highlight colors
-selection-background = 223044
-selection-foreground = bebebc
+# NOTE(jlima): Sourced from c.visual (#D5CFC4) and text_black (#000000)
+selection-background = #D5CFC4
+selection-foreground = #000000
+
+# NOTE(jlima): 1:1 mapping from vim.g.terminal_color_0 through terminal_color_15
+palette = 0=#D5CFC4
+palette = 1=#961C24
+palette = 2=#355B3F
+palette = 3=#80550B
+palette = 4=#274F7D
+palette = 5=#5A315C
+palette = 6=#1A5C66
+palette = 7=#38414D
+palette = 8=#424B57
+palette = 9=#A8222A
+palette = 10=#2B4B34
+palette = 11=#664308
+palette = 12=#1D3B5E
+palette = 13=#472649
+palette = 14=#144850
+palette = 15=#111417
 
 # ------------------------------------------------------------------------------
 # 3. Window & Decoration
 # ------------------------------------------------------------------------------
-# Match custom UI padding
 window-padding-x = 10
 window-padding-y = 10
-
-# Clean borderless window
 window-decoration = false
-
-# macOS specific windowing & Meta key behavior
 macos-titlebar-style = hidden
 macos-option-as-alt = true
 
 # ------------------------------------------------------------------------------
-# 4. Cursor & Mouse Mechanics
+# 4. Cursor & Motion
 # ------------------------------------------------------------------------------
 cursor-style = block
-cursor-style-blink = true
+cursor-style-blink = false
 
-# Automatically conceal mouse cursor during typing
 mouse-hide-while-typing = true
+# NOTE(jlima): Prevent Ghostty's shell integration from emitting DECSCUSR sequences to switch to beam
+shell-integration-features = no-cursor
 
 # ------------------------------------------------------------------------------
 # 5. System, Bell & Clipboard
 # ------------------------------------------------------------------------------
 clipboard-read = allow
 clipboard-write = allow
-copy-on-select = false
+copy-on-select = true
 
-# Silence system audio bell
-bell-action = none
+# ------------------------------------------------------------------------------
+# 6. Keybindings (Emacs Editing & C-x Multiplexing)
+# ------------------------------------------------------------------------------
+# NOTE(jlima): Unbind default terminal actions that intercept core Emacs readline/editor controls
+keybind = ctrl+a=unbind
+keybind = ctrl+e=unbind
+keybind = ctrl+f=unbind
+keybind = ctrl+b=unbind
+keybind = ctrl+n=unbind
+keybind = ctrl+p=unbind
+keybind = ctrl+d=unbind
+keybind = ctrl+k=unbind
+keybind = ctrl+u=unbind
+keybind = ctrl+w=unbind
+keybind = ctrl+y=unbind
+keybind = ctrl+v=unbind
+keybind = alt+f=unbind
+keybind = alt+b=unbind
+keybind = alt+d=unbind
+keybind = alt+v=unbind
+
+# NOTE(jlima): Emacs split/window control bindings (C-x namespace)
+keybind = ctrl+x>2=new_split:down
+keybind = ctrl+x>3=new_split:right
+keybind = ctrl+x>0=close_surface
+keybind = ctrl+x>1=toggle_split_zoom
+keybind = ctrl+x>o=goto_split:next
+keybind = ctrl+x>ctrl+c=quit
