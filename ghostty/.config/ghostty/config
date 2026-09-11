@@ -8,7 +8,7 @@
 # ------------------------------------------------------------------------------
 font-family = "Iosevka Custom"
 font-size = 26
-font-thicken = true
+font-thicken = false
 
 # ------------------------------------------------------------------------------
 # 2. Colors & Theme (custom-paper light palette)
