@@ -1,0 +1,80 @@
+// swift make_profile.swift
+// open "Custom Paper.terminal"
+import AppKit
+import Foundation
+
+// NOTE(jlima): Terminal.app requires NSKeyedArchiver serialized NSColor objects in sRGB space.
+func archiveColor(hex: String, alpha: Double = 1.0) -> Data {
+    var raw = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+    if raw.hasPrefix("#") { raw.removeFirst() }
+
+    var rgb: UInt64 = 0
+    Scanner(string: raw).scanHexInt64(&rgb)
+
+    let r = Double((rgb & 0xFF0000) >> 16) / 255.0
+    let g = Double((rgb & 0x00FF00) >> 8) / 255.0
+    let b = Double(rgb & 0x0000FF) / 255.0
+
+    let color = NSColor(srgbRed: r, green: g, blue: b, alpha: alpha)
+    return try! NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+}
+
+// NOTE(jlima): Serializes native NSFont for Terminal.app profile schema.
+func archiveFont(names: [String], size: CGFloat) -> Data {
+    for name in names {
+        if let font = NSFont(name: name, size: size) {
+            return try! NSKeyedArchiver.archivedData(withRootObject: font, requiringSecureCoding: false)
+        }
+    }
+    let fallback = NSFont.userFixedPitchFont(ofSize: size) ?? NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
+    return try! NSKeyedArchiver.archivedData(withRootObject: fallback, requiringSecureCoding: false)
+}
+
+let profile: [String: Any] = [
+    "name": "Custom Paper",
+    "type": "Window Settings",
+    "columnCount": 120,
+    "rowCount": 30,
+
+    // Bells & Keyboard
+    "Bell": false,
+    "VisualBell": false,
+    "useOptionAsMetaKey": true,
+
+    // Scrollback
+    "scrollbackLines": 50000,
+
+    // Typography
+    "Font": archiveFont(names: ["Iosevka Custom"], size: 26.0),
+    "FontAntialias": true,
+    "FontWidthSpacing": 1.0,
+    "FontHeightSpacing": 1.1,
+
+    // Chrome & Palette
+    "BackgroundColor": archiveColor(hex: "F2EFE9"),
+    "TextColor": archiveColor(hex: "000000"),
+    "TextBoldColor": archiveColor(hex: "111417"),
+    "CursorColor": archiveColor(hex: "000000"),
+    "SelectionColor": archiveColor(hex: "D5CFC4"),
+    "ANSIBlackColor": archiveColor(hex: "D5CFC4"),
+    "ANSIRedColor": archiveColor(hex: "961C24"),
+    "ANSIGreenColor": archiveColor(hex: "355B3F"),
+    "ANSIYellowColor": archiveColor(hex: "80550B"),
+    "ANSIBlueColor": archiveColor(hex: "274F7D"),
+    "ANSIMagentaColor": archiveColor(hex: "5A315C"),
+    "ANSICyanColor": archiveColor(hex: "1A5C66"),
+    "ANSIWhiteColor": archiveColor(hex: "38414D"),
+    "ANSIBrightBlackColor": archiveColor(hex: "424B57"),
+    "ANSIBrightRedColor": archiveColor(hex: "A8222A"),
+    "ANSIBrightGreenColor": archiveColor(hex: "2B4B34"),
+    "ANSIBrightYellowColor": archiveColor(hex: "664308"),
+    "ANSIBrightBlueColor": archiveColor(hex: "1D3B5E"),
+    "ANSIBrightMagentaColor": archiveColor(hex: "472649"),
+    "ANSIBrightCyanColor": archiveColor(hex: "144850"),
+    "ANSIBrightWhiteColor": archiveColor(hex: "111417"),
+]
+
+let data = try PropertyListSerialization.data(fromPropertyList: profile, format: .xml, options: 0)
+let outputURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+    .appendingPathComponent("Custom Paper.terminal")
+try data.write(to: outputURL)
