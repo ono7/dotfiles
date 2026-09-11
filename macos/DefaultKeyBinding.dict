@@ -54,4 +54,38 @@
 
     /* === LINE MANIPULATION === */
     "^o" = "insertNewlineIgnoringFieldEditor:";
+
+    /* === C-x PREFIX CHORDS === */
+  "^x" = {
+      "^x" = "swapWithMark:";                  /* C-x C-x : exchange-point-and-mark */
+      "h"  = "selectAll:";                     /* C-x h   : mark-whole-buffer */
+      "^m" = "selectParagraph:";              /* C-x C-m : mark-paragraph */
+      "u"  = "undo:";                          /* Note: undo: fails parser validation */
+  };
+
+  /* === VIEWPORT RECENTERING === */
+  // Emacs C-l (recenter / scroll cursor to visible center)
+  "^l" = "centerSelectionInVisibleArea:";
+
+  /* === AUTOCOMPLETION === */
+  // Emacs M-/ (dabbrev completion in native text controls)
+  "~/" = "complete:";
+
+  /* === EXTEND SELECTION (Emacs C-Space / M-@ variations) === */
+  // Emacs M-@ (select next word)
+  "~$2" = "selectWord:";
+  // Select whole line / paragraph
+  "^x" = {
+      "h" = "selectAll:";                     // C-x h (mark-whole-buffer)
+      "^x" = "swapWithMark:";                 // C-x C-x (standard emacs chord)
+  };
+
+  /* === KILL-RING & CLIPBOARD === */
+  // Emacs M-w (kill-ring-save / copy without deleting)
+  "~w" = "copy:";
+
+  /* === META DELETE VARIANTS === */
+  // Emacs M-Backspace (ensures Option+Backspace acts as backward word kill across all apps)
+  "~\\U007F" = "deleteWordBackward:";
+  "~\\010"   = "deleteWordBackward:";
 }
