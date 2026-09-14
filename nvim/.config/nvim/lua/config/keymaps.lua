@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 --- nop ---
-k({ "n", "i", "v", "t" }, "<D-q>", "")
+-- k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
 k("n", "ZQ", "")
 -- k("i", "<M-e>", "")
@@ -661,8 +661,8 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
 --- terminal ---
-k("t", "<M-BS>", "\x17", { noremap = true })
-k("t", "<C-BS>", "\x17", { noremap = true })
+-- k("t", "<M-BS>", "\x17", { noremap = true })
+-- k("t", "<C-BS>", "\x17", { noremap = true })
 
 k("c", "<C-BS>", "\x17", { noremap = true })
 
