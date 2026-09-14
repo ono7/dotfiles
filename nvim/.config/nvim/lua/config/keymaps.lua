@@ -319,7 +319,7 @@ nnoremap k gk
 " this has a conflict with diagnostics
 " nnoremap <leader>d <cmd>close!<CR>
 
-nnoremap <leader>x <cmd>x<CR>
+"nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
 xnoremap H <gv
