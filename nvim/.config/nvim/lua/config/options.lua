@@ -314,12 +314,19 @@ vim.opt.tabline = "%!v:lua.get_tabline()"
 
 -- Statusline format:
 -- Removed %c / %V to stop per-keystroke statusline redraws while typing on the same line
+-- vim.opt.statusline = table.concat({
+--   "%< %{%v:lua.get_filename()%} %h%w%m%r ",
+--   "%=",
+--   "%{%v:lua.get_git()%}",
+--   "%=",
+--   "%{%v:lua.get_diagnostics()%}",
+--   "%-10.(%l/%L%) %P ",
+-- }, "")
+
 vim.opt.statusline = table.concat({
   "%< %{%v:lua.get_filename()%} %h%w%m%r ",
   "%=",
-  "%{%v:lua.get_git()%}",
   "%=",
-  "%{%v:lua.get_diagnostics()%}",
   "%-10.(%l/%L%) %P ",
 }, "")
 
