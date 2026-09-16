@@ -144,10 +144,10 @@ neovide:
 	@mkdir -p ~/.config/neovide
 ifeq ($(OS),Darwin)
 	@echo "Linking neovide config for macOS"
-	@ln -s ~/.dotfiles/templates/macos-config.toml ~/.config/neovide/config.toml
+	@ln -s ~/.dotfiles/templates/neovide-macos-config.toml ~/.config/neovide/config.toml
 else
 	@echo "Linking neovide config for Linux"
-	@ln -s ~/.dotfiles/templates/linux-config.toml ~/.config/neovide/config.toml
+	@ln -s ~/.dotfiles/templates/neovide-linux-config.toml ~/.config/neovide/config.toml
 endif
 	@echo "Neovide configuration linked successfully."
 
