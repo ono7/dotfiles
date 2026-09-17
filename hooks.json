@@ -1,1 +1,1 @@
-{"cpp":"mkdir -p build && g++ % -o build/%< && build/%<"}
+{"cpp":"mkdir -p build && g++ % -o build/%< && build/%<","go":"go run %"}
