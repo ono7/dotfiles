@@ -55,10 +55,6 @@ map Q <Nop>
 
 "nnoremap <c-e> <end>
 
-" Map Alt-Backspace to delete word backward in command-line mode
-"cnoremap <M-BS> <C-w>
-"cnoremap <A-BS> <C-w>
-
 " Emacs / Readline navigation for Vim command-line
 "cnoremap <C-a> <Home>
 "cnoremap <C-e> <End>
@@ -133,22 +129,11 @@ augroup CleanNoName
         \ | endif
 augroup END
 
-" show shorter file paths
-" nnoremap <C-g> :echo expand('%:h:t') . '/' . expand('%:t')<CR>
-
-" inoremap <C-r> <C-o>?\v
-" inoremap <C-s> <C-o>/\v
-" nnoremap <C-r> ?\v
-" nnoremap <C-s> /\v
-
 " --- Emacs Navigation Parity ---
 
 " Character motions
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
-"
-"inoremap <C-b> <Left>
-"inoremap <C-f> <Right>
 
 " the alpha and the omega
 "inoremap <C-a> <C-o>_
@@ -359,10 +344,11 @@ endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
 " this overrides the " register key
-" xnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
+
 " xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
 " xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
 
