@@ -23,7 +23,7 @@ vim.opt.more = true
 
 -- Key timeout settings (prevents hung mappings & fast escape resolution)
 vim.opt.timeout = true
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 10
 vim.opt.updatetime = 300
