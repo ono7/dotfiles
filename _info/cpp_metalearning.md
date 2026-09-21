@@ -1,8 +1,11 @@
-Metalearning Plan: C++
-> *"Metalearning means learning how to learn the subject. It is the architectural blueprint of your learning project."* — Scott Young, *Ultralearning*
+# Metalearning Plan: C++
+
+> _"Metalearning means learning how to learn the subject. It is the architectural blueprint of your learning project."_ — Scott Young, _Ultralearning_
+
 ---
 
-Step 1: The "Why" (Goal & Motivation)
+## Step 1: The "Why" (Goal & Motivation)
+
 Before opening a compiler, pinpoint your exact destination. C++ is massive; learning "all" of C++ is a trap.
 
 1.1 Core Purpose
@@ -18,7 +21,8 @@ Target Project: `[e.g., A lightweight CHIP-8 emulator / A mini physics engine / 
 Success Criteria: `[e.g., Must compile with zero warnings using -Wall -Wextra, run at 60 FPS, handle memory safely via RAII without leaks]`
 ---
 
-Step 2: The "What" (Deconstruction)
+## Step 2: The "What" (Deconstruction)
+
 Ultralearning splits knowledge into three buckets: Concepts, Facts, and Procedures.
 
 ```sh
@@ -55,7 +59,8 @@ Configuring a multi-file build with CMake.
 Running AddressSanitizer (`-fsanitize=address`) to catch out-of-bounds reads and leaks.
 ---
 
-Step 3: The "How" (Strategy & Benchmarking)
+## Step 3: The "How" (Strategy & Benchmarking)
+
 Find the best paths, adopt the 10% rule, and avoid classic beginner traps.
 
 3.1 The 10% Rule (Planning Budget)
@@ -65,39 +70,41 @@ Deadline: `[e.g., 6 weeks]`
 
 3.2 High-Leverage Curated Resources
 Do not learn pre-2011 C++ ("C with Classes"). Focus strictly on Modern C++ (C++17/C++20).
-Type  Resource  Purpose
-Interactive Tutorial  learncpp.com  Best free, modern, step-by-step curriculum.
-Reference cppreference.com  Authoritative dictionary of standard libraries and syntax.
+Type Resource Purpose
+Interactive Tutorial learncpp.com Best free, modern, step-by-step curriculum.
+Reference cppreference.com Authoritative dictionary of standard libraries and syntax.
 Compiler Playground Compiler Explorer (godbolt.org) Inspect how code turns into assembly in real time.
-Core Standards  C++ Core Guidelines (Bjarne Stroustrup & Herb Sutter) Best practices on what idioms to use and avoid.
+Core Standards C++ Core Guidelines (Bjarne Stroustrup & Herb Sutter) Best practices on what idioms to use and avoid.
 ---
 
-Step 4: Ultralearning Principles in Practice
+## Step 4: Ultralearning Principles in Practice
 
 1. Directness (Learn by Doing)
-Never spend more than 30% of a study session reading or watching videos.
+   Never spend more than 30% of a study session reading or watching videos.
 
 70% of time must be spent in an editor writing, breaking, and compiling code.
 Tie exercises directly to your capstone project.
 
 2. Drill (Isolating Bottlenecks)
-When a concept trips you up, break it out into a standalone test file:
-Struggling with pointers? Write a mini linked list from scratch.
-Confused by smart pointers? Implement a basic custom `unique_ptr` wrapper.
-Confused by templates? Write a generic `clamp()` or `min()` function.
+   When a concept trips you up, break it out into a standalone test file:
+   Struggling with pointers? Write a mini linked list from scratch.
+   Confused by smart pointers? Implement a basic custom `unique_ptr` wrapper.
+   Confused by templates? Write a generic `clamp()` or `min()` function.
 
 3. Retrieval & Feedback
-Test yourself by writing small programs from memory without looking at documentation.
-Compile with `-Wall -Wextra -Wpedantic`—treat compiler warnings as mandatory feedback.
-Use `clang-tidy` and runtime sanitizers early.
+   Test yourself by writing small programs from memory without looking at documentation.
+   Compile with `-Wall -Wextra -Wpedantic`—treat compiler warnings as mandatory feedback.
+   Use `clang-tidy` and runtime sanitizers early.
+
 ---
 
-Step 5: Weekly Execution Log
+## Step 5: Weekly Execution Log
+
 Use this tracker to log your sprints:
-Week  Focus Area  Hands-On Practice / Drill Hours Status
-W1  Tooling, Types, Pointers, Stack/Heap  CLI build setup, basic memory inspector   [ ]
-W2  OOP, Structs vs Classes, Lifetimes  Custom dynamic array (`Vector` clone)   [ ]
-W3  RAII & Modern Smart Pointers  File I/O manager with zero manual deletes   [ ]
-W4  STL Containers & Algorithms Data parser using `std::vector`, `std::ranges`    [ ]
-W5  Move Semantics & Templates  Generic buffer class with move constructors   [ ]
-W6  Capstone Assembly & Refactoring End-to-end project build + sanitize pass    [ ]
+Week Focus Area Hands-On Practice / Drill Hours Status
+W1 Tooling, Types, Pointers, Stack/Heap CLI build setup, basic memory inspector [ ]
+W2 OOP, Structs vs Classes, Lifetimes Custom dynamic array (`Vector` clone) [ ]
+W3 RAII & Modern Smart Pointers File I/O manager with zero manual deletes [ ]
+W4 STL Containers & Algorithms Data parser using `std::vector`, `std::ranges` [ ]
+W5 Move Semantics & Templates Generic buffer class with move constructors [ ]
+W6 Capstone Assembly & Refactoring End-to-end project build + sanitize pass [ ]
