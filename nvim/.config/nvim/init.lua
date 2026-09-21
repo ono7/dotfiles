@@ -96,7 +96,7 @@ reopen last active file in the tab
 ]]
 
 -- Enable byte-compile loader immediately for performance
-vim.loader.enable(true)
+vim.loader.enable()
 
 -- Prepend local bin and npm-global paths to Neovim's environment
 vim.env.PATH = vim.fn.expand("~/.local/bin") .. ":" .. vim.fn.expand("~/.npm-global/bin") .. ":" .. vim.env.PATH

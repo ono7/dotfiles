@@ -272,15 +272,15 @@ end
 
 local status_group = vim.api.nvim_create_augroup("StatuslineCache", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "DirChanged" }, {
-  group = status_group,
-  callback = function(args)
-    update_filename()
-    update_git()
-    update_diagnostics(args.buf)
-    update_tabline()
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "DirChanged" }, {
+--   group = status_group,
+--   callback = function(args)
+--     update_filename()
+--     update_git()
+--     update_diagnostics(args.buf)
+--     update_tabline()
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd({ "TabEnter", "TabClosed" }, {
   group = status_group,
