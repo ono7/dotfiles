@@ -1,110 +1,128 @@
-# Metalearning Plan: C++
+# Metalearning Blueprint: C++ (Zero to Builder)
 
-> _"Metalearning means learning how to learn the subject. It is the architectural blueprint of your learning project."_ — Scott Young, _Ultralearning_
-
----
-
-## Step 1: The "Why" (Goal & Motivation)
-
-Before opening a compiler, pinpoint your exact destination. C++ is massive; learning "all" of C++ is a trap.
-
-1.1 Core Purpose
-Check the primary track you are targeting:
-[ ] Systems / Embedded: Low-level control, microcontrollers, real-time operating constraints.
-[ ] Game Development: Unreal Engine, custom game loops, graphics (OpenGL/Vulkan), physics.
-[ ] High-Performance / Quant: Ultra-low latency, memory layout optimization, algorithmic trading.
-[ ] Modern General Software: Desktop apps, backend engines, audio/DSP, toolchains.
-
-1.2 Capstone Project
-Define the tangible project you will build to prove mastery (avoid passive reading).
-Target Project: `[e.g., A lightweight CHIP-8 emulator / A mini physics engine / A multi-threaded HTTP server]`
-Success Criteria: `[e.g., Must compile with zero warnings using -Wall -Wextra, run at 60 FPS, handle memory safely via RAII without leaks]`
----
-
-## Step 2: The "What" (Deconstruction)
-
-Ultralearning splits knowledge into three buckets: Concepts, Facts, and Procedures.
-
-```sh
-                       C++ KNOWLEDGE MAP
-  ┌───────────────────────┬──────────────────────┬──────────────────────┐
-  │       CONCEPTS        │        FACTS         │      PROCEDURES      │
-  │   (Must Understand)   │    (Must Memorize)   │     (Must Practice)  │
-  ├───────────────────────┼──────────────────────┼──────────────────────┤
-  │ • Stack vs. Heap      │ • Primitive sizes    │ • Writing Make/CMake │
-  │ • Pointers/References │ • Keyword meanings   │ • Compiling & linking│
-  │ • RAII & Ownership    │   (`const`, `auto`,  │ • Debugging (GDB/LLDB)
-  │ • Value Categories    │    `constexpr`)      │ • Memory profiling   │
-  │   (lvalue vs. rvalue) │ • Standard library   │   (Valgrind/ASan)    │
-  │ • Object Lifetime     │   container names    │ • Writing templates  │
-  │ • Virtual Tables      │ • Operator precedence│ • Structuring headers│
-  └───────────────────────┴──────────────────────┴──────────────────────┘
-```
-
-2.1 Concepts (Deep Mental Models)
-Focus on why the language behaves the way it does:
-Memory & Address Space: How memory is organized, pointers, pointer arithmetic, addresses.
-RAII (Resource Acquisition Is Initialization): Lifecycles, destructors, avoiding manual `new`/`delete`.
-Move Semantics & Rvalues: Copying vs. moving resources, `std::move`, perfect forwarding.
-The Type System: Static typing, templates, compile-time vs. runtime polymorphism.
-
-2.2 Facts (Quick Retrieval)
-C++ standard versions (`C++11`, `C++17`, `C++20` are the core modern baselines).
-Common STL container characteristics: `std::vector` (contiguous memory), `std::unordered_map` (hash table), `std::array`.
-Smart pointer types: `std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`.
-
-2.3 Procedures (Hands-on Motor Skills)
-Invoking the compiler: `g++ -std=c++20 -Wall -Wextra main.cpp -o app`
-Configuring a multi-file build with CMake.
-Running AddressSanitizer (`-fsanitize=address`) to catch out-of-bounds reads and leaks.
----
-
-## Step 3: The "How" (Strategy & Benchmarking)
-
-Find the best paths, adopt the 10% rule, and avoid classic beginner traps.
-
-3.1 The 10% Rule (Planning Budget)
-Spend ~10% of your total estimated project time on research before deep work.
-Target Hours: `[e.g., 50 Hours total -> 5 Hours metalearning/setup]`
-Deadline: `[e.g., 6 weeks]`
-
-3.2 High-Leverage Curated Resources
-Do not learn pre-2011 C++ ("C with Classes"). Focus strictly on Modern C++ (C++17/C++20).
-Type Resource Purpose
-Interactive Tutorial learncpp.com Best free, modern, step-by-step curriculum.
-Reference cppreference.com Authoritative dictionary of standard libraries and syntax.
-Compiler Playground Compiler Explorer (godbolt.org) Inspect how code turns into assembly in real time.
-Core Standards C++ Core Guidelines (Bjarne Stroustrup & Herb Sutter) Best practices on what idioms to use and avoid.
----
-
-## Step 4: Ultralearning Principles in Practice
-
-1. Directness (Learn by Doing)
-   Never spend more than 30% of a study session reading or watching videos.
-
-70% of time must be spent in an editor writing, breaking, and compiling code.
-Tie exercises directly to your capstone project.
-
-2. Drill (Isolating Bottlenecks)
-   When a concept trips you up, break it out into a standalone test file:
-   Struggling with pointers? Write a mini linked list from scratch.
-   Confused by smart pointers? Implement a basic custom `unique_ptr` wrapper.
-   Confused by templates? Write a generic `clamp()` or `min()` function.
-
-3. Retrieval & Feedback
-   Test yourself by writing small programs from memory without looking at documentation.
-   Compile with `-Wall -Wextra -Wpedantic`—treat compiler warnings as mandatory feedback.
-   Use `clang-tidy` and runtime sanitizers early.
+> "Metalearning means learning how to learn the subject. It is the architectural blueprint of your learning project." — Scott Young, _Ultralearning_
 
 ---
 
-## Step 5: Weekly Execution Log
+## 1. Project Scope & Baseline
 
-Use this tracker to log your sprints:
-Week Focus Area Hands-On Practice / Drill Hours Status
-W1 Tooling, Types, Pointers, Stack/Heap CLI build setup, basic memory inspector [ ]
-W2 OOP, Structs vs Classes, Lifetimes Custom dynamic array (`Vector` clone) [ ]
-W3 RAII & Modern Smart Pointers File I/O manager with zero manual deletes [ ]
-W4 STL Containers & Algorithms Data parser using `std::vector`, `std::ranges` [ ]
-W5 Move Semantics & Templates Generic buffer class with move constructors [ ]
-W6 Capstone Assembly & Refactoring End-to-end project build + sanitize pass [ ]
+- **Current Level:** Complete Beginner (Can print "Hello World", learning syntax and console I/O).
+- **Core Pitfall to Avoid:** Trying to learn 40 years of legacy C++ all at once. Modern C++ (C++17/20) is safer and cleaner than old tutorials suggest.
+- **The 10% Metalearning Rule:** Dedicate 10% of your total study time (e.g., 5-10 hours upfront) to mapping out resources, tools, and drills before deep diving.
+
+### Choose One Capstone Project (Principle of Directness)
+
+Pick **one** mini-project to build toward over the next 4–6 weeks:
+
+- [ ] **Option A: Text-Based Dungeon Crawler** (loops, structs, vectors, combat mechanics)
+- [ ] **Option B: Personal Finance / Expense CLI** (file read/write, strings, vectors, sorting)
+- [ ] **Option C: Terminal Arcade Game (Snake or Tic-Tac-Toe)** (2D arrays, game loops, user input)
+
+---
+
+## 2. The "What": Deconstructing C++
+
+In _Ultralearning_, you break any skill into **Concepts**, **Facts**, and **Procedures**.
+
+### Concepts (Mental Models — Things You Must Understand)
+
+- **Memory & Variables:** Variables are labeled slots in system memory.
+- **Data Types:** C++ is strictly typed. An `int` is not a `string`, and size matters.
+- **Control Flow:** How programs make decisions (`if`/`else`) and repeat actions (`for`/`while`).
+- **Scope & Lifetime:** Variables created inside `{ }` disappear when the block exits.
+- **Pointers & References:** A reference is an alias; a pointer is a variable that stores a memory address.
+- **Stack vs. Heap:** Automatic fast memory (Stack) vs. manual dynamic memory (Heap).
+
+### Facts (Rules & Syntax — Things You Must Remember)
+
+- Statements must end with a semicolon `;`.
+- The program entry point is always the `main()` function.
+- Standard output uses `std::cout <<` and standard input uses `std::cin >>`.
+- Arrays and vectors use 0-based indexing (`items[0]` is the first element).
+- Modern C++ standard headers do not use `.h` (use `#include <iostream>`, not `#include <iostream.h>`).
+
+### Procedures (Actions — Things You Must Practice Doing)
+
+- Setting up a compiler and building from the terminal or IDE.
+- Reading compiler error messages without panicking.
+- Using a debugger to set breakpoints and step line-by-line through code.
+- Using `std::vector` instead of raw C-style arrays.
+- Refactoring repeated code into reusable functions.
+
+---
+
+## 3. The "How": Curated Learning Stack
+
+Stick strictly to these modern resources to avoid outdated C practices:
+
+1. **Primary Course:** [LearnCpp.com](https://www.learncpp.com/) (Free, modern, comprehensive).
+   - _Goal:_ Complete Chapters 1 through 11. Complete every quiz at the end of each section.
+2. **Quick Testing Tool:** [Compiler Explorer (Godbolt)](https://godbolt.org/)
+   - _Goal:_ Test 5–10 line code snippets instantly in your browser without local build overhead.
+3. **Reference Manual:** [cppreference.com](https://en.cppreference.com/)
+   - _Goal:_ The official dictionary for standard library functions (look up syntax and headers).
+
+---
+
+## 4. Ultralearning Execution Rules
+
+### The 70/30 Practice Rule
+
+- **30% of your time:** Reading explanations and concepts on LearnCpp.com.
+- **70% of your time:** Hands-on-keyboard writing, breaking, and fixing code.
+
+### The Retrieval Rule (No Copy-Pasting)
+
+- Never copy-paste code from tutorials. Always type it out line by line.
+- **Daily 5-Minute Retrieval Drill:** Before opening notes, open an empty file and write a tiny program from memory (e.g., take two numbers from the user, sum them, and print the output).
+
+### Bottleneck Drills
+
+- When you get stuck on a compiler error, isolate it.
+- Create a temporary `test.cpp` file with only 10 lines containing the broken operation until you understand the error.
+
+---
+
+## 5. Six-Week Roadmap (Zero to Working Project)
+
+### Week 1: Basic Input/Output & Variables
+
+- **Topics:** `std::cout`, `std::cin`, `int`, `double`, `std::string`, `if`/`else`.
+- **Target Drill:** Build a **Number Guessing Game** (computer picks 1–100, tells you "too high" or "too low").
+
+### Week 2: Loops & Functions
+
+- **Topics:** `while` loops, `for` loops, declaring functions, passing arguments, return values.
+- **Target Drill:** Build a **Turn-Based Battle Simulator** (Player and Goblin take turns rolling randomized damage until someone hits 0 HP).
+
+### Week 3: Structured Data & Collections
+
+- **Topics:** `std::vector`, fixed arrays, `struct` for grouping data.
+- **Target Drill:** Build an **Inventory System** (add items, view items, display player status).
+
+### Week 4: References & Memory Basics
+
+- **Topics:** Memory addresses, pass-by-value vs. pass-by-reference (`&`), `const` references.
+- **Target Drill:** Refactor your inventory and combat functions to pass objects by reference instead of copying them.
+
+### Week 5: Introduction to Classes & OOP
+
+- **Topics:** Classes, `public` vs. `private`, constructors, member functions.
+- **Target Drill:** Refactor your character structs into a `Character` class with methods like `takeDamage()` and `isAlive()`.
+
+### Week 6: The Capstone Project
+
+- **Topics:** Multi-file projects (`.h` / `.cpp`), clean code structure, bug fixing.
+- **Target Drill:** Complete and polish your chosen Capstone Project from Section 1.
+
+---
+
+## 6. Your Day 1 Action Items
+
+1. **Verify your local toolchain:**
+   - Run `g++ --version` or `clang++ --version` in your terminal to confirm your compiler is ready.
+2. **Read:**
+   - Complete Lessons 1.1 through 1.4 on [LearnCpp.com](https://www.learncpp.com/).
+3. **Code Drill 1:**
+   - Write a program from scratch that asks for the user's name and age, then prints:
+     `"Hello, <name>! You are <age> years old. In 5 years, you will be <age + 5>."`

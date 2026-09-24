@@ -12,7 +12,13 @@ snippet h "header" b
   }
 
 snippet co "cout" b
-  cout << $0;
+  std::cout << $0;
 
 snippet ci "cout" b
-  cin >> ${0};
+  std::cin >> ${0};
+
+snippet string "string" b
+  std::string ${0};
+
+snippet getline "string" b
+  std::getline(${1:std::cin}, ${0});
