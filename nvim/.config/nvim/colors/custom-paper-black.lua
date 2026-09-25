@@ -71,25 +71,26 @@ local c = {
   diff_txt_bg = "#BED8C2",
 }
 
--- Terminal ANSI (Hardcoded high-contrast values for light background)
-vim.g.terminal_color_0 = "#D5CFC4" -- Black (Normal / Subtle BG)
-vim.g.terminal_color_1 = "#961C24" -- Red (Normal)
-vim.g.terminal_color_2 = "#355B3F" -- Green (Normal)
-vim.g.terminal_color_3 = "#80550B" -- Yellow / Orange (Normal)
-vim.g.terminal_color_4 = "#274F7D" -- Blue (Normal)
-vim.g.terminal_color_5 = "#5A315C" -- Magenta (Normal)
-vim.g.terminal_color_6 = "#1A5C66" -- Cyan (Normal)
-vim.g.terminal_color_7 = "#38414D" -- White / Gray (Normal)
+-- Terminal ANSI (Calibrated for warm paper light background)
+-- NOTE(jlima): Keep 0/8 dark and 7/15 light/subtle so shells calculating contrast or reverse video don't invert into illegible blocks.
+vim.g.terminal_color_0 = "#2a2d32" -- Black / Base dark text
+vim.g.terminal_color_1 = "#961C24" -- Red
+vim.g.terminal_color_2 = "#355B3F" -- Green
+vim.g.terminal_color_3 = "#80550B" -- Yellow / Brown
+vim.g.terminal_color_4 = "#274F7D" -- Blue
+vim.g.terminal_color_5 = "#5A315C" -- Magenta
+vim.g.terminal_color_6 = "#1A5C66" -- Cyan
+vim.g.terminal_color_7 = "#E6E2DA" -- White / Subtle light bg
 
 -- Bright ANSI variants
-vim.g.terminal_color_8 = "#424B57" -- Bright Black
+vim.g.terminal_color_8 = "#5C6A7B" -- Bright Black / Dim
 vim.g.terminal_color_9 = "#A8222A" -- Bright Red
 vim.g.terminal_color_10 = "#2B4B34" -- Bright Green
 vim.g.terminal_color_11 = "#664308" -- Bright Yellow
 vim.g.terminal_color_12 = "#1D3B5E" -- Bright Blue
 vim.g.terminal_color_13 = "#472649" -- Bright Magenta
 vim.g.terminal_color_14 = "#144850" -- Bright Cyan
-vim.g.terminal_color_15 = "#111417" -- Bright White
+vim.g.terminal_color_15 = "#F2EFE9" -- Bright White / Full canvas
 
 -- 4. Highlights
 local highlights = {
