@@ -63,6 +63,8 @@ else
   compinit -C
 fi
 
+export LS_COLORS="di=34:ow=34:tw=34:st=34:ln=36:ex=32:so=35:pi=33:bd=33;01:cd=33;01:*.tar=31:*.gz=31:*.zip=31"
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

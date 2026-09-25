@@ -74,6 +74,21 @@ vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!
 -- =============================================================================
 vim.o.shell = vim.fn.executable("zsh") == 1 and "zsh" or vim.o.shell
 vim.o.shellcmdflag = "-l -i -c"
+vim.env.LS_COLORS = table.concat({
+  "di=34", -- directory: blue
+  "ow=34", -- other-writable: blue (no background fill)
+  "tw=34", -- sticky other-writable: blue (no background fill)
+  "st=34", -- sticky: blue
+  "ln=36", -- symlink: cyan
+  "ex=32", -- executable: green
+  "so=35", -- socket: magenta
+  "pi=33", -- fifo/pipe: yellow
+  "bd=33;01", -- block device: bold yellow
+  "cd=33;01", -- character device: bold yellow
+  "*.tar=31", -- archives: red
+  "*.gz=31",
+  "*.zip=31",
+}, ":")
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("_")
 vim.opt.iskeyword:remove("-")
