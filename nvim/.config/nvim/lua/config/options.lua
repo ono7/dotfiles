@@ -72,8 +72,8 @@ vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!
 -- =============================================================================
 -- 7. System, Paths & File Handling
 -- =============================================================================
-vim.opt.shell = "zsh"
-vim.opt.shellcmdflag = "-l -i -c"
+vim.o.shell = vim.fn.executable("zsh") == 1 and "zsh" or vim.o.shell
+vim.o.shellcmdflag = "-l -i -c"
 vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("_")
 vim.opt.iskeyword:remove("-")
