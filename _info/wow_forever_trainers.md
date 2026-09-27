@@ -1,0 +1,2 @@
+- Eldrin tailor trainer Eastvale Logging Cabin: 79.4,68.8
+- Bower - sells nice bow for 31 silver, 1.7 speed, +1 agi, 83.3,66.0
