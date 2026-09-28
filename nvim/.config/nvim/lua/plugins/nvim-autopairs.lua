@@ -2,15 +2,16 @@ return {
   "windwp/nvim-autopairs",
   event = "InsertEnter",
   opts = {
-    check_ts = true, -- Enable treesitter integration
+    check_ts = true,
     enable_check_bracket_line = true,
-    ignored_next_char = "[%w%(%[{\"']", -- don't autopair if next char is '(', '[', '{', or alphanumeric
+    -- NOTE(jlima): Lua pattern set matching alphanumeric, quotes, and opening brackets without invalid escapes
+    ignored_next_char = "[%w%(%[%{\"']",
     ts_config = {
-      lua = { "string" }, -- Don't add pairs in lua string treesitter nodes
+      lua = { "string" },
       javascript = { "template_string" },
     },
     fast_wrap = {
-      map = "<M-e>", -- Alt+e to quickly wrap existing text in pairs
+      map = "<M-e>",
       chars = { "{", "[", "(", '"', "'" },
     },
   },
