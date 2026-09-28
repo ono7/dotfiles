@@ -259,7 +259,7 @@ return {
         }, " "),
         no_ignore = false,
         hidden = true,
-        previewer = false,
+        previewer = true,
         winopts = function()
           local opts = vim.tbl_deep_extend("force", {}, winopts)
           opts.title = " Live Rg -uu "
