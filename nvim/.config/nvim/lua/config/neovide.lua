@@ -42,6 +42,9 @@ vim.g.neovide_pixel_geometry = "RGBH"
 if os_name == "Windows" or is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
   vim.o.guifont = "Iosevka Custom:h19:#e-subpixelantialias:#h-full"
+  vim.g.neovide_input_use_logo = false
+  -- Neovide specific setting for Alt passthrough on Windows
+  vim.opt.winaltkeys = "yes"
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h25:#e-subpixelantialias:#h-full"
