@@ -4,8 +4,10 @@ return {
   opts = {
     check_ts = true,
     enable_check_bracket_line = true,
-    -- NOTE(jlima): Lua pattern set matching alphanumeric, quotes, and opening brackets without invalid escapes
-    ignored_next_char = "[%w%(%[%{\"']",
+    -- NOTE(jlima): Disable explicit after-quote override so ignored_next_char is honored before quotes
+    enable_afterquote = false,
+    enable_bracket_in_quote = false,
+    ignored_next_char = [=[[%w%%%'%[%\"%.%`%$]]=],
     ts_config = {
       lua = { "string" },
       javascript = { "template_string" },
