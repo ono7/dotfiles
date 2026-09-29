@@ -821,7 +821,7 @@ local my_pair_map = {
   ["`"] = "`",
 }
 
--- NOTE(jlima): Removed quotes from here so `(` and `[` DO NOT auto-close in front of strings.
+-- NOTE(jlima): Permitted right-hand characters that allow pair expansion.
 local r_pair_map = {
   [")"] = true,
   ["]"] = true,
@@ -829,6 +829,21 @@ local r_pair_map = {
   [">"] = true,
   [" "] = true,
   ["\t"] = true,
+}
+
+-- NOTE(jlima): Permitted left-hand characters that allow quote pair expansion.
+-- If preceded by content like `"(testing)"`, quote expansion is rejected to insert closing char.
+local l_quote_prefix_map = {
+  [""] = true,
+  [" "] = true,
+  ["\t"] = true,
+  ["("] = true,
+  ["["] = true,
+  ["{"] = true,
+  ["<"] = true,
+  ["="] = true,
+  [":"] = true,
+  [","] = true,
 }
 
 -- NOTE(jlima): Reads an exact 2-byte buffer window around the cursor via one call to avoid allocating entire minified lines.
@@ -904,10 +919,8 @@ local function handle_quote(char)
     return "<Right>"
   end
 
-  -- NOTE(jlima): If preceded by content (e.g. `"(testing)"`), insert single char to close rather than expanding a pair.
-  --- this prev_char:match will allow things like ="test" :"test" <"test", but not )" to auto close
-  local is_opening_context = (prev_char == "") or prev_char:match("[%s%([{<=:,]") ~= nil
-  if not is_opening_context then
+  -- NOTE(jlima): Reject quote expansion when preceded by word characters or closing punctuation.
+  if not l_quote_prefix_map[prev_char] then
     return char
   end
 
