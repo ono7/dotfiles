@@ -375,72 +375,60 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
--- NOTE(jlima): Step over existing closing brackets instead of duplicating them
 local function handle_close(char)
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
-  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  local line = vim.api.nvim_get_current_line()
+  local next_char = line:sub(col + 1, col + 1)
 
-  if ok and text[1] == char then
+  if next_char == char then
     return "<Right>"
   end
   return char
 end
 
--- NOTE(jlima): Generic handler for opening brackets with conditional regex for Jinja support
 local function handle_open(char, close_char)
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
-  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  local line = vim.api.nvim_get_current_line()
 
-  -- NOTE(jlima): Allow Jinja {{ duplication, but strictly enforce %S (non-whitespace) for ( and [
+  -- NOTE(jlima): string.sub safely returns an empty string at EOL without throwing heavy exceptions
+  local next_char = line:sub(col + 1, col + 1)
+
   local pattern = (char == "{") and "[^%s}]" or "%S"
-  if ok and text[1] and text[1]:match(pattern) then
+  if next_char:match(pattern) then
     return char
   end
-  return char .. close_char .. "<Left>"
+
+  -- NOTE(jlima): <C-g>U prevents the <Left> movement from breaking Vim's atomic undo sequence
+  return char .. close_char .. "<C-g>U<Left>"
 end
 
 local function handle_quote(char)
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  local line = vim.api.nvim_get_current_line()
 
-  local prev_char = ""
-  if col > 0 then
-    local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col - 1, row, col, {})
-    if ok and text[1] then
-      prev_char = text[1]
-    end
-  end
-
-  local next_char = ""
-  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
-  if ok and text[1] then
-    next_char = text[1]
-  end
+  local prev_char = col > 0 and line:sub(col, col) or ""
+  local next_char = line:sub(col + 1, col + 1)
 
   if next_char == char then
     return "<Right>"
   end
 
-  if prev_char:match("[%w\"']") then
+  if prev_char:match("[^%s=(%[%{,]") then
     return char
   end
-  return char .. char .. "<Left>"
+  return char .. char .. "<C-g>U<Left>"
 end
 
--- Bind Opening Brackets
 vim.keymap.set("i", "{", function()
   return handle_open("{", "}")
 end, { expr = true, noremap = true })
--- vim.keymap.set("i", "(", function()
---   return handle_open("(", ")")
--- end, { expr = true, noremap = true })
--- vim.keymap.set("i", "[", function()
---   return handle_open("[", "]")
--- end, { expr = true, noremap = true })
+vim.keymap.set("i", "(", function()
+  return handle_open("(", ")")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "[", function()
+  return handle_open("[", "]")
+end, { expr = true, noremap = true })
 
--- Bind Closing Brackets (Step-Over)
 vim.keymap.set("i", "}", function()
   return handle_close("}")
 end, { expr = true, noremap = true })
@@ -451,29 +439,22 @@ vim.keymap.set("i", "]", function()
   return handle_close("]")
 end, { expr = true, noremap = true })
 
--- Bind Quotes
--- vim.keymap.set("i", '"', function()
---   return handle_quote('"')
--- end, { expr = true, noremap = true })
--- vim.keymap.set("i", "'", function()
---   return handle_quote("'")
--- end, { expr = true, noremap = true })
+vim.keymap.set("i", '"', function()
+  return handle_quote('"')
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "'", function()
+  return handle_quote("'")
+end, { expr = true, noremap = true })
 
--- Bind Split Indentation
 vim.keymap.set("i", "<CR>", function()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
-
+  local col = vim.api.nvim_win_get_cursor(0)[2]
   if col == 0 then
     return "<CR>"
   end
 
-  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col - 1, row, col + 1, {})
-  if not ok or not text[1] or #text[1] ~= 2 then
-    return "<CR>"
-  end
+  local line = vim.api.nvim_get_current_line()
+  local pair = line:sub(col, col + 1)
 
-  local pair = text[1]
   if pair == "{}" or pair == "()" or pair == "[]" then
     return "<CR><Esc>O"
   end
