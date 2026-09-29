@@ -191,3 +191,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
   end,
 })
+
+-- NOTE(jlima): Neovide registers NeovideIntroBanner on TextChanged/TextChangedI.
+-- Purge the augroup on VimEnter to eliminate insert-mode callback latency.
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("PurgeNeovideBanner", { clear = true }),
+  callback = function()
+    pcall(vim.api.nvim_del_augroup_by_name, "NeovideIntroBanner")
+  end,
+})
