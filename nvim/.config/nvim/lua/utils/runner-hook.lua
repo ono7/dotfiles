@@ -82,6 +82,11 @@ function P.save_and_execute()
   local bufnr = vim.api.nvim_get_current_buf()
 
   if vim.bo[bufnr].buftype == "" and vim.bo[bufnr].modified then
+    if vim.api.nvim_buf_get_name(bufnr) == "" then
+      -- NOTE(jlima): Blocking update on unnamed modified buffers enforces the materialized path invariant and prevents E32 crashes.
+      vim.notify("Cannot save and execute: buffer has no file name.", vim.log.levels.ERROR)
+      return
+    end
     vim.cmd("silent update")
   end
 
