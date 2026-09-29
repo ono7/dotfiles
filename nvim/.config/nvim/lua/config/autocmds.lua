@@ -200,3 +200,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     pcall(vim.api.nvim_del_augroup_by_name, "NeovideIntroBanner")
   end,
 })
+
+-- NOTE(jlima): Dismantle default right-click popup-menu without sacrificing mouse integration
+pcall(vim.cmd, "aunmenu PopUp")
+pcall(vim.api.nvim_del_augroup_by_name, "nvim.popupmenu")
