@@ -374,3 +374,39 @@ endfunction
 
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
+
+local pairs_map = {
+  ["{"] = "}",
+  ["("] = ")",
+  ["["] = "]",
+}
+
+-- Auto-close brackets and step backward
+for open_char, close_char in pairs(pairs_map) do
+  vim.keymap.set("i", open_char, open_char .. close_char .. "<Left>", { expr = false, noremap = true })
+end
+
+vim.keymap.set("i", "<CR>", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+
+  if col == 0 then
+    return "<CR>"
+  end
+
+  -- NOTE(jlima): Pcall fails closed if col+1 exceeds line length, safely returning default <CR>
+  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col - 1, row, col + 1, {})
+  if not ok or not text[1] or #text[1] ~= 2 then
+    return "<CR>"
+  end
+
+  local prev_char = text[1]:sub(1, 1)
+  local next_char = text[1]:sub(2, 2)
+
+  -- NOTE(jlima): Direct hash lookup replaces the O(N) loop for O(1) evaluation
+  if pairs_map[prev_char] and pairs_map[prev_char] == next_char then
+    return "<CR><Esc>O"
+  end
+
+  return "<CR>"
+end, { expr = true, noremap = true })
