@@ -905,6 +905,7 @@ local function handle_quote(char)
   end
 
   -- NOTE(jlima): If preceded by content (e.g. `"(testing)"`), insert single char to close rather than expanding a pair.
+  --- this prev_char:match will allow things like ="test" :"test" <"test", but not )" to auto close
   local is_opening_context = (prev_char == "") or prev_char:match("[%s%([{<=:,]") ~= nil
   if not is_opening_context then
     return char
