@@ -26,7 +26,8 @@ end
 vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for buffer" })
 
 M.setup = function()
-  local ok_navic, navic = pcall(require, "nvim-navic")
+  -- local ok_navic, navic = pcall(require, "nvim-navic")
+  local ok_navic, navic = nil, nil
 
   --- 1. Global LSP configuration ---
   vim.lsp.config("*", {
