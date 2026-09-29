@@ -375,17 +375,91 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
-local pairs_map = {
-  ["{"] = "}",
-  ["("] = ")",
-  ["["] = "]",
-}
+-- NOTE(jlima): Step over existing closing brackets instead of duplicating them
+local function handle_close(char)
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
 
--- Auto-close brackets and step backward
-for open_char, close_char in pairs(pairs_map) do
-  vim.keymap.set("i", open_char, open_char .. close_char .. "<Left>", { expr = false, noremap = true })
+  if ok and text[1] == char then
+    return "<Right>"
+  end
+  return char
 end
 
+-- NOTE(jlima): Generic handler for opening brackets with conditional regex for Jinja support
+local function handle_open(char, close_char)
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
+
+  -- NOTE(jlima): Allow Jinja {{ duplication, but strictly enforce %S (non-whitespace) for ( and [
+  local pattern = (char == "{") and "[^%s}]" or "%S"
+  if ok and text[1] and text[1]:match(pattern) then
+    return char
+  end
+  return char .. close_char .. "<Left>"
+end
+
+local function handle_quote(char)
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+
+  local prev_char = ""
+  if col > 0 then
+    local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col - 1, row, col, {})
+    if ok and text[1] then
+      prev_char = text[1]
+    end
+  end
+
+  local next_char = ""
+  local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col, row, col + 1, {})
+  if ok and text[1] then
+    next_char = text[1]
+  end
+
+  if next_char == char then
+    return "<Right>"
+  end
+
+  if prev_char:match("[%w\"']") then
+    return char
+  end
+  return char .. char .. "<Left>"
+end
+
+-- Bind Opening Brackets
+vim.keymap.set("i", "{", function()
+  return handle_open("{", "}")
+end, { expr = true, noremap = true })
+-- vim.keymap.set("i", "(", function()
+--   return handle_open("(", ")")
+-- end, { expr = true, noremap = true })
+-- vim.keymap.set("i", "[", function()
+--   return handle_open("[", "]")
+-- end, { expr = true, noremap = true })
+
+-- Bind Closing Brackets (Step-Over)
+vim.keymap.set("i", "}", function()
+  return handle_close("}")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", ")", function()
+  return handle_close(")")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "]", function()
+  return handle_close("]")
+end, { expr = true, noremap = true })
+
+-- Bind Quotes
+-- vim.keymap.set("i", '"', function()
+--   return handle_quote('"')
+-- end, { expr = true, noremap = true })
+-- vim.keymap.set("i", "'", function()
+--   return handle_quote("'")
+-- end, { expr = true, noremap = true })
+
+-- Bind Split Indentation
 vim.keymap.set("i", "<CR>", function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local row, col = cursor[1] - 1, cursor[2]
@@ -394,17 +468,13 @@ vim.keymap.set("i", "<CR>", function()
     return "<CR>"
   end
 
-  -- NOTE(jlima): Pcall fails closed if col+1 exceeds line length, safely returning default <CR>
   local ok, text = pcall(vim.api.nvim_buf_get_text, 0, row, col - 1, row, col + 1, {})
   if not ok or not text[1] or #text[1] ~= 2 then
     return "<CR>"
   end
 
-  local prev_char = text[1]:sub(1, 1)
-  local next_char = text[1]:sub(2, 2)
-
-  -- NOTE(jlima): Direct hash lookup replaces the O(N) loop for O(1) evaluation
-  if pairs_map[prev_char] and pairs_map[prev_char] == next_char then
+  local pair = text[1]
+  if pair == "{}" or pair == "()" or pair == "[]" then
     return "<CR><Esc>O"
   end
 
