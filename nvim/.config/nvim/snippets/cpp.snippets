@@ -14,17 +14,17 @@ snippet h "header" b
     return 0;
   }
 
-snippet co "cout" b
+snippet co "cout" w
   std::cout << $0;
 
-snippet end "cout" b
-  std::endl << $0;
+snippet end "cout" w
+  std::endl
 
-snippet ci "cout" b
+snippet ci "cout" w
   std::cin >> ${0};
 
-snippet string "string" b
+snippet string "string" w
   std::string ${0};
 
-snippet getline "string" b
+snippet getline "string" w
   std::getline(${1:std::cin}, ${0});
