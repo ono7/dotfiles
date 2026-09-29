@@ -809,37 +809,7 @@ k("n", "<c-/>", function()
   end
 end, silent)
 
-local pair_map = {
-  ["("] = ")",
-  ["["] = "]",
-  ["{"] = "}",
-  ["<"] = ">",
-  ["'"] = "'",
-  ['"'] = '"',
-  ["`"] = "`",
-}
-
---- used to insert both () if the next char is (
-local r_pair_map = {
-  [")"] = true,
-  ["]"] = true,
-  ["}"] = true,
-  [">"] = true,
-  [" "] = true,
-  ['"'] = true,
-  ["'"] = true,
-  ["`"] = true,
-}
-
-local all_pair_map = {}
-
-for _, v in ipairs(pair_map) do
-  table.insert(all_pair_map, v)
-end
-
-for _, v in ipairs(r_pair_map) do
-  table.insert(all_pair_map, v)
-end
+-- start here
 
 local my_pair_map = {
   ["("] = ")",
@@ -851,44 +821,139 @@ local my_pair_map = {
   ["`"] = "`",
 }
 
--- NOTE(jlima): Pre-allocate keycode strings once at init to eliminate runtime termcode translation overhead.
-local key_bs = vim.api.nvim_replace_termcodes("<BS>", true, false, true)
-local key_del_bs = vim.api.nvim_replace_termcodes("<Del><BS>", true, false, true)
+-- NOTE(jlima): Defines characters that legally permit an auto-close if they sit to the right of the cursor
+local r_pair_map = {
+  [")"] = true,
+  ["]"] = true,
+  ["}"] = true,
+  [">"] = true,
+  [" "] = true,
+  ["\t"] = true, -- Added tab support
+  ['"'] = true,
+  ["'"] = true,
+  ["`"] = true,
+}
+
+local function get_adjacent_chars()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local line_len = vim.fn.col("$") - 1
+
+  local prev_char = ""
+  if col > 0 then
+    prev_char = vim.api.nvim_buf_get_text(0, row, col - 1, row, col, {})[1]
+  end
+
+  local next_char = ""
+  if col < line_len then
+    next_char = vim.api.nvim_buf_get_text(0, row, col, row, col + 1, {})[1]
+  end
+
+  return prev_char, next_char
+end
 
 vim.keymap.set("i", "<BS>", function()
-  -- col('.') returns 1-based byte index of cursor in insert mode
-  local c = vim.fn.col(".")
-  if c <= 1 then
-    return key_bs
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  if col == 0 then
+    return "<BS>"
   end
 
-  local line = vim.fn.getline(".")
-  -- Byte immediately preceding and byte immediately following the cursor
-  local char_before = line:sub(c - 1, c - 1)
-  local char_after = line:sub(c, c)
+  local prev_char, next_char = get_adjacent_chars()
 
-  if my_pair_map[char_before] == char_after then
-    return key_del_bs
+  if my_pair_map[prev_char] and my_pair_map[prev_char] == next_char then
+    return "<BS><Del>"
   end
 
-  return key_bs
-end, { expr = true, replace_keycodes = false })
-
--- vim.keymap.set("i", "<CR>", function()
---   local cursor = vim.api.nvim_win_get_cursor(0)
---   local col = cursor[2]
---   if col == 0 then
---     return "<CR>"
---   end
---
---   local char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, col - 1, cursor[1] - 1, col, {})[1]
---
---   if char == "{" or char == "[" or char == "(" then
---     local close = char == "{" and "}" or char == "[" and "]" or ")"
---     return "<CR>" .. close .. "<Esc>O"
---   end
---
---   return "<CR>"
--- end, { expr = true, noremap = true })
+  return "<BS>"
+end, { expr = true, replace_keycodes = true, noremap = true })
 
 vim.keymap.set("i", "<C-S-e>", "<Esc>Go", { noremap = true, silent = true, desc = "Jump to end of file and insert new line" })
+
+local function handle_close(char)
+  local _, next_char = get_adjacent_chars()
+
+  if next_char == char then
+    return "<Right>"
+  end
+  return char
+end
+
+local function handle_open(char, close_char)
+  local prev_char, next_char = get_adjacent_chars()
+
+  if char == "{" and prev_char == "{" and next_char == "}" then
+    return "{  }<C-g>U<Left><Left>"
+  end
+
+  -- NOTE(jlima): O(1) hash lookup replaces regex.
+  -- Auto-close ONLY if at EOL ("") or if next_char exists in r_pair_map
+  if next_char ~= "" and not r_pair_map[next_char] then
+    return char
+  end
+
+  return char .. close_char .. "<C-g>U<Left>"
+end
+
+local function handle_quote(char)
+  local prev_char, next_char = get_adjacent_chars()
+
+  if next_char == char then
+    return "<Right>"
+  end
+
+  if prev_char:match("[^%s=(%[%{,]") then
+    return char
+  end
+
+  -- NOTE(jlima): Apply the same r_pair_map invariant to quotes
+  if next_char ~= "" and not r_pair_map[next_char] then
+    return char
+  end
+
+  return char .. char .. "<C-g>U<Left>"
+end
+
+vim.keymap.set("i", "{", function()
+  return handle_open("{", "}")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "(", function()
+  return handle_open("(", ")")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "[", function()
+  return handle_open("[", "]")
+end, { expr = true, noremap = true })
+
+vim.keymap.set("i", "}", function()
+  return handle_close("}")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", ")", function()
+  return handle_close(")")
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "]", function()
+  return handle_close("]")
+end, { expr = true, noremap = true })
+
+vim.keymap.set("i", '"', function()
+  return handle_quote('"')
+end, { expr = true, noremap = true })
+vim.keymap.set("i", "'", function()
+  return handle_quote("'")
+end, { expr = true, noremap = true })
+
+vim.keymap.set("i", "<CR>", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local line_len = vim.fn.col("$") - 1
+
+  if col == 0 or col == line_len then
+    return "<CR>"
+  end
+
+  local pair = vim.api.nvim_buf_get_text(0, row, col - 1, row, col + 1, {})[1]
+
+  if pair == "{}" or pair == "()" or pair == "[]" then
+    return "<CR><Esc>O"
+  end
+
+  return "<CR>"
+end, { expr = true, noremap = true })
