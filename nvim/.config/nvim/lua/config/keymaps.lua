@@ -831,31 +831,32 @@ local r_pair_map = {
   ["\t"] = true,
 }
 
+-- NOTE(jlima): Reads an exact 2-byte buffer window around the cursor via one call to avoid allocating entire minified lines.
 local function get_adjacent_chars()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local row, col = cursor[1] - 1, cursor[2]
-  local line_len = vim.fn.col("$") - 1
+
+  local start_col = col > 0 and (col - 1) or 0
+  local text = vim.api.nvim_buf_get_text(0, row, start_col, row, col + 1, {})[1] or ""
 
   local prev_char = ""
-  if col > 0 then
-    prev_char = vim.api.nvim_buf_get_text(0, row, col - 1, row, col, {})[1]
-  end
-
   local next_char = ""
-  if col < line_len then
-    next_char = vim.api.nvim_buf_get_text(0, row, col, row, col + 1, {})[1]
+
+  if col == 0 then
+    next_char = text:sub(1, 1)
+  else
+    prev_char = text:sub(1, 1)
+    next_char = text:sub(2, 2)
   end
 
-  return prev_char, next_char
+  return prev_char, next_char, col
 end
 
 vim.keymap.set("i", "<BS>", function()
-  local col = vim.api.nvim_win_get_cursor(0)[2]
+  local prev_char, next_char, col = get_adjacent_chars()
   if col == 0 then
     return "<BS>"
   end
-
-  local prev_char, next_char = get_adjacent_chars()
 
   if my_pair_map[prev_char] and my_pair_map[prev_char] == next_char then
     return "<BS><Del>"
@@ -868,7 +869,6 @@ vim.keymap.set("i", "<C-S-e>", "<Esc>Go", { noremap = true, silent = true, desc 
 
 local function handle_close(char)
   local _, next_char = get_adjacent_chars()
-
   if next_char == char then
     return "<Right>"
   end
@@ -904,12 +904,12 @@ local function handle_quote(char)
     return "<Right>"
   end
 
-  if prev_char:match("[%w_%.]") then
+  -- NOTE(jlima): Explicit identifier check prevents expanding quotes directly attached to words/identifiers/properties.
+  if prev_char ~= "" and prev_char:match("[%w_%.]") then
     return char
   end
 
   local is_allowed = (next_char == "") or r_pair_map[next_char]
-
   if not is_allowed then
     return char
   end
@@ -945,16 +945,12 @@ vim.keymap.set("i", "'", function()
 end, { expr = true, noremap = true })
 
 vim.keymap.set("i", "<CR>", function()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
-  local line_len = vim.fn.col("$") - 1
-
-  if col == 0 or col == line_len then
+  local prev_char, next_char, col = get_adjacent_chars()
+  if col == 0 or next_char == "" then
     return "<CR>"
   end
 
-  local pair = vim.api.nvim_buf_get_text(0, row, col - 1, row, col + 1, {})[1]
-
+  local pair = prev_char .. next_char
   if pair == "{}" or pair == "()" or pair == "[]" then
     return "<CR><Esc>O"
   end
