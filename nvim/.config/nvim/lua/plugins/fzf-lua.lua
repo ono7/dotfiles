@@ -119,7 +119,7 @@ return {
         fd_opts = "--type f --hidden --exclude node_modules --exclude .git --exclude .venv",
       },
       oldfiles = {
-        include_current_session = true,
+        include_current_session = false,
         sort_lastused = true,
         stat_file = true,
       },
@@ -220,10 +220,11 @@ return {
 
     k("n", "<C-r>", function()
       require("fzf-lua").oldfiles({
-        prompt = "Recent Project Files> ",
+        prompt = "recent> ",
         formatter = "path.filename_first",
         previewer = false,
-        cwd = vim.uv.cwd(),
+        include_current_session = true,
+        cwd_only = true, -- NOTE(jlima): Scopes oldfiles to the current project/working directory
         file_ignore_patterns = {
           "COMMIT_EDITMSG",
           "MERGE_MSG",
