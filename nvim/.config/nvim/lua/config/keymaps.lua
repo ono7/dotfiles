@@ -904,8 +904,9 @@ local function handle_quote(char)
     return "<Right>"
   end
 
-  -- NOTE(jlima): Explicit identifier check prevents expanding quotes directly attached to words/identifiers/properties.
-  if prev_char ~= "" and prev_char:match("[%w_%.]") then
+  -- NOTE(jlima): If preceded by content (e.g. `"(testing)"`), insert single char to close rather than expanding a pair.
+  local is_opening_context = (prev_char == "") or prev_char:match("[%s%([{<=:,]") ~= nil
+  if not is_opening_context then
     return char
   end
 
