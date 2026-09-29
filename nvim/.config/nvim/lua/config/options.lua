@@ -375,10 +375,27 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
+-- NOTE(jlima): O(1) bounds-checked byte fetch avoids both full-line string allocations and C++ exception overhead at EOL
+local function get_adjacent_chars()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local line_len = vim.fn.col("$") - 1
+
+  local prev_char = ""
+  if col > 0 then
+    prev_char = vim.api.nvim_buf_get_text(0, row, col - 1, row, col, {})[1]
+  end
+
+  local next_char = ""
+  if col < line_len then
+    next_char = vim.api.nvim_buf_get_text(0, row, col, row, col + 1, {})[1]
+  end
+
+  return prev_char, next_char
+end
+
 local function handle_close(char)
-  local col = vim.api.nvim_win_get_cursor(0)[2]
-  local line = vim.api.nvim_get_current_line()
-  local next_char = line:sub(col + 1, col + 1)
+  local _, next_char = get_adjacent_chars()
 
   if next_char == char then
     return "<Right>"
@@ -387,32 +404,25 @@ local function handle_close(char)
 end
 
 local function handle_open(char, close_char)
-  local col = vim.api.nvim_win_get_cursor(0)[2]
-  local line = vim.api.nvim_get_current_line()
+  local prev_char, next_char = get_adjacent_chars()
 
-  local prev_char = col > 0 and line:sub(col, col) or ""
-  local next_char = line:sub(col + 1, col + 1)
-
-  -- NOTE(jlima): Intercept the second brace of a Jinja pair and explicitly inject spaced padding
+  -- NOTE(jlima): Intercept second Jinja brace and explicitly inject Ansible-style spaced padding
   if char == "{" and prev_char == "{" and next_char == "}" then
     return "{  }<C-g>U<Left><Left>"
   end
 
-  local pattern = (char == "{") and "[^%s}]" or "%S"
+  -- NOTE(jlima): [^%s}\"'] allows { to auto-close in front of whitespace, existing braces, or Ansible double quotes
+  local pattern = (char == "{") and "[^%s}\"']" or "%S"
   if next_char:match(pattern) then
     return char
   end
 
-  -- NOTE(jlima): <C-g>U prevents the <Left> movement from breaking Vim's atomic undo sequence
+  -- NOTE(jlima): <C-g>U prevents the <Left> cursor movement from breaking Vim's atomic undo sequence
   return char .. close_char .. "<C-g>U<Left>"
 end
 
 local function handle_quote(char)
-  local col = vim.api.nvim_win_get_cursor(0)[2]
-  local line = vim.api.nvim_get_current_line()
-
-  local prev_char = col > 0 and line:sub(col, col) or ""
-  local next_char = line:sub(col + 1, col + 1)
+  local prev_char, next_char = get_adjacent_chars()
 
   if next_char == char then
     return "<Right>"
@@ -452,13 +462,16 @@ vim.keymap.set("i", "'", function()
 end, { expr = true, noremap = true })
 
 vim.keymap.set("i", "<CR>", function()
-  local col = vim.api.nvim_win_get_cursor(0)[2]
-  if col == 0 then
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row, col = cursor[1] - 1, cursor[2]
+  local line_len = vim.fn.col("$") - 1
+
+  -- NOTE(jlima): Ensure cursor is strictly between characters before executing 2-byte fetch
+  if col == 0 or col == line_len then
     return "<CR>"
   end
 
-  local line = vim.api.nvim_get_current_line()
-  local pair = line:sub(col, col + 1)
+  local pair = vim.api.nvim_buf_get_text(0, row, col - 1, row, col + 1, {})[1]
 
   if pair == "{}" or pair == "()" or pair == "[]" then
     return "<CR><Esc>O"
