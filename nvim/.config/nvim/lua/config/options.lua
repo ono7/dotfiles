@@ -390,8 +390,13 @@ local function handle_open(char, close_char)
   local col = vim.api.nvim_win_get_cursor(0)[2]
   local line = vim.api.nvim_get_current_line()
 
-  -- NOTE(jlima): string.sub safely returns an empty string at EOL without throwing heavy exceptions
+  local prev_char = col > 0 and line:sub(col, col) or ""
   local next_char = line:sub(col + 1, col + 1)
+
+  -- NOTE(jlima): Intercept the second brace of a Jinja pair and explicitly inject spaced padding
+  if char == "{" and prev_char == "{" and next_char == "}" then
+    return "{  }<C-g>U<Left><Left>"
+  end
 
   local pattern = (char == "{") and "[^%s}]" or "%S"
   if next_char:match(pattern) then
