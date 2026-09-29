@@ -821,17 +821,14 @@ local my_pair_map = {
   ["`"] = "`",
 }
 
--- NOTE(jlima): Defines characters that legally permit an auto-close if they sit to the right of the cursor
+-- NOTE(jlima): Removed quotes from here so `(` and `[` DO NOT auto-close in front of strings.
 local r_pair_map = {
   [")"] = true,
   ["]"] = true,
   ["}"] = true,
   [">"] = true,
   [" "] = true,
-  ["\t"] = true, -- Added tab support
-  ['"'] = true,
-  ["'"] = true,
-  ["`"] = true,
+  ["\t"] = true,
 }
 
 local function get_adjacent_chars()
@@ -885,9 +882,15 @@ local function handle_open(char, close_char)
     return "{  }<C-g>U<Left><Left>"
   end
 
-  -- NOTE(jlima): O(1) hash lookup replaces regex.
-  -- Auto-close ONLY if at EOL ("") or if next_char exists in r_pair_map
-  if next_char ~= "" and not r_pair_map[next_char] then
+  local is_allowed = (next_char == "") or r_pair_map[next_char]
+
+  -- NOTE(jlima): Strict exception to support Ansible Jinja `"{{  }}"`.
+  -- ONLY `{` is permitted to auto-close inside quotes.
+  if char == "{" and (next_char == '"' or next_char == "'") then
+    is_allowed = true
+  end
+
+  if not is_allowed then
     return char
   end
 
@@ -901,12 +904,13 @@ local function handle_quote(char)
     return "<Right>"
   end
 
-  if prev_char:match("[^%s=(%[%{,]") then
+  if prev_char:match("[%w_%.]") then
     return char
   end
 
-  -- NOTE(jlima): Apply the same r_pair_map invariant to quotes
-  if next_char ~= "" and not r_pair_map[next_char] then
+  local is_allowed = (next_char == "") or r_pair_map[next_char]
+
+  if not is_allowed then
     return char
   end
 
