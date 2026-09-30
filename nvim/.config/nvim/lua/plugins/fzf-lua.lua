@@ -57,6 +57,9 @@ return {
           ["ctrl-j"] = "down",
           ["ctrl-q"] = "select-all+accept",
           ["ctrl-w"] = "select-all+accept",
+          ["alt-q"] = "select-all+accept",
+          ["alt-a"] = "select+down",
+          ["alt-r"] = "deselect+down",
         },
       },
       actions = {
@@ -66,12 +69,14 @@ return {
               return
             end
 
-            local file = require("fzf-lua.path").entry_to_file(selected[1], opts).path
-            if not file then
+            local entry = require("fzf-lua.path").entry_to_file(selected[1], opts)
+            if not entry.path then
               return
             end
 
-            local target_path = vim.fs.normalize(vim.fn.fnamemodify(file, ":p"))
+            local target_path = vim.fs.normalize(vim.fn.fnamemodify(entry.path, ":p"))
+            local target_line = entry.line or 1
+            local target_col = entry.col or 1
 
             -- NOTE(jlima): Switch to existing tabpage/window if buffer is already opened anywhere across tabs.
             for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
@@ -81,6 +86,7 @@ return {
                 if buf_name == target_path then
                   vim.api.nvim_set_current_tabpage(tab)
                   vim.api.nvim_set_current_win(win)
+                  pcall(vim.api.nvim_win_set_cursor, win, { target_line, math.max(0, target_col - 1) })
                   return
                 end
               end
@@ -94,8 +100,12 @@ return {
             else
               vim.cmd.tabedit(vim.fn.fnameescape(target_path))
             end
+
+            -- NOTE(jlima): Jump to line and column parsed from grep/live_grep results.
+            pcall(vim.api.nvim_win_set_cursor, 0, { target_line, math.max(0, target_col - 1) })
           end,
           ["ctrl-q"] = fzf.actions.file_sel_to_qf,
+          ["alt-q"] = fzf.actions.file_sel_to_qf,
           ["ctrl-s"] = fzf.actions.file_split,
           ["ctrl-v"] = fzf.actions.file_vsplit,
           ["ctrl-d"] = function(selected, opts)
@@ -204,7 +214,7 @@ return {
       })
     end, { desc = "Find files in current file's directory" })
 
-    k({ "n", "x" }, "<M-g>", function()
+    k({ "n", "x" }, "<leader>g", function()
       require("fzf-lua").git_files({
         prompt = "Git Files> ",
         previewer = false,
@@ -241,11 +251,11 @@ return {
       })
     end, { desc = "Recent files (current project)" })
 
-    k("n", "<leader>l", function()
+    k("n", "<M-g>", function()
       require("fzf-lua").live_grep({
         prompt = "Rg(-uu)> ",
         rg_opts = table.concat({
-          "--color=never",
+          "--color=always",
           "--no-heading",
           "--with-filename",
           "--line-number",
