@@ -154,7 +154,6 @@ local highlights = {
   TermCursorNC = { link = "Cursor" },
   Search = { fg = c.bg, bg = c.constant },
   IncSearch = { fg = c.bg, bg = c.keyword },
-  GitSignsStagedAdd = { fg = c.string },
 
   DiffAdd = { fg = c.fg, bg = c.diff_add_bg },
   DiffAdded = { fg = c.string, bg = "none" },
