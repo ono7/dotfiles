@@ -214,6 +214,12 @@ local highlights = {
   ["@constant.builtin"] = { fg = c.fg, bold = true },
   ["@module"] = { fg = c.fg },
   ["@markup.heading"] = { fg = c.fg, bold = true },
+  -- Treesitter markdown highlights
+  ["@markup.raw"] = { fg = c.fg },
+  ["@markup.raw.block.markdown"] = { fg = c.fg },
+  ["@markup.raw.delimiter.markdown"] = { fg = c.dim },
+  ["@markup.normal"] = { fg = c.fg },
+  ["@text.literal"] = { fg = c.fg },
   ["@constructor"] = { fg = c.bracket },
   ["@constructor.python"] = { fg = c.fg },
   ["@lsp.type.method.yaml.ansible"] = { fg = c.fg },
@@ -222,15 +228,17 @@ local highlights = {
   ["@text.danger"] = { fg = c.error, bold = true },
   ["@text.note"] = { fg = c.fg },
   ["@spell.markdown"] = { link = "NormalText" },
-  ["@markup.raw"] = { fg = c.fg },
-  ["@markup.raw.block.markdown"] = { fg = c.faint },
-  ["@markup.raw.delimiter.markdown"] = { fg = c.faint },
   ["@lsp.typedecl"] = { fg = c.fg },
 
   -- Treesitter Context
   TreesitterContext = { bg = c.subtle },
   TreesitterContextBottom = { sp = c.line_nr, underline = true },
   OilFile = { link = "NormalText" },
+
+  -- markdown
+  markdownCode = { fg = c.fg },
+  markdownCodeBlock = { fg = c.faint },
+  markdownCodeDelimiter = { fg = c.dim },
 
   -- FZF-Lua Overrides
   FzfLuaBackdrop = { bg = c.inactive },
