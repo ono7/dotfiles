@@ -2,6 +2,8 @@
 
 # macro for wow forever
 
+## hunter
+
 ```
 #showtooltip
 /startattack
@@ -11,6 +13,8 @@
 
 this works because it relies on the fact that wow midnight will target the casters currently casting first
 this may not work in pvp since there are many casters...
+
+## mage
 
 ```
 #showtooltip
@@ -145,7 +149,6 @@ or
 ## mage
 
 ```
-
 #showtooltip Ice Lance
 /stopcasting
 /cast [@mouseover,harm,nodead][] Ice Lance
