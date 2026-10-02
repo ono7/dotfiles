@@ -45,7 +45,6 @@ local c = {
   -- Text Elements
   comment = "#8C96A4", -- Light graphite pencil
   string = "#4A6B53", -- Deep, desaturated olive ink
-  -- keyword     = text_black,
   keyword = "#C4434B",
   type = text_black,
   fn = text_black,
@@ -54,9 +53,7 @@ local c = {
 
   -- Structural & Special
   bracket = "#5C6A7B",
-  -- special     = "#B85C38", -- Rust color for \n, \t, and special chars
   special = "#9E5A3F",
-  -- special     = "#3B6EA8",
 
   -- UI, Diagnostics & Git
   error = "#C4434B",
@@ -96,7 +93,6 @@ vim.g.terminal_color_15 = "#F2EFE9" -- Bright White (Canvas background)
 local highlights = {
   Normal = { fg = c.fg, bg = c.bg },
   NormalNC = { link = "Normal" },
-  NormalText = { fg = c.fg },
   MatchParen = { fg = c.comment, bg = c.fg, bold = true },
   ModeMsg = { fg = c.fg, bold = true },
   MoreMsg = { fg = c.fg, bold = true },
@@ -213,13 +209,58 @@ local highlights = {
   ["@constant"] = { fg = c.fg },
   ["@constant.builtin"] = { fg = c.fg, bold = true },
   ["@module"] = { fg = c.fg },
-  ["@markup.heading"] = { fg = c.fg, bold = true },
-  -- Treesitter markdown highlights
-  ["@markup.raw"] = { fg = c.fg },
+
+  -- Markdown Treesitter highlights
+  ["@markup.raw"] = { fg = c.dim },
   ["@markup.raw.block.markdown"] = { fg = c.fg },
   ["@markup.raw.delimiter.markdown"] = { fg = c.dim },
   ["@markup.normal"] = { fg = c.fg },
   ["@text.literal"] = { fg = c.fg },
+  ["@spell.markdown"] = { link = "Normal" },
+
+  -- Treesitter Headings
+  ["@markup.heading"] = { fg = c.keyword, bold = true },
+  ["@markup.heading.1.markdown"] = { fg = c.keyword, bold = true },
+  ["@markup.heading.2.markdown"] = { fg = c.info, bold = true },
+  ["@markup.heading.3.markdown"] = { fg = c.special, bold = true },
+  ["@markup.heading.4.markdown"] = { fg = c.warn, bold = true },
+  ["@markup.heading.5.markdown"] = { fg = c.string, bold = true },
+  ["@markup.heading.6.markdown"] = { fg = c.dim, bold = true },
+
+  ["@markup.heading.content"] = { fg = c.keyword, bold = true },
+  ["@markup.heading.1.content.markdown"] = { fg = c.keyword, bold = true },
+  ["@markup.heading.2.content.markdown"] = { fg = c.info, bold = true },
+  ["@markup.heading.3.content.markdown"] = { fg = c.special, bold = true },
+  ["@markup.heading.4.content.markdown"] = { fg = c.warn, bold = true },
+  ["@markup.heading.5.content.markdown"] = { fg = c.string, bold = true },
+  ["@markup.heading.6.content.markdown"] = { fg = c.dim, bold = true },
+
+  ["@markup.heading.1.delimiter.markdown"] = { fg = c.keyword },
+  ["@markup.heading.2.delimiter.markdown"] = { fg = c.info },
+  ["@markup.heading.3.delimiter.markdown"] = { fg = c.special },
+  ["@markup.heading.4.delimiter.markdown"] = { fg = c.warn },
+  ["@markup.heading.5.delimiter.markdown"] = { fg = c.string },
+  ["@markup.heading.6.delimiter.markdown"] = { fg = c.dim },
+
+  -- Built-in Vim regex syntax fallback
+  markdownH1 = { fg = c.keyword, bold = true },
+  markdownH2 = { fg = c.info, bold = true },
+  markdownH3 = { fg = c.special, bold = true },
+  markdownH4 = { fg = c.warn, bold = true },
+  markdownH5 = { fg = c.string, bold = true },
+  markdownH6 = { fg = c.dim, bold = true },
+  markdownH1Delimiter = { fg = c.keyword },
+  markdownH2Delimiter = { fg = c.info },
+  markdownH3Delimiter = { fg = c.special },
+  markdownH4Delimiter = { fg = c.warn },
+  markdownH5Delimiter = { fg = c.string },
+  markdownH6Delimiter = { fg = c.dim },
+  markdownHeadingDelimiter = { fg = c.line_nr },
+  markdownCode = { fg = c.fg },
+  markdownCodeBlock = { fg = c.dim },
+  markdownCodeDelimiter = { fg = c.dim },
+
+  -- Languages & Extras
   ["@constructor"] = { fg = c.bracket },
   ["@constructor.python"] = { fg = c.fg },
   ["@lsp.type.method.yaml.ansible"] = { fg = c.fg },
@@ -227,18 +268,12 @@ local highlights = {
   ["@text.todo"] = { fg = c.error, bold = true },
   ["@text.danger"] = { fg = c.error, bold = true },
   ["@text.note"] = { fg = c.fg },
-  ["@spell.markdown"] = { link = "NormalText" },
   ["@lsp.typedecl"] = { fg = c.fg },
 
   -- Treesitter Context
   TreesitterContext = { bg = c.subtle },
   TreesitterContextBottom = { sp = c.line_nr, underline = true },
-  OilFile = { link = "NormalText" },
-
-  -- markdown
-  markdownCode = { fg = c.fg },
-  markdownCodeBlock = { fg = c.faint },
-  markdownCodeDelimiter = { fg = c.dim },
+  OilFile = { link = "Normal" },
 
   -- FZF-Lua Overrides
   FzfLuaBackdrop = { bg = c.inactive },
