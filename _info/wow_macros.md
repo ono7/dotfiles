@@ -1,5 +1,14 @@
 ## interrupt macro
 
+# macro for wow forever
+
+```
+#showtooltip
+/startattack
+/petattack [@mousover,harm,nodead][]
+/cast [@mouseover,harm,nodead][] Hunter's Mark
+```
+
 this works because it relies on the fact that wow midnight will target the casters currently casting first
 this may not work in pvp since there are many casters...
 
