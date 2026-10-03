@@ -49,7 +49,9 @@ Replace [Your Interrupt Spell] with your class interrupt (Kick, Pummel, Spear Ha
 
 ```
 
-# hunter
+## wow retail
+
+### hunter
 
 Prioritize mouse over targets
 
@@ -146,7 +148,7 @@ or
 
 ```
 
-## mage
+### mage
 
 ```
 #showtooltip Ice Lance
