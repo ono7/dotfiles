@@ -6,33 +6,35 @@ if vim.fn.exists("syntax_on") then
   vim.cmd("syntax reset")
 end
 
--- 2. Force the environment variables to LIGHT mode
+-- 2. Force the environment variables to DARK mode
 vim.o.termguicolors = true
-vim.o.background = "light"
-vim.g.colors_name = "custom-paper-black"
+vim.o.background = "dark"
+vim.g.colors_name = "custom-paper-charcoal"
 
--- Force Neovide's window background to match the warm oatmeal color
+-- Force Neovide's window background to match the canvas
+local bg_canvas = "#1A1C1E"
 if vim.g.neovide then
-  vim.g.neovide_background_color = "#F2EFE9"
+  vim.g.neovide_background_color = bg_canvas
 end
 
--- 3. ANTI-GLARE LIGHT PALETTE (Monochrome Text Edition)
-local bg = "#F2EFE9"
-local bg_subtle = "#E6E2DA"
-local bg_visual = "#D5CFC4"
-local bg_highlight = "#EAE6DF"
-local bg_inactive = "#EBE7E0"
+-- 3. ASTIGMATISM-CALIBRATED CHARCOAL PALETTE (High-Acuity Monochrome)
+-- NOTE(jlima): Avoid pure #000000 on OLED to eliminate light bloom, and pure #FFFFFF to prevent corneal halation
+local bg = bg_canvas
+local bg_subtle = "#23262A"
+local bg_visual = "#363B42"
+local bg_highlight = "#282C31"
+local bg_inactive = "#151718"
 
--- Base text is forced to pitch black
-local text_black = "#000000"
+-- Base text: warm bone white for maximal edge acuity without stark glare
+local text_bone = "#EDE8DC"
 
-local fg_dim = "#5C6A7B"
-local fg_muted = "#7B8A9C"
-local fg_faint = "#A9B3C1"
+local fg_dim = "#9EACB8"
+local fg_muted = "#768390"
+local fg_faint = "#525C66"
 
 local c = {
   bg = bg,
-  fg = text_black,
+  fg = text_bone,
   dim = fg_dim,
   muted = fg_muted,
   faint = fg_faint,
@@ -40,63 +42,59 @@ local c = {
   visual = bg_visual,
   highlight = bg_highlight,
   inactive = bg_inactive,
-  line_nr = "#A9B3C1",
-  status_active = "#DDD7CB", -- Noticeable warm tint for active window
-  status_inactive = "#D5CFC3", -- Slightly deeper warm tint for inactive splits
-  border = "#96A0AD", -- Crisp border line color
+  line_nr = "#5A6570",
 
   -- Text Elements
-  comment = "#8C96A4", -- Light graphite pencil
-  string = "#4A6B53", -- Deep, desaturated olive ink
-  keyword = "#C4434B",
-  type = text_black,
-  fn = text_black,
-  param = text_black,
-  constant = text_black,
+  comment = "#7C8896", -- Soft graphite
+  string = "#8BB594", -- Desaturated sage
+  keyword = "#DE787D", -- Soft terracotta
+  type = text_bone,
+  fn = text_bone,
+  param = text_bone,
+  constant = text_bone,
 
   -- Structural & Special
-  bracket = "#5C6A7B",
-  special = "#9E5A3F",
+  bracket = "#95A2B0",
+  special = "#DFA07A",
 
   -- UI, Diagnostics & Git
-  error = "#C4434B",
-  warn = "#996E14",
-  info = "#3B6EA8",
-  ok = "#4A7A59",
-  cursor = "#D97736",
-  diff_add_bg = "#DCE8DE",
-  diff_add_fg = "#2B4B34",
-  diff_del_bg = "#F7DCDA",
-  diff_del_fg = "#961C24",
-  diff_txt_bg = "#BED8C2",
+  error = "#E06C75",
+  warn = "#D49E5D",
+  info = "#68A5D6",
+  ok = "#7EBA87",
+  cursor = "#E59055",
+  diff_add_bg = "#25382B",
+  diff_add_fg = "#98CF9F",
+  diff_del_bg = "#3D2427",
+  diff_del_fg = "#E5878E",
+  diff_txt_bg = "#354F3B",
 }
 
--- Terminal ANSI (Semantic mapping for light background canvas)
--- NOTE(jlima): ANSI 0 must remain dark and ANSI 7/15 light so programs emitting standard codes don't produce inverted high-contrast blocks.
-vim.g.terminal_color_0 = "#1a1d21" -- Black (used for normal dark text/fills)
-vim.g.terminal_color_1 = "#961C24" -- Red
-vim.g.terminal_color_2 = "#355B3F" -- Green
-vim.g.terminal_color_3 = "#80550B" -- Yellow / Brown
-vim.g.terminal_color_4 = "#274F7D" -- Blue
-vim.g.terminal_color_5 = "#5A315C" -- Magenta
-vim.g.terminal_color_6 = "#1A5C66" -- Cyan
-vim.g.terminal_color_7 = "#D5CFC4" -- White / Light highlight tone
+-- Terminal ANSI (Calibrated for deep charcoal background)
+vim.g.terminal_color_0 = "#151718"
+vim.g.terminal_color_1 = c.error
+vim.g.terminal_color_2 = c.ok
+vim.g.terminal_color_3 = c.warn
+vim.g.terminal_color_4 = c.info
+vim.g.terminal_color_5 = "#BA85B3"
+vim.g.terminal_color_6 = "#6BA8A0"
+vim.g.terminal_color_7 = c.fg
 
 -- Bright ANSI variants
-vim.g.terminal_color_8 = "#5C6A7B" -- Bright Black / Dim text
-vim.g.terminal_color_9 = "#A8222A" -- Bright Red
-vim.g.terminal_color_10 = "#2B4B34" -- Bright Green
-vim.g.terminal_color_11 = "#664308" -- Bright Yellow
-vim.g.terminal_color_12 = "#1D3B5E" -- Bright Blue
-vim.g.terminal_color_13 = "#472649" -- Bright Magenta
-vim.g.terminal_color_14 = "#144850" -- Bright Cyan
-vim.g.terminal_color_15 = "#F2EFE9" -- Bright White (Canvas background)
+vim.g.terminal_color_8 = c.faint
+vim.g.terminal_color_9 = "#EA7A83"
+vim.g.terminal_color_10 = "#8ECD98"
+vim.g.terminal_color_11 = "#E0AA6F"
+vim.g.terminal_color_12 = "#7DB5E3"
+vim.g.terminal_color_13 = "#C797C1"
+vim.g.terminal_color_14 = "#7DB8B0"
+vim.g.terminal_color_15 = "#F7F4EC"
 
 -- 4. Highlights
 local highlights = {
   Normal = { fg = c.fg, bg = c.bg },
   NormalNC = { link = "Normal" },
-  MatchParen = { fg = c.comment, bg = c.fg, bold = true },
+  MatchParen = { fg = c.bg, bg = c.warn, bold = true },
   ModeMsg = { fg = c.fg, bold = true },
   MoreMsg = { fg = c.fg, bold = true },
   Error = { fg = c.error, bold = true },
@@ -171,13 +169,13 @@ local highlights = {
   Todo = { fg = c.error, bold = true },
   NonText = { fg = c.line_nr },
 
-  StatusLine = { fg = c.fg, bg = c.status_active, bold = true },
-  StatusLineNC = { fg = c.dim, bg = c.status_inactive },
+  StatusLine = { fg = c.fg, bg = c.subtle },
+  StatusLineNC = { fg = c.muted, bg = c.inactive },
   Cursor = { bg = c.cursor, fg = c.bg },
   TermCursor = { link = "Cursor" },
   TermCursorNC = { link = "Cursor" },
   Search = { fg = c.bg, bg = c.warn },
-  CurSearch = { fg = c.bg, bg = text_black, bold = true },
+  CurSearch = { fg = c.bg, bg = c.fg, bold = true },
   IncSearch = { link = "CurSearch" },
 
   DiffAdd = { fg = c.diff_add_fg, bg = c.diff_add_bg },
