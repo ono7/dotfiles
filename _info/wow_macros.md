@@ -1,5 +1,12 @@
 ## interrupt macro
 
+build info
+this is useful for updating wow addon toc when updates are applied
+
+```
+/run print((select(4, GetBuildInfo())))
+```
+
 # macro for wow forever
 
 ## hunter
