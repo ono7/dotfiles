@@ -27,19 +27,23 @@ M.setup = function()
   local border = "rounded"
 
   --- 1. Global LSP configuration ---
+  -- NOTE(jlima): Pass global float geometry directly to lsp.config root to avoid handler wrapping
   vim.lsp.config("*", {
     root_markers = { ".git" },
+    float = {
+      border = border,
+    },
   })
 
   --- 2. LSP Floating Window Handlers ---
-  -- NOTE(jlima): Intercept float handlers to enforce rounded border geometry across all LSP hover/docs calls
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = border,
-  })
+  -- NOTE(jlima): Explicit handler overrides pass config table directly to avoid deprecated vim.lsp.with wrapper
+  vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+    return vim.lsp.handlers.hover(err, result, ctx, vim.tbl_extend("force", { border = border }, config or {}))
+  end
 
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = border,
-  })
+  vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+    return vim.lsp.handlers.signature_help(err, result, ctx, vim.tbl_extend("force", { border = border }, config or {}))
+  end
 
   --- 3. Buffer LSP Attachment ---
   vim.api.nvim_create_autocmd("LspAttach", {
