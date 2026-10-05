@@ -6,21 +6,50 @@ return {
     vim.opt.switchbuf = "usetab,uselast"
 
     local palette = {
-      fill_bg = "#F2EFE9",
-      active_bg = "#D5CFC4",
-      active_fg = "#000000",
-      inactive_bg = "#E6E2DA",
-      inactive_fg = "#5C6A7B",
-      accent = "#3B6EA8",
-      modified = "#C4434B",
+      -- Main editor background
+      fill_bg = "#EDE9E1",
+
+      -- Active tab
+      active_bg = "#D8D3C9",
+      active_fg = "#242424",
+
+      -- Inactive tabs
+      inactive_bg = "#E5E1D9",
+      inactive_fg = "#747D87",
+
+      -- Accent
+      accent = "#35659A",
+
+      -- Modified buffer indicator
+      modified = "#B63E46",
     }
 
     local theme = {
-      fill = { bg = palette.fill_bg, fg = palette.inactive_fg },
-      head = { fg = palette.accent, bg = palette.fill_bg },
-      tail = { fg = palette.accent, bg = palette.fill_bg },
-      current_tab = { fg = palette.active_fg, bg = palette.active_bg, bold = true },
-      tab = { fg = palette.inactive_fg, bg = palette.inactive_bg },
+      fill = {
+        bg = palette.fill_bg,
+        fg = palette.inactive_fg,
+      },
+
+      head = {
+        fg = palette.accent,
+        bg = palette.fill_bg,
+      },
+
+      tail = {
+        fg = palette.accent,
+        bg = palette.fill_bg,
+      },
+
+      current_tab = {
+        fg = palette.active_fg,
+        bg = palette.active_bg,
+        bold = true,
+      },
+
+      tab = {
+        fg = palette.inactive_fg,
+        bg = palette.inactive_bg,
+      },
     }
 
     local function get_tab_label(tab_id)
@@ -42,14 +71,17 @@ return {
       return parent .. "/" .. filename
     end
 
-    -- NOTE(jlima): Slices the tab collection to fit a sliding viewport around the active tab.
+    -- NOTE(jlima): Slices the tab collection to fit a sliding viewport
+    -- around the active tab.
     local function get_visible_tabs(all_tabs, max_visible)
       local total = #all_tabs
+
       if total <= max_visible then
         return all_tabs, false, false
       end
 
       local current_idx = 1
+
       for i, tab in ipairs(all_tabs) do
         if tab.is_current() then
           current_idx = i
@@ -67,6 +99,7 @@ return {
       end
 
       local visible = {}
+
       for i = start_idx, end_idx do
         table.insert(visible, all_tabs[i])
       end
@@ -76,7 +109,9 @@ return {
 
     require("tabby.tabline").set(function(line)
       local all_tabs = line.tabs().tabs
-      -- NOTE(jlima): Adjust max_tabs based on average tab character length vs standard columns.
+
+      -- NOTE(jlima): Adjust max_tabs based on average tab character
+      -- length vs standard columns.
       local visible_tabs, has_left, has_right = get_visible_tabs(all_tabs, 5)
 
       local tab_elements = {}
@@ -96,9 +131,12 @@ return {
         local tab_name = get_tab_label(tab)
 
         local modified = false
+
         local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
+
         for _, win_id in ipairs(win_ids) do
           local success, bufid = pcall(vim.api.nvim_win_get_buf, win_id)
+
           if success and vim.bo[bufid].modified then
             modified = true
             break
@@ -108,7 +146,10 @@ return {
         table.insert(tab_elements, {
           line.sep("", hl, theme.fill),
           tab_name,
-          modified and { " ", fg = palette.modified } or "",
+          modified and {
+            " ",
+            fg = palette.modified,
+          } or "",
           line.sep("", hl, theme.fill),
           hl = hl,
           margin = "",
@@ -126,15 +167,27 @@ return {
 
       return {
         {
-          { "🐇", hl = theme.head },
+          {
+            "🐇",
+            hl = theme.head,
+          },
+
           line.sep("", theme.head, theme.fill),
         },
+
         tab_elements,
+
         line.spacer(),
+
         {
           line.sep("", theme.tail, theme.fill),
-          { "", hl = theme.tail },
+
+          {
+            "",
+            hl = theme.tail,
+          },
         },
+
         hl = theme.fill,
       }
     end)

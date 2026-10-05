@@ -11,16 +11,18 @@ vim.o.termguicolors = true
 vim.o.background = "light"
 vim.g.colors_name = "custom-paper-black"
 
+local my_bg = "#EDE9E1"
+
 -- Force Neovide's window background to match the warm paper color
 if vim.g.neovide then
-  vim.g.neovide_background_color = "#F2EFE9"
+  vim.g.neovide_background_color = my_bg
 end
 
 -- 3. ANTI-GLARE LIGHT PALETTE
 -- Warm paper background with softened foreground contrast.
 -- Avoids pure white and pure black to reduce visual bloom.
 
-local bg = "#F2EFE9"
+local bg = my_bg
 local bg_subtle = "#E8E4DC"
 local bg_visual = "#D9D4CA"
 local bg_highlight = "#EDE9E2"
