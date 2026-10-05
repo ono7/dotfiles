@@ -366,6 +366,16 @@ if vim.env.SSH_TTY then
   }
 end
 
+-- window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Focus lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus upper window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus right window" })
+
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end, { desc = "LSP Hover Documentation" })
+
 -- fix rsi issues with insert mode
 local imap = function(lhs, rhs, desc)
   vim.keymap.set("i", lhs, rhs, { noremap = true, silent = true, nowait = true, desc = desc })
@@ -669,6 +679,7 @@ local r_quote_ws_map = {
 }
 
 -- NOTE(jlima): Permitted left-hand characters that allow quote pair expansion.
+-- Includes literal prefix tokens (f, r, b, u) for Python/Rust strings and pipeline operators.
 local l_quote_prefix_map = {
   [""] = true,
   [" "] = true,
@@ -680,6 +691,24 @@ local l_quote_prefix_map = {
   ["="] = true,
   [":"] = true,
   [","] = true,
+  ["|"] = true,
+  ["!"] = true,
+  ["+"] = true,
+  ["-"] = true,
+  ["*"] = true,
+  ["/"] = true,
+  ["&"] = true,
+  ["~"] = true,
+  ["%"] = true,
+  -- String literal prefixes
+  ["f"] = true,
+  ["F"] = true,
+  ["r"] = true,
+  ["R"] = true,
+  ["b"] = true,
+  ["B"] = true,
+  ["u"] = true,
+  ["U"] = true,
 }
 
 -- NOTE(jlima): Reads an exact 2-byte buffer window around the cursor via one call to avoid allocating entire minified lines.
@@ -709,6 +738,7 @@ vim.keymap.set("i", "<BS>", function()
     return "<BS>"
   end
 
+  -- NOTE(jlima): Strictly deletes paired tokens only; no whitespace handling.
   if my_pair_map[prev_char] and my_pair_map[prev_char] == next_char then
     return "<BS><Del>"
   end
@@ -756,7 +786,7 @@ local function handle_quote(char)
     return "<Right>"
   end
 
-  -- NOTE(jlima): Reject quote expansion when preceded by alphanumeric characters (e.g. contractions).
+  -- NOTE(jlima): Reject quote expansion when preceded by non-whitelisted characters (prevents contraction bugs).
   if not l_quote_prefix_map[prev_char] then
     return char
   end
@@ -818,13 +848,3 @@ vim.keymap.set("i", "<CR>", function()
 
   return "<CR>"
 end, { expr = true, noremap = true })
-
--- window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Focus lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus upper window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus right window" })
-
-vim.keymap.set("n", "K", function()
-  vim.lsp.buf.hover({ border = "rounded" })
-end, { desc = "LSP Hover Documentation" })
