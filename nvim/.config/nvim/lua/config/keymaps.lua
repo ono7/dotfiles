@@ -845,6 +845,7 @@ vim.keymap.set("i", "<CR>", function()
   local pair = prev_char .. next_char
   if pair == "{}" or pair == "()" or pair == "[]" then
     return "<CR><Esc>O"
+    -- return "<CR><Esc>O"
   end
 
   return "<CR>"
