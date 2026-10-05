@@ -1,1 +1,1 @@
-{"go":"go run %","cpp":"mkdir -p build && g++ -std=c++20 -Wall -Wextra -Wpedantic % -o build/%< && build/%<"}
+{"cpp":"mkdir -p build && g++ -std=c++20 -Wall -Wextra -Wpedantic % -o build/%< && build/%<","lua":"lua %","go":"go run %"}
