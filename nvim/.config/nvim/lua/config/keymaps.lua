@@ -935,9 +935,11 @@ end
 vim.keymap.set("i", "{", function()
   return handle_open("{", "}")
 end, { expr = true, noremap = true })
+
 vim.keymap.set("i", "(", function()
   return handle_open("(", ")")
 end, { expr = true, noremap = true })
+
 vim.keymap.set("i", "[", function()
   return handle_open("[", "]")
 end, { expr = true, noremap = true })
@@ -945,9 +947,11 @@ end, { expr = true, noremap = true })
 vim.keymap.set("i", "}", function()
   return handle_close("}")
 end, { expr = true, noremap = true })
+
 vim.keymap.set("i", ")", function()
   return handle_close(")")
 end, { expr = true, noremap = true })
+
 vim.keymap.set("i", "]", function()
   return handle_close("]")
 end, { expr = true, noremap = true })
@@ -955,6 +959,7 @@ end, { expr = true, noremap = true })
 vim.keymap.set("i", '"', function()
   return handle_quote('"')
 end, { expr = true, noremap = true })
+
 vim.keymap.set("i", "'", function()
   return handle_quote("'")
 end, { expr = true, noremap = true })
