@@ -1,4 +1,4 @@
--- ~/.config/nvim/colors/custom-paper.lua
+-- ~/.config/nvim/colors/custom-paper-black.lua
 
 -- 1. Reset everything FIRST
 vim.cmd("hi clear")
@@ -23,10 +23,12 @@ end
 -- Avoids pure white and pure black to reduce visual bloom.
 
 local bg = my_bg
-local bg_subtle = "#E8E4DC"
+-- NOTE(jlima): Unified subtle and floating background states to reference my_bg
+-- directly to prevent palette fragmentation across LSP hover float buffers.
+local bg_subtle = my_bg
 local bg_visual = "#D9D4CA"
-local bg_highlight = "#EDE9E2"
-local bg_inactive = "#ECE8E1"
+local bg_highlight = "#E5E1D9"
+local bg_inactive = my_bg
 
 -- Dark charcoal instead of pure black.
 local text_black = "#242424"
@@ -158,23 +160,24 @@ local highlights = {
   -- Floating windows
   NormalFloat = {
     fg = c.fg,
-    bg = c.subtle,
+    bg = c.bg,
   },
 
   FloatBorder = {
-    fg = c.line_nr,
-    bg = c.subtle,
+    -- fg = c.line_nr,
+    fg = c.border,
+    bg = c.bg,
   },
 
   FloatTitle = {
     fg = c.fg,
-    bg = c.subtle,
+    bg = c.bg,
     bold = true,
   },
 
   FloatFooter = {
     fg = c.muted,
-    bg = c.subtle,
+    bg = c.bg,
   },
 
   WinSeparator = {
@@ -454,25 +457,30 @@ local highlights = {
     fg = c.fg,
   },
 
-  -- Markdown
+  -- Markdown (Floating docs & buffers)
   ["@markup.raw"] = {
     fg = c.dim,
+    bg = c.bg,
   },
 
   ["@markup.raw.block.markdown"] = {
     fg = c.fg,
+    bg = c.bg,
   },
 
   ["@markup.raw.delimiter.markdown"] = {
     fg = c.dim,
+    bg = c.bg,
   },
 
   ["@markup.normal"] = {
     fg = c.fg,
+    bg = c.bg,
   },
 
   ["@text.literal"] = {
     fg = c.fg,
+    bg = c.bg,
   },
 
   ["@spell.markdown"] = {
@@ -635,14 +643,17 @@ local highlights = {
 
   markdownCode = {
     fg = c.fg,
+    bg = c.bg,
   },
 
   markdownCodeBlock = {
     fg = c.dim,
+    bg = c.bg,
   },
 
   markdownCodeDelimiter = {
     fg = c.dim,
+    bg = c.bg,
   },
 
   -- Languages & Extras

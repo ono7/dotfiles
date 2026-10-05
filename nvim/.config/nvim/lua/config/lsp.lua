@@ -24,12 +24,24 @@ end
 vim.keymap.set("n", "<leader>tl", M.toggle_lsp_for_buffer, { desc = "Toggle LSP for buffer" })
 
 M.setup = function()
+  local border = "rounded"
+
   --- 1. Global LSP configuration ---
   vim.lsp.config("*", {
     root_markers = { ".git" },
   })
 
-  --- 2. Buffer LSP Attachment ---
+  --- 2. LSP Floating Window Handlers ---
+  -- NOTE(jlima): Intercept float handlers to enforce rounded border geometry across all LSP hover/docs calls
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = border,
+  })
+
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = border,
+  })
+
+  --- 3. Buffer LSP Attachment ---
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
     callback = function(args)
@@ -38,13 +50,13 @@ M.setup = function()
     end,
   })
 
-  --- 3. Smart Completion Trigger (<C-l>) ---
+  --- 4. Smart Completion Trigger (<C-l>) ---
   vim.keymap.set("i", "<C-l>", function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
     return #clients > 0 and "<C-x><C-o>" or "<C-x><C-n>"
   end, { expr = true, replace_keycodes = true, desc = "Smart Completion" })
 
-  --- 4. Enable LSP servers ---
+  --- 5. Enable LSP servers ---
   vim.lsp.enable({
     "gopls",
     "pyright",
@@ -61,17 +73,17 @@ M.setup = function()
     "ruff",
   })
 
-  --- 5. Completion & Diagnostic Presentation ---
+  --- 6. Completion & Diagnostic Presentation ---
   vim.o.completeopt = "menuone,fuzzy"
 
   vim.diagnostic.config({
     update_in_insert = false,
     virtual_text = false,
     severity_sort = true,
-    float = { border = "rounded" },
+    float = { border = border },
   })
 
-  --- 6. Diagnostic Auto-management ---
+  --- 7. Diagnostic Auto-management ---
   local diagnostic_group = vim.api.nvim_create_augroup("DiagnosticToggle", { clear = true })
 
   vim.api.nvim_create_autocmd("InsertEnter", {
