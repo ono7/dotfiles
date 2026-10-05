@@ -47,34 +47,11 @@ cnoreabbrev qq qa!
 
 map Q <Nop>
 
-" this combines best of vim with the best of emacs which is available everywhere..
-"cnoremap <c-a> <Home>
-"cnoremap <c-b> <left>
-"cnoremap <c-e> <end>
-"cnoremap <c-l> <Right>
-
-"nnoremap <c-e> <end>
-
-" Emacs / Readline navigation for Vim command-line
-"cnoremap <C-a> <Home>
-"cnoremap <C-e> <End>
-" cnoremap <C-f> <Right>
-"cnoremap <C-b> <Left>
-"cnoremap <M-f> <S-Right>
-"cnoremap <M-b> <S-Left>
-"cnoremap <M-BS> <C-w>
-"cnoremap <M-d> <S-Right><C-w>
-" cnoremap <C-k> <C-f>D<C-c>
-
 " Kill forward to end of line (C-k)
 cnoremap <expr> <C-k> repeat("\<Del>", strlen(getcmdline()) - getcmdpos() + 1)
 
 " Kill backward to start of line (C-u)
 cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
-
-" Kill word forward (M-d / Alt-d)
-"cnoremap <M-d> <S-Right><C-w>
-"cnoremap <Esc>d <S-Right><C-w>
 
 inoremap <C-BS> <C-g>u<C-w>
 inoremap <M-BS> <C-g>u<C-w>
@@ -93,7 +70,6 @@ inoremap <M-e> <C-o>}
 " undo in insert mode
 inoremap <C-/> <C-u>
 
-" inoremap <silent> <C-,> <C-o>:let c=col('.') <Bar> execute "normal! yyP" <Bar> call cursor(line('.'), c)<CR><C-o><Down>
 function! DuplicateAndMark()
     let l:c = col('.')
     " Duplicate line above using the unnamed register
@@ -117,8 +93,6 @@ inoremap <C-s> <C-o>/
 nnoremap <C-r> ?
 nnoremap <C-s> /
 
-" save as sudo
-"cnoremap w!! w !sudo tee % > /dev/null
 cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
 
 augroup CleanNoName
@@ -135,23 +109,7 @@ augroup END
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 
-" the alpha and the omega
-"inoremap <C-a> <C-o>_
-"inoremap <C-e> <End>
-
-" === WORD MOVEMENT ===
-" ~f = moveWordForward (Emacs jumps to end of word)
-"inoremap <M-f> <C-o>e<Right>
-" ~b = moveWordBackward
-"inoremap <M-b> <S-Left>
-
-" Send Escape+b/f to the shell when Alt-b/f is pressed
-" ~f, ~b
-"tnoremap <M-b> <Esc>b
-"tnoremap <M-f> <Esc>f
-
 " === PARAGRAPH MOVEMENT ===
-" ~{ = Start of para / ~} = End of para
 inoremap <M-{> <C-o>{
 inoremap <M-}> <C-o>}
 
@@ -161,9 +119,6 @@ inoremap <C-d> <C-g>u<Del>
 
 " ^h = Delete Backward (Standard Backspace)
 inoremap <C-h> <C-g>u<BS>
-
-"" ^h = Move Left (Non-destructive)
-"inoremap <C-h> <Left>
 
 " ~d = Delete Word Forward
 inoremap <M-d> <C-g>u<C-o>dw
@@ -181,15 +136,7 @@ inoremap <C-y> <C-r>"
 inoremap <M-k> <C-g>u<C-o>d}
 
 " === CASE TRANSFORMATION PARITY ===
-" Uppercase Word (Emacs M-u)
-" Logic: Exit insert -> Uppercase to end of word -> Append
-"inoremap <M-u> <Esc>gUea
-" this will make the last Word typed upper case
 inoremap <M-u> <Esc>gUiwea
-
-" Lowercase Word (Emacs M-l)
-" Logic: Exit insert -> Lowercase to end of word -> Append
-"inoremap <M-l> <Esc>guea
 inoremap <M-l> <Esc>guiwea
 
 " usefull when only visual block selection needs to be replaced
@@ -203,23 +150,16 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap vw viw
 nnoremap vp vip
-"nnoremap cw ciw
 nnoremap vW viW
-"nnoremap cW ciW
 nnoremap dW diW
-" nnoremap <c-s> :Rg<space>
-" nnoremap <c-s> :Rg<space>
 
 nnoremap <C-w>q <C-w>c
 nnoremap <C-w><C-q> <C-w>c
 vnoremap <C-w>q <C-w>c
 
-
 nnoremap <m-t> <cmd>tabnew<cr>
 nnoremap <m-]> <cmd>tabnext<cr>
 nnoremap <m-[> <cmd>tabprev<cr>
-
-
 
 " Set mark in insert mode
 function! InsertSetMark() abort
@@ -244,10 +184,6 @@ function! InsertSwapMark() abort
   call setpos("'z", cur_pos)
 endfunction
 
-" Keymaps
-" inoremap <c-space> <C-o>:call InsertSetMark()<CR>
-" inoremap <C-x> <C-o>:call InsertSwapMark()<CR>
-
 inoremap <M-S-o> <C-o>O
 inoremap <M-o> <C-o>o
 inoremap <C-w> <Esc>:w<CR>a
@@ -255,10 +191,6 @@ inoremap <C-w> <Esc>:w<CR>a
 nnoremap <C-d> x
 nnoremap <M-d> dw
 
-"set path=.,**
-"set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/.tox/*,*/.collections/*,*/venv/*
-
-" TODO(jlima773): fix this, does not work 2025-12-17 21:55
 " Function to set the mark and print message
 function! SetGlobalMark(char)
   execute 'normal! m' . a:char
@@ -299,16 +231,9 @@ nnoremap Y yg_
 nnoremap j gj
 nnoremap k gk
 
-
 " includes filename in commit, but better to use git log --name-only
- nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
+nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
 
-"nnoremap <leader>d <cmd>%bd!\|e#\|bd!#<CR>
-" close: closes a window not a buffer, leaving splits working as intended
-" this has a conflict with diagnostics
-" nnoremap <leader>d <cmd>close!<CR>
-
-"nnoremap <leader>x <cmd>x<CR>
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
 xnoremap H <gv
@@ -328,7 +253,6 @@ function! SmartClose() abort
     execute 'silent! bdelete ' . l:current_buf
   endif
 endfunction
-" nnoremap <silent> <leader>d :call SmartClose()<CR>
 
 function! WrapSelection(left, right)
     let save_reg = @"
@@ -353,11 +277,6 @@ xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 
-" xnoremap { :<C-u>call WrapSelection('{', '}')<CR>
-" xnoremap < :<C-u>call WrapSelection('<', '>')<CR>
-
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-
 set ttyfast
 set confirm
 set nolisp
@@ -379,7 +298,7 @@ function! s:CleanAndSave()
   let l:save = winsaveview()
 
   " Remove trailing whitespace and Windows ^M characters
-  keeppatterns %s/\v\s*\r+$|\s+$//e
+  keeppatterns %s/\v\s*\r+$\vert{}\s+$//e
 
   " Remove empty lines at the end of the file
   keeppatterns %s#\($\n\s*\)\+\%$##e
@@ -391,12 +310,6 @@ function! s:CleanAndSave()
 
   call winrestview(l:save)
 endfunction
-
-" not in neovim, we use lua there
-"augroup CleanOnWrite
-"  autocmd!
-"  autocmd BufWritePre * call s:CleanAndSave()
-"augroup end
 
 augroup FileTypeSettings
   autocmd!
@@ -436,45 +349,6 @@ augroup FormatPrg
   endif
 augroup end
 
-" this will show the file name when switching windows/splits etc and not running a statusline"
-"augroup EchoFileNameOnFocus
-"  autocmd!
-"  autocmd WinEnter,BufEnter * if &laststatus == 0 && &buftype ==# '' | file | endif
-"augroup END
-
-"if has('clipboard')
-"  if has('mac') || !empty($DISPLAY)
-"    if has('unnamedplus')
-"      set clipboard=unnamedplus
-"    else
-"      set clipboard=unnamed
-"    endif
-"  endif
-"endif
-
-
-"if exists('$SSH_TTY')
-"  function! Osc52yank()
-"    " Base64 encode the yanked text
-"    if len(@0) > 100000
-"      return
-"    endif
-"    let buffer = system('base64 -w 0', @0)
-"    let buffer = substitute(buffer, '\n', '', 'g')
-"
-"    " Write to a temp file to avoid shell escaping issues
-"    let temp_file = tempname()
-"    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp_file, 'b')
-"    call system('cat ' . shellescape(temp_file) . ' > /dev/tty')
-"    call delete(temp_file)
-"  endfunction
-"
-"  augroup Yank
-"    autocmd!
-"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52yank() | endif
-"  augroup end
-"endif
-
 packadd cfilter
 ]])
 
@@ -491,16 +365,6 @@ if vim.env.SSH_TTY then
     },
   }
 end
-
--- vim.keymap.set("n", "<C-1>", "1gt", opt)
--- vim.keymap.set("n", "<C-2>", "2gt", opt)
--- vim.keymap.set("n", "<C-3>", "3gt", opt)
--- vim.keymap.set("n", "<C-4>", "4gt", opt)
--- vim.keymap.set("n", "<C-5>", "5gt", opt)
--- vim.keymap.set("n", "<C-6>", "6gt", opt)
--- vim.keymap.set("n", "<C-7>", "7gt", opt)
--- vim.keymap.set("n", "<C-8>", "8gt", opt)
--- vim.keymap.set("n", "<C-9>", "9gt", opt)
 
 -- fix rsi issues with insert mode
 local imap = function(lhs, rhs, desc)
@@ -535,7 +399,6 @@ cmap("<C-e>", "<End>", "End of line")
 
 -- Character navigation (home-row)
 cmap("<C-b>", "<Left>", "Cursor left")
--- cmap("<C-f>", "<Right>", "Cursor right")
 vim.keymap.set("c", "<C-f>", function()
   if vim.fn.getcmdpos() > #vim.fn.getcmdline() then
     return vim.o.cedit
@@ -572,9 +435,6 @@ k("n", "<leader>n", "<cmd>e ~/notes.md<cr>", silent)
 
 --- visual selection search ---
 k("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-
--- show diagnostics on quickfixlist for the project
--- k("n", "<leader>q", vim.diagnostic.setqflist, { desc = "LSP to Quickfix" })
 
 vim.keymap.set("n", "<leader>te", function()
   local dir = vim.fn.expand("%:p:h")
@@ -635,7 +495,6 @@ k("n", "cp", "yap<S-}>p", opt)
 k("n", "<D-i>", "<c-i>", opt)
 k("n", "<D-o>", "<c-o>", opt)
 
--- k("n", "<leader>cd", function()
 k("n", "<M-c>", function()
   vim.cmd.lcd("%:p:h")
   local path = vim.fn.getcwd()
@@ -651,9 +510,6 @@ k("n", "gt", ":GoTagAdd<cr>", silent)
 k("n", "gy", "`[v`]", { desc = "Select recently pasted, yanked or changed text" })
 
 --- terminal ---
--- k("t", "<M-BS>", "\x17", { noremap = true })
--- k("t", "<C-BS>", "\x17", { noremap = true })
-
 k("c", "<C-BS>", "\x17", { noremap = true })
 
 -- switch to normal mode
@@ -667,7 +523,6 @@ vim.keymap.set("t", "<C-p>", "<C-p>")
 k("t", "<D-e>", [[<c-e>]], silent)
 k("t", "<D-d>", [[<c-d>]], silent)
 k("t", "<D-c>", [[<c-c>]], silent)
--- k("t", "<D-p>", [[<c-p>]], silent)
 k("t", "<D-n>", [[<c-n>]], silent)
 k("t", "<D-r>", [[<c-r>]], silent)
 
@@ -676,32 +531,6 @@ k({ "n" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 k("n", "<M-k>", "<cmd>cprev<cr>", opt)
 k("n", "<M-j>", "<cmd>cnext<cr>", opt)
 
--- Toggle maximize the current window while remembering its size.
--- local function toggle_maximize()
---   local win = vim.api.nvim_get_current_win()
---
---   -- See if this window has saved size
---   local ok, saved = pcall(vim.api.nvim_win_get_var, win, "saved_size")
---
---   if ok then
---     -- --- Restore ---
---     vim.api.nvim_win_set_height(win, saved.height)
---     vim.api.nvim_win_set_width(win, saved.width)
---     pcall(vim.api.nvim_win_del_var, win, "saved_size")
---   else
---     -- --- Save current and maximize ---
---     local height = vim.api.nvim_win_get_height(win)
---     local width = vim.api.nvim_win_get_width(win)
---
---     vim.api.nvim_win_set_var(win, "saved_size", {
---       height = height,
---       width = width,
---     })
---
---     vim.cmd("wincmd _") -- maximize height
---     vim.cmd("wincmd |") -- maximize width
---   end
--- end
 local function toggle_maximize()
   local win = vim.api.nvim_get_current_win()
   local ok, saved = pcall(vim.api.nvim_win_get_var, win, "saved_size")
@@ -754,7 +583,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     local save = vim.fn.winsaveview()
 
     -- Remove trailing whitespace, trailing tabs, and Windows ^M characters
-    vim.cmd([[keeppatterns %s/\v\s*\r+$|\s+$//e]])
+    vim.cmd([[keeppatterns %s/\v\s*\r+$\vert{}\s+$//e]])
 
     -- Remove empty lines at the end of the file
     vim.cmd([[keeppatterns %s#\($\n\s*\)\+\%$##e]])
@@ -778,13 +607,11 @@ local function check_buf(bufnr)
 end
 
 -- 2. Map <leader>w to a raw write.
--- The BufWritePre autocmd will automatically catch this and apply your retab/cleanup logic.
 vim.keymap.set("n", "<leader>w", function()
   if not check_buf(0) then
     vim.notify("Save first..", vim.log.levels.WARN)
     return
   end
-  -- Write current buffer, creating parent directories if they don't exist
   vim.cmd([[:write ++p]])
 end, { silent = true, desc = "Write file (creates parent dirs)" })
 
@@ -793,7 +620,6 @@ vim.keymap.set("n", "<M-w>", function()
     vim.notify("Save first..", vim.log.levels.WARN)
     return
   end
-  -- Write current buffer, creating parent directories if they don't exist
   vim.cmd([[:write ++p]])
 end, { silent = true, desc = "Write file (creates parent dirs)" })
 
@@ -813,7 +639,7 @@ k("n", "<c-/>", function()
   end
 end, silent)
 
--- start here
+-- --- Custom Auto-Pair Engine ---
 
 local my_pair_map = {
   ["("] = ")",
@@ -825,8 +651,8 @@ local my_pair_map = {
   ["`"] = "`",
 }
 
--- NOTE(jlima): Permitted right-hand characters that allow pair expansion.
-local r_pair_map = {
+-- NOTE(jlima): Permitted right-hand characters that allow bracket pair expansion.
+local r_bracket_map = {
   [")"] = true,
   ["]"] = true,
   ["}"] = true,
@@ -835,8 +661,14 @@ local r_pair_map = {
   ["\t"] = true,
 }
 
+-- NOTE(jlima): Strict whitespace-only guard for quotes to prevent spurious pairs inside existing syntax.
+local r_quote_ws_map = {
+  [""] = true,
+  [" "] = true,
+  ["\t"] = true,
+}
+
 -- NOTE(jlima): Permitted left-hand characters that allow quote pair expansion.
--- If preceded by content like `"(testing)"`, quote expansion is rejected to insert closing char.
 local l_quote_prefix_map = {
   [""] = true,
   [" "] = true,
@@ -901,10 +733,10 @@ local function handle_open(char, close_char)
     return "{  }<C-g>U<Left><Left>"
   end
 
-  local is_allowed = (next_char == "") or r_pair_map[next_char]
+  local is_allowed = (next_char == "") or r_bracket_map[next_char]
 
-  -- NOTE(jlima): Strict exception to support Ansible Jinja `"{{  }}"`.
-  -- ONLY `{` is permitted to auto-close inside quotes.
+  -- NOTE(jlima): Strict exception to support Ansible Jinja "{{  }}".
+  -- ONLY "{" is permitted to auto-close inside quotes.
   if char == "{" and (next_char == '"' or next_char == "'") then
     is_allowed = true
   end
@@ -919,17 +751,18 @@ end
 local function handle_quote(char)
   local prev_char, next_char = get_adjacent_chars()
 
+  -- Overtype: step over if cursor is immediately before matching quote
   if next_char == char then
     return "<Right>"
   end
 
-  -- NOTE(jlima): Reject quote expansion when preceded by word characters or closing punctuation.
+  -- NOTE(jlima): Reject quote expansion when preceded by alphanumeric characters (e.g. contractions).
   if not l_quote_prefix_map[prev_char] then
     return char
   end
 
-  local is_allowed = (next_char == "") or r_pair_map[next_char]
-  if not is_allowed then
+  -- NOTE(jlima): Restrict quote auto-pairing strictly to EOL or whitespace.
+  if not r_quote_ws_map[next_char] then
     return char
   end
 
@@ -968,6 +801,10 @@ vim.keymap.set("i", "'", function()
   return handle_quote("'")
 end, { expr = true, noremap = true })
 
+vim.keymap.set("i", "`", function()
+  return handle_quote("`")
+end, { expr = true, noremap = true })
+
 vim.keymap.set("i", "<CR>", function()
   local prev_char, next_char, col = get_adjacent_chars()
   if col == 0 or next_char == "" then
@@ -982,7 +819,7 @@ vim.keymap.set("i", "<CR>", function()
   return "<CR>"
 end, { expr = true, noremap = true })
 
--- window naviation, no more tmux navigator, for tmux we will just use c-b-o
+-- window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Focus lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus upper window" })
