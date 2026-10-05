@@ -110,8 +110,9 @@ inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 
 " === PARAGRAPH MOVEMENT ===
-inoremap <M-{> <C-o>{
-inoremap <M-}> <C-o>}
+" this could cause input dealy
+"inoremap <M-{> <C-o>{
+"inoremap <M-}> <C-o>}
 
 " === DELETION ===
 " ^d = Delete Forward
