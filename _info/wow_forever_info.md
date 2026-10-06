@@ -11,6 +11,8 @@
 
 - forever quest tint - shows what quests are new in wow forever
 - talents forever - shows you best talents, what talents are coming up and when you will get them
+- maputils - gives map info, including dungeon maps when inside a dungeon
+- easymarks forever - manage icons and world icons (standalone in world marks)
 
 **untested**
 
