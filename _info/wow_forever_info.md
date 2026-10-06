@@ -1,5 +1,7 @@
 ## addons
 
+/console weatherdensity 3
+
 **must haves**
 
 - GearQuest forever - shows you where to find the next upgrade
