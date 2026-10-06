@@ -10,6 +10,7 @@
   - tells you what quests you need to be attuned to a dungeon
 
 - forever quest tint - shows what quests are new in wow forever
+- talents forever - shows you best talents, what talents are coming up and when you will get them
 
 **untested**
 
