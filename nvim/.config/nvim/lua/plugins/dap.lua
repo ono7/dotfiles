@@ -106,6 +106,9 @@ return {
       },
     }
 
+    -- NOTE(jlima): Spawns a horizontal terminal buffer at the bottom for interactive stdin/stdout
+    dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
+
     -- C and C++ Launch Configuration
     dap.configurations.cpp = {
       {
@@ -121,7 +124,8 @@ return {
           local input = vim.fn.input("CLI args (optional): ")
           return input ~= "" and vim.split(input, " ") or {}
         end,
-        runInTerminal = false,
+        -- NOTE(jlima): Required for programs reading std::cin; delegates I/O to terminal window
+        runInTerminal = true,
       },
     }
 

@@ -101,7 +101,7 @@ alias f='cd $(fd --type d --hidden --exclude .git --exclude node_modules --exclu
 # Editors & Neovim
 alias vim='nvim -n'
 alias vi='nvim -n'
-alias vio='/usr/bin/vi'
+alias vio="$HOME/.local/vim/bin/vim"
 alias vil='vim -u ~/.vimrc_min'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
