@@ -131,7 +131,8 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
-neovim:
+# Explicit dependency: go-deps must execute before building neovim
+neovim: go-deps
 	@echo $(BANNER)
 	@mkdir -p ~/.local/bin
 	@touch ~/.workspaces
