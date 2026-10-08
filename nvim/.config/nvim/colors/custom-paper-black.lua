@@ -362,7 +362,8 @@ local highlights = {
 
   DiffText = {
     fg = c.bg,
-    bg = c.keyword,
+    -- bg = c.keyword, -- this is red and its punchy
+    bg = "#E6CE94",
   },
 
   DiffTextAdd = { link = "DiffText" },
