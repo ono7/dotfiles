@@ -35,6 +35,7 @@ npm install -g \
   jsonlint \
   typescript \
   eslint \
+  tree-sitter-cli \
   doctoc \
   neovim \
   lint-staged \
