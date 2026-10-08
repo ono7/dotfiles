@@ -115,12 +115,9 @@ cnoremap <C-e> <End>
 cnoremap <C-l> <Right>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
-
 inoremap <C-r> <C-o>?\v
 inoremap <C-s> <C-o>/\v
-nnoremap <C-s> :Rg<space>
-nnoremap <leader>d :call SmartClose()<CR>
-nnoremap <silent> <space><space> <cmd>noh<cr>
+nnoremap <silent> <space><space> <cmd>set hlsearch!<cr>
 nnoremap <space>a ggVG
 
 " --- Visual Wrappers ---
@@ -206,4 +203,4 @@ endif
 
 
 "hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
-set guicursor=a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor
+set guicursor=a:blinkon0

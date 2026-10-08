@@ -356,20 +356,20 @@ local highlights = {
   },
 
   DiffChange = {
-    bg = c.diff_add_bg,
+    -- bg = c.diff_add_bg,
+    bg = "none",
   },
 
   DiffText = {
-    fg = c.fg,
-    bg = c.diff_txt_bg,
-    bold = true,
+    fg = c.bg,
+    bg = c.keyword,
   },
 
   DiffTextAdd = { link = "DiffText" },
 
   DiffDelete = {
     fg = c.diff_del_fg,
-    bg = c.diff_del_bg,
+    -- bg = c.diff_del_bg,
   },
 
   DiffRemoved = {
