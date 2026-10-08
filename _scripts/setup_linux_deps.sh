@@ -89,11 +89,14 @@ install_packages_pacman() {
 
   # --ask 4 automatically selects default choices for package provider prompts and clean builds
   sudo pacman -S --needed --noconfirm --ask 4 \
+    nodejs npm
+
+  sudo pacman -S --needed --noconfirm --ask 4 \
     base-devel cmake ninja procps-ng curl file git screen usbutils \
     openssl ncurses gettext python perl \
     tree zsh the_silver_searcher fd unzip xclip wl-clipboard ripgrep stow make sqlite \
     wget shfmt shellcheck rlwrap pass go \
-    zoxide starship npm \
+    zoxide starship \
     neovim neovide tree-sitter-cli eza
 }
 
