@@ -1,6 +1,6 @@
 set nocompatible
 filetype plugin indent on
-syntax on
+syntax off
 
 autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
 
