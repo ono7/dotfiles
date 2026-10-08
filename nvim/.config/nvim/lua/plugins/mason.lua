@@ -22,7 +22,6 @@ return {
           "vim-language-server",
           "gopls",
           -- "qmlls", not supported on some platforms arm64/linux
-          "isort",
           "black",
           -- "clangd", not supported on some platforms arm64/linux
           "stylua",
