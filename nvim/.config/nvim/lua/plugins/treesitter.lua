@@ -4,6 +4,11 @@ return {
   branch = "main", -- Using the v1.0 native API branch
   build = ":TSUpdate",
   config = function()
+    -- NOTE(jlima): Force native C toolchains to bypass incompatible system tree-sitter CLI binaries
+    local install = require("nvim-treesitter.install")
+    install.prefer_git = true
+    install.compilers = { "gcc", "clang", "cc" }
+
     -- 1. Register custom filetypes
     vim.filetype.add({
       extension = {
