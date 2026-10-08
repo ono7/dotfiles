@@ -89,7 +89,10 @@ install_packages_pacman() {
 
   # --ask 4 automatically selects default choices for package provider prompts and clean builds
   sudo pacman -S --needed --noconfirm --ask 4 \
-    nodejs npm
+    nodejs npm reflector
+
+  sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+  sudo reflector --country US --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
   sudo pacman -S --needed --noconfirm --ask 4 \
     base-devel cmake ninja procps-ng curl file git screen usbutils \
