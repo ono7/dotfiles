@@ -247,6 +247,6 @@ vim.diagnostic.config({ update_in_insert = false })
 
 vim.cmd([[colorscheme custom-paper-black]])
 
-vim.opt.guicursor = ""
+vim.opt.guicursor = "a:blinkon0"
 
 vim.opt.mousemoveevent = false
