@@ -205,5 +205,5 @@ if exists('$SSH_TTY') || $UID == 0
 endif
 
 
-hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
+"hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
 set guicursor=a:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor
