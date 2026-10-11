@@ -301,3 +301,24 @@ if (exists('$SSH_TTY') \vert{}\vert{}$UID == 0) && exists('##TextYankPost')
     autocmd TextYankPost * call Osc52yank()
   augroup END
 endif
+
+" --- Inherit Terminal Colors & Transparency ---
+" NOTE(jlima): Clear background fills to adopt terminal emulator canvas transparently.
+function! s:ClearTerminalBackground() abort
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight LineNr ctermbg=NONE guibg=NONE
+  highlight Folded ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+  highlight SignColumn ctermbg=NONE guibg=NONE
+  highlight VertSplit ctermbg=NONE guibg=NONE
+endfunction
+
+" Apply on initial load
+call s:ClearTerminalBackground()
+
+" NOTE(jlima): Colorscheme events reset highlight groups; re-apply transparency deterministically.
+augroup TerminalTransparency
+  autocmd!
+  autocmd ColorScheme * call s:ClearTerminalBackground()
+augroup END
