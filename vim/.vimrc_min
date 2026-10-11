@@ -322,3 +322,21 @@ augroup TerminalTransparency
   autocmd!
   autocmd ColorScheme * call s:ClearTerminalBackground()
 augroup END
+
+if has("nvim")
+  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
+  packadd cfilter
+  set inccommand=nosplit
+  set pumheight=10 pumblend=0
+else
+  set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
+  set ttyfast
+endif
+
+set undolevels=999
+if !isdirectory($HOME."/.vim-undo")
+    call mkdir($HOME."/.vim-undo", "p", 0700)
+endif
+set undodir=~/.vim-undo
+set undofile
+set path=.,**
