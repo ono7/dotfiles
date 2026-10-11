@@ -283,25 +283,6 @@ if has('clipboard')
   endif
 endif
 
-" NOTE(jlima): Guard TextYankPost with exists() check to preserve compatibility with Vim < 8.0.1394.
-if (exists('$SSH_TTY') \vert{}\vert{}$UID == 0) && exists('##TextYankPost')
-  function! Osc52yank() abort
-    if v:event.operator !=# 'y' | return | endif
-    if len(@0) > 100000 | return | endif
-
-    let l:buffer = substitute(system('base64 -w 0', @0), '\n', '', 'g')
-    let l:temp = tempname()
-    call writefile([printf("\033]52;c;%s\033\\", l:buffer)], l:temp, 'b')
-    call system('cat ' . shellescape(l:temp) . ' > /dev/tty')
-    call delete(l:temp)
-  endfunction
-
-  augroup YankOSC52
-    autocmd!
-    autocmd TextYankPost * call Osc52yank()
-  augroup END
-endif
-
 " --- Inherit Terminal Colors & Transparency ---
 " NOTE(jlima): Clear background fills to adopt terminal emulator canvas transparently.
 function! s:ClearTerminalBackground() abort
