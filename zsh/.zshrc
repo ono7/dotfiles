@@ -98,9 +98,13 @@ alias 8='cd -8'
 alias 9='cd -9'
 alias f='cd $(fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .npm --exclude .venv | fzf)'
 
-# Editors & Neovim
-alias vim='nvim -n'
-alias vi='nvim -n'
+# Editors & Fallback
+if command -v nvim >/dev/null 2>&1; then
+  alias vim='nvim -n'
+  alias vi='nvim -n'
+else
+  alias vi='vim'
+fi
 alias vio="$HOME/.local/vim/bin/vim"
 alias vil='vim -u ~/.vimrc_min'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
