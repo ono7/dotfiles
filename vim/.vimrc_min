@@ -321,3 +321,4 @@ endif
 set undodir=~/.vim-undo
 set undofile
 set path=.,**
+set guicursor=a:block-blinkon0
