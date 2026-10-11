@@ -1,28 +1,37 @@
+" ==============================================================================
+" Unified, High-Performance vimrc (Vim 8.0+ & Neovim Compatible)
+" ==============================================================================
+
+" --- Core Baseline & Engine Defaults ---
 set nocompatible
 filetype plugin indent on
-syntax off
+syntax on
 
-autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
+" NOTE(jlima): Disable matchit to prevent costly regex evaluation on navigation motions.
+let g:loaded_matchit = 1
+let mapleader = "\<Space>"
 
-set ttyfast                 " Faster terminal updates
+" --- Performance & Latency Tuning ---
+set ttyfast
 set timeout ttimeout
-set timeoutlen=300          " Wait 300ms for mapping sequences
-set ttimeoutlen=50          " Wait only 50ms for key codes
-set updatetime=300          " Faster write-to-disk for crash recovery
+set timeoutlen=300
+set ttimeoutlen=50
+set updatetime=300
 
 if !has('nvim')
-  set noesckeys             " Vim-only: prevents waiting for function keys
+  set noesckeys
 endif
 
-let mapleader = "\<Space>"
-set hidden                  " Allow switching buffers without saving
+" --- Buffer & Editor Invariants ---
+set hidden
+set confirm
 set backspace=indent,eol,start
 set incsearch ignorecase smartcase
-set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/node_modules/*
-set confirm                 " Ask to save instead of failing
+set expandtab shiftwidth=2 tabstop=2
 set shortmess=aoOstTWICcF
-set expandtab sw=2 ts=2     " Default to spaces (overridden for Go/Make below)
+set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/node_modules/*
 
+" --- Grep / Ripgrep Integration ---
 if executable('rg')
   let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
   let &grepformat = '%f:%l:%c:%m'
@@ -39,18 +48,127 @@ function! Rg(args) abort
 endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 
-" --- Smart Close (Preserves Splits) ---
-function! SmartClose()
-  let l:current_buf = bufnr("%")
-  bprevious
-  if bufnr("%") == l:current_buf
-    enew
-  endif
-  execute "bdelete! " . l:current_buf
-endfunction
+" ==============================================================================
+" Navigation & Editing Keybinds (Emacs Parity Prioritized)
+" ==============================================================================
 
-" --- Duplicate Line & Mark (Preserve Cursor) ---
-function! DuplicateAndMark()
+" --- Insert Mode Emacs Motions ---
+inoremap <C-a> <C-o>^
+inoremap <C-e> <End>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+
+" Word motions (dual-mapped for terminal escape translation)
+inoremap <M-b> <C-o>b
+inoremap <Esc>b <C-o>b
+inoremap <M-f> <C-o>e<Right>
+inoremap <Esc>f <C-o>e<Right>
+
+" Document motions
+inoremap <M-<> <C-g>u<C-o>gg<C-o>^
+inoremap <M->> <C-g>u<C-o>G<C-o>$
+
+" Paragraph motions
+inoremap <M-a> <C-o>{
+inoremap <M-e> <C-o>}
+
+" Fast search motions
+inoremap <C-r> <C-o>?\v
+inoremap <C-s> <C-o>/\v
+
+" Deletion operations (atomic undo isolation)
+inoremap <C-d> <C-g>u<Del>
+inoremap <C-h> <C-g>u<BS>
+inoremap <C-k> <C-g>u<C-o>D
+inoremap <C-u> <C-g>u<C-u>
+inoremap <M-d> <C-g>u<C-o>dw
+inoremap <Esc>d <C-g>u<C-o>dw
+inoremap <C-BS> <C-g>u<C-w>
+inoremap <M-BS> <C-g>u<C-w>
+inoremap <Esc><BS> <C-g>u<C-w>
+
+" Emacs register paste parity
+inoremap <C-y> <C-r>"
+
+" Line opening parity
+inoremap <M-o> <C-o>o
+inoremap <M-O> <C-o>O
+
+" Keyword line/sub-mode completion
+inoremap <C-l> <C-x><C-n>
+
+" --- Command-Line Mode Emacs Motions ---
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-d> <Del>
+cnoremap <C-BS> <C-w>
+
+" Character forward: step right or drop into cmdline window at EOL
+cnoremap <expr> <C-f> getcmdpos() > strlen(getcmdline()) ? &cedit : "\<Right>"
+
+" Word motions
+cnoremap <M-b> <S-Left>
+cnoremap <Esc>b <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <Esc>f <S-Right>
+
+" Line kill operations
+cnoremap <expr> <C-k> repeat("\<Del>", strlen(getcmdline()) - getcmdpos() + 1)
+cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
+
+" --- Normal Mode Navigation & Window Management ---
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <C-w>q <C-w>c
+nnoremap <C-w><C-q> <C-w>c
+
+nnoremap <C-r> ?
+nnoremap <C-s> :Rg<Space>
+
+nnoremap j gj
+nnoremap k gk
+
+" Tab navigation
+nnoremap <M-t> :tabnew<CR>
+nnoremap <M-]> :tabnext<CR>
+nnoremap <M-[> :tabprev<CR>
+
+" Quickfix navigation
+nnoremap <M-j> :cnext<CR>
+nnoremap <M-k> :cprev<CR>
+
+" Text-object reselect
+nnoremap gy `[v`]
+
+" Leader shortcuts
+nnoremap <leader>d :call SmartClose()<CR>
+nnoremap <silent> <leader><leader> :noh<CR>
+nnoremap <leader>a ggVG
+nnoremap <leader>td :e ~/todo.md<CR>
+nnoremap gm :w<CR>:!git add %<CR>:!git commit % -m ""<Left>
+cnoreabbrev qq qa!
+
+" --- Visual Mode Motions & Manipulations ---
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap > >gv
+vnoremap < <gv
+
+" Blackhole unnamed register overwrite on paste
+xnoremap p "_dP
+
+" ==============================================================================
+" Custom Helper Functions
+" ==============================================================================
+
+" Duplicate current line upward, restore cursor column, move to target line
+function! DuplicateAndMark() abort
   let l:c = col('.')
   execute "normal! yyP"
   call cursor(line('.'), l:c)
@@ -59,123 +177,105 @@ function! DuplicateAndMark()
   echo "Mark set"
 endfunction
 
-" --- Wrap Selection (Visual Mode) ---
-function! WrapSelection(left, right)
-   let save_reg = @"
-   normal! `
-   call search('\S', 'c')
-   let start_pos = getpos('.')
-   normal! `>
-   let end_pos = getpos('.')
-   call setpos('.', end_pos)
-   execute "normal! a" . a:right
-   call setpos('.', start_pos)
-   execute "normal! i" . a:left
-   let @" = save_reg
-   startinsert
+inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
+nnoremap <silent> <C-,> :call DuplicateAndMark()<CR>
+
+" Preserve split layout on buffer deletion
+function! SmartClose() abort
+  let l:current_buf = bufnr("%")
+  bprevious
+  if bufnr("%") == l:current_buf
+    enew
+  endif
+  execute "bdelete! " . l:current_buf
 endfunction
 
-" --- Clean Whitespace on Save ---
-function! s:CleanAndSave()
+" Delimiter wrapping for visual selections
+function! WrapSelection(left, right) abort
+  let l:save_reg = @"
+  normal! `<
+  call search('\S', 'c')
+  let l:start_pos = getpos('.')
+  normal! `>
+  let l:end_pos = getpos('.')
+
+  call setpos('.', l:end_pos)
+  execute "normal! a" . a:right
+  call setpos('.', l:start_pos)
+  execute "normal! i" . a:left
+  let @" = l:save_reg
+  startinsert
+endfunction
+
+xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
+vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
+xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
+xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
+
+" Extract all matches of current search pattern into target register
+function! CopyMatches(reg) abort
+  let l:hits = []
+  %s//\=len(add(l:hits, submatch(0))) ? submatch(0) : ''/gne
+  let l:reg = empty(a:reg) ? 'c' : a:reg
+  execute 'let @' . l:reg . ' = join(l:hits, "\n") . "\n"'
+endfunction
+
+command! -register Cm call CopyMatches(<q-reg>)
+
+" Clean trailing whitespace, Windows CR, and EOF padding
+function! s:CleanAndSave() abort
   let l:save = winsaveview()
-  keeppatterns %s/\v\s*\r+$|\s+$//e   " Trim trailing
-  keeppatterns %s#\($\n\s*\)\+\%$##e  " Trim end of file lines
-  " Protect Makefiles/Go: Only retab if expandtab is actively set
+  keeppatterns %s/\v\s*\r+$\vert{}\s+$//e
+  keeppatterns %s#\($\n\s*\)\+\%$##e
   if &expandtab
     retab!
   endif
   call winrestview(l:save)
 endfunction
 
-nnoremap gm :w<CR>:!git add %<CR>:!git commit % -m ""<Left>
-
-inoremap <C-a> <C-o>^
-inoremap <C-e> <End>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-
-inoremap <Esc>f <C-o>e<Right>
-inoremap <Esc>b <C-o>b
-inoremap <Esc>d <C-g>u<C-o>dw
-inoremap <Esc><BS> <C-g>u<C-w>
-inoremap <M-BS> <C-g>u<C-w>
-
-inoremap <C-d> <Del>
-inoremap <C-h> <BS>
-inoremap <C-k> <C-g>u<C-o>D
-inoremap <C-y> <C-g>u<C-o>p
-
-inoremap <C-l> <C-x><C-n>
-
-cnoremap <C-a> <Home>
-cnoremap <C-b> <Left>
-cnoremap <C-e> <End>
-cnoremap <C-l> <Right>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
-inoremap <C-r> <C-o>?\v
-inoremap <C-s> <C-o>/\v
-nnoremap <silent> <space><space> <cmd>set hlsearch!<cr>
-nnoremap <space>a ggVG
-
-" --- Visual Wrappers ---
-xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
-xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
-xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
-xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
-xnoremap p "_dP
-xnoremap < <gv
-xnoremap > >gv
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" --- Utilities ---
-inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
-nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
-nnoremap <leader>td <cmd>e ~/todo.md<CR>
-cnoreabbrev qq qa!
+" ==============================================================================
+" Autocommands
+" ==============================================================================
 
 augroup CoreAutoCmds
   autocmd!
-  " Clean on save
+  " Disable syntax/undo for files over 10MB
+  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
+  " Clean formatting on write for small/medium files
   autocmd BufWritePre * if line('$') < 5000 | call s:CleanAndSave() | endif
-  " Resume cursor position
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-augroup end
+  " Resume cursor position on file open
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+augroup END
 
 augroup FileTypeSettings
   autocmd!
-  " Python
   autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-  " JS/TS/Web
-  autocmd FileType typescript,javascript,typescriptreact,javascriptreact,json,yaml,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-  " Go & Makefile (HARD TABS REQUIRED)
+  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
   autocmd FileType go,make setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
-  " Shell
   autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-augroup end
+  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup END
 
 augroup FormatPrg
   autocmd!
-
   if executable("black")
     autocmd FileType python let &l:formatprg = 'black --quiet -'
   endif
-
-  if executable("gofmt")
-    autocmd FileType go let &l:formatprg = 'gofmt'
-  endif
-
   if executable("terraform")
     autocmd FileType terraform let &l:formatprg = 'terraform fmt -'
   endif
-
+  if executable("gofmt")
+    autocmd FileType go let &l:formatprg = 'gofmt'
+  endif
   if executable("prettier")
-    autocmd FileType javascript,typescript,json,css,html,yaml let &l:formatprg = 'prettier --stdin-filepath=%'
+    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss let &l:formatprg = 'prettier --stdin-filepath=%'
   endif
 augroup END
+
+" ==============================================================================
+" Clipboard Integration (OSC 52 & System Clipboard)
+" ==============================================================================
 
 if has('clipboard')
   if has('mac') || !empty($DISPLAY)
@@ -183,24 +283,21 @@ if has('clipboard')
   endif
 endif
 
-if exists('$SSH_TTY') || $UID == 0
-  function! Osc52yank()
+" NOTE(jlima): Guard TextYankPost with exists() check to preserve compatibility with Vim < 8.0.1394.
+if (exists('$SSH_TTY') \vert{}\vert{}$UID == 0) && exists('##TextYankPost')
+  function! Osc52yank() abort
     if v:event.operator !=# 'y' | return | endif
     if len(@0) > 100000 | return | endif
 
-    let buffer = substitute(system('base64 -w 0', @0), '\n', '', 'g')
-    let temp = tempname()
-    call writefile([printf("\033]52;c;%s\033\\", buffer)], temp, 'b')
-    call system('cat ' . shellescape(temp) . ' > /dev/tty')
-    call delete(temp)
+    let l:buffer = substitute(system('base64 -w 0', @0), '\n', '', 'g')
+    let l:temp = tempname()
+    call writefile([printf("\033]52;c;%s\033\\", l:buffer)], l:temp, 'b')
+    call system('cat ' . shellescape(l:temp) . ' > /dev/tty')
+    call delete(l:temp)
   endfunction
 
-  augroup Yank
+  augroup YankOSC52
     autocmd!
     autocmd TextYankPost * call Osc52yank()
-  augroup end
+  augroup END
 endif
-
-
-"hi Normal       guifg=#BEBEBC guibg=#151F2D ctermfg=250 ctermbg=234
-set guicursor=a:blinkon0
