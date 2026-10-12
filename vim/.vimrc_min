@@ -20,6 +20,7 @@ set ttimeoutlen=25
 set updatetime=300
 set scrolloff=999
 set encoding=utf-8
+set laststatus=0
 
 " NOTE(jlima): Terminal escape code resolution for Alt/Meta keys in vanilla Vim.
 if !has('nvim')
@@ -152,8 +153,8 @@ nnoremap <M-k> :cprev<CR>
 nnoremap gy `[v`]
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
-" nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
-nnoremap <expr> gm ':!git add % && git commit -m "' . expand('%:t') . ': ' . input(expand('%:t') . ': ') . '" && git push<CR>'
+nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+" nnoremap <expr> gm ':!git add % && git commit -m "' . expand('%:t') . ': ' . input(expand('%:t') . ': ') . '" && git push<CR>'
 
 " select re-previous selection
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
