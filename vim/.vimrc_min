@@ -18,6 +18,8 @@ set timeout ttimeout
 set timeoutlen=300
 set ttimeoutlen=25
 set updatetime=300
+set scrolloff=999
+set encoding=utf-8
 
 " NOTE(jlima): Terminal escape code resolution for Alt/Meta keys in vanilla Vim.
 if !has('nvim')
@@ -150,6 +152,9 @@ nnoremap <M-k> :cprev<CR>
 nnoremap gy `[v`]
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
+nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+
 cnoreabbrev qq qa!
 
 vnoremap J :m '>+1<CR>gv=gv
