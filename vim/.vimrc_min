@@ -236,6 +236,40 @@ augroup FileTypeSettings
   autocmd FileType sh,bash,zsh,jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
+" Auto-format on save
+if executable('black')
+  autocmd BufWritePre *.py silent! execute '!black --quiet %' | edit!
+endif
+
+if executable('goimports')
+  autocmd BufWritePre *.go silent! execute '%!goimports'
+elseif executable('gofmt')
+  autocmd BufWritePre *.go silent! execute '%!gofmt'
+endif
+
+if executable('prettier')
+  autocmd BufWritePre *.md,*.json,*.yaml,*.yml,*.css,*.html,*.js,*.ts,*.jsx,*.tsx silent! execute '!prettier --write %' | edit!
+endif
+
+" smart bracket insert on {<cr> etc
+inoremap <expr> <CR> <SID>SmartEnter()
+
+function! s:SmartEnter()
+  let col = col('.')
+  if col == 1
+    return "\<CR>"
+  endif
+
+  let char = getline('.')[col - 2]
+
+  if char == '{' || char == '[' || char == '('
+    let close = char == '{' ? '}' : char == '[' ? ']' : ')'
+    return "\<CR>" . close . "\<Esc>O"
+  endif
+
+  return "\<CR>"
+endfunction
+
 " Terminal canvas transparency inheritance
 function! s:ClearTerminalBackground() abort
   highlight Normal ctermbg=NONE guibg=NONE
