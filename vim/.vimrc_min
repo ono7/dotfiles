@@ -1,28 +1,44 @@
 " ==============================================================================
-" Unified, High-Performance vimrc (Vim 8.0+ & Neovim Compatible)
+" Streamlined Server vimrc (Vim 8.0+ / Neovim)
 " ==============================================================================
 
-" --- Core Baseline & Engine Defaults ---
+" --- Core Baseline ---
 set nocompatible
 filetype plugin indent on
 syntax on
 
-" NOTE(jlima): Disable matchit to prevent costly regex evaluation on navigation motions.
+" NOTE(jlima): Disable matchit and matchparen to eliminate bracket highlighting and motion regex overhead.
 let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
 let mapleader = "\<Space>"
 
-" --- Performance & Latency Tuning ---
+" --- Latency & Terminal Settings ---
 set ttyfast
 set timeout ttimeout
 set timeoutlen=300
-set ttimeoutlen=50
+set ttimeoutlen=25
 set updatetime=300
 
+" NOTE(jlima): Terminal escape code resolution for Alt/Meta keys in vanilla Vim.
 if !has('nvim')
-  set noesckeys
+  for s:char in ['a', 'b', 'd', 'e', 'f', 'j', 'k', 'o', 't', '[', ']']
+    execute "set <M-" . s:char . ">=\e" . s:char
+  endfor
+  execute "set <M-O>=\eO"
+  execute "set <M-BS>=\e\<BS>"
 endif
 
-" --- Buffer & Editor Invariants ---
+" --- Cursor Shaping (Persistent Solid Block) ---
+set guicursor=a:block-blinkon0
+
+" NOTE(jlima): Stock terminal Vim requires explicit terminal capability codes for cursor shaping.
+if !has('nvim')
+  let &t_SI = "\e[2 q"
+  let &t_SR = "\e[2 q"
+  let &t_EI = "\e[2 q"
+endif
+
+" --- Buffer & Search Invariants ---
 set hidden
 set confirm
 set backspace=indent,eol,start
@@ -30,8 +46,18 @@ set incsearch ignorecase smartcase
 set expandtab shiftwidth=2 tabstop=2
 set shortmess=aoOstTWICcF
 set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/node_modules/*
+set undolevels=1000
 
-" --- Grep / Ripgrep Integration ---
+set path=.,**
+
+" Persistent Undo Setup
+if !isdirectory(expand('~/.vim-undo'))
+  call mkdir(expand('~/.vim-undo'), 'p', 0700)
+endif
+set undodir=~/.vim-undo
+set undofile
+
+" --- Ripgrep / Grep Integration ---
 if executable('rg')
   let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
   let &grepformat = '%f:%l:%c:%m'
@@ -49,10 +75,10 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 
 " ==============================================================================
-" Navigation & Editing Keybinds (Emacs Parity Prioritized)
+" Emacs Keybindings
 " ==============================================================================
 
-" --- Insert Mode Emacs Motions ---
+" --- Insert Mode Motions ---
 inoremap <C-a> <C-o>^
 inoremap <C-e> <End>
 inoremap <C-b> <Left>
@@ -60,66 +86,45 @@ inoremap <C-f> <Right>
 inoremap <C-p> <Up>
 inoremap <C-n> <Down>
 
-" Word motions (dual-mapped for terminal escape translation)
 inoremap <M-b> <C-o>b
-inoremap <Esc>b <C-o>b
 inoremap <M-f> <C-o>e<Right>
-inoremap <Esc>f <C-o>e<Right>
-
-" Document motions
-"inoremap <M-<> <C-g>u<C-o>gg<C-o>^
-"inoremap <M->> <C-g>u<C-o>G<C-o>$
-
-" Paragraph motions
 inoremap <M-a> <C-o>{
 inoremap <M-e> <C-o>}
 
-" Fast search motions
+" Search & Completion
 inoremap <C-r> <C-o>?\v
 inoremap <C-s> <C-o>/\v
+inoremap <C-l> <C-x><C-n>
 
-" Deletion operations (atomic undo isolation)
+" Deletions (Atomic Undo Isolation)
 inoremap <C-d> <C-g>u<Del>
 inoremap <C-h> <C-g>u<BS>
-inoremap <C-k> <C-g>u<C-o>D
+inoremap <expr> <C-k> col('.') >= col('$') ? "\<C-g>u\<Del>" : "\<C-g>u\<C-o>D"
 inoremap <C-u> <C-g>u<C-u>
 inoremap <M-d> <C-g>u<C-o>dw
-inoremap <Esc>d <C-g>u<C-o>dw
-inoremap <C-BS> <C-g>u<C-w>
 inoremap <M-BS> <C-g>u<C-w>
-inoremap <Esc><BS> <C-g>u<C-w>
+inoremap <C-BS> <C-g>u<C-w>
 
-" Emacs register paste parity
+" Registers & Line Insertion
 inoremap <C-y> <C-r>"
-
-" Line opening parity
 inoremap <M-o> <C-o>o
 inoremap <M-O> <C-o>O
 
-" Keyword line/sub-mode completion
-inoremap <C-l> <C-x><C-n>
-
-" --- Command-Line Mode Emacs Motions ---
+" --- Command-Line Mode Motions ---
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
-" cnoremap <C-d> <Del>
 cnoremap <C-BS> <C-w>
-
-" Character forward: step right or drop into cmdline window at EOL
-cnoremap <expr> <C-f> getcmdpos() > strlen(getcmdline()) ? &cedit : "\<Right>"
-
-" Word motions
 cnoremap <M-b> <S-Left>
-cnoremap <Esc>b <S-Left>
 cnoremap <M-f> <S-Right>
-cnoremap <Esc>f <S-Right>
-
-" Line kill operations
+cnoremap <expr> <C-f> getcmdpos() > strlen(getcmdline()) ? &cedit : "\<Right>"
 cnoremap <expr> <C-k> repeat("\<Del>", strlen(getcmdline()) - getcmdpos() + 1)
 cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
 
-" --- Normal Mode Navigation & Window Management ---
+" ==============================================================================
+" Normal / Visual Mode Mappings
+" ==============================================================================
+
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -134,53 +139,28 @@ nnoremap <C-s> :Rg<Space>
 nnoremap j gj
 nnoremap k gk
 
-" Tab navigation
 nnoremap <M-t> :tabnew<CR>
 nnoremap <M-]> :tabnext<CR>
 nnoremap <M-[> :tabprev<CR>
 
-" Quickfix navigation
 nnoremap <M-j> :cnext<CR>
 nnoremap <M-k> :cprev<CR>
 
-" Text-object reselect
 nnoremap gy `[v`]
-
-" Leader shortcuts
-nnoremap <leader>d :call SmartClose()<CR>
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
-nnoremap <leader>td :e ~/todo.md<CR>
-nnoremap gm :w<CR>:!git add %<CR>:!git commit % -m ""<Left>
 cnoreabbrev qq qa!
 
-" --- Visual Mode Motions & Manipulations ---
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap > >gv
 vnoremap < <gv
-
-" Blackhole unnamed register overwrite on paste
 xnoremap p "_dP
 
 " ==============================================================================
-" Custom Helper Functions
+" Custom Helpers & Autocmds
 " ==============================================================================
 
-" Duplicate current line upward, restore cursor column, move to target line
-function! DuplicateAndMark() abort
-  let l:c = col('.')
-  execute "normal! yyP"
-  call cursor(line('.'), l:c)
-  execute "normal! j"
-  redraw
-  echo "Mark set"
-endfunction
-
-inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
-nnoremap <silent> <C-,> :call DuplicateAndMark()<CR>
-
-" Preserve split layout on buffer deletion
 function! SmartClose() abort
   let l:current_buf = bufnr("%")
   bprevious
@@ -189,134 +169,46 @@ function! SmartClose() abort
   endif
   execute "bdelete! " . l:current_buf
 endfunction
-
-" Delimiter wrapping for visual selections
-function! WrapSelection(left, right) abort
-  let l:save_reg = @"
-  normal! `<
-  call search('\S', 'c')
-  let l:start_pos = getpos('.')
-  normal! `>
-  let l:end_pos = getpos('.')
-
-  call setpos('.', l:end_pos)
-  execute "normal! a" . a:right
-  call setpos('.', l:start_pos)
-  execute "normal! i" . a:left
-  let @" = l:save_reg
-  startinsert
-endfunction
-
-xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
-vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
-xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
-xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
-xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
+nnoremap <leader>d :call SmartClose()<CR>
+command! D bd!
 
 function! s:SmartBackspace() abort
   let l:col = col('.')
-  if l:col <= 1
-    return "\<BS>"
-  endif
-
+  if l:col <= 1 | return "\<BS>" | endif
   let l:line = getline('.')
-  let l:prev_char = l:line[l:col - 2]
-  let l:next_char = l:line[l:col - 1]
-
-  let l:pairs = {
-        \ '(': ')',
-        \ '[': ']',
-        \ '{': '}',
-        \ '<': '>',
-        \ '"': '"',
-        \ "'": "'",
-        \ '`': '`'
-        \ }
-
-  " NOTE(jlima): When cursor sits between an empty pair, delete both left and right tokens.
-  if has_key(l:pairs, l:prev_char) && l:pairs[l:prev_char] ==# l:next_char
+  let l:prev = l:line[l:col - 2]
+  let l:next = l:line[l:col - 1]
+  let l:pairs = {'(':')', '[':']', '{':'}', '<':'>', '"':'"', "'":"'", '`':'`'}
+  if has_key(l:pairs, l:prev) && l:pairs[l:prev] ==# l:next
     return "\<BS>\<Del>"
   endif
-
   return "\<BS>"
 endfunction
-
 inoremap <expr> <BS> <SID>SmartBackspace()
 
-" Extract all matches of current search pattern into target register
-function! CopyMatches(reg) abort
-  let l:hits = []
-  %s//\=len(add(l:hits, submatch(0))) ? submatch(0) : ''/gne
-  let l:reg = empty(a:reg) ? 'c' : a:reg
-  execute 'let @' . l:reg . ' = join(l:hits, "\n") . "\n"'
-endfunction
-
-command! -register Cm call CopyMatches(<q-reg>)
-
-command! D bd!
-
-" Clean trailing whitespace, Windows CR, and EOF padding
 function! s:CleanAndSave() abort
   let l:save = winsaveview()
   keeppatterns %s/\v\s*\r+$\vert{}\s+$//e
   keeppatterns %s#\($\n\s*\)\+\%$##e
-  if &expandtab
-    retab!
-  endif
   call winrestview(l:save)
 endfunction
 
-" ==============================================================================
-" Autocommands
-" ==============================================================================
-
 augroup CoreAutoCmds
   autocmd!
-  " Disable syntax/undo for files over 10MB
   autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
-  " Clean formatting on write for small/medium files
   autocmd BufWritePre * if line('$') < 5000 | call s:CleanAndSave() | endif
-  " Resume cursor position on file open
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 augroup END
 
 augroup FileTypeSettings
   autocmd!
   autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType typescript,javascript,markdown,json,yaml,yml,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
   autocmd FileType go,make setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
-  autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType sh,bash,zsh,jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
-augroup FormatPrg
-  autocmd!
-  if executable("black")
-    autocmd FileType python let &l:formatprg = 'black --quiet -'
-  endif
-  if executable("terraform")
-    autocmd FileType terraform let &l:formatprg = 'terraform fmt -'
-  endif
-  if executable("gofmt")
-    autocmd FileType go let &l:formatprg = 'gofmt'
-  endif
-  if executable("prettier")
-    autocmd FileType markdown,javascript,typescript,json,css,html,yaml,scss let &l:formatprg = 'prettier --stdin-filepath=%'
-  endif
-augroup END
-
-"" ==============================================================================
-"" Clipboard Integration (OSC 52 & System Clipboard)
-"" ==============================================================================
-"
-"if has('clipboard')
-"  if has('mac') || !empty($DISPLAY)
-"    set clipboard=unnamedplus
-"  endif
-"endif
-
-" --- Inherit Terminal Colors & Transparency ---
-" NOTE(jlima): Clear background fills to adopt terminal emulator canvas transparently.
+" Terminal canvas transparency inheritance
 function! s:ClearTerminalBackground() abort
   highlight Normal ctermbg=NONE guibg=NONE
   highlight NonText ctermbg=NONE guibg=NONE
@@ -327,33 +219,8 @@ function! s:ClearTerminalBackground() abort
   highlight VertSplit ctermbg=NONE guibg=NONE
 endfunction
 
-" Apply on initial load
 call s:ClearTerminalBackground()
-
-" NOTE(jlima): Colorscheme events reset highlight groups; re-apply transparency deterministically.
 augroup TerminalTransparency
   autocmd!
   autocmd ColorScheme * call s:ClearTerminalBackground()
 augroup END
-
-if has("nvim")
-  set shada='20,<1000,s100,:100,/100,h,r/COMMIT_EDITMSG$
-  packadd cfilter
-  set inccommand=nosplit
-  set pumheight=10 pumblend=0
-else
-  set viminfo='20,<1000,s100,:100,/100,h,f1,r/COMMIT_EDITMSG$
-  set ttyfast
-endif
-
-set undolevels=999
-if !isdirectory($HOME."/.vim-undo")
-    call mkdir($HOME."/.vim-undo", "p", 0700)
-endif
-
-
-
-set undodir=~/.vim-undo
-set undofile
-set path=.,**
-set guicursor=a:block-blinkon0
