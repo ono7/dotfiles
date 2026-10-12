@@ -67,8 +67,8 @@ inoremap <M-f> <C-o>e<Right>
 inoremap <Esc>f <C-o>e<Right>
 
 " Document motions
-inoremap <M-<> <C-g>u<C-o>gg<C-o>^
-inoremap <M->> <C-g>u<C-o>G<C-o>$
+"inoremap <M-<> <C-g>u<C-o>gg<C-o>^
+"inoremap <M->> <C-g>u<C-o>G<C-o>$
 
 " Paragraph motions
 inoremap <M-a> <C-o>{
@@ -103,7 +103,7 @@ inoremap <C-l> <C-x><C-n>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
-cnoremap <C-d> <Del>
+" cnoremap <C-d> <Del>
 cnoremap <C-BS> <C-w>
 
 " Character forward: step right or drop into cmdline window at EOL
@@ -148,7 +148,7 @@ nnoremap gy `[v`]
 
 " Leader shortcuts
 nnoremap <leader>d :call SmartClose()<CR>
-nnoremap <silent> <leader><leader> :noh<CR>
+nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
 nnoremap <leader>td :e ~/todo.md<CR>
 nnoremap gm :w<CR>:!git add %<CR>:!git commit % -m ""<Left>
@@ -273,15 +273,15 @@ augroup FormatPrg
   endif
 augroup END
 
-" ==============================================================================
-" Clipboard Integration (OSC 52 & System Clipboard)
-" ==============================================================================
-
-if has('clipboard')
-  if has('mac') || !empty($DISPLAY)
-    set clipboard=unnamedplus
-  endif
-endif
+"" ==============================================================================
+"" Clipboard Integration (OSC 52 & System Clipboard)
+"" ==============================================================================
+"
+"if has('clipboard')
+"  if has('mac') || !empty($DISPLAY)
+"    set clipboard=unnamedplus
+"  endif
+"endif
 
 " --- Inherit Terminal Colors & Transparency ---
 " NOTE(jlima): Clear background fills to adopt terminal emulator canvas transparently.
