@@ -104,6 +104,7 @@ inoremap <C-u> <C-g>u<C-u>
 inoremap <M-d> <C-g>u<C-o>dw
 inoremap <M-BS> <C-g>u<C-w>
 inoremap <C-BS> <C-g>u<C-w>
+inoremap <C-S-e> <Esc>Go
 
 " Registers & Line Insertion
 inoremap <C-y> <C-r>"
