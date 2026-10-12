@@ -219,6 +219,13 @@ function! s:ClearTerminalBackground() abort
   highlight VertSplit ctermbg=NONE guibg=NONE
 endfunction
 
+augroup _quickfix
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup end
+
 call s:ClearTerminalBackground()
 augroup TerminalTransparency
   autocmd!
