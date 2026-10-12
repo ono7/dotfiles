@@ -70,6 +70,9 @@ inoremap <M-e> <C-o>}
 " undo in insert mode
 inoremap <C-/> <C-u>
 
+nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+"nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
+
 function! DuplicateAndMark()
     let l:c = col('.')
     " Duplicate line above using the unnamed register
@@ -233,7 +236,7 @@ nnoremap j gj
 nnoremap k gk
 
 " includes filename in commit, but better to use git log --name-only
-nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
+"nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
 
 nnoremap <leader>td <cmd>e ~/todo.md<CR>
 
