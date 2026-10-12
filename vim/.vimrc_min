@@ -88,7 +88,12 @@ inoremap <C-d> <C-g>u<Del>
 inoremap <C-h> <C-g>u<BS>
 inoremap <expr> <C-k> col('.') >= col('$') ? "\<C-g>u\<Del>" : "\<C-g>u\<C-o>D"
 inoremap <C-u> <C-g>u<C-u>
-inoremap <M-d> <C-g>u<C-o>dw
+" inoremap <M-d> <C-g>u<C-o>dw
+" NOTE(jlima): Explicit terminal escape sequence mapping with undo-break and no cursor drift.
+if !has('gui_running')
+  execute "set <M-d>=\<Esc>d"
+endif
+inoremap <M-d> <C-g>u<C-\><C-o>dw
 inoremap <M-BS> <C-g>u<C-w>
 inoremap <C-BS> <C-g>u<C-w>
 inoremap <C-S-e> <Esc>Go
