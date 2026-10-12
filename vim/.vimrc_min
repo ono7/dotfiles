@@ -252,8 +252,8 @@ function! CopyMatches(reg) abort
 endfunction
 
 command! -register Cm call CopyMatches(<q-reg>)
-command! D bd!
 
+command! D bd!
 
 " Clean trailing whitespace, Windows CR, and EOF padding
 function! s:CleanAndSave() abort
