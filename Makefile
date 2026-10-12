@@ -11,7 +11,6 @@ BANNER = "-------------------[ make: $@ ]-------------------"
 
 install:
 	@echo "run: make build"
-# Default target for easy installation
 build:
 	@$(MAKE) detect-os
 
