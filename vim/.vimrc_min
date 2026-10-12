@@ -22,15 +22,6 @@ set scrolloff=999
 set encoding=utf-8
 set laststatus=0
 
-" NOTE(jlima): Terminal escape code resolution for Alt/Meta keys in vanilla Vim.
-if !has('nvim')
-  for s:char in ['a', 'b', 'd', 'e', 'f', 'j', 'k', 'o', 't', '[', ']']
-    execute "set <M-" . s:char . ">=\e" . s:char
-  endfor
-  execute "set <M-O>=\eO"
-  execute "set <M-BS>=\e\<BS>"
-endif
-
 " --- Cursor Shaping (Persistent Solid Block) ---
 set guicursor=a:block-blinkon0
 
