@@ -152,7 +152,7 @@ nnoremap <M-k> :cprev<CR>
 nnoremap gy `[v`]
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
-nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left> && git push
 
 
 cnoreabbrev qq qa!
