@@ -172,19 +172,41 @@ endfunction
 nnoremap <leader>d :call SmartClose()<CR>
 command! D bd!
 
+" NOTE(jlima): Static script-local lookup table to eliminate per-keystroke heap allocations.
+let s:delim_pairs = {
+      \ '(': ')',
+      \ '[': ']',
+      \ '{': '}',
+      \ '<': '>',
+      \ '"': '"',
+      \ "'": "'",
+      \ '`': '`'
+      \ }
+
 function! s:SmartBackspace() abort
   let l:col = col('.')
-  if l:col <= 1 | return "\<BS>" | endif
+  if l:col <= 1
+    return "\<BS>"
+  endif
+
   let l:line = getline('.')
   let l:prev = l:line[l:col - 2]
   let l:next = l:line[l:col - 1]
-  let l:pairs = {'(':')', '[':']', '{':'}', '<':'>', '"':'"', "'":"'", '`':'`'}
-  if has_key(l:pairs, l:prev) && l:pairs[l:prev] ==# l:next
+
+  if get(s:delim_pairs, l:prev, '') ==# l:next
     return "\<BS>\<Del>"
   endif
+
   return "\<BS>"
 endfunction
 inoremap <expr> <BS> <SID>SmartBackspace()
+
+"function s:remove_pair() abort
+"  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
+"  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
+"endfunction
+"inoremap <expr> <bs> <sid>remove_pair()
+
 
 function! s:CleanAndSave() abort
   let l:save = winsaveview()
@@ -224,6 +246,11 @@ augroup _quickfix
   autocmd FileType qf nnoremap <buffer> <CR> <CR>
   autocmd QuickFixCmdPost [^l]* cwindow 6
   autocmd QuickFixCmdPost    l* lwindow 6
+augroup end
+
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
 augroup end
 
 call s:ClearTerminalBackground()
