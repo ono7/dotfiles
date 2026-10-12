@@ -213,6 +213,36 @@ xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 
+function! s:SmartBackspace() abort
+  let l:col = col('.')
+  if l:col <= 1
+    return "\<BS>"
+  endif
+
+  let l:line = getline('.')
+  let l:prev_char = l:line[l:col - 2]
+  let l:next_char = l:line[l:col - 1]
+
+  let l:pairs = {
+        \ '(': ')',
+        \ '[': ']',
+        \ '{': '}',
+        \ '<': '>',
+        \ '"': '"',
+        \ "'": "'",
+        \ '`': '`'
+        \ }
+
+  " NOTE(jlima): When cursor sits between an empty pair, delete both left and right tokens.
+  if has_key(l:pairs, l:prev_char) && l:pairs[l:prev_char] ==# l:next_char
+    return "\<BS>\<Del>"
+  endif
+
+  return "\<BS>"
+endfunction
+
+inoremap <expr> <BS> <SID>SmartBackspace()
+
 " Extract all matches of current search pattern into target register
 function! CopyMatches(reg) abort
   let l:hits = []
@@ -222,6 +252,8 @@ function! CopyMatches(reg) abort
 endfunction
 
 command! -register Cm call CopyMatches(<q-reg>)
+command! D bd!
+
 
 " Clean trailing whitespace, Windows CR, and EOF padding
 function! s:CleanAndSave() abort
@@ -318,6 +350,9 @@ set undolevels=999
 if !isdirectory($HOME."/.vim-undo")
     call mkdir($HOME."/.vim-undo", "p", 0700)
 endif
+
+
+
 set undodir=~/.vim-undo
 set undofile
 set path=.,**
