@@ -25,13 +25,6 @@ set laststatus=0
 " --- Cursor Shaping (Persistent Solid Block) ---
 set guicursor=a:block-blinkon0
 
-" NOTE(jlima): Stock terminal Vim requires explicit terminal capability codes for cursor shaping.
-if !has('nvim')
-  let &t_SI = "\e[2 q"
-  let &t_SR = "\e[2 q"
-  let &t_EI = "\e[2 q"
-endif
-
 " --- Buffer & Search Invariants ---
 set hidden
 set confirm
