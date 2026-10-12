@@ -422,8 +422,8 @@ cmap("<M-b>", "<S-Left>", "Word backward")
 cmap("<M-f>", "<S-Right>", "Word forward")
 
 -- Deletion
-cmap("<C-d>", "<Del>", "Delete character forward")
-cmap("<M-d>", "<S-Right><C-w>", "Delete word forward")
+-- cmap("<C-d>", "<Del>", "Delete character forward")
+-- cmap("<M-d>", "<S-Right><C-w>", "Delete word forward")
 
 -- Kill line forward (cursor to end)
 vim.keymap.set("c", "<C-k>", function()
