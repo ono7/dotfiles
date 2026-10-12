@@ -153,7 +153,7 @@ nnoremap gy `[v`]
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
 " nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
-nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left> && git push
+nnoremap <expr> gm ':!git add % && git commit -m "' . expand('%:t') . ': ' . input(expand('%:t') . ': ') . '" && git push<CR>'
 
 " select re-previous selection
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -173,7 +173,6 @@ endfunction
 
 inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
 nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
-
 
 cnoreabbrev qq qa!
 
@@ -198,41 +197,11 @@ endfunction
 nnoremap <leader>d :call SmartClose()<CR>
 command! D bd!
 
-" NOTE(jlima): Static script-local lookup table to eliminate per-keystroke heap allocations.
-let s:delim_pairs = {
-      \ '(': ')',
-      \ '[': ']',
-      \ '{': '}',
-      \ '<': '>',
-      \ '"': '"',
-      \ "'": "'",
-      \ '`': '`'
-      \ }
-
-function! s:SmartBackspace() abort
-  let l:col = col('.')
-  if l:col <= 1
-    return "\<BS>"
-  endif
-
-  let l:line = getline('.')
-  let l:prev = l:line[l:col - 2]
-  let l:next = l:line[l:col - 1]
-
-  if get(s:delim_pairs, l:prev, '') ==# l:next
-    return "\<BS>\<Del>"
-  endif
-
-  return "\<BS>"
-endfunction
-inoremap <expr> <BS> <SID>SmartBackspace()
-
 "function s:remove_pair() abort
 "  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
 "  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
 "endfunction
 "inoremap <expr> <bs> <sid>remove_pair()
-
 
 function! s:CleanAndSave() abort
   let l:save = winsaveview()
