@@ -58,7 +58,7 @@ cursor-style = block
 cursor-style-blink = false
 
 mouse-hide-while-typing = true
-# NOTE(jlima): Prevent Ghostty's shell integration from emitting DECSCUSR sequences to switch to beam
+# NOTE(jlima): Prevent Ghostty shell integration from emitting DECSCUSR sequences
 shell-integration-features = no-cursor
 
 # ------------------------------------------------------------------------------
@@ -69,25 +69,18 @@ clipboard-write = allow
 copy-on-select = true
 
 # ------------------------------------------------------------------------------
-# 6. Keybindings (Emacs Editing & C-x Multiplexing)
+# 6. Keybindings
 # ------------------------------------------------------------------------------
-# NOTE(jlima): Unbind default terminal actions that intercept core Emacs readline/editor controls
-keybind = ctrl+a=unbind
-keybind = ctrl+e=unbind
-keybind = ctrl+f=unbind
-keybind = ctrl+b=unbind
-keybind = ctrl+n=unbind
-keybind = ctrl+p=unbind
-keybind = ctrl+d=unbind
-keybind = ctrl+k=unbind
-keybind = ctrl+u=unbind
-keybind = ctrl+w=unbind
-keybind = ctrl+y=unbind
+# NOTE(jlima): Unbind default terminal intercepts that clash with Emacs/Readline
 keybind = ctrl+v=unbind
-keybind = alt+f=unbind
-keybind = alt+b=unbind
-keybind = alt+d=unbind
 keybind = alt+v=unbind
+
+# NOTE(jlima): Emacs / Readline navigation & word deletion (raw ESC byte sequences)
+keybind = alt+b=text:\x1bb
+keybind = alt+f=text:\x1bf
+keybind = alt+d=text:\x1bd
+keybind = alt+backspace=text:\x17
+keybind = alt+v=text:\x1bv
 
 # NOTE(jlima): Emacs split/window control bindings (C-x namespace)
 keybind = ctrl+x>2=new_split:down

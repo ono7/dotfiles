@@ -1,0 +1,279 @@
+" ==============================================================================
+" Streamlined Server vimrc (Vim 8.0+ / Neovim)
+" ==============================================================================
+
+" --- Core Baseline ---
+set nocompatible
+filetype plugin indent on
+syntax on
+
+" NOTE(jlima): Disable matchit and matchparen to eliminate bracket highlighting and motion regex overhead.
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let mapleader = "\<Space>"
+
+" --- Latency & Terminal Settings ---
+set ttyfast
+set timeout ttimeout
+set timeoutlen=300
+set ttimeoutlen=25
+set updatetime=300
+set encoding=utf-8
+set laststatus=0
+
+" --- Cursor Shaping (Persistent Solid Block) ---
+set guicursor=a:block-blinkon0
+
+" --- Buffer & Search Invariants ---
+set hidden
+set confirm
+set backspace=indent,eol,start
+set incsearch ignorecase smartcase
+set expandtab shiftwidth=2 tabstop=2
+set shortmess=aoOstTWICcF
+set wildignore+=*/.git/*,*/.venv/*,*/__pycache__/*,*/node_modules/*
+set undolevels=1000
+
+set path=.,**
+
+" Persistent Undo Setup
+if !isdirectory(expand('~/.vim-undo'))
+  call mkdir(expand('~/.vim-undo'), 'p', 0700)
+endif
+set undodir=~/.vim-undo
+set undofile
+
+" --- Ripgrep / Grep Integration ---
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
+else
+  let &grepprg = 'grep -nHIRE $* .'
+  let &grepformat = '%f:%l:%m'
+endif
+
+function! Rg(args) abort
+  let l:pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" l:pattern
+  copen
+  redraw!
+endfunction
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
+
+" ==============================================================================
+" Emacs Keybindings
+" ==============================================================================
+
+" --- Insert Mode Motions ---
+inoremap <C-a> <C-o>^
+inoremap <C-e> <End>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+
+inoremap <M-b> <C-o>b
+inoremap <M-f> <C-o>e<Right>
+inoremap <M-a> <C-o>{
+inoremap <M-e> <C-o>}
+
+" Search & Completion
+inoremap <C-r> <C-o>?\v
+inoremap <C-s> <C-o>/\v
+inoremap <C-l> <C-x><C-n>
+
+" NOTE(jlima): Force modifyOtherKeys level 2 if running inside an uncooperative multiplexer.
+let &t_TI = "\<Esc>[>4;2m"
+let &t_TE = "\<Esc>[>4;0m"
+
+" Deletions (Atomic Undo Isolation)
+inoremap <C-d> <C-g>u<Del>
+inoremap <C-h> <C-g>u<BS>
+inoremap <expr> <C-k> col('.') >= col('$') ? "\<C-g>u\<Del>" : "\<C-g>u\<C-o>D"
+inoremap <C-u> <C-g>u<C-u>
+" inoremap <M-d> <C-g>u<C-o>dw
+" NOTE(jlima): Explicit terminal escape sequence mapping with undo-break and no cursor drift.
+inoremap <M-d> <C-g>u<C-\><C-o>dw
+inoremap <M-BS> <C-g>u<C-w>
+inoremap <C-BS> <C-g>u<C-w>
+inoremap <C-S-e> <Esc>Go
+
+" Registers & Line Insertion
+inoremap <C-y> <C-r>"
+inoremap <M-o> <C-o>o
+inoremap <M-O> <C-o>O
+
+" --- Command-Line Mode Motions ---
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-BS> <C-w>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <expr> <C-f> getcmdpos() > strlen(getcmdline()) ? &cedit : "\<Right>"
+cnoremap <expr> <C-k> repeat("\<Del>", strlen(getcmdline()) - getcmdpos() + 1)
+cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
+
+" ==============================================================================
+" Normal / Visual Mode Mappings
+" ==============================================================================
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <C-w>q <C-w>c
+nnoremap <C-w><C-q> <C-w>c
+
+nnoremap <C-r> ?
+nnoremap <C-s> :Rg<Space>
+
+nnoremap j gj
+nnoremap k gk
+
+nnoremap <M-t> :tabnew<CR>
+nnoremap <M-]> :tabnext<CR>
+nnoremap <M-[> :tabprev<CR>
+
+nnoremap <M-j> :cnext<CR>
+nnoremap <M-k> :cprev<CR>
+
+nnoremap gy `[v`]
+nnoremap <silent> <leader><leader> :set hlsearch!<CR>
+nnoremap <leader>a ggVG
+nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+" nnoremap <expr> gm ':!git add % && git commit -m "' . expand('%:t') . ': ' . input(expand('%:t') . ': ') . '" && git push<CR>'
+
+" select re-previous selection
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+function! DuplicateAndMark()
+    let l:c = col('.')
+    " Duplicate line above using the unnamed register
+    execute "normal! yyP"
+    " Restore cursor column on the new line
+    call cursor(line('.'), l:c)
+    " Move down to the original line (mimicking your previous <Down>)
+    execute "normal! j"
+
+    redraw
+    echo "Mark set"
+endfunction
+
+inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
+nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
+
+cnoreabbrev qq qa!
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap > >gv
+vnoremap < <gv
+xnoremap p "_dP
+
+" ==============================================================================
+" Custom Helpers & Autocmds
+" ==============================================================================
+
+function! SmartClose() abort
+  let l:current_buf = bufnr("%")
+  bprevious
+  if bufnr("%") == l:current_buf
+    enew
+  endif
+  execute "bdelete! " . l:current_buf
+endfunction
+nnoremap <leader>d :call SmartClose()<CR>
+command! D bd!
+
+"function s:remove_pair() abort
+"  let pair = getline('.')[ col('.')-2 : col('.')-1 ]
+"  return stridx('""''''()[]<>{}``', pair) % 2 == 0 ? "\<del>\<c-h>" : "\<bs>"
+"endfunction
+"inoremap <expr> <bs> <sid>remove_pair()
+
+function! s:CleanAndSave() abort
+  let l:save = winsaveview()
+  keeppatterns %s/\v\s*\r+$\vert{}\s+$//e
+  keeppatterns %s#\($\n\s*\)\+\%$##e
+  call winrestview(l:save)
+endfunction
+
+augroup CoreAutoCmds
+  autocmd!
+  autocmd BufReadPre * if getfsize(expand("%")) > 10000000 | setlocal noundofile nofoldenable syntax=OFF | endif
+  autocmd BufWritePre * if line('$') < 5000 | call s:CleanAndSave() | endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+augroup END
+
+augroup FileTypeSettings
+  autocmd!
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+  autocmd FileType typescript,javascript,markdown,json,yaml,yml,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+  autocmd FileType go,make setlocal tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
+  autocmd FileType sh,bash,zsh,jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup END
+
+" Auto-format on save
+if executable('black')
+  autocmd BufWritePre *.py silent! execute '!black --quiet %' | edit!
+endif
+
+if executable('goimports')
+  autocmd BufWritePre *.go silent! execute '%!goimports'
+elseif executable('gofmt')
+  autocmd BufWritePre *.go silent! execute '%!gofmt'
+endif
+
+if executable('prettier')
+  autocmd BufWritePre *.md,*.json,*.yaml,*.yml,*.css,*.html,*.js,*.ts,*.jsx,*.tsx silent! execute '!prettier --write %' | edit!
+endif
+
+" smart bracket insert on {<cr> etc
+inoremap <expr> <CR> <SID>SmartEnter()
+
+function! s:SmartEnter()
+  let col = col('.')
+  if col == 1
+    return "\<CR>"
+  endif
+
+  let char = getline('.')[col - 2]
+
+  if char == '{' || char == '[' || char == '('
+    let close = char == '{' ? '}' : char == '[' ? ']' : ')'
+    return "\<CR>" . close . "\<Esc>O"
+  endif
+
+  return "\<CR>"
+endfunction
+
+" Terminal canvas transparency inheritance
+function! s:ClearTerminalBackground() abort
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight LineNr ctermbg=NONE guibg=NONE
+  highlight Folded ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+  highlight SignColumn ctermbg=NONE guibg=NONE
+  highlight VertSplit ctermbg=NONE guibg=NONE
+endfunction
+
+augroup _quickfix
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <CR> <CR>
+  autocmd QuickFixCmdPost [^l]* cwindow 6
+  autocmd QuickFixCmdPost    l* lwindow 6
+augroup end
+
+augroup _resize
+  autocmd!
+  autocmd vimresized * :wincmd =
+augroup end
+
+call s:ClearTerminalBackground()
+augroup TerminalTransparency
+  autocmd!
+  autocmd ColorScheme * call s:ClearTerminalBackground()
+augroup END
