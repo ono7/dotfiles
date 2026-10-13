@@ -31,7 +31,7 @@ set guicursor=a:block-blinkon0
 " --- Cleaned Baseline Mappings ---
 nnoremap Y y$
 nnoremap & :&&<CR>
-nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
+nnoremap <silent> <space><space> <cmd>set hlsearch!<cr>
 nmap <C-W><C-D> <C-W>d
 xnoremap <silent> <expr> @ mode() ==# 'V' ? ':normal! @' . getcharstr() . '<CR>' : '@'
 xnoremap <silent> <expr> Q mode() ==# 'V' ? ':normal! @' . reg_recorded() . '<CR>' : 'Q'
