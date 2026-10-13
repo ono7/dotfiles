@@ -96,8 +96,6 @@ inoremap <C-s> <C-o>/
 nnoremap <C-r> ?
 nnoremap <C-s> /
 
-nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
-
 cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
 
 augroup CleanNoName
@@ -219,7 +217,7 @@ nnoremap 't `T
 
 nnoremap D d$
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-nnoremap <silent> <space><space> <cmd>noh<cr>
+nnoremap <silent> <space><space> <cmd>set hlsearch!<cr>
 nnoremap <space>a ggVG
 nnoremap U <c-r>
 
