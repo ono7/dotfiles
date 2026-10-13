@@ -194,3 +194,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- NOTE(jlima): Dismantle default right-click popup-menu without sacrificing mouse integration
 pcall(vim.cmd, "aunmenu PopUp")
 pcall(vim.api.nvim_del_augroup_by_name, "nvim.popupmenu")
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = ft_overrides_group, -- or vim.api.nvim_create_augroup("GlobalCommentFormat", { clear = true })
+  callback = function()
+    local cs = vim.bo.commentstring
+    if cs ~= "" and cs:find("%%s") then
+      -- Normalize so there is always a single space surrounding %s
+      -- Converts '"%s"' -> '" %s"' or '/*%s*/' -> '/* %s */'
+      local normalized = cs:gsub("%s*%%s%s*", " %%s ")
+      vim.bo.commentstring = vim.trim(normalized)
+    end
+  end,
+})
