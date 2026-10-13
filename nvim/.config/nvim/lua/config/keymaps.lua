@@ -70,7 +70,17 @@ inoremap <M-e> <C-o>}
 " undo in insert mode
 inoremap <C-/> <C-u>
 
-nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+" old trusty 
+" nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+" this version will change directories for the buffer 
+nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+" change in the shell so that vim never mutates at all
+"nnoremap gm :!cd "%:p:h" && git add "%:t" && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+" old version that has been working good requires fugitive
 "nnoremap gm :Git add % <bar> Git commit % -m "<C-r>=expand('%:t')<CR>, "<Left>
 
 function! DuplicateAndMark()
