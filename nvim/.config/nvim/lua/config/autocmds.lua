@@ -1,9 +1,24 @@
 local create_augroup = vim.api.nvim_create_augroup
+
+-- Top-level augroup declarations
 local general_group = create_augroup("GeneralAutocmds", { clear = true })
+local lsp_notify_group = create_augroup("LspManualNotify", { clear = true })
+local yank_highlight_group = create_augroup("HighlightYankedText", { clear = true })
+local ft_overrides_group = create_augroup("FileTypeOverrides", { clear = true })
+local commit_msg_group = create_augroup("VimCommitMsg", { clear = true })
+local resize_group = create_augroup("VimResizeWindows", { clear = true })
+local restore_cursor_group = create_augroup("RestoreCursor", { clear = true })
+local format_options_group = create_augroup("FormatOptions", { clear = true })
+local quickfix_group = create_augroup("AutoOpenQuickfix", { clear = true })
+local snippets_group = create_augroup("ReloadSnippets", { clear = true })
+local scratch_group = create_augroup("ScratchBufConfig", { clear = true })
+local echo_filename_group = create_augroup("EchoFileNameOnFocus", { clear = true })
+local clipboard_sync_group = create_augroup("ClipboardSync", { clear = true })
+local purge_banner_group = create_augroup("PurgeNeovideBanner", { clear = true })
 
 --- Manual LSP File Change Notification ---
 vim.api.nvim_create_autocmd("BufWritePost", {
-  group = create_augroup("LspManualNotify", { clear = true }),
+  group = lsp_notify_group,
   callback = function(args)
     local clients = vim.lsp.get_clients({ bufnr = args.buf })
     for _, client in ipairs(clients) do
@@ -30,37 +45,9 @@ vim.api.nvim_create_autocmd("TermClose", {
   end,
 })
 
--- LSP attach configuration (omnifunc and pyright venv resolution)
--- vim.api.nvim_create_autocmd("LspAttach", {
---   group = general_group,
---   callback = function(args)
---     if vim.b[args.buf].large_file == true then
---       return
---     end
---
---     vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---     if not client or client.name ~= "pyright" then
---       return
---     end
---
---     local venv = vim.env.VIRTUAL_ENV
---     if venv and venv ~= "" then
---       client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
---         python = {
---           analysis = {
---             venvPath = vim.fn.fnamemodify(venv, ":h"),
---             venv = vim.fn.fnamemodify(venv, ":t"),
---           },
---         },
---       })
---     end
---   end,
--- })
-
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = create_augroup("highlight_yanked_text", { clear = true }),
+  group = yank_highlight_group,
   callback = function()
     vim.hl.on_yank({ higroup = "Visual", timeout = 100 })
   end,
@@ -68,7 +55,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- FileType commentstring overrides
 vim.api.nvim_create_autocmd("FileType", {
-  group = create_augroup("ft_overrides", { clear = true }),
+  group = ft_overrides_group,
   pattern = { "javascript", "typescriptreact" },
   callback = function()
     vim.bo.commentstring = "// %s"
@@ -77,7 +64,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Fix commit message editor view
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = create_augroup("vim_commit_msg", { clear = true }),
+  group = commit_msg_group,
   pattern = "COMMIT_EDITMSG",
   callback = function()
     vim.opt_local.spell = false
@@ -92,13 +79,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- Equalize window splits on terminal/UI resize
 vim.api.nvim_create_autocmd("VimResized", {
-  group = create_augroup("vim_resize_windows", { clear = true }),
+  group = resize_group,
   command = "wincmd =",
 })
 
 -- Restore cursor position on enter
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = create_augroup("restore_cursor", { clear = true }),
+  group = restore_cursor_group,
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -110,7 +97,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- Prevent auto-inserting comment leader on newline
 vim.api.nvim_create_autocmd("FileType", {
-  group = create_augroup("no_auto_comment", { clear = true }),
+  group = format_options_group,
   callback = function()
     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   end,
@@ -118,23 +105,26 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Automatically open quickfix list after search commands
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-  group = create_augroup("AutoOpenQuickfix", { clear = true }),
+  group = quickfix_group,
   pattern = "[^l]*",
   callback = function()
-    vim.cmd("cwindow")
+    local qf = vim.fn.getqflist()
+    if #qf > 0 then
+      vim.cmd("copen")
+    end
   end,
 })
 
 -- Reload snippets when .snippet files are saved
 vim.api.nvim_create_autocmd("BufWritePost", {
-  group = create_augroup("reload_snippets", { clear = true }),
+  group = snippets_group,
   pattern = "*.snippet",
   command = "SnippyReload",
 })
 
 -- Scratch buffer cleanup configuration
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = create_augroup("scratch_buf_config", { clear = true }),
+  group = scratch_group,
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
     if vim.api.nvim_buf_get_name(buf) == "" and vim.bo[buf].buftype == "" then
@@ -147,7 +137,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- Echo filename when switching windows/buffers
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-  group = create_augroup("EchoFileNameOnFocus", { clear = true }),
+  group = echo_filename_group,
   callback = function(args)
     if vim.fn.getcmdwintype() ~= "" then
       return
@@ -183,7 +173,7 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
 -- Synchronize visual yanks to system clipboard
 vim.opt.clipboard = ""
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = create_augroup("ClipboardSync", { clear = true }),
+  group = clipboard_sync_group,
   desc = "Copy visual yanks to system clipboard",
   callback = function()
     if vim.v.event.operator == "y" and vim.v.event.visual then
@@ -195,7 +185,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- NOTE(jlima): Neovide registers NeovideIntroBanner on TextChanged/TextChangedI.
 -- Purge the augroup on VimEnter to eliminate insert-mode callback latency.
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("PurgeNeovideBanner", { clear = true }),
+  group = purge_banner_group,
   callback = function()
     pcall(vim.api.nvim_del_augroup_by_name, "NeovideIntroBanner")
   end,
