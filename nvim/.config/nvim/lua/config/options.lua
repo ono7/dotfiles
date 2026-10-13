@@ -26,7 +26,7 @@ vim.opt.timeout = true
 vim.opt.timeoutlen = 500
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 10
-vim.opt.updatetime = 300
+vim.opt.updatetime = 400
 
 vim.opt.jumpoptions = { "stack", "view" }
 
@@ -35,7 +35,7 @@ vim.opt.jumpoptions = { "stack", "view" }
 -- =============================================================================
 vim.opt.autoindent = true
 vim.opt.smartindent = false -- Disabled: avoids conflicts with filetype indent scripts
-vim.opt.breakindent = true
+vim.opt.breakindent = false
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
