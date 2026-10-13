@@ -5,53 +5,6 @@ return {
     vim.o.showtabline = 2
     vim.opt.switchbuf = "usetab,uselast"
 
-    local palette = {
-      -- Main editor background
-      fill_bg = "#EDE9E1",
-
-      -- Active tab
-      active_bg = "#D8D3C9",
-      active_fg = "#242424",
-
-      -- Inactive tabs
-      inactive_bg = "#E5E1D9",
-      inactive_fg = "#747D87",
-
-      -- Accent
-      accent = "#35659A",
-
-      -- Modified buffer indicator
-      modified = "#B63E46",
-    }
-
-    local theme = {
-      fill = {
-        bg = palette.fill_bg,
-        fg = palette.inactive_fg,
-      },
-
-      head = {
-        fg = palette.accent,
-        bg = palette.fill_bg,
-      },
-
-      tail = {
-        fg = palette.accent,
-        bg = palette.fill_bg,
-      },
-
-      current_tab = {
-        fg = palette.active_fg,
-        bg = palette.active_bg,
-        bold = true,
-      },
-
-      tab = {
-        fg = palette.inactive_fg,
-        bg = palette.inactive_bg,
-      },
-    }
-
     local function get_tab_label(tab_id)
       local current_win = tab_id.current_win()
       local bufid = current_win.buf().id
@@ -107,7 +60,78 @@ return {
       return visible, start_idx > 1, end_idx < total
     end
 
+    -- NOTE(jlima): Adjusts hex brightness to create distinct layer elevations
+    -- regardless of what the active colorscheme defines for TabLine groups.
+    local function adjust_color(hex, percent)
+      local r = tonumber(hex:sub(2, 3), 16)
+      local g = tonumber(hex:sub(4, 5), 16)
+      local b = tonumber(hex:sub(6, 7), 16)
+
+      local adjust = function(c)
+        if percent >= 0 then
+          return math.min(255, math.floor(c + (255 - c) * percent))
+        else
+          return math.max(0, math.floor(c * (1 + percent)))
+        end
+      end
+
+      return string.format("#%02x%02x%02x", adjust(r), adjust(g), adjust(b))
+    end
+
+    local function get_hl(name)
+      local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+      local fg = hl.fg
+      local bg = hl.bg
+      if hl.reverse then
+        fg, bg = bg, fg
+      end
+      return {
+        fg = fg and string.format("#%06x", fg) or nil,
+        bg = bg and string.format("#%06x", bg) or nil,
+      }
+    end
+
     require("tabby.tabline").set(function(line)
+      local is_dark = vim.o.background == "dark"
+      local normal = get_hl("Normal")
+      local base_bg = normal.bg or (is_dark and "#1e1e2e" or "#EDE9E1")
+      local base_fg = normal.fg or (is_dark and "#cdd6f4" or "#242424")
+
+      local comment = get_hl("Comment")
+      local special = get_hl("Special")
+      local diag_warn = get_hl("DiagnosticWarn")
+
+      -- In light mode: darken to elevate tabs. In dark mode: lighten.
+      local active_bg = adjust_color(base_bg, is_dark and 0.15 or -0.10)
+      local inactive_bg = adjust_color(base_bg, is_dark and 0.06 or -0.04)
+
+      local theme = {
+        fill = {
+          bg = base_bg,
+          fg = comment.fg or base_fg,
+        },
+        head = {
+          fg = special.fg or base_fg,
+          bg = base_bg,
+        },
+        tail = {
+          fg = special.fg or base_fg,
+          bg = base_bg,
+        },
+        current_tab = {
+          fg = base_fg,
+          bg = active_bg,
+          bold = true,
+        },
+        tab = {
+          fg = comment.fg or base_fg,
+          bg = inactive_bg,
+        },
+        modified = {
+          fg = diag_warn.fg or (is_dark and "#f38ba8" or "#B63E46"),
+        },
+      }
+
       local all_tabs = line.tabs().tabs
 
       -- NOTE(jlima): Adjust max_tabs based on average tab character
@@ -131,7 +155,6 @@ return {
         local tab_name = get_tab_label(tab)
 
         local modified = false
-
         local win_ids = require("tabby.module.api").get_tab_wins(tab.id)
 
         for _, win_id in ipairs(win_ids) do
@@ -148,7 +171,7 @@ return {
           tab_name,
           modified and {
             " ",
-            fg = palette.modified,
+            fg = theme.modified.fg,
           } or "",
           line.sep("", hl, theme.fill),
           hl = hl,
@@ -171,7 +194,6 @@ return {
             "🐇",
             hl = theme.head,
           },
-
           line.sep("", theme.head, theme.fill),
         },
 
@@ -181,7 +203,6 @@ return {
 
         {
           line.sep("", theme.tail, theme.fill),
-
           {
             "",
             hl = theme.tail,
