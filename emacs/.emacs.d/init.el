@@ -49,7 +49,12 @@
       (setq blink-cursor-blinks 0)))
 
 (show-paren-mode 1)
-
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1)
+  (setq beacon-blink-duration 0.2
+        beacon-size 20))
 ;; File Handling (No Autosave/Backup)
 (setq history-length 1000
       use-dialog-box nil

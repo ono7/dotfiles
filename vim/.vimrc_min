@@ -91,6 +91,12 @@ nnoremap <C-w><C-q> <C-w>c
 nnoremap j gj
 nnoremap k gk
 
+" we lose the ability to do C-r in insert...
+" but gain navigational speed
+inoremap <C-r> <C-o>?
+inoremap <C-s> <C-o>/
+nnoremap <C-r> ?
+nnoremap <C-s> /
 
 " select re-previous selection
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
