@@ -77,7 +77,8 @@ cnoremap <expr> <C-u> repeat("\<BS>", getcmdpos() - 1)
 
 nnoremap <silent> <leader><leader> :set hlsearch!<CR>
 nnoremap <leader>a ggVG
-nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
 
 " window navigation
 nnoremap <C-h> <C-w>h
