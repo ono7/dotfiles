@@ -12,23 +12,26 @@ return {
     local detail = false
 
     oil_config.setup({
+      extra_scp_args = { "-O" },
       columns = { "icon", add_padding = true },
       keymaps = {
         ["<C-p>"] = false,
         ["<C-h>"] = false,
 
-        -- 1. Make <CR> / Enter open files in a new tab by default
+        -- 1. Make <CR> / Enter open files in existing tab or a new tab
         ["<CR>"] = {
           desc = "Open in existing tab or create a new one",
           callback = function()
             local oil = require("oil")
+            local actions = require("oil.actions")
             local entry = oil.get_cursor_entry()
             if not entry then
               return
             end
 
+            -- Let Oil handle directory navigation natively
             if entry.type == "directory" then
-              oil.select()
+              actions.select.callback()
               return
             end
 
@@ -36,15 +39,25 @@ return {
             if not current_dir then
               return
             end
-            local target_path = vim.fs.normalize(current_dir .. entry.name)
+
+            -- Construct target URI without stripping adapter protocols via fs.normalize
+            local is_remote = current_dir:match("^%w+://") ~= nil
+            local target_path
+            if is_remote then
+              target_path = current_dir .. entry.name
+            else
+              target_path = vim.fs.normalize(current_dir .. entry.name)
+            end
 
             -- Check all tabs and windows for the target file
             for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
               for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
                 local buf = vim.api.nvim_win_get_buf(win)
-                local buf_name = vim.fs.normalize(vim.api.nvim_buf_get_name(buf))
+                local buf_name = vim.api.nvim_buf_get_name(buf)
+                if not is_remote then
+                  buf_name = vim.fs.normalize(buf_name)
+                end
                 if buf_name == target_path then
-                  -- Switch to that tab and window, close oil first
                   oil.close()
                   vim.api.nvim_set_current_tabpage(tab)
                   vim.api.nvim_set_current_win(win)
@@ -53,9 +66,8 @@ return {
               end
             end
 
-            -- If not open in any tab, close oil and open in a new tab
-            oil.close()
-            vim.cmd("tabedit " .. vim.fn.fnameescape(target_path))
+            -- Correct action call to open in a new tab via Oil's adapter
+            actions.select.callback({ tab = true })
           end,
         },
 
