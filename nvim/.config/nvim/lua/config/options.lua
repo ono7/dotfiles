@@ -136,9 +136,9 @@ vim.opt.maxmempattern = 2000
 vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.splitkeep = "screen"
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 5
-vim.opt.sidescroll = 3
+vim.opt.scrolloff = 0
+vim.opt.sidescrolloff = 0
+vim.opt.sidescroll = 0
 vim.opt.smoothscroll = false
 
 -- =============================================================================
@@ -147,7 +147,7 @@ vim.opt.smoothscroll = false
 vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.signcolumn = "yes:1"
-vim.opt.pumheight = 5
+vim.opt.pumheight = 10
 vim.opt.cursorline = false
 vim.opt.cursorcolumn = false
 vim.opt.cursorlineopt = "number"
