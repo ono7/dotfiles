@@ -151,15 +151,18 @@ end
 
 function M.setup()
   vim.api.nvim_create_user_command("ProjectAdd", M.add_project, {})
+  vim.api.nvim_create_user_command("Pa", M.add_project, {})
   vim.api.nvim_create_user_command("ProjectRemove", M.remove_project, {})
+  vim.api.nvim_create_user_command("Pr", M.remove_project, {})
   vim.api.nvim_create_user_command("ProjectPick", M.pick_project, {})
+  vim.api.nvim_create_user_command("P", M.pick_project, {})
   vim.api.nvim_create_user_command("L", M.last_project, {})
 
   local opts = { noremap = true, silent = true }
-  vim.keymap.set("n", "<leader>pp", M.pick_project, vim.tbl_extend("force", opts, { desc = "Pick Project" }))
-  vim.keymap.set("n", "<leader>pa", M.add_project, vim.tbl_extend("force", opts, { desc = "Add Project" }))
-  vim.keymap.set("n", "<leader>pr", M.remove_project, vim.tbl_extend("force", opts, { desc = "Remove Project" }))
-  vim.keymap.set("n", "<leader>pl", M.last_project, vim.tbl_extend("force", opts, { desc = "Last Project" }))
+  -- vim.keymap.set("n", "<leader>pp", M.pick_project, vim.tbl_extend("force", opts, { desc = "Pick Project" }))
+  -- vim.keymap.set("n", "<leader>pa", M.add_project, vim.tbl_extend("force", opts, { desc = "Add Project" }))
+  -- vim.keymap.set("n", "<leader>pr", M.remove_project, vim.tbl_extend("force", opts, { desc = "Remove Project" }))
+  -- vim.keymap.set("n", "<leader>pl", M.last_project, vim.tbl_extend("force", opts, { desc = "Last Project" }))
 end
 
 return M
