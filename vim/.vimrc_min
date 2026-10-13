@@ -9,6 +9,7 @@ set nobackup
 set nowritebackup
 set noundofile
 set updatecount=0
+set nobreakindent
 
 " --- Core Baseline ---
 set noloadplugins
