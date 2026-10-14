@@ -20,7 +20,6 @@ return {
       options = {
         -- NOTE(jlima): Placed inside options table so it actually applies
         throttle = 250,
-        softwrap = false,
         multilines = {
           enabled = false,
         },

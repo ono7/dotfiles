@@ -65,6 +65,7 @@ M.setup = function()
     "gopls",
     "pyright",
     "ansiblels",
+    "clangd",
     "luals",
     "qmlls",
     "bashls",
