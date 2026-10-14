@@ -7,7 +7,6 @@ vim.loader.enable()
 -- 2. Leader Keys
 -- =============================================================================
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- =============================================================================
 -- 3. General Editor Behavior & Timeouts
