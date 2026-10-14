@@ -5,7 +5,7 @@ export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linux
 FONT_REPO := https://github.com/ono7/fonts2.git
 FONT_DIR  := $(HOME)/fonts2
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide mac-word
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -34,7 +34,11 @@ detect-os:
 
 # the order of execution on this targets is important
 linux: linux-deps clean stow nvm go-deps uv vim fzf starship fonts neovide done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim neovide fonts done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim neovide fonts done mac_word
+
+mac-word:
+	@echo $(BANNER)
+	echo "TURN OFF AIR PLAY AND HANDOFF FOR LOW LATENCY"
 
 clean:
 	@echo $(BANNER)
