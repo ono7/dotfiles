@@ -284,7 +284,7 @@ local highlights = {
   Keyword = { fg = c.keyword, bold = true },
 
   Type = { fg = c.type },
-  Function = { fg = c.fn },
+  Function = { fg = c.fg },
   Identifier = { fg = c.fg },
   Operator = { fg = c.fg },
 
@@ -432,15 +432,15 @@ local highlights = {
   },
 
   ["@function"] = {
-    fg = c.fn,
+    fg = c.fg,
   },
 
   ["@function.builtin"] = {
-    fg = c.fn,
+    fg = c.fg,
   },
 
   ["@function.method"] = {
-    fg = c.fn,
+    fg = c.fg,
   },
 
   ["@type"] = {
