@@ -1,3 +1,27 @@
+# disable airplay, continuity and airdrop for low latancy networking
+
+disable in settings or from cli userland
+```
+defaults write com.apple.sharingd DiscoverableMode -string "Off"
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
+defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
+defaults write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool false
+defaults -currentHost write com.apple.controlcenter.AirplayReciever Enabled -int 0
+defaults write com.apple.airplay.receiver enable -bool false
+killall sharingd useractivityd rapportd 2>/dev/null
+```
+
+```
+sudo ping -f -c 500 198.18.0.10
+Password:
+PING 198.18.0.10 (198.18.0.10): 56 data bytes
+..Request timeout for icmp_seq 0
+.
+--- 198.18.0.10 ping statistics ---
+500 packets transmitted, 500 packets received, 0.0% packet loss <<<<<<<<<<<<<  THIS 
+round-trip min/avg/max/stddev = 2.892/4.365/14.544/0.934 ms
+```
+
 # download all packages using curl -L -o to avoid macos signature/notarization detection
 
 - curl and untar at the same line
