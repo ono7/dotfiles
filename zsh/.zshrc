@@ -255,6 +255,13 @@ dotc() {
   cd "$my_dir" || return
 }
 
+dots() {
+  local my_dir=$PWD
+  cd "$HOME/.dotfiles" || return
+  git status --untracked-files=all --short
+  cd "$my_dir" || return
+}
+
 gc() {
   git pull
   git add .
