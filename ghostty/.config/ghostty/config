@@ -89,3 +89,5 @@ keybind = ctrl+x>0=close_surface
 keybind = ctrl+x>1=toggle_split_zoom
 keybind = ctrl+x>o=goto_split:next
 keybind = ctrl+x>ctrl+c=quit
+
+vsync = true
