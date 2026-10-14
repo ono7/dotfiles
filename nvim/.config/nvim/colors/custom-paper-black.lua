@@ -61,7 +61,8 @@ local c = {
   string = "#46664F",
   keyword = "#B63E46",
 
-  type = text_black,
+  -- type = text_black,
+  type = "#35659A",
   fn = text_black,
   param = text_black,
   constant = text_black,
