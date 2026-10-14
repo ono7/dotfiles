@@ -4,6 +4,7 @@
 " ==============================================================================
 
 " --- State & File I/O Invariants (Zero Disk Writes) ---
+syntax off
 set noswapfile
 set nobackup
 set nowritebackup
