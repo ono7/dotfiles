@@ -1,10 +1,6 @@
 -- %:r means root, same as %< which strips the leading file extension
 
--- this does the same thing:
--- :Dispatch g++ % -o %< && ./%<
+vim.bo.makeprg = "g++ -std=c++20 -Wall -Wextra -Wpedantic -O2 -g % -o %:r"
 
--- for standard programs
-vim.b.dispatch = "g++ % -o %:r -g -O0 && ./%:r"
-
--- Keeps the shell open so you can see output/errors and prevents early buffer destruction
--- vim.b.start = "cd %:p:h:S && g++ %:t:S -o %:t:r:S && ./%:t:r:S; exec $SHELL"
+-- NOTE(jlima): Standard Clang/GCC diagnostic output with multiline template backtrace pass-through.
+vim.bo.errorformat = "%f:%l:%c: %trror: %m,%f:%l:%c: %tarning: %m,%f:%l:%c: %tote: %m,%f:%l:%c: %m,%f:%l: %m"
