@@ -111,6 +111,9 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     local qf = vim.fn.getqflist()
     if #qf > 0 then
       vim.cmd("copen")
+    else
+      vim.cmd("cclose")
+      print("Build successful")
     end
   end,
 })
