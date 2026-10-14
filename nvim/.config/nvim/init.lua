@@ -231,10 +231,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- blocky
--- vim.opt.guicursor =
---   "n-v-c:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor,i-ci-ve:block-blinkwait0-blinkoff400-blinkon250-Cursor/Cursor"
-
 vim.diagnostic.config({ update_in_insert = false })
 
 vim.cmd([[colorscheme custom-paper-black]])
