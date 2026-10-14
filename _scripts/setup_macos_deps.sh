@@ -129,3 +129,19 @@ defaults write com.apple.dock persistent-apps -array && killall Dock
 sudo nvram SystemAudioVolume=%01
 
 killall Dock
+
+# prevent macos from becoming a airplay target
+defaults -currentHost write com.apple.controlcenter.AirplayReciever Enabled -int 0
+defaults write com.apple.airplay.receiver enable -bool false
+
+# fix latency and packet drops on macos
+# Disable universal clipboard and application state handoff
+defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
+defaults write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool false
+
+# disable airdrop
+defaults write com.apple.sharingd DiscoverableMode -string "Off"
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
+
+# you can test this with
+# sudo ping -f -c 500 198.18.0.10
