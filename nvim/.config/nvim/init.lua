@@ -155,13 +155,6 @@ if vim.opt.termguicolors then
   vim.cmd([[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]])
 end
 
--- Ensure syntax is ON by default so Treesitter can handoff or fall back
-vim.cmd("syntax on")
-
--- new for 0.12.0
--- 1. Enable the new non-blocking UI to kill "Press ENTER" prompts
--- if pcall(require, "vim._core.ui2") then require("vim._core.ui2").enable() end
-
 require("config.keymaps")
 require("config.options")
 require("config.disabled")
@@ -169,7 +162,6 @@ require("config.legacy")
 require("config.abbreviations")
 require("config.diff-settings")
 require("config.vars")
--- require("config.helper-functions")
 require("config.lazy")
 -- require("utils.change-path").setup() -- :Cd (toggle root dir and cwd)
 -- require("utils.create-table").setup()
