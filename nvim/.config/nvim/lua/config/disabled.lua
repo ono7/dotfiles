@@ -6,7 +6,7 @@ vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_2html_plugin = 1
 
 -- NOTE(jlima): Disables synchronous bracket scanning on CursorMovedI, which altrimenti blocks the UI loop on every character inserted.
--- vim.g.loaded_matchparen = 1
+vim.g.loaded_matchparen = 1
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0

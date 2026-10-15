@@ -210,3 +210,14 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- remove the empty buffer created when we start neovim
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = vim.api.nvim_create_augroups or vim.api.nvim_create_augroup("CleanNoName", { clear = true }),
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    if vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) == "" and not vim.bo[buf].modified and vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
+      vim.bo[buf].bufhidden = "wipe"
+    end
+  end,
+})

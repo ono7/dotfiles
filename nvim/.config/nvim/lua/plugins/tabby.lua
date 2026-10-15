@@ -158,8 +158,9 @@ return {
         local modified = false
         local win_ids = tabby_api.get_tab_wins(tab.id)
         for _, win_id in ipairs(win_ids) do
-          local success, bufid = pcall(vim.api.nvim_win_get_buf, win_id)
-          if success and vim.bo[bufid].modified then
+          -- NOTE(jlima): Use vim.api.nvim_get_option_value for robust, fast retrieval without proxy table overhead
+          local success, is_mod = pcall(vim.api.nvim_get_option_value, "modified", { win = win_id })
+          if success and is_mod then
             modified = true
             break
           end
@@ -169,6 +170,7 @@ return {
           line.sep("", hl, theme.fill),
           tab_name,
           modified and {
+            icon = "",
             " ",
             fg = theme.modified.fg,
           } or "",

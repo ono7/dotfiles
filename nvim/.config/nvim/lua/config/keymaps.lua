@@ -108,13 +108,13 @@ nnoremap <C-s> /
 
 cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
 
-augroup CleanNoName
-  autocmd!
-  " Mark unnamed, non-special buffers to wipe ONLY if completely empty and unmodified
-  autocmd BufLeave * if bufname('') ==# '' && &buftype ==# '' && !&modified && line('$') == 1 && getline(1) ==# ''
-        \ | setlocal bufhidden=wipe
-        \ | endif
-augroup END
+" augroup CleanNoName
+"   autocmd!
+"   " Mark unnamed, non-special buffers to wipe ONLY if completely empty and unmodified
+"   autocmd BufLeave * if bufname('') ==# '' && &buftype ==# '' && !&modified && line('$') == 1 && getline(1) ==# ''
+"         \ | setlocal bufhidden=wipe
+"         \ | endif
+" augroup END
 
 " --- Emacs Navigation Parity ---
 
