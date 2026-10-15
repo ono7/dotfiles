@@ -153,6 +153,9 @@ inoremap <M-k> <C-g>u<C-o>d}
 inoremap <M-u> <Esc>gUiwea
 inoremap <M-l> <Esc>guiwea
 
+" save and quit, good for commit messages
+" inoremap <C-x> <Esc>:x!<CR>
+
 " usefull when only visual block selection needs to be replaced
 xnoremap & :<C-u>'<,'>s/\%V\v
 
@@ -863,3 +866,6 @@ vim.keymap.set("i", "<CR>", function()
 
   return "<CR>"
 end, { expr = true, noremap = true })
+
+-- NOTE(jlima): Use :x! to preserve mtime on untouched buffers while forcing write if modified
+vim.keymap.set("i", "<C-x>", "<Esc>:x!<CR>", { silent = true, desc = "Exit insert mode and save/quit" })
