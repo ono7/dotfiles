@@ -51,7 +51,7 @@ elseif is_mac then
   -- The default setting disables subpixel rendering (ideal for Retina)
   vim.g.neovide_pixel_geometry = "Unknown"
   -- vim.o.guifont = "Iosevka Custom,IosevkaTerm Nerd Font:h24:#e-subpixelantialias:#h-full"
-  vim.o.guifont = "CommitMono,IosevkaTerm Nerd Font:h22:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "CommitMono,IosevkaTerm Nerd Font:h20:#e-subpixelantialias:#h-full"
   -- vim.o.guifont = "Menlo,IosevkaTerm Nerd Font:h24:#e-subpixelantialias:#h-full"
   vim.g.neovide_padding_top = 0
   vim.g.neovide_padding_bottom = 0

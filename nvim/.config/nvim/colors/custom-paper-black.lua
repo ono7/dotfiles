@@ -116,9 +116,9 @@ local highlights = {
   NormalNC = { link = "Normal" },
 
   MatchParen = {
-    fg = c.comment,
-    bg = c.highlight,
-    bold = false,
+    fg = c.bg,
+    bg = "#174B53",
+    bold = true,
   },
 
   ModeMsg = { fg = c.fg, bold = false },
