@@ -190,12 +190,12 @@ fonts:
 
 ifeq ($(OS),Darwin)
 	@echo "Installing fonts for macOS..."
-	@find $(FONT_DIR) -name "*.ttf" -exec cp {} ~/Library/Fonts/ \;
+	@find $(FONT_DIR) -type f \( -name "*.otf" -o -name "*.ttf" \) -exec cp {} ~/Library/Fonts/ \;
 	@echo "Fonts installed successfully."
 else ifeq ($(OS),Linux)
 	@echo "Installing fonts for Linux..."
 	@mkdir -p ~/.local/share/fonts/
-	@find $(FONT_DIR) -name "*.ttf" -exec cp {} ~/.local/share/fonts/ \;
+	@find $(FONT_DIR) -type f \( -name "*.otf" -o -name "*.ttf" \) -exec cp {} ~/.local/share/fonts/ \;
 	@fc-cache -fv
 	@echo "Fonts installed successfully."
 else
