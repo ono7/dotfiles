@@ -80,25 +80,25 @@ local c = {
   diff_del_fg = "#D35A63",
 }
 
--- 4. Terminal ANSI
-vim.g.terminal_color_0 = "#151F2D"
-vim.g.terminal_color_1 = "#D35A63"
-vim.g.terminal_color_2 = "#8CA64A"
-vim.g.terminal_color_3 = "#D89F5C"
-vim.g.terminal_color_4 = "#7AA7D8"
-vim.g.terminal_color_5 = "#AABFD9"
-vim.g.terminal_color_6 = "#5A6B85"
-vim.g.terminal_color_7 = "#BEBEBC"
+-- 4. Terminal ANSI (Aligned with Ayu-Carbon Palette & Corrected Contrast)
+vim.g.terminal_color_0 = "#151F2D" -- bg
+vim.g.terminal_color_1 = "#D35A63" -- error (Red)
+vim.g.terminal_color_2 = "#8CA64A" -- string / ok (Green)
+vim.g.terminal_color_3 = "#D89F5C" -- keyword / warn (Yellow)
+vim.g.terminal_color_4 = "#7AA7D8" -- type / info (Blue)
+vim.g.terminal_color_5 = "#C792EA" -- Bright Magenta (Distinct accent)
+vim.g.terminal_color_6 = "#56B6C2" -- Bright Cyan (High contrast for CLI outputs)
+vim.g.terminal_color_7 = "#BEBEBC" -- fg
 
 -- Bright ANSI variants
-vim.g.terminal_color_8 = "#3A4555"
-vim.g.terminal_color_9 = "#E06C75"
-vim.g.terminal_color_10 = "#98C379"
-vim.g.terminal_color_11 = "#E5C07B"
-vim.g.terminal_color_12 = "#61AFEF"
-vim.g.terminal_color_13 = "#C678DD"
-vim.g.terminal_color_14 = "#56B6C2"
-vim.g.terminal_color_15 = "#FFFFFF"
+vim.g.terminal_color_8 = "#5F6C77" -- comment / bright black (Legible muted grey)
+vim.g.terminal_color_9 = "#E06C75" -- Bright Red
+vim.g.terminal_color_10 = "#98C379" -- Bright Green
+vim.g.terminal_color_11 = "#E5C07B" -- Bright Yellow
+vim.g.terminal_color_12 = "#61AFEF" -- Bright Blue
+vim.g.terminal_color_13 = "#D9A4EF" -- Lighter Magenta
+vim.g.terminal_color_14 = "#63C4D1" -- Lighter Cyan
+vim.g.terminal_color_15 = "#FFFFFF" -- Bright White
 
 -- 5. Highlights
 local highlights = {
@@ -972,8 +972,6 @@ local highlights = {
   },
 
   -- LSP Document Highlight
-  -- NOTE(jlima): Provide visual selection background with sp-bound underlines
-  -- to isolate write targets without colliding with diagnostics undercurls.
   LspReferenceText = {
     bg = c.visual,
   },
