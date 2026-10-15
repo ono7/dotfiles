@@ -88,7 +88,7 @@
     dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
     update-hooks = "!cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*"
     whatadded = log --diff-filter=A
-	amend = commit -a --amend --no-edit
+  amend = commit -a --amend --no-edit
 
 [log]
     follow = true
@@ -107,51 +107,31 @@
     navigate = true
     side-by-side = true
     line-numbers = true
-    light = true
     syntax-theme = none
 
-    # Blame palette stepped from paper BG (#F2EFE9) down to visual depth (#D5CFC4)
-    blame-palette = "#F2EFE9 #EAE6DF #E2DDD4 #D8D2C7 #CDC6B9"
+    # Unchanged portion of modified lines (no background fill)
+    minus-style = normal
+    plus-style = normal
+    zero-style = normal
 
-    # Header styling (dark ink text on paper)
-    file-decoration-style = none
-    file-style = bold "#000000"
-    hunk-header-decoration-style = none
-    hunk-header-file-style = bold "#000000"
-    hunk-header-line-number-style = bold "#5C6A7B"
-    hunk-header-style = file line-number syntax
+    # Option A: Theme-agnostic ANSI highlights on changed tokens only
+    minus-emph-style = bold red reverse
+    plus-emph-style = bold green reverse
 
-    # Line numbers (matching c.line_nr and diagnostics)
-    line-numbers-left-style = "#A9B3C1"
-    line-numbers-right-style = "#A9B3C1"
-    line-numbers-zero-style = "#A9B3C1"
-    line-numbers-minus-style = bold "#961C24"
-    line-numbers-plus-style = bold "#355B3F"
+    # Option B: Subtle hex backgrounds on changed tokens only (uncomment if preferred)
+    # minus-emph-style = normal "#EBB1B3"
+    # plus-emph-style = normal "#BED8C2"
 
-    # Diff backgrounds (soft tinted paper matching diff_add_bg and diff_text_bg)
-    minus-style = syntax "#F7DCDA"
-    minus-emph-style = syntax "#EBB1B3"
-    minus-empty-line-marker-style = normal "#F7DCDA"
+    # Prevent background fills on empty lines inside a diff block
+    minus-empty-line-marker-style = normal
+    plus-empty-line-marker-style = normal
 
-    plus-style = syntax "#DCE8DE"
-    plus-emph-style = syntax "#BED8C2"
-    plus-empty-line-marker-style = normal "#DCE8DE"
-
-    zero-style = syntax
-    whitespace-error-style = "#C4434B" reverse
-    word-diff-regex = "[^[:space:]]+"
-
-    line-numbers-left-format = "{nm:>4}│"
-    line-numbers-right-format = "{np:>4}│"
-
-    # Delta map-styles using custom-paper ink colors
-    map-styles = \
-        bold purple => "#5A315C", \
-        bold blue => "#274F7D", \
-        bold cyan => "#1A5C66", \
-        bold yellow => "#80550B", \
-        bold green => "#355B3F", \
-        bold red => "#961C24"
+    # Keep line numbers colored so pure additions/deletions remain visible
+    line-numbers-left-style = brightblack
+    line-numbers-right-style = brightblack
+    line-numbers-zero-style = brightblack
+    line-numbers-minus-style = bold red
+    line-numbers-plus-style = bold green
 
 [rerere]
   enabled = false
