@@ -118,13 +118,13 @@ local highlights = {
   MatchParen = {
     fg = c.comment,
     bg = c.highlight,
-    bold = true,
+    bold = false,
   },
 
-  ModeMsg = { fg = c.fg, bold = true },
-  MoreMsg = { fg = c.fg, bold = true },
+  ModeMsg = { fg = c.fg, bold = false },
+  MoreMsg = { fg = c.fg, bold = false },
 
-  Error = { fg = c.error, bold = true },
+  Error = { fg = c.error, bold = false },
   Visual = { bg = c.visual },
 
   MsgSeparator = {},
@@ -137,7 +137,7 @@ local highlights = {
   CursorLineNr = {
     fg = c.warn,
     bg = "none",
-    bold = true,
+    bold = false,
   },
 
   CursorLine = { bg = c.highlight },
@@ -173,7 +173,7 @@ local highlights = {
   FloatTitle = {
     fg = c.fg,
     bg = c.bg,
-    bold = true,
+    bold = false,
   },
 
   FloatFooter = {
@@ -209,7 +209,7 @@ local highlights = {
   PmenuSel = {
     fg = c.bg,
     bg = c.info,
-    bold = true,
+    bold = false,
   },
 
   PmenuKind = {
@@ -220,7 +220,7 @@ local highlights = {
   PmenuKindSel = {
     fg = c.bg,
     bg = c.info,
-    bold = true,
+    bold = false,
   },
 
   PmenuExtra = {
@@ -258,12 +258,12 @@ local highlights = {
 
   CmpItemAbbrMatch = {
     fg = c.fg,
-    bold = true,
+    bold = false,
   },
 
   CmpItemAbbrMatchFuzzy = {
     fg = c.fg,
-    bold = true,
+    bold = false,
   },
 
   CmpItemMenu = {
@@ -305,7 +305,7 @@ local highlights = {
 
   Todo = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   NonText = {
@@ -316,7 +316,7 @@ local highlights = {
   StatusLine = {
     fg = c.fg,
     bg = c.status_active,
-    bold = true,
+    bold = false,
   },
 
   StatusLineNC = {
@@ -340,7 +340,7 @@ local highlights = {
   CurSearch = {
     fg = c.bg,
     bg = c.fg,
-    bold = true,
+    bold = false,
   },
 
   IncSearch = { link = "CurSearch" },
@@ -402,12 +402,12 @@ local highlights = {
 
   ["@string.escape"] = {
     fg = c.special,
-    bold = true,
+    bold = false,
   },
 
   ["@character.special"] = {
     fg = c.special,
-    bold = true,
+    bold = false,
   },
 
   ["@operator"] = {
@@ -452,7 +452,7 @@ local highlights = {
 
   ["@constant.builtin"] = {
     fg = c.fg,
-    bold = true,
+    bold = false,
   },
 
   ["@module"] = {
@@ -492,72 +492,72 @@ local highlights = {
   -- Treesitter headings
   ["@markup.heading"] = {
     fg = c.keyword,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.1.markdown"] = {
     fg = c.keyword,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.2.markdown"] = {
     fg = c.info,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.3.markdown"] = {
     fg = c.special,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.4.markdown"] = {
     fg = c.warn,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.5.markdown"] = {
     fg = c.string,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.6.markdown"] = {
     fg = c.dim,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.content"] = {
     fg = c.keyword,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.1.content.markdown"] = {
     fg = c.keyword,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.2.content.markdown"] = {
     fg = c.info,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.3.content.markdown"] = {
     fg = c.special,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.4.content.markdown"] = {
     fg = c.warn,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.5.content.markdown"] = {
     fg = c.string,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.6.content.markdown"] = {
     fg = c.dim,
-    bold = true,
+    bold = false,
   },
 
   ["@markup.heading.1.delimiter.markdown"] = {
@@ -587,32 +587,32 @@ local highlights = {
   -- Built-in Vim regex syntax fallback
   markdownH1 = {
     fg = c.keyword,
-    bold = true,
+    bold = false,
   },
 
   markdownH2 = {
     fg = c.info,
-    bold = true,
+    bold = false,
   },
 
   markdownH3 = {
     fg = c.special,
-    bold = true,
+    bold = false,
   },
 
   markdownH4 = {
     fg = c.warn,
-    bold = true,
+    bold = false,
   },
 
   markdownH5 = {
     fg = c.string,
-    bold = true,
+    bold = false,
   },
 
   markdownH6 = {
     fg = c.dim,
-    bold = true,
+    bold = false,
   },
 
   markdownH1Delimiter = {
@@ -677,12 +677,12 @@ local highlights = {
 
   ["@text.todo"] = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   ["@text.danger"] = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   ["@text.note"] = {
@@ -718,12 +718,12 @@ local highlights = {
 
   FzfLuaTitle = {
     fg = c.fg,
-    bold = true,
+    bold = false,
   },
 
   FzfLuaTitleFlags = {
     fg = c.info,
-    bold = true,
+    bold = false,
   },
 
   FzfLuaHeaderBind = {
@@ -744,7 +744,7 @@ local highlights = {
 
   FzfLuaLivePrompt = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   FzfLuaLiveSym = {
@@ -765,22 +765,22 @@ local highlights = {
 
   FzfLuaTabTitle = {
     fg = c.info,
-    bold = true,
+    bold = false,
   },
 
   FzfLuaTabMarker = {
     fg = c.ok,
-    bold = true,
+    bold = false,
   },
 
   FzfLuaFzfMatch = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   DropBarFzfMatch = {
     fg = c.error,
-    bold = true,
+    bold = false,
   },
 
   fzf1 = {
