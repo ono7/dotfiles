@@ -16,6 +16,7 @@ vim.opt.bufhidden = "hide"
 vim.opt.hidden = true
 vim.opt.history = 1000
 vim.opt.mouse = "n"
+vim.opt.mousemoveevent = false
 vim.opt.autochdir = false
 vim.opt.autoread = true
 vim.opt.more = true
