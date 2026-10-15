@@ -45,6 +45,7 @@ return {
         formatter = false,
         scope = "global",
         winopts = {
+          height = 0.25, -- 25% of the screen
           preview = { hidden = true },
         },
       },

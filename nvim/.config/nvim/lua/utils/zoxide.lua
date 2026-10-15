@@ -91,7 +91,7 @@ function M.setup()
         title = " Zoxide Directories ",
         title_pos = "center",
         width = 0.9, -- Use 90% of screen width
-        height = 0.9, -- Use 90% of screen height
+        height = 0.35, -- Use 90% of screen height
       },
       fzf_opts = {
         ["--scheme"] = "path",
