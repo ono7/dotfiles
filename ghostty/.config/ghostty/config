@@ -68,6 +68,17 @@ clipboard-read = allow
 clipboard-write = allow
 copy-on-select = true
 
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = true
+
+# ------------------------------------------------------------------------------
+# 6. Keybindings
+# ------------------------------------------------------------------------------
+# NOTE(jlima): Explicit clipboard access matching Linux/X11 conventions
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+
 # ------------------------------------------------------------------------------
 # 6. Keybindings
 # ------------------------------------------------------------------------------
@@ -89,5 +100,3 @@ keybind = ctrl+x>0=close_surface
 keybind = ctrl+x>1=toggle_split_zoom
 keybind = ctrl+x>o=goto_split:next
 keybind = ctrl+x>ctrl+c=quit
-
-vsync = true
