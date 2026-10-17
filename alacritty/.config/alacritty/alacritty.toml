@@ -72,7 +72,7 @@ args = ["--login"]
 program = "/bin/zsh"
 
 [cursor]
-style = { blinking = "Always" }
+style = { blinking = "Never" }
 blink_interval = 300
 blink_timeout = 0
 

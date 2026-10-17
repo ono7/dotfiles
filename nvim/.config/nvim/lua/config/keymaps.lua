@@ -24,7 +24,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 --- nop ---
--- k({ "n", "i", "v", "t" }, "<D-q>", "")
 k("n", "ZZ", "")
 k("n", "ZQ", "")
 -- k("i", "<M-e>", "")
@@ -439,7 +438,7 @@ cmap("<M-f>", "<S-Right>", "Word forward")
 
 -- Deletion
 -- cmap("<C-d>", "<Del>", "Delete character forward")
--- cmap("<M-d>", "<S-Right><C-w>", "Delete word forward")
+cmap("<M-d>", "<S-Right><C-w>", "Delete word forward")
 
 -- Kill line forward (cursor to end)
 vim.keymap.set("c", "<C-k>", function()
@@ -519,9 +518,6 @@ end)
 --- copy block
 k("n", "cp", "yap<S-}>p", opt)
 
-k("n", "<D-i>", "<c-i>", opt)
-k("n", "<D-o>", "<c-o>", opt)
-
 k("n", "<M-c>", function()
   vim.cmd.lcd("%:p:h")
   local path = vim.fn.getcwd()
@@ -546,12 +542,6 @@ k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 -- just send this key so that zsh can use it as move back 1 char (passthrough)
 vim.keymap.set("t", "<C-h>", "<C-h>")
 vim.keymap.set("t", "<C-p>", "<C-p>")
-
-k("t", "<D-e>", [[<c-e>]], silent)
-k("t", "<D-d>", [[<c-d>]], silent)
-k("t", "<D-c>", [[<c-c>]], silent)
-k("t", "<D-n>", [[<c-n>]], silent)
-k("t", "<D-r>", [[<c-r>]], silent)
 
 k({ "n" }, "<C-t>", [[<c-\><c-n>:T<CR>]], silent)
 
