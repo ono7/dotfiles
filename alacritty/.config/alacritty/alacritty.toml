@@ -103,7 +103,7 @@ x = 0
 y = 0
 
 [window]
-decorations = "Transparent"
+# decorations = "Transparent"
 decorations_theme_variant = "Light"
 dynamic_padding = false
 position = "None"
