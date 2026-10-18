@@ -1005,3 +1005,20 @@ vim.api.nvim_create_user_command("HRun", save_and_execute_hook, { desc = "Save a
 
 -- Hook Execution Keybinding
 map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, desc = "Save and run filetype hook" })
+
+--------------------------------------------------------------------------------
+-- 8. Native Package Manager (vim.pack)
+--------------------------------------------------------------------------------
+
+-- NOTE(jlima): Declaratively ensure plugins via native package manager API.
+vim.pack.add({
+  { src = "https://github.com/tpope/vim-fugitive" },
+  { src = "https://github.com/stevearc/oil.nvim" },
+})
+
+-- NOTE(jlima): Guard oil setup to prevent hard failure prior to first vim.pack sync.
+local has_oil, oil = pcall(require, "oil")
+if has_oil then
+  oil.setup()
+  map("n", "-", "<cmd>Oil<CR>", silent)
+end
