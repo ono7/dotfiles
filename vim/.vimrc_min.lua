@@ -115,7 +115,6 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
 vim.opt.foldnestmax = 2
 vim.opt.foldenable = false
--- NOTE(jlima): remove custom Lua foldtext and tree evaluation to avoid per-line string allocations on fold queries
 
 -- Statusline Format (Native printf; zero Lua runtime overhead during cursor movements)
 vim.opt.statusline = "%<%f %h%w%m%r %= %-10.(%l/%L%) %P "
@@ -522,6 +521,20 @@ map({ "x", "n" }, "<leader>p", '"+p', silent)
 map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
 
+-- Insert Mode Bracket Expansion
+-- NOTE(jlima): Slices current line memory directly instead of issuing nvim_buf_get_text on each Enter
+vim.keymap.set("i", "<CR>", function()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  if col > 0 then
+    local line = vim.api.nvim_get_current_line()
+    local pair = line:sub(col, col + 1)
+    if pair == "{}" or pair == "()" or pair == "[]" then
+      return "<CR><C-o>O"
+    end
+  end
+  return "<CR>"
+end, { expr = true })
+
 -- Emacs Insert Mode Navigation & Editing
 map("i", "<C-a>", "<C-o>^", silent)
 map("i", "<C-e>", "<End>", silent)
@@ -566,6 +579,22 @@ end, { expr = true, replace_keycodes = true })
 map("c", "<C-u>", function()
   return string.rep("<BS>", vim.fn.getcmdpos() - 1)
 end, { expr = true, replace_keycodes = true })
+
+-- Toggle quickfix list
+map("n", "<c-/>", function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+      break
+    end
+  end
+  if qf_exists == true then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end, silent)
 
 -- Quickfix Make Execution
 local function make_and_open_qf()
