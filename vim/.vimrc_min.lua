@@ -7,6 +7,15 @@ local nore = { noremap = true }
 local silent = { noremap = true, silent = true }
 local k = vim.keymap.set
 
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
+
 vim.g.mapleader = " "
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_2html_plugin = 1
@@ -502,6 +511,12 @@ map("n", "<C-l>", "<C-w>l", silent)
 -- Transients & Quickfix Control
 map("n", "<C-t>", "<cmd>T<CR>", silent)
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
+
+k("n", "<M-c>", function()
+  vim.cmd.lcd("%:p:h")
+  local path = vim.fn.getcwd()
+  print("new lcd: " .. trim_path(path))
+end, { silent = true })
 
 map("n", "<C-/>", hide_transients, silent)
 map("n", "<C-_>", hide_transients, silent)
@@ -1062,7 +1077,7 @@ vim.g.colors_name = "custom-paper-minimal"
 
 local bg = "#EDE9E1"
 local fg = "#242424"
-local fn_col = "#242424" -- Keep plain charcoal or swap to desired accent
+local fn_col = "#B63E46" -- Keep plain charcoal or swap to desired accent
 local type_col = "#35659A" -- Dedicated type color
 local comment = "#7B858F"
 local visual = "#D9D4CA"
@@ -1098,8 +1113,8 @@ local hl_groups = {
   Constant = { fg = fg },
   String = { fg = fg },
   Identifier = { fg = fg },
-  Statement = { fg = fg },
-  Keyword = { fg = fg },
+  Statement = { fg = fn_col },
+  Keyword = { fg = fn_col },
   Operator = { fg = fg },
   Delimiter = { fg = "#59616B" },
   Special = { fg = fg },
@@ -1112,6 +1127,8 @@ local hl_groups = {
   ["@function"] = { fg = fn_col, bold = true },
   ["@function.call"] = { fg = fn_col },
   ["@function.method"] = { fg = fn_col },
+  ["@keyword.conditional"] = { fg = fn_col },
+  ["@keyword.repeat"] = { fg = fn_col },
   ["@function.builtin"] = { fg = fn_col },
 
   -- Completion Menu & Diagnostics
