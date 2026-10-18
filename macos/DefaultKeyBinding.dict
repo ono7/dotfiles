@@ -86,6 +86,6 @@
 
   /* === META DELETE VARIANTS === */
   // Emacs M-Backspace (ensures Option+Backspace acts as backward word kill across all apps)
-  "~\\U007F" = "deleteWordBackward:";
-  "~\\010"   = "deleteWordBackward:";
+  // "~\\U007F" = "deleteWordBackward:";
+  // "~\\010"   = "deleteWordBackward:";
 }

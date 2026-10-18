@@ -12,7 +12,7 @@ foreground = "#38414D"
 
 [colors.cursor]
 text = "#F2EFE9"
-cursor = "#D97736"
+cursor = "#000000"
 
 [colors.vi_mode_cursor]
 text = "#F2EFE9"
