@@ -87,6 +87,23 @@ local function set_ft_indent(tabstop, expand)
   vim.bo.expandtab = expand
 end
 
+-- NOTE(jlima): Populates the native quickfix list while keeping compilation non-interactive.
+local function make_and_open_qf()
+  local save = vim.fn.winsaveview()
+  vim.cmd("silent make!")
+  vim.fn.winrestview(save)
+  local qf_count = #vim.fn.getqflist()
+  if qf_count > 0 then
+    vim.cmd("copen")
+    vim.cmd("wincmd p")
+  else
+    vim.cmd("cclose")
+    vim.notify("Build clean.", vim.log.levels.INFO)
+  end
+end
+
+map("n", "<leader>m", make_and_open_qf, sil)
+
 vim.api.nvim_create_autocmd("FileType", {
   group = core_group,
   callback = function(args)
