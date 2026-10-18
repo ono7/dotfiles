@@ -498,9 +498,6 @@ end
 map("n", "<leader>w", safe_write, silent)
 map("n", "<M-w>", safe_write, silent)
 
--- NOTE(jlima): Use :x! to preserve mtime on untouched buffers while forcing write if modified
-map("i", "<C-x>", "<Esc>:x!<CR>", silent)
-
 -- Visual Editing & Clipboard
 map("v", "J", ":m '>+1<CR>gv=gv", silent)
 map("v", "K", ":m '<-2<CR>gv=gv", silent)
