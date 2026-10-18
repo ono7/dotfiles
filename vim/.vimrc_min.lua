@@ -55,6 +55,27 @@ o.timeout = false
 o.ttimeout = true
 o.ttimeoutlen = 10
 
+o.swapfile = false
+o.directory = "~/.tmp"
+o.synmaxcol = 200
+o.lazyredraw = false
+o.scrollback = 10000 -- Bounded to prevent memory bloat and GC pauses
+o.maxmempattern = 2000
+
+vim.opt.wildignore:append({
+  "*/.git/*",
+  "*/.venv/*",
+  "*/venv/*",
+  "*/__pycache__/*",
+  "*/node_modules/*",
+  "*/.tox/*",
+  "*/build/*",
+  "*/dist/*",
+  "*.o",
+  "*.pyc",
+  "*.swp",
+})
+
 -- Grep Integration
 if vim.fn.executable("rg") == 1 then
   o.grepprg = "rg --vimgrep --no-heading --smart-case --pcre2"
