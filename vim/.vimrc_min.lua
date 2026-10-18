@@ -15,6 +15,7 @@ vim.g.mapleader = " "
 local o = vim.opt
 
 -- State & File I/O (Zero Disk Writes)
+
 o.swapfile = false
 o.backup = false
 o.writebackup = false
@@ -45,6 +46,10 @@ else
   o.grepprg = "grep -nHIRE $* ."
   o.grepformat = "%f:%l:%m"
 end
+
+-- c/cpp
+-- NOTE(jlima): remove colon trigger from cinkeys to prevent re-indenting mid-typing
+vim.opt.cinkeys:remove(":")
 
 -- Global Diff Configuration
 o.diffopt = {
@@ -87,6 +92,16 @@ local function set_ft_indent(tabstop, expand)
   vim.bo.expandtab = expand
 end
 
+-- NOTE(jlima): buffer-local bracket navigation for quickfix to preserve normal j/k line motions
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function(args)
+    vim.keymap.set("n", "]", "<cmd>cnext<CR>", { buffer = args.buf, silent = true, desc = "Next quickfix entry" })
+    vim.keymap.set("n", "[", "<cmd>cprev<CR>", { buffer = args.buf, silent = true, desc = "Previous quickfix entry" })
+    vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf, desc = "Jump to quickfix entry" })
+  end,
+})
+
 -- NOTE(jlima): Populates the native quickfix list while keeping compilation non-interactive.
 local function make_and_open_qf()
   local save = vim.fn.winsaveview()
@@ -102,7 +117,7 @@ local function make_and_open_qf()
   end
 end
 
-map("n", "<leader>m", make_and_open_qf, silent)
+map("n", "<c-m>", make_and_open_qf, silent)
 
 vim.api.nvim_create_autocmd("FileType", {
   group = core_group,
@@ -445,6 +460,8 @@ end, { expr = true })
 --------------------------------------------------------------------------------
 -- 5. Keybindings & Emacs-Style Motions
 --------------------------------------------------------------------------------
+-- Remap ; to enter command-line mode directly
+map({ "n", "x" }, ";", ":", nore)
 
 -- Normal Mode Navigation & Baseline
 map("n", "Y", "y$", nore)
