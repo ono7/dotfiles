@@ -1037,7 +1037,6 @@ end, { nargs = "*", desc = "Configure or clear runner hook for current filetype"
 vim.api.nvim_create_user_command("HRun", save_and_execute_hook, { desc = "Save and run filetype hook" })
 map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, desc = "Save and run filetype hook" })
 
-
 --- visual selection search ---
 vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 
@@ -1058,7 +1057,7 @@ vim.pack.add({
 local has_oil, oil = pcall(require, "oil")
 if has_oil then
   oil.setup()
-  map("n", "-", "<cmd>Oil<CR>", silent)
+  vim.keymap.set("n", "<c-\\>", "<CMD>Oil<CR>")
 end
 
 local has_pick, pick = pcall(require, "mini.pick")
@@ -1174,10 +1173,10 @@ for group, spec in pairs(hl_groups) do
   vim.api.nvim_set_hl(0, group, spec)
 end
 
-vim.cmd[[
+vim.cmd([[
 nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-]]
+]])
 
 -- fix command line editing window, by restoring CR mapping to defaults
 -- the <c-m> mapping for running make was causing problems
