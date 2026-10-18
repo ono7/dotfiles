@@ -109,11 +109,17 @@ fi
 alias vio="$HOME/.local/vim/bin/vim"
 alias vil='vim -u ~/.dotfiles/vim/.vimrc_min.lua'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
-alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
+# alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
 # alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 # NOTE(jlima): Pass explicit config directly through Neovide argument separator
 
-alias nv="neovide --fork -- -u ~/.dotfiles/vim/.vimrc_min.lua"
+nv() {
+  neovide --fork "$@"
+}
+
+n() {
+  neovide --fork -- -u ~/.dotfiles/vim/.vimrc_min.lua "$@"
+}
 
 export LS_COLORS="${LS_COLORS}:ow=01;34:tw=01;34:st=01;34:"
 
