@@ -102,9 +102,6 @@ alias f='cd $(fd --type d --hidden --exclude .git --exclude node_modules --exclu
 # Editors & Fallback
 if command -v nvim >/dev/null 2>&1; then
   alias vim='nvim -n'
-  alias vi='nvim -n'
-else
-  alias vi='vim'
 fi
 alias vio="$HOME/.local/vim/bin/vim"
 alias vil='vim -u ~/.dotfiles/vim/.vimrc_min.lua'
@@ -118,6 +115,10 @@ nv() {
 }
 
 n () {
+    neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
+}
+
+vi () {
     neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
 }
 
