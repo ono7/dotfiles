@@ -49,7 +49,10 @@ end
 
 -- c/cpp
 -- NOTE(jlima): remove colon trigger from cinkeys to prevent re-indenting mid-typing
-vim.opt.cinkeys:remove(":")
+o.cinkeys:remove(":")
+o.ignorecase = true
+o.smartcase = true
+o.inccommand = "nosplit"
 
 -- Global Diff Configuration
 o.diffopt = {
