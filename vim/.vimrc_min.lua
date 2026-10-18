@@ -1037,6 +1037,15 @@ end, { nargs = "*", desc = "Configure or clear runner hook for current filetype"
 vim.api.nvim_create_user_command("HRun", save_and_execute_hook, { desc = "Save and run filetype hook" })
 map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, desc = "Save and run filetype hook" })
 
+
+--- visual selection search ---
+vim.keymap.set("v", "<enter>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
+
+vim.keymap.set("n", "<leader>te", function()
+  local dir = vim.fn.expand("%:p:h")
+  vim.fn.jobstart({ "alacritty", "--working-directory", dir }, { detach = true })
+end, { desc = "Open Alacritty in current directory" })
+
 --------------------------------------------------------------------------------
 -- 7. Native Package Manager (vim.pack)
 --------------------------------------------------------------------------------
