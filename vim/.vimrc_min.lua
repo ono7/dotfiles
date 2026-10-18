@@ -80,6 +80,53 @@ vim.opt.diffopt:remove("inline:char")
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,9"
 
+vim.opt.timeout = true
+vim.opt.timeoutlen = 300
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 10
+vim.opt.updatetime = 400
+
+vim.opt.jumpoptions = { "stack", "view" }
+
+-- =============================================================================
+-- 4. Indentation & Formatting (Optimized for Low Latency)
+-- =============================================================================
+vim.opt.autoindent = true
+vim.opt.smartindent = false -- Disabled: avoids conflicts with filetype indent scripts
+vim.opt.breakindent = false
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.textwidth = 80
+vim.opt.formatoptions = "qlj"
+vim.opt.joinspaces = false
+
+-- =============================================================================
+-- 5. Search & Pattern Matching
+-- =============================================================================
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.inccommand = "nosplit"
+vim.g.matchparen_timeout = 10
+vim.g.matchparen_insert_timeout = 10
+
+-- =============================================================================
+-- 6. Undo & Shada Persistence
+-- =============================================================================
+local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+vim.opt.undodir = undo_dir
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
+
+vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+
 vim.opt.wildignore:append({
   "*/.git/*",
   "*/.venv/*",
@@ -148,14 +195,6 @@ end
 --------------------------------------------------------------------------------
 local core_group = vim.api.nvim_create_augroup("CoreSystemAutoCmds", { clear = true })
 
--- Filetype tab spacing
-local function set_ft_indent(tabstop, expand)
-  vim.bo.tabstop = tabstop
-  vim.bo.softtabstop = expand and tabstop or 0
-  vim.bo.shiftwidth = tabstop
-  vim.bo.expandtab = expand
-end
-
 -- NOTE(jlima): buffer-local bracket navigation for quickfix to preserve normal j/k line motions
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
@@ -183,29 +222,30 @@ end
 
 map("n", "<c-m>", make_and_open_qf, silent)
 
-vim.api.nvim_create_autocmd("FileType", {
-  group = core_group,
-  callback = function(args)
-    local ft = vim.bo[args.buf].filetype
-    if ft == "python" then
-      set_ft_indent(4, true)
-    elseif ft:match("^(typescript|javascript|markdown|json|ya?ml|html|css)$") then
-      set_ft_indent(2, true)
-    elseif ft == "go" or ft == "make" then
-      set_ft_indent(4, false)
-    elseif ft:match("^(sh|bash|zsh|jinja2?)$") then
-      set_ft_indent(2, true)
-    elseif ft == "qf" then
-      vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf })
-    end
+vim.cmd([[
+augroup FileTypeSettings
+  autocmd!
 
-    -- Normalize commentstring formatting
-    local cs = vim.bo[args.buf].commentstring
-    if cs ~= "" and cs:find("%%s") then
-      vim.bo[args.buf].commentstring = vim.trim(cs:gsub("%s*%%s%s*", " %%s "))
-    end
-  end,
-})
+  " Python - 4 spaces
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+  " TypeScript/JavaScript/JSON/YAML - 2 spaces
+  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Go - 4-width tabs
+  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Shell scripts - 2 spaces
+  autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+
+  " Makefiles - tabs (required)
+  autocmd FileType make setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+  " Jinja templates - 2 spaces
+  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup end
+
+]])
 
 -- Large File Handling & Buffer Position Restore
 vim.api.nvim_create_autocmd("BufReadPre", {
