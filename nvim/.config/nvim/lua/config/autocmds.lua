@@ -122,7 +122,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
       vim.cmd("copen")
     else
       vim.cmd("cclose")
-      print("Build successful")
+      print("Build complete..")
     end
   end,
 })
