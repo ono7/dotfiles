@@ -2,6 +2,10 @@
 -- Streamlined Headless / Server Neovim Configuration
 -- Engineering Invariants: Native APIs, zero disk writes, deterministic state
 -- ==============================================================================
+local map = vim.keymap.set
+local nore = { noremap = true }
+local sil = { noremap = true, silent = true }
+local k = vim.keymap.set
 
 vim.g.mapleader = " "
 
@@ -424,9 +428,6 @@ end, { expr = true })
 --------------------------------------------------------------------------------
 -- 5. Keybindings & Emacs-Style Motions
 --------------------------------------------------------------------------------
-local map = vim.keymap.set
-local nore = { noremap = true }
-local sil = { noremap = true, silent = true }
 
 -- Normal Mode Navigation & Baseline
 map("n", "Y", "y$", nore)
@@ -455,6 +456,8 @@ map("n", "<C-l>", "<C-w>l", sil)
 
 -- Transients & Quickfix Control
 map("n", "<C-t>", "<cmd>T<CR>", sil)
+k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
+
 map("n", "<C-/>", hide_transients, sil)
 map("n", "<C-_>", hide_transients, sil)
 map("t", "<C-/>", function()
@@ -538,34 +541,6 @@ map("c", "<C-u>", function()
 end, { expr = true, replace_keycodes = true })
 
 -- Visual Selection Wrapping
-local function wrap_selection(left, right)
-  local save_reg = vim.fn.getreg('"')
-  vim.cmd("normal! `>")
-  local end_pos = vim.api.nvim_win_get_cursor(0)
-  vim.cmd("normal! `<")
-  local start_pos = vim.api.nvim_win_get_cursor(0)
-
-  vim.api.nvim_buf_set_text(0, end_pos[1] - 1, end_pos[2] + 1, end_pos[1] - 1, end_pos[2] + 1, { right })
-  vim.api.nvim_buf_set_text(0, start_pos[1] - 1, start_pos[2], start_pos[1] - 1, start_pos[2], { left })
-  vim.fn.setreg('"', save_reg)
-  vim.cmd("startinsert")
-end
-
-map("x", "'", function()
-  wrap_selection("'", "'")
-end, sil)
-map("x", '"', function()
-  wrap_selection('"', '"')
-end, sil)
-map("x", "`", function()
-  wrap_selection("`", "`")
-end, sil)
-map("x", "(", function()
-  wrap_selection("(", ")")
-end, sil)
-map("x", "[", function()
-  wrap_selection("[", "]")
-end, sil)
 
 -- Macro execution in Visual Line
 map("x", "@", function()
