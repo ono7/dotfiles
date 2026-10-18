@@ -2,24 +2,11 @@
 -- Streamlined Headless / Server Neovim Configuration
 -- Engineering Invariants: Native APIs, zero disk writes, deterministic state
 -- ==============================================================================
-local map = vim.keymap.set
-local nore = { noremap = true }
-local silent = { noremap = true, silent = true }
-local k = vim.keymap.set
-
-local function trim_path(s)
-  if #s < 50 then
-    return s
-  else
-    local l = #s / 2
-    return s:sub(-l)
-  end
-end
+vim.loader.enable()
 
 vim.g.mapleader = " "
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_2html_plugin = 1
-
 vim.g.loaded_matchparen = 1
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
@@ -29,70 +16,60 @@ vim.g.loaded_python3_provider = 0
 --------------------------------------------------------------------------------
 -- 1. State, Buffer I/O & Core Options
 --------------------------------------------------------------------------------
-local o = vim.opt
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 10000
 
--- State & File I/O (Zero Disk Writes)
+local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
+if vim.fn.isdirectory(undo_dir) == 0 then
+  vim.fn.mkdir(undo_dir, "p")
+end
+vim.opt.undodir = undo_dir
+vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
 
-o.swapfile = false
-o.backup = false
-o.writebackup = false
-o.undofile = false
-o.updatecount = 0
-o.breakindent = false
+vim.opt.updatecount = 0
+vim.opt.updatetime = 300
+vim.opt.bufhidden = "hide"
+vim.opt.hidden = true
+vim.opt.history = 1000
+vim.opt.mouse = "" -- NOTE(jlima): disables terminal mouse tracking entirely to strip event loop overhead
+vim.opt.mousemoveevent = false
+vim.opt.autochdir = false
+vim.opt.autoread = true
+vim.opt.more = false
 
 -- Interface Baseline
-o.background = "light"
-o.termguicolors = true
-o.helplang = "en"
-o.encoding = "utf-8"
-o.laststatus = 0
-o.shortmess = "aoOstTWICcF"
-o.guicursor = "a:block-blinkon0"
-o.backspace = { "indent", "eol", "start" }
+vim.opt.background = "light"
+vim.opt.termguicolors = true
+vim.opt.helplang = "en"
+vim.opt.encoding = "utf-8"
+vim.opt.laststatus = 0
+vim.opt.showtabline = 1
+vim.opt.showcmd = false
+vim.opt.showmode = true
+vim.opt.ruler = false -- NOTE(jlima): ruler redraws on every cursor column movement; disable when using custom statusline
+vim.opt.shortmess = "aoOstTWICcF"
+vim.opt.guicursor = "a:block-blinkon0"
+vim.opt.backspace = { "indent", "eol", "start" }
 
-o.foldmethod = "manual"
-o.foldlevelstart = 99
-o.foldcolumn = "0"
-o.foldnestmax = 2
-o.foldenable = false
-vim.g.markdown_folding = 1
-
--- Input Timing
-o.timeout = false
-o.ttimeout = true
-o.ttimeoutlen = 10
-
-o.swapfile = false
-o.directory = "~/.tmp"
-o.synmaxcol = 200
-o.lazyredraw = false
-o.scrollback = 10000 -- Bounded to prevent memory bloat and GC pauses
-o.maxmempattern = 2000
-
-vim.opt.isfname:append("@-@")
-vim.opt.iskeyword:append("_")
-vim.opt.iskeyword:remove("-")
-vim.opt.nrformats:append("alpha")
-vim.opt.sessionoptions:remove("terminal")
-
-vim.opt.diffopt:remove("inline:char")
-
-vim.opt.spelllang = "en_us"
-vim.opt.spellsuggest = "best,9"
-
+-- Input Timing (Zero-delay escape sequence resolution)
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 vim.opt.ttimeout = true
-vim.opt.ttimeoutlen = 10
-vim.opt.updatetime = 400
+vim.opt.ttimeoutlen = 0 -- NOTE(jlima): 0ms resolves terminal escape sequences immediately on key release
 
-vim.opt.jumpoptions = { "stack", "view" }
+-- Performance & Memory Guards
+vim.opt.synmaxcol = 200
+vim.opt.lazyredraw = false
+vim.opt.scrollback = 10000
+vim.opt.maxmempattern = 2000
 
--- =============================================================================
--- 4. Indentation & Formatting (Optimized for Low Latency)
--- =============================================================================
+-- Indentation & Formatting
 vim.opt.autoindent = true
-vim.opt.smartindent = false -- Disabled: avoids conflicts with filetype indent scripts
+vim.opt.smartindent = false
 vim.opt.breakindent = false
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -101,31 +78,54 @@ vim.opt.expandtab = true
 vim.opt.textwidth = 80
 vim.opt.formatoptions = "qlj"
 vim.opt.joinspaces = false
+vim.opt.cinkeys:remove(":")
 
--- =============================================================================
--- 5. Search & Pattern Matching
--- =============================================================================
+-- Search & Pattern Matching
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = "nosplit"
-vim.g.matchparen_timeout = 10
-vim.g.matchparen_insert_timeout = 10
+vim.g.matchparen_timeout = 2
+vim.g.matchparen_insert_timeout = 2
 
--- =============================================================================
--- 6. Undo & Shada Persistence
--- =============================================================================
-local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
-if vim.fn.isdirectory(undo_dir) == 0 then
-  vim.fn.mkdir(undo_dir, "p")
-end
-vim.opt.undodir = undo_dir
-vim.opt.undofile = true
-vim.opt.undolevels = 1000
-vim.opt.undoreload = 10000
+-- Splits & Jump Navigation
+vim.opt.splitright = true
+vim.opt.splitbelow = false
+vim.opt.splitkeep = "screen"
+vim.opt.scrolloff = 0
+vim.opt.sidescrolloff = 0
+vim.opt.sidescroll = 0
+vim.opt.smoothscroll = false
+vim.opt.jumpoptions = { "stack", "view" }
 
-vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+-- Display & Visual Configuration
+vim.opt.number = false
+vim.opt.relativenumber = false
+vim.opt.signcolumn = "yes:1"
+vim.opt.pumheight = 10
+vim.opt.cursorline = false
+vim.opt.cursorcolumn = false
+vim.opt.ambiwidth = "single"
+vim.opt.title = false
+
+-- Folding Configuration (Pure Native Manual)
+vim.opt.foldmethod = "manual"
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "0"
+vim.opt.foldnestmax = 2
+vim.opt.foldenable = false
+-- NOTE(jlima): remove custom Lua foldtext and tree evaluation to avoid per-line string allocations on fold queries
+
+-- Statusline Format (Native printf; zero Lua runtime overhead during cursor movements)
+vim.opt.statusline = "%<%f %h%w%m%r %= %-10.(%l/%L%) %P "
+
+-- Path & Wildcard Filtering
+vim.opt.isfname:append("@-@")
+vim.opt.iskeyword:append("_")
+vim.opt.iskeyword:remove("-")
+vim.opt.nrformats:append("alpha")
+vim.opt.sessionoptions:remove("terminal")
 
 vim.opt.wildignore:append({
   "*/.git/*",
@@ -140,28 +140,11 @@ vim.opt.wildignore:append({
   "*.pyc",
   "*.swp",
 })
+vim.opt.wildmenu = true
+vim.opt.wildmode = "longest:full,full"
 
--- Grep Integration
-if vim.fn.executable("rg") == 1 then
-  o.grepprg = "rg --vimgrep --no-heading --smart-case --pcre2"
-  o.grepformat = "%f:%l:%c:%m"
-else
-  o.grepprg = "grep -nHIRE $* ."
-  o.grepformat = "%f:%l:%m"
-end
-
--- c/cpp
--- NOTE(jlima): remove colon trigger from cinkeys to prevent re-indenting mid-typing
-o.cinkeys:remove(":")
-o.ignorecase = true
-o.smartcase = true
-o.inccommand = "nosplit"
-
-vim.opt.spelllang = "en_us"
-vim.opt.spellsuggest = "best,9"
-
--- Global Diff Configuration
-o.diffopt = {
+-- Diff Configuration
+vim.opt.diffopt = {
   "vertical",
   "filler",
   "closeoff",
@@ -173,7 +156,20 @@ o.diffopt = {
   "followwrap",
 }
 
-vim.opt.diffopt:remove("inline:char")
+vim.opt.spelllang = "en_us"
+vim.opt.spellsuggest = "best,9"
+
+-- Grep Integration
+if vim.fn.executable("rg") == 1 then
+  vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case --pcre2"
+  vim.opt.grepformat = "%f:%l:%c:%m"
+else
+  vim.opt.grepprg = "grep -nHIRE $* ."
+  vim.opt.grepformat = "%f:%l:%m"
+end
+
+-- Shell & Terminal Detection
+vim.o.shell = vim.fn.executable("zsh") == 1 and "zsh" or vim.o.shell
 
 -- SSH OSC 52 Clipboard Integration
 if vim.env.SSH_TTY then
@@ -195,8 +191,18 @@ end
 --------------------------------------------------------------------------------
 local core_group = vim.api.nvim_create_augroup("CoreSystemAutoCmds", { clear = true })
 
+-- NOTE(jlima): enforces formatoptions deterministically against runtime ftplugin overrides
+vim.api.nvim_create_autocmd("FileType", {
+  group = core_group,
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions = "qlj"
+  end,
+})
+
 -- NOTE(jlima): buffer-local bracket navigation for quickfix to preserve normal j/k line motions
 vim.api.nvim_create_autocmd("FileType", {
+  group = core_group,
   pattern = "qf",
   callback = function(args)
     vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { buffer = args.buf, silent = true, desc = "Next quickfix entry" })
@@ -205,47 +211,39 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- NOTE(jlima): Populates the native quickfix list while keeping compilation non-interactive.
-local function make_and_open_qf()
-  local save = vim.fn.winsaveview()
-  vim.cmd("silent make!")
-  vim.fn.winrestview(save)
-  local qf_count = #vim.fn.getqflist()
-  if qf_count > 0 then
-    vim.cmd("copen")
-    vim.cmd("wincmd p")
-  else
-    vim.cmd("cclose")
-    print("Build complete..")
-  end
-end
+-- FileType Indentation Rules
+vim.api.nvim_create_autocmd("FileType", {
+  group = core_group,
+  pattern = "python",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end,
+})
 
-map("n", "<c-m>", make_and_open_qf, silent)
+vim.api.nvim_create_autocmd("FileType", {
+  group = core_group,
+  pattern = { "typescript", "javascript", "markdown", "typescriptreact", "javascriptreact", "json", "yaml", "yml", "sh", "bash", "zsh", "jinja", "jinja2" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
+  end,
+})
 
-vim.cmd([[
-augroup FileTypeSettings
-  autocmd!
-
-  " Python - 4 spaces
-  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-
-  " TypeScript/JavaScript/JSON/YAML - 2 spaces
-  autocmd FileType typescript,javascript,markdown,typescriptreact,javascriptreact,json,yaml,yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-  " Go - 4-width tabs
-  autocmd FileType go setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-
-  " Shell scripts - 2 spaces
-  autocmd FileType sh,bash,zsh setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-  " Makefiles - tabs (required)
-  autocmd FileType make setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-
-  " Jinja templates - 2 spaces
-  autocmd FileType jinja,jinja2 setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-augroup end
-
-]])
+vim.api.nvim_create_autocmd("FileType", {
+  group = core_group,
+  pattern = { "go", "make" },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = false
+  end,
+})
 
 -- Large File Handling & Buffer Position Restore
 vim.api.nvim_create_autocmd("BufReadPre", {
@@ -272,7 +270,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Buffer Clean on Write
+-- Fast Trailing Whitespace Cleanup (Without Global Document Rescanning)
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = core_group,
   callback = function(args)
@@ -280,25 +278,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       return
     end
     local save = vim.fn.winsaveview()
-    vim.cmd([[keeppatterns %s/\v\s*\r+$\vert{}\s+$//e]])
-    vim.cmd([[keeppatterns %s#\($\n\s*\)\+\%$##e]])
-    if vim.bo[args.buf].expandtab then
-      vim.cmd([[retab!]])
-    end
+    vim.cmd([[keeppatterns %s/\s\+$//e]])
     vim.fn.winrestview(save)
   end,
 })
-
--- Optional External Formatting
-if vim.fn.executable("prettier") == 1 then
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = core_group,
-    pattern = { "*.md", "*.json", "*.yaml", "*.yml", "*.css", "*.html", "*.js", "*.ts", "*.jsx", "*.tsx" },
-    callback = function()
-      vim.cmd("silent! execute '!prettier --write %' | edit!")
-    end,
-  })
-end
 
 -- Window Balance & Cmdwin Bindings
 vim.api.nvim_create_autocmd("VimResized", {
@@ -355,7 +338,6 @@ vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter", "WinEnter" }, {
   group = core_group,
   callback = function()
     if vim.bo.buftype == "terminal" then
-      vim.b.lualine_disable = true
       vim.opt_local.statusline = "%#Normal# "
     end
   end,
@@ -445,129 +427,13 @@ vim.api.nvim_create_autocmd("TabClosed", {
 })
 
 --------------------------------------------------------------------------------
--- 4. Custom Auto-Pair Engine
+-- 4. Keybindings & Emacs-Style Motions
 --------------------------------------------------------------------------------
-local my_pair_map = { ["("] = ")", ["["] = "]", ["{"] = "}", ["<"] = ">", ["'"] = "'", ['"'] = '"', ["`"] = "`" }
-local r_bracket_map = { [")"] = true, ["]"] = true, ["}"] = true, [">"] = true, [" "] = true, ["\t"] = true }
-local r_quote_ws_map = { [""] = true, [" "] = true, ["\t"] = true }
-local l_quote_prefix_map = {
-  [""] = true,
-  [" "] = true,
-  ["\t"] = true,
-  ["("] = true,
-  ["["] = true,
-  ["{"] = true,
-  ["<"] = true,
-  ["="] = true,
-  [":"] = true,
-  [","] = true,
-  ["|"] = true,
-  ["!"] = true,
-  ["+"] = true,
-  ["-"] = true,
-  ["*"] = true,
-  ["/"] = true,
-  ["&"] = true,
-  ["~"] = true,
-  ["%"] = true,
-  ["f"] = true,
-  ["F"] = true,
-  ["r"] = true,
-  ["R"] = true,
-  ["b"] = true,
-  ["B"] = true,
-  ["u"] = true,
-  ["U"] = true,
-}
+local map = vim.keymap.set
+local nore = { noremap = true }
+local silent = { noremap = true, silent = true }
 
--- NOTE(jlima): Reads an exact 2-byte buffer window around the cursor via one call to avoid allocating entire minified lines.
-local function get_adjacent_chars()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local row, col = cursor[1] - 1, cursor[2]
-  local start_col = col > 0 and (col - 1) or 0
-  local text = vim.api.nvim_buf_get_text(0, row, start_col, row, col + 1, {})[1] or ""
-
-  local prev_char = col == 0 and "" or text:sub(1, 1)
-  local next_char = col == 0 and text:sub(1, 1) or text:sub(2, 2)
-  return prev_char, next_char, col
-end
-
-local function handle_open(char, close_char)
-  local prev_char, next_char = get_adjacent_chars()
-  if char == "{" and prev_char == "{" and next_char == "}" then
-    return "{  }<C-g>U<Left><Left>"
-  end
-
-  local is_allowed = (next_char == "") or r_bracket_map[next_char]
-  -- NOTE(jlima): Strict exception to support Ansible Jinja "{{  }}". ONLY "{" is permitted to auto-close inside quotes.
-  if char == "{" and (next_char == '"' or next_char == "'") then
-    is_allowed = true
-  end
-
-  if not is_allowed then
-    return char
-  end
-  return char .. close_char .. "<C-g>U<Left>"
-end
-
-local function handle_close(char)
-  local _, next_char = get_adjacent_chars()
-  return next_char == char and "<Right>" or char
-end
-
-local function handle_quote(char)
-  local prev_char, next_char = get_adjacent_chars()
-  if next_char == char then
-    return "<Right>"
-  end
-  if not l_quote_prefix_map[prev_char] or not r_quote_ws_map[next_char] then
-    return char
-  end
-  return char .. char .. "<C-g>U<Left>"
-end
-
-vim.keymap.set("i", "{", function()
-  return handle_open("{", "}")
-end, { expr = true })
-vim.keymap.set("i", "}", function()
-  return handle_close("}")
-end, { expr = true })
-vim.keymap.set("i", ")", function()
-  return handle_close(")")
-end, { expr = true })
-vim.keymap.set("i", "]", function()
-  return handle_close("]")
-end, { expr = true })
-vim.keymap.set("i", "`", function()
-  return handle_quote("`")
-end, { expr = true })
-
-vim.keymap.set("i", "<BS>", function()
-  local prev_char, next_char, col = get_adjacent_chars()
-  if col > 0 and my_pair_map[prev_char] and my_pair_map[prev_char] == next_char then
-    return "<BS><Del>"
-  end
-  return "<BS>"
-end, { expr = true, replace_keycodes = true })
-
-vim.keymap.set("i", "<CR>", function()
-  local prev_char, next_char, col = get_adjacent_chars()
-  if col > 0 and next_char ~= "" then
-    local pair = prev_char .. next_char
-    if pair == "{}" or pair == "()" or pair == "[]" then
-      return "<CR><C-o>O"
-    end
-  end
-  return "<CR>"
-end, { expr = true })
-
---------------------------------------------------------------------------------
--- 5. Keybindings & Emacs-Style Motions
---------------------------------------------------------------------------------
--- Remap ; to enter command-line mode directly
 map({ "n", "x" }, ";", ":", nore)
-
--- Normal Mode Navigation & Baseline
 map("n", "Y", "y$", nore)
 map("n", "&", ":&&<CR>", nore)
 map("n", "j", "gj", nore)
@@ -580,7 +446,6 @@ map("n", "<C-w><C-q>", "<C-w>c", nore)
 map("n", "<C-w><C-d>", "<C-w>d", nore)
 
 -- Directional Search Swap
--- NOTE(jlima): sacrifice insert-mode register paste (<C-r>) for directional search navigation
 map("i", "<C-r>", "<C-o>?", silent)
 map("i", "<C-s>", "<C-o>/", silent)
 map("n", "<C-r>", "?", nore)
@@ -592,11 +457,8 @@ map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
 
--- tab switching
-
--- NOTE(jlima): Flat normal and visual mode tab jumps avoiding mode inspection overhead.
+-- Tab Switching
 local modes = { "n", "x" }
-
 vim.keymap.set(modes, "<C-1>", "1gt")
 vim.keymap.set(modes, "<C-2>", "2gt")
 vim.keymap.set(modes, "<C-3>", "3gt")
@@ -608,14 +470,19 @@ vim.keymap.set(modes, "<C-8>", "8gt")
 
 -- Transients & Quickfix Control
 map("n", "<C-t>", "<cmd>T<CR>", silent)
+map("t", "<c-x>", [[<c-\><c-n>]], silent)
+map("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
--- term mode exit to normal mode
-k("t", "<c-x>", [[<c-\><c-n>]], silent)
+local function trim_path(s)
+  if #s < 50 then
+    return s
+  else
+    local l = #s / 2
+    return s:sub(-l)
+  end
+end
 
--- toggle terminal
-k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
-
-k("n", "<M-c>", function()
+map("n", "<M-c>", function()
   vim.cmd.lcd("%:p:h")
   local path = vim.fn.getcwd()
   print("new lcd: " .. trim_path(path))
@@ -632,7 +499,7 @@ map("t", "<C-_>", function()
   vim.cmd("stopinsert")
 end, silent)
 
--- Deterministic Save Execution (No undefined check_buf call)
+-- Deterministic Save Execution
 local function safe_write()
   local b = vim.api.nvim_get_current_buf()
   if not vim.api.nvim_buf_is_valid(b) or vim.bo[b].buftype ~= "" then
@@ -700,6 +567,22 @@ map("c", "<C-u>", function()
   return string.rep("<BS>", vim.fn.getcmdpos() - 1)
 end, { expr = true, replace_keycodes = true })
 
+-- Quickfix Make Execution
+local function make_and_open_qf()
+  local save = vim.fn.winsaveview()
+  vim.cmd("silent make!")
+  vim.fn.winrestview(save)
+  local qf_count = #vim.fn.getqflist()
+  if qf_count > 0 then
+    vim.cmd("copen")
+    vim.cmd("wincmd p")
+  else
+    vim.cmd("cclose")
+    print("Build complete..")
+  end
+end
+map("n", "<c-m>", make_and_open_qf, silent)
+
 -- Macro execution in Visual Line
 map("x", "@", function()
   return vim.fn.mode() == "V" and (":normal! @" .. vim.fn.getcharstr() .. "<CR>") or "@"
@@ -709,7 +592,7 @@ map("x", "Q", function()
 end, { expr = true })
 
 --------------------------------------------------------------------------------
--- 6. User Commands & Helpers
+-- 5. User Commands & Helpers
 --------------------------------------------------------------------------------
 local function run_fd_filtered(input, max_results)
   local parts = vim.split(input, "!", { plain = true })
@@ -767,10 +650,8 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     state.job = vim.b.terminal_job_id
 
     vim.wo.statusline = "%#Normal# "
-    vim.b[state.buf].lualine_disable = true
 
     vim.fn.chansend(state.job, "cd " .. vim.fn.shellescape(current_dir) .. "\n")
-    -- NOTE(jlima): Send ETX (Ctrl-C) to clear previous blocked executions before issuing next build.
     if cmd ~= "" then
       vim.fn.chansend(state.job, "\x03")
       vim.fn.chansend(state.job, cmd .. "\n")
@@ -800,7 +681,6 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   state.win = vim.api.nvim_get_current_win()
   vim.wo.statusline = "%#Normal# "
 
-  -- NOTE(jlima): Send ETX (Ctrl-C) to clear previous blocked executions before issuing next build.
   if cmd ~= "" then
     vim.fn.chansend(state.job, "\x03")
     vim.fn.chansend(state.job, cmd .. "\n")
@@ -876,7 +756,6 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
     end
   end
 
-  -- NOTE(jlima): Use nvim_get_option_value with pcall to prevent fatal __index errors on unlisted or dead bufs.
   local bufs = vim.tbl_filter(function(b)
     if not vim.api.nvim_buf_is_valid(b) then
       return false
@@ -912,7 +791,6 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
 
     if not is_excluded then
       if #include_pats == 0 then
-        -- NOTE(jlima): If no positive patterns exist, treat all non-excluded buffers as targets.
         table.insert(targets, buf)
       else
         for _, pat in ipairs(include_pats) do
@@ -932,7 +810,6 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
 
   local closed, skipped_modified = 0, 0
   for _, buf in ipairs(targets) do
-    -- NOTE(jlima): Verify buffer validity before checking modification state; deleting prior buffers can invalidate siblings.
     if vim.api.nvim_buf_is_valid(buf) then
       local ok_mod, is_modified = pcall(vim.api.nvim_get_option_value, "modified", { buf = buf })
       if not opts_cmd.bang and ok_mod and is_modified then
@@ -953,38 +830,9 @@ vim.api.nvim_create_user_command("Da", function(opts_cmd)
 end, {
   bang = true,
   nargs = "?",
-  complete = function(lead)
-    local prefix, current_lead = lead:match("^(.*|)(.*)$")
-    prefix = prefix or ""
-    current_lead = current_lead or lead
-
-    local excl_prefix = current_lead:match("^%s*(!)") or ""
-    local query = current_lead:sub(#excl_prefix + 1)
-
-    local bufs = vim.tbl_filter(function(b)
-      if not vim.api.nvim_buf_is_valid(b) then
-        return false
-      end
-      local ok, listed = pcall(vim.api.nvim_get_option_value, "buflisted", { buf = b })
-      return ok and listed
-    end, vim.api.nvim_list_bufs())
-
-    local candidates = {}
-    for _, buf in ipairs(bufs) do
-      local name = vim.api.nvim_buf_get_name(buf)
-      if name ~= "" then
-        local rel = vim.fn.fnamemodify(name, ":.")
-        if query == "" or rel:find(query, 1, true) then
-          table.insert(candidates, prefix .. excl_prefix .. rel)
-        end
-      end
-    end
-    return candidates
-  end,
   desc = "Close buffers matching pattern(s); prefix with '!' to exclude",
 })
 
--- Auxiliary Commands & Abbreviations
 vim.api.nvim_create_user_command("D", "bdelete!", {})
 vim.api.nvim_create_user_command("Cd", function()
   local name = vim.api.nvim_buf_get_name(0)
@@ -1010,9 +858,8 @@ vim.cmd([[
 ]])
 
 --------------------------------------------------------------------------------
--- 7. Filetype Execution Runner Hooks
+-- 6. Filetype Execution Runner Hooks
 --------------------------------------------------------------------------------
--- NOTE(jlima): Absolute path expansion avoids relying on external shell env during I/O operations.
 local HOOKS_PATH = vim.fn.expand("~/.dotfiles/hooks.json")
 
 local function load_hooks()
@@ -1046,7 +893,6 @@ local function save_hooks(hooks)
   end
 
   local uv = vim.uv or vim.loop
-  -- NOTE(jlima): O_TRUNC | O_CREAT | O_WRONLY guarantees atomic file recreation without leftover byte tails.
   local fd, err = uv.fs_open(HOOKS_PATH, "w", 438)
   if not fd then
     vim.notify(string.format("Failed to open hooks file: %s", err), vim.log.levels.ERROR)
@@ -1074,7 +920,6 @@ local function execute_hook_command(bufnr)
   local buf_name = vim.api.nvim_buf_get_name(bufnr)
   local buf_dir = buf_name ~= "" and vim.fs.dirname(buf_name) or vim.fn.getcwd()
 
-  -- NOTE(jlima): Temporarily scope lcd to file directory so wildcards expand matching :T's working directory without leaking state.
   local expanded_cmd
   vim.api.nvim_buf_call(bufnr, function()
     local saved_cwd = vim.fn.getcwd()
@@ -1084,7 +929,6 @@ local function execute_hook_command(bufnr)
   end)
 
   if expanded_cmd and expanded_cmd ~= "" then
-    -- NOTE(jlima): Chaining cd before execution ensures an existing terminal process synchronizes CWD without scraping terminal buffer state.
     local escaped_dir = vim.fn.fnameescape(buf_dir)
     vim.cmd(string.format("T cd %s && %s", escaped_dir, expanded_cmd))
   end
@@ -1095,7 +939,6 @@ local function save_and_execute_hook()
 
   if vim.bo[bufnr].buftype == "" and vim.bo[bufnr].modified then
     if vim.api.nvim_buf_get_name(bufnr) == "" then
-      -- NOTE(jlima): Blocking update on unnamed modified buffers enforces the materialized path invariant and prevents E32 crashes.
       vim.notify("Cannot save and execute: buffer has no file name.", vim.log.levels.ERROR)
       return
     end
@@ -1134,7 +977,6 @@ vim.api.nvim_create_user_command("H", function(args)
     print(string.format("[%s] Compiler configured: %s", ft, cleaned))
   end
 
-  -- NOTE(jlima): Passing no arguments presents an interactive edit prompt with existing command; empty input clears.
   if #args.args == 0 then
     vim.ui.input({
       prompt = string.format("[%s] Edit Hook (empty to clear): ", ft),
@@ -1148,29 +990,23 @@ vim.api.nvim_create_user_command("H", function(args)
 end, { nargs = "*", desc = "Configure or clear runner hook for current filetype" })
 
 vim.api.nvim_create_user_command("HRun", save_and_execute_hook, { desc = "Save and run filetype hook" })
-
--- Hook Execution Keybinding
 map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, desc = "Save and run filetype hook" })
 
 --------------------------------------------------------------------------------
--- 8. Native Package Manager (vim.pack)
+-- 7. Native Package Manager (vim.pack)
 --------------------------------------------------------------------------------
-
--- NOTE(jlima): Declaratively ensure plugins via native package manager API.
 vim.pack.add({
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
 }, { confirm = false })
 
--- NOTE(jlima): Guard oil setup to prevent hard failure prior to first vim.pack sync.
 local has_oil, oil = pcall(require, "oil")
 if has_oil then
   oil.setup()
   map("n", "-", "<cmd>Oil<CR>", silent)
 end
 
--- NOTE(jlima): Initialize isolated mini.pick file picker with native Neovide keymaps.
 local has_pick, pick = pcall(require, "mini.pick")
 if has_pick then
   pick.setup({
@@ -1183,11 +1019,11 @@ if has_pick then
 
   map("n", "<c-f>", "<cmd>Pick files<CR>", silent)
   map("n", "<leader>g", "<cmd>Pick grep_live<CR>", silent)
-  -- map("n", "<leader>fb", "<cmd>Pick buffers<CR>", silent)
-  -- map("n", "<leader>fh", "<cmd>Pick help<CR>", silent)
 end
 
--- ~/.config/nvim/colors/custom-paper-minimal.lua (or embed directly in init.lua)
+--------------------------------------------------------------------------------
+-- 8. Embedded Colorscheme: custom-paper-minimal
+--------------------------------------------------------------------------------
 vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") == 1 then
   vim.cmd("syntax reset")
@@ -1198,8 +1034,8 @@ vim.g.colors_name = "custom-paper-minimal"
 
 local bg = "#EDE9E1"
 local fg = "#242424"
-local fn_col = "#B63E46" -- Keep plain charcoal or swap to desired accent
-local type_col = "#35659A" -- Dedicated type color
+local fn_col = "#B63E46"
+local type_col = "#35659A"
 local comment = "#7B858F"
 local visual = "#D9D4CA"
 local hl = "#E5E1D9"
@@ -1210,10 +1046,7 @@ if vim.g.neovide then
   vim.g.neovide_background_color = bg
 end
 
--- colorscheme
--- NOTE(jlima): Consolidate semantic and regex tokens into batches to avoid declarative bloat.
 local hl_groups = {
-  -- Core Canvas & UI
   Normal = { fg = fg, bg = bg },
   NormalFloat = { fg = fg, bg = bg },
   FloatBorder = { fg = border, bg = bg },
@@ -1229,7 +1062,6 @@ local hl_groups = {
   CurSearch = { fg = bg, bg = fg },
   MatchParen = { fg = bg, bg = "#174B53", bold = true },
 
-  -- Syntax Base (Muted / Neutral)
   Comment = { fg = comment, italic = true },
   Constant = { fg = fg },
   String = { fg = fg },
@@ -1240,7 +1072,6 @@ local hl_groups = {
   Delimiter = { fg = "#59616B" },
   Special = { fg = fg },
 
-  -- Highlight Targets: Types & Functions
   Type = { fg = type_col },
   ["@type"] = { fg = type_col },
   ["@type.builtin"] = { fg = type_col },
@@ -1252,7 +1083,6 @@ local hl_groups = {
   ["@keyword.repeat"] = { fg = fn_col },
   ["@function.builtin"] = { fg = fn_col },
 
-  -- Completion Menu & Diagnostics
   Pmenu = { fg = fg, bg = bg },
   PmenuSel = { fg = bg, bg = type_col },
   PmenuThumb = { bg = line_nr },
@@ -1261,7 +1091,6 @@ local hl_groups = {
   DiagnosticInfo = { fg = type_col },
   DiagnosticHint = { fg = comment },
 
-  -- Git & Diff
   DiffAdd = { fg = "#2E4C35", bg = "#DCE7DE" },
   DiffDelete = { fg = "#8F242B", bg = "#F3DAD7" },
   DiffChange = { bg = "none" },
@@ -1272,7 +1101,6 @@ for group, spec in pairs(hl_groups) do
   vim.api.nvim_set_hl(0, group, spec)
 end
 
--- NOTE(jlima): Source isolated Neovide GUI configuration directly without touching runtimepath
 local neovide_path = vim.fn.expand("~/.dotfiles/nvim/.config/nvim/lua/config/neovide.lua")
 if vim.g.neovide and vim.fn.filereadable(neovide_path) == 1 then
   dofile(neovide_path)
