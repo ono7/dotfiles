@@ -1108,6 +1108,7 @@ map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, de
 vim.pack.add({
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/echasnovski/mini.pick" },
 }, { confirm = false })
 
 -- NOTE(jlima): Guard oil setup to prevent hard failure prior to first vim.pack sync.
@@ -1115,6 +1116,23 @@ local has_oil, oil = pcall(require, "oil")
 if has_oil then
   oil.setup()
   map("n", "-", "<cmd>Oil<CR>", silent)
+end
+
+-- NOTE(jlima): Initialize isolated mini.pick file picker with native Neovide keymaps.
+local has_pick, pick = pcall(require, "mini.pick")
+if has_pick then
+  pick.setup({
+    window = {
+      config = {
+        border = "single",
+      },
+    },
+  })
+
+  map("n", "<c-f>", "<cmd>Pick files<CR>", silent)
+  map("n", "<leader>g", "<cmd>Pick grep_live<CR>", silent)
+  -- map("n", "<leader>fb", "<cmd>Pick buffers<CR>", silent)
+  -- map("n", "<leader>fh", "<cmd>Pick help<CR>", silent)
 end
 
 -- ~/.config/nvim/colors/custom-paper-minimal.lua (or embed directly in init.lua)
