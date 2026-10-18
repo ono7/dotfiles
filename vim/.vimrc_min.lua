@@ -1014,7 +1014,7 @@ map("n", "<leader>r", save_and_execute_hook, { noremap = true, silent = true, de
 vim.pack.add({
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/stevearc/oil.nvim" },
-})
+}, { confirm = false })
 
 -- NOTE(jlima): Guard oil setup to prevent hard failure prior to first vim.pack sync.
 local has_oil, oil = pcall(require, "oil")
