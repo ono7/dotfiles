@@ -4,7 +4,7 @@
 -- ==============================================================================
 local map = vim.keymap.set
 local nore = { noremap = true }
-local silent = { noremap = true, silent = true }
+local sil = { noremap = true, silent = true }
 local k = vim.keymap.set
 
 vim.g.mapleader = " "
@@ -102,7 +102,7 @@ local function make_and_open_qf()
   end
 end
 
-map("n", "<leader>m", make_and_open_qf, silent)
+map("n", "<leader>m", make_and_open_qf, sil)
 
 vim.api.nvim_create_autocmd("FileType", {
   group = core_group,
@@ -451,40 +451,40 @@ map("n", "Y", "y$", nore)
 map("n", "&", ":&&<CR>", nore)
 map("n", "j", "gj", nore)
 map("n", "k", "gk", nore)
-map("n", "<leader><leader>", "<cmd>set hlsearch!<CR>", silent)
-map("n", "<leader>a", "ggVG", silent)
-map("n", "<leader>n", "<cmd>e ~/notes.md<CR>", silent)
+map("n", "<leader><leader>", "<cmd>set hlsearch!<CR>", sil)
+map("n", "<leader>a", "ggVG", sil)
+map("n", "<leader>n", "<cmd>e ~/notes.md<CR>", sil)
 map("n", "<C-w>q", "<C-w>c", nore)
 map("n", "<C-w><C-q>", "<C-w>c", nore)
 map("n", "<C-w><C-d>", "<C-w>d", nore)
 
 -- Directional Search Swap
 -- NOTE(jlima): sacrifice insert-mode register paste (<C-r>) for directional search navigation
-map("i", "<C-r>", "<C-o>?", silent)
-map("i", "<C-s>", "<C-o>/", silent)
+map("i", "<C-r>", "<C-o>?", sil)
+map("i", "<C-s>", "<C-o>/", sil)
 map("n", "<C-r>", "?", nore)
 map("n", "<C-s>", "/", nore)
 
 -- Window Switching
-map("n", "<C-h>", "<C-w>h", silent)
-map("n", "<C-j>", "<C-w>j", silent)
-map("n", "<C-k>", "<C-w>k", silent)
-map("n", "<C-l>", "<C-w>l", silent)
+map("n", "<C-h>", "<C-w>h", sil)
+map("n", "<C-j>", "<C-w>j", sil)
+map("n", "<C-k>", "<C-w>k", sil)
+map("n", "<C-l>", "<C-w>l", sil)
 
 -- Transients & Quickfix Control
-map("n", "<C-t>", "<cmd>T<CR>", silent)
-k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
+map("n", "<C-t>", "<cmd>T<CR>", sil)
+k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], sil)
 
-map("n", "<C-/>", hide_transients, silent)
-map("n", "<C-_>", hide_transients, silent)
+map("n", "<C-/>", hide_transients, sil)
+map("n", "<C-_>", hide_transients, sil)
 map("t", "<C-/>", function()
   hide_transients()
   vim.cmd("stopinsert")
-end, silent)
+end, sil)
 map("t", "<C-_>", function()
   hide_transients()
   vim.cmd("stopinsert")
-end, silent)
+end, sil)
 
 -- Deterministic Save Execution (No undefined check_buf call)
 local function safe_write()
@@ -495,48 +495,48 @@ local function safe_write()
   end
   vim.cmd("write ++p")
 end
-map("n", "<leader>w", safe_write, silent)
-map("n", "<M-w>", safe_write, silent)
+map("n", "<leader>w", safe_write, sil)
+map("n", "<M-w>", safe_write, sil)
 
 -- NOTE(jlima): Use :x! to preserve mtime on untouched buffers while forcing write if modified
-map("i", "<C-x>", "<Esc>:x!<CR>", silent)
+map("i", "<C-x>", "<Esc>:x!<CR>", sil)
 
 -- Visual Editing & Clipboard
-map("v", "J", ":m '>+1<CR>gv=gv", silent)
-map("v", "K", ":m '<-2<CR>gv=gv", silent)
-map("v", ">", ">gv", silent)
-map("v", "<", "<gv", silent)
-map("x", "p", '"_dP', silent)
-map("x", "y", "ygv<Esc>", silent)
-map({ "x", "n" }, "<leader>p", '"+p', silent)
-map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
+map("v", "J", ":m '>+1<CR>gv=gv", sil)
+map("v", "K", ":m '<-2<CR>gv=gv", sil)
+map("v", ">", ">gv", sil)
+map("v", "<", "<gv", sil)
+map("x", "p", '"_dP', sil)
+map("x", "y", "ygv<Esc>", sil)
+map({ "x", "n" }, "<leader>p", '"+p', sil)
+map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], sil)
 map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
 
 -- Emacs Insert Mode Navigation & Editing
-map("i", "<C-a>", "<C-o>^", silent)
-map("i", "<C-e>", "<End>", silent)
-map("i", "<C-b>", "<Left>", silent)
-map("i", "<C-f>", "<Right>", silent)
-map("i", "<C-p>", "<Up>", silent)
-map("i", "<C-n>", "<Down>", silent)
-map("i", "<M-b>", "<C-o>b", silent)
-map("i", "<M-f>", "<C-o>e<Right>", silent)
-map("i", "<M-a>", "<C-o>{", silent)
-map("i", "<M-e>", "<C-o>}", silent)
-map("i", "<C-d>", "<C-g>u<Del>", silent)
-map("i", "<C-h>", "<C-g>u<BS>", silent)
+map("i", "<C-a>", "<C-o>^", sil)
+map("i", "<C-e>", "<End>", sil)
+map("i", "<C-b>", "<Left>", sil)
+map("i", "<C-f>", "<Right>", sil)
+map("i", "<C-p>", "<Up>", sil)
+map("i", "<C-n>", "<Down>", sil)
+map("i", "<M-b>", "<C-o>b", sil)
+map("i", "<M-f>", "<C-o>e<Right>", sil)
+map("i", "<M-a>", "<C-o>{", sil)
+map("i", "<M-e>", "<C-o>}", sil)
+map("i", "<C-d>", "<C-g>u<Del>", sil)
+map("i", "<C-h>", "<C-g>u<BS>", sil)
 map("i", "<C-k>", function()
   local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   local line_len = #vim.api.nvim_get_current_line()
   return col >= line_len and "<C-g>u<Del>" or "<C-g>u<C-o>D"
 end, { expr = true, replace_keycodes = true })
-map("i", "<C-u>", "<C-g>u<C-u>", silent)
-map("i", "<C-w>", "<C-g>u<C-w>", silent)
-map("i", "<M-d>", "<C-g>u<C-\\><C-o>dw", silent)
-map("i", "<M-BS>", "<C-g>u<C-w>", silent)
-map("i", "<C-BS>", "<C-g>u<C-w>", silent)
-map("i", "<C-y>", '<C-r>"', silent)
-map("i", "<C-S-e>", "<Esc>Go", silent)
+map("i", "<C-u>", "<C-g>u<C-u>", sil)
+map("i", "<C-w>", "<C-g>u<C-w>", sil)
+map("i", "<M-d>", "<C-g>u<C-\\><C-o>dw", sil)
+map("i", "<M-BS>", "<C-g>u<C-w>", sil)
+map("i", "<C-BS>", "<C-g>u<C-w>", sil)
+map("i", "<C-y>", '<C-r>"', sil)
+map("i", "<C-S-e>", "<Esc>Go", sil)
 
 -- Emacs Command-Line Mode
 map("c", "<C-a>", "<Home>", nore)
@@ -627,7 +627,9 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     vim.b[state.buf].lualine_disable = true
 
     vim.fn.chansend(state.job, "cd " .. vim.fn.shellescape(current_dir) .. "\n")
+    -- NOTE(jlima): Send ETX (Ctrl-C) to clear previous blocked executions before issuing next build.
     if cmd ~= "" then
+      vim.fn.chansend(state.job, "\x03")
       vim.fn.chansend(state.job, cmd .. "\n")
     end
     vim.cmd("startinsert")
@@ -655,7 +657,9 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   state.win = vim.api.nvim_get_current_win()
   vim.wo.statusline = "%#Normal# "
 
+  -- NOTE(jlima): Send ETX (Ctrl-C) to clear previous blocked executions before issuing next build.
   if cmd ~= "" then
+    vim.fn.chansend(state.job, "\x03")
     vim.fn.chansend(state.job, cmd .. "\n")
   end
   vim.cmd("startinsert")
