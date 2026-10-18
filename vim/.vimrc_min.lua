@@ -68,6 +68,11 @@ vim.opt.iskeyword:remove("-")
 vim.opt.nrformats:append("alpha")
 vim.opt.sessionoptions:remove("terminal")
 
+vim.opt.diffopt:remove("inline:char")
+
+vim.opt.spelllang = "en_us"
+vim.opt.spellsuggest = "best,9"
+
 vim.opt.wildignore:append({
   "*/.git/*",
   "*/.venv/*",
@@ -98,6 +103,9 @@ o.ignorecase = true
 o.smartcase = true
 o.inccommand = "nosplit"
 
+vim.opt.spelllang = "en_us"
+vim.opt.spellsuggest = "best,9"
+
 -- Global Diff Configuration
 o.diffopt = {
   "vertical",
@@ -110,6 +118,8 @@ o.diffopt = {
   "linematch:60",
   "followwrap",
 }
+
+vim.opt.diffopt:remove("inline:char")
 
 -- SSH OSC 52 Clipboard Integration
 if vim.env.SSH_TTY then
