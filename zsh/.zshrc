@@ -107,7 +107,7 @@ else
   alias vi='vim'
 fi
 alias vio="$HOME/.local/vim/bin/vim"
-alias vil='vim -u ~/.dotfiles/'
+alias vil='vim -u ~/.dotfiles/vim/.vimrc_min.lua'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
 alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
