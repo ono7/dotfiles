@@ -521,15 +521,34 @@ map({ "x", "n" }, "<leader>p", '"+p', silent)
 map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
 map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
 
--- Insert Mode Bracket Expansion
--- NOTE(jlima): Slices current line memory directly instead of issuing nvim_buf_get_text on each Enter
+-- =============================================================================
+-- Insert Mode Bracket Expansion with Auto-Close & Whitespace Precondition
+-- =============================================================================
+local bracket_pair_map = {
+  ["{"] = "}",
+  ["("] = ")",
+  ["["] = "]",
+}
+
 vim.keymap.set("i", "<CR>", function()
   local col = vim.api.nvim_win_get_cursor(0)[2]
   if col > 0 then
     local line = vim.api.nvim_get_current_line()
-    local pair = line:sub(col, col + 1)
-    if pair == "{}" or pair == "()" or pair == "[]" then
-      return "<CR><C-o>O"
+    local prev_char = line:sub(col, col)
+    local close_char = bracket_pair_map[prev_char]
+
+    if close_char then
+      -- NOTE(jlima): Invariant check: only expand if bracket is line-start or preceded by whitespace
+      local before_open = col > 1 and line:sub(col - 1, col - 1) or ""
+      if col == 1 or before_open == " " or before_open == "\t" then
+        local next_char = line:sub(col + 1, col + 1)
+        -- If already auto-paired (e.g. "{}" with cursor inside), split it cleanly
+        if next_char == close_char then
+          return "<CR><C-o>O"
+        end
+        -- If solitary bracket ("{<CR>"), insert closing bracket on newline and open indented line above
+        return close_char .. "<Left><CR><C-o>O"
+      end
     end
   end
   return "<CR>"
