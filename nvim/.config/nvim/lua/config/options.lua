@@ -21,6 +21,9 @@ vim.opt.autochdir = false
 vim.opt.autoread = true
 vim.opt.more = true
 
+-- keep things from shifting when writing std:: etc
+vim.opt.cinkeys:remove(":")
+
 -- Key timeout settings (prevents hung mappings & fast escape resolution)
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
