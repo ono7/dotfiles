@@ -1164,3 +1164,9 @@ local hl_groups = {
 for group, spec in pairs(hl_groups) do
   vim.api.nvim_set_hl(0, group, spec)
 end
+
+-- NOTE(jlima): Source isolated Neovide GUI configuration directly without touching runtimepath
+local neovide_path = vim.fn.expand("~/.dotfiles/nvim/.config/nvim/lua/config/neovide.lua")
+if vim.g.neovide and vim.fn.filereadable(neovide_path) == 1 then
+  dofile(neovide_path)
+end
