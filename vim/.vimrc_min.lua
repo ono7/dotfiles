@@ -519,7 +519,7 @@ map("x", "p", '"_dP', silent)
 map("x", "y", "ygv<Esc>", silent)
 map({ "x", "n" }, "<leader>p", '"+p', silent)
 map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
-map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
+-- map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
 
 -- =============================================================================
 -- Insert Mode Bracket Expansion with Auto-Close & Whitespace Precondition
@@ -1176,6 +1176,7 @@ end
 
 vim.cmd[[
 nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 ]]
 
 -- fix command line editing window, by restoring CR mapping to defaults
