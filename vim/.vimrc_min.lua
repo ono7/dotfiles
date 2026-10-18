@@ -635,9 +635,6 @@ map("n", "<c-m>", make_and_open_qf, silent)
 map("x", "@", function()
   return vim.fn.mode() == "V" and (":normal! @" .. vim.fn.getcharstr() .. "<CR>") or "@"
 end, { expr = true })
-map("x", "Q", function()
-  return vim.fn.mode() == "V" and (":normal! @" .. vim.fn.reg_recorded() .. "<CR>") or "Q"
-end, { expr = true })
 
 --------------------------------------------------------------------------------
 -- 5. User Commands & Helpers
@@ -1094,6 +1091,25 @@ if vim.g.neovide then
   vim.g.neovide_background_color = bg
 end
 
+vim.g.terminal_color_0 = "#242424"
+vim.g.terminal_color_1 = "#8F242B"
+vim.g.terminal_color_2 = "#355B3F"
+vim.g.terminal_color_3 = "#76520D"
+vim.g.terminal_color_4 = "#274F7D"
+vim.g.terminal_color_5 = "#57345A"
+vim.g.terminal_color_6 = "#1A5962"
+vim.g.terminal_color_7 = "#E8E4DC"
+
+-- Bright ANSI variants
+vim.g.terminal_color_8 = "#59616B"
+vim.g.terminal_color_9 = "#A3262E"
+vim.g.terminal_color_10 = "#2E4C35"
+vim.g.terminal_color_11 = "#624508"
+vim.g.terminal_color_12 = "#1F3D60"
+vim.g.terminal_color_13 = "#472A49"
+vim.g.terminal_color_14 = "#174B53"
+vim.g.terminal_color_15 = "#F2EFE9"
+
 local hl_groups = {
   Normal = { fg = fg, bg = bg },
   NormalFloat = { fg = fg, bg = bg },
@@ -1148,6 +1164,26 @@ local hl_groups = {
 for group, spec in pairs(hl_groups) do
   vim.api.nvim_set_hl(0, group, spec)
 end
+
+vim.cmd[[
+nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+]]
+
+-- fix command line editing window, by restoring CR mapping to defaults
+-- the <c-m> mapping for running make was causing problems
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+  group = core_group,
+  callback = function(args)
+    local kopts = { buffer = args.buf, nowait = true, silent = true }
+    vim.keymap.set("n", "<C-f>", "<Nop>", kopts)
+    vim.keymap.set("n", "<C-t>", "<Nop>", kopts)
+    vim.keymap.set("n", "<C-v>", "<C-v>", kopts)
+    vim.keymap.set("n", "q", "<C-c>", kopts)
+
+    -- NOTE(jlima): restore native <CR> execution overridden by global <C-m> mapping
+    vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf })
+  end,
+})
 
 local neovide_path = vim.fn.expand("~/.dotfiles/nvim/.config/nvim/lua/config/neovide.lua")
 if vim.g.neovide and vim.fn.filereadable(neovide_path) == 1 then
