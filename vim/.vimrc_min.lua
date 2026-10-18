@@ -608,6 +608,11 @@ vim.keymap.set(modes, "<C-8>", "8gt")
 
 -- Transients & Quickfix Control
 map("n", "<C-t>", "<cmd>T<CR>", silent)
+
+-- term mode exit to normal mode
+k("t", "<c-x>", [[<c-\><c-n>]], silent)
+
+-- toggle terminal
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
 
 k("n", "<M-c>", function()
