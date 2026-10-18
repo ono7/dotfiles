@@ -45,3 +45,4 @@ ipython/.ipython/profile_default/*
 !ipython/.ipython/profile_default/ipython_config.py
 
 .aider*
+nvim-pack-lock.json
