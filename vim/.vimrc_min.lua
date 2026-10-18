@@ -1039,3 +1039,86 @@ if has_oil then
   oil.setup()
   map("n", "-", "<cmd>Oil<CR>", silent)
 end
+
+-- ~/.config/nvim/colors/custom-paper-minimal.lua (or embed directly in init.lua)
+vim.cmd("hi clear")
+if vim.fn.exists("syntax_on") == 1 then
+  vim.cmd("syntax reset")
+end
+vim.o.termguicolors = true
+vim.o.background = "light"
+vim.g.colors_name = "custom-paper-minimal"
+
+local bg = "#EDE9E1"
+local fg = "#242424"
+local fn_col = "#242424" -- Keep plain charcoal or swap to desired accent
+local type_col = "#35659A" -- Dedicated type color
+local comment = "#7B858F"
+local visual = "#D9D4CA"
+local hl = "#E5E1D9"
+local line_nr = "#9DA4AB"
+local border = "#9299A1"
+
+if vim.g.neovide then
+  vim.g.neovide_background_color = bg
+end
+
+-- colorscheme
+-- NOTE(jlima): Consolidate semantic and regex tokens into batches to avoid declarative bloat.
+local hl_groups = {
+  -- Core Canvas & UI
+  Normal = { fg = fg, bg = bg },
+  NormalFloat = { fg = fg, bg = bg },
+  FloatBorder = { fg = border, bg = bg },
+  Visual = { bg = visual },
+  CursorLine = { bg = hl },
+  LineNr = { fg = line_nr, bg = bg },
+  CursorLineNr = { fg = "#8C6615", bg = "none" },
+  SignColumn = { bg = "none" },
+  WinSeparator = { fg = line_nr, bg = "none" },
+  StatusLine = { fg = fg, bg = "#DDD8CE" },
+  StatusLineNC = { fg = "#59616B", bg = "#D8D3C9" },
+  Search = { fg = bg, bg = "#8C6615" },
+  CurSearch = { fg = bg, bg = fg },
+  MatchParen = { fg = bg, bg = "#174B53", bold = true },
+
+  -- Syntax Base (Muted / Neutral)
+  Comment = { fg = comment, italic = true },
+  Constant = { fg = fg },
+  String = { fg = fg },
+  Identifier = { fg = fg },
+  Statement = { fg = fg },
+  Keyword = { fg = fg },
+  Operator = { fg = fg },
+  Delimiter = { fg = "#59616B" },
+  Special = { fg = fg },
+
+  -- Highlight Targets: Types & Functions
+  Type = { fg = type_col },
+  ["@type"] = { fg = type_col },
+  ["@type.builtin"] = { fg = type_col },
+  Function = { fg = fn_col, bold = true },
+  ["@function"] = { fg = fn_col, bold = true },
+  ["@function.call"] = { fg = fn_col },
+  ["@function.method"] = { fg = fn_col },
+  ["@function.builtin"] = { fg = fn_col },
+
+  -- Completion Menu & Diagnostics
+  Pmenu = { fg = fg, bg = bg },
+  PmenuSel = { fg = bg, bg = type_col },
+  PmenuThumb = { bg = line_nr },
+  DiagnosticError = { fg = "#B63E46" },
+  DiagnosticWarn = { fg = "#8C6615" },
+  DiagnosticInfo = { fg = type_col },
+  DiagnosticHint = { fg = comment },
+
+  -- Git & Diff
+  DiffAdd = { fg = "#2E4C35", bg = "#DCE7DE" },
+  DiffDelete = { fg = "#8F242B", bg = "#F3DAD7" },
+  DiffChange = { bg = "none" },
+  DiffText = { fg = bg, bg = "#E6CE94" },
+}
+
+for group, spec in pairs(hl_groups) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
