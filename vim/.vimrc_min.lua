@@ -508,6 +508,20 @@ map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
 
+-- tab switching
+
+-- NOTE(jlima): Flat normal and visual mode tab jumps avoiding mode inspection overhead.
+local modes = { "n", "x" }
+
+vim.keymap.set(modes, "<C-1>", "1gt")
+vim.keymap.set(modes, "<C-2>", "2gt")
+vim.keymap.set(modes, "<C-3>", "3gt")
+vim.keymap.set(modes, "<C-4>", "4gt")
+vim.keymap.set(modes, "<C-5>", "5gt")
+vim.keymap.set(modes, "<C-6>", "6gt")
+vim.keymap.set(modes, "<C-7>", "7gt")
+vim.keymap.set(modes, "<C-8>", "8gt")
+
 -- Transients & Quickfix Control
 map("n", "<C-t>", "<cmd>T<CR>", silent)
 k("t", "<c-t>", [[<c-\><c-n><cmd>T<CR>]], silent)
