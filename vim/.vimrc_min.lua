@@ -62,6 +62,12 @@ o.lazyredraw = false
 o.scrollback = 10000 -- Bounded to prevent memory bloat and GC pauses
 o.maxmempattern = 2000
 
+vim.opt.isfname:append("@-@")
+vim.opt.iskeyword:append("_")
+vim.opt.iskeyword:remove("-")
+vim.opt.nrformats:append("alpha")
+vim.opt.sessionoptions:remove("terminal")
+
 vim.opt.wildignore:append({
   "*/.git/*",
   "*/.venv/*",
