@@ -133,7 +133,7 @@ local function make_and_open_qf()
     vim.cmd("wincmd p")
   else
     vim.cmd("cclose")
-    vim.notify("Build clean.", vim.log.levels.INFO)
+    print("Build complete..")
   end
 end
 
