@@ -50,6 +50,13 @@ o.shortmess = "aoOstTWICcF"
 o.guicursor = "a:block-blinkon0"
 o.backspace = { "indent", "eol", "start" }
 
+o.foldmethod = "manual"
+o.foldlevelstart = 99
+o.foldcolumn = "0"
+o.foldnestmax = 2
+o.foldenable = false
+vim.g.markdown_folding = 1
+
 -- Input Timing
 o.timeout = false
 o.ttimeout = true
