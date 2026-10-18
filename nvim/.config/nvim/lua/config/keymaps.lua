@@ -614,6 +614,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+-- NOTE(jlima): Populates the native quickfix list while keeping compilation non-interactive.
+local function make_and_open_qf()
+  local save = vim.fn.winsaveview()
+  vim.cmd("silent make!")
+  vim.fn.winrestview(save)
+  local qf_count = #vim.fn.getqflist()
+  if qf_count > 0 then
+    vim.cmd("copen")
+    vim.cmd("wincmd p")
+  else
+    vim.cmd("cclose")
+    vim.notify("Build clean.", vim.log.levels.INFO)
+  end
+end
+
+k("n", "<c-m>", make_and_open_qf, silent)
+
 -- 1. Safety check to prevent E32 on unnamed buffers
 local function check_buf(bufnr)
   local bufname = vim.api.nvim_buf_get_name(bufnr)

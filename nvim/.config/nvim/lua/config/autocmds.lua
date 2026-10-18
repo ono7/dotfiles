@@ -103,6 +103,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function(args)
+    vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { buffer = args.buf, silent = true, desc = "Next quickfix entry" })
+    vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { buffer = args.buf, silent = true, desc = "Previous quickfix entry" })
+    vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf, desc = "Jump to quickfix entry" })
+  end,
+})
+
 -- Automatically open quickfix list after search commands
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = quickfix_group,
