@@ -1190,6 +1190,7 @@ local hl_groups = {
 
   Comment = { fg = comment, italic = true },
   Constant = { fg = fg },
+  ModeMsg = { fg = fg },
   String = { fg = fg },
   Identifier = { fg = fg },
   Statement = { fg = fn_col },
