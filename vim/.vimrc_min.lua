@@ -1125,7 +1125,6 @@ if has_pick then
   map("n", "<M-f>", "<cmd>Pick files<CR>", silent)
   map("n", "<M-g>", "<cmd>Pick grep_live<CR>", silent)
   map("n", "<M-r>", pick_oldfiles, silent)
-
 end
 
 --------------------------------------------------------------------------------
@@ -1184,7 +1183,8 @@ local hl_groups = {
   WinSeparator = { fg = line_nr, bg = "none" },
   StatusLine = { fg = fg, bg = "#DDD8CE" },
   StatusLineNC = { fg = "#59616B", bg = "#D8D3C9" },
-  Search = { fg = bg, bg = "#8C6615" },
+  -- Search = { fg = bg, bg = "#8C6615" },
+  Search = { fg = bg, bg = "#174B53" },
   CurSearch = { fg = bg, bg = fg },
   MatchParen = { fg = bg, bg = "#174B53", bold = true },
 
