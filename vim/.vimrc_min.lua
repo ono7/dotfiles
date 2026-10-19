@@ -156,30 +156,17 @@ vim.opt.wildignore:append({
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
 
--- Diff Configuration
--- vim.opt.diffopt = {
--- 	"vertical",
--- 	"filler",
--- 	"closeoff",
--- 	"context:5",
--- 	"internal",
--- 	"algorithm:histogram",
--- 	"indent-heuristic",
--- 	"linematch:60",
--- 	"followwrap",
--- }
-
 vim.opt.diffopt = {
-	"vertical",
+	"internal",
 	"filler",
 	"closeoff",
+	"vertical",
 	"context:5",
-	"internal",
+	"followwrap",
 	"algorithm:histogram",
 	"indent-heuristic",
-	"linematch:100", -- NOTE(jlima): Higher threshold prevents premature cross-line binding in hunks
-	"followwrap",
-	"iwhite",
+	"inline:char",
+	"linematch:70",
 }
 
 vim.opt.spelllang = "en_us"
