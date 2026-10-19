@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# NOTE(jlima): Sudo elevation directed through /dev/tty to support curl/wget | bash pipelines.
+# NOTE(jlima): Distinctive ANSI-highlighted banner helper to cut through verbose package manager/curl output.
+log_step() {
+    printf "\n\033[1;36m==>\033[0m \033[1m%s\033[0m\n" "$1"
+}
+
+log_step "Authenticating administrative privileges..."
 if [ "$EUID" -ne 0 ]; then
-    echo "NOTE(jlima): Administrative privileges required. Authenticating with sudo..."
     if [ -e /dev/tty ]; then
-        sudo -v < /dev/tty || { echo "NOTE(jlima): Sudo authentication failed."; exit 1; }
+        sudo -v < /dev/tty || { echo "Sudo authentication failed."; exit 1; }
     else
-        sudo -v || { echo "NOTE(jlima): Sudo authentication failed."; exit 1; }
+        sudo -v || { echo "Sudo authentication failed."; exit 1; }
     fi
 fi
 
@@ -21,10 +25,10 @@ else
     TARGET_HOME="$(getent passwd "$INVOKING_USER" | cut -d: -f6)"
 fi
 
-echo "NOTE(jlima): Bootstrapping Neovim system-wide as root for invoking user: '${TARGET_USER}'"
+log_step "Target environment: '${TARGET_USER}' (home: ${TARGET_HOME})"
 
-# NOTE(jlima): Clean up previous install binaries, runtime assets, and config trees.
-echo "NOTE(jlima): Purging previous installations and configuration trees..."
+# 1. Clean up previous install binaries, runtime assets, and config trees
+log_step "Purging previous Neovim binaries and configuration trees..."
 NVIM_DIR="/opt/neovim"
 sudo rm -rf "$NVIM_DIR"
 sudo rm -rf "/root/.config/nvim" "/root/.dotfiles/hooks.json"
@@ -33,39 +37,40 @@ if [ "$TARGET_USER" != "root" ]; then
     sudo rm -rf "${TARGET_HOME}/.config/nvim" "${TARGET_HOME}/.dotfiles/hooks.json"
 fi
 
-# 1. Install system prerequisites via apt
-echo "NOTE(jlima): Installing system prerequisites..."
+# 2. Install system prerequisites via apt
+log_step "Installing system prerequisites via apt (ripgrep, fd-find, curl, tar)..."
 sudo apt-get update
 sudo apt-get install -y ripgrep fd-find curl tar
 
 # NOTE(jlima): Ensure native Debian fd-find binary is linked as fd for telescope compatibility.
 if [ -f /usr/bin/fdfind ] && [ ! -e /usr/bin/fd ]; then
+    log_step "Symlinking /usr/bin/fdfind -> /usr/bin/fd..."
     sudo ln -sf /usr/bin/fdfind /usr/bin/fd
 fi
 
-# 2. Download and install Neovim to /opt/neovim
+# 3. Download and install Neovim to /opt/neovim
+log_step "Downloading and extracting Neovim stable to /opt/neovim..."
 sudo mkdir -p "$NVIM_DIR"
-
-echo "NOTE(jlima): Downloading and extracting Neovim stable release to /opt/neovim..."
 curl -sL "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz" | sudo tar -xzC "$NVIM_DIR" --strip-components=1
 
-# 3. Register and activate Neovim using update-alternatives system-wide
+# 4. Register and activate Neovim using update-alternatives system-wide
+log_step "Configuring update-alternatives (editor, vi, vim) -> /opt/neovim/bin/nvim..."
 for alt in editor vi vim; do
     sudo update-alternatives --install "/usr/bin/$alt" "$alt" "/opt/neovim/bin/nvim" 150
     sudo update-alternatives --set "$alt" "/opt/neovim/bin/nvim"
 done
 
-# 4. Deploy fresh configurations for root
-echo "NOTE(jlima): Deploying configurations for root..."
+# 5. Deploy fresh configurations for root
+log_step "Deploying Lua configuration and runner hooks for root..."
 ROOT_CONFIG="/root/.config/nvim"
 ROOT_DOTFILES="/root/.dotfiles"
 sudo mkdir -p "$ROOT_CONFIG" "$ROOT_DOTFILES"
 sudo curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$ROOT_CONFIG/init.lua"
 sudo curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$ROOT_DOTFILES/hooks.json" 2>/dev/null || true
 
-# 5. Deploy fresh configurations for invoking sudo user (if not already root)
+# 6. Deploy fresh configurations for invoking sudo user (if not already root)
 if [ "$TARGET_USER" != "root" ]; then
-    echo "NOTE(jlima): Deploying configurations for invoking user '${TARGET_USER}'..."
+    log_step "Deploying Lua configuration and runner hooks for '${TARGET_USER}'..."
     USER_CONFIG="${TARGET_HOME}/.config/nvim"
     USER_DOTFILES="${TARGET_HOME}/.dotfiles"
 
@@ -74,5 +79,5 @@ if [ "$TARGET_USER" != "root" ]; then
     sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$USER_DOTFILES/hooks.json" 2>/dev/null || true
 fi
 
-echo "NOTE(jlima): Neovim system-wide installation and configuration completed successfully."
+log_step "Bootstrap complete. Verifying /usr/bin/nvim version..."
 /usr/bin/nvim --version
