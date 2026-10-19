@@ -519,7 +519,6 @@ map("x", "p", '"_dP', silent)
 map("x", "y", "ygv<Esc>", silent)
 map({ "x", "n" }, "<leader>p", '"+p', silent)
 map("v", "<CR>", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], silent)
--- map("n", "gp", "`[' . strpart(getregtype(), 0, 1) . ']`", { expr = true })
 
 -- =============================================================================
 -- Insert Mode Bracket Expansion with Auto-Close & Whitespace Precondition
@@ -678,7 +677,15 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     end
   end
 
-  if state.buf == nil or not vim.api.nvim_buf_is_valid(state.buf) then
+  -- NOTE(jlima): Check if existing buffer is valid AND still running an active channel job.
+  local is_alive = state.buf and vim.api.nvim_buf_is_valid(state.buf) and state.job and pcall(vim.fn.jobwait, { state.job }, 0) and vim.fn.jobwait({ state.job }, 0)[1] == -1
+
+  -- Case 1: Terminal does not exist or previous job terminated
+  if not is_alive then
+    if state.buf and vim.api.nvim_buf_is_valid(state.buf) then
+      pcall(vim.api.nvim_buf_delete, state.buf, { force = true })
+    end
+
     save_editor_pos()
     vim.opt_local.winbar = nil
     vim.cmd("botright split")
@@ -693,31 +700,50 @@ vim.api.nvim_create_user_command("T", function(opts_args)
     state.buf = vim.api.nvim_get_current_buf()
     state.win = vim.api.nvim_get_current_win()
     state.job = vim.b.terminal_job_id
-
     vim.wo.statusline = "%#Normal# "
 
     vim.fn.chansend(state.job, "cd " .. vim.fn.shellescape(current_dir) .. "\n")
     if cmd ~= "" then
-      vim.fn.chansend(state.job, "\x03")
       vim.fn.chansend(state.job, cmd .. "\n")
+      -- NOTE(jlima): Retain editor focus when executed via automated runner hook
+      restore_editor_pos()
+    else
+      vim.cmd("startinsert")
     end
-    vim.cmd("startinsert")
     return
   end
 
+  -- Find if terminal buffer is visible in any window on the current tab
+  local visible_win = nil
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_get_buf(win) == state.buf then
-      state.height = vim.api.nvim_win_get_height(win)
+      visible_win = win
+      break
+    end
+  end
+
+  -- Case 2: Terminal is visible
+  if visible_win then
+    state.height = vim.api.nvim_win_get_height(visible_win)
+
+    -- NOTE(jlima): Toggle closed ONLY when :T is called without an execution argument.
+    if cmd == "" then
       if #get_normal_wins() > 1 then
-        pcall(vim.api.nvim_win_hide, win)
+        pcall(vim.api.nvim_win_hide, visible_win)
       else
         vim.cmd("enew")
       end
       restore_editor_pos()
       return
     end
+
+    -- If a command was supplied and terminal is visible, interrupt current job and re-run
+    vim.fn.chansend(state.job, "\x03")
+    vim.fn.chansend(state.job, cmd .. "\n")
+    return
   end
 
+  -- Case 3: Terminal exists in memory but window is hidden
   save_editor_pos()
   vim.cmd("botright split")
   vim.wo.winfixheight = true
@@ -729,8 +755,10 @@ vim.api.nvim_create_user_command("T", function(opts_args)
   if cmd ~= "" then
     vim.fn.chansend(state.job, "\x03")
     vim.fn.chansend(state.job, cmd .. "\n")
+    restore_editor_pos()
+  else
+    vim.cmd("startinsert")
   end
-  vim.cmd("startinsert")
 end, { nargs = "*" })
 
 -- Fuzzy Find (:F and :FT)
