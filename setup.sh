@@ -52,19 +52,23 @@ echo "NOTE(jlima): Deploying configurations for root..."
 curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$ROOT_CONFIG/init.lua"
 curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$ROOT_DOTFILES/hooks.json" 2>/dev/null || true
 
-# Optionally configure for the invoking non-root user if applicable
+# Configure for the invoking non-root user if applicable
 if [ "$TARGET_USER" != "root" ]; then
-    read -rp "NOTE(jlima): Do you also want to fully configure Neovim for user '${TARGET_USER}'? [y/N]: " INSTALL_USER_CONFIG
+    read -rp "NOTE(jlima): Do you also want to fully configure Neovim for user '${TARGET_USER}'? [Y/n]: " INSTALL_USER_CONFIG
+    # Default to Yes if just pressing enter
+    INSTALL_USER_CONFIG="${INSTALL_USER_CONFIG:-Y}"
+
     if [[ "$INSTALL_USER_CONFIG" =~ ^[Yy]$ ]]; then
         USER_CONFIG="${TARGET_HOME}/.config/nvim"
         USER_DOTFILES="${TARGET_HOME}/.dotfiles"
-        mkdir -p "$USER_CONFIG" "$USER_DOTFILES"
+
+        # NOTE(jlima): Create directories and immediately assign correct ownership before downloading files.
+        sudo -u "$TARGET_USER" mkdir -p "$USER_CONFIG" "$USER_DOTFILES"
 
         echo "NOTE(jlima): Deploying configurations for ${TARGET_USER}..."
-        curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$USER_CONFIG/init.lua"
-        curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$USER_DOTFILES/hooks.json" 2>/dev/null || true
+        sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$USER_CONFIG/init.lua"
+        sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$USER_DOTFILES/hooks.json" 2>/dev/null || true
 
-        chown -R "$TARGET_USER:$TARGET_USER" "$USER_CONFIG" "$USER_DOTFILES"
         echo "NOTE(jlima): User configuration completed for '${TARGET_USER}'."
     fi
 fi
