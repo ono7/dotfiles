@@ -856,6 +856,13 @@ vim.keymap.set("i", "`", function()
   return handle_quote("`")
 end, { expr = true, noremap = true })
 
+-- take
+vim.api.nvim_create_user_command("Take", function(opts)
+  local path = vim.fn.fnamemodify(opts.args:gsub("%s+", "-"), ":p")
+  vim.fn.mkdir(path, "p")
+  vim.cmd.lcd(vim.fn.fnameescape(path))
+end, { nargs = "+", complete = "dir" })
+
 vim.keymap.set("i", "<CR>", function()
   local prev_char, next_char, col = get_adjacent_chars()
   if col == 0 or next_char == "" then
