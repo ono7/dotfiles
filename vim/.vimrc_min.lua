@@ -1433,7 +1433,9 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 		local qf_count = vim.fn.getqflist({ size = 0 }).size
 		if qf_count > 0 then
 			vim.cmd("copen")
+			-- NOTE(jlima): :cc jumps current window to entry 1; focus stays in code buffer
 			vim.cmd("wincmd p")
+			pcall(vim.cmd, "cc 1")
 		else
 			vim.cmd("cclose")
 			print("Build complete..")
