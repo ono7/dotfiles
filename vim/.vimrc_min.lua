@@ -23,7 +23,7 @@ vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
 
-local undo_dir = vim.fn.expand(vim.env.HOME .. "/.undo")
+local undo_dir = vim.fn.expand("~/.undo")
 if vim.fn.isdirectory(undo_dir) == 0 then
   vim.fn.mkdir(undo_dir, "p")
 end
@@ -920,13 +920,6 @@ vim.api.nvim_create_user_command("Cd", function()
   end
 end, {})
 
-vim.api.nvim_create_user_command("Rg", function(opts_args)
-  local pattern = opts_args.args:gsub("|", "\\|")
-  vim.cmd("silent! grep! " .. pattern)
-  vim.cmd("copen")
-  vim.cmd("redraw!")
-end, { nargs = "+", complete = "file" })
-
 vim.cmd([[
   cnoreabbrev qq qa!
   cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
@@ -1229,6 +1222,7 @@ for group, spec in pairs(hl_groups) do
 end
 
 vim.cmd([[
+" these are oldies but work great and are easier to suppo
 " commit
 nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
 
@@ -1241,6 +1235,67 @@ inoremap <M-l> <Esc>guiwea
 
 " change inside selection
 xnoremap & :<C-u>'<,'>s/\%V\v
+
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? 'c' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register Cm call CopyMatches(<q-reg>)
+
+function! WrapSelection(left, right)
+    let save_reg = @"
+    normal! `
+    call search('\S', 'c')
+    let start_pos = getpos('.')
+    normal! `>
+    let end_pos = getpos('.')
+
+    call setpos('.', end_pos)
+    execute "normal! a" . a:right
+    call setpos('.', start_pos)
+    execute "normal! i" . a:left
+    let @" = save_reg
+    startinsert
+endfunction
+
+xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
+" this overrides the " register key
+vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
+xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
+xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
+
+function! DuplicateAndMark()
+    let l:c = col('.')
+    " Duplicate line above using the unnamed register
+    execute "normal! yyP"
+    " Restore cursor column on the new line
+    call cursor(line('.'), l:c)
+    " Move down to the original line (mimicking your previous <Down>)
+    execute "normal! j"
+
+    redraw
+    echo "Mark set"
+endfunction
+
+inoremap <silent> <C-,> <C-o>:call DuplicateAndMark()<CR>
+nnoremap <silent> <C-,> <cmd>call DuplicateAndMark()<CR>
+
+if executable('rg')
+  let &grepprg = 'rg --vimgrep --no-heading --smart-case --pcre2'
+  let &grepformat = '%f:%l:%c:%m'
+endif
+
+function! Rg(args) abort
+  let l:pattern = substitute(a:args, '|', '\\|', 'g')
+  execute "silent! grep!" l:pattern
+  copen
+endfunction
+
+command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
 -- fix command line editing window, by restoring CR mapping to defaults
