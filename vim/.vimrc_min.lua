@@ -654,7 +654,7 @@ local function make_and_open_qf()
 		print("Build complete..")
 	end
 end
-map("n", "<c-m>", make_and_open_qf, silent)
+map("n", "<M-m>", make_and_open_qf, silent)
 
 -- Macro execution in Visual Line
 map("x", "@", function()
