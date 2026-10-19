@@ -44,6 +44,8 @@ command! D bd!
 
 cnoreabbrev qq qa!
 
+" intercept make to make it silent
+cabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'silent update \| silent make! \| redraw!' : 'make'
 map Q <Nop>
 
 " Kill forward to end of line (C-k)
@@ -767,7 +769,12 @@ vim.keymap.set("i", "<BS>", function()
   return "<BS>"
 end, { expr = true, replace_keycodes = true, noremap = true })
 
-vim.keymap.set("i", "<C-S-e>", "<Esc>Go", { noremap = true, silent = true, desc = "Jump to end of file and insert new line" })
+vim.keymap.set(
+  "i",
+  "<C-S-e>",
+  "<Esc>Go",
+  { noremap = true, silent = true, desc = "Jump to end of file and insert new line" }
+)
 
 local function handle_close(char)
   local _, next_char = get_adjacent_chars()
