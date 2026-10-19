@@ -70,10 +70,10 @@ inoremap <M-e> <C-o>}
 inoremap <C-/> <C-u>
 
 
-" old trusty 
+" old trusty
 " nnoremap gm :!git add % && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
 
-" this version will change directories for the buffer 
+" this version will change directories for the buffer
 nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
 
 " change in the shell so that vim never mutates at all
@@ -152,10 +152,7 @@ inoremap <M-k> <C-g>u<C-o>d}
 inoremap <M-u> <Esc>gUiwea
 inoremap <M-l> <Esc>guiwea
 
-" save and quit, good for commit messages
-" inoremap <C-x> <Esc>:x!<CR>
-
-" usefull when only visual block selection needs to be replaced
+" change inside selection
 xnoremap & :<C-u>'<,'>s/\%V\v
 
 " Move visual selection down
