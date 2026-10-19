@@ -27,27 +27,25 @@ fi
 
 log_step "Target environment: '${TARGET_USER}' (home: ${TARGET_HOME})"
 
-# 1. Clean up previous install binaries, runtime assets, configs, and vim.pack trees
-log_step "Purging previous Neovim binaries, configurations, and vim.pack directories..."
+# 1. Purge previous Neovim binaries, configs, and all XDG runtime/data namespaces
+log_step "Purging previous Neovim binaries, ~/.config/nvim, and runtime data trees..."
 NVIM_DIR="/opt/neovim"
 sudo rm -rf "$NVIM_DIR"
 
-# NOTE(jlima): Clear root config, hooks, and native vim.pack plugin directory.
-sudo rm -rf "/root/.config/nvim" "/root/.dotfiles/hooks.json"
-sudo rm -rf "/root/.local/share/nvim/site/pack"
-sudo rm -rf "/root/.local/state/nvim" "/root/.cache/nvim"
+# NOTE(jlima): Wipe ~/.config/nvim completely alongside dotfiles hooks and runtime namespaces.
+sudo rm -rf /root/.config/nvim /root/.dotfiles/hooks.json
+sudo rm -rf /root/.local/share/nvim /root/.local/state/nvim /root/.cache/nvim
 
 if [ "$TARGET_USER" != "root" ]; then
-    # NOTE(jlima): Clear target user config, hooks, and native vim.pack plugin directory.
     sudo rm -rf "${TARGET_HOME}/.config/nvim" "${TARGET_HOME}/.dotfiles/hooks.json"
-    sudo rm -rf "${TARGET_HOME}/.local/share/nvim/site/pack"
-    sudo rm -rf "${TARGET_HOME}/.local/state/nvim" "${TARGET_HOME}/.cache/nvim"
+    sudo rm -rf "${TARGET_HOME}/.local/share/nvim" "${TARGET_HOME}/.local/state/nvim" "${TARGET_HOME}/.cache/nvim"
 fi
 
 # 2. Install system prerequisites via apt
-log_step "Installing system prerequisites via apt (ripgrep, fd-find, curl, tar)..."
+log_step "Installing system prerequisites via apt (ripgrep, fd-find, curl, tar, git)..."
 sudo apt-get update
-sudo apt-get install -y ripgrep fd-find curl tar
+# NOTE(jlima): Ensure git is explicitly present for vim.pack cloning and lock reconciliation.
+sudo apt-get install -y ripgrep fd-find curl tar git
 
 # NOTE(jlima): Ensure native Debian fd-find binary is linked as fd for telescope compatibility.
 if [ -f /usr/bin/fdfind ] && [ ! -e /usr/bin/fd ]; then
