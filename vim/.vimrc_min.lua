@@ -1084,7 +1084,22 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-fugitive" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
+  { src = "https://github.com/stevearc/conform.nvim" },
 }, { confirm = false })
+
+require('conform').setup({
+  formatters_by_ft = {
+    c = { 'clang-format' },
+    cpp = { 'clang-format' },
+    lua = { 'stylua' },
+    python = { 'black' },
+    ['_'] = { 'trim_whitespace' },
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = false,
+  },
+})
 
 local has_oil, oil = pcall(require, "oil")
 if has_oil then
@@ -1272,7 +1287,7 @@ endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
 " this overrides the " register key
-vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
+" vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
