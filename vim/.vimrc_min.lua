@@ -1417,6 +1417,30 @@ endfunction
 command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
+-- NOTE(jlima): Intercept bare 'make' via native cabbrev; bar characters escaped to prevent premature Vim command splits
+vim.cmd([[
+  cabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'silent update \| silent make! \| redraw!' : 'make'
+]])
+
+local quickfix_group = vim.api.nvim_create_augroup("quickfixGroup", { clear = true })
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	group = quickfix_group,
+	pattern = "[^l]*",
+	nested = true,
+	callback = function()
+		-- NOTE(jlima): Query list size directly to avoid allocating full item dictionaries
+		local qf_count = vim.fn.getqflist({ size = 0 }).size
+		if qf_count > 0 then
+			vim.cmd("copen")
+			vim.cmd("wincmd p")
+		else
+			vim.cmd("cclose")
+			print("Build complete..")
+		end
+	end,
+})
+
 -- fix command line editing window, by restoring CR mapping to defaults
 vim.api.nvim_create_autocmd("CmdwinEnter", {
 	group = core_group,
