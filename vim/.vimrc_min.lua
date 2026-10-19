@@ -28,7 +28,9 @@ if vim.fn.isdirectory(undo_dir) == 0 then
   vim.fn.mkdir(undo_dir, "p")
 end
 vim.opt.undodir = undo_dir
-vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+-- vim.opt.shada = "'100,<50,s10,:1000,/1000,h,r/COMMIT_EDITMSG,r/git-rebase-todo,!"
+vim.opt.history = 200
+vim.opt.shada = "'25,<20,s10,:100,/100,h,r/COMMIT_EDITMSG,r/git-rebase-todo,r/tmp/,r/var/tmp/,!"
 
 vim.opt.updatecount = 0
 vim.opt.updatetime = 300
@@ -1098,8 +1100,32 @@ if has_pick then
     },
   })
 
-  map("n", "<c-f>", "<cmd>Pick files<CR>", silent)
-  map("n", "<leader>g", "<cmd>Pick grep_live<CR>", silent)
+  local function pick_oldfiles()
+    local old = vim.tbl_filter(function(path)
+      return path ~= "" and vim.uv.fs_stat(path) ~= nil
+    end, vim.v.oldfiles)
+
+    local items = {}
+    for i = 1, math.min(#old, 25) do
+      table.insert(items, old[i])
+    end
+
+    pick.start({
+      source = {
+        items = items,
+        name = "Oldfiles",
+        choose = pick.default_choose,
+      },
+    })
+  end
+
+  -- Register picker into :Pick registry so `:Pick oldfiles` works natively
+  pick.registry.oldfiles = pick_oldfiles
+
+  map("n", "<M-f>", "<cmd>Pick files<CR>", silent)
+  map("n", "<M-g>", "<cmd>Pick grep_live<CR>", silent)
+  map("n", "<M-r>", pick_oldfiles, silent)
+
 end
 
 --------------------------------------------------------------------------------
