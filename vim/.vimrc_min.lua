@@ -1184,8 +1184,8 @@ local hl_groups = {
   StatusLine = { fg = fg, bg = "#DDD8CE" },
   StatusLineNC = { fg = "#59616B", bg = "#D8D3C9" },
   -- Search = { fg = bg, bg = "#8C6615" },
-  Search = { fg = bg, bg = "#174B53" },
-  CurSearch = { fg = bg, bg = fg },
+  Search = { fg = "#174B53", bg = "#e5c07b" },
+  CurSearch = { fg = "#ffffff", bg = "#c678dd" },
   MatchParen = { fg = bg, bg = "#174B53", bold = true },
 
   Comment = { fg = comment, italic = true },
