@@ -27,12 +27,12 @@ fi
 
 log_step "Target environment: '${TARGET_USER}' (home: ${TARGET_HOME})"
 
-# 1. Purge previous Neovim binaries, configs, and all XDG runtime/data namespaces
-log_step "Purging previous Neovim binaries, ~/.config/nvim, and runtime data trees..."
+# 1. Purge previous Neovim binaries, configs, and all persistent XDG data trees
+log_step "Purging previous Neovim binaries, ~/.config/nvim, and ~/.local/share/nvim..."
 NVIM_DIR="/opt/neovim"
 sudo rm -rf "$NVIM_DIR"
 
-# NOTE(jlima): Wipe ~/.config/nvim completely alongside dotfiles hooks and runtime namespaces.
+# NOTE(jlima): Wiping ~/.local/share/nvim destroys cached vim.pack locks, plugins, and metadata.
 sudo rm -rf /root/.config/nvim /root/.dotfiles/hooks.json
 sudo rm -rf /root/.local/share/nvim /root/.local/state/nvim /root/.cache/nvim
 
