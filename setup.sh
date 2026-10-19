@@ -19,7 +19,7 @@ fi
 
 echo "NOTE(jlima): Bootstrapping Neovim system-wide as root for invoking user: '${TARGET_USER}'"
 
-# Install system prerequisites via apt
+# 1. Install system prerequisites via apt
 echo "NOTE(jlima): Installing system prerequisites..."
 apt-get update
 apt-get install -y ripgrep fd-find curl tar
@@ -29,7 +29,7 @@ if [ -f /usr/bin/fdfind ] && [ ! -e /usr/bin/fd ]; then
     ln -sf /usr/bin/fdfind /usr/bin/fd
 fi
 
-# Download and install Neovim to /opt/neovim
+# 2. Download and install Neovim to /opt/neovim
 NVIM_DIR="/opt/neovim"
 rm -rf "$NVIM_DIR"
 mkdir -p "$NVIM_DIR"
@@ -37,41 +37,30 @@ mkdir -p "$NVIM_DIR"
 echo "NOTE(jlima): Downloading and extracting Neovim stable release to /opt/neovim..."
 curl -sL "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz" | tar -xzC "$NVIM_DIR" --strip-components=1
 
-# Register and activate Neovim using update-alternatives
+# 3. Register and activate Neovim using update-alternatives system-wide
 for alt in editor vi vim; do
     update-alternatives --install "/usr/bin/$alt" "$alt" "/opt/neovim/bin/nvim" 150
     update-alternatives --set "$alt" "/opt/neovim/bin/nvim"
 done
 
-# Fully configure Neovim for root
+# 4. Deploy configurations for root
+echo "NOTE(jlima): Deploying configurations for root..."
 ROOT_CONFIG="/root/.config/nvim"
 ROOT_DOTFILES="/root/.dotfiles"
 mkdir -p "$ROOT_CONFIG" "$ROOT_DOTFILES"
-
-echo "NOTE(jlima): Deploying configurations for root..."
 curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$ROOT_CONFIG/init.lua"
 curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$ROOT_DOTFILES/hooks.json" 2>/dev/null || true
 
-# Configure for the invoking non-root user if applicable
+# 5. Deploy configurations for the invoking sudo user (if not already root)
 if [ "$TARGET_USER" != "root" ]; then
-    read -rp "NOTE(jlima): Do you also want to fully configure Neovim for user '${TARGET_USER}'? [Y/n]: " INSTALL_USER_CONFIG
-    # Default to Yes if just pressing enter
-    INSTALL_USER_CONFIG="${INSTALL_USER_CONFIG:-Y}"
+    echo "NOTE(jlima): Deploying configurations for invoking user '${TARGET_USER}'..."
+    USER_CONFIG="${TARGET_HOME}/.config/nvim"
+    USER_DOTFILES="${TARGET_HOME}/.dotfiles"
 
-    if [[ "$INSTALL_USER_CONFIG" =~ ^[Yy]$ ]]; then
-        USER_CONFIG="${TARGET_HOME}/.config/nvim"
-        USER_DOTFILES="${TARGET_HOME}/.dotfiles"
-
-        # NOTE(jlima): Create directories and immediately assign correct ownership before downloading files.
-        sudo -u "$TARGET_USER" mkdir -p "$USER_CONFIG" "$USER_DOTFILES"
-
-        echo "NOTE(jlima): Deploying configurations for ${TARGET_USER}..."
-        sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$USER_CONFIG/init.lua"
-        sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$USER_DOTFILES/hooks.json" 2>/dev/null || true
-
-        echo "NOTE(jlima): User configuration completed for '${TARGET_USER}'."
-    fi
+    sudo -u "$TARGET_USER" mkdir -p "$USER_CONFIG" "$USER_DOTFILES"
+    sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/vim/.vimrc_min.lua" -o "$USER_CONFIG/init.lua"
+    sudo -u "$TARGET_USER" curl -sL "https://raw.githubusercontent.com/ono7/dotfiles/refs/heads/main/hooks.json" -o "$USER_DOTFILES/hooks.json" 2>/dev/null || true
 fi
 
-echo "NOTE(jlima): Neovim system-wide bootstrap completed successfully."
+echo "NOTE(jlima): Neovim system-wide installation and dual-user configuration completed successfully."
 nvim --version
