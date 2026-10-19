@@ -1,24 +1,29 @@
 ## copy and paste neovim
 
-install wl-copy (in setup/setup_linux_deps.sh), neovim will detect and use
-accordingly, tmux just works with alacritty configuration
+`install wl-copy (in setup/setup_linux_deps.sh), neovim will detect and use
+accordingly, tmux just works with alacritty configuration`
 
 ## wsl adjust the nat range to allow vpn
 
 ## install wsl
 
-
 ```sh
+
 wsl --update --web-download
 wsl --set-default-version 2
 wsl --update
-wsl --install
+wsl --install Debian
+
+# powershell
+
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name "NatNetwork" -Value "100.64.20.0.0/24" -Type String
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name "NatGatewayIpAddress" -Value "100.64.20.0.1" -Type String
 ```
 
 ```sh
 
 wsl --update
-wsl --install
+wsl --install Debian
 
 # Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss]
