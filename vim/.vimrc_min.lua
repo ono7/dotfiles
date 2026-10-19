@@ -749,6 +749,20 @@ vim.api.nvim_create_user_command("T", function(opts_args)
 		end
 	end
 
+	local function send_terminal_cmd(job, payload)
+		if not payload or payload == "" then
+			return
+		end
+		-- NOTE(jlima): Ctrl-C kills active foreground jobs, Ctrl-U purges buffered readline input
+		vim.fn.chansend(job, "\x03\x15")
+		vim.defer_fn(function()
+			-- NOTE(jlima): 20ms yields event loop so PTY line discipline finishes signal dispatch
+			if pcall(vim.fn.jobwait, { job }, 0) and vim.fn.jobwait({ job }, 0)[1] == -1 then
+				vim.fn.chansend(job, payload .. "\n")
+			end
+		end, 20)
+	end
+
 	-- NOTE(jlima): Check if existing buffer is valid AND still running an active channel job.
 	local is_alive = state.buf
 		and vim.api.nvim_buf_is_valid(state.buf)
@@ -813,9 +827,7 @@ vim.api.nvim_create_user_command("T", function(opts_args)
 			return
 		end
 
-		-- If a command was supplied and terminal is visible, interrupt current job and re-run
-		vim.fn.chansend(state.job, "\x03")
-		vim.fn.chansend(state.job, cmd .. "\n")
+		send_terminal_cmd(state.job, cmd)
 		return
 	end
 
@@ -829,8 +841,7 @@ vim.api.nvim_create_user_command("T", function(opts_args)
 	vim.wo.statusline = "%#Normal# "
 
 	if cmd ~= "" then
-		vim.fn.chansend(state.job, "\x03")
-		vim.fn.chansend(state.job, cmd .. "\n")
+		send_terminal_cmd(state.job, cmd)
 		restore_editor_pos()
 	else
 		vim.cmd("startinsert")
@@ -1291,7 +1302,6 @@ local hl_groups = {
 	WinSeparator = { fg = line_nr, bg = "none" },
 	StatusLine = { fg = fg, bg = "#DDD8CE" },
 	StatusLineNC = { fg = "#59616B", bg = "#D8D3C9" },
-	-- Search = { fg = bg, bg = "#8C6615" },
 	Search = { fg = "#174B53", bg = "#e5c07b" },
 	CurSearch = { fg = "#ffffff", bg = "#c678dd" },
 	MatchParen = { fg = bg, bg = "#174B53", bold = true },
@@ -1352,7 +1362,6 @@ inoremap <M-l> <Esc>guiwea
 " change inside selection
 xnoremap & :<C-u>'<,'>s/\%V\v
 
-
 function! CopyMatches(reg)
   let hits = []
   %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
@@ -1378,21 +1387,15 @@ function! WrapSelection(left, right)
 endfunction
 
 xnoremap ' :<C-u>call WrapSelection("'", "'")<CR>
-" this overrides the " register key
-" vnoremap " :<C-u>call WrapSelection('"', '"')<CR>
 xnoremap ` :<C-u>call WrapSelection('`', '`')<CR>
 xnoremap ( :<C-u>call WrapSelection('(', ')')<CR>
 xnoremap [ :<C-u>call WrapSelection('[', ']')<CR>
 
 function! DuplicateAndMark()
     let l:c = col('.')
-    " Duplicate line above using the unnamed register
     execute "normal! yyP"
-    " Restore cursor column on the new line
     call cursor(line('.'), l:c)
-    " Move down to the original line (mimicking your previous <Down>)
     execute "normal! j"
-
     redraw
     echo "Mark set"
 endfunction
@@ -1415,7 +1418,6 @@ command! -nargs=+ -complete=file Rg call Rg(<q-args>)
 ]])
 
 -- fix command line editing window, by restoring CR mapping to defaults
--- the <c-m> mapping for running make was causing problems
 vim.api.nvim_create_autocmd("CmdwinEnter", {
 	group = core_group,
 	callback = function(args)
