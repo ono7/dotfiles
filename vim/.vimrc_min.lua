@@ -347,7 +347,7 @@ vim.api.nvim_create_autocmd("OptionSet", {
 		else
 			vim.opt_local.signcolumn = "auto"
 			vim.opt_local.foldcolumn = "0"
-			vim.opt_local.numberwidth = 4
+			vim.opt_local.numberwidth = 2
 			vim.opt_local.number = true
 
 			pcall(vim.keymap.del, "n", "]", { buffer = true })
@@ -1279,11 +1279,10 @@ local hl_groups = {
 	DiagnosticWarn = { fg = "#8C6615" },
 	DiagnosticInfo = { fg = type_col },
 	DiagnosticHint = { fg = comment },
-
 	DiffAdd = { fg = "#2E4C35", bg = "#DCE7DE" },
 	DiffDelete = { fg = "#8F242B", bg = "#F3DAD7" },
 	DiffChange = { bg = "none" },
-	DiffText = { fg = bg, bg = "#E6CE94" },
+	DiffText = { fg = "#B58900", bg = "none", bold = true }, -- NOTE(jlima): Avoid ful
 }
 
 for group, spec in pairs(hl_groups) do
