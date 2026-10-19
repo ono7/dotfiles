@@ -27,14 +27,21 @@ fi
 
 log_step "Target environment: '${TARGET_USER}' (home: ${TARGET_HOME})"
 
-# 1. Clean up previous install binaries, runtime assets, and config trees
-log_step "Purging previous Neovim binaries and configuration trees..."
+# 1. Clean up previous install binaries, runtime assets, configs, and vim.pack trees
+log_step "Purging previous Neovim binaries, configurations, and vim.pack directories..."
 NVIM_DIR="/opt/neovim"
 sudo rm -rf "$NVIM_DIR"
+
+# NOTE(jlima): Clear root config, hooks, and native vim.pack plugin directory.
 sudo rm -rf "/root/.config/nvim" "/root/.dotfiles/hooks.json"
+sudo rm -rf "/root/.local/share/nvim/site/pack"
+sudo rm -rf "/root/.local/state/nvim" "/root/.cache/nvim"
 
 if [ "$TARGET_USER" != "root" ]; then
+    # NOTE(jlima): Clear target user config, hooks, and native vim.pack plugin directory.
     sudo rm -rf "${TARGET_HOME}/.config/nvim" "${TARGET_HOME}/.dotfiles/hooks.json"
+    sudo rm -rf "${TARGET_HOME}/.local/share/nvim/site/pack"
+    sudo rm -rf "${TARGET_HOME}/.local/state/nvim" "${TARGET_HOME}/.cache/nvim"
 fi
 
 # 2. Install system prerequisites via apt
