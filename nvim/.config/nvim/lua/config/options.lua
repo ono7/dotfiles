@@ -173,14 +173,18 @@ vim.opt.fillchars = {
 -- =============================================================================
 -- 11. Diff & Language Options
 -- =============================================================================
-vim.opt.diffopt:remove("inline:char")
-vim.opt.diffopt:append({
+vim.opt.diffopt = {
+  "internal",
+  "filler",
+  "closeoff",
   "vertical",
-  "algorithm:histogram",
   "context:5",
-  "linematch:60",
-  "inline:word",
-})
+  "followwrap",
+  "algorithm:histogram",
+  "indent-heuristic",
+  "inline:char",
+  "linematch:80",
+}
 
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best,9"
