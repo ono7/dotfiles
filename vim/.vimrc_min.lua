@@ -1093,7 +1093,7 @@ require('conform').setup({
     cpp = { 'clang-format' },
     lua = { 'stylua' },
     python = { 'black' },
-    ['_'] = { 'trim_whitespace' },
+    -- ['_'] = { 'trim_whitespace' },
   },
   format_on_save = {
     timeout_ms = 500,
