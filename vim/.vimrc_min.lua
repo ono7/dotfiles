@@ -23,6 +23,17 @@ vim.opt.undofile = true
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
 
+vim.opt.fillchars = {
+	foldopen = "",
+	foldclose = "▶",
+	fold = " ",
+	diff = "╱",
+	vert = "│",
+	eob = " ",
+	msgsep = "‾",
+	stl = " ",
+}
+
 local undo_dir = vim.fn.expand("~/.undo")
 if vim.fn.isdirectory(undo_dir) == 0 then
 	vim.fn.mkdir(undo_dir, "p")
@@ -41,7 +52,8 @@ vim.opt.mouse = "" -- NOTE(jlima): disables terminal mouse tracking entirely to 
 vim.opt.mousemoveevent = false
 vim.opt.autochdir = false
 vim.opt.autoread = true
-vim.opt.more = false
+-- allows paging when doing things like :hi
+vim.opt.more = true
 
 -- Interface Baseline
 vim.opt.background = "light"
@@ -145,6 +157,18 @@ vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
 
 -- Diff Configuration
+-- vim.opt.diffopt = {
+-- 	"vertical",
+-- 	"filler",
+-- 	"closeoff",
+-- 	"context:5",
+-- 	"internal",
+-- 	"algorithm:histogram",
+-- 	"indent-heuristic",
+-- 	"linematch:60",
+-- 	"followwrap",
+-- }
+
 vim.opt.diffopt = {
 	"vertical",
 	"filler",
@@ -153,8 +177,9 @@ vim.opt.diffopt = {
 	"internal",
 	"algorithm:histogram",
 	"indent-heuristic",
-	"linematch:60",
+	"linematch:100", -- NOTE(jlima): Higher threshold prevents premature cross-line binding in hunks
 	"followwrap",
+	"iwhite",
 }
 
 vim.opt.spelllang = "en_us"
@@ -1279,10 +1304,12 @@ local hl_groups = {
 	DiagnosticWarn = { fg = "#8C6615" },
 	DiagnosticInfo = { fg = type_col },
 	DiagnosticHint = { fg = comment },
-	DiffAdd = { fg = "#2E4C35", bg = "#DCE7DE" },
-	DiffDelete = { fg = "#8F242B", bg = "#F3DAD7" },
+	DiffAdd = { fg = "none", bg = "none" },
+	DiffText = { fg = "#EDE9E1", bg = "#B63E46" },
+	DiffDelete = { fg = "#8F242B", bg = "none" },
 	DiffChange = { bg = "none" },
-	DiffText = { fg = "#B58900", bg = "none", bold = true }, -- NOTE(jlima): Avoid ful
+	Folded = { fg = "#7A7265", bg = "#EBE6DD" },
+	FoldColumn = { fg = "#B0A898", bg = "none" },
 }
 
 for group, spec in pairs(hl_groups) do
