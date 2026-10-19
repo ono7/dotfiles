@@ -925,6 +925,15 @@ vim.cmd([[
   cabbrev <expr> w!! (getcmdtype() == ':' && getcmdline() == 'w!!') ? 'w !sudo tee > /dev/null %' : 'w!!'
 ]])
 
+
+--- take
+
+vim.api.nvim_create_user_command("Take", function(opts)
+  local path = vim.fn.fnamemodify(opts.args:gsub("%s+", "-"), ":p")
+  vim.fn.mkdir(path, "p")
+  vim.cmd.lcd(vim.fn.fnameescape(path))
+end, { nargs = "+", complete = "dir" })
+
 --------------------------------------------------------------------------------
 -- 6. Filetype Execution Runner Hooks
 --------------------------------------------------------------------------------
