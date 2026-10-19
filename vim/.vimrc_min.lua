@@ -1229,8 +1229,18 @@ for group, spec in pairs(hl_groups) do
 end
 
 vim.cmd([[
+" commit
 nnoremap gm :lcd %:p:h<CR>:!git add %:t && git commit -m "<C-r>=expand('%:t')<CR>: "<Left>
+
+" select last inserted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" case transformation parity
+inoremap <M-u> <Esc>gUiwea
+inoremap <M-l> <Esc>guiwea
+
+" change inside selection
+xnoremap & :<C-u>'<,'>s/\%V\v
 ]])
 
 -- fix command line editing window, by restoring CR mapping to defaults
