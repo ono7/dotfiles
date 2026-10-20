@@ -140,6 +140,7 @@ neovim: go-deps nvm uv
 	@mkdir -p ~/.local/bin
 	@touch ~/.workspaces
 	@rm -rf $(HOME)/.local/share/nvim
+	@rm -rf $(HOME)/.config/nvim
 	@bash ./_scripts/build-neovim.sh
 
 neovide:

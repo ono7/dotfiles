@@ -163,6 +163,7 @@ log "attempting to bootstrap neovim plugins"
 
 cleanup
 
-nvim --headless "+Lazy! sync" +qa
+# nvim --headless "+Lazy! sync" +qa
+nvim --headless "+lua vim.pack.update()" +qa
 
 exit 0
