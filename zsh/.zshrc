@@ -736,3 +736,4 @@ bindkey "^T" fzf-file-widget
 
 # remove control+t (fzf)
 bindkey -r '^T'
+

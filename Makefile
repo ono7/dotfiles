@@ -134,7 +134,16 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
-# Explicit dependency: go-deps must execute before building neovim
+# neovim: go-deps nvm uv clean-nvim
+# 	@echo $(BANNER)
+# 	@mkdir -p ~/.local/bin
+# 	@touch ~/.workspaces
+# 	@rm -rf $(HOME)/.config/nvim $(HOME)/.ctags.d
+# 	@echo "cloning nvim config from github.com/ono7/nvim.git"
+# 	@git clone https://github.com/ono7/nvim ~/.config/nvim
+# 	@ln -sfnv $(HOME)/.config/nvim/ctags.d $(HOME)/.ctags.d
+# 	@bash ./_scripts/build-neovim.sh
+
 neovim: go-deps nvm uv
 	@echo $(BANNER)
 	@mkdir -p ~/.local/bin
@@ -151,7 +160,7 @@ neovim: go-deps nvm uv
 
 neovide:
 	@echo $(BANNER)
-	@rm -rf ~/.config/neovide/config.toml
+	@rm -rf ~/.config/neovide
 	@mkdir -p ~/.config/neovide
 ifeq ($(OS),Darwin)
 	@echo "Linking neovide config for macOS"
