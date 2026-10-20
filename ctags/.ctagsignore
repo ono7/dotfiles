@@ -1,24 +1,20 @@
-.DS_Store
+# Directories & Virtualenvs
+.git
 venv
-priv
-.env
-.vimrc
+node_modules
 __pycache__
-.aider
-.dbg_history
 .pytest_cache
 fact_cache
-node_modules/**/*
-node_modules
+priv
+
+# Generated files & caches
 tags
-.git
-1.cfg
-2.cfg
-3.cfg
-test.txt
-4.cfg
-*.log
 *.pyc
 *.egg-info
 *.cache
+*.log
+
+# Environment & tooling state
+.env
 .aider*
+.vimrc
