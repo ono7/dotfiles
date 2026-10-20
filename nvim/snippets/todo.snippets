@@ -1,0 +1,26 @@
+# snippet todo "todo" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet fix "fix" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` FIXME: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet fix "bug" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` BUG: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+# snippet note "note" w
+#   `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` NOTE: ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+
+snippet todo "todo" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` TODO(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+snippet fix "fix" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` FIXME(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+snippet bug "bug" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` BUG(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+snippet note "note" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]): '#'` NOTE(`$USER`): ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1]: ''`
+
+snippet d "done" w
+   ✅ `strftime("%Y-%m-%d %H:%M")` ${0:${VISUAL}}
+
+snippet u "inserts username from env" w
+  (`$USER`)$0
+
+snippet note_example "note" w
+  `len(split(&commentstring, '%s')) > 0 ? trim(split(&commentstring, '%s')[0]) : '#'` NOTE(`$USER`) `strftime("%Y-%m-%d")` : ${0:${VISUAL}}`len(split(&commentstring, '%s')) > 1 ? split(&commentstring, '%s')[1] : ''`

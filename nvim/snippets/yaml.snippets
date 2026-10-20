@@ -1,0 +1,55 @@
+extends jinja, todo
+
+priority 2000
+
+snippet ft "filetype" b
+  # vi: ft=yaml.ansible
+
+snippet end "end playbook" b
+  - name: Stop playbook here for debugging
+    ansible.builtin.meta: end_play
+
+snippet h "header" b
+  ---
+  - name: "${1}"
+    hosts: ${2:localhost}
+    gather_facts: false
+
+    ${0}
+
+  # vim: ft=yaml.ansible
+
+snippet debug "debug task"
+      - name: Debug
+        ansible.builtin.debug:
+          msg: "{{ ${0} }}"
+
+snippet shell "debug task"
+      ansible.builtin.shell: ${0}
+
+snippet command "debug task"
+      ansible.builtin.command: ${0}
+
+
+snippet compose "docker compose template"
+  ---
+  services:
+    ${1:sftp-service}:
+      image: ${2:ubuntu:latest}
+      container_name: ${3:container-name}
+      # build: .
+      ports:
+        - "127.0.0.1:2022:2022"
+      volumes:
+        # mkdir -p /app/images
+        - ./images:/app/images
+      environment:
+        - SFTP_USER=test
+        - SFTP_PASS=test123
+      # watch files, restart container if there are changes
+      # develop:
+      #   watch:
+      #     - action: sync
+      #       path: .
+      #       target: /code
+      restart: unless-stopped

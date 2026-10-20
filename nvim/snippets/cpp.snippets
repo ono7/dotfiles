@@ -1,0 +1,38 @@
+extends todo
+
+snippet #if "#macro if" b
+  #if ${0}
+  #endif
+
+snippet inc "include <>" b
+  #include <${0}>
+
+snippet h "header" b
+  // ${1}
+  #include <iostream>
+  ${2}
+
+  // using namespace std;
+
+  int main() {
+    ${0}
+    return 0;
+  }
+
+snippet co "cout" w
+  std::cout << $0
+
+snippet end "cout" w
+  std::endl
+
+snippet endl "cout" w
+  std::endl
+
+snippet ci "cout" w
+  std::cin >> ${0}
+
+snippet string "string" w
+  std::string ${0}
+
+snippet getline "string" w
+  std::getline(${1:std::cin}, ${0})

@@ -1,0 +1,59 @@
+extends todo
+
+priority 1000
+
+# TODO(jlima): finish this
+# to trouble shoot regex we can use basic regex first to make sure our command works
+# build the command incrementally start with the basics, `git branch --show-current`
+# then add `git branch --show-current | gret -Eio 'ntwk-'` and add \d and test, etc.
+
+# `system("git config --get remote.origin.url")`/commit/`system("git symbolic-ref --short HEAD")`/`system("git rev-parse HEAD")`
+
+snippet j "test" b
+  `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` $0
+
+snippet jc "test" b
+  `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #comment [JL] ${0:${VISUAL}}
+
+snippet jt "test" b
+  `toupper(trim(system("git branch --show-current | grep -Pio 'ntwk-\\d{1,20}'")))` #${0|to-to-do,to-in-progress,to-review,to-done|}
+
+snippet f "type" b
+  fix: $0
+
+snippet r "type" b
+  refactor: $0
+
+snippet s "type" b
+  style: $0
+
+snippet d "type" b
+  docs: $0
+
+snippet t "type" b
+  test: $0
+
+snippet c "type" b
+  chore: $0
+
+snippet h "type help" b
+  ${0}
+  # https://www.conventionalcommits.org/en/v1.0.0/#summary
+  # Type can be
+  # feat     (new feature)
+  # fix      (bug fix)
+  # refactor (refactoring production code)
+  # style    (formatting, missing semi colons, etc; no code change)
+  # docs     (changes to documentation)
+  # test     (adding or refactoring tests; no production code change)
+  # chore    (updating grunt tasks etc; no production code change)
+  # BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a
+  # ! after the type/scope, introduces a breaking API change (correlating with
+  # MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of
+  # any type.
+  # commit message with scope and breaking change()!
+  # feat(api)!: send an email to the customer when a product is shipped
+  # fix type commits should be translated to PATCH releases. feat type commits
+  # should be translated to MINOR releases. Commits with BREAKING CHANGE in the
+  # commits, regardless of type, should be translated to MAJOR releases.
+
