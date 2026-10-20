@@ -141,6 +141,8 @@ neovim: go-deps nvm uv
 	@touch ~/.workspaces
 	@rm -rf $(HOME)/.local/share/nvim
 	@rm -rf $(HOME)/.config/nvim
+	@echo "cloning nvim config from githud.com/ono7/nvim.git"
+	@git clone https://github.com/ono7/nvim ~/.config/nvim
 	@bash ./_scripts/build-neovim.sh
 
 neovide:

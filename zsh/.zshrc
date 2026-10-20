@@ -104,7 +104,7 @@ if command -v nvim >/dev/null 2>&1; then
   alias vim='nvim -n'
 fi
 alias vio="$HOME/.local/vim/bin/vim"
-alias vil='vim -u ~/.dotfiles/vim/.vimrc_min.lua'
+alias vil='vim -u NORC'
 alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 # alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
 # alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
@@ -115,11 +115,15 @@ nv() {
 }
 
 n () {
-    neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
+    neovide --fork "$@" 
 }
 
+# vi () {
+#     neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
+# }
+
 vi () {
-    neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
+    neovide --fork "$@" 
 }
 
 export LS_COLORS="${LS_COLORS}:ow=01;34:tw=01;34:st=01;34:"
