@@ -141,8 +141,12 @@ neovim: go-deps nvm uv
 	@touch ~/.workspaces
 	@rm -rf $(HOME)/.local/share/nvim
 	@rm -rf $(HOME)/.config/nvim
+	@rm -rf $(HOME)/.local/state/nvim/
+	@rm -rf $(HOME)/.cache/nvim/
+	@rm -rf $(HOME)/.ctags.d
 	@echo "cloning nvim config from githud.com/ono7/nvim.git"
 	@git clone https://github.com/ono7/nvim ~/.config/nvim
+	@ln -sfnv $(HOME)/.config/nvim/ctags.d $(HOME)/.ctags.d
 	@bash ./_scripts/build-neovim.sh
 
 neovide:
@@ -151,10 +155,10 @@ neovide:
 	@mkdir -p ~/.config/neovide
 ifeq ($(OS),Darwin)
 	@echo "Linking neovide config for macOS"
-	@ln -s ~/.dotfiles/templates/neovide-macos-config.toml ~/.config/neovide/config.toml
+	@ln -sfnv ~/.dotfiles/templates/neovide-macos-config.toml ~/.config/neovide/config.toml
 else
 	@echo "Linking neovide config for Linux"
-	@ln -s ~/.dotfiles/templates/neovide-linux-config.toml ~/.config/neovide/config.toml
+	@ln -sfnv ~/.dotfiles/templates/neovide-linux-config.toml ~/.config/neovide/config.toml
 endif
 	@echo "Neovide configuration linked successfully."
 
