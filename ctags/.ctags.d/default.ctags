@@ -1,0 +1,46 @@
+# NOTE(jlima): Core invariants for Neovim navigation
+--recurse=yes
+--sort=yes
+--tag-relative=yes
+--fields=+iaS
+--extras=+q
+--extras=+f
+
+# Global Directory Exclusions
+--exclude=.git
+--exclude=.venv
+--exclude=__pycache__
+--exclude=node_modules
+--exclude=vendor
+--exclude=bower_components
+--exclude=dist
+--exclude=build
+--exclude=coverage
+--exclude=tmp
+--exclude=log
+--exclude=.cache
+--exclude=tags
+--exclude=.tags
+
+# Global File Exclusions
+--exclude=*.min.*
+--exclude=*.map
+--exclude=*.swp
+--exclude=*.tmp
+--exclude=*.pyc
+--exclude=*.class
+--exclude=*.spec.*
+--exclude=*.test.*
+
+# NOTE(jlima): Custom extension for Ansible playbook task navigation in YAML files
+--regex-yaml=/^[ \t]*-[ \t]*name:[ \t]*(.+)/\1/t,task,tasks/
+
+# NOTE(jlima): Jinja2 template definitions for Universal Ctags.
+--langdef=jinja2
+--langmap=jinja2:.j2.jinja
+
+# Macros (reusable functions)
+--regex-jinja2=/^[ \t]*\{%[ \t]*macro[ \t]+([a-zA-Z0-9_]+)/\1/m,macro,macros/
+
+# Global/Template Variables
+--regex-jinja2=/^[ \t]*\{%[ \t]*set[ \t]+([a-zA-Z0-9_]+)/\1/v,variable,variables/
