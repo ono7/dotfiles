@@ -268,22 +268,35 @@ dotp() {
   local my_dir=$PWD
   cd ~/.dotfiles || return
   git pull
+  cd ~/.config/nvim || return
+  git pull
   cd "$my_dir" || return
 }
 
+# NOTE(jlima): Commit and sync dotfiles with custom or default message
 dotc() {
-  local my_dir=$PWD
-  cd "$HOME/.dotfiles" || return
-  git pull
+  local my_dir="$PWD"
+  local msg="${*:-updates}"
+
+  cd "$HOME/.dotfiles" || return 1
+  git pull || { cd "$my_dir"; return 1; }
   git add .
-  git commit
-  git push
-  cd "$my_dir" || return
+  git commit -m "$msg" || { cd "$my_dir"; return 1; }
+  git push || { cd "$my_dir"; return 1; }
+  cd "$HOME/.config/nvim" || return 1
+  git pull || { cd "$my_dir"; return 1; }
+  git add .
+  git commit -m "$msg" || { cd "$my_dir"; return 1; }
+  git push || { cd "$my_dir"; return 1; }
+  cd "$my_dir" || return 1
 }
 
 dots() {
   local my_dir=$PWD
   cd "$HOME/.dotfiles" || return
+  git status --untracked-files=all --short
+  cd "$my_dir" || return
+  cd "$HOME/.config/nvim" || return
   git status --untracked-files=all --short
   cd "$my_dir" || return
 }
