@@ -5,7 +5,7 @@ end
 -- 1. Instant OS detection via LuaJIT
 local os_name = jit.os -- "OSX", "Windows", "Linux"
 local is_mac = os_name == "OSX" or vim.fn.has("macunix") == 1
-local is_wsl = os_name == "Linux" and (vim.uv.os_uname().release:lower():find("microsoft") ~= nil)
+local is_wsl = os_name == vim.fn.has("wsl")
 
 -- 2. Smooth, Fluid Motion & Gliding Cursor
 vim.g.neovide_cursor_animation_length = 0.09 -- Soft, fluid cursor gliding
@@ -39,11 +39,10 @@ vim.g.neovide_progress_bar_hide_delay = 0.2
 vim.g.neovide_pixel_geometry = "RGBH"
 
 -- Font & Sharpness Setup per OS (Preserving Extended Specs)
-if os_name == "Windows" or is_wsl then
+if is_wsl then
   -- Windows / WSL (NVIDIA 1440p)
-  vim.o.guifont = "Iosevka Custom:h19:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h13:#e-subpixelantialias:#h-full"
   vim.g.neovide_input_use_logo = false
-  -- Neovide specific setting for Alt passthrough on Windows
   vim.opt.winaltkeys = "yes"
 elseif is_mac then
   -- macOS (Retina: Sharp grid-snapping without macOS CoreText blur)
@@ -59,7 +58,7 @@ elseif is_mac then
 else
   -- Linux Native (NVIDIA 1440p)
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
-  vim.o.guifont = "Iosevka Custom:h17:#e-subpixelantialias:#h-full"
+  vim.o.guifont = "Iosevka Custom:h15:#e-subpixelantialias:#h-full"
   -- vim.o.guifont = "Iosevka Custom:Medium Extended,Bold Extended,Medium Extended Italic:h16:#e-subpixelantialias:#h-full"
 end
 
