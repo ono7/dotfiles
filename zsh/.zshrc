@@ -278,11 +278,14 @@ dotc() {
   local my_dir="$PWD"
   local msg="${*:-updates}"
 
+  echo "$HOME/.dotfiles"
   cd "$HOME/.dotfiles" || return 1
   git pull || { cd "$my_dir"; return 1; }
   git add .
   git commit -m "$msg" || { cd "$my_dir"; return 1; }
   git push || { cd "$my_dir"; return 1; }
+
+  echo "$HOME/.config/nvim"
   cd "$HOME/.config/nvim" || return 1
   git pull || { cd "$my_dir"; return 1; }
   git add .
@@ -293,9 +296,12 @@ dotc() {
 
 dots() {
   local my_dir=$PWD
+
+  echo "$HOME/.dotfiles"
   cd "$HOME/.dotfiles" || return
   git status --untracked-files=all --short
   cd "$my_dir" || return
+  echo "$HOME/.config/nvim"
   cd "$HOME/.config/nvim" || return
   git status --untracked-files=all --short
   cd "$my_dir" || return
