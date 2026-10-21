@@ -1,4 +1,5 @@
 ---
+# vim: ft=yaml
 exclude_paths:
   - .collections
   - roles
