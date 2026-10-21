@@ -75,7 +75,7 @@ install_packages_apt() {
     libssl-dev libncurses-dev gettext \
     python3-dev libperl-dev \
     tree zsh silversearcher-ag fd-find unzip xclip wl-clipboard ripgrep stow make sqlite3 \
-    wget shfmt shellcheck gron rlwrap pass golang-go
+    wget shfmt shellcheck gron rlwrap pass golang-go universal-ctags
 
   sudo DEBIAN_FRONTEND=noninteractive apt-get "${apt_opts[@]}" install tree-sitter-cli 2>/dev/null || true
   sudo DEBIAN_FRONTEND=noninteractive apt-get "${apt_opts[@]}" install eza 2>/dev/null || true
@@ -100,7 +100,7 @@ install_packages_pacman() {
     tree zsh the_silver_searcher fd unzip xclip wl-clipboard ripgrep stow make sqlite \
     wget shfmt shellcheck rlwrap pass go \
     zoxide starship \
-    neovim neovide tree-sitter-cli eza
+    neovim neovide tree-sitter-cli eza universal-ctags
 }
 
 install_packages_dnf() {
