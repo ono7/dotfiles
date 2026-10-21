@@ -104,8 +104,11 @@ if command -v nvim >/dev/null 2>&1; then
   alias vim='nvim -n'
 fi
 alias vio="$HOME/.local/vim/bin/vim"
-alias vil='vim -u NORC'
-alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
+# alias vil='vim -u NORC'
+
+alias vil='nvim -c "normal '\''0" -c "bn" -c "bd"'
+
+# alias vl='nvim -c "normal '\''0" -c "bn" -c "bd"'
 # alias n="/Applications/Neovide.app/Contents/MacOS/neovide --fork"
 # alias nv="/Applications/Neovide.app/Contents/MacOS/neovide"
 # NOTE(jlima): Pass explicit config directly through Neovide argument separator
@@ -122,8 +125,17 @@ n () {
 #     neovide --fork "$@" -- -u "$HOME/.dotfiles/vim/.vimrc_min.lua"
 # }
 
-vi () {
-    neovide --fork "$@" 
+vi() {
+  local v_title=""
+  if [ -n "${VIRTUAL_ENV_PROMPT}" ]; then
+    v_title="VENV: ${VIRTUAL_ENV_PROMPT}"
+  fi
+
+  neovide --fork "$@" -- -c "set title" -c "let &titlestring='${v_title}'"
+}
+
+vl() {
+  neovide --fork "$@" -- -c 'normal! '\''0'
 }
 
 export LS_COLORS="${LS_COLORS}:ow=01;34:tw=01;34:st=01;34:"
