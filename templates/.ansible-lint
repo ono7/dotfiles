@@ -1,7 +1,6 @@
 ---
 exclude_paths:
   - .collections
-  # we will no be using roles
   - roles
   - playbooks
   - backups/
