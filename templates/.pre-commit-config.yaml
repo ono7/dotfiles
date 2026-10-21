@@ -28,15 +28,15 @@ repos:
         types_or: [python, pyi]
         require_serial: true
 
-      - id: ansible-lint
-        name: Ansible Lint
-        entry: ansible-lint
-        language: system
-        types: [yaml]
-
-      # - id: ctags
-      #   name: Generate Ctags
-      #   entry: ctags -R -f tags .
+      # - id: ansible-lint
+      #   name: Ansible Lint
+      #   entry: ansible-lint
       #   language: system
-      #   pass_filenames: false
-      #   always_run: true
+      #   types: [yaml]
+
+      - id: ctags
+        name: Generate Ctags
+        entry: ctags -R -f tags .
+        language: system
+        pass_filenames: false
+        always_run: true
