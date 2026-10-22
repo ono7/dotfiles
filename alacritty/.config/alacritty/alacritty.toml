@@ -1,64 +1,56 @@
-[general]
-live_config_reload = true
-working_directory = "None"
-
-# ==========================================
-# CUSTOM PAPER PALETTE (LIGHT / ANTI-GLARE)
-# ==========================================
-
 [colors.primary]
-background = "#F2EFE9"
-foreground = "#38414D"
+background = "#1E2229"
+foreground = "#C8CCD4"
 
 [colors.cursor]
-text = "#F2EFE9"
-cursor = "#000000"
+text = "#1E2229"
+cursor = "#C8CCD4"
 
 [colors.vi_mode_cursor]
-text = "#F2EFE9"
-cursor = "#996E14"
+text = "#1E2229"
+cursor = "#E56B73"
 
 [colors.selection]
-text = "#38414D"
-background = "#D5CFC4"
+text = "#C8CCD4"
+background = "#323844"
 
 [colors.search]
-matches = { foreground = "#F2EFE9", background = "#996E14" }
-focused_match = { foreground = "#F2EFE9", background = "#B85C38" }
+matches = { foreground = "#1E2229", background = "#E5C07B" }
+focused_match = { foreground = "#1E2229", background = "#E56B73" }
 
 [colors.hints]
-start = { foreground = "#F2EFE9", background = "#3B6EA8" }
-end   = { foreground = "#F2EFE9", background = "#2D7D8A" }
+start = { foreground = "#1E2229", background = "#61AFEF" }
+end   = { foreground = "#1E2229", background = "#56B6C2" }
 
 [colors.normal]
-black   = "#E6E2DA"
-red     = "#C4434B"
-green   = "#4A7A59"
-yellow  = "#996E14"
-blue    = "#3B6EA8"
-magenta = "#5C6A7B"
-cyan    = "#2D7D8A"
-white   = "#38414D"
+black   = "#1E2229"
+red     = "#E56B73"
+green   = "#7EC699"
+yellow  = "#E5C07B"
+blue    = "#61AFEF"
+magenta = "#C678DD"
+cyan    = "#56B6C2"
+white   = "#C8CCD4"
 
 [colors.bright]
-black   = "#7B8A9C"
-red     = "#C4434B"
-green   = "#3A6146"
-yellow  = "#7A570F"
-blue    = "#2C5482"
-magenta = "#734A7A"
-cyan    = "#21606B"
-white   = "#1A1F26"
+black   = "#7F8996"
+red     = "#F08088"
+green   = "#98D4AF"
+yellow  = "#EDD096"
+blue    = "#7CC0F5"
+magenta = "#D494E6"
+cyan    = "#73C6D1"
+white   = "#DFE4EA"
 
 [colors.dim]
-black   = "#E6E2DA"
-red     = "#C4434B"
-green   = "#4A7A59"
-yellow  = "#996E14"
-blue    = "#3B6EA8"
-magenta = "#5C6A7B"
-cyan    = "#2D7D8A"
-white   = "#7B8A9C"
+black   = "#1E2229"
+red     = "#C4767B"
+green   = "#82AD92"
+yellow  = "#C9AE87"
+blue    = "#7A9AB5"
+magenta = "#B382C2"
+cyan    = "#6BA4A8"
+white   = "#7F8996"
 
 # ==========================================
 # TERMINAL, FONT & WINDOW SETTINGS
@@ -86,7 +78,7 @@ render_timer = false
 TERM = "alacritty"
 
 [font]
-size = 17.0
+size = 22.0
 
 [font.normal]
 # family = "IosevkaTerm Nerd Font"
