@@ -266,8 +266,10 @@ fixgit() { git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" 
 
 dotp() {
   local my_dir=$PWD
+  echo "$HOME/.dotfiles"
   cd ~/.dotfiles || return
   git pull
+  echo "$HOME/.config/nvim"
   cd ~/.config/nvim || return
   git pull
   cd "$my_dir" || return
