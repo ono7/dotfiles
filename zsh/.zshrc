@@ -276,24 +276,35 @@ dotp() {
 }
 
 # NOTE(jlima): Commit and sync dotfiles with custom or default message
+_sync_repo() {
+  local repo_path="$1"
+  local msg="$2"
+
+  echo "$repo_path"
+  # NOTE(jlima): Subshell isolates directory transitions and local error scopes
+  (
+    cd "$repo_path" || exit 1
+    git pull || exit 1
+    git add .
+
+    # NOTE(jlima): Allow clean working trees to proceed without failing the push step
+    if ! git diff --cached --quiet; then
+      git commit -m "$msg" || exit 1
+    fi
+
+    git push || exit 1
+  )
+}
+
 dotc() {
-  local my_dir="$PWD"
   local msg="${*:-updates}"
+  local exit_status=0
 
-  echo "$HOME/.dotfiles"
-  cd "$HOME/.dotfiles" || return 1
-  git pull || { cd "$my_dir"; return 1; }
-  git add .
-  git commit -m "$msg" || { cd "$my_dir"; return 1; }
-  git push || { cd "$my_dir"; return 1; }
+  _sync_repo "$HOME/.dotfiles" "$msg" || exit_status=1
+  _sync_repo "$HOME/.config/nvim" "$msg" || exit_status=1
 
-  echo "$HOME/.config/nvim"
-  cd "$HOME/.config/nvim" || return 1
-  git pull || { cd "$my_dir"; return 1; }
-  git add .
-  git commit -m "$msg" || { cd "$my_dir"; return 1; }
-  git push || { cd "$my_dir"; return 1; }
-  cd "$my_dir" || return 1
+  # NOTE(jlima): Surface non-zero exit status if any target repository failed
+  return "$exit_status"
 }
 
 dots() {
