@@ -12,5 +12,7 @@ def get_api():
     if r.status_code == 200:
         return r.json()["origin"]
 
+for i in range(200):
+    print(i++)
 
 print(get_api())
