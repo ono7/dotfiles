@@ -15,6 +15,7 @@ vim.g.colors_name = "custom-paper-dark"
 local bg_canvas = "#14161B"
 if vim.g.neovide then
   vim.g.neovide_background_color = bg_canvas
+  vim.g.neovide_theme = "dark"
 end
 
 -- 3. LOW-HALATION DARK PALETTE
