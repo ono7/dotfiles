@@ -2,8 +2,7 @@ if not vim.g.neovide then
   return
 end
 
--- 1. Instant OS detection via LuaJIT
-local os_name = jit.os -- "OSX", "Windows", "Linux"
+-- 1. Instant OS detection via LuaJIT local os_name = jit.os -- "OSX", "Windows", "Linux"
 local is_mac = os_name == "OSX" or vim.fn.has("macunix") == 1
 local is_wsl = os_name == vim.fn.has("wsl")
 
@@ -96,19 +95,17 @@ local function change_scale_factor(delta)
   vim.g.neovide_scale_factor = math.max(0.7, math.min(1.2, s))
 end
 
-local cmd_or_ctrl = "<C-"
-
 -- Changed from 1.1 to 1.05 for a ~5% step
-vim.keymap.set("n", cmd_or_ctrl .. "=>", function()
+vim.keymap.set("n", "<M-=>", function()
   change_scale_factor(1.02)
 end)
 
-vim.keymap.set("n", cmd_or_ctrl .. "->", function()
+vim.keymap.set("n", "<M->", function()
   change_scale_factor(1 / 1.05)
 end)
 
 -- Optional: Add a shortcut to quickly reset back to default (1.0)
-vim.keymap.set("n", cmd_or_ctrl .. "0>", function()
+vim.keymap.set("n", "<M-0>", function()
   vim.g.neovide_scale_factor = 1.0
 end)
 
