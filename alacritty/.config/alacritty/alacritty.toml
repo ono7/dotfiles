@@ -83,7 +83,10 @@ size = 22.0
 [font.normal]
 # family = "IosevkaTerm Nerd Font"
 # style = "Bold"
-family = "Iosevka Custom"
+# family = "Iosevka Custom"
+# family = "Menlo"
+#family = "SF Mono Terminal"
+family = "SF Mono"
 
 [font.offset]
 x = 0
