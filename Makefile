@@ -211,7 +211,7 @@ ifeq ($(OS),Darwin)
 else ifeq ($(OS),Linux)
 	@echo "Installing fonts for Linux..."
 	@mkdir -p ~/.local/share/fonts/
-	@find $(FONT_DIR) -type f \( -name "*.otf" -o -name "*.ttf" \) -exec cp {} ~/.local/share/fonts/ \;
+	@find $(FONT_DIR) -type f \( -name "*.otf" -o -name "*.ttf" -o -name "*.ttc" \) -exec cp {} ~/.local/share/fonts/ \;
 	@fc-cache -fv
 	@echo "Fonts installed successfully."
 else
