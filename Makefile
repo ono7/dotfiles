@@ -5,7 +5,7 @@ export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linux
 FONT_REPO := https://github.com/ono7/fonts2.git
 FONT_DIR  := $(HOME)/fonts2
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf nvm done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide mac-word
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide mac-word
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -32,13 +32,13 @@ detect-os:
 	fi; \
 	$(MAKE) $$machine
 
-# the order of execution on this targets is important
-linux: linux-deps clean stow nvm go-deps uv vim fzf starship fonts neovide done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow nvm go-deps uv fzf starship vim neovim neovide fonts done mac_word
+# NOTE(jlima): Added missing neovim dependency and corrected target invocation flow
+linux: linux-deps clean stow go-deps uv vim fzf starship fonts neovide done
+mac: mac-keybinds mac-deps homebrew brew-deps clean stow go-deps uv fzf starship vim neovim neovide fonts done mac-word
 
 mac-word:
 	@echo $(BANNER)
-	echo "TURN OFF AIR PLAY AND HANDOFF FOR LOW LATENCY"
+	@echo "TURN OFF AIR PLAY AND HANDOFF FOR LOW LATENCY"
 
 clean:
 	@echo $(BANNER)
@@ -77,12 +77,6 @@ stow:
 	@echo $(BANNER)
 	@bash ./_scripts/stow.sh
 
-# make ssh/config not tracked in ~/.dotfiles
-# ssh:
-# 	@echo $(BANNER)
-# 	stow -D ssh
-# 	@cp ~/.dotfiles/ssh/.ssh/config ~/.ssh/config
-
 homebrew:
 	@echo $(BANNER)
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -110,11 +104,6 @@ uv:
 	@uv tool install dnsdiag
 	@uv tool install pynvim
 
-nvm:
-	@echo $(BANNER)
-	@rm -rf ~/.nvm
-	@bash ./_scripts/nvm.sh
-
 shell:
 	@echo $(BANNER)
 	$$(which zsh) || return
@@ -134,17 +123,7 @@ linux-deps:
 	@echo $(BANNER)
 	@bash ./_scripts/setup_linux_deps.sh
 
-# neovim: go-deps nvm uv clean-nvim
-# 	@echo $(BANNER)
-# 	@mkdir -p ~/.local/bin
-# 	@touch ~/.workspaces
-# 	@rm -rf $(HOME)/.config/nvim $(HOME)/.ctags.d
-# 	@echo "cloning nvim config from github.com/ono7/nvim.git"
-# 	@git clone https://github.com/ono7/nvim ~/.config/nvim
-# 	@ln -sfnv $(HOME)/.config/nvim/ctags.d $(HOME)/.ctags.d
-# 	@bash ./_scripts/build-neovim.sh
-
-neovim: go-deps nvm uv
+neovim: go-deps uv
 	@echo $(BANNER)
 	@mkdir -p ~/.local/bin
 	@touch ~/.workspaces
@@ -153,7 +132,7 @@ neovim: go-deps nvm uv
 	@rm -rf $(HOME)/.local/state/nvim/
 	@rm -rf $(HOME)/.cache/nvim/
 	@rm -rf $(HOME)/.ctags.d
-	@echo "cloning nvim config from githud.com/ono7/nvim.git"
+	@echo "cloning nvim config from github.com/ono7/nvim.git"
 	@git clone https://github.com/ono7/nvim ~/.config/nvim
 	@ln -sfnv $(HOME)/.config/nvim/ctags.d $(HOME)/.ctags.d
 	@bash ./_scripts/build-neovim.sh
@@ -173,7 +152,7 @@ endif
 
 vim:
 	@echo $(BANNER)
-	@if [ "$(id -u)" != "0" ]; then \
+	@if [ "$$(id -u)" != "0" ]; then \
 		mkdir -p ~/.local/bin; \
 	fi
 	@bash ./_scripts/build-vim.sh
@@ -192,6 +171,12 @@ mac-keybinds:
 	mkdir -p ~/Library/KeyBindings
 	rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
 	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
+	cd ~/.dotfiles && stow skhd
+	@HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd
+	@skhd --start-service
+	@skhd --install-service
+	@defaults write -g KeyRepeat -int 1
+	@defaults write -g InitialKeyRepeat -int 10
 
 # installs go dependencies
 go-deps:

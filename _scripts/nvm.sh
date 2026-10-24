@@ -12,10 +12,6 @@ export NVM_DIR="$HOME/.nvm"
 mkdir -p "$NVM_DIR"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
-# Load nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 # Remove conflicting prefix/globalconfig entries from ~/.npmrc before installing Node
 if [ -f "$HOME/.npmrc" ]; then
   sed -i '/prefix/d' "$HOME/.npmrc"
@@ -23,8 +19,8 @@ if [ -f "$HOME/.npmrc" ]; then
 fi
 
 log "install node"
-nvm install node
-nvm use node
+# nvm install node
+# nvm use node
 
 npm set strict-ssl false
 
