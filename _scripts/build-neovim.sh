@@ -171,5 +171,6 @@ log "attempting to bootstrap neovim plugins"
 cleanup
 
 nvim --headless "+lua vim.pack.update()" +qa
+nvim --headless "+TSInstallMyParsers" +qa
 
 exit 0
