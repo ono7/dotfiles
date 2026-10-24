@@ -75,8 +75,9 @@ rm -rf build
 if [[ "$OSTYPE" == "darwin"* ]]; then
   log "macOS detected. Installing packages..."
   if command -v brew >/dev/null 2>&1; then
+    brew update --quiet
     brew uninstall --ignore-dependencies neovim || true
-    NONINTERACTIVE=1 brew install ninja cmake gettext curl tree-sitter-cli node universal-ctags || true
+    brew install ninja cmake gettext curl tree-sitter-cli node universal-ctags || true
   else
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
