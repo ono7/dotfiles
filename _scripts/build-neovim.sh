@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 #  Author:    Jose Lima (jlima)
 #  Date:      2024-09-20 20:51
-#  Updated for Arch Linux/Manjaro/Fedora support
+#  Updated for Arch Linux/Manjaro/Fedora/macOS support
 
 set -euo pipefail
+
+# NOTE(jlima): Ensure Homebrew runs fully non-interactive
+export NONINTERACTIVE=1
 
 log() {
   printf '\n[%s] - %s\n\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
 TAG="stable"
-DESTDIR="neovim-stable"
+DESTDIR="neovim-${TAG}"
 INITIAL_DIR=$(pwd)
 
 cleanup() {
@@ -22,29 +25,40 @@ cleanup() {
 
 trap cleanup EXIT ERR INT TERM
 
+# Detect CPU core count dynamically across platforms
+get_cpu_cores() {
+  if command -v nproc >/dev/null 2>&1; then
+    nproc
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    sysctl -n hw.ncpu
+  else
+    echo 2
+  fi
+}
+CORES=$(get_cpu_cores)
+
 # Detect architecture and set optimization flags
 ARCH=$(uname -m)
 if [[ "$ARCH" == "arm64" || "$ARCH" == "aarch64" ]]; then
-  # ARM64 / Apple Silicon optimizations
+  # NOTE(jlima): ARM64 / Apple Silicon optimizations
   export CFLAGS="-O3 -march=native -mtune=native -pipe"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe"
   export LDFLAGS="-Wl,-O1 -flto"
   log "Building for ARM64 (${ARCH}) with CPU optimizations"
 elif [[ "$ARCH" == "x86_64" ]]; then
-  # x86_64 optimizations
+  # NOTE(jlima): x86_64 optimizations
   export CFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export CXXFLAGS="-O3 -march=native -mtune=native -pipe -msse4.2 -mavx2"
   export LDFLAGS="-Wl,-O1,-s -flto"
   log "Building for Linux (x86_64) with CPU optimizations"
 else
-  # Generic fallback for any other architecture
+  # NOTE(jlima): Generic fallback for other architectures
   export CFLAGS="-O2 -pipe"
   export CXXFLAGS="-O2 -pipe"
   export LDFLAGS="-Wl,-O1"
   log "Building for generic architecture (${ARCH})"
 fi
 
-log "Cleaning artifacts..."
 log "Downloading neovim"
 curl -LO "https://github.com/neovim/neovim/archive/refs/tags/${TAG}.tar.gz"
 tar xzf "${TAG}.tar.gz"
@@ -62,7 +76,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   log "macOS detected. Installing packages..."
   if command -v brew >/dev/null 2>&1; then
     brew uninstall --ignore-dependencies neovim || true
-    brew install ninja cmake gettext curl tree-sitter-cli || true
+    NONINTERACTIVE=1 brew install ninja cmake gettext curl tree-sitter-cli node universal-ctags || true
   else
     log "Error: Homebrew is not installed. Please install Homebrew first."
     exit 1
@@ -70,10 +84,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 # Check if the system is Arch Linux or Manjaro
 elif [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ] || command -v pacman >/dev/null 2>&1; then
   log "Arch Linux/Manjaro detected. Installing packages..."
-  sudo pacman -Syu
+  sudo pacman -Syu --noconfirm
   sudo pacman -R neovim --noconfirm || true
   sudo pacman -S --needed --noconfirm \
-    base-devel cmake unzip ninja curl git tree-sitter-cli \
+    base-devel cmake unzip ninja curl git tree-sitter-cli nodejs npm \
     libluv libutf8proc libuv libvterm luajit msgpack-c tree-sitter unibilium \
     tree-sitter-c tree-sitter-lua tree-sitter-markdown tree-sitter-query \
     tree-sitter-vim tree-sitter-vimdoc lua51-lpeg lua51-mpack
@@ -84,18 +98,15 @@ elif [ -f /etc/redhat-release ] || [ -f /etc/fedora-release ]; then
 # Check if the system is Debian-based (Ubuntu, Debian, etc.)
 elif [ -f /etc/debian_version ]; then
   log "Debian-based system detected. Installing packages..."
-  sudo apt-get update
+  sudo apt-get update -y
   sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential tree-sitter-cli ||
-    sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential
+    sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential nodejs npm
 else
   log "Unsupported operating system. This script is intended for macOS, Arch Linux, Manjaro, RHEL, Fedora, Ubuntu, or Debian systems only."
   exit 1
 fi
 
-# Build with optimizations - using cmake directly for better control
 log "Building neovim with optimizations..."
-
-log "cleaning left over artifacts"
 make distclean
 
 # Build dependencies first
@@ -106,7 +117,7 @@ cmake ../cmake.deps \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
   -DUSE_BUNDLED=ON \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
-make -j$(nproc)
+make -j"$CORES"
 cd ..
 
 # Build Neovim
@@ -120,7 +131,7 @@ cmake .. \
   -DENABLE_LTO=ON \
   -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
 
-if ! make -j$(nproc); then
+if ! make -j"$CORES"; then
   log "Error while building neovim"
   exit 1
 fi
@@ -155,15 +166,9 @@ echo "Neovim built for platform ${ARCH}"
 echo "With compiler CFLAGS: ${CFLAGS}"
 echo ""
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 log "attempting to bootstrap neovim plugins"
-
 cleanup
 
-# nvim --headless "+Lazy! sync" +qa
 nvim --headless "+lua vim.pack.update()" +qa
 
 exit 0
