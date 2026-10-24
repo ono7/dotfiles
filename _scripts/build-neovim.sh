@@ -162,15 +162,16 @@ else
   log "  echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.zshrc"
 fi
 
-echo ""
-echo "Neovim built for platform ${ARCH}"
-echo "With compiler CFLAGS: ${CFLAGS}"
-echo ""
-
 log "attempting to bootstrap neovim plugins"
 cleanup
 
 nvim --headless "+lua vim.pack.update()" +qa
 nvim --headless "+TSInstallMyParsers" +qa
+
+echo ""
+echo "Neovim built for platform ${ARCH}"
+echo "With compiler CFLAGS: ${CFLAGS}"
+echo ""
+
 
 exit 0
