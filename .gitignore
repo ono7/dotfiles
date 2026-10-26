@@ -24,6 +24,7 @@ lazy-lock.json
 .env
 env
 tags
+stags
 1.cfg
 2.cfg
 3.cfg
