@@ -1,15 +1,14 @@
 # ctrl - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+# skhd --restart-service      
 ctrl - return : open -a neovide
 ctrl + shift - k : open -a neovide
 
-# NOTE(jlima): Launch Alacritty terminal emulator
 ctrl + shift - t : open -a Alacritty
-
-# NOTE(jlima): Launch Google Chrome browser
 ctrl + shift - w : open -a "Google Chrome"
-
-# NOTE(jlima): Launch Preview application
 ctrl + shift - l : open -a Preview
+ctrl + shift - l : open -a Messages
+# skhd --restart-service      
+
 #  NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
 #                     be found at https://github.com/koekeishiya/skhd/issues/1
 #
