@@ -84,14 +84,14 @@ size = 22.0
 # family = "IosevkaTerm Nerd Font"
 # style = "Bold"
 # family = "Iosevka Custom"
-# family = "Menlo"
-#family = "SF Mono Terminal"
-family = "SF Mono"
+family = "Menlo"
+# family = "SF Mono Terminal"
+# family = "SF Mono"
 
 [font.offset]
 x = 0
 # 11 = 1.5x line heigth
-y = 11
+y = 16
 
 [font.glyph_offset]
 x = 0
