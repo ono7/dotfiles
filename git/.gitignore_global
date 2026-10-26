@@ -10,6 +10,7 @@ __pycache__/
 .pytest_cache/
 fact_cache/
 node_modules/
+stags
 tags
 1.cfg
 2.cfg
