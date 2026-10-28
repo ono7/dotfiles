@@ -16,6 +16,7 @@ local echo_filename_group = create_augroup("EchoFileNameOnFocus", { clear = true
 local clipboard_sync_group = create_augroup("ClipboardSync", { clear = true })
 local purge_banner_group = create_augroup("PurgeNeovideBanner", { clear = true })
 
+local lsp_notify_group = create_augroup("LspManualNotify", { clear = true })
 --- Manual LSP File Change Notification ---
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = lsp_notify_group,
@@ -107,7 +108,12 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function(args)
     vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { buffer = args.buf, silent = true, desc = "Next quickfix entry" })
-    vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { buffer = args.buf, silent = true, desc = "Previous quickfix entry" })
+    vim.keymap.set(
+      "n",
+      "<M-k>",
+      "<cmd>cprev<CR>",
+      { buffer = args.buf, silent = true, desc = "Previous quickfix entry" }
+    )
     vim.keymap.set("n", "<CR>", "<CR>", { buffer = args.buf, desc = "Jump to quickfix entry" })
   end,
 })
@@ -225,7 +231,13 @@ vim.api.nvim_create_autocmd("BufLeave", {
   group = vim.api.nvim_create_augroups or vim.api.nvim_create_augroup("CleanNoName", { clear = true }),
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
-    if vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) == "" and not vim.bo[buf].modified and vim.fn.line("$") == 1 and vim.fn.getline(1) == "" then
+    if
+      vim.bo[buf].buftype == ""
+      and vim.api.nvim_buf_get_name(buf) == ""
+      and not vim.bo[buf].modified
+      and vim.fn.line("$") == 1
+      and vim.fn.getline(1) == ""
+    then
       vim.bo[buf].bufhidden = "wipe"
     end
   end,
