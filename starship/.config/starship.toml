@@ -52,6 +52,7 @@ format = "[$hostname]($style) "
 # Directory
 [directory]
 style = "bold fg:#8AB4F8"
+# style = "fg:#8AB4F8"
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 3
 truncate_to_repo = true
