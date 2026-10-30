@@ -3,6 +3,15 @@
 # Disable flow control (Ctrl+S/Ctrl+Q)
 stty -ixon 2>/dev/null
 
+case "$(uname -s)" in
+    Darwin)
+        export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+        ;;
+    Linux)
+        export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+        ;;
+esac
+
 export GPG_TTY="/dev/tty"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export GOPATH="$HOME/go"

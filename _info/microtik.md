@@ -1,6 +1,6 @@
 ## check for updates cli
 
-[admin@CCR2116] > /system package update check-for-updates
+/system package update check-for-updates
 
 ## microtik router commands
 
