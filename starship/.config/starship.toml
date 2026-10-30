@@ -1,234 +1,111 @@
-# Starship configuration - Elegant rounded style (Custom-Paper Light Theme)
-# Save this as ~/.config/starship.toml
+# Starship configuration - Modern Minimal (Google Dark Minimal Palette)
+# Location: ~/.config/starship.toml
 
+# NOTE(jlima): Two-line layout. Line 1 hosts contextual state; Line 2 provides clean command input.
 format = """
 $os\
-$username\
-$hostname\
 $directory\
 $git_branch\
 $git_status\
-$nodejs\
-$rust\
-$golang\
-$php\
 $python\
+$golang\
+$rust\
+$nodejs\
 $docker_context\
-$package\
+$kubernetes\
 $cmd_duration\
 $line_break\
 $character"""
 
-# Disable the blank line at the start of the prompt
-add_newline = false
+add_newline = true
 
-# OS Symbol
 [os]
-style = "fg:#3B6EA8" # Denim Blue
 disabled = false
-format = "[$symbol ]($style)"
+style = "fg:#7F8996"
+format = "[$symbol]($style) "
 
 [os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
 Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-CachyOS = "󰣇"
-Artix = "󰣇"
-CentOS = ""
+Ubuntu = "󰕈"
 Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
+Arch = "󰣇"
+Fedora = "󰣛"
+Macos = "󰀵"
+Windows = "󰍲"
 
-# Username
-[username]
-show_always = false
-style_user = "fg:#996E14" # Ochre
-style_root = "fg:#C4434B bold" # Crimson
-format = "[$user]($style)[@](fg:#7B8A9C)" # Soft Slate '@'
-
-# Hostname
-[hostname]
-ssh_only = true
-style = "fg:#3B6EA8" # Denim Blue
-format = "[$hostname]($style) "
-
-# Directory
 [directory]
-style = "fg:#3B6EA8 bold" # Bold Denim Blue for high readability
-format = "[  $path]($style) "
+style = "fg:#8AB4F8 bold"
+format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 3
-truncate_to_repo = false
-truncation_symbol = '…/'
-fish_style_pwd_dir_length = 1
+truncate_to_repo = true
+truncation_symbol = "…/"
 read_only = " 󰌾"
-read_only_style = "fg:#C4434B" # Crimson
+read_only_style = "fg:#F28B82"
 
-[directory.substitutions]
-"Documents" = "󰈙 Docs"
-"Downloads" = "󰈙 Downloads"
-"Music" = "󰝚 Music"
-"Pictures" = "  Pictures"
-"Developer" = "󰲋 Dev"
-"~" = "󰋜 ~"
-
-# Git Branch
 [git_branch]
-symbol = ""
-style = "fg:#2D7D8A" # Deep Teal
-format = "[on $symbol$branch]($style)"
+symbol = " "
+style = "fg:#C58AF9"
+format = "[$symbol$branch]($style) "
 
-# Git Status
 [git_status]
-style = "fg:#C4434B" # Crimson
-format = "[$all_status$ahead_behind]($style)"
-conflicted = "⚡"
-ahead = "⇡${count} "
-behind = "⇣${count} "
-diverged = "⇕⇡${ahead_count}⇣${behind_count} "
-up_to_date = ""
-untracked = "?${count} "
-stashed = " s"
-modified = "!${count} "
-staged = "+${count} "
-renamed = "»${count} "
-deleted = "✘${count} "
+style = "fg:#FA903E"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "!"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+modified = "~${count}"
+staged = "+${count}"
+renamed = "»"
+deleted = "✘"
 
-# Language/Tool Indicators
-[nodejs]
+[python]
 symbol = " "
-style = "fg:#4A7A59" # Pine Green
-format = "[( $symbol$version )]($style)"
-
-[rust]
-symbol = " "
-style = "fg:#C4434B" # Crimson
-format = "[( $symbol$version )]($style)"
+style = "fg:#D4B976"
+format = "[$symbol($version )]($style)"
 
 [golang]
 symbol = " "
-style = "fg:#2D7D8A" # Deep Teal
-format = "[( $symbol$version )]($style)"
+style = "fg:#78D9EC"
+format = "[$symbol($version )]($style)"
 
-[php]
+[rust]
 symbol = " "
-style = "fg:#734A7A" # Plum
-format = "[( $symbol$version )]($style)"
+style = "fg:#FA903E"
+format = "[$symbol($version )]($style)"
 
-[python]
-symbol = "🐍 "
-style = "fg:#B85C38" # Rust
-format = '[( $symbol$version)]($style)'
-
-[env_var.VIRTUAL_ENV]
-symbol = "🔸"
-style = "fg:#B85C38" # Rust
-format = "<[$symbol]>($style)"
-detect_extensions = ['py', 'ipynb', 'pyc', 'pyd', 'pyo', 'pyw', 'pyz']
-detect_files = ['requirements.txt', 'pyproject.toml', 'Pipfile', '.python-version']
+[nodejs]
+symbol = "󰌞 "
+style = "fg:#A3BE8C"
+format = "[$symbol($version )]($style)"
 
 [docker_context]
 symbol = " "
-style = "fg:#3B6EA8" # Denim Blue
-format = "[( $symbol$context )]($style)"
+style = "fg:#8AB4F8"
+format = "[$symbol$context]($style) "
+only_with_files = true
 
-# Package version
-[package]
-style = "fg:#5C6A7B" # Slate
-format = "[( 📦 $version )]($style)"
+[kubernetes]
+symbol = "󱃾 "
+style = "fg:#78D9EC"
+format = "[$symbol$context]($style) "
+disabled = false
 
-# Command duration
 [cmd_duration]
 min_time = 2000
-style = "fg:#7B8A9C italic" # Soft Slate
-format = "[( $duration )]($style)"
+style = "fg:#7F8996 italic"
+format = "[$duration]($style) "
 
-# Line break
 [line_break]
 disabled = false
 
-# Character - elegant arrows
 [character]
 disabled = false
-success_symbol = "[╰─❯](bold fg:#4A7A59)" # Pine Green
-error_symbol = "[╰─❯](bold fg:#C4434B)" # Crimson
-vimcmd_symbol = "[╰─⦿](bold fg:#B85C38)" # Rust
-vimcmd_replace_one_symbol = "[╰─⦿](bold fg:#734A7A)" # Plum
-vimcmd_replace_symbol = "[╰─⦿](bold fg:#734A7A)" # Plum
-vimcmd_visual_symbol = "[╰─⦿](bold fg:#2D7D8A)" # Deep Teal
-
-# Time
-[time]
-disabled = true
-time_format = "%R"
-style = "fg:#5C6A7B" # Slate
-format = "[🕐 $time]($style)"
-
-# Battery
-[battery]
-full_symbol = "🔋"
-charging_symbol = "🔌"
-discharging_symbol = "⚡"
-format = "[$symbol$percentage]($style) "
-
-[[battery.display]]
-threshold = 30
-style = "bold fg:#C4434B" # Crimson
-
-[[battery.display]]
-threshold = 60
-style = "fg:#996E14" # Ochre
-
-[[battery.display]]
-threshold = 100
-style = "fg:#4A7A59" # Pine Green
-
-# Status
-[status]
-style = "fg:#C4434B" # Crimson
-symbol = "✗"
-success_symbol = ""
-format = "[$symbol$int]($style) "
-map_symbol = true
-disabled = false
-
-# Cloud services
-[aws]
-symbol = "☁️  "
-style = "fg:#996E14" # Ochre
-format = "[($symbol$profile )]($style)"
-
-[azure]
-disabled = false
-format = "[($symbol$subscription )]($style)"
-symbol = "☁️  "
-style = "fg:#3B6EA8" # Denim Blue
-
-[gcloud]
-symbol = "☁️  "
-style = "fg:#C4434B" # Crimson
-format = "[($symbol$project )]($style)"
-
-# Kubernetes
-[kubernetes]
-symbol = "⛵ "
-style = "fg:#2D7D8A" # Deep Teal
-format = "[($symbol$context )]($style)"
-disabled = false
-
-# Jobs indicator
-[jobs]
-symbol = "⚙️ "
-style = "fg:#996E14" # Ochre
-number_threshold = 1
-format = "[$symbol$number]($style) "
+# NOTE(jlima): Maps shell prompt character directly to editor mode highlights.
+success_symbol = "[❯](bold fg:#A3BE8C)"
+error_symbol = "[❯](bold fg:#F28B82)"
+vimcmd_symbol = "[❮](bold fg:#D4B976)"
+vimcmd_replace_one_symbol = "[❮](bold fg:#C58AF9)"
+vimcmd_replace_symbol = "[❮](bold fg:#C58AF9)"
+vimcmd_visual_symbol = "[❮](bold fg:#FA903E)"
