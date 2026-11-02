@@ -127,7 +127,7 @@ defaults -currentHost write -g AppleFontSmoothing -int 0
 defaults write com.apple.dock persistent-apps -array && killall Dock
 
 # Disable startup sound
-sudo nvram SystemAudioVolume=%01
+# sudo nvram SystemAudioVolume=%01
 
 killall Dock
 
