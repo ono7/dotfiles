@@ -34,7 +34,7 @@ detect-os:
 
 # NOTE(jlima): Added missing neovim dependency and corrected target invocation flow
 linux: linux-deps clean stow go-deps uv vim fzf starship fonts neovide done
-mac: mac-keybinds mac-deps homebrew brew-deps clean stow go-deps uv fzf starship vim neovim neovide fonts done mac-word
+mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship vim neovim neovide fonts done mac-word
 
 mac-word:
 	@echo $(BANNER)
@@ -81,9 +81,9 @@ stow:
 homebrew:
 	@echo $(BANNER)
 	@if ! command -v brew >/dev/null 2>&1; then \
-		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	else \
-		echo "Homebrew already installed, skipping."; \
+	# 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	# else \
+		echo "Install homebrew from official pkg file first"; \
 	fi
 
 brew-deps:
