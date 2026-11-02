@@ -107,7 +107,8 @@ defaults write com.apple.screencapture location ~/Desktop/screenshots
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
 # safari full url
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+# TODO(jlima): fix this does not work on some builds
+# defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
 # faster input
 defaults write -g KeyRepeat -int 1
