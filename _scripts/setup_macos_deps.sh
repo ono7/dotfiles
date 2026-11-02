@@ -129,7 +129,7 @@ defaults write com.apple.dock persistent-apps -array && killall Dock
 # Disable startup sound
 # sudo nvram SystemAudioVolume=%01
 
-killall Dock
+killall Dock || echo "DONE"
 
 # prevent macos from becoming a airplay target
 # and fix latency network latency over wifi
