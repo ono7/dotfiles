@@ -172,9 +172,9 @@ mac-keybinds:
 	rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
 	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
 	cd ~/.dotfiles && stow skhd
-	@HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd
-	@skhd --start-service
-	@skhd --install-service
+	@HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd || echo "DONE"
+	@skhd --start-service || echo "DONE"
+	@skhd --install-service || echo "DONE"
 	@defaults write -g KeyRepeat -int 1
 	@defaults write -g InitialKeyRepeat -int 10
 
