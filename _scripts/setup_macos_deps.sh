@@ -65,7 +65,7 @@ killall Finder
 # defaults write com.apple.dock autohide-time-modifier -int 0
 
 # Disable Slow Keys accessibility feature (can cause delay)
-defaults write com.apple.universalaccess slowKeys -bool false
+defaults write com.apple.universalaccess slowKeys -bool false || echo "DONE"
 
 # Set weekly software update checks
 # defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 7
