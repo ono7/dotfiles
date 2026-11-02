@@ -77,9 +77,14 @@ stow:
 	@echo $(BANNER)
 	@bash ./_scripts/stow.sh
 
+# NOTE(jlima): Idempotent brew installation guard via POSIX command check.
 homebrew:
 	@echo $(BANNER)
-	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	@if ! command -v brew >/dev/null 2>&1; then \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	else \
+		echo "Homebrew already installed, skipping."; \
+	fi
 
 brew-deps:
 	@echo $(BANNER)
