@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euox pipefail
 
 # Define log function to prevent unbound variable / missing command errors
 log() {

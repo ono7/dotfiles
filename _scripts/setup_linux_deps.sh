@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euox pipefail
 
 # Force debconf/APT and CLI frontends into non-interactive mode globally
 export DEBIAN_FRONTEND=noninteractive
