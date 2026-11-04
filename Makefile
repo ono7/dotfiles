@@ -16,6 +16,8 @@ build:
 
 OS := $(shell uname -s)
 
+IS_WSL := $(shell grep -qi microsoft /proc/version 2>/dev/null && echo 1 || echo 0)
+
 # Detect the operating system and invoke the appropriate target
 detect-os:
 	@echo $(BANNER)
@@ -33,8 +35,8 @@ detect-os:
 	$(MAKE) $$machine
 
 # NOTE(jlima): Added missing neovim dependency and corrected target invocation flow
-linux: linux-deps clean stow go-deps uv vim fzf starship fonts neovide done
-mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship vim neovim neovide fonts done mac-word
+linux: linux-deps clean stow go-deps uv fzf starship fonts neovide done
+mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
 
 mac-word:
 	@echo $(BANNER)
@@ -185,15 +187,21 @@ mac-keybinds:
 
 # installs go dependencies
 go-deps:
+ifeq ($(IS_WSL),1)
+	@echo "WSL detected; skipping go installation."
+else
 	@echo $(BANNER)
 	@bash ./_scripts/go-deps.sh
+endif
 
 fonts:
+ifeq ($(IS_WSL),1)
+	@echo "WSL detected; skipping font installation target."
+else
 	@echo "Removing existing font directory (if any)..."
 	@rm -rf $(FONT_DIR)
 	@echo "Cloning font repository to $(FONT_DIR)..."
 	@git clone $(FONT_REPO) $(FONT_DIR)
-
 ifeq ($(OS),Darwin)
 	@echo "Installing fonts for macOS..."
 	@find $(FONT_DIR) -type f \( -name "*.otf" -o -name "*.ttf" \) -exec cp {} ~/Library/Fonts/ \;
@@ -206,6 +214,7 @@ else ifeq ($(OS),Linux)
 	@echo "Fonts installed successfully."
 else
 	@echo "OS $(OS) not supported for automatic font installation."
+endif
 endif
 
 # bootstrap neovim dependencies
