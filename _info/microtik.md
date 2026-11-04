@@ -1,6 +1,7 @@
 ## check for updates cli
 
 /system package update check-for-updates
+/system package update install
 
 ## microtik router commands
 
