@@ -30,7 +30,7 @@ if command -v brew &>/dev/null; then
 
   # NOTE(jlima): Restrict Cask operations strictly to macOS targets
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install pinentry-mac || true
+    # brew install pinentry-mac || true
     brew install --cask --no-quarantine font-iosevka-term-nerd-font font-meslo-lg-nerd-font alacritty || true
   fi
 
