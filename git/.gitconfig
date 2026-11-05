@@ -1,6 +1,6 @@
 [user]
     name = Lima, Jose
-    email =20385388+ono7@users.noreply.github.com 
+    email = 20385388+ono7@users.noreply.github.com 
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
 [gpg]
     format = ssh
