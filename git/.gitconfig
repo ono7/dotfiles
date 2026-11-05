@@ -1,9 +1,9 @@
 [user]
-    name = Lima, Jose
-    email = 20385388+ono7@users.noreply.github.com 
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
+  name = Lima, Jose
+  email = 20385388+ono7@users.noreply.github.com 
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
 [gpg]
-    format = ssh
+  format = ssh
 
 
 [gpg "ssh"]
@@ -116,30 +116,32 @@
     line-numbers = true
     syntax-theme = none
 
-    # Unchanged portion of modified lines (no background fill)
-    minus-style = normal
-    plus-style = normal
+    # Prevent wrapping inside side-by-side view
+    wrap-max-lines = 0
+
+    # Line foregrounds: red/green text without background fills
+    minus-style = red
+    plus-style = green
     zero-style = normal
 
-    # Option A: Theme-agnostic ANSI highlights on changed tokens only
-    minus-emph-style = bold red reverse
-    plus-emph-style = bold green reverse
+    # Changed tokens: black text on desaturated gold/yellow background
+    minus-emph-style = black "#e5c07b"
+    plus-emph-style = black "#e5c07b"
 
-    # Option B: Subtle hex backgrounds on changed tokens only (uncomment if preferred)
-    # minus-emph-style = normal "#EBB1B3"
-    # plus-emph-style = normal "#BED8C2"
+    # Context on modified lines stays red/green instead of inheriting background fills
+    minus-non-emph-style = red
+    plus-non-emph-style = green
 
-    # Prevent background fills on empty lines inside a diff block
+    # Blank line padding hygiene
     minus-empty-line-marker-style = normal
     plus-empty-line-marker-style = normal
 
-    # Keep line numbers colored so pure additions/deletions remain visible
+    # Margin indexing
     line-numbers-left-style = brightblack
     line-numbers-right-style = brightblack
     line-numbers-zero-style = brightblack
-    line-numbers-minus-style = bold red
-    line-numbers-plus-style = bold green
-
+    line-numbers-minus-style = red
+    line-numbers-plus-style = green
 [rerere]
   enabled = false
 [init]
