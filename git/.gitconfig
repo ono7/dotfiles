@@ -1,13 +1,20 @@
 [user]
     name = Lima, Jose
-    email = 20385388+ono7@users.noreply.github.com
-    signingkey = 850FAC73
-
+    email =20385388+ono7@users.noreply.github.com 
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
 [gpg]
-    program = gpg
+    format = ssh
+
+
+[gpg "ssh"]
+# MacOS
+# ln -s "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" ~/.local/bin/op-ssh-sign
+# Linux:
+# ln -s "/opt/1Password/op-ssh-sign" ~/.local/bin/op-ssh-sign
+  program = "op-ssh-sign"
 
 [commit]
-    gpgsign = true
+  gpgsign = true
   verbose = true
 
 [tag]
