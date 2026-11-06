@@ -2,6 +2,7 @@
 # vim: ft=yaml
 exclude_paths:
   - .collections
+  - collections
   - roles
   - playbooks
   - backups/

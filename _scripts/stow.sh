@@ -21,8 +21,6 @@ if type stow &>/dev/null; then
   stow gdb
   stow git
   stow emacs
-  # stow nvim -> now deployed with its own repo
-  # stow ssh
   stow sqlite
   stow rg
   stow fd
@@ -31,14 +29,11 @@ if type stow &>/dev/null; then
   stow tmux
   stow alacritty
   stow ipython
-  stow wezterm
   stow screen
   stow zsh
   stow jq
-  stow zk
   stow direnv
   stow eslint
-  # stow lint-staged
   stow yamllint
   stow ghostty
   stow foot

@@ -8,6 +8,15 @@ log() {
 
 log "$0"
 
+log "installing go for local user..."
+
+
+export GOROOT="${HOME}/.local/go"
+export GOPATH="${HOME}/go"
+export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
+
+bash ~/.dotfiles/_install_tools/go.sh
+
 # install goimports used for code formatting/neovim
 if type go &>/dev/null; then
   go install -v github.com/incu6us/goimports-reviser/v3@latest

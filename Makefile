@@ -112,10 +112,10 @@ fzf:
 uv:
 	@echo $(BANNER)
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
-	@uv python install 3.11 3.14
+	@uv python install 3.11 3.12 3.14
 	@uv tool install black
-	@uv tool install --python 3.11 ansible-core
-	@uv tool install --python 3.11 ansible-lint
+	@uv tool install --python 3.12 ansible-core
+	@uv tool install --python 3.12 ansible-lint
 	@uv tool install isort
 	@uv tool install ruff
 	@uv tool install invoke
@@ -178,8 +178,8 @@ vim:
 
 vim-user:
 	@echo $(BANNER)
-	@mkdir -p ~/.local/bin
-	@VIM_USER_INSTALL=1 bash ./_scripts/build-vim.sh
+	# @mkdir -p ~/.local/bin
+	# @VIM_USER_INSTALL=1 bash ./_scripts/build-vim.sh
 
 mac-deps:
 	@echo $(BANNER)
