@@ -36,7 +36,8 @@ detect-os:
 
 # NOTE(jlima): Added missing neovim dependency and corrected target invocation flow
 linux: linux-deps clean stow go-deps uv fzf starship fonts neovide done
-mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
+mac: mac-keybinds mac-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
+# mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
 
 mac-word:
 	@echo $(BANNER)
@@ -45,10 +46,19 @@ mac-word:
 clean:
 	@echo $(BANNER)
 	rm -rf ~/.vim
-	rm -rf ~/.config
+	rm -rf ~/.config/fd
+	rm -rf ~/.config/foot
+	rm -rf ~/.config/ghostty
+	rm -rf ~/.config/kitty
+	rm -rf ~/.config/wezterm
+	rm -rf ~/.config/zk
 	rm -rf ~/.local/share/nvim
 	rm -f ~/.alacritty-windows.toml
 	rm -f ~/.bashrc
+	rm -f ~/.config/eslint.config.js
+	rm -f ~/.config/zk
+	rm -f ~/.config/wezterm
+	rm -f ~/.config/starship.toml
 	rm -f ~/.emacs.d
 	rm -f ~/.sqliterc
 	rm -f ~/.aerospace
@@ -56,8 +66,8 @@ clean:
 	rm -rf ~/.dlv
 	rm -f ~/.zshenv
 	rm -f ~/.ctagsrc
-	rm -f ~/.npmrc
 	rm -rf ~/.ctags.d
+	rm -rf ~/.ipython
 	rm -f ~/.gdbinit
 	rm -f ~/.inputrc
 	rm -f ~/local/bin/shortpath
@@ -71,12 +81,14 @@ clean:
 	rm -f ~/.pylintrc
 	rm -f ~/.dircolors
 	mkdir -p ~/local/bin
+	mkdir -p ~/.local/bin
 	mkdir -p ~/.config/neovide
 	mkdir -p ~/.npm-global/bin
 	mkdir -p ~/.tmp
 
-stow:
+stow: clean
 	@echo $(BANNER)
+	@bash ./_install_tools/stow.sh
 	@bash ./_scripts/stow.sh
 
 # NOTE(jlima): Idempotent brew installation guard via POSIX command check.
@@ -179,10 +191,10 @@ mac-keybinds:
 	mkdir -p ~/Library/KeyBindings
 	rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
 	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
-	cd ~/.dotfiles && stow skhd
-	@HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd || echo "DONE"
-	@skhd --start-service || echo "DONE"
-	@skhd --install-service || echo "DONE"
+	# cd ~/.dotfiles && stow skhd
+	# @HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd || echo "DONE"
+	# @skhd --start-service || echo "DONE"
+	# @skhd --install-service || echo "DONE"
 	@defaults write -g KeyRepeat -int 1
 	@defaults write -g InitialKeyRepeat -int 10
 
