@@ -38,7 +38,7 @@ if type stow &>/dev/null; then
   stow zk
   stow direnv
   stow eslint
-  stow lint-staged
+  # stow lint-staged
   stow yamllint
   stow ghostty
   stow foot
