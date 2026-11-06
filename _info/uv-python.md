@@ -13,7 +13,8 @@
   Evidence: This creates .venv (if missing) and uv.lock, ensuring your environment matches the definition exactly.
   this will create all the files needed, including pyproject.toml and .venv
 
-`uv python install 3.11.9`
+`uv python install 3.11`
+`uv python install 3.14`
 `uv init my_project --python=3.11.9`
 
 or in the same dir
