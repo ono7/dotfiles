@@ -187,13 +187,16 @@ mac-deps:
 
 mac-keybinds:
 	@echo $(BANNER)
-	mkdir -p ~/Library/KeyBindings
-	rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
-	cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
-	# cd ~/.dotfiles && stow skhd
-	# @HOMEBREW_NO_ANALYTICS=1 NONINTERACTIVE=1 brew install asmvik/formulae/skhd || echo "DONE"
+	@mkdir -p ~/Library/KeyBindings
+	@rm -rf ~/Library/KeyBindings/DefaultKeyBinding.dict
+	@cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
+	@cd ~/.dotfiles && stow skhd
+	@bash ./_install_tools_macos/skhd.sh
+	@cp ~/.dotfiles/skhd/com.asmvik.skhd.plist ~/Library/LaunchAgents/com.asmvik.skhd.plist 
+	launchctl bootstrap gui/$$(id -u) ~/Library/LaunchAgents/com.asmvik.skhd.plist
 	# @skhd --start-service || echo "DONE"
 	# @skhd --install-service || echo "DONE"
+	@echo "ADD skhd to Privacy and Security -> Device Control and Data Access"
 	@defaults write -g KeyRepeat -int 1
 	@defaults write -g InitialKeyRepeat -int 10
 
