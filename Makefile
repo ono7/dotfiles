@@ -101,13 +101,14 @@ fzf:
 uv:
 	@echo $(BANNER)
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
+	@uv python install 3.11 3.14
 	@uv tool install black
-	@uv tool install ansible-core
-	@uv tool install ansible-lint
+	@uv tool install --python 3.11 ansible-core
+	@uv tool install --python 3.11 ansible-lint
 	@uv tool install isort
 	@uv tool install ruff
 	@uv tool install invoke
-	@uv tool install poetry
+	@uv tool install --python 3.11 poetry
 	@uv tool install dnsdiag
 	@uv tool install pynvim
 
