@@ -14,7 +14,9 @@ esac
 
 export GPG_TTY="/dev/tty"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
-export GOPATH="$HOME/go"
+export GOROOT="${HOME}/.local/go"
+export GOPATH="${HOME}/go"
+export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export GOPRIVATE="github.com/ono7/utils,github.com/ono7/other"
 # export KEYTIMEOUT=20
