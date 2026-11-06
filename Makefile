@@ -45,41 +45,42 @@ mac-word:
 
 clean:
 	@echo $(BANNER)
-	rm -rf ~/.vim
+	rm -f ~/.aerospace
+	rm -f ~/.alacritty-windows.toml
+	rm -f ~/.bashrc
+	rm -f ~/.cn.cnf
+	rm -f ~/.config/eslint.config.js
+	rm -f ~/.config/starship.toml
+	rm -f ~/.ctagsrc
+	rm -f ~/.dircolors
+	rm -f ~/.emacs.d
+	rm -f ~/.gdbinit
+	rm -f ~/.gitconfig
+	rm -f ~/.gitconfig-personal
+	rm -f ~/.gitignore
+	rm -f ~/.inputrc
+	rm -f ~/.pdbrc
+	rm -f ~/.pylintrc
+	rm -f ~/.sqliterc
+	rm -f ~/.tmux.conf
+	rm -f ~/.vimrc
+	rm -f ~/.zshenv
+	rm -f ~/.zshrc
+	rm -f ~/local/bin/shortpath
 	rm -rf ~/.config/fd
 	rm -rf ~/.config/foot
 	rm -rf ~/.config/ghostty
 	rm -rf ~/.config/kitty
 	rm -rf ~/.config/wezterm
+	rm -rf ~/.config/wezterm
 	rm -rf ~/.config/zk
-	rm -rf ~/.local/share/nvim
-	rm -f ~/.alacritty-windows.toml
-	rm -f ~/.bashrc
-	rm -f ~/.config/eslint.config.js
-	rm -f ~/.config/zk
-	rm -f ~/.config/wezterm
-	rm -f ~/.config/starship.toml
-	rm -f ~/.emacs.d
-	rm -f ~/.sqliterc
-	rm -f ~/.aerospace
-	rm -f ~/.zshrc
-	rm -rf ~/.dlv
-	rm -f ~/.zshenv
-	rm -f ~/.ctagsrc
+	rm -rf ~/.config/zk
 	rm -rf ~/.ctags.d
-	rm -rf ~/.ipython
-	rm -f ~/.gdbinit
-	rm -f ~/.inputrc
-	rm -f ~/local/bin/shortpath
-	rm -f ~/.tmux.conf
-	rm -f ~/.gitignore
-	rm -f ~/.gitconfig-personal
+	rm -rf ~/.dlv
 	rm -rf ~/.git_templates
-	rm -f ~/.gitconfig
-	rm -f ~/.pdbrc
-	rm -f ~/.cn.cnf
-	rm -f ~/.pylintrc
-	rm -f ~/.dircolors
+	rm -rf ~/.ipython
+	rm -rf ~/.local/share/nvim
+	rm -rf ~/.vim
 	mkdir -p ~/local/bin
 	mkdir -p ~/.local/bin
 	mkdir -p ~/.config/neovide
@@ -95,8 +96,6 @@ stow: clean
 homebrew:
 	@echo $(BANNER)
 	@if ! command -v brew >/dev/null 2>&1; then \
-	# 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	# else \
 		echo "Install homebrew from official pkg file first"; \
 	fi
 
@@ -108,7 +107,7 @@ fzf:
 	@echo $(BANNER)
 	@rm -rf ~/.fzf
 	@git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	@~/.fzf/install --all
+	@~/.fzf/install --bin
 
 uv:
 	@echo $(BANNER)
