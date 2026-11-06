@@ -8,6 +8,7 @@ ctrl + shift - w : open -a "Google Chrome"
 ctrl + shift - l : open -a Preview
 ctrl + shift - m : open -a Messages
 ctrl + shift - i : open -a "Microsoft Teams"
+ctrl + shift - f : open -a Finder
 # skhd --restart-service      
 
 #  NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
