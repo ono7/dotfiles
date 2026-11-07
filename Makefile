@@ -81,7 +81,6 @@ clean:
 	rm -rf ~/.ipython
 	rm -rf ~/.local/share/nvim
 	rm -rf ~/.vim
-	mkdir -p ~/local/bin
 	mkdir -p ~/.local/bin
 	mkdir -p ~/.config/neovide
 	mkdir -p ~/.npm-global/bin
