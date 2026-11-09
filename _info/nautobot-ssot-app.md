@@ -1,3 +1,13 @@
+## seeding credentials for ssot apps
+
+ssot credentials should go under
+
+development/creds.env
+
+then run:
+
+invoke stop && invoke restart
+
 ## how to create a nautobot ssot and job
 
 `https://networktocode.com/blog/building-a-nautobot-ssot-app/`
