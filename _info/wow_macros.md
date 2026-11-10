@@ -12,10 +12,13 @@ this is useful for updating wow addon toc when updates are applied
 ## hunter
 
 ```
-#showtooltip
+#showtooltip Hunter's Mark
+/cleartarget [dead][help]
+/tar [@mouseover,harm,nodead]
+/targetenemy [noexists]
+/cast Hunter's Mark
+/petattack
 /startattack
-/petattack [@mousover,harm,nodead][]
-/cast [@mouseover,harm,nodead][] Hunter's Mark
 ```
 
 this works because it relies on the fact that wow midnight will target the casters currently casting first
