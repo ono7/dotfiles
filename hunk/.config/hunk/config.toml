@@ -1,0 +1,17 @@
+theme = "catppuccin-mocha"
+mode = "split"
+line_numbers = true
+wrap_lines = false
+hunk_headers = true
+menu_bar = true
+agent_notes = false
+copy_decorations = false
+cursor_line = "row"
+
+[keybindings]
+# NOTE(jlima): Remap line number toggle to free 'l' for horizontal motion.
+"hunk.view.toggleLineNumbers" = "L"
+
+# NOTE(jlima): Vim-style horizontal code viewport navigation.
+"hunk.review.scrollCodeLeft" = ["h", "left", "shift+left"]
+"hunk.review.scrollCodeRight" = ["l", "right", "shift+right"]
