@@ -42,8 +42,8 @@ movedAddedBg = "#242B23"
 movedRemovedBg = "#1D2129"
 
 # Emphasized intra-line change tokens (uses #D4B976 for changed text)
-addedContentBg = "#D4B976"
-# addedContentBg = "#3D4F37"
+# addedContentBg = "#D4B976"
+addedContentBg = "#3D4F37"
 removedContentBg = "#D4B976"
 contextContentBg = "#1D2129"
 
