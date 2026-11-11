@@ -792,4 +792,3 @@ bindkey "^T" fzf-file-widget
 # remove control+t (fzf)
 bindkey -r '^T'
 
-export PATH="$HOME/.hunk/bin:$PATH"

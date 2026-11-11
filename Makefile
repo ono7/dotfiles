@@ -112,7 +112,7 @@ fzf:
 hunk:
 	@echo $(BANNER)
 	@rm -rf ~/.config/hunk
-	@curl -fsSL https://hunk.dev/install.sh | sh -s -- --no-modify-path
+	@curl -fsSL https://hunk.dev/install.sh | HUNK_INSTALL_DIR=$$HOME/.local/bin sh -s -- --no-modify-path
 	@stow hunk
 
 uv:
