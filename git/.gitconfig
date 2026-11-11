@@ -24,7 +24,8 @@
 [core]
     editor = nvim
     mergeoptions = --no-edit
-    pager = delta
+    # pager = delta
+	pager = hunk pager
     compression = 9
     whitespace = error
     preloadindex = true
@@ -57,7 +58,7 @@
     sort = -committerdate
 
 [merge]
-  tool = nvim
+    tool = nvim
     prompt = false
     conflictstyle = zdiff3   # best conflict view
 
@@ -66,7 +67,7 @@
 
 [mergetool]
     keepBackup = false
-  prompt = false
+    prompt = false
 
 [push]
   autoSetupRemote = true
@@ -143,9 +144,17 @@
     line-numbers-minus-style = red
     line-numbers-plus-style = green
 	max-line-length = 0
+
 [rerere]
   enabled = false
+
 [init]
   defaultBranch = main
+
 [mergetool "nvim"]
     cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE"
+
+[pager]
+	diff = hunk pager
+	show = hunk pager
+	log = hunk log

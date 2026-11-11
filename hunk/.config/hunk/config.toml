@@ -1,4 +1,3 @@
-theme = "catppuccin-mocha"
 mode = "split"
 line_numbers = true
 wrap_lines = false
@@ -9,6 +8,8 @@ copy_decorations = false
 cursor_line = "row"
 transparent_backgrounda = true
 
+theme = "custom"
+
 [keybindings]
 # NOTE(jlima): Remap line number toggle to free 'l' for horizontal motion.
 "hunk.view.toggleLineNumbers" = "L"
@@ -16,3 +17,55 @@ transparent_backgrounda = true
 # NOTE(jlima): Vim-style horizontal code viewport navigation.
 "hunk.review.scrollCodeLeft" = ["h", "left", "shift+left"]
 "hunk.review.scrollCodeRight" = ["l", "right", "shift+right"]
+
+[custom_theme]
+label = "Google Dark Minimal"
+base = "github-dark-default"
+
+# NOTE(jlima): Canvas and empty gap fillers strictly pinned to #1D2129.
+background = "#1D2129"
+panel = "#1D2129"
+panelAlt = "#1D2129"
+border = "#363840"
+text = "#D8DBE1"
+muted = "#7F8996"
+
+# UI accents
+accent = "#D4B976"
+accentMuted = "#363840"
+
+# NOTE(jlima): Earthy dark olive background for added lines; keep removed lines flat #1D2129.
+addedBg = "#242B23"
+removedBg = "#1D2129"
+contextBg = "#1D2129"
+movedAddedBg = "#242B23"
+movedRemovedBg = "#1D2129"
+
+# Emphasized intra-line change tokens (uses #D4B976 for changed text)
+addedContentBg = "#D4B976"
+# addedContentBg = "#3D4F37"
+removedContentBg = "#D4B976"
+contextContentBg = "#1D2129"
+
+# Gutter markers (warm earthy green #aec379, muted red #F28B82)
+addedSignColor = "#aec379"
+removedSignColor = "#F28B82"
+
+# Line numbers
+lineNumberBg = "#1D2129"
+lineNumberFg = "#7F8996"
+
+# Badges and headers
+badgeAdded = "#aec379"
+badgeRemoved = "#F28B82"
+badgeNeutral = "#7F8996"
+
+[custom_theme.syntax_scopes]
+"comment" = "#7F8996"
+"punctuation.definition.comment" = "#7F8996"
+"string" = "#aec379"
+"constant.numeric" = "#F28B82"
+"keyword" = "#D4B976"
+"entity.name.type" = "#F28B82"
+"entity.name.function" = "#D8DBE1"
+"variable" = "#D8DBE1"

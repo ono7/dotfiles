@@ -37,7 +37,7 @@ detect-os:
 # NOTE(jlima): Added missing neovim dependency and corrected target invocation flow
 linux: linux-deps clean stow go-deps uv fzf starship fonts neovide done
 mac: mac-keybinds mac-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
-# mac: homebrew mac-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
+# mac: homebrew test-keybinds mac-deps brew-deps clean stow go-deps uv fzf starship neovim neovide fonts done mac-word
 
 mac-word:
 	@echo $(BANNER)
