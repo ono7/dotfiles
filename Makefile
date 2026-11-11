@@ -5,7 +5,7 @@ export PATH := $(HOME)/.npm-packages/bin:$(HOME)/.fzf/bin:$HOME/linuxbrew/.linux
 FONT_REPO := https://github.com/ono7/fonts2.git
 FONT_DIR  := $(HOME)/fonts2
 
-.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide mac-word
+.PHONY: homebrew brew-deps install linux mac clean linux-deps mac-deps stow fzf done go-deps neovim starship ssh shell vim manjaro uv mac-keybinds fonts neovide mac-word hunk
 
 BANNER = "-------------------[ make: $@ ]-------------------"
 
@@ -51,6 +51,7 @@ clean:
 	rm -f ~/.cn.cnf
 	rm -f ~/.config/eslint.config.js
 	rm -f ~/.config/starship.toml
+	rm -f ~/.config/hunk
 	rm -f ~/.ctagsrc
 	rm -f ~/.dircolors
 	rm -f ~/.emacs.d
@@ -107,6 +108,12 @@ fzf:
 	@rm -rf ~/.fzf
 	@git clone -q --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	@~/.fzf/install --bin
+
+hunk:
+	@echo $(BANNER)
+	@rm -rf ~/.config/hunk
+	@curl -fsSL https://hunk.dev/install.sh | sh
+	@stow hunk
 
 uv:
 	@echo $(BANNER)

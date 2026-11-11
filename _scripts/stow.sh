@@ -21,6 +21,7 @@ if type stow &>/dev/null; then
   stow gdb
   stow git
   stow emacs
+  stow hunk
   stow sqlite
   stow rg
   stow fd
