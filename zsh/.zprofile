@@ -19,3 +19,8 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.docker/bin:$HOME/.npm-global/bin:$HOME/.virtualenvs/prod3/bin:$HOME/.nvm/versions/node/v23.5.0/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$HOME/go/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$HOME/.cache/lm-studio/bin:$PATH"
 
 typeset -U path PATH
+
+# NOTE(jlima): Go toolchain paths
+export GOROOT="$HOME/.local/go"
+export GOPATH="$HOME/go"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
