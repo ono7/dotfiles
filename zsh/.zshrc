@@ -794,8 +794,9 @@ bindkey '^R' history-incremental-search-backward
 bindkey "^@" fzf-history-widget
 bindkey "^T" fzf-file-widget
 # NOTE(jlima): Bind Shift+Tab (kcbt / ^[[Z) to reverse-cycle in both normal ZLE and menuselect keymaps
-bindkey "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
-bindkey -M menuselect "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
+# just use c-p or c-n to move around completion in zsh
+# bindkey "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
+# bindkey -M menuselect "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
 
 # remove control+t (fzf)
 bindkey -r '^T'
