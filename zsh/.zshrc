@@ -30,7 +30,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export MANWIDTH=999
 export PRE_COMMIT_COLOR=never
-export HISTORY_IGNORE="(ls|cat|AWS|SECRET|SSHPASS)"
+export HISTORY_IGNORE="(ls|ls *|cat|cat *|*AWS*|*SECRET*|*SSHPASS*)"
 
 # --- FAST PATH SETUP ---
 if grep -q Microsoft /proc/version 2>/dev/null; then
@@ -108,7 +108,11 @@ alias 6='cd -6'
 alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
-alias f='cd $(fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .npm --exclude .venv | fzf)'
+
+f() {
+  local dir
+  dir=$(fd --type d --hidden --exclude .git --exclude node_modules --exclude .cache --exclude .npm --exclude .venv | fzf) && cd "$dir"
+}
 
 # Editors & Fallback
 if command -v nvim >/dev/null 2>&1; then
@@ -456,7 +460,8 @@ jira() {
 }
 
 gitm() {
-  $EDITOR "$(git ls-files --modified --others --exclude-standard)" "$@" || return
+  local files=(${(f)"$(git ls-files --modified --others --exclude-standard)"})
+  (( ${#files} )) && $EDITOR "${files[@]}" "$@"
 }
 
 vimgd() {
@@ -763,7 +768,7 @@ export FZF_DEFAULT_OPTS='
 if command -v fd &>/dev/null; then
   export FD_CMD='fd -I --type f --exclude ".git" --exclude "__pycache__" --exclude ".collections" --follow --hidden'
   export FZF_DEFAULT_COMMAND="$FD_CMD"
-  export FZF_ALT_C_COMMAND="$FD_CMD"
+  export FZF_ALT_C_COMMAND='fd -I --type d --exclude ".git" --exclude "__pycache__" --exclude ".collections" --follow --hidden'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
@@ -788,6 +793,9 @@ bindkey '^K' kill-line
 bindkey '^R' history-incremental-search-backward
 bindkey "^@" fzf-history-widget
 bindkey "^T" fzf-file-widget
+# NOTE(jlima): Bind Shift+Tab (kcbt / ^[[Z) to reverse-cycle in both normal ZLE and menuselect keymaps
+bindkey "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
+bindkey -M menuselect "${terminfo[kcbt]:-^[[Z}" reverse-menu-complete
 
 # remove control+t (fzf)
 bindkey -r '^T'
