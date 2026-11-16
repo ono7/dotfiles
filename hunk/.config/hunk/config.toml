@@ -42,9 +42,11 @@ movedAddedBg = "#242B23"
 movedRemovedBg = "#1D2129"
 
 # Emphasized intra-line change tokens (uses #D4B976 for changed text)
-# addedContentBg = "#D4B976"
+# addedContentBg = "#3D4F37"
 addedContentBg = "#3D4F37"
-removedContentBg = "#D4B976"
+# removedContentBg = "#D4B976"
+removedContentBg = "#5C2825"
+# contextContentBg = "#1D2129"
 contextContentBg = "#1D2129"
 
 # Gutter markers (warm earthy green #aec379, muted red #F28B82)
