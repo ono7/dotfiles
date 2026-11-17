@@ -1,3 +1,21 @@
+## update feature (feat/mybranch) branch that was cloned from other branch (develop)
+
+```sh
+# from feature/mybranch
+git fetch origin develop # bring changes references in from remote develop
+git fetch origin develop:develop # if develop locally has changes, git will refuse to pull them, use this format to force it to pull remote changes
+git merge develop
+git push origin HEAD
+
+# this is the same workflow as without all the switching back and forth
+git checkout develop
+git pull
+git checkout feat/branch
+git merge
+git push
+
+```
+
 ## reset branch and clean all commits
 
 ```sh
