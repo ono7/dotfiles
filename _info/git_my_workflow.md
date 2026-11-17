@@ -1,5 +1,23 @@
 # Git Feature Branch Workflow
 
+combine commits
+
+```bash
+# if the changes have been commited but not pushed upstream
+# list all safe unpushe commits, no files
+git log @{u}..HEAD --oneline
+
+# compare origin @{u} with HEAD shows the commits waiting to be pushed w/files
+git log @{u}..HEAD --stat
+
+# combine the last 2
+git reset --soft HEAD~2
+git commit -m "feat(gitcommit): add conventional commit snippets and scope helper"
+
+# resets all commits without needing to count
+git reset --soft @{u}
+```
+
 ## 1. Starting a New Feature Branch
 
 Cut branches directly from `origin/develop` so you never need to maintain or

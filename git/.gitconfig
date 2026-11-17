@@ -23,10 +23,10 @@
 
 [core]
     editor = nvim
-    # NOTE(jlima): Removed `mergeoptions = --no-edit` (ignored by Git under [core];
-    # handled explicitly in the `sync` alias below).
     pager = hunk pager
-    compression = 9
+    # NOTE(jlima): Lowered from 9 to 1 (or default) — zlib level 9 burns extra CPU on
+    # pack/object writes for negligible size savings over level 1-3 on NVMe storage.
+    compression = 1
     whitespace = error
     preloadindex = true
     untrackedCache = true
@@ -80,7 +80,9 @@
 
 [diff]
     colorMoved = default
-    algorithm = patience
+    # NOTE(jlima): `histogram` improves upon `patience` with faster execution and
+    # cleaner diff hunks around structural blocks (braces, YAML, functions).
+    algorithm = histogram
     context = 4
     renames = copies
     interHunkContext = 10
@@ -101,10 +103,9 @@
     update-hooks = "!cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*"
     whatadded = log --diff-filter=A
     amend = commit -a --amend --no-edit
-    # NOTE(jlima): Fetches latest remote develop and merges into the current feature branch
-    # without switching branches or opening nvim for the merge commit message.
-    # sync, wont work with other branch names.. so we are skipping it for now
-    # sync = "!git fetch origin develop && git merge origin/develop --no-edit"
+    # NOTE(jlima): Prints a header showing the upstream target and unpushed commit count
+    # before running --no-pager log --stat so empty output isn't ambiguous.
+    stat = "!sh -c 'up=$(git rev-parse --abbrev-ref @{u} 2>/dev/null) || { echo \"No upstream tracking branch configured.\"; exit 1; }; count=$(git rev-list --count \"$up..HEAD\"); echo \"Unpushed commits ($count) ahead of $up:\"; [ \"$count\" -gt 0 ] && git --no-pager log \"$up..HEAD\" --no-graph --stat'"
 
 [log]
     follow = true
@@ -125,8 +126,20 @@
 
 [init]
     defaultBranch = main
+    # NOTE(jlima): Automatically copies hooks/templates on `git init` and `git clone`.
+    templateDir = ~/.git_templates
 
 [pager]
     diff = hunk pager
     show = hunk pager
-    log = hunk log
+    # NOTE(jlima): Disabled `hunk log` here because it overrides `git log --stat`
+    # and `--oneline` formatting; using standard `less -FRX` preserves native flags.
+    log = less -FRX
+
+[help]
+    # NOTE(jlima): Prompts confirmation before executing mistyped commands (e.g., `git statsu`).
+    autocorrect = prompt
+
+[column]
+    # NOTE(jlima): Displays `git branch` and `git tag` output in compact terminal columns.
+    ui = auto
