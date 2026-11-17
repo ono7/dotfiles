@@ -2,6 +2,18 @@
 
 ```sh
 
+# reset branch from origin
+# this is useful when changes were made locally but not pushed remotely
+# and we need to revert
+
+`git fetch origin` # fetch get the latest
+`git reset --hard @{u}` # resets to the remote head on the branch
+
+# When you execute `git reset --hard @{u}` Git performs three atomic steps:
+# Pointer Rebinding: It overwrites .git/refs/heads/<branch> with the exact 40-byte SHA stored in .git/refs/remotes/origin/<branch> (equivalent to local_branch_ref = remote_state_ref in Python).
+# Index Reconstruction: It rebuilds the binary .git/index file from the target commit's tree object.
+# Filesystem Sync: It walks the working directory and overwrites any modified tracked files on disk so their stat metadata and contents match the blob objects in that tree.
+
 # start in main branch, change main if thats not the target branch
 # git branch -m main ; renames branch
 # git add -A ; stage all files
