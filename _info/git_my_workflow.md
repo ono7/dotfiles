@@ -78,7 +78,10 @@ git log --no-merges ORIG_HEAD..HEAD
 git diff --stat origin/develop...HEAD
 
 # Check the exact commit or ref a branch was originally created from
-git reflog show --date=iso <branch> | tail -n 1
+git reflog show --date=iso <branch> | tail -n 1 # tail -n 1 shows the last @{0}
+# with the commit hash from @{0} we can find out what branches have this commit
+# in them to narrow the branch this originated from
+git branch -a --contains ea6f3d1
 
 # Check recent branch switches if a branch was created from HEAD
 git reflog show --date=iso HEAD -n 5

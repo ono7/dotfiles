@@ -105,7 +105,7 @@
     amend = commit -a --amend --no-edit
     # NOTE(jlima): Prints a header showing the upstream target and unpushed commit count
     # before running --no-pager log --stat so empty output isn't ambiguous.
-    stat = "!sh -c 'up=$(git rev-parse --abbrev-ref @{u} 2>/dev/null) || { echo \"No upstream tracking branch configured.\"; exit 1; }; count=$(git rev-list --count \"$up..HEAD\"); echo \"Unpushed commits ($count) ahead of $up:\"; [ \"$count\" -gt 0 ] && { case \" $* \" in *\" -p \"*|*\" --patch \"*) git log \"$up..HEAD\" --no-graph --stat \"$@\" ;; *) git --no-pager log \"$up..HEAD\" --no-graph --stat \"$@\" ;; esac; }' --"
+   stat = "!sh -c 'if up=$(git rev-parse --abbrev-ref @{u} 2>/dev/null); then label=\"$up\"; else up=$(git rev-parse --abbrev-ref origin/develop 2>/dev/null || git rev-parse --abbrev-ref origin/HEAD 2>/dev/null) || { echo \"No upstream or default remote branch found.\"; exit 1; }; label=\"$up (base)\"; fi; count=$(git rev-list --count \"$up..HEAD\"); echo \"Unpushed commits ($count) ahead of $label:\"; [ \"$count\" -gt 0 ] && { case \" $* \" in *\" -p \"*|*\" --patch \"*) git log \"$up..HEAD\" --no-graph --stat \"$@\" ;; *) git --no-pager log \"$up..HEAD\" --no-graph --stat \"$@\" ;; esac; }' --"
 
 [log]
     follow = true
