@@ -1,21 +1,21 @@
 [user]
-  name = Lima, Jose
-  email = 20385388+ono7@users.noreply.github.com 
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
-[gpg]
-  format = ssh
+    name = Lima, Jose
+    email = 20385388+ono7@users.noreply.github.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEof0gR5DKko/MYjbZoDpr/TFPCuqjno8lj/Zijho5zC
 
+[gpg]
+    format = ssh
 
 [gpg "ssh"]
-# MacOS
+# MacOS:
 # ln -s "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" ~/.local/bin/op-ssh-sign
 # Linux:
 # ln -s "/opt/1Password/op-ssh-sign" ~/.local/bin/op-ssh-sign
-  program = "op-ssh-sign"
+    program = "op-ssh-sign"
 
 [commit]
-  gpgsign = true
-  verbose = true
+    gpgsign = true
+    verbose = true
 
 [tag]
     gpgsign = true
@@ -23,9 +23,9 @@
 
 [core]
     editor = nvim
-    mergeoptions = --no-edit
-    # pager = delta
-	pager = hunk pager
+    # NOTE(jlima): Removed `mergeoptions = --no-edit` (ignored by Git under [core];
+    # handled explicitly in the `sync` alias below).
+    pager = hunk pager
     compression = 9
     whitespace = error
     preloadindex = true
@@ -33,15 +33,15 @@
     excludesfile = ~/.gitignore_global
 
 [pull]
-  # ff = only         # never auto-merge on pull
-  rebase = true
-  autostash = true  # stash before rebase automatically
+    # ff = only         # never auto-merge on pull
+    rebase = true
+    # NOTE(jlima): Removed `autostash = true` here (Git only reads it from [rebase] below).
 
 [rebase]
-  autostash = true
-  autosquash = true
-  updateRefs = true
-  missingCommitCheck = warn
+    autostash = true    # stash before rebase automatically
+    autosquash = true
+    updateRefs = true
+    missingCommitCheck = warn
 
 [fetch]
     prune = true
@@ -56,21 +56,25 @@
 
 [branch]
     sort = -committerdate
+    autoSetupMerge = simple
 
 [merge]
     tool = nvim
     prompt = false
     conflictstyle = zdiff3   # best conflict view
 
-[mergetool "vimdiff"]
-    cmd = vim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "nvim"]
+    # NOTE(jlima): Opens 3-pane LOCAL | MERGED | REMOTE layout and jumps cursor directly
+    # into the center $MERGED buffer (`wincmd l`). $BASE is omitted because `zdiff3`
+    # already renders the common ancestor inline inside $MERGED's conflict markers.
+    cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE" -c "wincmd l"
 
 [mergetool]
     keepBackup = false
     prompt = false
 
 [push]
-  autoSetupRemote = true
+    autoSetupRemote = true
     default = current
     followTags = true
 
@@ -96,13 +100,16 @@
     dv = "! args=$@; shift $#; nvim -c \"DiffviewOpen $args\""
     update-hooks = "!cp -R ~/.git_templates/hooks/. .git/hooks/ && chmod +x .git/hooks/*"
     whatadded = log --diff-filter=A
-  amend = commit -a --amend --no-edit
+    amend = commit -a --amend --no-edit
+    # NOTE(jlima): Fetches latest remote develop and merges into the current feature branch
+    # without switching branches or opening nvim for the merge commit message.
+    # sync, wont work with other branch names.. so we are skipping it for now
+    # sync = "!git fetch origin develop && git merge origin/develop --no-edit"
 
 [log]
     follow = true
 
 [interactive]
-    diffFilter = delta --color-only
     singleKey = true
 
 [status]
@@ -111,50 +118,15 @@
     showUntrackedFiles = all
     submoduleSummary = true
 
-[delta]
-    navigate = true
-    side-by-side = true
-    line-numbers = true
-    syntax-theme = none
-
-    # Prevent wrapping inside side-by-side view
-	wrap-max-lines = unlimited
-
-    # Line foregrounds: red/green text without background fills
-    minus-style = red
-    plus-style = green
-    zero-style = normal
-
-    # Changed tokens: black text on desaturated gold/yellow background
-    minus-emph-style = black "#e5c07b"
-    plus-emph-style = black "#e5c07b"
-
-    # Context on modified lines stays red/green instead of inheriting background fills
-    minus-non-emph-style = red
-    plus-non-emph-style = green
-
-    # Blank line padding hygiene
-    minus-empty-line-marker-style = normal
-    plus-empty-line-marker-style = normal
-
-    # Margin indexing
-    line-numbers-left-style = brightblack
-    line-numbers-right-style = brightblack
-    line-numbers-zero-style = brightblack
-    line-numbers-minus-style = red
-    line-numbers-plus-style = green
-	max-line-length = 0
-
 [rerere]
-  enabled = false
+    # NOTE(jlima): Caches resolved merge/rebase conflicts in .git/rr-cache/
+    # so repeated syncs against develop reuse prior conflict fixes automatically.
+    enabled = true
 
 [init]
-  defaultBranch = main
-
-[mergetool "nvim"]
-    cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE"
+    defaultBranch = main
 
 [pager]
-	diff = hunk pager
-	show = hunk pager
-	log = hunk log
+    diff = hunk pager
+    show = hunk pager
+    log = hunk log

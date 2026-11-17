@@ -38,7 +38,8 @@ git status -sb
 git diff origin/develop...HEAD --stat
 
 # push my changes
-git push -u origin HEAD
+# git push -u origin HEAD # this is not needed because if my .gitconfig just use: git push
+git push
 
 ```
 
