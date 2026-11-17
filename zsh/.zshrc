@@ -3,11 +3,12 @@
 # Disable flow control (Ctrl+S/Ctrl+Q)
 stty -ixon 2>/dev/null
 
-case "$(uname -s)" in
-    Darwin)
+# NOTE(jlima): Use Zsh built-in $OSTYPE instead of forking $(uname -s)
+case "$OSTYPE" in
+    darwin*)
         export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
         ;;
-    Linux)
+    linux*)
         export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
         ;;
 esac
@@ -32,16 +33,16 @@ export MANWIDTH=999
 export PRE_COMMIT_COLOR=never
 export HISTORY_IGNORE="(ls|ls *|cat|cat *|*AWS*|*SECRET*|*SSHPASS*)"
 
-# --- FAST PATH SETUP ---
-if grep -q Microsoft /proc/version 2>/dev/null; then
+# NOTE(jlima): Read /proc/version via Zsh parameter expansion instead of spawning grep
+if [[ -r /proc/version && "$(</proc/version)" == *Microsoft* ]]; then
   export PATH="$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
-elif [[ $OSTYPE == "darwin"* ]]; then
-  export PATH="$HOME/.local/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+elif [[ "$OSTYPE" == darwin* ]]; then
+  export PATH="$HOME/.local/bin:$HOME/.fzf/bin:$HOME/.deno/bin:$HOME/local/bin:/opt/homebrew/sbin:/usr/local/sbin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:/opt/homebrew/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
   export FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
   export NEOVIDE_FRAME="transparent"
   ulimit -n 10240
 else
-  export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.fzf/bin:$HOME/.local/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
+  export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$HOME/.fzf/bin:$HOME/.deno/bin:$HOME/local/bin:$GOPATH/bin:$HOME/.rd/bin:$HOME/.luarocks/bin:$HOME/.npm-packages/bin:$HOME/local/node/bin:$HOME/local/yarn/bin:$HOME/bin:/usr/local/bin:/usr/local/share/dotnet:/usr/lib/cargo/bin:$HOME/.cargo/bin:$PATH"
   export NVD_BACKEND=direct
   export MOZ_ENABLE_WAYLAND=1
 fi
@@ -66,13 +67,14 @@ PROMPT_EOL_MARK=""
 unset zle_bracketed_paste
 
 # --- FAST CACHED COMPINIT ---
+# NOTE(jlima): Only rebuild .zcompdump once every 24h; use -C (skip audit/scan) otherwise
 autoload -Uz compinit
-local dump=${ZDOTDIR:-$HOME}/.zcompdump
-if [[ ! -f $dump || $dump -nt ${dump}.timestamp ]]; then
-  compinit
-  touch "${dump}.timestamp"
+setopt extended_glob
+local dump="${ZDOTDIR:-$HOME}/.zcompdump"
+if [[ -n "$dump"(#qNmh+24) || ! -f "$dump" ]]; then
+  compinit -d "$dump"
 else
-  compinit -C
+  compinit -C -d "$dump"
 fi
 
 export LS_COLORS="di=34:ow=34:tw=34:st=34:ln=36:ex=32:so=35:pi=33:bd=33;01:cd=33;01:*.tar=31:*.gz=31:*.zip=31"
@@ -772,6 +774,22 @@ if command -v fd &>/dev/null; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
+_cached_eval() {
+  local name="$1"
+  shift
+  local bin_path="${commands[$name]}"
+  [[ -z "$bin_path" ]] && return
+
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+  local cache_file="$cache_dir/${name}.zsh"
+
+  if [[ ! -f "$cache_file" || "$bin_path" -nt "$cache_file" ]]; then
+    mkdir -p "$cache_dir"
+    "$bin_path" "$@" >| "$cache_file"
+  fi
+  source "$cache_file"
+}
+
 # --- INTERACTIVE-ONLY EXTENSIONS & PROMPT ---
 if [[ -o interactive ]]; then
   if [ ! -d ~/.zsh/zsh-autosuggestions ]; then
@@ -779,10 +797,12 @@ if [[ -o interactive ]]; then
   fi
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
   [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
-  command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
-  command -v starship &>/dev/null && eval "$(starship init zsh)"
-  [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+  # command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+  # command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+  # command -v starship &>/dev/null && eval "$(starship init zsh)"
+  _cached_eval zoxide init zsh
+  _cached_eval direnv hook zsh
+  _cached_eval starship init zsh
 fi
 
 # --- KEYBINDINGS & FZF CONFIGURATION ---
