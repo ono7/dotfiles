@@ -49,13 +49,25 @@ ssh_only = true
 style = "fg:#8AB4F8"
 format = "[$hostname]($style) "
 
-# Directory
+# # Directory truncates after 3 folders deep
+# [directory]
+# style = "bold fg:#8AB4F8"
+# format = "[$path]($style)[$read_only]($read_only_style) "
+# truncate_to_repo = false
+# truncation_length = 3
+# truncation_symbol = "…/"
+# fish_style_pwd_dir_length = 0
+# read_only = " 󰌾"
+# read_only_style = "fg:#F28B82"
+
+# Directory fish style listing
 [directory]
 style = "bold fg:#8AB4F8"
-# style = "fg:#8AB4F8"
 format = "[$path]($style)[$read_only]($read_only_style) "
+# NOTE(jlima): Disable repo truncation so parent context remains visible inside git repos;
+# fish-style shortening preserves full hierarchy without bloating horizontal width.
+truncate_to_repo = false
 truncation_length = 3
-truncate_to_repo = true
 truncation_symbol = "…/"
 fish_style_pwd_dir_length = 1
 read_only = " 󰌾"
