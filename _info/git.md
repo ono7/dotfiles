@@ -41,6 +41,21 @@ git diff origin/develop...HEAD --stat
 # git push -u origin HEAD # this is not needed because if my .gitconfig just use: git push
 git push
 
+# find which branch this branch was cloned from
+git reflog show --date=iso testing | tail -n 1
+git reflog show testing | tail -n 1
+
+```
+
+## useful commands
+
+find all branchas that have a commit
+
+```
+# 2. List all local and remote branches that currently contain commit ea345f2
+# NOTE(jlima): Identifies which branch tip (e.g., main, origin/main) matches or descends from ea345f2.
+git branch -a --contains ea345f2
+
 ```
 
 ## update feature (feat/mybranch) branch that was cloned from other branch (develop)
