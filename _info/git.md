@@ -1,3 +1,47 @@
+## how to properly create feature branches directly from develop
+
+we do not need to keep a local copy of main or develop this way, and remote is the single source of truth
+
+```sh
+# Start a new feature branch directly from the latest remote develop
+git fetch origin develop
+git switch -c feat/newbranch origin/develop
+
+# git branch -vv (check to make sure we are good)
+
+# Sync later if another team merges into develop while you're working
+git fetch origin develop
+git merge origin/develop   # (or `git rebase origin/develop` before pushing)
+
+# Push your feature branch and open the PR against develop
+git push -u origin HEAD
+
+# Verification: Run
+git log --oneline HEAD..origin/develop
+# If it outputs nothing, your branch already has every commit from origin/develop.
+
+# NOTE(jlima): Creates a single merge commit pulling origin/develop into your branch.
+# Works cleanly whether or not you have already pushed this feature branch.
+git merge origin/develop
+
+# Option B — Rebase (Best if you haven't pushed yet or want zero merge commits in your PR):
+# NOTE(jlima): Replays your feature commits on top of the latest origin/develop.
+# Automatically stashes and restores any dirty tracked files if autoStash is enabled.
+
+git rebase --autostash origin/develop
+
+# Verification: Run
+git status -sb
+# to confirm the working tree has no unresolved merge conflicts (UU).
+
+# Confirm the exact files and commits your PR will show against develop
+git diff origin/develop...HEAD --stat
+
+# push my changes
+git push -u origin HEAD
+
+```
+
 ## update feature (feat/mybranch) branch that was cloned from other branch (develop)
 
 ```sh
