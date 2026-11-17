@@ -86,6 +86,10 @@ git branch -a --contains ea6f3d1
 # Check recent branch switches if a branch was created from HEAD
 git reflog show --date=iso HEAD -n 5
 
+# if this new branch was created from HEAD meaning we did not specify whichbranch to track from
+# git checkout -b feat/testing origin/develop (correct) git checkout -b feat/testing (bad) tracks whatever HEAD was at the time
+git reflog | grep -B 2 -A 2 "feat/testing" # this will show what branch this was created from
+
 ```
 
 ---
