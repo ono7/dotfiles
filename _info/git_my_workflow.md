@@ -1,4 +1,3 @@
-````markdown
 # Git Feature Branch Workflow
 
 ## 1. Starting a New Feature Branch
@@ -16,7 +15,6 @@ git switch -c feat/<name> origin/develop
 # Safely delete redundant local develop and main pointers
 git branch -d develop main
 ```
-````
 
 ---
 
@@ -121,9 +119,5 @@ git push --force-with-lease
 
 # Delete local feature branch after PR merges into develop
 git branch -d <branch>
-
-```
-
-```
 
 ```
