@@ -24,6 +24,12 @@ Cut branches directly from `origin/develop` so you never need to maintain or
 switch to local `develop` or `main` branches.
 
 ```bash
+# first make sure this is set if running on an unmanaged system
+# this will automatically create remote branches when doing git push
+# simple will make sure we dont accidentally push or pull from/to the wrong repo
+git config --global push.autoSetupRemote true
+git config --global branch.autoSetupMerge simple
+
 # Download latest remote develop commits without touching working files
 git fetch origin develop
 
@@ -32,6 +38,23 @@ git switch -c feat/<name> origin/develop
 
 # Safely delete redundant local develop and main pointers
 git branch -d develop main
+
+# create new feature branch to work off from origin/develop (or any other branch)
+git fetch origin develop
+git switch -c feat/<name> origin/develop
+
+# Publish & sync your feature branch
+git push   # creates origin/feat/<name> & sets upstream automatically
+git pull   # pulls from origin/feat/<name>
+
+# Pull updates from develop into your feature branch (if needed mid-work):
+git fetch origin develop
+git rebase origin/develop   # or: git merge origin/develop
+
+# lean up after PR merge:
+git fetch origin develop
+git switch -c develop origin/develop   # or: git switch develop && git pull
+git branch -d feat/<name>
 ```
 
 ---
