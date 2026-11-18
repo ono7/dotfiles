@@ -15,7 +15,7 @@
 
 [commit]
     gpgsign = true
-    verbose = true
+	verbose = true
 
 [tag]
     gpgsign = true
