@@ -129,8 +129,6 @@ defaults write com.apple.dock persistent-apps -array && killall Dock
 # Disable startup sound
 # sudo nvram SystemAudioVolume=%01
 
-killall Dock || echo "DONE"
-
 # prevent macos from becoming a airplay target
 # and fix latency network latency over wifi
 defaults write com.apple.sharingd DiscoverableMode -string "Off"
@@ -139,6 +137,12 @@ defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -
 defaults write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool false
 defaults -currentHost write com.apple.controlcenter AirplayReceiverEnabled -bool false
 killall sharingd useractivityd rapportd 2>/dev/null
+
+# fast dock
+defaults write com.apple.dock autohide-time-modifier -float 0;
+defaults write com.apple.dock autohide-delay -float 0;
+
+killall Dock || echo "DONE"
 
 # you can test this with
 # sudo ping -f -c 500 198.18.0.10

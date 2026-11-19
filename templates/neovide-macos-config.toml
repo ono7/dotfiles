@@ -8,6 +8,6 @@ system-tab-next-hotkey = "ctrl+2"
 # system-tab-next-hotkey = "cmd+shift+]"
 srgb = true
 tabs = true
-title-hidden = false
+title-hidden = true
 vsync = true
 wsl = false
