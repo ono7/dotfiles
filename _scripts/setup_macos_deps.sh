@@ -146,7 +146,7 @@ defaults write com.apple.dock no-bouncing -bool true
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
 # move dock to the righs
-defaults write com.apple.dock orientation -string "right"
+defaults write com.apple.dock orientation -string "left"
 
 # Disable automatic Spaces rearrangement: Stops macOS from shuffling your
 # virtual desktops based on most recent usage.
