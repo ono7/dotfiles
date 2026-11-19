@@ -148,6 +148,9 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # move dock to the righs
 defaults write com.apple.dock orientation -string "right"
 
+# Disable automatic Spaces rearrangement: Stops macOS from shuffling your
+# virtual desktops based on most recent usage.
+# defaults write com.apple.dock mru-spaces -bool false
 killall Dock || echo "DONE"
 
 # you can test this with
