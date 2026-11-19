@@ -145,6 +145,9 @@ defaults write com.apple.dock autohide-delay -float 0;
 defaults write com.apple.dock no-bouncing -bool true
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
+# move dock to the righs
+defaults write com.apple.dock orientation -string "right"
+
 killall Dock || echo "DONE"
 
 # you can test this with
