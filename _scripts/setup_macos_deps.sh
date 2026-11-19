@@ -97,8 +97,8 @@ defaults write com.apple.dock tilesize -float 54
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # save screenshots to desktop
-mkdir -p ~/Desktop/screenshots
-defaults write com.apple.screencapture location ~/Desktop/screenshots
+mkdir -p ~/screenshots
+defaults write com.apple.screencapture location ~/screenshots
 
 # Secondary click in external mouse
 # defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"
