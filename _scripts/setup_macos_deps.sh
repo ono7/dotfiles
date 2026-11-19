@@ -136,7 +136,6 @@ defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
 defaults write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
 defaults write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool false
 defaults -currentHost write com.apple.controlcenter AirplayReceiverEnabled -bool false
-killall sharingd useractivityd rapportd 2>/dev/null
 
 # fast dock
 defaults write com.apple.dock autohide-time-modifier -float 0;
@@ -148,10 +147,28 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 # move dock to the righs
 defaults write com.apple.dock orientation -string "left"
 
+# faster dock effect
+defaults write com.apple.dock mineffect -string "scale"
+
+# search current folder by default in finder
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# prevent DS_Store pollution
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Disable smart quotes, smart dashes, and auto-capitalization: Prevents macOS
+# from silently corrupting code snippets, JSON, or CLI flags pasted into notes
+# or messaging apps.
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
 # Disable automatic Spaces rearrangement: Stops macOS from shuffling your
 # virtual desktops based on most recent usage.
 # defaults write com.apple.dock mru-spaces -bool false
-killall Dock || echo "DONE"
+killall sharingd useractivityd rapportd Dock 2>/dev/null || echo "Done"
 
 # you can test this with
 # sudo ping -f -c 500 198.18.0.10
