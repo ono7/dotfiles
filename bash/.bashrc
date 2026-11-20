@@ -647,3 +647,7 @@ fi
 
 # fix blinking cursor issue with hunk pager and git diff command
 PROMPT_COMMAND="printf '\e[2 q';${PROMPT_COMMAND}"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/jlima/.local/bin:$PATH"

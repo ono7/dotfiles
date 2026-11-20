@@ -827,3 +827,7 @@ _reset_cursor_steady() {
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _reset_cursor_steady
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/jlima/.local/bin:$PATH"
