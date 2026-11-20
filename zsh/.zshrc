@@ -820,3 +820,10 @@ bindkey "^T" fzf-file-widget
 # remove control+t (fzf)
 bindkey -r '^T'
 
+# NOTE(jlima): Force steady block cursor (\e[2 q) on every prompt redraw to
+# counteract TUI apps (like hunk) that emit blinking DECSCUSR sequences on exit.
+_reset_cursor_steady() {
+  printf '\e[2 q'
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _reset_cursor_steady
