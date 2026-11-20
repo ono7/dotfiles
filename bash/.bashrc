@@ -644,3 +644,6 @@ fi
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# fix blinking cursor issue with hunk pager and git diff command
+PROMPT_COMMAND="printf '\e[2 q';${PROMPT_COMMAND}"
