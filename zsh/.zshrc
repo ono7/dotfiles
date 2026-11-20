@@ -338,8 +338,7 @@ dots() {
 }
 
 gc() {
-  git pull
-  git add .
+  git add -p 
   git commit
   git push
 }
