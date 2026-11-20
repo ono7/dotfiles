@@ -1,11 +1,11 @@
 fork = true
-frame = "transparent"
+frame = "full"
 # idle = true
 maximized = false
 system-native-tabs = true
+system-tab-new-hotkey = "cmd+n"
 system-tab-prev-hotkey = "ctrl+1"
 system-tab-next-hotkey = "ctrl+2"
-# system-tab-next-hotkey = "cmd+shift+]"
 srgb = true
 tabs = true
 title-hidden = true
