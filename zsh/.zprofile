@@ -25,6 +25,3 @@ export GOROOT="$HOME/.local/go"
 export GOPATH="$HOME/go"
 export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
-
-# Added by Antigravity CLI installer
-export PATH="/Users/jlima/.local/bin:$PATH"
