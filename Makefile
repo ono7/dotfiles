@@ -54,6 +54,7 @@ clean:
 	rm -f ~/.config/hunk
 	rm -f ~/.ctagsrc
 	rm -f ~/.dircolors
+	rm -f ~/.lldbinit
 	rm -f ~/.emacs.d
 	rm -f ~/.gdbinit
 	rm -f ~/.gitconfig
@@ -198,7 +199,7 @@ mac-keybinds:
 	@cp ~/.dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/
 	@cd ~/.dotfiles && stow skhd
 	@bash ./_install_tools_macos/skhd.sh
-	@cp ~/.dotfiles/skhd/com.asmvik.skhd.plist ~/Library/LaunchAgents/com.asmvik.skhd.plist 
+	@cp ~/.dotfiles/skhd/com.asmvik.skhd.plist ~/Library/LaunchAgents/com.asmvik.skhd.plist
 	launchctl bootstrap gui/$$(id -u) ~/Library/LaunchAgents/com.asmvik.skhd.plist
 	# @skhd --start-service || echo "DONE"
 	# @skhd --install-service || echo "DONE"
