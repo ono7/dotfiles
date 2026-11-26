@@ -13,6 +13,7 @@ case "$OSTYPE" in
         ;;
 esac
 
+
 export GPG_TTY="/dev/tty"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export GOROOT="${HOME}/.local/go"
@@ -139,7 +140,7 @@ nv() {
 }
 
 n () {
-    neovide --fork "$@" 
+    neovide --fork "$@"
 }
 
 # vi () {
@@ -342,7 +343,7 @@ dots() {
 }
 
 gc() {
-  git add -p 
+  git add -p
   git commit
   git push
 }
@@ -835,3 +836,7 @@ add-zsh-hook precmd _reset_cursor_steady
 
 # Added by Antigravity CLI installer
 export PATH="/Users/jlima/.local/bin:$PATH"
+
+# NOTE(jlima): Toggles AirDrop discoverability, DisableAirDrop flag, AWDL interface, and reloads daemons so receiving options and visibility update cleanly.
+alias airdrop-on='defaults delete com.apple.sharingd DiscoverableMode 2>/dev/null; defaults delete com.apple.NetworkBrowser DisableAirDrop 2>/dev/null; sudo ifconfig awdl0 up; killall sharingd rapportd cfprefsd Finder 2>/dev/null || true'
+alias airdrop-off='defaults write com.apple.sharingd DiscoverableMode -string "Off"; defaults write com.apple.NetworkBrowser DisableAirDrop -bool true; sudo ifconfig awdl0 down; killall sharingd rapportd cfprefsd Finder 2>/dev/null || true'
