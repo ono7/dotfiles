@@ -1,5 +1,5 @@
 # ctrl - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-# skhd --restart-service      
+# skhd --restart-service
 # ctrl - return : open -a neovide
 ctrl + shift - k : open -a neovide
 ctrl + shift - t : open -a Alacritty
@@ -8,8 +8,8 @@ ctrl + shift - l : open -a Preview
 ctrl + shift - m : open -a Messages
 ctrl + shift - i : open -a "Microsoft Teams"
 ctrl + shift - f : open -a Finder
-ctrl + shift - u : open -a "World of warcraft"
-# skhd --restart-service      
+ctrl + shift - u : open "/Applications/World of Warcraft/_forever_/World of Warcraft.app"
+# skhd --restart-service
 
 #  NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
 #                     be found at https://github.com/koekeishiya/skhd/issues/1
@@ -128,23 +128,23 @@ ctrl + shift - u : open -a "World of warcraft"
 
 # modifiers
 # fn
-# 
+#
 # cmd
 # lcmd
 # rcmd
-# 
+#
 # shift
 # lshift
 # rshift
-# 
+#
 # alt
 # lalt
 # ralt
-# 
+#
 # ctrl
 # lctrl
 # rctrl
-# 
+#
 # hyper (cmd + shift + alt + ctrl)
-# 
+#
 # meh (shift + alt + ctrl)
