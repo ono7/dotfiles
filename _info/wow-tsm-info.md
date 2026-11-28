@@ -44,3 +44,9 @@ normal
 130% max(DBRecent, DBMarket, DBHistorical, DBRegionSaleAvg)
 
 ```
+
+## shopping list
+
+require at least 1g profit
+
+`check(DBMarket - 1g, min(75% DBMarket, 80% DBHistorical))`
